@@ -1,0 +1,12 @@
+create or replace TABLE SZD_PRODUCTION.ETL.T_ETL_FACT_RVM_CONFIGURATION_UPDATE (
+	RVM_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the despotie machine which is located in a store',
+	CAL_DT DATE NOT NULL COMMENT 'The day represented as a calendar date of the form YYYY-MM-DD. YYYY is the calendar year, MM (between 1 and 12) the calendar month and DD the day of the calendar month (between 1 and 31). ',
+	UPDATE_DT DATE NOT NULL COMMENT 'The day represented as a calendar date of the form YYYY-MM-DD. YYYY is the calendar year, MM (between 1 and 12) the calendar month and DD the day of the calendar month (between 1 and 31). ',
+	UPDATE_TM TIME(9) NOT NULL COMMENT 'The day represented as a calendar date of the form YYYY-MM-DD. YYYY is the calendar year, MM (between 1 and 12) the calendar month and DD the day of the calendar month (between 1 and 31). ',
+	RVM_CONFIG_SOURCE_CD VARCHAR(50) NOT NULL COMMENT 'The code for the deposit machine configuration source e.g. donwload article meta data 1,...',
+	REC_CNT NUMBER(38,0) NOT NULL COMMENT 'The number for the configuration update records.',
+	UPDATE_STATUS_FG BOOLEAN NOT NULL COMMENT 'An indicator showing, if the update status has an error',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was inserted into the table.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last modified. (In case the record has not been modified since its creation, dwh_updated is identical to dwh_created.)',
+	constraint PK_T_FACT_RVM_CONFIGURATION_UPDATE primary key (CAL_DT, RVM_SID, UPDATE_DT, UPDATE_TM, RVM_CONFIG_SOURCE_CD)
+);

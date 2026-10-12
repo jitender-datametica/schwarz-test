@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ios.psp_konditionswert AS SELECT *
+FROM kfl_production_dbp_data.psp_konditionswert;

@@ -1,0 +1,32 @@
+CREATE OR REPLACE VIEW P_LEW_MART_LEAD_AC.V_AGG_STORE_DAY_ITEM_ADV_ASIS
+(
+  client_id
+ ,loc_sid_wh
+ ,wh_id
+ ,loc_sid_store_move_to
+ ,itemgroup_int_id
+ ,item_id
+ ,dat_adv
+ ,dat_formdate
+ ,qty_sales
+ ,qty_delivery
+ ,qty_stc_real
+ ,repeat_fg
+ ,timestamp_mod
+)
+AS
+SELECT
+  client_id
+ ,loc_sid_wh
+ ,wh_id
+ ,loc_sid_store_move_to
+ ,itemgroup_int_id
+ ,item_id
+ ,dat_adv
+ ,dat_formdate
+ ,qty_sales
+ ,qty_delivery
+ ,qty_stc_real
+ ,repeat_fg
+ ,timestamp_mod
+FROM p_lew_mart_lead.v_agg_store_day_item_adv_asis;

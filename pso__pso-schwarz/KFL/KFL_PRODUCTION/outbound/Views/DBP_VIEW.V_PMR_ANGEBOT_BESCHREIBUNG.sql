@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_pmr_angebot_beschreibung AS SELECT angebot_id,
+ angebot_beschreibung
+FROM kfl_production_dbp_data.pmr_angebot_beschreibung;

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku.mv_amx_l_handlung_typ (amx_handlung_typ_id, amx_system_id,
+amx_handlung_typ_bez) AS SELECT amx_handlung_typ_id,
+ amx_system_id,
+ amx_handlung_typ_bez
+FROM kfl_production_dbp_view.v_amx_l_handlung_typ;

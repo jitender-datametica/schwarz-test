@@ -1,0 +1,13 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_fehlmengen_typ AS SELECT CAST(DATE_DIFF(dat, CURRENT_DATE, DAY) AS BIGNUMERIC)
+ AS typ_fg,
+ CAST(CASE
+   WHEN CAST(DATE_DIFF(dat, CURRENT_DATE, DAY) AS BIGNUMERIC) = 0
+   THEN 'Fehlmengen'
+   WHEN CAST(DATE_DIFF(dat, CURRENT_DATE, DAY) AS BIGNUMERIC) = 1
+   THEN 'Nullbestand'
+   WHEN CAST(DATE_DIFF(dat, CURRENT_DATE, DAY) AS BIGNUMERIC) = 2
+   THEN 'Minusbestand'
+   ELSE ''
+   END AS STRING) AS typ_bez
+FROM kfl_production_dbp_view.v_tag
+WHERE dat BETWEEN CURRENT_DATE AND (DATE_ADD(CURRENT_DATE, INTERVAL 2 DAY));

@@ -1,0 +1,8 @@
+CREATE TABLE META.T_GDPR_EXEC_CUST (
+        EXEC_CUST_ID      INT IDENTITY(1,1) NOT NULL,
+        DELETIONS_EXEC_ID INT NOT NULL,
+        KUNNR             VARCHAR(250),
+        TYPE_CD           VARCHAR(250),
+        CUST_TYPE         VARCHAR(250),
+        TMSP_INSERT       TIMESTAMP_NTZ(9)
+);

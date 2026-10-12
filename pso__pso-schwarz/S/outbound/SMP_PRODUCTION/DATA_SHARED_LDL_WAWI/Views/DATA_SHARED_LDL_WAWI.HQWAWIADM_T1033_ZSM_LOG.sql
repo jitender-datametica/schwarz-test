@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW smp_production_data_shared_ldl_wawi.hqwawiadm_t1033_zsm_log (wawi_instanz_kzl, c1033_id,
+c1033_tstamp, c1033_object, c1033_values, c1033_type, c1033_appuser, c1033_osuser, c1033_idvalue, scn, delete_fg,
+extraction_tmsp) AS SELECT wawi_instanz_kzl,
+ c1033_id,
+ c1033_tstamp,
+ c1033_object,
+ c1033_values,
+ c1033_type,
+ c1033_appuser,
+ c1033_osuser,
+ c1033_idvalue,
+ scn,
+ delete_fg,
+ extraction_tmsp
+FROM ldl_wawi_production_hqwawiadm.t1033_zsm_log;

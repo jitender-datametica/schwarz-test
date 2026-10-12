@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_pit_onprem.t_pit_apt_base_client_promotionperiod_item (
+client_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+adv_week_id BIGNUMERIC(38,0) DEFAULT 888853 NOT NULL,
+item_sid BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+adv_period_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+promotion_start_dt DATE DEFAULT DATE '1900-01-01' NOT NULL,
+promotion_end_dt DATE DEFAULT DATE '9999-12-31' NOT NULL,
+promotion_end_dt_created_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+promotion_end_dt_truncated_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+promotion_period_orig_days BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+advert_theme_sid BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+item_list_type_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+sortiment_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+retail_price_old BIGNUMERIC(38,5),
+retail_price_new BIGNUMERIC(38,5),
+same_apt_price_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+promotion_truncated_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+promotion_deleted_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+promotion_excluded_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+PRIMARY KEY (client_id, adv_week_id, item_sid, adv_period_id) NOT ENFORCED
+);

@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_pit_onprem.t_pit_etl_logging_run (
+run_id BIGNUMERIC(38,0) NOT NULL,
+run_ts DATETIME DEFAULT CAST(CURRENT_TIMESTAMP() AS DATETIME) NOT NULL,
+run_dt DATE DEFAULT DATE '1900-01-01',
+PRIMARY KEY (run_id, run_ts) NOT ENFORCED
+);

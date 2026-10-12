@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_l_sb_checkliste_typ AS SELECT sb_checkliste_typ_id,
+ sb_checkliste_typ_bez
+FROM kfl_production_dbp_view.v_l_sb_checkliste_typ AS V01;

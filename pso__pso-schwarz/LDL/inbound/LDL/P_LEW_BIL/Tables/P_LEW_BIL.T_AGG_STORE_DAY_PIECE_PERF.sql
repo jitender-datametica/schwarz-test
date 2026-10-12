@@ -1,0 +1,28 @@
+create or replace TABLE LDL_PRODUCTION_CLONE_GOOGLE_20260608_1030.P_LEW_BIL.T_AGG_STORE_DAY_PIECE_PERF cluster by (CLIENT_ID ,DWH_CAL_DT)(
+	CLIENT_ID NUMBER(38,0) NOT NULL COMMENT 'Client identifier',
+	SRC_ORIG_STORE_NR NUMBER(38,0) NOT NULL COMMENT 'Store identifier',
+	LOC_SID_STORE NUMBER(38,0) NOT NULL COMMENT 'Store identifier',
+	DWH_CAL_DT DATE NOT NULL COMMENT 'Record date',
+	CURRENCY_ISO_CD VARCHAR(3) NOT NULL COLLATE 'en-ci' COMMENT 'Currency code',
+	SALES_PIECES NUMBER(18,5) COMMENT 'Sales pieces with dependency to Net time worked flag',
+	SALES_PIECES_EXTRAPOL NUMBER(18,5) COMMENT 'Sales pieces extrapolated',
+	SALES_PIECES_FA NUMBER(18,5) COMMENT 'Sales pieces (foodaction)  with dependency to Net time worked flag',
+	VAL_RTL_NET NUMBER(18,5) COMMENT 'Sales net val with dependency to Net time worked flag',
+	AVG_SALES_PRICE NUMBER(18,5) COMMENT 'Average price with dependency to Net time worked flag',
+	PIECE_RECEIPT NUMBER(18,5) COMMENT 'Piece receipt with dependency to Net time worked flag',
+	CNT_CUSTOMER NUMBER(18,5) COMMENT 'Customer count with dependency to Net time worked flag',
+	WORK_TIME_TOTAL_HR NUMBER(18,5) COMMENT 'Work time total hour',
+	PIECE_PERFORMANCE NUMBER(18,5) COMMENT 'Piece performance with dependency to Net time worked flag',
+	TIME_WORKING_NETTO_FG NUMBER(38,0) NOT NULL COMMENT 'Net time worked flag',
+	TRAINING_TIME_HR NUMBER(18,5) COMMENT 'Hours spent training',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'DWH load identifier',
+	DWH_CREATED TIMESTAMP_NTZ(6) NOT NULL COMMENT 'Timestamp record created',
+	VAL_RTL_NET_FA NUMBER(18,5) COMMENT 'Net sales value (foodaction)',
+	SALES_PIECES_TOTAL NUMBER(18,5) COMMENT 'Sales pieces',
+	SALES_PIECES_FA_TOTAL NUMBER(18,5) COMMENT 'Sales pieces total (foodaction)',
+	SALES_PIECES_WO_MULTIPACK_FACTOR NUMBER(18,5) COMMENT 'Sales pieces with dependency to Net time worked flag without multipack',
+	SALES_PIECES_TOTAL_WO_MULTIPACK_FACTOR NUMBER(18,5) COMMENT 'Sales pieces without multipack',
+	SALES_PIECES_FA_WO_MULTIPACK_FACTOR NUMBER(18,5) COMMENT 'Sales pieces (foodaction) with dependency to Net time worked flag  without multipack',
+	SALES_PIECES_FA_TOTAL_WO_MULTIPACK_FACTOR NUMBER(18,5) COMMENT 'Sales pieces (foodaction) without multipack'
+)COMMENT='Store day piece performance'
+;

@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_pos_receiptline (client_id, loc_sid, item_sid, curr_sid, uom_sid,
+main_item_grp_sid, item_grp_int_sid, register_id, receipt_id, receipt_dt, receipt_tmsp, receiptline_nr,
+transaction_type_cd, timezone_id, cashier_id, cash_register_type_cd, authority_cd, ean_barcode, main_item_grp_cd,
+item_grp_int_cd, weight_item_fg, curr_cd, turnover_relevant_fg, sales_fg, deposit_fg, item_unit_price,
+item_unit_price_adjust, sales_val, sales_orig_val, uom_cd, sales_piece_qty, sales_weight_qty, discount_fg, discount_sid
+, discount_val, discount_base_val, discount_weight_qty, discount_piece_qty, vat_pct_val, vat_val, tax_class_cd,
+item_scan_begin_tmsp, item_scan_end_tmsp, item_entry_method_cd, price_entry_method_cd, void_fg, receiptline_voided,
+receiptline_voided_by, return_fg, return_reason_cd, orig_receipt_store_id, orig_receipt_register_id, orig_receipt_dt,
+orig_receipt_id, dwh_cal_dt, dwh_load_id, dwh_created, dwh_updated) AS SELECT *
+FROM ldl_p_lew_core.t_pos_receiptline;

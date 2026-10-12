@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead_ac.v_dim_cal_calendar_year (cy, cy_begin_month, cy_end_month,
+cy_begin_week_part, cy_end_week_part, cy_begin_dt, cy_end_dt, cy_week_cnt, cy_week_part_cnt, cy_day_cnt, cy_prev_1y,
+cy_prev_2y, cy_prev_3y, cy_prev_4y, cy_prev_5y, cy_offset, dwh_load_id, dwh_created, dwh_updated) AS SELECT *
+FROM ldl_p_lew_mart_lead.v_dim_cal_calendar_year AS CALCY;

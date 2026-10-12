@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_cbx_project_cbxproject_2_mdm_advertise_theme_hist (
+client_id BIGNUMERIC(38),
+lidl_country STRING(40),
+cbx_project_cbxproject_cbxproject_documentref STRING(250) COLLATE 'und:ci',
+src_proj_doc_ref STRING(40),
+cbx_proj_version_nr BIGNUMERIC(38),
+cbx_proj_doc_status STRING(100) COLLATE 'und:ci',
+cbx_proj_change_tmsp DATETIME,
+src_prog_doc_ref STRING(40),
+ad_theme_approval_status STRING(100) COLLATE 'und:ci',
+ad_theme_workflow_status STRING(100) COLLATE 'und:ci',
+cy_week_theme_deliver BIGNUMERIC(38),
+cy_week_theme_advertise BIGNUMERIC(38),
+ad_theme_sell_from_day BIGNUMERIC(38),
+ad_theme_sell_from_dt DATE,
+deleted_fg BIGNUMERIC(38),
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

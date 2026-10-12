@@ -1,0 +1,31 @@
+CREATE OR REPLACE VIEW P_LEW_BIL_AC.V_DIM_STORE_RETAIL_STATUS
+AS
+   SELECT
+        store_retail_status_cd,
+   store_retail_status_descr,
+   store_retail_status_descr_de,
+   store_retail_status_descr_en,
+   store_retail_status_descr_bg,
+   store_retail_status_descr_cs,
+   store_retail_status_descr_da,
+   store_retail_status_descr_el,
+   store_retail_status_descr_es,
+   store_retail_status_descr_fi,
+   store_retail_status_descr_fr,
+   store_retail_status_descr_hr,
+   store_retail_status_descr_hu,
+   store_retail_status_descr_it,
+   store_retail_status_descr_lt,
+   store_retail_status_descr_nl,
+   store_retail_status_descr_pl,
+   store_retail_status_descr_pt,
+   store_retail_status_descr_ro,
+   store_retail_status_descr_sh,
+   store_retail_status_descr_sk,
+   store_retail_status_descr_sl,
+   store_retail_status_descr_sv,
+   dwh_load_id,
+   dwh_created,
+   dwh_updated
+   FROM p_lew_bil.v_dim_store_retail_status
+;

@@ -1,0 +1,53 @@
+CREATE OR REPLACE VIEW P_LEW_BIL.V_AGG_POS_TXJ_WAWI_STORE_DAY
+(
+   client_id
+  ,loc_sid
+  ,dwh_cal_dt
+  ,cy_month
+  ,cnt_customer
+  ,cnt_customer_wawi
+  ,cnt_customer_pos_receipt
+  ,cnt_customer_pos_statistic
+  ,cnt_customer_txj
+  ,sales_gross_val
+  ,sales_net_val
+  ,sales_gross_val_wawi
+  ,sales_net_val_wawi
+  ,sales_gross_val_pos
+  ,sales_net_val_pos
+  ,sales_gross_val_txj_store
+  ,sales_net_val_txj_store
+  ,sales_gross_val_txj_item
+  ,sales_net_val_txj_item
+  ,vat_val_pos
+  ,vat_val_txj
+  ,vat_val_txj_net
+  ,vat_val_txj_vatsum
+)
+AS
+   SELECT
+      client_id,
+   loc_sid,
+   dwh_cal_dt,
+   cy_month,
+   cnt_customer,
+   cnt_customer_wawi,
+   cnt_customer_pos_receipt,
+   cnt_customer_pos_statistic,
+   cnt_customer_txj,
+   sales_gross_val,
+   sales_net_val,
+   sales_gross_val_wawi,
+   sales_net_val_wawi,
+   sales_gross_val_pos,
+   sales_net_val_pos,
+   sales_gross_val_txj_store,
+   sales_net_val_txj_store,
+   sales_gross_val_txj_item,
+   sales_net_val_txj_item,
+   vat_val_pos,
+   vat_val_txj,
+   vat_val_txj_net,
+   vat_val_txj_vatsum
+   FROM p_lew_bil.t_agg_pos_txj_wawi_store_day
+;

@@ -1,0 +1,46 @@
+CREATE OR REPLACE TABLE smp_production_core_rel.t_supplier (
+division_id STRING(100) NOT NULL,
+country_id STRING(100) NOT NULL,
+supplier_id INTEGER NOT NULL,
+supplier_id_ref INTEGER NOT NULL,
+supplier_name STRING(500) NOT NULL,
+source_system_id STRING(100),
+create_tmsp DATETIME,
+load_id INTEGER
+);
+
+
+CREATE OR REPLACE TABLE smp_production_etl.debug_smp_v3_impulse_fact_load_ (
+campaign_id STRING(16777216),
+execution_id STRING(16777216),
+shopper_id STRING(16777216),
+segment_id STRING(16777216),
+impact_score FLOAT64,
+smp_bid NUMERIC(29,6),
+segment_bid NUMERIC(29,6),
+advertiser_cpa_bid NUMERIC(29,6),
+advertiser_cpm_bid NUMERIC(29,6),
+advertiser_cpc_bid NUMERIC(29,2),
+incentive INTEGER,
+cohort_id STRING(16777216),
+treatment_label STRING(16777216),
+objective INTEGER,
+universe_id STRING(16777216),
+universe_build_id STRING(16777216),
+impulse_id STRING(16777216),
+campaign_group_id STRING(16777216),
+execution_context_id STRING(16777216),
+execution_start_timestamp DATETIME,
+execution_complete_timestamp DATETIME,
+attribution_window_start DATETIME,
+attribution_window_end DATETIME,
+position INTEGER,
+timestamp DATETIME,
+specificity STRING(16777216),
+channel_id STRING(16777216),
+record_date DATE,
+load_timestamp DATETIME,
+load_delta_version INTEGER,
+load_deleted_fg INTEGER,
+update_mode STRING(255)
+);

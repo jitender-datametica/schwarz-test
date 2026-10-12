@@ -1,0 +1,21 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku.mv_f_kdc_rating (kdc_rating_uid, creation_date, expiration_date
+, mandant_id, geku_artikel_uid, geku_emotion_id, geku_prioritaet_id, response_time, kindness, satisfaction,
+repeated_contact, recommendation, datzeit_inserted, datzeit_updated, dat_inserted, dat_updated, abschlussgrund_id) AS
+SELECT kdc_rating_uid,
+ creation_date,
+ expiration_date,
+ mandant_id,
+ geku_artikel_uid,
+ geku_emotion_id,
+ geku_prioritaet_id,
+ response_time,
+ kindness,
+ satisfaction,
+ repeated_contact,
+ recommendation,
+ datzeit_inserted,
+ datzeit_updated,
+ DATE(datzeit_inserted) AS dat_inserted,
+ DATE(datzeit_updated) AS dat_updated,
+ abschlussgrund_id
+FROM kfl_production_dbp_view.v_kdc_rating;

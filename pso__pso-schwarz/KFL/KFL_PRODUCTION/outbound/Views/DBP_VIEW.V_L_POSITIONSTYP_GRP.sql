@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_positionstyp_grp AS SELECT mandant_id,
+ positionstyp_grp_id
+FROM kfl_production_dbp_data.l_positionstyp_grp;

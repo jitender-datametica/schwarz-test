@@ -1,0 +1,33 @@
+CREATE TABLE IF NOT EXISTS ldl_logop_data.t_wawi_dispositionskopf (
+client_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Client id - calculated based on the country code'),
+wawi_instanz_kzl STRING(3) NOT NULL OPTIONS(description='Country code'),
+wh_nr BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Warehouse number'),
+po_nr STRING(12) NOT NULL OPTIONS(description='Order number (primary key)'),
+krednr STRING(7) OPTIONS(description='Supplier no.'),
+datum DATETIME OPTIONS(description='Delivery date'),
+lfdnr STRING(2) OPTIONS(description=''),
+textkreditor STRING(16777216) OPTIONS(description='Supplier info text from WAW'),
+status BIGNUMERIC(38,0) OPTIONS(description=''),
+anlage_datum DATETIME OPTIONS(description='Creation date of the order'),
+anlage_bediener STRING(8)
+OPTIONS(description='User who created the order (DIS -> Module User, LIA -> Web Service User)'),
+modify_datum DATETIME OPTIONS(description='Change date of the last order change'),
+modify_bediener STRING(8) OPTIONS(description='User who made the last order change'),
+batch_id BIGNUMERIC(38,0) OPTIONS(description='ID used to summarize all orders for an order dispatch'),
+c125_order_reference STRING(30) OPTIONS(description='ELM / LIA reference number for logistics orders (LIA)'),
+c125_locked_by STRING(20)
+OPTIONS(description='Blocking flag for shipping notifications that are currently being processed (difference clarification or GR) (DIS and eGIN)'),
+c125_lock_time DATETIME OPTIONS(description='Time on the above Lock has been set'),
+c125_dirty_flag BIGNUMERIC(38,0) OPTIONS(description=''),
+c125_wms_flag BIGNUMERIC(38,0) OPTIONS(description=''),
+c125_correction_status BIGNUMERIC(38,0) OPTIONS(description=''),
+c125_supp_ewl_nr BIGNUMERIC(38,0) OPTIONS(description=''),
+scn BIGNUMERIC(38,0) OPTIONS(description=''),
+dwh_load_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Load id'),
+dwh_created DATETIME NOT NULL OPTIONS(description='Record created at'),
+dwh_updated DATETIME NOT NULL OPTIONS(description='Record updated at'),
+dwh_valid_from DATE NOT NULL OPTIONS(description='Valid from date'),
+dwh_valid_to DATE NOT NULL OPTIONS(description='Valid to date'),
+deleted_fg BOOL NOT NULL OPTIONS(description='Flag if record is deleted'),
+PRIMARY KEY (client_id, wh_nr, po_nr, dwh_valid_from) NOT ENFORCED
+) OPTIONS(description='WAWI - WHWAWIADM.DISPOSITIONSKOPF. Header table for orders in the regional distribution center.');

@@ -1,0 +1,13 @@
+create or replace view SZD_PRODUCTION.FE_MSTR_LIFECYCLE.MV_L_LIFECYCLE_RVM_PREV_ACTIONS_TYPE(
+	RVM_PREV_ACTION_TYPE_ID,
+	RVM_PREV_ACTION_TYPE_DESCR_EN,
+	RVM_PREV_ACTION_TYPE_DESCR_DE,
+	RVM_PREV_ACTION_TYPE_DESCR
+) as SELECT
+ core.t_dim_rvm_prev_actions_type.rvm_prev_action_type_id
+,core.t_dim_rvm_prev_actions_type.rvm_prev_action_type_descr_en
+,core.t_dim_rvm_prev_actions_type.rvm_prev_action_type_descr_de
+,core.t_dim_rvm_prev_actions_type.rvm_prev_action_type_descr
+FROM 
+core.t_dim_rvm_prev_actions_type
+;

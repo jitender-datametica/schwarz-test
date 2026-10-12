@@ -1,0 +1,14 @@
+create or replace view KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_VIEW.V_ZEK(
+	MANDANT_ID,
+	ZEK_ID,
+	WBL_ID,
+	ZEK_NAME,
+	ZEK_ABT_BEZ
+) as 
+    SELECT 
+        mandant_id,
+        zek_id,
+        wbl_id,
+        zek_name,
+        zek_abt_bez
+FROM DBP_DATA.ZEK ;

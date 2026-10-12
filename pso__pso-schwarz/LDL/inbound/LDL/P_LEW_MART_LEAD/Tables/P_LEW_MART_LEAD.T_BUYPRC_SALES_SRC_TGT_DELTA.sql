@@ -1,0 +1,8 @@
+CREATE TABLE p_lew_mart_lead.t_buyprc_sales_src_tgt_delta 
+(
+ CLIENT_ID NUMBER(38,0),
+ DWH_CAL_DT DATE,
+ BUY_PRC_DELTA NUMBER(38,11),
+ SALES_VAL_DELTA NUMBER(38,5),
+ SALES_QTY_DELTA NUMBER(38,11)
+);

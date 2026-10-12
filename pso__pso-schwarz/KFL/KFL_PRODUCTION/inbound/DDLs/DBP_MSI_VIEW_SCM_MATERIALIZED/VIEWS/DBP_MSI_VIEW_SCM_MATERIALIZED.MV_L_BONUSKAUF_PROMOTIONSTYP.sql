@@ -1,0 +1,10 @@
+create or replace view DBP_MSI_VIEW_SCM_MATERIALIZED.MV_L_BONUSKAUF_PROMOTIONSTYP(
+	BONUSKAUF_PROMOTIONSTYP_ID,
+	BONUSKAUF_PROMOTIONSTYP_DESC
+) as
+--2024-10-30, AP0234408, SPEC0265659, dknop, initial
+SELECT	
+ COALESCE (bonuskauf_promotionstyp,'-1') AS bonuskauf_promotionstyp_id
+,COALESCE (bonuskauf_promotionstyp,'STANDARD') AS bonuskauf_promotionstyp_desc
+FROM	dbp_view.v_pmr_angebot_art_wup_zu
+GROUP BY bonuskauf_promotionstyp;

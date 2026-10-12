@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku.mv_l_geku_mzk_grund (geku_mzk_grund_uid, geku_mzk_thema_uid) AS
+SELECT geku_mzk_grund_uid,
+ geku_mzk_thema_uid
+FROM kfl_production_dbp_view.v_l_geku_mzk_grund;

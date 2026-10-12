@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE idq_production_idq_results.idq_addinfo_pmr_kfl_event (
+id BIGNUMERIC(38,0),
+test_object_id BIGNUMERIC(38,0),
+branch_id BIGNUMERIC(38,0),
+source_system_primary_key STRING(1000),
+source_system_id BIGNUMERIC(38,0),
+country_id BIGNUMERIC(38,0),
+is_relevant BIGNUMERIC(38,0),
+ext_id STRING(30),
+werbungstyp STRING(10),
+tactic INTEGER,
+tactic_type STRING(4),
+tactic_type_desc STRING(255),
+tactic_desc STRING(255),
+country_code STRING(5),
+kuerzel STRING(30),
+gilt_von STRING(16),
+gilt_bis STRING(16),
+content_hash_code STRING(32)
+);

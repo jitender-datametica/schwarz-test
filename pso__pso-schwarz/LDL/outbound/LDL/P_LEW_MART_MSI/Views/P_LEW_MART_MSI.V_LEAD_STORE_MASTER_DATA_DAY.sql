@@ -1,0 +1,28 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi.v_lead_store_master_data_day (dat_calendar, client_id, store_id, open_store_fg
+, new_store_fg, moved_store_fg, closed_store_fg, real_closed_store_fg, sales_area, currency_iso_cd, curr_tot_id,
+building_type_id, building_status_id, bereinigt_fg, bereinigt_vjw_fg, bereinigt_vjm_fg, time_working_netto_fg,
+bereinigt_vvj_fg, bereinigt_vvjw_fg, bereinigt_vvjm_fg, bereinigt_vvvj_fg, bereinigt_vvvjw_fg, bereinigt_vvvjm_fg) AS
+SELECT dat_calendar,
+ client_id,
+ store_id,
+ open_store_fg,
+ new_store_fg,
+ moved_store_fg,
+ closed_store_fg,
+ real_closed_store_fg,
+ sales_area,
+ currency_iso_cd,
+ curr_tot_id,
+ building_type_id,
+ building_status_id,
+ bereinigt_fg,
+ bereinigt_vjw_fg,
+ bereinigt_vjm_fg,
+ time_working_netto_fg,
+ bereinigt_vvj_fg,
+ bereinigt_vvjw_fg,
+ bereinigt_vvjm_fg,
+ bereinigt_vvvj_fg,
+ bereinigt_vvvjw_fg,
+ bereinigt_vvvjm_fg
+FROM ldl_p_lew_mart_msi.t_lead_store_master_data_day;

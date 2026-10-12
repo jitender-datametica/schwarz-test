@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_wup_kunde_art_disporhythmus_ltf_akt AS SELECT mandant_id,
+ wup_id,
+ nb_id,
+ kunde_id,
+ art_id,
+ wg_id,
+ arthiertyp_id,
+ disposition_rhythmus_ltf_id,
+ terminierungsgruppe_1_id,
+ terminierungsgruppe_2_id,
+ terminierungsgruppe_3_id,
+ auslieferungsgruppe_id,
+ disponent_id,
+ wg_verkett_id,
+ ausg_menge_einh_id,
+ we_bearbeitungszeit,
+ planlieferzeit
+FROM kfl_production_dbp_data.wup_kunde_art_disporhythmus_ltf_akt;

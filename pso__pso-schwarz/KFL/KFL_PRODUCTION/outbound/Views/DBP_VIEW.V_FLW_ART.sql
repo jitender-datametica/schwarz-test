@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_flw_art AS SELECT mandant_id,
+ flw_art_id,
+ flw_art_nr,
+ artikelart_id,
+ art_id,
+ basismenge_einh_id,
+ bedarfsplan_id,
+ best_menge_einh_id,
+ gew_einh_id,
+ nettogew,
+ produktgruppe_id,
+ vol,
+ vol_einh_id,
+ loesch_id,
+ dat_von_loesch_id,
+ td_insert,
+ td_update
+FROM kfl_production_dbp_data.flw_art;

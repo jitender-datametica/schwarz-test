@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_v_view.v_user_wup_auswahl AS SELECT user_id,
+ auswahl_bez
+FROM kfl_production_dbp_msi_data.user_wup_auswahl;

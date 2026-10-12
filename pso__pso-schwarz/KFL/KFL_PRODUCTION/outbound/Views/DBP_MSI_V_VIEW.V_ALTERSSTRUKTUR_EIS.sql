@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_v_view.v_altersstruktur_eis AS SELECT altersstruktur_tag_id,
+ altersstruktur_woche_id,
+ altersstruktur_monat_id,
+ mandant_id,
+ wup_id,
+ nb_id
+FROM kfl_production_dbp_msi_data.altersstruktur_eis;

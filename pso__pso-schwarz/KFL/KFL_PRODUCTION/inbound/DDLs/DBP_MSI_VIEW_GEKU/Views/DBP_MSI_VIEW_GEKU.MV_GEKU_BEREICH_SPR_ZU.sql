@@ -1,0 +1,35 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_GEKU.MV_GEKU_BEREICH_SPR_ZU
+(
+geku_bereich_uid
+,geku_bereich_bez
+,geku_bereich_bez_cz
+,geku_bereich_bez_pl
+,geku_bereich_bez_sk
+,geku_bereich_bez_hr
+,geku_bereich_bez_ro
+,geku_bereich_bez_bg
+)
+AS
+-- 09.09.2015 twie: Sprachview für Bereich (1. Ebene)
+-- Filterung über Grund (2. Ebene) damit für Bereich keine Elemente angezeigt werden
+-- für die es keine Kindelemente gibt (Dateileichen, können nie ein Ticket zugeordnet haben)
+-- 08.02.2017 twie: SPEC0019359 Umstellung spaltenbasiert
+
+   SELECT
+
+   v01.geku_bereich_uid
+   , MAX(CASE WHEN v01.spr_id =   22 THEN v01.geku_bereich_bez ELSE NULL END)  AS geku_bereich_bez   --standard=deutsch
+   , MAX(CASE WHEN v01.spr_id = 124 THEN v01.geku_bereich_bez ELSE NULL END)  AS geku_bereich_bez_cz
+   , MAX(CASE WHEN v01.spr_id =   90 THEN v01.geku_bereich_bez ELSE NULL END)  AS geku_bereich_bez_pl
+   , MAX(CASE WHEN v01.spr_id = 108 THEN v01.geku_bereich_bez ELSE NULL END)  AS geku_bereich_bez_sk
+   , MAX(CASE WHEN v01.spr_id =   65 THEN v01.geku_bereich_bez ELSE NULL END)  AS geku_bereich_bez_hr
+   , MAX(CASE WHEN v01.spr_id =   95 THEN v01.geku_bereich_bez ELSE NULL END)  AS geku_bereich_bez_ro
+   , MAX(CASE WHEN v01.spr_id =   18 THEN v01.geku_bereich_bez ELSE NULL END)  AS geku_bereich_bez_bg
+
+   FROM dbp_view.v_geku_bereich_spr_zu v01
+
+   WHERE
+   v01.geku_bereich_uid IN
+   (SELECT geku_bereich_uid FROM dbp_view.v_l_geku_grund)
+
+   GROUP BY v01.geku_bereich_uid;

@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_ref_spaceman_item_merchandising_type AS SELECT item_merchandising_type_cd,
+ item_merchandising_type_descr,
+ shelf_capacity_type_cd,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_ref_spaceman_item_merchandising_type;

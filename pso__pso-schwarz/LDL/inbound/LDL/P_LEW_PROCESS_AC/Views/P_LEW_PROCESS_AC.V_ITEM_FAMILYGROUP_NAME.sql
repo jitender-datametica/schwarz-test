@@ -1,0 +1,27 @@
+CREATE OR REPLACE VIEW P_LEW_PROCESS_AC.V_ITEM_FAMILYGROUP_NAME
+            AS
+               SELECT   client_id,
+               item_fam_grp_sid,
+               item_fam_grp_name,
+               item_fam_grp_name_BG,
+               item_fam_grp_name_CS,
+               item_fam_grp_name_DA,
+               item_fam_grp_name_DE,
+               item_fam_grp_name_EL,
+               item_fam_grp_name_EN,
+               item_fam_grp_name_ES,
+               item_fam_grp_name_FI,
+               item_fam_grp_name_FR,
+               item_fam_grp_name_HR,
+               item_fam_grp_name_HU,
+               item_fam_grp_name_IT,
+               item_fam_grp_name_LT,
+               item_fam_grp_name_NL,
+               item_fam_grp_name_PL,
+               item_fam_grp_name_PT,
+               item_fam_grp_name_RO,
+               item_fam_grp_name_SH,
+               item_fam_grp_name_SK,
+               item_fam_grp_name_SL,
+               item_fam_grp_name_SV
+               FROM p_lew_process.v_item_familygroup_name;

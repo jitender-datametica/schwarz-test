@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_L_RUECKGABE_VERWENDUNG AS 
+    SELECT 
+        mandant_id,
+        rueckgabe_verwendung_kz
+FROM DBP_DATA.L_RUECKGABE_VERWENDUNG ;

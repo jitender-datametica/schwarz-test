@@ -1,0 +1,11 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ais_int.mv_rohstoff_rohstoff_gruppe_zu (rohstoff_nr,
+rohstoff_cluster_id, rohstoffkategorie, rohstoffsubkategorie) AS SELECT rohstoff_nr,
+ rohstoff_cluster_id,
+ rohstoff_kategorie_kfl_name AS rohstoffkategorie,
+ rohstoff_subkategorie_kfl_name AS rohstoffsubkategorie
+FROM kfl_production_dbp_msi_data.ts_rohstoff_monitoring_anzeige AS V01
+WHERE CURRENT_DATE BETWEEN dat_anzeige_von AND dat_anzeige_bis
+GROUP BY rohstoff_nr,
+ rohstoff_cluster_id,
+ rohstoffkategorie,
+ rohstoffsubkategorie;

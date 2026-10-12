@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_tour_det (mandant_id, nb_id, tour_pos_id, wup_id, tour_id, system_id,
+mandant_id_kunde, reihenfolge_tour_dispo, lagernummer_id, kunde_id, lief_beleg_id, dat_plan_ankunft, loesch_fg,
+dat_tourpos_erfasst, kj_lief_beleg) AS SELECT mandant_id,
+ nb_id,
+ tour_pos_id,
+ wup_id,
+ tour_id,
+ system_id,
+ mandant_id_kunde,
+ reihenfolge_tour_dispo,
+ lagernummer_id,
+ kunde_id,
+ lief_beleg_id,
+ dat_plan_ankunft,
+ loesch_fg,
+ dat_tourpos_erfasst,
+ kj_lief_beleg
+FROM kfl_production_dbp_data.tour_det;

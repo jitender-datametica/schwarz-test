@@ -1,0 +1,108 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_SCM.MV_FILIALE(
+	WUP_ID,
+	AKTUELL_WUP_ID,
+	IS_AKT_WUP_ID_FG,
+	NB_ID,
+	MANDANT_ID,
+	LAND_ID,
+	DAT_VON,
+	WUP_TYP_ID,
+	WUP_NAME_V,
+	WUP_NAME_E,
+	WUP_STANDORT,
+	WUP_PLZ,
+	WUP_STR,
+	VF_ID,
+	VKL_ID,
+	HL_ID,
+	DAT_BIS,
+	UEBERNAHME_VON,
+	BREAKEVENUMSATZ,
+	SYSTEMRENTABILITAET,
+	VERKAUFSFLAECHE,
+	BETRIEBSFLAECHE,
+	FLEISCHSYSTEM,
+	PREISKATEGORIE_FOOD,
+	PREISKATEGORIE_NONFOOD,
+	SORTKATEGORIE_FOOD,
+	SORTKATEGORIE_NONFOOD,
+	SONDERMARKT,
+	REF_WUP_ID,
+	WM_ID,
+	KASSENTYP,
+	DAT_QBM_UMSTELLUNG,
+	LEAD_MWST,
+	REGION_ID,
+	KUNDENFAKTOR,
+	VZ_WUP_ID,
+	QBM_ID,
+	GETRAENKEMARKT_FG,
+	VS_ID,
+	BUCHUNGSKREIS_ID,
+	VERKAUFSORGANISATION_ID,
+	BREITENGRAD,
+	LAENGENGRAD,
+	KREISTYP_GRUPPE_ID,
+	FRISCHE_MANAGER_ID
+) AS
+-- 2020-04-14 baranowska: add left join for Frische-Manager
+-- 2020-08-27 baranowska, AP0062304, adding kreistyp_gruppe_id
+-- 2020-09-08 nwag2310, changed nb_id to 0 for wup_id=-1
+-- 2020-09-10 nwag2310, changed vs_id to -1 for wup_id=-1
+-- 2021-11-10 srom0404, AP0098488, SPEC0121102 - COALESCE für NULL Werte kreistyp_gruppe_id
+--2024-08-02,AP0204035, SPEC0254614,dknop, adding aktuell_wup_id, is_akt_wup_id_fg
+SELECT
+v01.wup_id,
+v01.aktuell_wup_id,
+CASE WHEN v01.aktuell_wup_id = v01.wup_id THEN 1 ELSE 0 END AS is_akt_wup_id_fg,
+CASE WHEN v01.wup_id=-1 THEN 0 ELSE v01.nb_id END AS nb_id,
+v01.mandant_id,
+v01.land_id,
+v01.dat_von,
+v01.wup_typ_id,
+v01.wup_name_v,
+v01.wup_name_e,
+v01.wup_standort,
+v01.wup_plz,
+v01.wup_str,
+v01.vf_id,
+v01.vkl_id,
+v01.hl_id,
+v01.dat_bis,
+v01.uebernahme_von,
+v01.breakevenumsatz,
+v01.systemrentabilitaet,
+v01.verkaufsflaeche,
+v01.betriebsflaeche,
+v01.fleischsystem,
+v01.preiskategorie_food,
+v01.preiskategorie_nonfood,
+v01.sortkategorie_food,
+v01.sortkategorie_nonfood,
+v01.sondermarkt,
+v01.ref_wup_id,
+v01.wm_id,
+v01.kassentyp,
+v01.dat_qbm_umstellung,
+v01.lead_mwst,
+v01.region_id,
+v01.kundenfaktor,
+v01.vz_wup_id,
+CASE WHEN v01.dat_qbm_umstellung IS NOT NULL THEN 1 ELSE 0 END AS qbm_id,
+v01.getraenkemarkt_fg,
+CASE WHEN (v01.mandant_id<>1 AND v01.vs_id IS NULL) THEN 0 
+      WHEN v01.wup_id=-1 THEN -1 
+      ELSE v01.vs_id 
+END AS vs_id,
+v01.buchungskreis_id,
+v01.verkaufsorganisation_id,
+v01.breitengrad,
+v01.laengengrad,
+COALESCE(v01.kreistyp_gruppe_id, '') AS kreistyp_gruppe_id,
+v02.frische_manager_id
+FROM DBP_VIEW.v_wup v01
+LEFT OUTER JOIN DBP_MSI_V_VIEW.v_wup_denorm v02
+  ON v01.mandant_id = v02.mandant_id 
+ AND v01.wup_id     = v02.wup_id
+WHERE v01.nb_id = 0
+   OR v01.wup_id = -1;

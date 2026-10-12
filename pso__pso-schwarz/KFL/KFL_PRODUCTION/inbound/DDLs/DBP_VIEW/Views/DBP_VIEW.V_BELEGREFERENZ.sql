@@ -1,0 +1,20 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_BELEGREFERENZ AS 
+    SELECT 
+        mandant_id,
+        beleg_guid,
+        beleg_pos_guid,
+        referenz_belegtyp_id,
+        referenzbeleg_guid,
+        referenzbeleg_pos_guid,
+        referenzbeleg_id,
+        belegtyp_id,
+        referenz_bs_id,
+        partner_guid,
+        referenzbeleg_pos_id,
+        zeitzone,
+        datzeit_termin_beginn,
+        datzeit_termin_ende,
+        datzeit_erstellung,
+        datzeit_aenderung
+
+FROM DBP_DATA.BELEGREFERENZ ;

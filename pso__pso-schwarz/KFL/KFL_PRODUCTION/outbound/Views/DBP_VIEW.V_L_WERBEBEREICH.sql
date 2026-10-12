@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_werbebereich (mandant_id OPTIONS(description='Mandant im DWH'),
+werbebereich_cd OPTIONS(description='Code des Werbebereichs.'), werbebereich_bez
+OPTIONS(description='Werbebereich - Bezeichnung.'))
+OPTIONS(DESCRIPTION = `BÜNDELUNG VON MEHREREN WERBETEAMS ZU EINEM BEREICH.`) AS SELECT mandant_id,
+ werbebereich_cd,
+ werbebereich_bez
+FROM kfl_production_dbp_data.l_werbebereich;

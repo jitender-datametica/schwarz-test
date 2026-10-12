@@ -1,0 +1,40 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku.mv_geku_mzk_grund_spr_zu (geku_mzk_grund_uid, geku_mzk_grund_bez
+, geku_mzk_grund_bez_cz, geku_mzk_grund_bez_pl, geku_mzk_grund_bez_sk, geku_mzk_grund_bez_hr, geku_mzk_grund_bez_ro,
+geku_mzk_grund_bez_bg) AS SELECT geku_mzk_grund_uid,
+ MAX(CASE
+   WHEN spr_id = 22
+   THEN geku_mzk_grund_bez
+   ELSE NULL
+   END) AS geku_mzk_grund_bez,
+ MAX(CASE
+   WHEN spr_id = 124
+   THEN geku_mzk_grund_bez
+   ELSE NULL
+   END) AS geku_mzk_grund_bez_cz,
+ MAX(CASE
+   WHEN spr_id = 90
+   THEN geku_mzk_grund_bez
+   ELSE NULL
+   END) AS geku_mzk_grund_bez_pl,
+ MAX(CASE
+   WHEN spr_id = 108
+   THEN geku_mzk_grund_bez
+   ELSE NULL
+   END) AS geku_mzk_grund_bez_sk,
+ MAX(CASE
+   WHEN spr_id = 65
+   THEN geku_mzk_grund_bez
+   ELSE NULL
+   END) AS geku_mzk_grund_bez_hr,
+ MAX(CASE
+   WHEN spr_id = 95
+   THEN geku_mzk_grund_bez
+   ELSE NULL
+   END) AS geku_mzk_grund_bez_ro,
+ MAX(CASE
+   WHEN spr_id = 18
+   THEN geku_mzk_grund_bez
+   ELSE NULL
+   END) AS geku_mzk_grund_bez_bg
+FROM kfl_production_dbp_view.v_geku_mzk_grund_spr_zu AS V01
+GROUP BY geku_mzk_grund_uid;

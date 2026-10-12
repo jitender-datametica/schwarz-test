@@ -1,0 +1,6 @@
+create or replace TABLE LDL_DIG_PRODUCTION.META.T_SRG_UOM_SID (
+	UOM_SID NUMBER(38,0) autoincrement start 1 increment 1 order,
+	UOM_CD VARCHAR(5),
+	SRC_TABLE_NAME VARCHAR(250),
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9)
+);

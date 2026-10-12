@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_flw_kalk_erzeugnis AS SELECT mandant_id,
+ kalk_id,
+ kalkulationsart_id,
+ bewertung_variante_id,
+ kalk_version_id,
+ dat_kalk,
+ dat_kalk_ab,
+ dat_kalk_bis,
+ kalk_variante_id,
+ flw_art_id,
+ werk_id,
+ system_id,
+ misch_kalk_fg,
+ losgroesse,
+ td_insert,
+ td_update
+FROM kfl_production_dbp_data.flw_kalk_erzeugnis;

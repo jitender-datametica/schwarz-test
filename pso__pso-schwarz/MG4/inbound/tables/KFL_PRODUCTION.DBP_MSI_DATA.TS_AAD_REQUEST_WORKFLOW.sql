@@ -1,0 +1,28 @@
+create or replace TABLE KFL_PRODUCTION.DBP_MSI_DATA.TS_AAD_REQUEST_WORKFLOW (
+	AAD_REQUEST_ID NUMBER(38,0) NOT NULL COMMENT 'Unique Identifier of the Request (Sequence)',
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant im DWH - ein Mandant pro Land.',
+	DWH_CREATED_TMSP TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Timestamp when this record (version) of the Request was created. ',
+	CREATION_REASON_COMMENT_TXT VARCHAR(255) COMMENT 'Describes the justification entered by the applicant - why the request was created',
+	WUP_ID NUMBER(38,0) NOT NULL COMMENT 'Marktnummer, wird nicht gegen den Marktstamm geprüft.',
+	CREATOR_USER_ID VARCHAR(255) COMMENT 'AD name of the user who created the request',
+	REQUEST_TYPE_ID NUMBER(38,0) COMMENT 'specifies the type of request, 1=Period extension,  2 =Decryption',
+	HASHED_CASHIER_ID VARCHAR(255) COMMENT 'Encrypted (hashed) Cashier ID',
+	REQUEST_STATUS_TYPE_ID NUMBER(38,0) COMMENT 'Id of the types of statuses a request can have: default 0=open, 1= approved, 2=rejected',
+	FRAUD_VALUE_GROSS_LOCAL_VAL NUMBER(18,4) COMMENT 'Specifies the fraud value in local currency,only from Receipts from scenario hits',
+	WRG_ID VARCHAR(3) COMMENT 'Kurzbezeichnung der Währung, z.Bsp. CZK, EUR.',
+	EXPIRATION_TMSP TIMESTAMP_NTZ(9) COMMENT 'Timestmap when at which point request expires and is no logner valid',
+	SCENARIO_ID NUMBER(38,0) NOT NULL COMMENT 'Unique Identifier of the Scenario',
+	SCENARIO_HIT_RECEIPTS_CNT NUMBER(38,0) COMMENT 'Counts the number of receipts that are in scenario hit table',
+	REQUEST_REASON_TYPE_ID NUMBER(38,0) COMMENT 'Identifier of the the reason code',
+	COMMENT_TXT VARCHAR(255) COMMENT 'Comment from editor of the request (approver, decrypter ..)',
+	FIRST_APPROVER_USER_ID VARCHAR(255) COMMENT 'AD name of the user  who approves the request first',
+	SECOND_APPROVER_USER_ID VARCHAR(255) COMMENT 'AD name of the user  who approves the request second',
+	APPROVE_BY_COUNCIL_FG NUMBER(38,0) COMMENT 'Describes whether the release has been approved by council',
+	CRIMINAL_COMPLAIN_FG NUMBER(38,0) COMMENT 'Describes whether a criminal complaint is filed',
+	TAKEN_MEASURE_COMMENT_TXT VARCHAR(255) COMMENT 'comment for the measure that have been taken for this case',
+	LOSS_AMOUNT_GROSS_LOCAL_VAL NUMBER(18,4) COMMENT 'Amount of loss in local currency',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	constraint PK_TS_AAD_REQUEST_WORKFLOW primary key (AAD_REQUEST_ID, DWH_CREATED_TMSP)
+)COMMENT='AAD users see encrypted cashier IDs in the FE. When a scenario hit needs to be investigated in more details a FE user can request a decryption of the cashier ID so they can indetify the person involved in the possible fraud.\n             The workflow process through which these request go is tracked in this table (creation, approval, rejection, request for time extension  .. )'
+;

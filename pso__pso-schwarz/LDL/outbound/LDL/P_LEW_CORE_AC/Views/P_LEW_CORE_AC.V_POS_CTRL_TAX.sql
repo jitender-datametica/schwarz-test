@@ -1,0 +1,25 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_pos_ctrl_tax (client_id, loc_sid, receipt_id, receipt_dt, receipt_tmsp,
+register_id, receiptline_nr, transaction_type_cd, timezone_id, transaction_begin_tmsp, transaction_end_tmsp, cashier_id
+, total_val, vat_val, vat_pct_val, tax_class_cd, tax_class_char_cd, dwh_cal_dt, dwh_load_id, dwh_created, dwh_updated)
+AS SELECT client_id,
+ loc_sid,
+ receipt_id,
+ receipt_dt,
+ receipt_tmsp,
+ register_id,
+ receiptline_nr,
+ transaction_type_cd,
+ timezone_id,
+ transaction_begin_tmsp,
+ transaction_end_tmsp,
+ cashier_id,
+ total_val,
+ vat_val,
+ vat_pct_val,
+ tax_class_cd,
+ tax_class_char_cd,
+ dwh_cal_dt,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_pos_ctrl_tax;

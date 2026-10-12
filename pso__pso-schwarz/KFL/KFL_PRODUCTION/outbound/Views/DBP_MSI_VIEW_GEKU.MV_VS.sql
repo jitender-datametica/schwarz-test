@@ -1,0 +1,19 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku.mv_vs (mandant_id, vs_id, ma_anrede, ma_name, ma_vorname,
+vsvt_bez) AS SELECT V01.mandant_id,
+ V01.vs_id,
+ COALESCE(V03.ma_anrede, '') AS ma_anrede,
+ COALESCE(V03.ma_name, V01.vsvt_bez) AS ma_name,
+ COALESCE(V03.ma_vorname, '') AS ma_vorname,
+ V01.vsvt_bez
+FROM kfl_production_dbp_view.v_vs AS V01
+ INNER JOIN (SELECT DISTINCT W.mandant_id,
+   W.vs_id,
+   MAX(WD.gl_vertrieb_id) OVER (PARTITION BY CAST(W.mandant_id AS STRING), CAST(W.vs_id AS STRING) RANGE BETWEEN
+    UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS gl_vertrieb_id
+  FROM kfl_production_dbp_view.v_wup AS W
+   LEFT JOIN kfl_production_dbp_msi_v_view.v_wup_denorm AS WD ON W.mandant_id = WD.mandant_id AND W.wup_id = WD.wup_id
+  WHERE W.nb_id IN (- 2, - 1, 0)
+   AND W.dat_eroeffnung < DATE '9999-12-31'
+   AND W.dat_bis = DATE '9999-12-31') AS v02 ON V01.mandant_id = v02.mandant_id AND V01.vs_id = v02.vs_id
+ LEFT JOIN kfl_production_dbp_view.v_ma_spr_zu AS V03 ON v02.mandant_id = V03.mandant_id AND v02.gl_vertrieb_id = V03.ma_id
+     AND V03.spr_id = 22;

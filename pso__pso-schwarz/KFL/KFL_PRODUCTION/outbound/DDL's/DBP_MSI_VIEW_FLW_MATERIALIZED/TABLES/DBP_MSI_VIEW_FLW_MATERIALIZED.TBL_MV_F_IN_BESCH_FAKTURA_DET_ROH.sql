@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE dbp_msi_view_flw_materialized.tbl_mv_f_in_besch_faktura_det_roh (
+faktura_beleg_id INTEGER,
+faktura_beleg_pos_id INTEGER,
+mandant_id INTEGER,
+dat_faktura DATE,
+werk_id INTEGER,
+lief_pos_typ_id STRING(4) COLLATE 'und:ci',
+in_art_id INTEGER,
+vorlage_beleg_id INTEGER,
+menge_faktura_vkme NUMERIC(29,3),
+menge_faktura_lme NUMERIC(29,3),
+verk_menge_faktura_einh_id STRING(3) COLLATE 'und:ci',
+gewicht_netto_roh NUMERIC(29,3),
+dat_preisfindung DATE,
+default_wrg STRING(12) COLLATE 'und:ci',
+vorzeichen_preise INTEGER,
+vorzeichen_mengen INTEGER,
+wrg_id_v02 STRING(3) COLLATE 'und:ci',
+wert_ek_netto_v02 NUMERIC(29,4)
+);

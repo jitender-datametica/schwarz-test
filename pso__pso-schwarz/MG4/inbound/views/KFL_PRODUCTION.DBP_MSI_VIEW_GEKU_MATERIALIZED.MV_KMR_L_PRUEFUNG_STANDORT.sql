@@ -1,0 +1,14 @@
+create or replace view KFL_PRODUCTION.DBP_MSI_VIEW_GEKU_MATERIALIZED.MV_KMR_L_PRUEFUNG_STANDORT(
+	STANDORT_ID,
+	AMX_SYSTEM_ID,
+	STANDORT_TYP_ID,
+	STANDORT_BEZ
+) as
+-- 20220518 twie: SPEC0153699 neue audimex Lookup Standort, inhaltlich getrenntes Datenmodell zu bestehenden Tabellen mit Präfix amx_ (diese nur für Kurzchecks)
+
+SELECT 
+         v01.standort_id
+         ,v01.amx_system_id
+        ,standort_typ_id
+        ,v01.standort_bez
+FROM dbp_view.v_kmr_l_pruefung_standort v01;

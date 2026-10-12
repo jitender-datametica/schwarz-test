@@ -1,0 +1,27 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TCACHE_PTM_WORKINGTIMES
+(
+  CLIENT_ID               NUMBER(38)                    NOT NULL,
+  BIC_ZMLILA              VARCHAR(20)                   NULL,
+  LOC_SID                 NUMBER(38)                    NOT NULL,
+  ORIG_STORE_NR           NUMBER(10,0)                  NULL,
+  TIME_RECORD_ID          NUMBER(38)                    NULL,
+  TIME_RECORD_CHANGE_TMSP TIMESTAMP_NTZ(6)              NULL,
+  EMPLOYEE_HASH           VARCHAR(100) COLLATE 'en-ci'  NULL,
+  TIME_TYPE_GRP_CD        VARCHAR(2) COLLATE 'en-ci'    NULL,
+  WH_ID                   NUMBER(10,0)                  NULL,
+  MISSINGTYPE_ID          NUMBER(10,0)                  NULL,
+  PERIOD_START_TMSP       TIMESTAMP_NTZ(6)              NULL,
+  PERIOD_END_TMSP         TIMESTAMP_NTZ(6)              NULL,
+  BOOKING_TYPE_FROM_CD    VARCHAR(1) COLLATE 'en-ci'    NULL,
+  BOOKING_TYPE_TO_CD      VARCHAR(1) COLLATE 'en-ci'    NULL,
+  BREAK_DURATION_MINUTE   NUMBER(38)                    NULL,
+  DAY_FACTOR              NUMBER(2,1)                   NULL,
+  PERFORMANCE_FACTOR      NUMBER(3,2)                   NULL,
+  CANCEL_FG               NUMBER(38)                    NULL,
+  DELETED_FG              NUMBER(38)                    NULL,
+  FILE_RECORD_ID          NUMBER(38)                    NULL,
+  DWH_LOAD_ID             NUMBER(38)                    NOT NULL,
+  DWH_CAL_DT              DATE                          NULL,
+  DWH_CREATED             TIMESTAMP_NTZ(6)              NOT NULL,
+  DWH_UPDATED             TIMESTAMP_NTZ(6)              NOT NULL
+);

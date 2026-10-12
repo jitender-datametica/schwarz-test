@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_wawi_calendar_cfg_dat (dat_holiday_or_revenue, descr_holiday_or_revenue,
+fg_holiday_or_revenue) AS SELECT dat_holiday_or_revenue,
+ descr_holiday_or_revenue,
+ fg_holiday_or_revenue
+FROM ldl_p_lew_core.t_wawi_calendar_cfg_dat;

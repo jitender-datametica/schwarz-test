@@ -1,0 +1,45 @@
+create or replace view KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_MSI_VIEW_AIS_INT.MV_ABSCHRIFTGRUPPE_EBENE0(
+	ABSCHRIFTENART_ID,
+	ABSCHRIFTGRUPPE_ID_EBENE0,
+	ABSCHRIFTGRUPPE_ID_EBENE1
+) as
+SELECT
+    ABSCHRIFTENART_ID,
+    ABSCHRIFTGRUPPE_ID_EBENE0,
+    ABSCHRIFTGRUPPE_ID_EBENE1
+FROM (
+    SELECT  
+        
+        TRIM(CAST(v01.preis_aend_grund_id AS STRING)) AS ABSCHRIFTENART_ID,
+        v01.abschriftgruppe_id AS ABSCHRIFTGRUPPE_ID_EBENE0,
+        v02.ABSCHRIFTGRUPPE_ID_EBENE1
+    FROM DBP_DATA.L_PREIS_AENDERUNG v01
+    JOIN dbp_msi_view_ais_int.MV_ABSCHRIFTGRUPPE_EBENE1 v02
+      ON v01.abschriftgruppe_id = v02.abschriftgruppe_id_ebene1
+
+    UNION ALL
+
+    SELECT 
+        TRIM(CAST(v01.abschriftart_id AS STRING)) AS CLEAN_ID,
+        v01.abschriftgruppe_id AS ABSCHRIFTGRUPPE_ID_EBENE0,
+        v02.ABSCHRIFTGRUPPE_ID_EBENE1
+    FROM DBP_DATA.L_ABSCHRIFTART v01
+    JOIN dbp_msi_view_ais_int.MV_ABSCHRIFTGRUPPE_EBENE1 v02
+      ON v01.abschriftgruppe_id = v02.abschriftgruppe_id_ebene1
+
+    UNION ALL
+
+    SELECT  
+        TRIM(CAST(v01.lager_bewart_id AS STRING)) AS CLEAN_ID,
+        v01.abschriftgruppe_id AS ABSCHRIFTGRUPPE_ID_EBENE0,
+        v02.ABSCHRIFTGRUPPE_ID_EBENE1
+    FROM DBP_DATA.L_LAGER_BEWART v01
+    JOIN dbp_msi_view_ais_int.MV_ABSCHRIFTGRUPPE_EBENE1 v02
+      ON v01.abschriftgruppe_id = v02.abschriftgruppe_id_ebene1
+    WHERE system_id <> 13
+)
+
+QUALIFY ROW_NUMBER() OVER (
+    PARTITION BY ABSCHRIFTENART_ID 
+    ORDER BY ABSCHRIFTGRUPPE_ID_EBENE0 ASC
+) = 1;

@@ -1,0 +1,1 @@
+TRUNCATE TABLE ldl_data_production_etl.t_tcache_pos_receipt_load_${CLUSTER};

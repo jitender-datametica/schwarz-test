@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE idq_production_idq_results.idq_addinfo_zsm_supplier_sst (
+id BIGNUMERIC(38,0) NOT NULL,
+test_object_id BIGNUMERIC(38,0),
+statuslieferant STRING(2),
+kontengruppe STRING(4),
+source_system_primary_key STRING(1000),
+source_system_id BIGNUMERIC(38,0),
+country_id BIGNUMERIC(38,0),
+branch_id BIGNUMERIC(38,0),
+is_relevant BIGNUMERIC(38,0),
+eks_nummer STRING(1000),
+land STRING(3),
+m STRING(1),
+nf STRING(1),
+em STRING(1),
+o_g STRING(1),
+b_p STRING(1),
+imp STRING(1),
+verhandelndesland STRING(3),
+umsatzsteuer_idnr STRING(20),
+weitereustid STRING(1000),
+PRIMARY KEY (id) NOT ENFORCED
+);

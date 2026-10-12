@@ -1,0 +1,14 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_RPW.MV_L_VERURSACHER
+             (
+             system_id
+             ,mandant_id
+             ,verursacher_id
+             )
+             AS
+                SELECT
+                7,
+                mandant_id,
+                verursacher_id
+                FROM dbp_view.v_l_verursacher
+                WHERE mandant_id = 1
+ ;

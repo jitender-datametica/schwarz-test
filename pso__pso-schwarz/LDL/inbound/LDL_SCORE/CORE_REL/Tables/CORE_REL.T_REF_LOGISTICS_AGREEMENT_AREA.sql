@@ -1,0 +1,18 @@
+--==============================================================
+-- Table: t_ref_logistics_agreement_area
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: t_ref_logistics_agreement_area
+   generated from Powerdesigner on Montag, 25. März 2024 15:58:54
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE_REL.T_REF_LOGISTICS_AGREEMENT_AREA (
+   logistics_agmt_area_cd              VARCHAR(20)      NOT NULL COMMENT 'Code of Logistics agreement area, for example: IMP/LOG.',
+   logistics_agmt_area_descr           VARCHAR(100)     COMMENT 'Description of logistics agreement area, for example: Import/Logistik.',
+   logistics_agmt_area_descr_de        VARCHAR(100)     COMMENT 'Description of logistics agreement area in English.',
+   logistics_agmt_area_descr_en        VARCHAR(100)     COMMENT 'Description of logistics agreement area in German.',
+   dwh_created_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   dwh_updated_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',   
+   CONSTRAINT PK_T_REF_LOGISTICS_AGREEMENT_AREA PRIMARY KEY (logistics_agmt_area_cd) NOT ENFORCED 
+)  COMMENT = 'This table defines areas of logistics agreement. For example Logistics and Import.';
+

@@ -1,0 +1,24 @@
+DELETE FROM DBP_DATA.quartal_gj;
+
+INSERT INTO DBP_DATA.quartal_gj
+(
+  gjqu
+, akt_gjqu
+, akt_gjqu_komplett
+, gj
+, akt_gj
+, akt_gj_komplett
+, gjhj
+)
+SELECT
+  gjqu
+, akt_gjqu
+, akt_gjqu_komplett
+, gj
+, akt_gj
+, akt_gj_komplett
+, gjhj
+FROM DBP_DATA.tag
+GROUP BY 1,2,3,4,5,6,7
+;
+COMMIT;

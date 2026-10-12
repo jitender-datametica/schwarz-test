@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_l_wbs_phase AS SELECT mandant_id,
+ wbs_phase_id
+FROM kfl_production_dbp_view.v_l_wbs_phase;

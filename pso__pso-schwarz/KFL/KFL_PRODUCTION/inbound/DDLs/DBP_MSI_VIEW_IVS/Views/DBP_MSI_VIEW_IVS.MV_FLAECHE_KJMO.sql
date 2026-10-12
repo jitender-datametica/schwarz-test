@@ -1,0 +1,85 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_IVS.MV_FLAECHE_KJMO as
+                                   -- 2009-07-20
+                                   -- FAKTVIEW denormalisiert, historisiert (KJMO)
+                                   -- flaeche, mietvertrage, plan, mietertrag
+                                   -- 2009KW07 Initial
+                                   -- 2009KW17 EUR + LW über waehrungstyp, Optimierung + INNER JOIN
+                                   -- 2009KW27 Historisierung Kurs + Optimierung Joins
+                                   -- 20090629 TD v12: Verschieben des LEFT OUTER JOIN auf memv in Subselect flmv
+                                   -- 2009KW47 Umstellung mv_zeit auf v_monat
+                                   -- 2010KW02 Neuerstellung unter Nutzung imv_aggregat
+                                   -- 2011KW34 umgelenkt von imv_aggregat auf ivs_aggregat
+
+                                   SELECT
+                                   mandant_id,
+                                   kjmo,
+                                   wrg_id,
+                                   wrg_typ_id,
+                                   flaeche_id,
+                                   immo_objekt_id,
+                                   flaecheart_id,
+                                   nutzung_id,
+                                   flaeche_typ_id,
+                                   flaeche_groesse,
+                                   flaeche_status_id,
+                                   dat_existiert_seit,
+                                   dat_existiert_bis,
+                                   std_branche_id,
+                                   std_vertragart_id,
+                                   std_miete_betrag,
+                                   std_miete_qm_betrag,
+                                   std_miete_prozent,
+                                   plan_grundmiete,
+                                   plan_nebenkosten,
+                                   plan_umsatzmiete,
+                                   plan_immovw,
+                                   plan_invest,
+                                   plan_sonst,
+                                   branche_id,
+                                   dat_flaeche_uebergabe,
+                                   dat_flaeche_rueckgabe,
+                                   dat_frei_flaeche_seit,
+                                   dat_miete_betrag_vereinbart,
+                                   mvf_betrag_vereinbart,
+                                   mvf_miete_betrag,
+                                   mvf_nk_betrag,
+                                   mvf_nk_abschlag,
+                                   mvf_ums_abschlag,
+                                   mv_immo_verw_b  AS                 mvf_immo_verw_b,
+                                   mvf_investm_betrag,
+                                   mvf_sonst_betrag,
+                                   miete_umsatz_prozent,
+                                   vertrag_aktiv_kz    AS vertrag_aktiv_fg,
+                                   miete_referenz_id,
+                                   mietart_id,
+                                   mietvertrag_id,
+                                   konzessionaer_id,
+                                   dat_vertrag_beginn,
+                                   dat_vertrag_ende,
+                                   dat_kuendbar_zum,
+                                   dat_kuendigung,
+                                   mv_b_kaution,
+                                   mv_nk_betrag,
+                                   mv_nk_abschlag,
+                                   vertragart_id,
+                                   vermieter_id,
+                                   vertrag_status_kz AS vertrag_status_fg,
+                                   kuendigung_frist,
+                                   kuend_frist_bez,
+                                   sonderregelung_fg,
+                                   mietindex_prozent,
+                                   dat_mietindex,
+                                   mietauftrag_id,
+                                   me_grundmiete,
+                                   me_nebenkosten,
+                                   me_umsatzmiete,
+                                   me_immoverw,
+                                   me_investmiete,
+                                   me_sonstige,
+                                   me_automaten,
+                                   me_werbung,
+                                   me_mietsicher,
+                                   me_kurzfristig,
+                                   me_rest
+
+                                   FROM dbp_view.v_ivs_aggregat;

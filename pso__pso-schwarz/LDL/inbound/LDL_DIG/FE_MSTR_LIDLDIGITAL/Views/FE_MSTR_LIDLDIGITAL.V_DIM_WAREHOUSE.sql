@@ -1,0 +1,32 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIDLDIGITAL.V_DIM_WAREHOUSE
+(
+     WH_SID
+    ,WH_CD
+    ,WH_NAME
+    ,WH_TYPE_CD
+    ,IS_RUN_BY_EXT_COMPANY
+    ,WH_STORAGE_TYPE_CD
+    ,IS_WINE_STORAGE_FG
+)
+AS SELECT
+     WH_SID
+    ,CASE WHEN WH_CD = '' THEN '-1' ELSE IFNULL(WH_CD, '-1') END
+    ,WH_NAME
+    ,CASE WHEN WH_TYPE_CD = '' THEN '-1' ELSE IFNULL(WH_TYPE_CD, '-1') END
+    ,IS_RUN_BY_EXT_COMPANY
+    ,CASE WHEN WH_STORAGE_TYPE_CD = '' THEN '-1' ELSE IFNULL(WH_STORAGE_TYPE_CD, '-1') END
+    ,IS_WINE_STORAGE_FG
+FROM
+    lec_share.v_dim_warehouse
+WHERE
+    DWH_VALID_FG = TRUE
+UNION ALL 
+    SELECT     
+         '-1' -- WH_SID
+        ,'-1' -- WH_CD
+        ,'' -- WH_NAME
+        ,'-1' -- WH_TYPE_CD
+        ,FALSE -- IS_RUN_BY_EXT_COMPANY
+        ,'-1' -- WH_STORAGE_TYPE_CD
+        ,'FALSE' -- IS_WINE_STORAGE_FG
+;

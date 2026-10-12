@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_aad.mv_l_kasse_typ AS SELECT kasse_typ_id
+FROM kfl_production_dbp_v_ods.v_l_kasse_typ;

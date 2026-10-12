@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_nachschub_option AS SELECT mandant_id,
+ nachschub_option_id
+FROM kfl_production_dbp_data.l_nachschub_option;

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi.v_ref_miss_reason_map (client_id, elwis_itm_miss_reason_cd,
+wawi_itm_miss_reason_cd) AS SELECT client_id,
+ missing_reason_cd AS elwis_itm_miss_reason_cd,
+ mis_item_missing_reason_cd AS wawi_itm_miss_reason_cd
+FROM ldl_p_lew_core_ac.v_map_mis_item_missing_reason;

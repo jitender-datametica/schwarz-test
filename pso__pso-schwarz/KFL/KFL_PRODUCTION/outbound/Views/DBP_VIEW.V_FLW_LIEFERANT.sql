@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_flw_lieferant AS SELECT flw_lief_id,
+ mandant_id,
+ lief_name_1,
+ lief_name_2,
+ gp_ort,
+ gp_plz,
+ flw_lief_nr,
+ flw_lief_id_cz,
+ lief_betreuer_id,
+ werk_id_flw,
+ mandant_id_werk,
+ system_id,
+ td_insert,
+ td_update
+FROM kfl_production_dbp_data.flw_lieferant;

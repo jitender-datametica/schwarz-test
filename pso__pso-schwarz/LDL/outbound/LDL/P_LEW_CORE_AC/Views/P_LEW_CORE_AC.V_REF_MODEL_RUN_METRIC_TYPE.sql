@@ -1,0 +1,13 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_ref_model_run_metric_type (model_run_metric_type_cd
+OPTIONS(description='technical code for the metric to be calculated on model level in a run'),
+model_run_metric_type_descr OPTIONS(description='description of the metric to be calculated on model level in a run'),
+dwh_load_id OPTIONS(description='Identifier des letzten Ladelaufs, der den Datensatz eingfuegt oder veraendert hat'),
+dwh_created OPTIONS(description='Zeitstempel der Ersteinfuegung des Datensatzes ins DWH'), dwh_updated
+OPTIONS(description='Zeitstempel der letzten Aenderung des Datensatzes im DWH'))
+OPTIONS(DESCRIPTION = `$Revision: 0000 $. A MODEL RUN METRIC DEFINES A MODEL-LEVEL RESULT OF A MODEL RUN`) AS SELECT
+ model_run_metric_type_cd,
+ model_run_metric_type_descr,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_ref_model_run_metric_type;

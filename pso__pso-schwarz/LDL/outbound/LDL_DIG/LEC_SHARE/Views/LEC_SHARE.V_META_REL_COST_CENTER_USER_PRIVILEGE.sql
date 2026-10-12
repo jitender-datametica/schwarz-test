@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_lec_share.v_meta_rel_cost_center_user_privilege AS SELECT *
+FROM ldl_dig_meta.t_rel_cost_center_user_privilege;

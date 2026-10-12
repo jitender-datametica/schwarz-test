@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_pruef_status AS SELECT pruef_status_id,
+ pruef_status_bez
+FROM kfl_production_dbp_data.l_pruef_status;

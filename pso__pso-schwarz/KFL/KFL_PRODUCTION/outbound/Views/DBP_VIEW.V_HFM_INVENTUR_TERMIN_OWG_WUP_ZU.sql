@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_hfm_inventur_termin_owg_wup_zu AS SELECT mandant_id,
+ wup_id,
+ nb_id,
+ owg_id,
+ arthiertyp_id,
+ dat_plan_zaehlung,
+ inventurart_int_id,
+ wrg_id,
+ dat_vorletzte_zaehlung,
+ umsatz_vk_netto_sum,
+ inventur_wert_vk_netto,
+ betrag_netto_diebstahl_abschrift,
+ betrag_netto_preis_abschrift,
+ betrag_netto_total_abschrift,
+ betrag_kalk_inventur_diff
+FROM kfl_production_dbp_data.hfm_inventur_termin_owg_wup_zu;

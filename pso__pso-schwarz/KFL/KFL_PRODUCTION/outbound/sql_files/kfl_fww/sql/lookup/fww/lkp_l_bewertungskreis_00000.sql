@@ -1,0 +1,12 @@
+--[OK] statement is translated correctly (syntax and type checks are fine)
+
+
+SELECT
+    mandant_id,
+    bewertungskreis_id,
+    buchungskreis_id
+FROM dbp_data.l_bewertungskreis
+GROUP BY
+    mandant_id,
+    bewertungskreis_id,
+    buchungskreis_id;

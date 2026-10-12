@@ -1,0 +1,448 @@
+/*
+#-------------------------------------------------------------------------------
+# Copyright  LIDL Stiftung & Co. KG - PITonCloud Application 2025
+#-------------------------------------------------------------------------------
+# Interface : DDL for F_RECEIPT
+# Interface : DDL for F_RECEIPT
+#-------------------------------------------------------------------------------
+# Describtion: Create DDL for Intermediate Fact Table Receipt
+#-------------------------------------------------------------------------------
+# Encoding. UTF8noBom
+#-------------------------------------------------------------------------------
+# History:
+#  1.0  2021-07-01 Andreas Kurz    	Initial version
+#  1.1  2021-08-02 Andreas Kurz    	Added further columns cherry / heavy
+#                                  	Exclusive Buyer Receipt Flag/Idicator
+#  1.2  2021-08-24 Mike Davis      	Checks, formatting, FK support (now removed)
+#  1.3  2022-02-21 Aparna Rayanki  	removed discount_sales_qty from TurnOVER to align Sales Quantity with Lead
+#  1.4  2022-02-24 Andreas Kurz		Added CLuster Key
+#  1.5 	2023-03-18 Andreas Kurz 	Added more LP / PD WAWI Calculations Inkrement 2
+#-------------------------------------------------------------------------------
+*/
+
+/*
+USE ROLE		R_LDL_D_PIT_ETL;
+USE WAREHOUSE	WH_LDL_D_PIT_ETL_2XL;
+USE DATABASE 	LDL_PRODUCTION_CLONE_PIT_R60001;
+USE SCHEMA 		P_LEW_MART_PIT;
+
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	DISTINCT_WAWI_ORIG_ITEM_NR_CNT		NUMBER(38,0) 																	COMMENT 'Number of distinct items which are WAWI-PV per Bon';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	DISTINCT_PD_ORIG_ITEM_NR_CNT		NUMBER(38,0) 																	COMMENT 'Number of distinct items which are PD-PV per Bon';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	DISTINCT_LP_ORIG_ITEM_NR_CNT		NUMBER(38,0) 																	COMMENT 'Number of distinct items which are LP-PV per Bon';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	WAWI_PV_SALES_QTY					NUMBER(38,5) 																COMMENT 'WAWI PV Sales Quantity (Abverkauf)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	WAWI_PV_SALES_NET_VAL				NUMBER(38,5) 																COMMENT 'WAWI PV Sales Amount Net in Local Currency';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	WAWI_PV_RETURNS_QTY					NUMBER(38,5) 																COMMENT 'WAWI PV Sales Quantity Returns (Abverkauf)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	WAWI_PV_RETURNS_NET_VAL				NUMBER(38,5) 																COMMENT 'WAWI PV Returns Sales Amount Net in Local Currency';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	WAWI_PV_DISCOUNT_QTY				NUMBER(38,5) 																COMMENT 'WAWI PV Quantity Discount (Abverkauf)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	WAWI_PV_DISCOUNT_SALES_QTY			NUMBER(38,5)											                    COMMENT 'WAWI PV Sales Quantity Discount (Abverkauf)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	WAWI_PV_DISCOUNT_NET_VAL			NUMBER(38,5) 																COMMENT 'WAWI PV Discount Sales Amount Net in Local Currency';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	WAWI_PV_TURNOVER_QTY				NUMBER(38,5) 																COMMENT 'WAWI PV-Items on the Receipt Calcualted Quantity  Sales + Returns (adjusted)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	WAWI_PV_TURNOVER_NET_VAL			NUMBER(38,5) 																COMMENT 'WAWI PV-Items on the Receipt Calcualted Net Sales + Returns (adjusted)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	LP_PV_SALES_QTY						NUMBER(38,5) 																COMMENT 'LP PV Sales Quantity (Abverkauf)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	LP_PV_SALES_NET_VAL					NUMBER(38,5) 																COMMENT 'LP PV Sales Amount Net in Local Currency';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	LP_PV_RETURNS_QTY					NUMBER(38,5) 																COMMENT 'LP PV Sales Quantity Returns (Abverkauf)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	LP_PV_RETURNS_NET_VAL				NUMBER(38,5) 																COMMENT 'LP PV Returns Sales Amount Net in Local Currency';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	LP_PV_DISCOUNT_QTY					NUMBER(38,5) 																COMMENT 'LP PV Quantity Discount (Abverkauf)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	LP_PV_DISCOUNT_SALES_QTY			NUMBER(38,5)											                    COMMENT 'LP PV Sales Quantity Discount (Abverkauf)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	LP_PV_DISCOUNT_NET_VAL				NUMBER(38,5) 																COMMENT 'LP PV Discount Sales Amount Net in Local Currency';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	LP_PV_TURNOVER_QTY					NUMBER(38,5) 																COMMENT 'LP PV-Items on the Receipt Calcualted Quantity  Sales + Returns (adjusted)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	LP_PV_TURNOVER_NET_VAL				NUMBER(38,5) 																COMMENT 'LP PV-Items on the Receipt Calcualted Net Sales + Returns (adjusted)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	PD_PV_SALES_QTY						NUMBER(38,5) 																COMMENT 'PD PV Sales Quantity (Abverkauf)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	PD_PV_SALES_NET_VAL					NUMBER(38,5) 																COMMENT 'PD PV Sales Amount Net in Local Currency';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	PD_PV_RETURNS_QTY					NUMBER(38,5) 																COMMENT 'PD PV Sales Quantity Returns (Abverkauf)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	PD_PV_RETURNS_NET_VAL				NUMBER(38,5) 																COMMENT 'PD PV Returns Sales Amount Net in Local Currency';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	PD_PV_DISCOUNT_QTY					NUMBER(38,5) 																COMMENT 'PD PV Quantity Discount (Abverkauf)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	PD_PV_DISCOUNT_SALES_QTY			NUMBER(38,5)											                    COMMENT 'PD PV Sales Quantity Discount (Abverkauf)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	PD_PV_DISCOUNT_NET_VAL				NUMBER(38,5) 																COMMENT 'PD PV Discount Sales Amount Net in Local Currency';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	PD_PV_TURNOVER_QTY					NUMBER(38,5) 																COMMENT 'PD PV-Items on the Receipt Calcualted Quantity  Sales + Returns (adjusted)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD	PD_PV_TURNOVER_NET_VAL				NUMBER(38,5) 																COMMENT 'PD PV-Items on the Receipt Calcualted Net Sales + Returns (adjusted)';
+
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP DISTINCT_PROMO_DESIGNER_ORIG_ITEM_NR_CNT;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP LIDL_PLUS_FG;
+
+--PV 20240326
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN PV_TURNOVER_QTY TO PV_TURNOVER_QTY_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN PV_TURNOVER_NET_VAL TO PV_TURNOVER_NET_VAL_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD PV_TURNOVER_QTY NUMBER(38,5) COMMENT 'For PV-Items on the Receipt Calcualted Quantity  Sales + Returns (adjusted)'; 
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD PV_TURNOVER_NET_VAL NUMBER(38,5) COMMENT 'For PV-Items on the Receipt Calcualted Net Sales + Returns (adjusted)';
+UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+SET PV_TURNOVER_QTY = COALESCE(PV_SALES_QTY, 0.00) + COALESCE(PV_RETURNS_QTY, 0.00)
+WHERE CLIENT_ID = 32;
+UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+SET PV_TURNOVER_NET_VAL = COALESCE(PV_SALES_NET_VAL, 0.00) + COALESCE(PV_RETURNS_NET_VAL, 0.00)
+WHERE CLIENT_ID = 32;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PV_TURNOVER_NET_VAL_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PV_TURNOVER_QTY_BCK;
+
+--NF
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN NF_TURNOVER_QTY TO NF_TURNOVER_QTY_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN NF_TURNOVER_NET_VAL TO NF_TURNOVER_NET_VAL_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD NF_TURNOVER_QTY NUMBER(38,5) COMMENT 'For NF-Items on the Receipt Calcualted Quantity  Sales + Returns (adjusted)'; 
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD NF_TURNOVER_NET_VAL NUMBER(38,5) COMMENT 'For NF-Items on the Receipt Calcualted Net Sales + Returns (adjusted)';
+UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+SET NF_TURNOVER_QTY = COALESCE(NF_SALES_QTY, 0.00) + COALESCE(NF_RETURNS_QTY, 0.00)
+WHERE CLIENT_ID = 32;
+UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+SET NF_TURNOVER_NET_VAL = COALESCE(NF_SALES_NET_VAL, 0.00) + COALESCE(NF_RETURNS_NET_VAL, 0.00)
+WHERE CLIENT_ID = 32;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NF_TURNOVER_NET_VAL_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NF_TURNOVER_QTY_BCK;
+
+--FA
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN FA_TURNOVER_QTY TO FA_TURNOVER_QTY_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN FA_TURNOVER_NET_VAL TO FA_TURNOVER_NET_VAL_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD FA_TURNOVER_QTY NUMBER(38,5) COMMENT 'For FA-Items on the Receipt Calcualted Quantity  Sales + Returns (adjusted)'; 
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD FA_TURNOVER_NET_VAL NUMBER(38,5) COMMENT 'For FA-Items on the Receipt Calcualted Net Sales + Returns (adjusted)';
+UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+SET FA_TURNOVER_QTY = COALESCE(FA_SALES_QTY, 0.00) + COALESCE(FA_RETURNS_QTY, 0.00)
+WHERE CLIENT_ID = 32;
+UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+SET FA_TURNOVER_NET_VAL = COALESCE(FA_SALES_NET_VAL, 0.00) + COALESCE(FA_RETURNS_NET_VAL, 0.00)
+WHERE CLIENT_ID = 32;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP FA_TURNOVER_NET_VAL_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP FA_TURNOVER_QTY_BCK;
+
+--TOTAL_RECEIPT_TURNOVER_QTY
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN TOTAL_RECEIPT_TURNOVER_QTY TO TOTAL_RECEIPT_TURNOVER_QTY_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN TOTAL_RECEIPT_TURNOVER_NET_VAL TO TOTAL_RECEIPT_TURNOVER_NET_VAL_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD TOTAL_RECEIPT_TURNOVER_QTY NUMBER(38,5) COMMENT 'For total receopt on the Receipt Calcualted Quantity  Sales + Returns (adjusted)'; 
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD TOTAL_RECEIPT_TURNOVER_NET_VAL NUMBER(38,5) COMMENT 'For total receipt on the Receipt Calcualted Net Sales + Returns (adjusted)';
+UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+SET TOTAL_RECEIPT_TURNOVER_QTY = COALESCE(FA_SALES_QTY, 0.00) + COALESCE(FA_RETURNS_QTY, 0.00)
+WHERE CLIENT_ID = 32;
+UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+SET TOTAL_RECEIPT_TURNOVER_NET_VAL = COALESCE(FA_SALES_NET_VAL, 0.00) + COALESCE(FA_RETURNS_NET_VAL, 0.00)
+WHERE CLIENT_ID = 32;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP TOTAL_RECEIPT_TURNOVER_NET_VAL_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP TOTAL_RECEIPT_TURNOVER_QTY_BCK;
+
+--PROMO_RECEIPT_SALES_QTY
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN PROMO_RECEIPT_SALES_QTY TO PROMO_RECEIPT_SALES_QTY_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_SALES_QTY;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD PROMO_RECEIPT_SALES_QTY NUMBER(38,5)  COMMENT 'Promo Sales Quantity (Abverkauf) per Bon';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET PROMO_RECEIPT_SALES_QTY = ((COALESCE(PV_SALES_QTY, 0)) + (COALESCE(NF_SALES_QTY, 0))) + (COALESCE(FA_SALES_QTY, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_SALES_QTY_BCK;
+
+--PROMO_RECEIPT_SALES_NET_VAL
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN PROMO_RECEIPT_SALES_NET_VAL TO PROMO_RECEIPT_SALES_NET_VAL_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_SALES_NET_VAL;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD PROMO_RECEIPT_SALES_NET_VAL NUMBER(38,5)  COMMENT 'Promo Sales Amount Net in Local Currency';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET PROMO_RECEIPT_SALES_NET_VAL = ((COALESCE(PV_SALES_NET_VAL, 0)) + (COALESCE(NF_SALES_NET_VAL, 0))) + (COALESCE(FA_SALES_NET_VAL, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_SALES_NET_VAL_BCK;
+
+--PROMO_RECEIPT_RETURNS_QTY
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN PROMO_RECEIPT_RETURNS_QTY TO PROMO_RECEIPT_RETURNS_QTY_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_RETURNS_QTY;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD PROMO_RECEIPT_RETURNS_QTY NUMBER(38,5)  COMMENT 'Promo Sales Quantity Returns (Abverkauf)';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET PROMO_RECEIPT_RETURNS_QTY = ((COALESCE(PV_RETURNS_QTY, 0)) + (COALESCE(NF_RETURNS_QTY, 0))) + (COALESCE(FA_RETURNS_QTY, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_RETURNS_QTY_BCK;
+
+--PROMO_RECEIPT_RETURNS_NET_VAL
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN PROMO_RECEIPT_RETURNS_NET_VAL TO PROMO_RECEIPT_RETURNS_NET_VAL_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_RETURNS_NET_VAL;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD PROMO_RECEIPT_RETURNS_NET_VAL NUMBER(38,5)  COMMENT 'Promo Returns Sales Amount Net in Local Currency';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET PROMO_RECEIPT_RETURNS_NET_VAL = ((COALESCE(PV_RETURNS_NET_VAL, 0)) + (COALESCE(NF_RETURNS_NET_VAL, 0))) + (COALESCE(FA_RETURNS_NET_VAL, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_RETURNS_NET_VAL_BCK;
+
+--PROMO_RECEIPT_DISCOUNT_QTY
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN PROMO_RECEIPT_DISCOUNT_QTY TO PROMO_RECEIPT_DISCOUNT_QTY_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_DISCOUNT_QTY;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD PROMO_RECEIPT_DISCOUNT_QTY NUMBER(38,5)  COMMENT 'Promo Quantity Discount (Abverkauf)';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET PROMO_RECEIPT_DISCOUNT_QTY = ((COALESCE(PV_DISCOUNT_QTY, 0)) + (COALESCE(NF_DISCOUNT_QTY, 0))) + (COALESCE(FA_DISCOUNT_QTY, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_DISCOUNT_QTY_BCK;
+
+--PROMO_RECEIPT_DISCOUNT_SALES_QTY
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN PROMO_RECEIPT_DISCOUNT_SALES_QTY TO PROMO_RECEIPT_DISCOUNT_SALES_QTY_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_DISCOUNT_SALES_QTY;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD PROMO_RECEIPT_DISCOUNT_SALES_QTY NUMBER(38,5)  COMMENT 'Promo Sales Quantity Discount (Abverkauf)';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET PROMO_RECEIPT_DISCOUNT_SALES_QTY = ((COALESCE(PV_DISCOUNT_SALES_QTY, 0)) + (COALESCE(NF_DISCOUNT_SALES_QTY, 0))) + (COALESCE(FA_DISCOUNT_SALES_QTY, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_DISCOUNT_SALES_QTY_BCK;
+
+--PROMO_RECEIPT_DISCOUNT_NET_VAL
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN PROMO_RECEIPT_DISCOUNT_NET_VAL TO PROMO_RECEIPT_DISCOUNT_NET_VAL_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_DISCOUNT_NET_VAL;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD PROMO_RECEIPT_DISCOUNT_NET_VAL NUMBER(38,5)  COMMENT 'Promo Discount Sales Amount Net in Local Currency';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET PROMO_RECEIPT_DISCOUNT_NET_VAL = ((COALESCE(PV_DISCOUNT_NET_VAL, 0)) + (COALESCE(NF_DISCOUNT_NET_VAL, 0))) + (COALESCE(FA_DISCOUNT_NET_VAL, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_DISCOUNT_NET_VAL_BCK;
+
+--PROMO_RECEIPT_TURNOVER_QTY
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN PROMO_RECEIPT_TURNOVER_QTY TO PROMO_RECEIPT_TURNOVER_QTY_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_TURNOVER_QTY;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD PROMO_RECEIPT_TURNOVER_QTY NUMBER(38,5)  COMMENT 'For PROMO-Items (NF FA + PV) on the Receipt Calcualted Quantity Sales + Returns (adjusted)';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET PROMO_RECEIPT_TURNOVER_QTY = (COALESCE(PROMO_RECEIPT_SALES_QTY, 0)) + (COALESCE(PROMO_RECEIPT_RETURNS_QTY, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_TURNOVER_QTY_BCK;
+
+--PROMO_RECEIPT_TURNOVER_NET_VAL
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN PROMO_RECEIPT_TURNOVER_NET_VAL TO PROMO_RECEIPT_TURNOVER_NET_VAL_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_TURNOVER_NET_VAL;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD PROMO_RECEIPT_TURNOVER_NET_VAL NUMBER(38,5)  COMMENT 'For PROMO-Items (NF FA + PV) on the Receipt Calcualted Net Sales + Returns (adjusted)';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET PROMO_RECEIPT_TURNOVER_NET_VAL = (COALESCE(PROMO_RECEIPT_SALES_NET_VAL, 0)) + (COALESCE(PROMO_RECEIPT_RETURNS_NET_VAL, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP PROMO_RECEIPT_TURNOVER_NET_VAL_BCK;
+
+--NP_RECEIPT_SALES_QTY
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN NP_RECEIPT_SALES_QTY TO NP_RECEIPT_SALES_QTY_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_SALES_QTY;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD NP_RECEIPT_SALES_QTY NUMBER(38,5)  COMMENT 'NP Sales Quantity (Abverkauf) per Bon';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET NP_RECEIPT_SALES_QTY = (COALESCE(TOTAL_RECEIPT_SALES_QTY, 0)) - (COALESCE(PROMO_RECEIPT_SALES_QTY, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_SALES_QTY_BCK;
+
+--NP_RECEIPT_SALES_NET_VAL
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN NP_RECEIPT_SALES_NET_VAL TO NP_RECEIPT_SALES_NET_VAL_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_SALES_NET_VAL;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD NP_RECEIPT_SALES_NET_VAL NUMBER(38,5)  COMMENT 'NP Sales Amount Net in Local Currency';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET NP_RECEIPT_SALES_NET_VAL = (COALESCE(TOTAL_RECEIPT_SALES_NET_VAL, 0)) - (COALESCE(PROMO_RECEIPT_SALES_NET_VAL, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_SALES_NET_VAL_BCK;
+
+--NP_RECEIPT_RETURNS_QTY
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN NP_RECEIPT_RETURNS_QTY TO NP_RECEIPT_RETURNS_QTY_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_RETURNS_QTY;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD NP_RECEIPT_RETURNS_QTY NUMBER(38,5)  COMMENT 'Promo Sales Quantity NP (Abverkauf)';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET NP_RECEIPT_RETURNS_QTY = (COALESCE(TOTAL_RECEIPT_RETURNS_QTY, 0)) - (COALESCE(PROMO_RECEIPT_RETURNS_QTY, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_RETURNS_QTY_BCK;
+
+--NP_RECEIPT_RETURNS_NET_VAL
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN NP_RECEIPT_RETURNS_NET_VAL TO NP_RECEIPT_RETURNS_NET_VAL_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_RETURNS_NET_VAL;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD NP_RECEIPT_RETURNS_NET_VAL NUMBER(38,5)  COMMENT 'NP Returns Sales Amount Net in Local Currency';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET NP_RECEIPT_RETURNS_NET_VAL = (COALESCE(TOTAL_RECEIPT_RETURNS_NET_VAL, 0)) - (COALESCE(PROMO_RECEIPT_RETURNS_NET_VAL, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_RETURNS_NET_VAL_BCK;
+
+--NP_RECEIPT_DISCOUNT_QTY
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN NP_RECEIPT_DISCOUNT_QTY TO NP_RECEIPT_DISCOUNT_QTY_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_DISCOUNT_QTY;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD NP_RECEIPT_DISCOUNT_QTY NUMBER(38,5)  COMMENT 'NP Quantity Discount (Abverkauf)';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET NP_RECEIPT_DISCOUNT_QTY = (COALESCE(TOTAL_RECEIPT_DISCOUNT_QTY, 0)) - (COALESCE(PROMO_RECEIPT_DISCOUNT_QTY, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_DISCOUNT_QTY_BCK;
+
+--NP_RECEIPT_DISCOUNT_SALES_QTY
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN NP_RECEIPT_DISCOUNT_SALES_QTY TO NP_RECEIPT_DISCOUNT_SALES_QTY_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_DISCOUNT_SALES_QTY;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD NP_RECEIPT_DISCOUNT_SALES_QTY NUMBER(38,5)  COMMENT 'NP Sales Quantity Discount (Abverkauf)';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET NP_RECEIPT_DISCOUNT_SALES_QTY = (COALESCE(TOTAL_RECEIPT_DISCOUNT_SALES_QTY, 0)) - (COALESCE(PROMO_RECEIPT_DISCOUNT_SALES_QTY, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_DISCOUNT_SALES_QTY_BCK;
+
+--NP_RECEIPT_DISCOUNT_NET_VAL
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN NP_RECEIPT_DISCOUNT_NET_VAL TO NP_RECEIPT_DISCOUNT_NET_VAL_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_DISCOUNT_NET_VAL;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD NP_RECEIPT_DISCOUNT_NET_VAL NUMBER(38,5)  COMMENT 'NP Discount Sales Amount Net in Local Currency';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET NP_RECEIPT_DISCOUNT_NET_VAL = (COALESCE(TOTAL_RECEIPT_DISCOUNT_NET_VAL, 0)) - (COALESCE(PROMO_RECEIPT_DISCOUNT_NET_VAL, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_DISCOUNT_NET_VAL_BCK;
+
+--NP_RECEIPT_TURNOVER_QTY
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN NP_RECEIPT_TURNOVER_QTY TO NP_RECEIPT_TURNOVER_QTY_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_TURNOVER_QTY;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD NP_RECEIPT_TURNOVER_QTY NUMBER(38,5)  COMMENT 'For none PROMO-Items (NF FA + PV) - Normalpreis - on the Receipt Calcualted Quantity Sales + Returns (adjusted)';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET NP_RECEIPT_TURNOVER_QTY = (COALESCE(NP_RECEIPT_SALES_QTY, 0)) + (COALESCE(NP_RECEIPT_RETURNS_QTY, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_TURNOVER_QTY_BCK;
+
+--NP_RECEIPT_TURNOVER_NET_VAL
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT RENAME COLUMN NP_RECEIPT_TURNOVER_NET_VAL TO NP_RECEIPT_TURNOVER_NET_VAL_BCK;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_TURNOVER_NET_VAL;
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD NP_RECEIPT_TURNOVER_NET_VAL NUMBER(38,5)  COMMENT 'For none PROMO-Items (NF FA + PV) - Normalpreis - on the Receipt Calcualted Net Sales + Returns (adjusted)';
+--UPDATE LDL.P_LEW_MART_PIT.T_F_RECEIPT
+--SET NP_RECEIPT_TURNOVER_NET_VAL = (COALESCE(NP_RECEIPT_SALES_NET_VAL, 0)) + (COALESCE(NP_RECEIPT_RETURNS_NET_VAL, 0)) WHERE CLIENT_ID = 32;
+--ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT DROP NP_RECEIPT_TURNOVER_NET_VAL_BCK;
+
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD CHERRY_PICKER_RECEIPT_FG            INTEGER NOT NULL 	DEFAULT 0                           			COMMENT 'Receipt have characteristic of Cherry Picker Buyer';
+
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD SPECIAL_RECEIPT_SALES_QTY           NUMBER(38,5)	COMMENT 'Special Sales Quantity (Abverkauf) per Bon';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD SPECIAL_RECEIPT_SALES_NET_VAL       NUMBER(38,5)	COMMENT 'Special Sales Amount Net in Local Currency';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD SPECIAL_RECEIPT_RETURNS_QTY         NUMBER(38,5)	COMMENT 'Promo Sales Quantity Special (Abverkauf)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD SPECIAL_RECEIPT_RETURNS_NET_VAL     NUMBER(38,5)	COMMENT 'Special Returns Sales Amount Net in Local Currency';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD SPECIAL_RECEIPT_DISCOUNT_QTY        NUMBER(38,5)	COMMENT 'Special Quantity Discount (Abverkauf)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD SPECIAL_RECEIPT_DISCOUNT_SALES_QTY  NUMBER(38,5)	COMMENT 'Special Sales Quantity Discount (Abverkauf)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD SPECIAL_RECEIPT_DISCOUNT_NET_VAL    NUMBER(38,5)	COMMENT 'Special Discount Sales Amount Net in Local Currency';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD SPECIAL_RECEIPT_TURNOVER_QTY		NUMBER(38,5)	COMMENT 'For none Special - on the Receipt Calcualted Quantity Sales + Returns (adjusted)';
+ALTER TABLE LDL.P_LEW_MART_PIT.T_F_RECEIPT ADD SPECIAL_RECEIPT_TURNOVER_NET_VAL    NUMBER(38,5)	COMMENT 'For none Special - on the Receipt Calcualted Net Sales + Returns (adjusted)';
+*/
+
+
+-- AKU 2023-03-18 ## Added more LP / PD WAWI Calculations ##
+ -- # -------------------------------------------
+
+-- # -------------------------------------------
+ -- AKU 2022-01-20 adding additional date / Time info
+
+-- Additional Date Month Week and Year
+ -- Promotion Receipts
+ -- # -------------------------------------------
+
+-- AKU 2022-01-26 Added additional calculations
+
+-- PV_TURNOVER_NET_VAL					NUMBER(38,5) 																	COMMENT 'For PV-Items on the Receipt Calcualted Net Sales + Returns (adjusted)',
+
+-- For future use
+ -- AKU 2022-01-26 Added additional calculations
+
+-- DISTINCT_PROMO_DESIGNER_ORIG_ITEM_NR_CNT NUMERIC(38,0) 																COMMENT '[Future Use] Number of distinct items which are Promo Designer per Bon',
+
+-- AKU 2022-01-27 Note only national currency's of the countries are used
+
+-- PV_TURNOVER_QTY						NUMBER(38,5) 																	COMMENT 'For PV-Items on the Receipt Calcualted Quantity  Sales + Returns (adjusted)',
+
+-- LIDL_PLUS_FG						INTEGER NOT NULL	DEFAULT 0 										COMMENT '[Future Use] Lidl Plus Flag/Indicator',
+
+-- # -------------------------------------------
+ -- AKU 2022-01-26 Added additional calculations
+
+-- AKU 2023-03-18 ## Added more LP / PD WAWI Calculations ##
+
+-- AKU 20220121 Moved Cherry Picker to RECEIPT_ITEM because KPI calc. rule changed
+
+-- # -------------------------------------------
+ -- AKU 20210802 Added
+ -- Technical fields
+
+-- AKU 2022-01-26 Added additional calculations
+ CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_pit.t_f_receipt (
+client_id INTEGER DEFAULT - 1 NOT NULL OPTIONS(description='Client ID e.g AT=1'),
+day_dt DATE DEFAULT DATE '8888-12-31' NOT NULL OPTIONS(description='Day of Sales'),
+store_sid INTEGER DEFAULT - 1 NOT NULL OPTIONS(description='Unique key Region surrogate key'),
+receipt_sid INTEGER DEFAULT 0 NOT NULL OPTIONS(description='Surrogate Key of Receipt'),
+adv_week_start_day_id INTEGER DEFAULT 1 NOT NULL
+OPTIONS(description='Start Weekday Nbr of. Adv Week. Based on Country Configuration. E.g. Switzerland (CH=4) StartDay ID of Adv. Week. 4 (Thursday)'),
+adv_week_id INTEGER DEFAULT 888853 NOT NULL OPTIONS(description='Adv.Week of the Receipt Date'),
+moving_receipt_day_start_nbr INTEGER DEFAULT 1 NOT NULL
+OPTIONS(description='Moving Day Nbr. within a month of the Receipt Day'),
+receipt_day_of_week_id INTEGER DEFAULT 1 NOT NULL
+OPTIONS(description='Weekday Nbr of Receipt Mon::=1,Tue::=2,...,Sun::=7'),
+receipt_year_id INTEGER DEFAULT 8888 NOT NULL OPTIONS(description='Calendar Year Nbr of Receipt'),
+receipt_month_nbr INTEGER DEFAULT 1 NOT NULL OPTIONS(description='Calendar Month Nbr of Receipt. [1..12]'),
+receipt_month_id INTEGER DEFAULT 888812 NOT NULL OPTIONS(description='Calendar Month ID of Receipt Format: YYYYMM'),
+receipt_week_id INTEGER DEFAULT 888853 NOT NULL OPTIONS(description='Calendar Week ID (based on ISO) Format: YYYYWW'),
+curr_sid INTEGER DEFAULT - 1 NOT NULL
+OPTIONS(description='[FK] Unique Currency SID based Local Currency of Lidl Country'),
+curr_cd STRING(16777216) OPTIONS(description='Currency Code'),
+wawi_pv_sales_qty BIGNUMERIC(38,5) OPTIONS(description='WAWI PV Sales Quantity (Abverkauf)'),
+wawi_pv_sales_net_val BIGNUMERIC(38,5) OPTIONS(description='WAWI PV Sales Amount Net in Local Currency'),
+wawi_pv_returns_qty BIGNUMERIC(38,5) OPTIONS(description='WAWI PV Sales Quantity Returns (Abverkauf)'),
+wawi_pv_returns_net_val BIGNUMERIC(38,5) OPTIONS(description='WAWI PV Returns Sales Amount Net in Local Currency'),
+wawi_pv_discount_qty BIGNUMERIC(38,5) OPTIONS(description='WAWI PV Quantity Discount (Abverkauf)'),
+wawi_pv_discount_sales_qty BIGNUMERIC(38,5) OPTIONS(description='WAWI PV Sales Quantity Discount (Abverkauf)'),
+wawi_pv_discount_net_val BIGNUMERIC(38,5) OPTIONS(description='WAWI PV Discount Sales Amount Net in Local Currency'),
+wawi_pv_turnover_qty BIGNUMERIC(38,5)
+OPTIONS(description='WAWI PV-Items on the Receipt Calcualted Quantity  Sales + Returns (adjusted)'),
+wawi_pv_turnover_net_val BIGNUMERIC(38,5)
+OPTIONS(description='WAWI PV-Items on the Receipt Calcualted Net Sales + Returns (adjusted)'),
+lp_pv_sales_qty BIGNUMERIC(38,5) OPTIONS(description='LP PV Sales Quantity (Abverkauf)'),
+lp_pv_sales_net_val BIGNUMERIC(38,5) OPTIONS(description='LP PV Sales Amount Net in Local Currency'),
+lp_pv_returns_qty BIGNUMERIC(38,5) OPTIONS(description='LP PV Sales Quantity Returns (Abverkauf)'),
+lp_pv_returns_net_val BIGNUMERIC(38,5) OPTIONS(description='LP PV Returns Sales Amount Net in Local Currency'),
+lp_pv_discount_qty BIGNUMERIC(38,5) OPTIONS(description='LP PV Quantity Discount (Abverkauf)'),
+lp_pv_discount_sales_qty BIGNUMERIC(38,5) OPTIONS(description='LP PV Sales Quantity Discount (Abverkauf)'),
+lp_pv_discount_net_val BIGNUMERIC(38,5) OPTIONS(description='LP PV Discount Sales Amount Net in Local Currency'),
+lp_pv_turnover_qty BIGNUMERIC(38,5)
+OPTIONS(description='LP PV-Items on the Receipt Calcualted Quantity  Sales + Returns (adjusted)'),
+lp_pv_turnover_net_val BIGNUMERIC(38,5)
+OPTIONS(description='LP PV-Items on the Receipt Calcualted Net Sales + Returns (adjusted)'),
+npps_pv_sales_qty BIGNUMERIC(38,5) OPTIONS(description='NPPS PV Sales Quantity (Abverkauf)'),
+npps_pv_sales_net_val BIGNUMERIC(38,5) OPTIONS(description='NPPS PV Sales Amount Net in Local Currency'),
+npps_pv_returns_qty BIGNUMERIC(38,5) OPTIONS(description='NPPS PV Sales Quantity Returns (Abverkauf)'),
+npps_pv_returns_net_val BIGNUMERIC(38,5) OPTIONS(description='NPPS PV Returns Sales Amount Net in Local Currency'),
+npps_pv_discount_qty BIGNUMERIC(38,5) OPTIONS(description='NPPS PV Quantity Discount (Abverkauf)'),
+npps_pv_discount_sales_qty BIGNUMERIC(38,5) OPTIONS(description='NPPS PV Sales Quantity Discount (Abverkauf)'),
+npps_pv_discount_net_val BIGNUMERIC(38,5) OPTIONS(description='NPPS PV Discount Sales Amount Net in Local Currency'),
+npps_pv_turnover_qty BIGNUMERIC(38,5)
+OPTIONS(description='NPPS PV-Items on the Receipt Calcualted Quantity  Sales + Returns (adjusted)'),
+npps_pv_turnover_net_val BIGNUMERIC(38,5)
+OPTIONS(description='NPPS PV-Items on the Receipt Calcualted Net Sales + Returns (adjusted)'),
+nf_sales_qty BIGNUMERIC(38,5) OPTIONS(description='NF Sales Quantity (Abverkauf)'),
+nf_sales_net_val BIGNUMERIC(38,5) OPTIONS(description='NF Sales Amount Net in Local Currency'),
+nf_returns_qty BIGNUMERIC(38,5) OPTIONS(description='NF Sales Quantity Returns (Abverkauf)'),
+nf_returns_net_val BIGNUMERIC(38,5) OPTIONS(description='NF Returns Sales Amount Net in Local Currency'),
+nf_discount_qty BIGNUMERIC(38,5) OPTIONS(description='NF Sales Quantity Discount (Abverkauf)'),
+nf_discount_sales_qty BIGNUMERIC(38,5) OPTIONS(description='NF Discount Sales Quantity without Returned Goods'),
+nf_discount_net_val BIGNUMERIC(38,5) OPTIONS(description='NF Discount Sales Amount Net in Local Currency'),
+nf_turnover_qty BIGNUMERIC(38,5)
+OPTIONS(description='[VC] For NF-Items on the Receipt Calcualted Quantity  Sales + Returns (adjusted)'),
+nf_turnover_net_val BIGNUMERIC(38,5)
+OPTIONS(description='[VC] For NF-Items on the Receipt Calcualted Net Sales + Returns (adjusted)'),
+fa_sales_qty BIGNUMERIC(38,5) OPTIONS(description='FA Sales Quantity (Abverkauf)'),
+fa_sales_net_val BIGNUMERIC(38,5) OPTIONS(description='FA Sales Amount Net in Local Currency'),
+fa_returns_qty BIGNUMERIC(38,5) OPTIONS(description='FA Sales Quantity Returns (Abverkauf)'),
+fa_returns_net_val BIGNUMERIC(38,5) OPTIONS(description='FA Returns Sales Amount Net in Local Currency'),
+fa_discount_qty BIGNUMERIC(38,5) OPTIONS(description='FA Sales Quantity Discount (Abverkauf)'),
+fa_discount_sales_qty BIGNUMERIC(38,5) OPTIONS(description='FA Discount Sales Quantity without Returned Goods'),
+fa_discount_net_val BIGNUMERIC(38,5) OPTIONS(description='FA Discount Sales Amount Net in Local Currency'),
+fa_turnover_qty BIGNUMERIC(38,5)
+OPTIONS(description='[VC] For FA-Items on the Receipt Calcualted Quantity  Sales + Returns (adjusted)'),
+fa_turnover_net_val BIGNUMERIC(38,5)
+OPTIONS(description='[VC] For FA-Items on the Receipt Calcualted Net Sales + Returns (adjusted)'),
+total_receipt_sales_qty BIGNUMERIC(38,5) OPTIONS(description='Total Sales Quantity (Abverkauf) per Bon'),
+total_receipt_sales_net_val BIGNUMERIC(38,5) OPTIONS(description='Total Sales Amount Net in Local Currency'),
+total_receipt_returns_qty BIGNUMERIC(38,5) OPTIONS(description='Total Sales Quantity Returns (Abverkauf)'),
+total_receipt_returns_net_val BIGNUMERIC(38,5) OPTIONS(description='Total Returns Sales Amount Net in Local Currency'),
+total_receipt_discount_qty BIGNUMERIC(38,5) OPTIONS(description='Total Sales Quantity Discount (Abverkauf)'),
+total_receipt_discount_sales_qty BIGNUMERIC(38,5)
+OPTIONS(description='Total Discount Sales Quantity without Returned Goods'),
+total_receipt_discount_net_val BIGNUMERIC(38,5) OPTIONS(description='Total Discount Sales Amount Net in Local Currency'),
+total_receipt_turnover_qty BIGNUMERIC(38,5)
+OPTIONS(description='[VC] For All-Items on the Receipt Calcualted Quantity  Sales + Returns (adjusted)'),
+total_receipt_turnover_net_val BIGNUMERIC(38,5)
+OPTIONS(description='[VC] For All-Items on the Receipt Calcualted Net Sales + Returns (adjusted)'),
+promo_receipt_sales_qty BIGNUMERIC(38,5) OPTIONS(description='Promo Sales Quantity (Abverkauf) per Bon'),
+promo_receipt_sales_net_val BIGNUMERIC(38,5) OPTIONS(description='Promo Sales Amount Net in Local Currency'),
+promo_receipt_returns_qty BIGNUMERIC(38,5) OPTIONS(description='Promo Sales Quantity Returns (Abverkauf)'),
+promo_receipt_returns_net_val BIGNUMERIC(38,5) OPTIONS(description='Promo Returns Sales Amount Net in Local Currency'),
+promo_receipt_discount_qty BIGNUMERIC(38,5) OPTIONS(description='Promo Quantity Discount (Abverkauf)'),
+promo_receipt_discount_sales_qty BIGNUMERIC(38,5) OPTIONS(description='Promo Sales Quantity Discount (Abverkauf)'),
+promo_receipt_discount_net_val BIGNUMERIC(38,5) OPTIONS(description='Promo Discount Sales Amount Net in Local Currency'),
+promo_receipt_turnover_qty BIGNUMERIC(38,5)
+OPTIONS(description='For PROMO-Items (NF FA + PV) on the Receipt Calcualted Quantity Sales + Returns (adjusted)'),
+promo_receipt_turnover_net_val BIGNUMERIC(38,5)
+OPTIONS(description='For PROMO-Items (NF FA + PV) on the Receipt Calcualted Net Sales + Returns (adjusted)'),
+np_receipt_sales_qty BIGNUMERIC(38,5) OPTIONS(description='NP Sales Quantity (Abverkauf) per Bon'),
+np_receipt_sales_net_val BIGNUMERIC(38,5) OPTIONS(description='NP Sales Amount Net in Local Currency'),
+np_receipt_returns_qty BIGNUMERIC(38,5) OPTIONS(description='Promo Sales Quantity NP (Abverkauf)'),
+np_receipt_returns_net_val BIGNUMERIC(38,5) OPTIONS(description='NP Returns Sales Amount Net in Local Currency'),
+np_receipt_discount_qty BIGNUMERIC(38,5) OPTIONS(description='NP Quantity Discount (Abverkauf)'),
+np_receipt_discount_sales_qty BIGNUMERIC(38,5) OPTIONS(description='NP Sales Quantity Discount (Abverkauf)'),
+np_receipt_discount_net_val BIGNUMERIC(38,5) OPTIONS(description='NP Discount Sales Amount Net in Local Currency'),
+np_receipt_turnover_qty BIGNUMERIC(38,5)
+OPTIONS(description='For none PROMO-Items (NF FA + PV) - Normalpreis - on the Receipt Calcualted Quantity Sales + Returns (adjusted)'),
+np_receipt_turnover_net_val BIGNUMERIC(38,5)
+OPTIONS(description='For none PROMO-Items (NF FA + PV) - Normalpreis - on the Receipt Calcualted Net Sales + Returns (adjusted)'),
+distinct_total_orig_item_nr_cnt BIGNUMERIC(38,0) OPTIONS(description='Number of distinct items OVERall per Bon'),
+distinct_return_orig_item_nr_cnt BIGNUMERIC(38,0)
+OPTIONS(description='Number of distinct items which was returned per Bon'),
+distinct_discount_orig_item_nr_cnt BIGNUMERIC(38,0)
+OPTIONS(description='Number of distinct items which was discounted per Bon'),
+distinct_nf_orig_item_nr_cnt BIGNUMERIC(38,0) OPTIONS(description='Number of distinct items which are NF per Bon'),
+distinct_fa_orig_item_nr_cnt BIGNUMERIC(38,0) OPTIONS(description='Number of distinct items which FA per Bon'),
+distinct_np_orig_item_nr_cnt BIGNUMERIC(38,0)
+OPTIONS(description='[VC] Number of distinct items which are Normalsortiment per Bon'),
+cherry_picker_receipt_fg INTEGER DEFAULT 0 NOT NULL
+OPTIONS(description='Receipt have characteristic of Cherry Picker Buyer'),
+heavy_buyer_receipt_fg INTEGER DEFAULT 0 NOT NULL OPTIONS(description='Receipt have characteristic of Heavy Buyer'),
+exclusive_buyer_receipt_fg INTEGER DEFAULT 0 NOT NULL
+OPTIONS(description='Receipt have characteristic of Exclusive Buyer'),
+reject_reason_id INTEGER DEFAULT - 1 NOT NULL OPTIONS(description='Link to DQ Reject Reason Codes'),
+reject_fg INTEGER DEFAULT 0 NOT NULL
+OPTIONS(description='Flag indicates if record was rejected by DQ Rule, e.g. 1/0 or similar data issues'),
+source_system_id INTEGER DEFAULT 0 NOT NULL OPTIONS(description='Source System EJR / WAWI / Delivery'),
+deleted_fg INTEGER DEFAULT 0 NOT NULL
+OPTIONS(description='Logical Deleted Flag; indicates if the record was logically deleted'),
+dwh_created_ts DATETIME DEFAULT CAST(CURRENT_TIMESTAMP() AS DATETIME) NOT NULL
+OPTIONS(description='Timestamp when record was created'),
+dwh_updated_ts DATETIME OPTIONS(description='Technical field timestamp when record was updated'),
+load_id INTEGER DEFAULT 0 NOT NULL OPTIONS(description='Technical Field ELT / ABInitio Process ID'),
+PRIMARY KEY (client_id, day_dt, store_sid, receipt_sid, deleted_fg) NOT ENFORCED
+) CLUSTER BY client_id, day_dt
+OPTIONS(description='Intermediate Fact Table on receipt (Bon)');

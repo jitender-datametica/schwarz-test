@@ -1,0 +1,12 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_wawi_ref_itm_logist_unit (client_id, logistic_unit_cd, logistic_unit_desc,
+logistic_base_unit, logistic_base_factor, logistic_base_unit_int, logistic_base_factor_int, language_id, load_id) AS
+SELECT client_id,
+ logistic_unit_cd,
+ logistic_unit_desc,
+ logistic_base_unit,
+ logistic_base_factor,
+ logistic_base_unit_int,
+ logistic_base_factor_int,
+ language_id,
+ load_id
+FROM ldl_p_lew_core.t_wawi_ref_itm_logist_unit;

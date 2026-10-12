@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_crm_l_loyaltyaccount_typ_spr_zu AS SELECT crm_loyaltyaccount_typ_id,
+ spr_id,
+ crm_loyaltyaccount_typ_bez
+FROM kfl_production_dbp_data.crm_l_loyaltyaccount_typ_spr_zu;

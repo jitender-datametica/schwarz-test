@@ -1,0 +1,261 @@
+CREATE OR REPLACE TABLE ldl_p_lew_mart_lead.v_inv_store
+AS
+SELECT INVS.client_id,
+ INVS.st_loc_sid AS store_id,
+ ST.src_orig_store_nr AS orig_store_nr,
+ INVS.inv_id,
+ WH.src_wh_id AS wh_id,
+ INVS.status_inv,
+ INVS.status_inv_sic,
+ INVS.inv_fg,
+ INVS.inv_type_cd,
+ INVS.busyear_fg,
+ INVS.busyear AS byr,
+ INVS.year_end_booking_fg,
+ INVS.year_end_booking_fg_wh,
+ INVS.year_end_fg,
+ INVS.dat_dayend,
+ INVS.dat_import,
+ INVS.dat_posting,
+ INVS.dat_formdate,
+ INVS.dat_valid_from,
+ INVS.dat_valid_until,
+ INVS.dat_last_acc_balance,
+ INVS.dat_modification,
+ INVS.dat_turnover_max,
+ INVS.lisy_fg,
+ INVS.last_acc_balance_page_nr,
+ INVS.cnt_item_stc_corr,
+ INVS.cnt_debit,
+ INVS.cnt_credit_last_acc_balance,
+ INVS.cnt_open_debit,
+ INVS.cnt_open_credit,
+  CAST(INVS.diff_last_acc_balance AS NUMERIC) / cry.exchange_rate AS diff_last_acc_balance,
+  CAST(INVS.diff_last_acc_balance_net AS NUMERIC) / cry.exchange_rate AS diff_last_acc_balance_net,
+  CAST(INVS.diff_begin_acc_balance AS NUMERIC) / cry.exchange_rate AS diff_begin_acc_balance,
+  CAST(INVS.diff_begin_acc_balance_net AS NUMERIC) / cry.exchange_rate AS diff_begin_acc_balance_net,
+  CAST(INVS.diff_inv AS NUMERIC) / cry.exchange_rate AS diff_inv,
+  CAST(INVS.diff_net_inv AS NUMERIC) / cry.exchange_rate AS diff_net_inv,
+  CAST(INVS.diff_busyear_cum AS NUMERIC) / cry.exchange_rate AS diff_busyear_cum,
+  CAST(INVS.diff_net_busyear_cum AS NUMERIC) / cry.exchange_rate AS diff_net_busyear_cum,
+  CAST(INVS.diff_roll AS NUMERIC) / cry.exchange_rate AS diff_roll,
+  CAST(INVS.diff_net_roll AS NUMERIC) / cry.exchange_rate AS diff_net_roll,
+  CAST(INVS.val_open_credit AS NUMERIC) / cry.exchange_rate AS val_open_credit,
+  CAST(INVS.val_open_credit_net AS NUMERIC) / cry.exchange_rate AS val_open_credit_net,
+  CAST(INVS.val_debit_last_acc_balance AS NUMERIC) / cry.exchange_rate AS val_debit_last_acc_balance,
+  CAST(INVS.val_debit_last_acc_bal_net AS NUMERIC) / cry.exchange_rate AS val_debit_last_acc_balance_net,
+  CAST(INVS.val_debit_check AS NUMERIC) / cry.exchange_rate AS val_debit_check,
+  CAST(INVS.val_retail_store_inv_stc AS NUMERIC) / cry.exchange_rate AS val_retail_store_inv_stc,
+  CAST(INVS.val_retail_store_net_inv_stc AS NUMERIC) / cry.exchange_rate AS val_retail_store_net_inv_stc,
+  CAST(INVS.val_retail_busyear AS NUMERIC) / cry.exchange_rate AS val_retail_busyear,
+  CAST(INVS.val_retail_net_busyear AS NUMERIC) / cry.exchange_rate AS val_retail_net_busyear,
+  CAST(INVS.val_inv AS NUMERIC) / cry.exchange_rate AS val_inv,
+  CAST(INVS.val_net_inv AS NUMERIC) / cry.exchange_rate AS val_net_inv,
+  CAST(INVS.val_inv_transfered AS NUMERIC) / cry.exchange_rate AS val_inv_transfered,
+  CAST(INVS.val_inv_transfered_net AS NUMERIC) / cry.exchange_rate AS val_inv_transfered_net,
+  CAST(INVS.val_item_stc_corr AS NUMERIC) / cry.exchange_rate AS val_item_stc_corr,
+  CAST(INVS.val_item_net_stc_corr AS NUMERIC) / cry.exchange_rate AS val_item_net_stc_corr,
+  CAST(INVS.val_open_debit AS NUMERIC) / cry.exchange_rate AS val_open_debit,
+  CAST(INVS.val_open_debit_net AS NUMERIC) / cry.exchange_rate AS val_open_debit_net,
+  CAST(INVS.val_credit_last_acc_balance AS NUMERIC) / cry.exchange_rate AS val_credit_last_acc_balance,
+  CAST(INVS.val_credit_last_acc_bal_net AS NUMERIC) / cry.exchange_rate AS val_credit_last_acc_bal_net,
+  CAST(INVS.val_credit_check AS NUMERIC) / cry.exchange_rate AS val_credit_check,
+  CAST(INVS.val_credit_roll AS NUMERIC) / cry.exchange_rate AS val_credit_roll,
+  CAST(INVS.val_credit_roll_net AS NUMERIC) / cry.exchange_rate AS val_credit_roll_net,
+  CAST(INVS.val_debit_roll AS NUMERIC) / cry.exchange_rate AS val_debit_roll,
+  CAST(INVS.val_debit_roll_net AS NUMERIC) / cry.exchange_rate AS val_debit_roll_net,
+  CAST(INVS.val_last_acc_balance AS NUMERIC) / cry.exchange_rate AS val_last_acc_balance,
+  CAST(INVS.val_last_acc_balance_net AS NUMERIC) / cry.exchange_rate AS val_last_acc_balance_net,
+  CAST(INVS.val_turnover_year_cum AS NUMERIC) / cry.exchange_rate AS val_turnover_year_cum,
+ cry.curr_cd_from AS currency_iso_cd
+FROM ldl_p_lew_core_ac.v_wawi_inv_store AS INVS
+ INNER JOIN ldl_p_lew_bil_ac.v_store AS ST ON INVS.client_id = ST.client_id AND INVS.st_loc_sid = ST.loc_sid_store AND
+   CURRENT_DATE BETWEEN ST.dwh_valid_from AND ST.dwh_valid_to
+ INNER JOIN ldl_p_lew_bil_ac.v_warehouse AS WH ON INVS.client_id = WH.client_id AND INVS.wh_loc_sid = WH.loc_sid_wh AND
+   CURRENT_DATE BETWEEN WH.dwh_valid_from AND WH.dwh_valid_to
+ INNER JOIN (SELECT XR_KN_H.client_id,
+   XRTYP.src_kurst,
+   XR_KN_H.curr_cd_from,
+   XR_KN_H.curr_cd_to,
+   XR_KN_H.curr_sid_from,
+   XR_KN_H.curr_sid_to,
+   XR_KN_H.exchange_rate,
+   XR_KN_H.active_from_dt,
+   XR_KN_H.active_to_dt,
+   XR_KN_H.deleted_fg
+  FROM ldl_p_lew_core_ac.v_exchange_rate_known_hist AS XR_KN_H
+   INNER JOIN ldl_p_lew_core_ac.v_exchange_rate_type AS XRTYP ON XR_KN_H.client_id = XRTYP.client_id AND XR_KN_H.x_rate_type_sid
+      = XRTYP.x_rate_type_sid
+  WHERE -- nur die aktuellste bekannte Kurs-Zeit-Tabelle:
+ CURRENT_DATE BETWEEN XR_KN_H.dwh_valid_from AND XR_KN_H.dwh_valid_to
+    -- UND nur die Berichtswesen-Kurse, diese werden extern geliefert als File und gelten als aktiv für einen langen Zeitraum:
+
+    
+   AND XRTYP.src_kurst = '@BEWE') AS cry ON INVS.client_id = cry.client_id AND CURRENT_DATE BETWEEN cry.active_from_dt
+   AND cry.active_to_dt
+WHERE -- 73:     Tageszaehlung
+ -- 71:    Inventur
+
+  -- Diese Teilmenge stellt wahrscheinlich die Vollinventuren dar ggü. den ausgeblendeten Teilinventuren (mit inv_fg=73 ?)
+
+  INVS.inv_fg = 71
+ AND -- 64:    Inventur ist gespeichert und gebucht
+ -- => Einfache Übernahme aus der Alt-View.
+
+  -- Die Einschränkung status_inv_sic = 64 kann nicht interpretiert werden. Es gibt noch Ausprägungen ""-99"" und ""0"" ohne Hinweis auf die Bedeutung.
+
+  INVS.status_inv_sic = 64
+ AND
+  -- möglicherweise wegzulassende Einschänkungen - falls obige Kommentierung falsch sein sollte, bitte wieder hereinnehmen
+
+  ST.test_store_fg = 0
+ AND ST.active_future_fg = 0
+UNION ALL
+SELECT AISD.client_id,
+ AISD.loc_sid_store AS store_id,
+ AISD.src_orig_store_nr AS orig_store_nr,
+ 1 AS inv_id,
+ AISD.src_wh_id AS wh_id,
+ CAST(NULL AS BIGNUMERIC) AS status_inv,
+ CAST(NULL AS BIGNUMERIC) AS status_inv_sic,
+ CAST(NULL AS BIGNUMERIC) AS inv_fg,
+ CAST(NULL AS BIGNUMERIC) AS inv_type_cd,
+ CAST(NULL AS BIGNUMERIC) AS busyear_fg,
+ CAST(NULL AS BIGNUMERIC) AS byr,
+ CAST(NULL AS BIGNUMERIC) AS year_end_booking_fg,
+ CAST(NULL AS BIGNUMERIC) AS year_end_booking_fg_wh,
+ CAST(NULL AS BIGNUMERIC) AS year_end_fg,
+ CAST(CAST(NULL AS STRING) AS DATE) AS dat_dayend,
+ CAST(CAST(NULL AS STRING) AS DATE) AS dat_import,
+ CAST(CAST(NULL AS STRING) AS DATE) AS dat_posting,
+ AISD.dwh_cal_dt AS dat_formdate,
+ AISD.dwh_cal_dt AS dat_valid_from,
+ AISD.dwh_cal_dt AS dat_valid_until,
+ CAST(CAST(NULL AS STRING) AS DATE) AS dat_last_acc_balance,
+ CAST(CAST(NULL AS STRING) AS DATE) AS dat_modification,
+ CAST(CAST(NULL AS STRING) AS DATE) AS dat_turnover_max,
+ CAST(NULL AS BIGNUMERIC) AS lisy_fg,
+ CAST(NULL AS BIGNUMERIC) AS last_acc_balance_page_nr,
+ CAST(NULL AS NUMERIC) AS cnt_item_stc_corr,
+ CAST(NULL AS NUMERIC) AS cnt_debit,
+ CAST(NULL AS NUMERIC) AS cnt_credit_last_acc_balance,
+ CAST(NULL AS NUMERIC) AS cnt_open_debit,
+ CAST(NULL AS NUMERIC) AS cnt_open_credit,
+ CAST(NULL AS NUMERIC) AS diff_last_acc_balance,
+ CAST(NULL AS NUMERIC) AS diff_last_acc_balance_net,
+ CAST(NULL AS NUMERIC) AS diff_begin_acc_balance,
+ CAST(NULL AS NUMERIC) AS diff_begin_acc_balance_net,
+  SUM(COALESCE(AISD.diff_inv_stc_calc_val, 0) + COALESCE(AISD.diff_inv_return_val, 0)) / CRY.exchange_rate AS diff_inv,
+  SUM(COALESCE(AISD.diff_inv_stc_calc_net_val, 0) + COALESCE(AISD.diff_inv_return_net_val, 0)) / CRY.exchange_rate AS
+ diff_net_inv,
+ CAST(NULL AS NUMERIC) AS diff_busyear_cum,
+ CAST(NULL AS NUMERIC) AS diff_net_busyear_cum,
+ CAST(NULL AS NUMERIC) AS diff_roll,
+ CAST(NULL AS NUMERIC) AS diff_net_roll,
+ CAST(NULL AS NUMERIC) AS val_open_credit,
+ CAST(NULL AS NUMERIC) AS val_open_credit_net,
+ CAST(NULL AS NUMERIC) AS val_debit_last_acc_balance,
+ CAST(NULL AS NUMERIC) AS val_debit_last_acc_balance_net,
+ CAST(NULL AS NUMERIC) AS val_debit_check,
+  SUM(COALESCE(AISD.retail_val, 0)) / CRY.exchange_rate AS val_retail_store_inv_stc,
+  SUM(COALESCE(AISD.retail_net_val, 0)) / CRY.exchange_rate AS val_retail_store_net_inv_stc,
+ CAST(NULL AS NUMERIC) AS val_retail_busyear,
+ CAST(NULL AS NUMERIC) AS val_retail_net_busyear,
+ CAST(NULL AS NUMERIC) AS val_inv,
+ CAST(NULL AS NUMERIC) AS val_net_inv,
+ CAST(NULL AS NUMERIC) AS val_inv_transfered,
+ CAST(NULL AS NUMERIC) AS val_inv_transfered_net,
+ CAST(NULL AS NUMERIC) AS val_item_stc_corr,
+ CAST(NULL AS NUMERIC) AS val_item_net_stc_corr,
+ CAST(NULL AS NUMERIC) AS val_open_debit,
+ CAST(NULL AS NUMERIC) AS val_open_debit_net,
+ CAST(NULL AS NUMERIC) AS val_credit_last_acc_balance,
+ CAST(NULL AS NUMERIC) AS val_credit_last_acc_bal_net,
+ CAST(NULL AS NUMERIC) AS val_credit_check,
+ CAST(NULL AS NUMERIC) AS val_credit_roll,
+ CAST(NULL AS NUMERIC) AS val_credit_roll_net,
+ CAST(NULL AS NUMERIC) AS val_debit_roll,
+ CAST(NULL AS NUMERIC) AS val_debit_roll_net,
+ CAST(NULL AS NUMERIC) AS val_last_acc_balance,
+ CAST(NULL AS NUMERIC) AS val_last_acc_balance_net,
+ CAST(NULL AS NUMERIC) AS val_turnover_year_cum,
+ CRY.curr_cd_from AS currency_iso_cd
+FROM ldl_p_lew_bil_ac.v_agg_item_store_day AS AISD
+ INNER JOIN ldl_p_lew_core_ac.v_exchange_rate_known_hist AS CRY ON AISD.client_id = CRY.client_id AND CURRENT_DATE
+    BETWEEN CRY.active_from_dt AND CRY.active_to_dt /* latest rate (point in history) */ AND CURRENT_DATE BETWEEN CRY.dwh_valid_from
+   AND CRY.dwh_valid_to /* latest history (version) */
+ INNER JOIN ldl_p_lew_core_ac.v_exchange_rate_type AS ERT ON CRY.client_id = ERT.client_id AND CRY.x_rate_type_sid = ERT
+    .x_rate_type_sid AND ERT.src_kurst = '@BEWE' /* reporting rate (slow moving) */
+GROUP BY AISD.client_id,
+ store_id,
+ orig_store_nr,
+ inv_id,
+ wh_id,
+ status_inv,
+ status_inv_sic,
+ inv_fg,
+ inv_type_cd,
+ busyear_fg -- 10
+,
+ byr,
+ year_end_booking_fg,
+ year_end_booking_fg_wh,
+ year_end_fg,
+ dat_dayend,
+ dat_import,
+ dat_posting,
+ dat_formdate -- 20
+,
+ dat_last_acc_balance,
+ dat_modification,
+ dat_turnover_max,
+ lisy_fg,
+ last_acc_balance_page_nr,
+ cnt_item_stc_corr,
+ cnt_debit,
+ cnt_credit_last_acc_balance,
+ cnt_open_debit,
+ cnt_open_credit,
+ diff_last_acc_balance,
+ diff_last_acc_balance_net -- 30
+,
+ diff_begin_acc_balance,
+ diff_begin_acc_balance_net,
+ diff_busyear_cum,
+ diff_net_busyear_cum -- 35    diff_inv
+ -- 36    diff_net_inv
+,
+ diff_roll,
+ diff_net_roll,
+ val_open_credit,
+ val_open_credit_net -- 40
+,
+ val_debit_last_acc_balance,
+ val_debit_last_acc_balance_net,
+ val_debit_check,
+ val_retail_busyear,
+ val_retail_net_busyear -- 46    val_retail_store_inv_stc
+ -- 46    val_retail_store_net_inv_stc
+,
+ val_inv,
+ val_net_inv,
+ val_inv_transfered -- 50
+,
+ val_inv_transfered_net,
+ val_item_stc_corr,
+ val_item_net_stc_corr,
+ val_open_debit,
+ val_open_debit_net,
+ val_credit_last_acc_balance,
+ val_credit_last_acc_bal_net,
+ val_credit_check,
+ val_credit_roll,
+ val_credit_roll_net -- 60
+,
+ val_debit_roll,
+ val_debit_roll_net,
+ val_last_acc_balance,
+ val_last_acc_balance_net,
+ val_turnover_year_cum,
+ currency_iso_cd,
+ CRY.exchange_rate;

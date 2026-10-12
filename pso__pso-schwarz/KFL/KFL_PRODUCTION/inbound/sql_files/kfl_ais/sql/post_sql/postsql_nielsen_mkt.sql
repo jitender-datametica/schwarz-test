@@ -1,0 +1,31 @@
+INSERT INTO dbp_etl.nielsen_mkt (MANDANT_ID,
+                                  MAT_KJMO,
+                                  FILE_NAME,
+                                  TAG,
+                                  SHORT,
+                                  LONG,
+                                  DISPLAY_ORDER,
+                                  PARENT_TAG,
+                                  HIER_NUM,
+                                  HIER_NAME,
+                                  HIER_LEVEL_NUM,
+                                  HIER_LEVEL_NAME,
+                                  TD_UPDATE,
+                                  TD_INSERT)
+SELECT 
+MANDANT_ID,
+MAT_KJMO,
+FILE_NAME,
+TAG,
+SHORT,
+LONG,
+DISPLAY_ORDER,
+PARENT_TAG,
+HIER_NUM,
+HIER_NAME,
+HIER_LEVEL_NUM,
+HIER_LEVEL_NAME,
+TD_UPDATE,
+TD_INSERT
+FROM ${TEMP_TABLE}
+;

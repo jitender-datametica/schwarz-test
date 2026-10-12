@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ais_int.java_owg_bez (spr_id, owg_id, owg_bez) AS SELECT spr_id,
+ owg_id,
+ MAX(owg_bez) AS owg_bez
+FROM kfl_production_dbp_view.v_owg_spr_zu
+GROUP BY spr_id,
+ owg_id;

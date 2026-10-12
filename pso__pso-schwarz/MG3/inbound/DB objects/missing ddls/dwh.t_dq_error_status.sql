@@ -1,0 +1,5 @@
+create or replace TABLE DWH.T_DQ_ERROR_STATUS (
+	STATUS_ID NUMBER(38,0) NOT NULL,
+	STATUS_DESC VARCHAR(200),
+	constraint PK_T_DQ_ERROR_STATUS primary key (STATUS_ID)
+);

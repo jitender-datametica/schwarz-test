@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_artbew_dra AS SELECT wup_id,
+ mandant_id,
+ bewart_id,
+ gp_id,
+ nb_id,
+ art_id,
+ dat,
+ aktion_id,
+ promo_fg,
+ ean_kasse,
+ menge,
+ wrg,
+ umsatz_netto,
+ umsatz_mwst_betrag
+FROM kfl_production_dbp_data.artbew_dra;

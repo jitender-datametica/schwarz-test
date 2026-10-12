@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_mcx_l_invers_kategorie AS SELECT invers_kat_id,
+ invers_kat_sort,
+ umfrage_id
+FROM kfl_production_dbp_view.v_mcx_l_invers_kategorie;

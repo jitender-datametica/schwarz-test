@@ -1,0 +1,13 @@
+create or replace view DBP_MSI_VIEW_SCM_MATERIALIZED.MV_MWST(
+	MWST_ID,
+	MANDANT_ID,
+	MWST,
+	MWST_BEZ
+) as
+--2024-09-05, AP0202707_SPEC0268776, dknop, initial   
+
+
+   SELECT
+   mwst_id, mandant_id, mwst, mwst_bez
+   FROM dbp_view.v_mwst_per
+   WHERE dat_bis = '9999-12-31';

@@ -1,0 +1,25 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIDLDIGITAL.V_DIM_CAL_QUARTER
+AS SELECT 
+     CY_QUARTER AS CY_QUARTER
+    ,CY AS CY
+    ,BUS_YEAR AS BUS_YEAR
+    ,QUARTER_OF_CAL_YEAR AS QUARTER_OF_CAL_YEAR
+    ,QUARTER_OF_BUS_YEAR AS QUARTER_OF_BUS_YEAR
+    ,CAL_QUARTER_BEGIN_DT AS CAL_QUARTER_BEGIN_DT
+    ,CAL_QUARTER_END_DT AS CAL_QUARTER_END_DT
+    ,CAL_QUARTER_PREV_1M AS CAL_QUARTER_PREV_1M
+FROM
+    lec_share.v_dim_cal_quarter
+WHERE 
+    CY_QUARTER != '-1' -- some date core tables contain a -1 dummy entry, which is removed here so we can add our own dummy value
+UNION ALL
+    SELECT
+         '-1' -- CY_QUARTER
+        ,'-1' -- CY
+        ,'-1' -- BUS_YEAR
+        ,'-1' -- QUARTER_OF_CAL_YEAR
+        ,'-1' -- QUARTER_OF_BUS_YEAR
+        ,TO_DATE('1900-01-01') -- CAL_QUARTER_BEGIN_DT
+        ,TO_DATE('1900-01-01') -- CAL_QUARTER_END_DT
+        ,'-1' -- CAL_QUARTER_PREV_1M
+;

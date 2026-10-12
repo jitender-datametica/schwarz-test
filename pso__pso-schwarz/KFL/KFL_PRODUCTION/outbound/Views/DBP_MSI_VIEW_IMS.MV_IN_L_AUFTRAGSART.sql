@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ims.mv_in_l_auftragsart AS SELECT auftragsart_id
+FROM kfl_production_dbp_view.v_in_l_auftragsart
+GROUP BY auftragsart_id;

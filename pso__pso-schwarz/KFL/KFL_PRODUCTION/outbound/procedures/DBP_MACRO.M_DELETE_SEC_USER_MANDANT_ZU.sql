@@ -1,0 +1,17 @@
+CREATE OR REPLACE PROCEDURE dbp_macro.m_delete_sec_user_mandant_zu(IN USER_ID STRING, IN LOESCH_FG FLOAT64, IN MSI_PRODUKT STRING)
+BEGIN
+DECLARE sql_stmt STRING;
+DECLARE sql_commit STRING;
+BEGIN TRANSACTION;
+SET sql_stmt  =  '''DELETE FROM dbp_security.user_mandant_msiprodukt_zu WHERE 1 = @LOESCH_FG AND msi_produkt_bez = @MSI_PRODUKT AND user_id = @USER_ID ''';
+
+EXECUTE IMMEDIATE (sql_stmt) USING USER_ID AS USER_ID,  LOESCH_FG AS LOESCH_FG,  MSI_PRODUKT AS MSI_PRODUKT;
+
+SET sql_stmt  =  '''DELETE FROM dbp_security.l_msi_user WHERE 1 = @LOESCH_FG AND msi_produkt_bez = @MSI_PRODUKT AND user_id = @USER_ID ''';
+
+EXECUTE IMMEDIATE (sql_stmt) USING USER_ID AS USER_ID,  LOESCH_FG AS LOESCH_FG,  MSI_PRODUKT AS MSI_PRODUKT;
+
+SET sql_commit  =  'COMMIT TRANSACTION';
+
+EXECUTE IMMEDIATE (sql_commit);
+END;

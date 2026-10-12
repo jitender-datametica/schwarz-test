@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_GEKU.MV_L_GEKU_ABSCHLUSSGRUND
+(
+abschlussgrund_id
+)
+AS
+   SELECT
+   abschlussgrund_id
+   FROM dbp_view.v_l_geku_abschlussgrund;

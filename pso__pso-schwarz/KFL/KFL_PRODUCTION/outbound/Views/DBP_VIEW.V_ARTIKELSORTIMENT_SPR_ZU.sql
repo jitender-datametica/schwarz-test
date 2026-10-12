@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_artikelsortiment_spr_zu AS SELECT artikelsortiment_id,
+ spr_id,
+ artikelsortiment_bez
+FROM kfl_production_dbp_data.artikelsortiment_spr_zu;

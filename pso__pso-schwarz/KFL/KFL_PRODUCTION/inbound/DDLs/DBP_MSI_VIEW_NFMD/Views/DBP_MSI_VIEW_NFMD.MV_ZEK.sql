@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_NFMD.MV_ZEK AS
+   SELECT
+   v1.zek_id, 
+   v1.mandant_id, 
+   v2.mandant_kbez,
+   v1.wbl_id, 
+  -- Anpassung bisherige Logik mit FM000 aufgrund Änderung Spalte zek_id zu Textfeld - AP0172759/SPEC0207789 sschuecke 01.09.2023
+   CASE WHEN (TRY_TO_NUMBER(zek_id)::VARCHAR) IS NULL OR TRY_TO_NUMBER(zek_id)::VARCHAR != zek_id  THEN zek_id
+                            ELSE TO_VARCHAR(TRY_TO_NUMBER(zek_id), 'FM000')
+                            END AS zek_id_lang,
+   v1.zek_name, 
+   zek_id_lang || ' ' || v1.zek_name AS zek_id_lang_name
+   FROM dbp_view.v_zek v1
+   JOIN DBP_VIEW.V_MANDANT v2
+   ON v1.mandant_id = v2.mandant_id
+   WHERE zek_id <> '-1'
+   ;

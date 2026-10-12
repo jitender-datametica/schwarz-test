@@ -1,0 +1,66 @@
+create or replace dynamic table KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_MSI_VIEW_RPW_DT.MV_GP(
+	MANDANT_ID,
+	GP_ID,
+	EINKAUFSORGANISATION_ID,
+	DAT_VON,
+	DAT_BIS,
+	ANLIEFERUNG_ID,
+	GP_NAME,
+	GP_NAME_SORT,
+	GP_STRASSE,
+	GP_PLZ,
+	GP_ORT,
+	LAND_ID,
+	HGP_ID,
+	ZEK_ID,
+	LIEFERZEIT,
+	ZAHLUNGSZIEL,
+	AGB_ID,
+	ISO_ID,
+	EIGENVERPACKUNG_ID,
+	EIGENMARKE_ID,
+	AUDIT_ID,
+	AUDIT_DAT,
+	HERST_FG,
+	ZAHLART_ID,
+	RETOUR_SPERR_FG,
+	GP_BRANCHE_ID,
+	LOESCH_FG,
+	SYSTEM_ID
+) target_lag = '1 hour, 30 minutes' refresh_mode = FULL initialize = ON_CREATE warehouse = WH_KFL_D_DYNAMIC_TABLE_RPW
+ as
+-- 23.10.2013 twie: gp_name_sort eingefügt, damit man trotz {} noch sortieren kann
+
+       SELECT
+       v01.mandant_id,
+       v01.gp_id,
+       v01.einkaufsorganisation_id,
+       v01.dat_von,
+       v01.dat_bis,
+       v01.anlieferung_id,
+       CASE WHEN v01.loesch_fg = 1 THEN '{' || v01.gp_name  || '}' ELSE v01.gp_name END AS gp_name,
+       v01.gp_name AS gp_name_sort,
+       v01.gp_strasse,
+       v01.gp_plz,
+       v01.gp_ort,
+       v01.land_id,
+       v01.hgp_id,
+       v01.zek_id,
+       v01.lieferzeit,
+       v01.zahlungsziel_id,
+       v01.agb_id,
+       v01.iso_id,
+       v01.eigenverpackung_id,
+       v01.eigenmarke_id,
+       v01.audit_id,
+       v01.audit_dat,
+       v01.herst_fg,
+       v01.zahlart_id,
+       COALESCE(v01.retour_sperr_fg, 0) AS retour_sperr_fg,
+       v01.gp_branche_id,
+       COALESCE(v01.loesch_fg, 0) AS loesch_fg,
+       7 AS system_id
+FROM dbp_view.v_gp v01
+       WHERE v01.mandant_id = 1
+       AND (v01.gp_id > 999999 OR v01.gp_id BETWEEN 9211 AND 9220 OR v01.gp_id = -1)
+ ;

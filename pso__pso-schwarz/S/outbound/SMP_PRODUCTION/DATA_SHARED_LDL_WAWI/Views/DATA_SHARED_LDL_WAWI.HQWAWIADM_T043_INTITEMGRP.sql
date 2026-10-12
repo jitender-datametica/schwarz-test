@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW smp_production_data_shared_ldl_wawi.hqwawiadm_t043_intitemgrp (wawi_instanz_kzl, c043_itemgrpnr,
+c043_prodgrpnr, c043_descshort, c043_desc, c043_sortingterm, c043_moduser, c043_moddate, c043_temp_min, c043_temp_max,
+c043_traceability_level, scn, delete_fg, extraction_tmsp) AS SELECT wawi_instanz_kzl,
+ c043_itemgrpnr,
+ c043_prodgrpnr,
+ c043_descshort,
+ c043_desc,
+ c043_sortingterm,
+ c043_moduser,
+ c043_moddate,
+ c043_temp_min,
+ c043_temp_max,
+ c043_traceability_level,
+ scn,
+ delete_fg,
+ extraction_tmsp
+FROM ldl_wawi_production_hqwawiadm.t043_intitemgrp;

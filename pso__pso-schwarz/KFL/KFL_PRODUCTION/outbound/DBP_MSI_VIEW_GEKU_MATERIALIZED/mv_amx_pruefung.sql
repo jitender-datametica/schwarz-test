@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE dbp_msi_view_geku_materialized.mv_amx_pruefung (
+pruefung_id INTEGER,
+amx_system_id INTEGER,
+pruefung_nr STRING(30) COLLATE 'und:ci',
+zustand_id INTEGER,
+pruefung_bez STRING(255) COLLATE 'und:ci',
+dat_start DATE,
+dat_ende DATE,
+revisor_id INTEGER,
+pruefung_typ_id INTEGER,
+pruefung_klasse_id INTEGER,
+pruefung_ergebnis_wert INTEGER,
+pruefung_ergebnis_wert_oneamx INTEGER,
+business_unit_id INTEGER,
+mandant_id INTEGER,
+wup_id INTEGER,
+nb_id INTEGER,
+zeitspanne STRING(80),
+sec_kz INTEGER
+);

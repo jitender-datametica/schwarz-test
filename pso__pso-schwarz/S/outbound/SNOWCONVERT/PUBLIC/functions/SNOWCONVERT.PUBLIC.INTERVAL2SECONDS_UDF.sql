@@ -1,0 +1,52 @@
+CREATE OR REPLACE FUNCTION snowconvert_public.interval2seconds_udf(INPUT_PART STRING, INPUT_VALUE STRING) RETURNS NUMERIC
+AS (
+(
+CASE WHEN SUBSTR(INPUT_VALUE,1,1) = '-' THEN
+   CASE INPUT_PART
+           WHEN 'DAY' THEN               86400 * CAST(INPUT_VALUE AS NUMERIC) 
+           WHEN 'DAY TO HOUR' THEN       86400 * CAST(SUBSTR(INPUT_VALUE, 1, INSTR(INPUT_VALUE, ' ')-1) AS INT64) 
+                                       - 3600 * CAST(SUBSTR(INPUT_VALUE, INSTR(INPUT_VALUE, ' ')+1) AS INT64)
+           WHEN 'DAY TO MINUTE' THEN     86400 * CAST(SUBSTR(INPUT_VALUE, 1, INSTR(INPUT_VALUE, ' ')-1) AS INT64) 
+                                       - 3600 * CAST(SUBSTR(INPUT_VALUE, INSTR(INPUT_VALUE, ' ')+1, INSTR(INPUT_VALUE, ':')-INSTR(INPUT_VALUE, ' ')-1) AS INT64) 
+                                       - 60 * CAST(SUBSTR(INPUT_VALUE, INSTR(INPUT_VALUE, ':')+1) AS INT64)
+           WHEN 'DAY TO SECOND' THEN     86400 * CAST(SUBSTR(INPUT_VALUE, 1, INSTR(INPUT_VALUE, ' ')-1) AS INT64) 
+                                       - 3600 * CAST(SUBSTR(INPUT_VALUE, INSTR(INPUT_VALUE, ' ')+1, INSTR(INPUT_VALUE, ':')-INSTR(INPUT_VALUE, ' ')-1) AS INT64)
+                                       - 60 * CAST(SUBSTR(INPUT_VALUE, INSTR(INPUT_VALUE, ':')+1, INSTR(INPUT_VALUE, ':', INSTR(INPUT_VALUE, ':')+1) - INSTR(INPUT_VALUE, ':') - 1) AS INT64)
+                                       - CAST(SUBSTR(INPUT_VALUE,INSTR(INPUT_VALUE, ':', INSTR(INPUT_VALUE, ':')+1)+1) AS NUMERIC)
+           WHEN 'HOUR' THEN              3600 * CAST(INPUT_VALUE AS NUMERIC) 
+           WHEN 'HOUR TO MINUTE' THEN    3600 * CAST(SUBSTR(INPUT_VALUE,1 , INSTR(INPUT_VALUE, ':')-1) AS INT64)
+                                       - 60 * CAST(SUBSTR(INPUT_VALUE,INSTR(INPUT_VALUE, ':')+1) AS INT64)
+           WHEN 'HOUR TO SECOND' THEN    3600 * CAST(SUBSTR(INPUT_VALUE, 1, INSTR(INPUT_VALUE, ':')-INSTR(INPUT_VALUE, ' ')-1) AS INT64)
+                                       - 60 * CAST(SUBSTR(INPUT_VALUE, INSTR(INPUT_VALUE, ':')+1, INSTR(INPUT_VALUE, ':', INSTR(INPUT_VALUE, ':')+1) - INSTR(INPUT_VALUE, ':') - 1) AS INT64)
+                                       - CAST(SUBSTR(INPUT_VALUE,INSTR(INPUT_VALUE, ':', INSTR(INPUT_VALUE, ':')+1)+1) AS NUMERIC)  
+           WHEN 'MINUTE' THEN            60 * CAST(INPUT_VALUE AS NUMERIC)     
+           WHEN 'MINUTE TO SECOND' THEN  60 * CAST(SUBSTR(INPUT_VALUE, 1, INSTR(INPUT_VALUE, ':')-INSTR(INPUT_VALUE, ' ')-1) AS INT64)
+                                       - CAST(SUBSTR(INPUT_VALUE, INSTR(INPUT_VALUE, ':')+1) AS NUMERIC)
+           WHEN 'SECOND' THEN            CAST(INPUT_VALUE AS NUMERIC)                                    
+            END
+ELSE
+   CASE INPUT_PART
+           WHEN 'DAY' THEN               86400 * CAST(INPUT_VALUE AS NUMERIC) 
+           WHEN 'DAY TO HOUR' THEN       86400 * CAST(SUBSTR(INPUT_VALUE, 1, INSTR(INPUT_VALUE, ' ')-1) AS INT64) 
+                                       + 3600 * CAST(SUBSTR(INPUT_VALUE, INSTR(INPUT_VALUE, ' ')+1) AS INT64)
+           WHEN 'DAY TO MINUTE' THEN     86400 * CAST(SUBSTR(INPUT_VALUE, 1, INSTR(INPUT_VALUE, ' ')-1) AS INT64) 
+                                       + 3600 * CAST(SUBSTR(INPUT_VALUE, INSTR(INPUT_VALUE, ' ')+1, INSTR(INPUT_VALUE, ':')-INSTR(INPUT_VALUE, ' ')-1) AS INT64) 
+                                       + 60 * CAST(SUBSTR(INPUT_VALUE, INSTR(INPUT_VALUE, ':')+1) AS INT64)
+           WHEN 'DAY TO SECOND' THEN     86400 * CAST(SUBSTR(INPUT_VALUE, 1, INSTR(INPUT_VALUE, ' ')-1) AS INT64) 
+                                       + 3600 * CAST(SUBSTR(INPUT_VALUE, INSTR(INPUT_VALUE, ' ')+1, INSTR(INPUT_VALUE, ':')-INSTR(INPUT_VALUE, ' ')-1) AS INT64)
+                                       + 60 * CAST(SUBSTR(INPUT_VALUE, INSTR(INPUT_VALUE, ':')+1, INSTR(INPUT_VALUE, ':', INSTR(INPUT_VALUE, ':')+1) - INSTR(INPUT_VALUE, ':') - 1) AS INT64)
+                                       + CAST(SUBSTR(INPUT_VALUE,INSTR(INPUT_VALUE, ':', INSTR(INPUT_VALUE, ':')+1)+1) AS NUMERIC)
+           WHEN 'HOUR' THEN              3600 * CAST(INPUT_VALUE AS NUMERIC) 
+           WHEN 'HOUR TO MINUTE' THEN    3600 * CAST(SUBSTR(INPUT_VALUE,1 , INSTR(INPUT_VALUE, ':')-1) AS INT64)
+                                       + 60 * CAST(SUBSTR(INPUT_VALUE,INSTR(INPUT_VALUE, ':')+1) AS INT64)
+           WHEN 'HOUR TO SECOND' THEN    3600 * CAST(SUBSTR(INPUT_VALUE, 1, INSTR(INPUT_VALUE, ':')-INSTR(INPUT_VALUE, ' ')-1) AS INT64)
+                                       + 60 * CAST(SUBSTR(INPUT_VALUE, INSTR(INPUT_VALUE, ':')+1, INSTR(INPUT_VALUE, ':', INSTR(INPUT_VALUE, ':')+1) - INSTR(INPUT_VALUE, ':') - 1) AS INT64)
+                                       + CAST(SUBSTR(INPUT_VALUE,INSTR(INPUT_VALUE, ':', INSTR(INPUT_VALUE, ':')+1)+1) AS NUMERIC)  
+           WHEN 'MINUTE' THEN            60 * CAST(INPUT_VALUE AS NUMERIC)     
+           WHEN 'MINUTE TO SECOND' THEN  60 * CAST(SUBSTR(INPUT_VALUE, 1, INSTR(INPUT_VALUE, ':')-INSTR(INPUT_VALUE, ' ')-1) AS INT64)
+                                       + CAST(SUBSTR(INPUT_VALUE, INSTR(INPUT_VALUE, ':')+1) AS NUMERIC) 
+           WHEN 'SECOND' THEN            CAST(INPUT_VALUE AS NUMERIC)                                    
+        END
+END
+)
+);

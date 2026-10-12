@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_lead.t_agg_prsnl_costs_str_mth (
+client_id BIGNUMERIC(38,0) NOT NULL,
+loc_sid_store_move_to BIGNUMERIC(38,0) NOT NULL,
+aspect_id BIGNUMERIC(38,0) NOT NULL,
+currency_iso_cd STRING(3) COLLATE 'und:ci' NOT NULL,
+cy_month BIGNUMERIC(38,0) NOT NULL,
+busyear BIGNUMERIC(38,0) NOT NULL,
+rev_mtd_val BIGNUMERIC(38,8),
+prev1y_rev_mtd_val BIGNUMERIC(38,8),
+rev_bytd_val BIGNUMERIC(38,8),
+prev1y_rev_bytd_val BIGNUMERIC(38,8),
+asis_mtd_val_indicator_216 NUMERIC(18,4),
+p1y_mtd_val_indicator_216 NUMERIC(18,4),
+asis_ytd_val_indicator_216 NUMERIC(18,4),
+p1y_ytd_val_indicator_216 NUMERIC(18,4),
+asis_prsnl_costs_mtd NUMERIC(18,4),
+p1y_prsnl_costs_mtd NUMERIC(18,4),
+diff_prsnl_costs_mtd NUMERIC(18,4),
+asis_prsnl_costs_bytd NUMERIC(18,4),
+p1y_prsnl_costs_bytd NUMERIC(18,4),
+diff_prsnl_costs_bytd NUMERIC(18,4)
+) CLUSTER BY client_id, cy_month;

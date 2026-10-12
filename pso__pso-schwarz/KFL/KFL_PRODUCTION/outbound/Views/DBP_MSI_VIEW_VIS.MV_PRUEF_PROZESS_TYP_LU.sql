@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_pruef_prozess_typ_lu (pruef_prozess_typ_kz,
+pruef_prozess_typ_bez) AS SELECT pruef_prozess_typ_kz,
+ pruef_prozess_typ_bez
+FROM kfl_production_dbp_view.v_l_pruef_prozess_typ
+GROUP BY pruef_prozess_typ_kz,
+ pruef_prozess_typ_bez;

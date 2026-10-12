@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE idq_production_idq_results.check_rule_by_scope_current (
+scope_id INTEGER,
+test_object_type_id INTEGER,
+source_system_id INTEGER,
+source_system_type_id INTEGER,
+branch_id INTEGER,
+country_id INTEGER,
+rule_id INTEGER,
+status_id INTEGER,
+calculation_time DATETIME,
+calculation_day_id INTEGER,
+test_result_amount INTEGER,
+error_amount INTEGER,
+no_error_amount INTEGER,
+solved_error_amount INTEGER,
+new_error_amount INTEGER,
+flip_error_amount INTEGER,
+newly_solved_error_amount INTEGER,
+overdue_amount INTEGER,
+earliest_due_date DATETIME,
+earliest_due_day_id INTEGER
+);

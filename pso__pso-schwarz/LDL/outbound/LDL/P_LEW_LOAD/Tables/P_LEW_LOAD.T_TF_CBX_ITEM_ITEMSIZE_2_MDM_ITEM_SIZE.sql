@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_cbx_item_itemsize_2_mdm_item_size (
+client_id BIGNUMERIC(38),
+lidl_country STRING(40),
+cbx_item_itemsize_cbxitem_documentref STRING(250),
+cbx_item_itemsize_cbxitem_itemsize_code STRING(250),
+src_item_doc_ref STRING(20) COLLATE 'und:ci',
+src_size_cd STRING(100) COLLATE 'und:ci',
+size_name STRING(300) COLLATE 'und:ci',
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

@@ -1,0 +1,16 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TS_LIL_CODE_2_LIL_CODE
+(
+  RECORD_ID       VARCHAR(1000) COLLATE 'en-ci' NULL,
+  MAIN_CODE       VARCHAR(100) COLLATE 'en-ci'  NULL,
+  SUB_CODE        VARCHAR(100) COLLATE 'en-ci'  NULL,
+  KEY_FIELD       VARCHAR(100) COLLATE 'en-ci'  NULL,
+  VAL             VARCHAR(100) COLLATE 'en-ci'  NULL,
+  DWH_LOAD_ID     NUMBER(38)                    NULL,
+  DWH_CREATED     TIMESTAMP_NTZ(6)              NULL,
+  DWH_UPDATED     TIMESTAMP_NTZ(6)              NULL,
+  DWH_MAPPING_DT  DATE                          NULL,
+  ERROR_FG        NUMBER(38)                    NULL,
+  ERROR_DESCR     VARCHAR(1000) COLLATE 'en-ci' NULL,
+  FILENAME        VARCHAR(1000) COLLATE 'en-ci' NULL,
+  HIST_ROW_NO     NUMBER(38)                    NULL
+);

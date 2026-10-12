@@ -1,0 +1,22 @@
+--==============================================================
+-- Table: in_kunde
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: in_kunde
+   generated from Powerdesigner on Thursday, July 11, 2024 10:50:46 AM
+*/ --------------------------------------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.in_kunde (
+mandant_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Mandant im DWH. In der Regel länderbezogen'),
+in_kunde_id BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='Im DWH generierter Surrogate Key für die Kundennummer aus SAP'),
+kunde_nr STRING(10) COLLATE 'und:ci' NOT NULL OPTIONS(description='Kundennummer aus SAP Industrie im Originalformat'),
+system_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Spezifiziert das Quellsystem, aus dem die Daten kommen.'),
+kunde_name STRING(40) COLLATE 'und:ci' OPTIONS(description='Name des Kunden aus name1_gp'),
+td_update TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+td_insert TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+PRIMARY KEY (mandant_id, in_kunde_id) NOT ENFORCED
+) OPTIONS(description='BIS - Die Tabelle wird aus kna1 versorgt. Die kunde_id wird im Produkt IVS vverwendet');

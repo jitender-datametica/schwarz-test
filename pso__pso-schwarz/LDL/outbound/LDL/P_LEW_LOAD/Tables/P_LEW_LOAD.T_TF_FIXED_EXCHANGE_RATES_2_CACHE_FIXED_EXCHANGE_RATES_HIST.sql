@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_fixed_exchange_rates_2_cache_fixed_exchange_rates_hist (
+client_id BIGNUMERIC(38,0),
+lidl_country STRING(40),
+fixed_exchange_rates_bic_zmlila STRING(3) COLLATE 'und:ci',
+fixed_exchange_rates_currency_iso_cd STRING(250) COLLATE 'und:ci',
+fixed_exchange_rates_to_currency_iso_cd STRING(250) COLLATE 'und:ci',
+fixed_exchange_rates_valid_from_dat DATE,
+bic_zmlila STRING(60),
+currency_iso_cd STRING(60),
+to_currency_iso_cd STRING(60),
+valid_from_dat DATE,
+valid_to_dat DATE,
+rate_currency_exchange NUMERIC(18,5),
+deleted_fg BIGNUMERIC(38,0),
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

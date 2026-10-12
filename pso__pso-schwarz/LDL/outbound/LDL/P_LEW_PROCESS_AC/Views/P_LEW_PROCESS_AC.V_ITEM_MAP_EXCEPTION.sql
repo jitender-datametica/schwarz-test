@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process_ac.v_item_map_exception (client_id, orig_item_nr, case_size, dat_valid_from,
+item_sid, map_client_id, map_orig_item_nr, map_case_size, map_dat_valid_from, map_item_sid, dwh_load_id, dwh_created,
+dwh_updated) AS SELECT client_id,
+ orig_item_nr,
+ case_size,
+ dat_valid_from,
+ item_sid,
+ map_client_id,
+ map_orig_item_nr,
+ map_case_size,
+ map_dat_valid_from,
+ map_item_sid,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_process.t_item_map_exception;

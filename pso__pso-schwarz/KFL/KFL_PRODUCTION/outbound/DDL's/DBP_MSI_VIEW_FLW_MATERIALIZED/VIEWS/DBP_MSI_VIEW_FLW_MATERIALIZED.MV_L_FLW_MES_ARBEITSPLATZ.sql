@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_flw_materialized.mv_l_flw_mes_arbeitsplatz (mandant_id,
+flw_arbeitsplatz_id, flw_arbeitsplatztyp_id) AS SELECT *
+FROM kfl_production_dbp_view.v_flw_mes_arbeitsplatz;

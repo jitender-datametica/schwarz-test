@@ -1,0 +1,19 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_REB.MV_WOCHE_KJ_KL
+(
+kjwo_kl
+, kjwo_kl_dat_von
+, kjwo_kl_dat_bis
+, akt_kjwo_kl
+, akt_kjwo_kl_komplett
+, akt_kj
+, akt_kj_komplett
+, kjwo
+, kj
+, akt_wo
+)
+AS
+   SELECT
+   kjwo_kl,  kjwo_kl_dat_von,  kjwo_kl_dat_bis,  akt_kjwo_kl,  akt_kjwo_kl_komplett,  akt_kj,  akt_kj_komplett,  kjwo,  CAST (TRUNC(kjwo_kl / 100) AS SMALLINT) AS kj,  akt_wo
+   FROM dbp_view.v_woche_kj_kl
+   WHERE kjwo_kl > 200153
+;

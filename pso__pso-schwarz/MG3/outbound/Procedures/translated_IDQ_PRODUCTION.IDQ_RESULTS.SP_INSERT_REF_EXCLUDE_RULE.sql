@@ -1,0 +1,90 @@
+/* SP_INSERT_REF_EXCLUDE_RULE(NUMBER,NUMBER,NUMBER,NUMBER,NUMBER,STRING,STRING,NUMBER)*/
+
+
+
+CREATE OR REPLACE PROCEDURE idq_production_idq_results.sp_insert_ref_exclude_rule(
+  IN RULE_ID INT64, 
+  IN BRANCH_ID INT64, 
+  IN SOURCE_SYSTEM_ID INT64, 
+  IN COUNTRY_ID INT64, 
+  IN TEST_OBJECT_TYPE_ID INT64, 
+  IN INSERTED_BY STRING, 
+  IN EXCLUDE_REASON STRING, 
+  IN EXCLUDE_FLAG INT64, 
+  OUT out_param INT64)
+BEGIN
+DECLARE excluded INT64 DEFAULT NULL;
+
+
+  /* @TEST_OBJECT_ID for the moment is a Dummy value not used*/
+	/* Stop process when Exclude Flag is not 1.*/
+IF EXCLUDE_FLAG IS NULL OR EXCLUDE_FLAG <> 1 THEN
+    SET out_param  =  0;
+    SELECT out_param;
+    RETURN;
+END IF;
+
+  /* get the excluded value*/
+SET excluded  =  (SELECT exclude_flag FROM idq_production_idq_results.ref_exclude
+                  WHERE rule_id = RULE_ID AND branch_id = BRANCH_ID 
+                  /* Source System Primary Key Exclusion*/
+                  /* SOURCE_SYSTEM_PRIMARY_KEY = :SOURCE_SYSTEM_PRIMARY_KEY */ 
+                  AND source_system_primary_key IS NULL AND source_system_id = SOURCE_SYSTEM_ID 
+                  AND country_id = COUNTRY_ID AND test_object_type_id = TEST_OBJECT_TYPE_ID LIMIT 1);
+
+
+  /* Already there, do nothing*/
+IF excluded = 1 THEN
+    SET out_param  =  0;
+    SELECT out_param;
+    RETURN;
+END IF;
+
+  /* Update - there, but exclude flag = 0*/
+IF excluded = 0 THEN
+    BEGIN
+    BEGIN TRANSACTION;
+    UPDATE idq_production_idq_results.ref_exclude SET
+    exclude_flag = 1,
+    inserted_at = CAST(CURRENT_TIMESTAMP() AS DATETIME),
+    exclude_reason = EXCLUDE_REASON,
+    /* SOURCE_SYSTEM_PRIMARY_KEY = :SOURCE_SYSTEM_PRIMARY_KEY,*/
+    inserted_by = INSERTED_BY,
+    undone_at = NULL
+WHERE rule_id = RULE_ID AND branch_id = BRANCH_ID 
+/* SOURCE_SYSTEM_PRIMARY_KEY = :SOURCE_SYSTEM_PRIMARY_KEY */ 
+AND source_system_primary_key IS NULL AND source_system_id = SOURCE_SYSTEM_ID AND country_id = COUNTRY_ID;
+    COMMIT TRANSACTION;
+    SET out_param  =  1;
+    SELECT out_param;
+    RETURN;
+    END;
+END IF;
+
+
+BEGIN TRANSACTION;
+INSERT INTO idq_production_idq_results.ref_exclude (
+  id, 
+  rule_id, 
+  branch_id, 
+  source_system_primary_key, 
+  source_system_id, 
+  country_id, 
+  test_object_type_id, 
+  inserted_by, 
+  exclude_reason, 
+  exclude_flag, 
+  inserted_at)
+(SELECT (SELECT MAX(id) + 1 FROM idq_production_idq_results.ref_exclude) AS id, 
+RULE_ID AS rule_id, 
+BRANCH_ID AS branch_id, 
+CAST(NULL AS STRING) AS source_system_primary_key, 
+SOURCE_SYSTEM_ID AS source_system_id, 
+COUNTRY_ID AS country_id, 
+TEST_OBJECT_TYPE_ID AS test_object_type_id, 
+INSERTED_BY AS inserted_by, 
+EXCLUDE_REASON AS exclude_reason, 
+EXCLUDE_FLAG AS exclude_flag, 
+CAST(CURRENT_TIMESTAMP() AS DATETIME) AS inserted_at);
+COMMIT TRANSACTION;
+END;

@@ -1,0 +1,28 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_WAWI_ITM_SUP_WH_DATA_999
+(
+  CLIENT_ID                 NUMBER(38)                    NOT NULL,
+  ITEM_SID                  NUMBER(38)                    NOT NULL,
+  WH_LOC_SID                NUMBER(38)                    NOT NULL,
+  SUP_SID                   NUMBER(38)                    NOT NULL,
+  DAT_REC_START             DATE                          NOT NULL,
+  DAT_REC_END               DATE                          NOT NULL,
+  DAT_VALID_FROM            DATE                          NOT NULL,
+  DAT_VALID_UNTIL           DATE                          NULL,
+  ACTIVE_FG                 NUMBER(38)                    NULL,
+  DELETE_FG                 NUMBER(38)                    NULL,
+  DELIVERY_ITEM_CD          VARCHAR(3) COLLATE 'en-ci'    NULL,
+  CURRENCY_NR               NUMBER(38)                    NOT NULL,
+  DUR_SHELFLIFE_CUST        VARCHAR(10) COLLATE 'en-ci'   NULL,
+  DUR_SHELFLIFE_STORE       VARCHAR(10) COLLATE 'en-ci'   NULL,
+  DUR_SHELFLIFE_WH          VARCHAR(10) COLLATE 'en-ci'   NULL,
+  PERIOD_ID_SHELFLIFE_CUST  NUMBER(38)                    NULL,
+  PERIOD_ID_SHELFLIFE_STORE NUMBER(38)                    NULL,
+  PERIOD_ID_SHELFLIFE_WH    NUMBER(38)                    NULL,
+  FACTOR_PERIOD_CUST        NUMBER(38)                    NULL,
+  FACTOR_PERIOD_STORE       NUMBER(38)                    NULL,
+  FACTOR_PERIOD_WH          NUMBER(38)                    NULL,
+  BRAND_NAME                VARCHAR(35) COLLATE 'en-ci'   NULL,
+  MANUFACT_COUNTRY          VARCHAR(3) COLLATE 'en-ci'    NULL,
+  ORIGIN_COUNTRY_CD         VARCHAR(3) COLLATE 'en-ci'    NULL,
+  LOAD_ID                   NUMBER(38)                    NOT NULL
+);

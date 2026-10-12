@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_ios_materialized.mv_projekt_bauabschnitt_spr_zu (
+projekt_id STRING(32) COLLATE 'und:ci',
+bauabschnitt_id STRING(64) COLLATE 'und:ci',
+bauabschnitt_bez STRING(40) COLLATE 'und:ci',
+bauabschnitt_langtext STRING(16777216) COLLATE 'und:ci',
+bauabschnitt_langtext_cz STRING(16777216) COLLATE 'und:ci',
+bauabschnitt_langtext_sk STRING(16777216) COLLATE 'und:ci',
+bauabschnitt_langtext_hr STRING(16777216) COLLATE 'und:ci',
+bauabschnitt_langtext_pl STRING(16777216) COLLATE 'und:ci',
+bauabschnitt_langtext_ro STRING(16777216) COLLATE 'und:ci',
+bauabschnitt_langtext_en STRING(16777216) COLLATE 'und:ci',
+bauabschnitt_langtext_bg STRING(16777216) COLLATE 'und:ci',
+cpr_projekt_bez_sort STRING(16777216) COLLATE 'und:ci',
+cpr_projekt_bez_sort_cz STRING(16777216) COLLATE 'und:ci',
+cpr_projekt_bez_sort_sk STRING(16777216) COLLATE 'und:ci',
+cpr_projekt_bez_sort_hr STRING(16777216) COLLATE 'und:ci',
+cpr_projekt_bez_sort_pl STRING(16777216) COLLATE 'und:ci',
+cpr_projekt_bez_sort_ro STRING(16777216) COLLATE 'und:ci',
+cpr_projekt_bez_sort_en STRING(16777216) COLLATE 'und:ci',
+cpr_projekt_bez_sort_bg STRING(16777216) COLLATE 'und:ci'
+);

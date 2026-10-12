@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_lec_share.v_agg_sales_promotion_plan_weekly_core_view AS SELECT *
+FROM ldl_dig_core.v_agg_sales_promotion_plan_weekly;

@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_filialart_altersstruktur_zu AS SELECT altersstruktur_id,
+ filialart_id
+FROM kfl_production_dbp_data.filialart_altersstruktur_zu;

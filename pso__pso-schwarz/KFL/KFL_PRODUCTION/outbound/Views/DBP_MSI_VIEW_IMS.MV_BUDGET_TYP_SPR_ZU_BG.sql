@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ims.mv_budget_typ_spr_zu_bg AS SELECT in_budget_typ_id,
+ in_budget_typ_bez
+FROM kfl_production_dbp_view.v_in_budget_typ_spr_zu
+WHERE spr_id = 18;

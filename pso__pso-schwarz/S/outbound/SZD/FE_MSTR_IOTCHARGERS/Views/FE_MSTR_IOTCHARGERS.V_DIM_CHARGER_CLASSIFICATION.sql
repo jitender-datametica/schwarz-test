@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_iotchargers.v_dim_charger_classification (charger_classification_id,
+charger_label_prefix_cd, charger_provider_system_cd, charger_power_class_cd, charger_classification_name) AS SELECT
+ charger_classification_id,
+ charger_label_prefix_cd,
+ charger_provider_system_cd,
+ charger_power_class_cd,
+ charger_classification_name
+FROM szd_core.t_dim_charger_classification;

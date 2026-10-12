@@ -1,0 +1,29 @@
+CREATE OR REPLACE VIEW P_LEW_MART_LEAD_AC.V_AGG_REV_STR_WK
+AS
+   SELECT
+     client_id,
+   loc_sid_store,
+   currency_iso_cd,
+   busyear,
+   month_id,
+   cy_week_partial_week_id,
+   rev_wd1_val,
+   rev_wd2_val,
+   rev_wd3_val,
+   rev_wd4_val,
+   rev_wd5_val,
+   rev_wd6_val,
+   rev_wd7_val,
+   rev_wktd_val,
+   rev_mtd_val,
+   rev_bytd_val,
+   plan_rev_wktd_val,
+   plan_rev_mtd_val,
+   plan_rev_bytd_val,
+   prev1y_rev_wktd_val,
+   prev1y_rev_mtd_val,
+   prev1y_rev_bytd_val,
+   adj_inc_rev_wktd_val,
+   adj_inc_rev_mtd_val,
+   adj_inc_rev_bytd_val
+  FROM p_lew_mart_lead.t_agg_rev_str_wk;

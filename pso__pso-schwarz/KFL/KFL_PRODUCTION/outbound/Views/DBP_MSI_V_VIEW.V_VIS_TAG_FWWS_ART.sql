@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_v_view.v_vis_tag_fwws_art AS SELECT mandant_id,
+ wup_id,
+ dat,
+ nb_id,
+ art_id,
+ dispomerkmal,
+ disponent_id,
+ artikel_exc209_fg,
+ artikel_exc214_fg,
+ tagesartikel_fg,
+ bestandsartikel_fg,
+ autodispo_fg,
+ alle_art_o_kdis_fg,
+ alle_art_fg,
+ autodispo_fg_12,
+ bezugsweg_id
+FROM kfl_production_dbp_msi_data.vis_tag_fwws_art;

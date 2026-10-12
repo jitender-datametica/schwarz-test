@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_nachhaltigkeitslogo AS SELECT nachhaltigkeitslogo_id,
+ logo_kzstg,
+ nachhaltigkeitslogo_bez
+FROM kfl_production_dbp_data.l_nachhaltigkeitslogo;

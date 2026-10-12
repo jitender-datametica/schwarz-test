@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_VIS.MV_BON_MP_ZU as
+   SELECT * FROM dbp_bda_view.v_bon_mp_zu;

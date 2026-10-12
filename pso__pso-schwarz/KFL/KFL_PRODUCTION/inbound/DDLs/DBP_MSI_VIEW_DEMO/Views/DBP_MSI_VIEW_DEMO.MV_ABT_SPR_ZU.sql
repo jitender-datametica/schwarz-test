@@ -1,0 +1,22 @@
+-- KFL_PRODUCTION_CLONE_DEMO.DBP_MSI_VIEW_DEMO.MV_ABT_SPR_ZU source
+
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_DEMO.MV_ABT_SPR_ZU
+AS
+SELECT
+ v01.arthiertyp_id
+,v01.abt_id
+,MAX(CASE WHEN spr_id =  22 THEN abt_bez END) AS abt_bez                 
+,MAX(CASE WHEN spr_id =  22 THEN abt_bez END) AS abt_bez_de                          
+,COALESCE(MAX(CASE WHEN spr_id = 124 THEN abt_bez END), abt_bez_de) AS abt_bez_cz    
+,COALESCE(MAX(CASE WHEN spr_id = 108 THEN abt_bez END), abt_bez_de) AS abt_bez_sk    
+,COALESCE(MAX(CASE WHEN spr_id =  65 THEN abt_bez END), abt_bez_de) AS abt_bez_hr    
+,COALESCE(MAX(CASE WHEN spr_id =  90 THEN abt_bez END), abt_bez_de) AS abt_bez_pl    
+,COALESCE(MAX(CASE WHEN spr_id =  95 THEN abt_bez END), abt_bez_de) AS abt_bez_ro    
+,COALESCE(MAX(CASE WHEN spr_id =  18 THEN abt_bez END), abt_bez_de) AS abt_bez_bg    
+FROM dbp_view.v_abt_spr_zu v01
+WHERE v01.arthiertyp_id = 2
+GROUP BY
+ v01.arthiertyp_id
+,v01.abt_id;
+
+

@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_SCM.MV_WUP_WETTER_TAG as
+   SELECT *
+   FROM dbp_view.v_wup_wetter_tag;

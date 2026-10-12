@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_v_ods.v_ods_bon_zahlung AS SELECT bon_id,
+ bon_zeile,
+ mandant_id,
+ wup_id,
+ bon_dat,
+ zahlung_typ_id,
+ start_bon_zeile,
+ betrag_zahlung,
+ wrg_id,
+ kpos_zahlung_typ_id,
+ bon_zeile_cashback_referenz,
+ kartennummer_maskiert,
+ barcode_leergut,
+ gutschein_id
+FROM kfl_production_dbp_ods.ods_bon_zahlung;

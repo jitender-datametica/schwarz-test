@@ -1,0 +1,25 @@
+CREATE TABLE P_LEW_CORE.T_PAYOUT_INVOICE_SUMMARY (
+   client_id                           NUMBER(38,0)     NOT NULL COMMENT 'DWH-Mandant; FK auf CLIENT',
+   payout_invoice_summary_sid          NUMBER(38,0)     NOT NULL COMMENT 'Surrogate key for invoice summary.',
+   cy_month                            NUMBER(38,0)     NOT NULL COMMENT 'Month when the payout summary came in.',
+   payout_cond_sid                     NUMBER(38,0)     COMMENT 'Surrogate key for invoice conditions. Condition on which a payout was based on.',
+   cond_valid_from_dt                  DATE             COMMENT 'Start date of the condition validity.',
+   payout_invoice_type_cd              VARCHAR(100)     COMMENT 'Billing type that is used to separate the contents of the billing amounts (Abrechnungsart).',
+   payout_invoice_billing_type_cd      VARCHAR(100)     COMMENT 'Payment mode for the billing amounts (Abrechnungstyp).',
+   book_cy_month                       NUMBER(38,0)     COMMENT 'Month for which this payout amount applies ',
+   item_delivery_cy_month              NUMBER(38,0)     COMMENT 'Delivery month of goods.',
+   sup_sid                             NUMBER(38,0)     NOT NULL COMMENT 'Surrogate Key SUPPLIER',
+   item_sid                            NUMBER(38,0)     COMMENT 'Surrogate Key ITEM (unique across all countries / clients).',
+   sub_item_grp_sid                    NUMBER(38,0)     COMMENT 'Surrogate Key SUBITEMGROUP',
+   item_fam_grp_sid                    NUMBER(38,0)     COMMENT 'Surrogate Key ITEM FAMILYGROUP;
+            CBX: Item.ldlArticleGroup.custText1;',
+   curr_sid                            NUMBER(38,0)     COMMENT 'Invoice currency; FK on CURRENCY.',
+   curr_iso_cd                         VARCHAR(20)      COMMENT 'Iso-Code Wahrung; SAP-Retail: tcurc.isocd; SAP-BW: t_bw_z_ds_tcurc.isocd',
+   total_net_val                       NUMBER(38,5)     COMMENT 'An amount that was billed, netto in given currency.',
+   delivery_period_start_dt            DATE             COMMENT 'Start date of goods delivery period (relevant only for payout_invoice_billing_type_cd = ''Sonderverguetung'').',
+   delivery_period_end_dt              DATE             COMMENT 'End date of goods delivery period (relevant only for payout_invoice_billing_type_cd = ''Sonderverguetung'').',
+   dwh_load_id                         NUMBER(38,0)     NOT NULL COMMENT 'Identifier of the last run which inserted or updated the record. -1 means manually inserted.',
+   dwh_created                         TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Creation timestamp of the record in the DWH.',
+   dwh_updated                         TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Timestamp of the last update of the record in the DWH.',   
+   CONSTRAINT PK_T_PAYOUT_INVOICE_SUMMARY PRIMARY KEY (payout_invoice_summary_sid) NOT ENFORCED 
+)  COMMENT = 'Table contains the summary of rebate invoices aggregated on monthly basis per supplier and agreed upon condition level. This is a summary and not individual invoices.';

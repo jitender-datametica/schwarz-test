@@ -1,0 +1,418 @@
+/*
+#----------------------------------------------------------------------------
+# @ LIDL GFL
+#----------------------------------------------------------------------------
+# Script: ldl_fact_retail_by_store_day.sql
+#----------------------------------------------------------------------------
+# Related objects:
+#   ETL.V_FACT_RETAIL_BY_STORE_DAY 
+#   ETL.V_FACT_TURNOVER_FULLDATES 
+# History:
+#  1.00  XX.XX.XXXX  ??????????????? - 
+		UserStory 
+		Setting the following flags:
+			
+#  1.01	17.10.2024 Petar Katsarov
+		 - No update on a SQL, just add a comment
+
+#  1.02	27.03.2025 Stephane Tonga  change value sign from negativ to positiv of the kpis return_cnt, return_qty and variation
+#  1.03	03.04.2025 Stephane Tonga  rollback change value sign from negativ to positiv of the kpis return_cnt, return_qty and variation
+*/
+
+DELETE FROM core_dim.t_fact_retail_by_store_day;
+
+INSERT INTO core_dim.t_fact_retail_by_store_day
+(
+bus_dt
+, int_org_sid
+, int_org_type_cd
+, country_org_cd
+, sales_cnt
+, sales_bytd_cnt
+, sales_py_cnt
+, sales_py_bytd_cnt
+, sales_py_swday_cnt
+, sales_py_swday_bytd_cnt
+, sales_ppy_cnt
+, sales_ppy_bytd_cnt
+, sales_ppy_swday_cnt
+, sales_ppy_swday_bytd_cnt
+, sales_qty
+, sales_bytd_qty
+, sales_py_qty
+, sales_py_bytd_qty
+, sales_py_swday_qty
+, sales_py_swday_bytd_qty
+, sales_ppy_qty
+, sales_ppy_bytd_qty
+, sales_ppy_swday_qty
+, sales_ppy_swday_bytd_qty
+, return_cnt
+, return_bytd_cnt
+, return_py_cnt
+, return_py_bytd_cnt
+, return_py_swday_cnt
+, return_py_swday_bytd_cnt
+, return_ppy_cnt
+, return_ppy_bytd_cnt
+, return_ppy_swday_cnt
+, return_ppy_swday_bytd_cnt
+, return_qty
+, return_bytd_qty
+, return_py_qty
+, return_py_bytd_qty
+, return_py_swday_qty
+, return_py_swday_bytd_qty
+, return_ppy_qty
+, return_ppy_bytd_qty
+, return_ppy_swday_qty
+, return_ppy_swday_bytd_qty
+, perf_adj_sales_cnt
+, perf_adj_sales_bytd_cnt
+, perf_adj_sales_py_cnt
+, perf_adj_sales_py_bytd_cnt
+, perf_adj_sales_py_swday_cnt
+, perf_adj_sales_py_swday_bytd_cnt
+, perf_adj_sales_ppy_cnt
+, perf_adj_sales_ppy_bytd_cnt
+, perf_adj_sales_ppy_swday_cnt
+, perf_adj_sales_ppy_swday_bytd_cnt
+, perf_adj_sales_qty
+, perf_adj_sales_bytd_qty
+, perf_adj_sales_py_qty
+, perf_adj_sales_py_bytd_qty
+, perf_adj_sales_py_swday_qty
+, perf_adj_sales_py_swday_bytd_qty
+, perf_adj_sales_ppy_qty
+, perf_adj_sales_ppy_bytd_qty
+, perf_adj_sales_ppy_swday_qty
+, perf_adj_sales_ppy_swday_bytd_qty
+, perf_adj_return_cnt
+, perf_adj_return_bytd_cnt
+, perf_adj_return_py_cnt
+, perf_adj_return_py_bytd_cnt
+, perf_adj_return_py_swday_cnt
+, perf_adj_return_py_swday_bytd_cnt
+, perf_adj_return_ppy_cnt
+, perf_adj_return_ppy_bytd_cnt
+, perf_adj_return_ppy_swday_cnt
+, perf_adj_return_ppy_swday_bytd_cnt
+, perf_adj_return_qty
+, perf_adj_return_bytd_qty
+, perf_adj_return_py_qty
+, perf_adj_return_py_bytd_qty
+, perf_adj_return_py_swday_qty
+, perf_adj_return_py_swday_bytd_qty
+, perf_adj_return_ppy_qty
+, perf_adj_return_ppy_bytd_qty
+, perf_adj_return_ppy_swday_qty
+, perf_adj_return_ppy_swday_bytd_qty
+, perf_adj_sales_net_val
+, perf_adj_sales_bytd_net_val
+, perf_adj_sales_py_net_val
+, perf_adj_sales_py_bytd_net_val
+, perf_adj_sales_py_swday_net_val
+, perf_adj_sales_py_swday_bytd_net_val
+, perf_adj_sales_ppy_net_val
+, perf_adj_sales_ppy_bytd_net_val
+, perf_adj_sales_ppy_swday_net_val
+, perf_adj_sales_ppy_swday_bytd_net_val
+, perf_adj_return_net_val
+, perf_adj_return_bytd_net_val
+, perf_adj_return_py_net_val
+, perf_adj_return_py_bytd_net_val
+, perf_adj_return_py_swday_net_val
+, perf_adj_return_py_swday_bytd_net_val
+, perf_adj_return_ppy_net_val
+, perf_adj_return_ppy_bytd_net_val
+, perf_adj_return_ppy_swday_net_val
+, perf_adj_return_ppy_swday_bytd_net_val
+, uom_cd
+, turnover_net_val
+, turnover_bytd_net_val
+, turnover_py_net_val
+, turnover_py_bytd_net_val
+, turnover_py_swday_net_val
+, turnover_py_swday_bytd_net_val
+, turnover_ppy_net_val
+, turnover_ppy_bytd_net_val
+, turnover_ppy_swday_net_val
+, turnover_ppy_swday_bytd_net_val
+, plan_turnover_net_val
+, plan_turnover_bytd_net_val
+, plan_turnover_py_net_val
+, plan_turnover_py_bytd_net_val
+, plan_turnover_py_swday_net_val
+, plan_turnover_py_swday_bytd_net_val
+, plan_turnover_ppy_net_val
+, plan_turnover_ppy_bytd_net_val
+, plan_turnover_ppy_swday_net_val
+, plan_turnover_ppy_swday_bytd_net_val
+, cash_register_sales_net_val
+, cash_register_sales_bytd_net_val
+, cash_register_sales_py_net_val
+, cash_register_sales_py_bytd_net_val
+, cash_register_sales_py_swday_net_val
+, cash_register_sales_py_swday_bytd_net_val
+, cash_register_sales_ppy_net_val
+, cash_register_sales_ppy_bytd_net_val
+, cash_register_sales_ppy_swday_net_val
+, cash_register_sales_ppy_swday_bytd_net_val
+, cash_register_return_net_val
+, cash_register_return_bytd_net_val
+, cash_register_return_py_net_val
+, cash_register_return_py_bytd_net_val
+, cash_register_return_py_swday_net_val
+, cash_register_return_py_swday_bytd_net_val
+, cash_register_return_ppy_net_val
+, cash_register_return_ppy_bytd_net_val
+, cash_register_return_ppy_swday_net_val
+, cash_register_return_ppy_swday_bytd_net_val
+, eod_turnover_net_val
+, booked_turnover_net_val
+, turnover_gross_val
+, turnover_bytd_gross_val
+, turnover_py_gross_val
+, turnover_py_bytd_gross_val
+, turnover_py_swday_gross_val
+, turnover_py_swday_bytd_gross_val
+, turnover_ppy_gross_val
+, turnover_ppy_bytd_gross_val
+, turnover_ppy_swday_gross_val
+, turnover_ppy_swday_bytd_gross_val
+, cash_register_sales_gross_val
+, cash_register_return_gross_val
+, eod_turnover_gross_val
+, curr_cd
+, receipt_cnt
+, receipt_bytd_cnt
+, receipt_py_cnt
+, receipt_py_bytd_cnt
+, receipt_py_swday_cnt
+, receipt_py_swday_bytd_cnt
+, receipt_ppy_cnt
+, receipt_ppy_bytd_cnt
+, receipt_ppy_swday_cnt
+, receipt_ppy_swday_bytd_cnt
+, cash_register_receipt_cnt
+, eod_receipt_cnt
+, booked_receipt_cnt
+, plan_receipt_cnt
+, plan_receipt_bytd_cnt
+, plan_receipt_py_cnt
+, plan_receipt_py_bytd_cnt
+, plan_receipt_py_swday_cnt
+, plan_receipt_py_swday_bytd_cnt
+, plan_receipt_ppy_cnt
+, plan_receipt_ppy_bytd_cnt
+, plan_receipt_ppy_swday_cnt
+, plan_receipt_ppy_swday_bytd_cnt
+, plan_total_hr_cnt
+, plan_total_hr_bytd_cnt
+, short_term_plan_total_hr_cnt
+, short_term_plan_total_hr_bytd_cnt
+, short_term_plan_perf_adj_sales_qty
+, short_term_plan_perf_adj_sales_bytd_qty
+, dwh_created_tmsp
+, dwh_updated_tmsp
+, dwh_load_id
+, dwh_node_cd
+)
+SELECT
+   agg.bus_dt
+ , agg.int_org_sid
+ , agg.int_org_type_cd
+ , agg.country_org_cd
+ , agg.sales_cnt
+ , agg.sales_bytd_cnt
+ , agg.sales_py_cnt
+ , agg.sales_py_bytd_cnt
+ , agg.sales_py_swday_cnt
+ , agg.sales_py_swday_bytd_cnt
+ , agg.sales_ppy_cnt
+ , agg.sales_ppy_bytd_cnt
+ , agg.sales_ppy_swday_cnt
+ , agg.sales_ppy_swday_bytd_cnt
+ , agg.sales_qty
+ , agg.sales_bytd_qty
+ , agg.sales_py_qty
+ , agg.sales_py_bytd_qty
+ , agg.sales_py_swday_qty
+ , agg.sales_py_swday_bytd_qty
+ , agg.sales_ppy_qty
+ , agg.sales_ppy_bytd_qty
+ , agg.sales_ppy_swday_qty
+ , agg.sales_ppy_swday_bytd_qty
+ , agg.return_cnt
+ , agg.return_bytd_cnt
+ , agg.return_py_cnt
+ , agg.return_py_bytd_cnt
+ , agg.return_py_swday_cnt
+ , agg.return_py_swday_bytd_cnt
+ , agg.return_ppy_cnt
+ , agg.return_ppy_bytd_cnt
+ , agg.return_ppy_swday_cnt
+ , agg.return_ppy_swday_bytd_cnt
+ , agg.return_qty
+ , agg.return_bytd_qty
+ , agg.return_py_qty
+ , agg.return_py_bytd_qty
+ , agg.return_py_swday_qty
+ , agg.return_py_swday_bytd_qty
+ , agg.return_ppy_qty
+ , agg.return_ppy_bytd_qty
+ , agg.return_ppy_swday_qty
+ , agg.return_ppy_swday_bytd_qty
+ , agg.perf_adj_sales_cnt
+ , agg.perf_adj_sales_bytd_cnt
+ , agg.perf_adj_sales_py_cnt
+ , agg.perf_adj_sales_py_bytd_cnt
+ , agg.perf_adj_sales_py_swday_cnt
+ , agg.perf_adj_sales_py_swday_bytd_cnt
+ , agg.perf_adj_sales_ppy_cnt
+ , agg.perf_adj_sales_ppy_bytd_cnt
+ , agg.perf_adj_sales_ppy_swday_cnt
+ , agg.perf_adj_sales_ppy_swday_bytd_cnt
+ , agg.perf_adj_sales_qty
+ , agg.perf_adj_sales_bytd_qty
+ , agg.perf_adj_sales_py_qty
+ , agg.perf_adj_sales_py_bytd_qty
+ , agg.perf_adj_sales_py_swday_qty
+ , agg.perf_adj_sales_py_swday_bytd_qty
+ , agg.perf_adj_sales_ppy_qty
+ , agg.perf_adj_sales_ppy_bytd_qty
+ , agg.perf_adj_sales_ppy_swday_qty
+ , agg.perf_adj_sales_ppy_swday_bytd_qty
+ , agg.perf_adj_return_cnt
+ , agg.perf_adj_return_bytd_cnt
+ , agg.perf_adj_return_py_cnt
+ , agg.perf_adj_return_py_bytd_cnt
+ , agg.perf_adj_return_py_swday_cnt
+ , agg.perf_adj_return_py_swday_bytd_cnt
+ , agg.perf_adj_return_ppy_cnt
+ , agg.perf_adj_return_ppy_bytd_cnt
+ , agg.perf_adj_return_ppy_swday_cnt
+ , agg.perf_adj_return_ppy_swday_bytd_cnt
+ , agg.perf_adj_return_qty
+ , agg.perf_adj_return_bytd_qty
+ , agg.perf_adj_return_py_qty
+ , agg.perf_adj_return_py_bytd_qty
+ , agg.perf_adj_return_py_swday_qty
+ , agg.perf_adj_return_py_swday_bytd_qty
+ , agg.perf_adj_return_ppy_qty
+ , agg.perf_adj_return_ppy_bytd_qty
+ , agg.perf_adj_return_ppy_swday_qty
+ , agg.perf_adj_return_ppy_swday_bytd_qty
+ , agg.perf_adj_sales_net_val
+ , agg.perf_adj_sales_bytd_net_val
+ , agg.perf_adj_sales_py_net_val
+ , agg.perf_adj_sales_py_bytd_net_val
+ , agg.perf_adj_sales_py_swday_net_val
+ , agg.perf_adj_sales_py_swday_bytd_net_val
+ , agg.perf_adj_sales_ppy_net_val
+ , agg.perf_adj_sales_ppy_bytd_net_val
+ , agg.perf_adj_sales_ppy_swday_net_val
+ , agg.perf_adj_sales_ppy_swday_bytd_net_val
+ , agg.perf_adj_return_net_val
+ , agg.perf_adj_return_bytd_net_val
+ , agg.perf_adj_return_py_net_val
+ , agg.perf_adj_return_py_bytd_net_val
+ , agg.perf_adj_return_py_swday_net_val
+ , agg.perf_adj_return_py_swday_bytd_net_val
+ , agg.perf_adj_return_ppy_net_val
+ , agg.perf_adj_return_ppy_bytd_net_val
+ , agg.perf_adj_return_ppy_swday_net_val
+ , agg.perf_adj_return_ppy_swday_bytd_net_val
+ , agg.uom_cd
+ , agg.turnover_net_val
+ , agg.turnover_bytd_net_val
+ , agg.turnover_py_net_val
+ , agg.turnover_py_bytd_net_val
+ , agg.turnover_py_swday_net_val
+ , agg.turnover_py_swday_bytd_net_val
+ , agg.turnover_ppy_net_val
+ , agg.turnover_ppy_bytd_net_val
+ , agg.turnover_ppy_swday_net_val
+ , agg.turnover_ppy_swday_bytd_net_val
+ , agg.plan_turnover_net_val
+ , agg.plan_turnover_bytd_net_val
+ , agg.plan_turnover_py_net_val
+ , agg.plan_turnover_py_bytd_net_val
+ , agg.plan_turnover_py_swday_net_val
+ , agg.plan_turnover_py_swday_bytd_net_val
+ , agg.plan_turnover_ppy_net_val
+ , agg.plan_turnover_ppy_bytd_net_val
+ , agg.plan_turnover_ppy_swday_net_val
+ , agg.plan_turnover_ppy_swday_bytd_net_val
+ , agg.cash_register_sales_net_val
+ , agg.cash_register_sales_bytd_net_val
+ , agg.cash_register_sales_py_net_val
+ , agg.cash_register_sales_py_bytd_net_val
+ , agg.cash_register_sales_py_swday_net_val
+ , agg.cash_register_sales_py_swday_bytd_net_val
+ , agg.cash_register_sales_ppy_net_val
+ , agg.cash_register_sales_ppy_bytd_net_val
+ , agg.cash_register_sales_ppy_swday_net_val
+ , agg.cash_register_sales_ppy_swday_bytd_net_val
+ , agg.cash_register_return_net_val
+ , agg.cash_register_return_bytd_net_val
+ , agg.cash_register_return_py_net_val
+ , agg.cash_register_return_py_bytd_net_val
+ , agg.cash_register_return_py_swday_net_val
+ , agg.cash_register_return_py_swday_bytd_net_val
+ , agg.cash_register_return_ppy_net_val
+ , agg.cash_register_return_ppy_bytd_net_val
+ , agg.cash_register_return_ppy_swday_net_val
+ , agg.cash_register_return_ppy_swday_bytd_net_val
+ , agg.eod_turnover_net_val
+ , agg.booked_turnover_net_val
+ , agg.turnover_gross_val
+ , agg.turnover_bytd_gross_val
+ , agg.turnover_py_gross_val
+ , agg.turnover_py_bytd_gross_val
+ , agg.turnover_py_swday_gross_val
+ , agg.turnover_py_swday_bytd_gross_val
+ , agg.turnover_ppy_gross_val
+ , agg.turnover_ppy_bytd_gross_val
+ , agg.turnover_ppy_swday_gross_val
+ , agg.turnover_ppy_swday_bytd_gross_val
+ , agg.cash_register_sales_gross_val
+ , agg.cash_register_return_gross_val
+ , agg.eod_turnover_gross_val
+ , agg.curr_cd
+ , agg.receipt_cnt
+ , agg.receipt_bytd_cnt
+ , agg.receipt_py_cnt
+ , agg.receipt_py_bytd_cnt
+ , agg.receipt_py_swday_cnt
+ , agg.receipt_py_swday_bytd_cnt
+ , agg.receipt_ppy_cnt
+ , agg.receipt_ppy_bytd_cnt
+ , agg.receipt_ppy_swday_cnt
+ , agg.receipt_ppy_swday_bytd_cnt
+ , agg.cash_register_receipt_cnt
+ , agg.eod_receipt_cnt
+ , agg.booked_receipt_cnt
+ , agg.plan_receipt_cnt
+ , agg.plan_receipt_bytd_cnt
+ , agg.plan_receipt_py_cnt
+ , agg.plan_receipt_py_bytd_cnt
+ , agg.plan_receipt_py_swday_cnt
+ , agg.plan_receipt_py_swday_bytd_cnt
+ , agg.plan_receipt_ppy_cnt
+ , agg.plan_receipt_ppy_bytd_cnt
+ , agg.plan_receipt_ppy_swday_cnt
+ , agg.plan_receipt_ppy_swday_bytd_cnt
+ , agg.plan_total_hr_cnt
+ , agg.plan_total_hr_bytd_cnt
+ , agg.short_term_plan_total_hr_cnt
+ , agg.short_term_plan_total_hr_bytd_cnt
+ , agg.short_term_plan_perf_adj_sales_qty
+ , agg.short_term_plan_perf_adj_sales_bytd_qty
+ , agg.dwh_created_tmsp
+ , agg.dwh_updated_tmsp
+ , agg.dwh_load_id
+ , agg.dwh_node_cd
+FROM ETL.v_fact_retail_by_store_day agg
+order by agg.country_org_cd,agg.bus_dt
+;

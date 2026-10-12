@@ -1,0 +1,13 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_data.aad_scenario_metric_spr_zu (
+scenario_id INTEGER NOT NULL OPTIONS(description='Unique Identifier of the Scenario'),
+scenario_metric_id INTEGER NOT NULL
+OPTIONS(description='Unique identifier of the metric that is monitored in fraud detection scenarios'),
+spr_id INTEGER NOT NULL OPTIONS(description='ID der Sprache'),
+mandant_id INTEGER NOT NULL OPTIONS(description='Mandant im DWH - ein Mandant pro Land.'),
+scenario_metric_descr STRING(255) OPTIONS(description='Scenario´s metric name in the corresponding language'),
+td_update TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+td_insert TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+PRIMARY KEY (scenario_id, scenario_metric_id, spr_id, mandant_id) NOT ENFORCED
+) OPTIONS(description='Contains the description of the scenario metrics in the corresponding languages');

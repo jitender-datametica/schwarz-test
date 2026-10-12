@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_ausnahme AS SELECT ausnahme_id,
+ mandant_id,
+ art_id,
+ wup_id,
+ nb_id,
+ dat_plan,
+ pruef_id,
+ z_arbeitsgebiet_id,
+ gp_id,
+ ausnahme_mutter_id,
+ ausnahme_menge_bme,
+ ausnahme_menge_kolli,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.ausnahme;

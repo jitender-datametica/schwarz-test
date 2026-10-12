@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_nettostunden_quelle AS SELECT quelle_id,
+ quelle_bez
+FROM kfl_production_dbp_data.l_nettostunden_quelle;

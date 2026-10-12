@@ -1,0 +1,33 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.besch_lief_wup_sum (
+dat_lief_soll DATE NOT NULL,
+kunde_id STRING(10) COLLATE 'und:ci' NOT NULL,
+lagerort_id STRING(4) COLLATE 'und:ci' NOT NULL,
+lief_pal_typ_id STRING(2) COLLATE 'und:ci' NOT NULL,
+lief_typ_id STRING(4) COLLATE 'und:ci' NOT NULL,
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+vertr_beleg_typ_id STRING(4) COLLATE 'und:ci' NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+wg_verkett_lief BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+menge_lief_ist_kolli NUMERIC(18,3),
+anzahl_packstueck BIGNUMERIC(38,0),
+anzahl_position BIGNUMERIC(38,0),
+menge_lief_ist_bme NUMERIC(18,6),
+betrag_lief_ist NUMERIC(18,3),
+menge_lief_soll_bme NUMERIC(18,6),
+menge_lief_soll_kolli NUMERIC(18,3),
+werbeware_id STRING(1) COLLATE 'und:ci',
+betrag_lief_soll NUMERIC(18,3),
+wrg_id STRING(3) COLLATE 'und:ci' DEFAULT 'EUR',
+mandant_id_kunde BIGNUMERIC(38,0) DEFAULT 1 NOT NULL,
+vk_netto_lief_soll NUMERIC(18,4) DEFAULT 0 NOT NULL,
+vk_netto_lief_ist NUMERIC(18,4) DEFAULT 0 NOT NULL,
+brtvol_ladung_liter NUMERIC(18,3) DEFAULT 0 NOT NULL,
+bestellart_id STRING(4) COLLATE 'und:ci' DEFAULT '    ',
+hu_status_id STRING(4) COLLATE 'und:ci' DEFAULT '    ',
+brtvol_ladung_liter_gedeckelt NUMERIC(18,3) DEFAULT 0 NOT NULL,
+td_update TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+td_insert TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration')
+) CLUSTER BY dat_lief_soll;

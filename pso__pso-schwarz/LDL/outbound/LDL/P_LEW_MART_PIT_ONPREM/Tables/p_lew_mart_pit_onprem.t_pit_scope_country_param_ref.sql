@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_pit_onprem.t_pit_scope_country_param_ref (
+param_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+param_name STRING(16777216) DEFAULT 'N/A' NOT NULL,
+param_descr STRING(16777216),
+param_column_datatype STRING(16777216) DEFAULT 'STRING' NOT NULL,
+pit_initial_fg BIGNUMERIC(38,0) DEFAULT 1 NOT NULL,
+pit_reagg_fg BIGNUMERIC(38,0) DEFAULT 1 NOT NULL,
+dwh_created DATETIME DEFAULT CAST(CURRENT_TIMESTAMP() AS DATETIME) NOT NULL,
+dwh_updated DATETIME,
+PRIMARY KEY (param_id) NOT ENFORCED
+);

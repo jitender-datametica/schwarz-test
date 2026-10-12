@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_msi.t_org_wh (
+client_id BIGNUMERIC(38,0),
+wh_id BIGNUMERIC(38,0),
+country_cd STRING(20),
+dat_opening DATE,
+costcenter_cd BIGNUMERIC(38,0),
+company STRING(50) COLLATE 'und:ci',
+order_buying_list_cd BIGNUMERIC(38,0),
+vat_region_nr STRING(20) COLLATE 'und:ci',
+region_cd BIGNUMERIC(38,0),
+stock_plain INTEGER,
+sponsion STRING(50) COLLATE 'und:ci',
+global_location_nr STRING(50) COLLATE 'und:ci',
+wh_desc STRING(100) COLLATE 'und:ci',
+distribute_wh_fg BIGNUMERIC(38,0),
+int_fg BIGNUMERIC(38,0),
+hq_fg BIGNUMERIC(38,0),
+prop_wh_fg BIGNUMERIC(38,0),
+sales_wh_fg BIGNUMERIC(38,0),
+supp_wh_fg BIGNUMERIC(38,0),
+wawi_data_fg BIGNUMERIC(38,0),
+ovis_data_fg BIGNUMERIC(38,0)
+);

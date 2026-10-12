@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE smp_production_eval.ios_smar_1021_devicetrk (
+l1_insert_time_key DATETIME,
+rw_insert_time_key DATETIME,
+api_time_key DATETIME,
+input_file_name STRING(16777216),
+data_type STRING(16777216),
+version_source STRING(16777216),
+source_name STRING(16777216),
+event_id STRING(16777216),
+valid_time_key DATETIME,
+date_key STRING(16777216),
+country STRING(16777216),
+app_version STRING(16777216),
+device_id STRING(16777216),
+operating_system STRING(16777216),
+device_item STRING(16777216),
+cosmosdb_insert_time_key DATETIME,
+mobile_push_platform STRING(16777216),
+is_new_device BOOL,
+consent_id STRING(16777216),
+consent_granted BOOL,
+customer_id STRING(16777216)
+);

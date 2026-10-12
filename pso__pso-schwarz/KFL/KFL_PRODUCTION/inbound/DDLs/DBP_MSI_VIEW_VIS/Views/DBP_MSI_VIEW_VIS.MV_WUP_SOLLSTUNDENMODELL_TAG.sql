@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_VIS.MV_WUP_SOLLSTUNDENMODELL_TAG as
+   SELECT *
+   FROM dbp_data.wup_sollstundenmodell_tag
+;

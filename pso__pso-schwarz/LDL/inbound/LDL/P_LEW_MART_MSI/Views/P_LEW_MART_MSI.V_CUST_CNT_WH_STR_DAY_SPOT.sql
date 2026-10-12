@@ -1,0 +1,41 @@
+CREATE OR REPLACE VIEW P_LEW_MART_MSI.V_CUST_CNT_WH_STR_DAY_SPOT
+   (	
+   client_id	
+   , wh_id	
+   , aspect_id	
+   , store_id	
+   , currency_iso_cd	
+   , business_yr	
+   , month_id	
+   , week_id	
+   , dat_calendar	
+   , last_cwd_fg	
+   , last_cmd_fg	
+   , ber_st_fg	
+   , dup_fg	
+   , cust_cnt	
+   , p1y_cwd_cust_cnt	
+   , p1y_cmd_cust_cnt	
+   , p1y_ber_cust_cnt	
+   )	
+   AS	
+      SELECT	
+      client_id,	
+      wh_id,	
+      aspect_id,	
+      store_id,	
+      currency_iso_cd,	
+      business_yr,	
+      month_id,	
+      week_id,	
+      dat_calendar,	
+      last_cwd_fg,	
+      last_cmd_fg,	
+      ber_st_fg,	
+      dup_fg,	
+      cust_cnt,	
+      p1y_cwd_cust_cnt,	
+      p1y_cmd_cust_cnt,	
+      p1y_ber_cust_cnt	
+     FROM p_lew_mart_msi.t_cust_cnt_wh_str_day_spot	
+;

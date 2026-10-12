@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW P_LEW_MART_LEAD_AC.V_SM_CONTAINER_SB 
+AS (
+/*
+#----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS
+#----------------------------------------------------------------------------
+# Interface: DDL
+#----------------------------------------------------------------------------
+# History:
+#  1.0  19.05.2022    Bialek, Aleksander       Initial Version Part of SOMO AP2, Ek-Wa_SoMo_AP2_SF_objects, BBT-3832, AD Work Item: 291570
+#----------------------------------------------------------------------------
+*/
+SELECT 
+  CONT_SB_ID 
+, CONTAINER_SB 
+FROM P_LEW_MART_LEAD.T_SM_CONTAINER_SB
+)
+;

@@ -1,0 +1,112 @@
+/* #----------------------------------------------------------------------------
+# History:
+#  1.0  01.10.2018    Khusainov, Timur         Initiliazation
+#  1.1  06.08.2020    Roy,Ritanjal             Introducing new country Latviya
+#  1.2  24.03.2021    Rodrigo Cione            Added modernization date columns:
+#                                              dat_modernization_from and dat_modernization_to
+#                                              https://jira.schwarz/browse/REP2-9234
+#  1.3  17.12.2021    Michael Morris           Added Estonia EE
+#---------------------------------------------------------------------------- */
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi.v_mat_org_all_store_merge AS SELECT ASM.aspect_id,
+ ASM.client_id,
+ ASM.move_to_store_id,
+ ASM.move_store_desc,
+ ASM.wh_id,
+ ASM.wh_id_exp,
+ ASM.sales_manager_id,
+ ASM.dat_closing_ovis,
+ ASM.dat_opening_ovis,
+ ASM.mis_store_active_fg,
+ ASM.dat_opening,
+ ASM.dat_closing,
+ ASM.orig_store_nr,
+ ASM.dat_calc_start_py,
+ ASM.dat_calc_end_py,
+ ASM.objectstatus_id,
+ ASM.dat_calc_start_ppy,
+ ASM.move_fg,
+ ASM.street,
+ ASM.zipcode,
+ ASM.city,
+ ASM.phone,
+ ASM.longitude,
+ ASM.latitude,
+ ASM.dat_modernization_from,
+ ASM.dat_modernization_to,
+ COALESCE(SMM.account_manager_id, - 1335) AS account_manager_id,
+ SMM.sales_manager_name,
+ AMM.account_manager_name,
+ WME.country_cd,
+ COALESCE(WME.gl_region_id, - 1335) AS gl_region_id,
+ WME.costcenter_cd,
+ WME.company,
+ WME.order_buying_list_cd,
+ WME.vat_region_nr,
+ WME.region_cd,
+ WME.stock_plain,
+ WME.sponsion,
+ WME.global_location_nr,
+ WME.wh_desc,
+ WME.distribute_wh_fg,
+ WME.int_fg,
+ WME.hq_fg,
+ WME.prop_wh_fg,
+ WME.sales_wh_fg,
+ WME.supp_wh_fg,
+ WME.wawi_data_fg,
+ WME.ovis_data_fg,
+ WME.parent_wh_id,
+ WME.buying_region,
+ RME.gl_region_desc,
+ RME.gl_last_name,
+ RME.gl_first_name,
+ COALESCE(CLE.int_id, - 1335) AS int_id,
+ CLE.country_iso_cd,
+ CLE.country_group_id,
+ CLE.lisy_sort,
+ CLE.dashboard_relevant_fg,
+ CLE.country_desc_at,
+ CLE.country_desc_be,
+ CLE.country_desc_bg,
+ CLE.country_desc_ch,
+ CLE.country_desc_cy,
+ CLE.country_desc_cz,
+ CLE.country_desc,
+ CLE.country_desc_dk,
+ CLE.country_desc_ee,
+ CLE.country_desc_es,
+ CLE.country_desc_fi,
+ CLE.country_desc_fr,
+ CLE.country_desc_gb,
+ CLE.country_desc_gr,
+ CLE.country_desc_hr,
+ CLE.country_desc_hu,
+ CLE.country_desc_ie,
+ CLE.country_desc_it,
+ CLE.country_desc_lt,
+ CLE.country_desc_ni,
+ CLE.country_desc_nl,
+ CLE.country_desc_de,
+ CLE.country_desc_lv,
+ CLE.country_desc_pl,
+ CLE.country_desc_pt,
+ CLE.country_desc_ro,
+ CLE.country_desc_se,
+ CLE.country_desc_si,
+ CLE.country_desc_sk,
+ CLE.country_desc_cs,
+ CLE.country_desc_mt,
+ CLE.country_desc_us,
+ CLE.country_desc_rs,
+ CLE.country_opening_date
+FROM ldl_p_lew_mart_msi.v_mat0_org_all_store_merge AS ASM
+ LEFT JOIN ldl_p_lew_mart_msi.v_mat_org_sales_manager_merge AS SMM ON ASM.aspect_id = SMM.aspect_id AND ASM.client_id =
+      SMM.client_id AND ASM.wh_id = SMM.wh_id AND ASM.wh_id_exp = SMM.wh_id_exp AND ASM.sales_manager_id = SMM.sales_manager_id
+   
+ LEFT JOIN ldl_p_lew_mart_msi.v_mat_org_account_manager_merge AS AMM ON SMM.aspect_id = AMM.aspect_id AND SMM.client_id
+     = AMM.client_id AND SMM.wh_id = AMM.wh_id AND SMM.account_manager_id = AMM.account_manager_id
+ LEFT JOIN ldl_p_lew_mart_msi.v_mat_org_wh_merge AS WME ON ASM.client_id = WME.client_id AND ASM.aspect_id = WME.aspect_id
+     AND ASM.wh_id = WME.wh_id
+ LEFT JOIN ldl_p_lew_mart_msi.v_mat_ref_gl_region_merge AS RME ON WME.aspect_id = RME.aspect_id AND WME.client_id = RME
+    .client_id AND WME.gl_region_id = RME.gl_region_id
+ LEFT JOIN ldl_p_lew_mart_msi.v_mat_ref_client_lead AS CLE ON ASM.client_id = CLE.client_id;

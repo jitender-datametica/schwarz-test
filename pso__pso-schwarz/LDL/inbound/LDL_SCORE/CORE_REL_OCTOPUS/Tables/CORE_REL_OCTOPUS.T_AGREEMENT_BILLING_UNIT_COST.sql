@@ -1,0 +1,27 @@
+CREATE TABLE CORE_REL_OCTOPUS.T_AGREEMENT_BILLING_UNIT_COST (
+   route_segment_agmt_elem_sid         NUMBER          NOT NULL COMMENT 'Surrogate identifier for Agreement element',
+   charge_type_cd                      VARCHAR(20)     NOT NULL COMMENT 'This is a code, which defines the services for which, a fee is charged - for example for freight, surcharge.',
+   pallet_type_cd                      VARCHAR(20)     NOT NULL COMMENT 'A code for the pallet that indicates the storage occupation for transportation.',
+   pallet_exchange_fg                  BOOLEAN         NOT NULL COMMENT 'A pallet exchange program is a collective agreement between pallet shippers and receivers that tries to ensure that each party maintains the same number of pallets. When loaded pallets are brought to a warehouse or another receiver, they are exchanged for an equal number of empty pallets.',
+   validity_period_from_tmsp           TIMESTAMP_TZ(9) NOT NULL COMMENT 'Validity start',
+   validity_period_to_tmsp             TIMESTAMP_TZ(9) NOT NULL COMMENT 'Validity End',
+   dwh_valid_from_tmsp                 TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record became valid.',
+   dwh_valid_to_tmsp                   TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was no longer valid.',
+   dwh_valid_fg                        BOOLEAN         NOT NULL COMMENT 'An indicator showing the current record, i.e. where the current date is between dwh_valid_from and dwh_valid_to.',
+   billing_unit_price                  NUMBER(38, 5)   NOT NULL COMMENT 'Agreed price by billing unit type',
+   curr_cd                             VARCHAR(3)      COMMENT 'A three-character code for a currency according to ISO 4217. E.g.: ''EUR'', ''USD'', ''GBP'', …',
+   billing_unit_cd                     VARCHAR(20)     NOT NULL COMMENT 'Cost component''s billing unit code (Container, Stellplatz etc.)',
+   equipment_type_cd                   VARCHAR(20)     COMMENT 'The type discriminator for this equipment, i.e. vehicle(truck)',
+   billing_unit_cost_nr                VARCHAR(20)     NOT NULL COMMENT 'Number, which identifies the cos element for given route segment agreement element.',
+   term_day_cnt                        NUMBER          COMMENT 'Term days',
+   max_tons_meas                       NUMBER(38, 5)   COMMENT 'The maximum allowance for charging a truck in tons',
+   min_pallet_cnt                      NUMBER          COMMENT 'Minimum permitted load in Euro Pallets',
+   weight_dispo_fg                     BOOLEAN         COMMENT 'There can be a weight disposition in the groupage load as well as in the full load. In groupage, for example, the wine logistics are ordered truck-specifically, 
+            since there are many heavy items in the order and the truck does not necessarily have to be ordered with a minimum purchase of 33 pallets,
+             but the weight restriction (e.g. 22.5 t) can also be reached first .
+            ',
+   negot_fg                            BOOLEAN         COMMENT 'Is this a negotiable term?',
+   dwh_created_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   dwh_updated_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',   
+   CONSTRAINT PK_T_AGREEMENT_BILLING_UNIT_COST PRIMARY KEY (route_segment_agmt_elem_sid, dwh_valid_from_tmsp, pallet_type_cd, pallet_exchange_fg, validity_period_from_tmsp, validity_period_to_tmsp, charge_type_cd) NOT ENFORCED 
+)  COMMENT = 'Billing Unit price is comprised of graduated prices (Staffel) and can be supplemented by the graduated unit prices if not defined as part of  the agreed price. This must be specified by the carrier in a logistics offer and can be per pallet or by  EP storage space (Euro pallet standardized storage space) or by means of transport or per loading meter.';

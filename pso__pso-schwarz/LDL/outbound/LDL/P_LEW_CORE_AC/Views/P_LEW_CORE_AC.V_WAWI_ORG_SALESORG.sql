@@ -1,0 +1,22 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_wawi_org_salesorg (client_id, st_loc_sid, dat_rec_start, dat_rec_end,
+sales_manager_id, sales_manager_name, account_manager_id, account_manager_name, store_manager_id, store_manager_name,
+organisation_id, general_manager_id, general_manager_name, district_id, dat_valid_from, dat_valid_until, wh_loc_sid_exp
+, load_id) AS SELECT client_id,
+ st_loc_sid,
+ dat_rec_start,
+ dat_rec_end,
+ sales_manager_id,
+ sales_manager_name,
+ account_manager_id,
+ account_manager_name,
+ store_manager_id,
+ store_manager_name,
+ organisation_id,
+ general_manager_id,
+ general_manager_name,
+ district_id,
+ dat_valid_from,
+ dat_valid_until,
+ wh_loc_sid_exp,
+ load_id
+FROM ldl_p_lew_core.t_wawi_org_salesorg;

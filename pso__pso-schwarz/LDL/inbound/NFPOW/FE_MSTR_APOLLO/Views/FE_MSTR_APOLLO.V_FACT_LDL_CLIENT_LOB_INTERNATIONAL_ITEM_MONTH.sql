@@ -1,0 +1,97 @@
+/*
+#----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS
+#----------------------------------------------------------------------------
+# Interface: DDL for FE_MSTR_APOLLO.V_FACT_LDL_CLIENT_LOB_INTERNATIONAL_ITEM_MONTH
+#----------------------------------------------------------------------------
+# History:
+#  1.0  11.04.2023    Aparna Rayanki           Initial Version
+#  1.1  08.05.2023    Aparna Rayanki           PDM changes to column names
+#  1.2  12.06.2023    Aparna Rayanki           Changes to KFL_SALES_NET_VAL
+#  1.3  15.06.2023    Aparna Rayanki           added KFL_PCH_NET_VAL
+#  1.4  08.08.2024    Ulrich Meister           added KFL_CONSOLIDATED_PROMO_ITEM_TYPE_CD
+#----------------------------------------------------------------------------
+*/
+
+CREATE OR REPLACE VIEW FE_MSTR_APOLLO.V_FACT_LDL_CLIENT_LOB_INTERNATIONAL_ITEM_MONTH 
+(
+      LDL_CLIENT_ID
+    , LOB_CD
+    , LDL_ITEM_IAN_NR
+    , CAL_MONTH
+    , CAL_YEAR
+    , CURR_CD
+    , KFL_CONSOLIDATED_PROMO_ITEM_TYPE_CD
+    , LDL_WRITEOFF_NET_VAL
+    , KFL_TOTAL_WRITEOFF_NET_VAL
+    , KFL_PART_WRITEOFF_NET_VAL
+    , KFL_BUYING_SALES_NET_VAL
+	, KFL_SALES_NET_VAL
+    , LDL_ADJUST_SALES_NET_VAL
+    , LDL_ADJUST_SALES_QTY
+    , LDL_RETURN_NET_VAL
+    , LDL_RETURN_QTY
+    , LDL_PCH_NET_VAL
+	, KFL_PCH_NET_VAL
+    , LDL_RCV_QTY
+    , LDL_BUYING_RCV_NET_VAL
+    , LDL_RETAIL_RCV_NET_VAL
+    , LDL_PREV_1Y_WRITEOFF_NET_VAL
+    , KFL_PREV_1Y_TOTAL_WRITEOFF_NET_VAL
+    , KFL_PREV_1Y_PART_WRITEOFF_NET_VAL
+	, KFL_PREV_1Y_BUYING_SALES_NET_VAL
+	, KFL_PREV_1Y_SALES_NET_VAL
+    , LDL_PREV_1Y_ADJUST_SALES_NET_VAL
+    , LDL_PREV_1Y_ADJUST_SALES_QTY
+    , LDL_PREV_1Y_RETURN_NET_VAL
+    , LDL_PREV_1Y_RETURN_QTY
+    , LDL_PREV_1Y_PCH_NET_VAL
+    , KFL_PREV_1Y_PCH_NET_VAL
+    , LDL_PREV_1Y_RCV_QTY
+    , LDL_PREV_1Y_BUYING_RCV_NET_VAL
+    , LDL_PREV_1Y_RETAIL_RCV_NET_VAL
+    , DWH_CREATED_TMSP
+    , DWH_UPDATED_TMSP
+    , DWH_SRC_TMSP
+)
+AS SELECT
+      main.LDL_CLIENT_ID
+    , main.LOB_CD
+    , main.LDL_ITEM_IAN_NR
+    , main.CAL_MONTH
+    , main.CAL_YEAR
+    , main.CURR_CD
+    , main.KFL_CONSOLIDATED_PROMO_ITEM_TYPE_CD
+    , main.LDL_WRITEOFF_NET_VAL
+    , main.KFL_TOTAL_WRITEOFF_NET_VAL
+    , main.KFL_PART_WRITEOFF_NET_VAL
+    , main.KFL_BUYING_SALES_NET_VAL
+	, CASE WHEN main.LOB_CD='KFL' THEN main.LDL_ADJUST_SALES_NET_VAL ELSE NULL END AS KFL_SALES_NET_VAL
+    , main.LDL_ADJUST_SALES_NET_VAL
+    , main.LDL_ADJUST_SALES_QTY
+    , main.LDL_RETURN_NET_VAL
+    , main.LDL_RETURN_QTY
+    , main.LDL_PCH_NET_VAL
+	, main.KFL_PCH_NET_VAL
+    , main.LDL_RCV_QTY
+    , main.LDL_BUYING_RCV_NET_VAL
+    , main.LDL_RETAIL_RCV_NET_VAL
+    , main.LDL_PREV_1Y_WRITEOFF_NET_VAL
+    , main.KFL_PREV_1Y_TOTAL_WRITEOFF_NET_VAL
+    , main.KFL_PREV_1Y_PART_WRITEOFF_NET_VAL
+	, main.KFL_PREV_1Y_BUYING_SALES_NET_VAL
+	, CASE WHEN main.LOB_CD='KFL' THEN main.LDL_PREV_1Y_ADJUST_SALES_NET_VAL ELSE NULL END AS KFL_PREV_1Y_SALES_NET_VAL
+    , main.LDL_PREV_1Y_ADJUST_SALES_NET_VAL
+    , main.LDL_PREV_1Y_ADJUST_SALES_QTY
+    , main.LDL_PREV_1Y_RETURN_NET_VAL
+    , main.LDL_PREV_1Y_RETURN_QTY
+    , main.LDL_PREV_1Y_PCH_NET_VAL
+    , main.KFL_PREV_1Y_PCH_NET_VAL
+    , main.LDL_PREV_1Y_RCV_QTY
+    , main.LDL_PREV_1Y_BUYING_RCV_NET_VAL
+    , main.LDL_PREV_1Y_RETAIL_RCV_NET_VAL
+    , main.DWH_CREATED_TMSP
+    , main.DWH_UPDATED_TMSP
+    , main.DWH_SRC_TMSP
+FROM CORE.T_FACT_LDL_CLIENT_LOB_INTERNATIONAL_ITEM_MONTH main
+;

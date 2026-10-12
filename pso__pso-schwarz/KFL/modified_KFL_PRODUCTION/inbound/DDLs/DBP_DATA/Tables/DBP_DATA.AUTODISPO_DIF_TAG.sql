@@ -1,0 +1,15 @@
+CREATE TABLE DBP_DATA.AUTODISPO_DIF_TAG
+(
+mandant_id INTEGER NOT NULL,
+kunde_id INTEGER NOT NULL,
+art_id INTEGER NOT NULL,
+dat DATE NOT NULL,
+dat_ausfuehrung DATE NOT NULL,
+dif_typ_id INTEGER NOT NULL,
+dif_status_id INTEGER,
+dif_wert NUMBER(29,3),
+dif_kommentar VARCHAR(100) COLLATE 'en-ci',
+sap_returncode VARCHAR(255) COLLATE 'en-ci',
+TD_INSERT TIMESTAMP_LTZ(9),
+TD_UPDATE TIMESTAMP_LTZ(9));
+

@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE ldl_production_p_lew_load.t_ts_cbx_codelist_2_country_political__ (
+client_id INTEGER,
+country_pol_sid INTEGER,
+src_land1 STRING(20),
+country_pol_name STRING(100) COLLATE 'und:ci',
+curr_sid INTEGER,
+lang_sid INTEGER,
+curr_cd STRING(20),
+lang_cd STRING(20),
+iso_code2 STRING(20),
+iso_code3 STRING(20),
+member_eu_fg INTEGER,
+dwh_load_id INTEGER,
+record_id STRING(1000),
+error_descr STRING(1000),
+filename STRING(1000),
+hist_row_no STRING(1000),
+dwh_mapping_dt STRING(1000),
+error_fg INTEGER
+);

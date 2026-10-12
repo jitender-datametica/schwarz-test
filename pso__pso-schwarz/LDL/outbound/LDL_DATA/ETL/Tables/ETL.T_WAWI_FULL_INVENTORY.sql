@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_data_etl.t_wawi_full_inventory (
+ctrcode STRING(3),
+wh_nr BIGNUMERIC(38,0),
+c180_id INTEGER,
+c180_inventorydate DATETIME,
+c180_storenr INTEGER,
+c182_datefrom DATETIME,
+c182_dateuntil DATETIME,
+c182_turnoverval_net BIGNUMERIC(30,10),
+c182_diffval_net BIGNUMERIC(30,10),
+c182_inventoryval_net BIGNUMERIC(30,10),
+inv_sid BIGNUMERIC(38,0),
+int_org_sid BIGNUMERIC(38,0),
+country_org_sid BIGNUMERIC(38,0),
+extraction_tmsp DATETIME,
+dwh_created_tmsp TIMESTAMP,
+dwh_updated_tmsp TIMESTAMP,
+dwh_load_id BIGNUMERIC(38,0),
+dwh_node_cd STRING(20)
+);

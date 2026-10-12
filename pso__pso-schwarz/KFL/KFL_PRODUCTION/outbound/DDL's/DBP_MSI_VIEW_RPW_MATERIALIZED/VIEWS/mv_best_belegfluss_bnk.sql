@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_rpw_materialized.mv_best_belegfluss_bnk (
+mandant_id INTEGER,
+best_beleg_id INTEGER,
+best_beleg_pos_id INTEGER,
+anzahlpositionen INTEGER,
+folge_beleg_id INTEGER,
+folge_beleg_pos_id INTEGER,
+kj INTEGER,
+kond_stufe_id INTEGER,
+kond_zaehl_id INTEGER,
+vorgart_best_entw_id STRING(1) COLLATE 'und:ci',
+best_entw_typ_id STRING(1) COLLATE 'und:ci',
+betrag_kondition NUMERIC(29,4),
+soll_haben_kz STRING(1) COLLATE 'und:ci',
+ref_lagerbew_beleg_id STRING(20) COLLATE 'und:ci',
+gp_id INTEGER,
+dat_erfasst DATE,
+dat_buch DATE,
+system_id INTEGER,
+konditionsart_id STRING(4) COLLATE 'und:ci',
+wrg_id STRING(3) COLLATE 'und:ci'
+);

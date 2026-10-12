@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE ldl_p_lew_load.t_tcache_readwarehouseorder (
+client_id BIGNUMERIC(38,0) NOT NULL,
+loc_sid_wh BIGNUMERIC(38,0) NOT NULL,
+lgnum STRING(100),
+who BIGNUMERIC(38,0) NOT NULL,
+hdr_procty STRING(10),
+queue STRING(100),
+status STRING(10),
+zz_ship_to STRING(100),
+created_date DATE,
+created_time TIME,
+started_date DATE,
+started_time TIME,
+confirmed_date DATE,
+confirmed_time TIME,
+aarea STRING(100),
+dwh_cal_dt DATE NOT NULL,
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL
+);

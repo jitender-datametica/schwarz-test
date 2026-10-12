@@ -1,0 +1,27 @@
+CREATE OR REPLACE VIEW dbp_msi_view_ek_sort.java_wg_hierarchie
+AS
+SELECT
+owg.mandant_id,
+owg.owg_id,
+wg.wg_id,
+wug.wug_id
+FROM dbp_view.v_owg_per owg
+
+JOIN dbp_view.v_wg_per wg
+ON owg.mandant_id = wg.mandant_id
+AND owg.owg_id = wg.owg_id
+AND owg.dat_bis = wg.dat_bis
+AND owg.arthiertyp_id = wg.arthiertyp_id
+
+JOIN dbp_view.v_wug wug
+ON wg.mandant_id = wug.mandant_id
+AND wg.wg_id = wug.wg_id
+AND wg.arthiertyp_id = wug.arthiertyp_id
+
+JOIN dbp_view.v_wg_filter_zu wgf
+ON wg.mandant_id = wgf.mandant_id
+AND wg.wg_id = wgf.wg_id
+AND wg_filter_id = 11
+
+WHERE owg.arthiertyp_id = 2
+AND owg.dat_bis = '9999-12-31';

@@ -1,0 +1,26 @@
+create or replace TABLE LDL_DATA_PRODUCTION.CORE_DIM.T_DIM_SUPPLIER (
+	SUP_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the supplier.',
+	DWH_VALID_FROM_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record became valid.',
+	DWH_VALID_TO_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was no longer valid.',
+	DWH_VALID_FG BOOLEAN NOT NULL COMMENT 'An indicator showing the current record, i.e. where the current date is between dwh_valid_from and dwh_valid_to.',
+	SUP_NAME VARCHAR(100) NOT NULL COMMENT 'The name by which the supplier is known.',
+	LEGAL_NAME VARCHAR(100) COMMENT 'The official name of the supplier, as shown in the company register.',
+	VAT_NR VARCHAR(20) COMMENT 'The VAT identification number of the supplier.',
+	SUP_STATUS_CD VARCHAR(20) NOT NULL COMMENT 'The code for the lifecycle status of a supplier.',
+	SUP_STATUS_DESCR VARCHAR(250) NOT NULL COMMENT 'A textual description for the lifecycle status of a supplier. (Description in group language, i.e. in German)',
+	ISO_COUNTRY_CD VARCHAR(2) NOT NULL COMMENT 'The code according to ISO 3166 identifying the country, in which the supplier is located,',
+	COUNTRY_NAME VARCHAR(100) NOT NULL COMMENT 'The name of the country, in which the supplier is located, (Name in group language, i.e. German)',
+	CITY_NAME VARCHAR(100) COMMENT 'The name of the city where the supplier is located.',
+	DISTRICT_NAME VARCHAR(100) COMMENT 'The name of the district, in which the supplier is located,',
+	ZIP VARCHAR(15) COMMENT 'The postal code of the address of the supplier.',
+	STREET_NAME VARCHAR(100) COMMENT 'The name of the street where the supplier is located.',
+	HOUSE_NR VARCHAR(100) COMMENT 'The number of the building within the street where the supplier is located.',
+	LON NUMBER(9,6) COMMENT 'The geographical longitude of the address of the supplier.',
+	LAT NUMBER(9,6) COMMENT 'The geographical latitude of the address of the supplier.',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.',
+	constraint PK_T_DIM_SUPPLIER primary key (SUP_SID, DWH_VALID_FROM_TMSP)
+)COMMENT='A supplier is a company that delivers products to the Schwarz Group. Supplier is one out of possibly several roles that can be played by a company.'
+;

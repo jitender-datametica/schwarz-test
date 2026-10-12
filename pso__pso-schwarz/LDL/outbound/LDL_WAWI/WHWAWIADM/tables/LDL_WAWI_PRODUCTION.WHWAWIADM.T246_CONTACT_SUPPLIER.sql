@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE ldl_wawi_production_whwawiadm.t246_contact_supplier (
+wawi_instanz_kzl STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_nr INTEGER NOT NULL,
+c246_id INTEGER NOT NULL,
+c246_supp_nr STRING(7) NOT NULL,
+c246_c245_id INTEGER NOT NULL,
+c246_value STRING(241) NOT NULL,
+c246_contact_person STRING(100),
+c246_preference INTEGER NOT NULL,
+c246_wh_nr INTEGER NOT NULL,
+c246_moduser STRING(20) NOT NULL,
+c246_moddate DATETIME NOT NULL,
+c246_validfrom DATETIME,
+c246_active INTEGER NOT NULL,
+c246_role INTEGER,
+scn BIGNUMERIC(38,0) DEFAULT 0,
+delete_fg STRING(1),
+extraction_tmsp DATETIME,
+PRIMARY KEY (c246_id, wh_nr) NOT ENFORCED
+);

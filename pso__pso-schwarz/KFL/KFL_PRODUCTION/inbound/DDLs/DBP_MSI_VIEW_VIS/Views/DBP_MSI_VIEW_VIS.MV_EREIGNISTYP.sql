@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_VIS.MV_EREIGNISTYP
+(
+ereignistyp_id
+)
+AS
+   SELECT
+   ereignistyp_id
+   from dbp_view.v_ereignistyp;

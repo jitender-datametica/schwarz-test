@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_WBS_L_ART_WUP_REFERENZ_TYP AS 
+    SELECT 
+        mandant_id,
+        wbs_art_wup_ref_typ_id
+
+FROM DBP_DATA.WBS_L_ART_WUP_REFERENZ_TYP ;

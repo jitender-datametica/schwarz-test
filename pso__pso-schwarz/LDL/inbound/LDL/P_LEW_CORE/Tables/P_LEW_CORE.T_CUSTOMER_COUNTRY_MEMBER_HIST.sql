@@ -1,0 +1,25 @@
+create or replace TABLE LDL_PRODUCTION_CLONE_GOOGLE_20260608_1030.P_LEW_CORE.T_CUSTOMER_COUNTRY_MEMBER_HIST (
+	CLIENT_ID NUMBER(38,0) NOT NULL COMMENT 'Unique identifier of the DWH client / slice.',
+	CUSTOMER_SID NUMBER(38,0) NOT NULL COMMENT 'Unique identifier of the customer (surrogate key).',
+	GEO_AREA_SID NUMBER(38,0) NOT NULL COMMENT 'Unique identifier of the geographical area (surrogate key).',
+	GEO_AREA_CD VARCHAR(5) NOT NULL COLLATE 'en-ci' COMMENT 'Code of the geographical area.',
+	LOYALTY_PROG_CD VARCHAR(5) NOT NULL COLLATE 'en-ci' COMMENT 'Identifier of the loyalty program: LPLUS (LidlPlus).',
+	REG_TMSP TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Timestamp of the initial registration of the customer for the loyalty program within a geographical area (normally country).',
+	DEREG_TMSP TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Timestamp of the deregistration of the customer for the loyalty program within a geographical area (normally country).',
+	REREG_TMSP TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Timestamp of the last reregistration of the customer for the loyalty program within a geographical area (normally country). If the customer did not deregister after the first registration then the initial registration timestamp is stored here.',
+	REG_INTERFACE_NAME VARCHAR(100) NOT NULL COMMENT 'Name of the interface through which the user registered or reregistered for the geographical area in the loyalty program by accepting the legal terms the first time.\n            A registration or reregistration happens if a customer accepts the legal terms for the first time either at all (initial registration) or after a decline which follows a former registration (reregistration).\n            The interface name from the last acceptance event, of the registration or reregistration, is stored here.',
+	DELETED_FG NUMBER(38,0) NOT NULL COMMENT 'In case of deleted_fg = 1 the data record is assumed to not exist in the source system between dwh_valid_from / dwh_valid_to.',
+	DWH_VALID_FROM DATE NOT NULL COMMENT 'Begin of the validity interval of the record, oldest record of the history starts with 1900-01-01 (minus infinity).',
+	DWH_VALID_TO DATE NOT NULL COMMENT 'End of the validity interval of the record, newest record of the history ends with 9999-12-30 (plus infinity).',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'Identifier of the last run which inserted or updated the record. -1 means manually inserted.',
+	DWH_CREATED TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Creation timestamp of the record in the DWH.',
+	DWH_UPDATED TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Timestamp of the last update of the record in the DWH.',
+	PUSH_CONTACT_CONSENT_FG NUMBER(38,0) COMMENT 'Indicator whether or not the user has allowed using push communication in preferences for Lidl plus campaigns and benefits.',
+	EMAIL_CONTACT_CONSENT_FG NUMBER(38,0) COMMENT 'Indicator whether or not the user has allowed using mail communication in preferences for Lidl plus campaigns and benefits.',
+	SMS_CONTACT_CONSENT_FG NUMBER(38,0) COMMENT 'Indicator whether or not the user has allowed using sms communication in preferences for Lidl plus campaigns and benefits.',
+	POSTAL_CONTACT_CONSENT_FG NUMBER(38,0) COMMENT 'Indicator whether or not the user has allowed using postal communication in preferences for Lidl plus campaigns and benefits.',
+	WHATSAPP_CONTACT_CONSENT_FG NUMBER(38,0) COMMENT 'Indicator whether or not the user has allowed using whatsapp communication in preferences for Lidl plus campaigns and benefits.',
+	FIRST_KNOWN_RETAIL_PURCH_DT DATE COMMENT 'Contains the reported data of the first purchase of a customer in a retail store in the geographical area as used in the rfm segmentation algorithm. This is not directly measured in the pos transaction history.',
+	constraint PK_T_CUSTOMER_COUNTRY_MEMBER_HIST primary key (GEO_AREA_SID, CUSTOMER_SID, LOYALTY_PROG_CD, DWH_VALID_FROM)
+)COMMENT='Contains information regarding membership of a customer to a loyalty program for a certain geographical area.\n             Based on the agreement to the terms of usage for a certain geographical area (i.e. agreement and withdrawal of agreement).'
+;

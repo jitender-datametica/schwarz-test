@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_sql_pos_clean_vat_avg_2_cache_pos_store_vat_avg (
+record_id STRING(1000) COLLATE 'und:ci',
+client_id BIGNUMERIC(38),
+loc_sid_store BIGNUMERIC(38),
+dwh_cal_dt DATE,
+loc_sid_wh BIGNUMERIC(38),
+sales_val NUMERIC(18,5),
+sales_net_val NUMERIC(18,5),
+avg_pct_vat_store NUMERIC(18,5),
+avg_pct_vat_store_prvs_shadow NUMERIC(18,5),
+avg_pct_vat_wh NUMERIC(18,5),
+dwh_load_id BIGNUMERIC(38),
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

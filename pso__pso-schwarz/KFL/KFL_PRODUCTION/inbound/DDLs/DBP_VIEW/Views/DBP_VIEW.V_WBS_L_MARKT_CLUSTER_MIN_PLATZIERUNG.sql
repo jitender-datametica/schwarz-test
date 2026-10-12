@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_WBS_L_MARKT_CLUSTER_MIN_PLATZIERUNG AS 
+    SELECT 
+        mandant_id,
+        min_platzierung_markt_cluster_id
+
+FROM DBP_DATA.WBS_L_MARKT_CLUSTER_MIN_PLATZIERUNG ;

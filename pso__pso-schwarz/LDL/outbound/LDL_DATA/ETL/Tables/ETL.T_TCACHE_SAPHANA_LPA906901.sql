@@ -1,0 +1,43 @@
+CREATE TABLE IF NOT EXISTS ldl_data_etl.t_tcache_saphana_lpa906901 (
+record_id NUMERIC(38,9),
+source_system STRING(3000),
+extraction_ts DATETIME,
+extraction_date DATE,
+bic_zmlila STRING(3000),
+load_id NUMERIC(38,9),
+`_zero_calmonth` STRING(3000),
+`_zero_calmonth2` STRING(3000),
+`_zero_calquart1` STRING(3000),
+`_zero_calquarter` STRING(3000),
+`_zero_calyear` STRING(3000),
+`_zero_fiscper3` STRING(3000),
+`_zero_fiscvarnt` STRING(3000),
+`_zero_fiscyear` STRING(3000),
+`_zero_reqtsn` STRING(3000),
+g90mgestx STRING(3000),
+g90mgestx___t STRING(3000),
+g90mlgsty STRING(3000),
+g90mlgsty___t STRING(3000),
+gxxmgesbe STRING(3000),
+gxxmgesbe___t STRING(3000),
+gxxmlfilb STRING(3000),
+gxxmlland STRING(3000),
+gxxmlland___t STRING(3000),
+gxxmspart STRING(3000),
+gxxmspart___t STRING(3000),
+gxxmssid STRING(3000),
+gxxmssid___t STRING(3000),
+`_one_rowcount` STRING(3000),
+zxxkanz08 NUMERIC(38,9),
+zxxkanz18 NUMERIC(38,9),
+zxxknum13 STRING(3000),
+zxxknum30 STRING(3000),
+dwh_created_tmsp TIMESTAMP
+OPTIONS(description='The point in time when this record was created in the data warehouse.'),
+dwh_updated_tmsp TIMESTAMP
+OPTIONS(description='The point in time when this record was last updated.'),
+dwh_load_id BIGNUMERIC(38,0)
+OPTIONS(description='The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)'),
+dwh_node_cd STRING(20)
+OPTIONS(description='The code for the source system (or slice of source system) from which this record was loaded.')
+);

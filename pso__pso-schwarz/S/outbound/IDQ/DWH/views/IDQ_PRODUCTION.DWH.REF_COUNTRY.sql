@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW idq_production_dwh.ref_country (ref_country_id, country, country_name, country_name_de,
+country_name_en, capital, capital_de, capital_en, hq_city, hq_city_de, hq_city_en, country_middle_longitude,
+country_middle_latitude, hq_city_longitude, hq_city_latitude) AS SELECT id AS ref_country_id,
+ country,
+ name_de AS country_name,
+ name_de AS country_name_de,
+ name_en AS country_name_en,
+ capital_de AS capital,
+ capital_de,
+ capital_en,
+ hq_city_de AS hq_city,
+ hq_city_de,
+ hq_city_en,
+ country_middle_longitude,
+ country_middle_latitude,
+ hq_city_longitude,
+ hq_city_latitude
+FROM idq_production_idq_results.ref_country;

@@ -1,0 +1,38 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_mdm_item_style_hist (client_id
+OPTIONS(description='Technical column required by the used ETL framework. Static 7 for all rows.'), mdm_item_style_sid
+OPTIONS(description='''surrogate key NFPO item style
+CBX: CNT_ITEM,
+LDL_ITEM_STYLE.CNT_ITEM.REF_NO,
+LDL_ITEM_STYLE.LDL_STYLE_UNIQUE_ID'''),
+style_cd OPTIONS(description='''item style code, usually IAN + suffix
+CBX: LDL_ITEM_STYLE.LDL_ITEM_STYLE_NO'''),
+style_name OPTIONS(description='''name of the item style
+CBX: LDL_ITEM_STYLE.LDL_PRODUCT_NAME'''), style_descr
+OPTIONS(description='''item style description
+CBX: LDL_ITEM_STYLE.LDL_PRODUCT_DESC'''), color_descr
+OPTIONS(description='''Item style color description. Non-standard textual entries referring to color descriptions.
+CBX: LDL_ITEM_STYLE.LDL_FARBE'''),
+deleted_fg
+OPTIONS(description='Deleted_fg = 1 means that the record is not available in the source system or a delete information is set in the source system between dwh_valid_from and dwh_valid_to.'),
+dwh_valid_from
+OPTIONS(description='Begin of the validity interval of the record, oldest record of the history starts with 1900-01-01 (minus infinity).'),
+dwh_valid_to
+OPTIONS(description='End of the validity interval of the record, newest record of the history ends with 9999-12-30 (plus infinity).'),
+dwh_load_id
+OPTIONS(description='Identifier of the last run which inserted or updated the record. -1 means manually inserted.'),
+dwh_created OPTIONS(description='Creation timestamp of the record in the DWH.'), dwh_updated
+OPTIONS(description='Timestamp of the last update of the record in the DWH.'))
+OPTIONS(DESCRIPTION = '''NFPO item variant defining styles.
+CBX: LDL_ITEM_STYLE''') AS SELECT client_id,
+ mdm_item_style_sid,
+ style_cd,
+ style_name,
+ style_descr,
+ color_descr,
+ deleted_fg,
+ dwh_valid_from,
+ dwh_valid_to,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_mdm_item_style_hist;

@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_data_etl.t90_whaccount (
+ctrcode STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_nr BIGNUMERIC(38,0) NOT NULL,
+c90_t_code INTEGER NOT NULL,
+c90_formtype INTEGER NOT NULL,
+c90_storenr INTEGER,
+c90_formdate DATETIME NOT NULL,
+c90_dayenddate DATETIME NOT NULL,
+c90_vatgroup STRING(15),
+c90_debit BIGNUMERIC(30,10),
+c90_credit BIGNUMERIC(30,10),
+c90_pageno BIGNUMERIC(30,10),
+c90_formnr STRING(20),
+c90_debit_net BIGNUMERIC(30,10),
+c90_credit_net BIGNUMERIC(30,10),
+c90_idvalue BIGNUMERIC(38,10) NOT NULL,
+scn BIGNUMERIC(38,0) DEFAULT 0,
+extraction_tmsp DATETIME,
+PRIMARY KEY (c90_idvalue) NOT ENFORCED
+);

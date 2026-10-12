@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW production_production_fe_mstr_bge_palettierer.v_dim_alerts_type (alerts_type_id, alerts_type_desc
+) AS SELECT alerts_type_id,
+ alerts_type_desc
+FROM production_production_core.t_dim_alerts_type;

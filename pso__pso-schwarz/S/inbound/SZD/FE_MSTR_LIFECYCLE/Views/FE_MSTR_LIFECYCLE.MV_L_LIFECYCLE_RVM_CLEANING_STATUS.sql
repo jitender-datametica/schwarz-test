@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIFECYCLE.MV_L_LIFECYCLE_RVM_CLEANING_STATUS 
+AS SELECT
+ core.t_dim_rvm_cleaning_status.cleaning_status_cd
+,core.t_dim_rvm_cleaning_status.cleaning_status_descr_en
+,core.t_dim_rvm_cleaning_status.cleaning_status_descr_de
+,core.t_dim_rvm_cleaning_status.cleaning_status_descr
+FROM 
+core.t_dim_rvm_cleaning_status
+;

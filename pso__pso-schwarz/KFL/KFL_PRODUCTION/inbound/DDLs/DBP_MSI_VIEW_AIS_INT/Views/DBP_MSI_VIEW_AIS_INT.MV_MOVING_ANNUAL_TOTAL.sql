@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_AIS_INT.MV_MOVING_ANNUAL_TOTAL
+(
+ MAT_KJ
+,MAT_KJMO
+,KJMO
+)
+AS
+SELECT
+ DISTINCT 'MAT '||v01.kj AS MAT_KJ
+,'MAT '||v01.kjmo AS MAT_KJMO
+,v02.kjmo AS KJMO 
+
+FROM dbp_view.v_tag v01
+JOIN dbp_view.v_tag v02
+ON (v02.dat BETWEEN v01.dat_vj AND v01.dat)
+WHERE v02.kjmo <> v01.kjmo_vj
+AND v01.dat BETWEEN '2020-01-01' AND CURRENT_DATE();

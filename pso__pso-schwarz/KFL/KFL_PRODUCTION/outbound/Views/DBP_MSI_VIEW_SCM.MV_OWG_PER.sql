@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_owg_per AS SELECT DISTINCT owg_id,
+ arthiertyp_id,
+ hwg_id
+FROM kfl_production_dbp_view.v_owg_per
+WHERE arthiertyp_id = 2
+ AND dat_bis = DATE '9999-12-31';

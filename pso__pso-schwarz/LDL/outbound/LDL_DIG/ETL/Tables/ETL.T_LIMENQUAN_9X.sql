@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_dig_etl.t_limenquan_9x (
+guidstock STRING(64) NOT NULL,
+guidparent STRING(64) NOT NULL,
+vsi STRING(2) NOT NULL,
+unit STRING(6) NOT NULL,
+quan BIGNUMERIC(38,14) NOT NULL,
+lft BIGNUMERIC(38) NOT NULL,
+lvl STRING(22) NOT NULL,
+idxstock STRING(6) NOT NULL,
+typeparent STRING(2) NOT NULL,
+idxparent STRING(6) NOT NULL,
+invblockind STRING(2) NOT NULL,
+tslastabspost BIGNUMERIC(38,7) NOT NULL,
+odq_changemode STRING(2) NOT NULL,
+odq_entitycntr BIGNUMERIC(38) NOT NULL,
+sap_sys_name STRING(20) NOT NULL,
+sap_client_id STRING(20) NOT NULL,
+tmsp_insert DATETIME,
+tmsp_update DATETIME
+);

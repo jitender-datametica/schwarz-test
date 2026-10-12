@@ -1,0 +1,27 @@
+/* --------------------------------------------------------------------------------
+   DDL for table: t_fact_ldl_client_item_day
+   generated from Powerdesigner on Dienstag, 13. Mai 2025 10:26:04
+*/ --------------------------------------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS nfpow_core.t_fact_ldl_client_item_day (
+lob_cd STRING(100) NOT NULL
+OPTIONS(description='Line of business depends on the general source of the data, "KFL" if the data is taken from the Kaufland DWH, "LDL" if the data is taken from a Lidl DWH.'),
+ldl_client_id BIGNUMERIC(38,0) NOT NULL,
+ldl_item_sid BIGNUMERIC(38,0) NOT NULL,
+cal_dt DATE NOT NULL
+OPTIONS(description='Calendar date of the fact in the extract from Kaufland DWH / Lidl retail DWH.'),
+curr_cd STRING(3) NOT NULL
+OPTIONS(description='Currency code used by Lidl.            CORE_REL: T_LDL_CURRENCY.CURR_CD            LDL: P_LEW_CORE.T_CURRENCY.CURR_ISO_CD'),
+kfl_consolidated_promo_item_type_cd STRING(100) NOT NULL
+OPTIONS(description='This attribute consolidates the content of the KFL_ITEM_LIST_TYPE_CD into a generalized information about whether an item should be regarded as a promotion item or not.            "PN" = item is a promotion item            "SO" = item is not a promotion item            "no typification" = item is not receiving a type (for LDL, only KFL items get a type)'),
+ldl_rcv_qty BIGNUMERIC(38,5),
+ldl_buying_rcv_net_val BIGNUMERIC(38,5),
+ldl_retail_rcv_net_val BIGNUMERIC(38,5),
+dwh_created_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='Timestamp of the initial insertion of the data record into the DWH.'),
+dwh_updated_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='Timestamp of the last change to the data record in the DWH.'),
+dwh_src_tmsp TIMESTAMP NOT NULL OPTIONS(description='Timestamp of source extraction.'),
+PRIMARY KEY (lob_cd, ldl_client_id, cal_dt, curr_cd, ldl_item_sid, kfl_consolidated_promo_item_type_cd) NOT ENFORCED
+) OPTIONS(description='Comment 2Do');

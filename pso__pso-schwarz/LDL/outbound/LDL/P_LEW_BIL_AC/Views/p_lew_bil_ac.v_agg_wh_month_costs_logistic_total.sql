@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_p_lew_bil_ac.v_agg_wh_month_costs_logistic_total AS SELECT *
+FROM ldl_p_lew_bil.v_agg_wh_month_costs_logistic_total;

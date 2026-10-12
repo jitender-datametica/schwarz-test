@@ -1,0 +1,98 @@
+create or replace view DBP_ETL.V_SAP_TRANSFER_JEBE_TEST(
+	ROW_NUM,
+	MANDT,
+	WERKS,
+	MATNW,
+	ART_ID,
+	KSCHL,
+	KODATAB,
+	KODATBI,
+	KBETR,
+	KONWA,
+	LAND_ID,
+	UPDATED_AT
+) as
+(
+WITH country_codes AS (/* COUNTRY CODES */
+SELECT
+	DISTINCT MANDANT_ID,
+	LAND_ID
+FROM
+	DBP_VIEW.V_WUP ),
+/* Date FROM last transfer*/ 
+last_transfer AS (
+SELECT mandant_id, MAX(EXECUTION_TMSP) AS last_transfer_SAP
+FROM DBP_VIEW.V_NFMD_PIPELINE_EXPORT_LOG 
+  GROUP BY mandant_id 
+),
+/* Combine Submissions with Country Codes*/
+insert_base AS (
+SELECT
+	LEFT(ifs.KJWO_WW,4) AS YEAR_ID,
+	RIGHT(ifs.KJWO_WW,2) AS WEEK_ID,
+	ifs.MANDANT_ID,
+	ifs.AKTION_ID,
+	tdart.KL_ART_ID,
+	tdart.art_id,
+	ifs.WUP_ID,
+	ifs.WRG_ID,
+	ifs.DWH_CREATED_TMSP,
+	ifs.MANUAL_PROMO_PRICE_GROSS_LOCAL_VAL,
+	ifs.MANUAL_PROMO_PRICE_DT,
+	cc.LAND_ID,
+	DATEADD(DAY,
+            prms.VALIDITY_DAYS_CNT,
+            ifs.MANUAL_PROMO_PRICE_DT) AS VALID_TO_DATE,
+	ROW_NUMBER() OVER (PARTITION BY ifs.AKTION_ID,
+                        ifs.ART_ID,
+                        ifs.WUP_ID
+                    ORDER BY
+                        ifs.DWH_CREATED_TMSP DESC) AS row_num
+FROM DBP_MSI_VIEW_NFMD.TS_NFMD_MANUAL_PRICE_RELEASE ifs
+	-- CORE.TS_ID40_FINAL_SUBMIT ifs
+--- Nur die Artikel die zum Zeitpunkt der Uebertragung Markodwn haben 
+INNER JOIN DBP_MSI_VIEW_NFMD.TS_NFMD_APPROVED_DECISION ID_30
+    --CORE.TS_ID30_MSI_FINAL_SUBMIT ID_30
+  ON ifs.KJWO_WW = ID_30.KJWO_WW
+	AND ifs.MANDANT_ID = ID_30.MANDANT_ID
+	AND ifs.ART_ID = ID_30.ART_ID
+    AND ID_30.MARKDOWN_DECISION_ID = 0
+JOIN country_codes cc ON
+	ifs.MANDANT_ID = cc.mandant_id
+LEFT JOIN dbp_view.V_NFMD_PARAMETER prms 
+	ON ifs.MANDANT_ID = prms.MANDANT_ID 
+/*LEFT JOIN DBP_VIEW.V_NFMD_ARTICLE_STORE_SCORECARD ssc ON 
+    -- CORE.SRC_HDP_FRONTEND_SCREEN_SCORECARD ssc ON -- warum ?? 
+	(ifs.KJWO_WW = ssc.KJWO_WW
+	AND ifs.MANDANT_ID = ssc.MANDANT_ID
+	AND ifs.WUP_ID = ssc.WUP_ID
+	AND ifs.ART_ID = ssc.ART_ID
+    AND ifs.AKTION_ID = ssc.AKTION_ID 
+    )*/ 
+-- wird nicht mehr benoetigt - Gueltig bis nun nicht ab AKtion Start sondern ab Gueltig ab 
+/*JOIN dbp_view.v_aktion aktion 
+    ON aktion.mandant_id = ifs.mandant_id
+    AND aktion.kjwo_von = ifs.kjwo_ww
+    AND aktion.aktion_id = ifs.aktion_id*/
+LEFT JOIN DBP_VIEW.V_ART tdart ON
+	ifs.ART_ID = tdart.ART_ID
+	--AND ifs.MANDANT_ID = tdart.MANDANT_ID 
+LEFT JOIN last_transfer SAP
+  ON ifs.mandant_id = SAP.mandant_id
+	WHERE ifs.DWH_CREATED_TMSP > COALESCE(SAP.last_transfer_SAP,'1900-01-01') )
+SELECT
+row_num,
+	MANDANT_ID AS MANDT,
+	WUP_ID AS WERKS,
+	KL_ART_ID AS MATNW,
+	art_id,
+	'ZNFM' AS KSCHL,
+	CAST(MANUAL_PROMO_PRICE_DT AS DATE) AS KODATAB,
+	VALID_TO_DATE AS KODATBI,
+	MANUAL_PROMO_PRICE_GROSS_LOCAL_VAL AS KBETR,
+	WRG_ID AS KONWA,
+	LAND_ID AS LAND_ID,
+	DWH_CREATED_TMSP AS UPDATED_AT
+FROM
+	insert_base
+ );

@@ -1,0 +1,12 @@
+CREATE OR REPLACE TABLE ldl_p_lew_mart_cm.t_lil_country_based_competitors (
+country_cd STRING(10) NOT NULL OPTIONS(description='Country Code'),
+client_id INTEGER NOT NULL OPTIONS(description='Country Identification Number'),
+retailer_name STRING(100) OPTIONS(description='Retailer name of competitors'),
+retailer_id INTEGER NOT NULL OPTIONS(description='Retailer Identification Number'),
+competitor_rank_name STRING(100) OPTIONS(description='Rank name of competitors'),
+competitor_rank_id INTEGER NOT NULL
+OPTIONS(description='Sequential Identification number of competitors based on ranks'),
+active_fg INTEGER NOT NULL OPTIONS(description='This field indicates if the record is active or not by 1 or 0.'),
+competitor_rank_name_en STRING(100) OPTIONS(description='Rank name of competitors english'),
+PRIMARY KEY (client_id, retailer_id, competitor_rank_id) NOT ENFORCED
+) OPTIONS(description='Mapping table of Cross Country Competitors for Category Management');

@@ -1,0 +1,8 @@
+create or replace view BIAID_TOOLS_PROJECTS_PRODUCTION.FE_MSTR_TIMESHEETS.V_EXTERNAL_EMPLOYEE(
+	EXTERNAL_EMPLOYEE_FULL_NAME,
+	EXTERNAL_SUPPLIER_NAME
+) as
+SELECT DISTINCT
+ external_employee_full_name
+,external_supplier_name
+FROM FE_MSTR_TIMESHEETS.t_timesheet_entry;

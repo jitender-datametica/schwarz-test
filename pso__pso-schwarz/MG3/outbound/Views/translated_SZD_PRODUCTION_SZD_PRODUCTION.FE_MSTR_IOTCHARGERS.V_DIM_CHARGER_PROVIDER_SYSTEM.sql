@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_iotchargers.v_dim_charger_provider_system (charger_provider_system_cd,
+charger_provider_system_name, charger_provider_system_descr) AS SELECT charger_provider_system_cd,
+ charger_provider_system_name,
+ charger_provider_system_descr
+FROM szd_production_core.t_dim_charger_provider_system;

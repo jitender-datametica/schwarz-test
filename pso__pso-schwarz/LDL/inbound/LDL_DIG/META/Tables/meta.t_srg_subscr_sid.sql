@@ -1,0 +1,6 @@
+CREATE TABLE meta.t_srg_subscr_sid(
+   subscr_sid NUMBER AUTOINCREMENT,
+   contact_id VARCHAR(50),
+   SRC_TABLE_NAME	VARCHAR(250),
+   DWH_CREATED_TMSP	TIMESTAMP_LTZ(9)
+);

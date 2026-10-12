@@ -1,0 +1,428 @@
+create or replace dynamic table LDL_PRODUCTION_CLONE_GOOGLE_20260608_1030.P_LEW_MART_CM.V_LIL_LIFT_DATA_ACT(
+	CLIENT_ID,
+	RTL_ID,
+	RTL_LVL,
+	PER_ID,
+	PERIOD_YEAR,
+	LIFT_CAT_ID,
+	PROM_ID,
+	RAW_BUYER_ID,
+	CURRENCY_ISO_CD,
+	MEAS_ID,
+	VAL,
+	PY_VAL,
+	MAT_LATEST_FG,
+	PER_DESC,
+	PER_DESC_EN,
+	PY_PER_DESC,
+	PY_PER_DESC_EN,
+	PROT_FG
+) target_lag = '1 hour, 30 minutes' refresh_mode = FULL initialize = ON_CREATE warehouse = WH_LDL_D_DYNAMIC_TABLE_P_LEW_MART_CM
+ as
+WITH
+BASE AS (
+SELECT
+CAST(REG.REGION_ID AS SMALLINT) AS CLIENT_ID
+,RTL.RTL_ID
+,CAST(CASE
+        WHEN RTLPER.RETAILER_SID_PARENT IS NOT NULL THEN 15
+        ELSE RTL.RTL_LVL END AS SMALLINT) AS RTL_LVL
+,PERMS.PERIOD_ID AS PER_ID
+,PER.PERIOD_YEAR
+,GFK.GFK_CAT_ID AS LIFT_CAT_ID
+,DT.PROMOTION_BRAND_ID AS PROM_ID
+,CAST(TRUNC(CASE
+WHEN DT.DATA_CONFIDENCE_FG  = 1 THEN 101
+WHEN (DT.DATA_CONFIDENCE_FG  IS NULL OR DT.DATA_CONFIDENCE_FG = 0) AND  MEAS.MEAS_ID IN (49, 50, 51, 52, 53) THEN 101
+ELSE 0 END) AS INTEGER) AS RAW_BUYER_ID
+,CAST(CER.TO_CURRENCY_ISO_CD AS CHAR(3)) AS CURRENCY_ISO_CD
+,MEAS.MEAS_ID
+,CAST(CASE
+       WHEN MEAS.MEAS_CD = 'turnover_val'               THEN (CAST(DT.TURNOVER_VAL AS DECIMAL(38,11))/1000)::Decimal(23,5)
+       WHEN MEAS.MEAS_CD = 'pot_turnover_val'           THEN (DT.POT_TURNOVER_VAL/1000)::Decimal(23,5)
+       WHEN MEAS.MEAS_CD = 'category_lidl_val'          THEN (DT.CATEGORY_LIDL_VAL/1000)::Decimal(23,5)
+       WHEN MEAS.MEAS_CD = 'trip_cnt'                   THEN (DT.TRIP_CNT/1000)::Decimal(23,5)
+       WHEN MEAS.MEAS_CD = 'buyer_cnt'                  THEN (DT.BUYER_CNT/1000)::Decimal(23,5)
+       WHEN MEAS.MEAS_CD = 'pot_buyer_cnt'              THEN (DT.POT_BUYER_CNT/1000)::Decimal(23,5)
+       WHEN MEAS.MEAS_CD = 'household_in_country_cnt'   THEN (DT.HOUSEHOLD_IN_COUNTRY_CNT/1000)::Decimal(23,5)
+       WHEN MEAS.MEAS_CD = 'spend_per_trip_val'         THEN DT.SPEND_PER_TRIP_VAL
+       WHEN MEAS.MEAS_CD = 'buy_freq'                   THEN DT.BUY_FREQ
+       WHEN MEAS.MEAS_CD = 'pot_turnover_exploit_pct'   THEN DT.POT_TURNOVER_EXPLOIT_PCT
+       WHEN MEAS.MEAS_CD = 'spend_per_trip_val'         THEN DT.SPEND_PER_TRIP_VAL
+       WHEN MEAS.MEAS_CD = 'spend_per_buyer_val'        THEN DT.SPEND_PER_BUYER_VAL
+       WHEN MEAS.MEAS_CD = 'turnover_category_val'      THEN (DT.TURNOVER_CATEGORY_VAL/1000)::Decimal(23,5)
+       WHEN MEAS.MEAS_CD = 'household_penetrate_pct'    THEN DT.HOUSEHOLD_PENETRATE_PCT
+       WHEN MEAS.MEAS_CD = 'loyalty_pct'                THEN DT.LOYALTY_PCT
+       WHEN MEAS.MEAS_CD = 'closure_rate_pct'           THEN DT.CLOSURE_RATE_PCT
+       WHEN MEAS.MEAS_CD = 'buyer_quality'              THEN DT.BUYER_QUALITY
+       WHEN MEAS.MEAS_CD = 'lidl_market_share_pct'      THEN DT.LIDL_MARKET_SHARE_PCT
+       WHEN MEAS.MEAS_CD = 'lidl_buyer_turnover_val'    THEN (DT.LIDL_BUYER_TURNOVER_VAL/1000)::Decimal(23,5)
+       WHEN MEAS.MEAS_CD = 'new_or_lost_cat_buyer_cnt'  THEN DT.NEW_OR_LOST_CAT_BUYER_CNT
+       WHEN MEAS.MEAS_CD = 'incr_or_decr_cat_buy_val'   THEN DT.INCR_OR_DECR_CAT_BUY_VAL
+       WHEN MEAS.MEAS_CD = 'switch_between_stores_val'  THEN DT.SWITCH_BETWEEN_STORES_VAL
+       WHEN MEAS.MEAS_CD = 'net_switch_gain_val'        THEN DT.NET_SWITCH_GAIN_VAL
+       WHEN MEAS.MEAS_CD = 'net_switch_loss_val'        THEN DT.NET_SWITCH_LOSS_VAL
+       WHEN MEAS.MEAS_CD = 'val_k_gl' AND RTL.RTL_ID = 1000 THEN (DT.TURNOVER_VAL/1000)::Decimal(23,5)
+   END *
+    CASE
+       WHEN MEAS.MONETARY_FG = 1 THEN CER.RATE_CURRENCY_EXCHANGE
+                                 ELSE 1
+    END AS DECIMAL(23,5)) AS VAL
+,CAST(CASE
+      WHEN MEAS.MEAS_CD = 'turnover_val'               THEN (CAST(PY.TURNOVER_VAL AS DECIMAL(38,11))/1000)::Decimal(23,5)
+      WHEN MEAS.MEAS_CD = 'pot_turnover_val'           THEN (PY.POT_TURNOVER_VAL/1000)::Decimal(23,5)
+      WHEN MEAS.MEAS_CD = 'category_lidl_val'          THEN (PY.CATEGORY_LIDL_VAL/1000)::Decimal(23,5)
+      WHEN MEAS.MEAS_CD = 'trip_cnt'                   THEN (PY.TRIP_CNT/1000)::Decimal(23,5)
+      WHEN MEAS.MEAS_CD = 'buyer_cnt'                  THEN (PY.BUYER_CNT/1000)::Decimal(23,5)
+      WHEN MEAS.MEAS_CD = 'pot_buyer_cnt'              THEN (PY.POT_BUYER_CNT/1000)::Decimal(23,5)
+      WHEN MEAS.MEAS_CD = 'household_in_country_cnt'   THEN (PY.HOUSEHOLD_IN_COUNTRY_CNT/1000)::Decimal(23,5)
+       WHEN MEAS.MEAS_CD = 'spend_per_trip_val'         THEN PY.SPEND_PER_TRIP_VAL
+       WHEN MEAS.MEAS_CD = 'buy_freq'                   THEN PY.BUY_FREQ
+       WHEN MEAS.MEAS_CD = 'pot_turnover_exploit_pct'   THEN PY.POT_TURNOVER_EXPLOIT_PCT
+       WHEN MEAS.MEAS_CD = 'spend_per_trip_val'         THEN PY.SPEND_PER_TRIP_VAL
+       WHEN MEAS.MEAS_CD = 'spend_per_buyer_val'        THEN PY.SPEND_PER_BUYER_VAL
+       WHEN MEAS.MEAS_CD = 'turnover_category_val'      THEN (PY.TURNOVER_CATEGORY_VAL/1000)::Decimal(23,5)
+       WHEN MEAS.MEAS_CD = 'household_penetrate_pct'    THEN PY.HOUSEHOLD_PENETRATE_PCT
+       WHEN MEAS.MEAS_CD = 'loyalty_pct'                THEN PY.LOYALTY_PCT
+       WHEN MEAS.MEAS_CD = 'closure_rate_pct'           THEN PY.CLOSURE_RATE_PCT
+       WHEN MEAS.MEAS_CD = 'buyer_quality'              THEN PY.BUYER_QUALITY
+       WHEN MEAS.MEAS_CD = 'lidl_market_share_pct'      THEN PY.LIDL_MARKET_SHARE_PCT
+       WHEN MEAS.MEAS_CD = 'lidl_buyer_turnover_val'    THEN (PY.LIDL_BUYER_TURNOVER_VAL/1000)::Decimal(23,5)
+       WHEN MEAS.MEAS_CD = 'new_or_lost_cat_buyer_cnt'  THEN PY.NEW_OR_LOST_CAT_BUYER_CNT
+       WHEN MEAS.MEAS_CD = 'incr_or_decr_cat_buy_val'   THEN PY.INCR_OR_DECR_CAT_BUY_VAL
+       WHEN MEAS.MEAS_CD = 'switch_between_stores_val'  THEN PY.SWITCH_BETWEEN_STORES_VAL
+       WHEN MEAS.MEAS_CD = 'net_switch_gain_val'        THEN PY.NET_SWITCH_GAIN_VAL
+       WHEN MEAS.MEAS_CD = 'net_switch_loss_val'        THEN PY.NET_SWITCH_LOSS_VAL
+       WHEN MEAS.MEAS_CD = 'val_k_gl' AND RTL.RTL_ID = 1000 THEN (PY.TURNOVER_VAL/1000)::Decimal(23,5)
+   END *
+    CASE
+       WHEN MEAS.MONETARY_FG = 1 THEN CER.RATE_CURRENCY_EXCHANGE
+                                 ELSE 1
+    END AS DECIMAL(23,5)) AS PY_VAL
+,NULL AS MAT_LATEST_FG
+,CAST(COALESCE(DSDE.PERIOD_NAME, PER.PERIOD_NAME) AS VARCHAR(128)) AS PER_DESC
+,CAST(COALESCE(DSEN.PERIOD_NAME, PER.PERIOD_NAME) AS VARCHAR(128)) AS PER_DESC_EN
+,CAST(COALESCE(PYDSDE.PERIOD_NAME, PYPER.PERIOD_NAME) AS VARCHAR(128)) AS PY_PER_DESC
+,CAST(COALESCE(PYDSEN.PERIOD_NAME, PYPER.PERIOD_NAME) AS VARCHAR(128)) AS PY_PER_DESC_EN
+,CAST(0 AS BYTEINT) AS PROT_FG
+
+FROM P_LEW_CORE_AC.V_MARKET_SUBGROUP AS DT
+INNER JOIN P_LEW_PROCESS_MSTR_AC.V_LIL_REGION AS REG
+ON REG.REGION_SID = DT.REGION_SID
+INNER JOIN P_LEW_PROCESS_MSTR_AC.V_LIL_REGION_RETAILER AS RTL
+ON RTL.RETAILER_SID = DT.RETAILER_SID
+AND RTL.REGION_SID = DT.REGION_SID
+INNER JOIN P_LEW_CORE_AC.V_LIL_PERIOD AS PER
+ON PER.CLIENT_ID = DT.CLIENT_ID
+AND PER.PERIOD_SID = DT.PERIOD_SID
+LEFT OUTER JOIN P_LEW_CORE_AC.V_LIL_PERIOD_DESCR AS DSDE
+ON DSDE.PERIOD_SID = PER.PERIOD_SID
+AND DSDE.LANG_CD = 'DE'
+LEFT OUTER JOIN P_LEW_CORE_AC.V_LIL_PERIOD_DESCR AS DSEN
+ON DSEN.PERIOD_SID = PER.PERIOD_SID
+AND DSEN.LANG_CD = 'EN'
+INNER JOIN P_LEW_PROCESS_MSTR_AC.V_LIL_PERIOD AS PERMS
+ON PERMS.CLIENT_ID = DT.CLIENT_ID
+AND PERMS.PERIOD_SID = DT.PERIOD_SID
+INNER JOIN P_LEW_PROCESS_MSTR_AC.V_LIL_GFK_CATEGORY AS GFK
+ON GFK.CLIENT_ID = DT.CLIENT_ID
+AND GFK.GFK_CAT_SID = DT.GFK_CAT_SID
+INNER JOIN P_LEW_MART_CM.V_LIL_CURRENCY_EXCH_RT AS CER
+ON CER.FROM_CURRENCY_ISO_CD = DT.CURR_CD
+LEFT OUTER JOIN P_LEW_CORE_AC.V_MARKET_SUBGROUP AS PY
+ON PY.CLIENT_ID = DT.CLIENT_ID
+AND PY.PERIOD_SID = PER.PERIOD_SID_PY
+AND PY.REGION_SID = DT.REGION_SID
+AND PY.RETAILER_SID = DT.RETAILER_SID
+AND PY.GFK_CAT_SID = DT.GFK_CAT_SID
+AND PY.PROMOTION_BRAND_ID = DT.PROMOTION_BRAND_ID
+LEFT OUTER JOIN P_LEW_CORE_AC.V_LIL_PERIOD AS PYPER
+ON PYPER.CLIENT_ID = PY.CLIENT_ID
+AND PYPER.PERIOD_SID = PY.PERIOD_SID
+LEFT OUTER JOIN P_LEW_CORE_AC.V_LIL_PERIOD_DESCR AS PYDSDE
+ON PYDSDE.PERIOD_SID = PYPER.PERIOD_SID
+AND PYDSDE.LANG_CD = 'DE'
+LEFT OUTER JOIN P_LEW_CORE_AC.V_LIL_PERIOD_DESCR AS PYDSEN
+ON PYDSEN.PERIOD_SID = PYPER.PERIOD_SID
+AND PYDSEN.LANG_CD = 'EN'
+LEFT OUTER JOIN P_LEW_CORE_AC.V_LIL_RETAILER_PERIOD AS RTLPER
+    ON RTLPER.CLIENT_ID = DT.CLIENT_ID
+    AND RTLPER.RETAILER_SID = DT.RETAILER_SID
+    AND RTLPER.PERIOD_SID = DT.PERIOD_SID
+    AND RTLPER.DELETED_FG = 0
+    AND RTLPER.INTERFACE_NAME = 'LIFT_FMCG_Core'
+
+CROSS JOIN (SELECT
+MEAS_ID
+,MEAS_CD
+,MONETARY_FG
+FROM P_LEW_PROCESS_MSTR_AC.V_LIL_MEASURE
+       WHERE MEAS_CD IN (
+       'turnover_val', 'pot_turnover_val', 'category_lidl_val', 'trip_cnt', 'buyer_cnt', 'pot_buyer_cnt'
+       ,'household_in_country_cnt', 'spend_per_trip_val', 'buy_freq', 'pot_turnover_exploit_pct'
+       ,'spend_per_trip_val', 'spend_per_buyer_val', 'turnover_category_val', 'household_penetrate_pct', 'loyalty_pct'
+       ,'closure_rate_pct', 'buyer_quality', 'lidl_market_share_pct', 'lidl_buyer_turnover_val'
+       ,'new_or_lost_cat_buyer_cnt', 'incr_or_decr_cat_buy_val', 'switch_between_stores_val'
+       ,'net_switch_gain_val', 'net_switch_loss_val', 'val_k_gl'
+     )
+   ) AS MEAS
+
+
+WHERE NOT MEAS.MEAS_ID IN (44)
+   AND COALESCE(DT.DELETED_FG, 0) = 0
+   AND NOT EXISTS(SELECT
+NULL
+FROM P_LEW_PROCESS_MSTR_AC.V_LIL_DATA_MASK AS DM
+WHERE DM.CLIENT_ID = DT.CLIENT_ID
+AND DM.REGION_SID = DT.REGION_SID
+AND DM.PERIOD_SID = DT.PERIOD_SID
+AND DM.INTERFACE_NAME = 'LIFT_FMCG_Core'
+AND DM.MASK_DATA_FG = 1)
+AND VAL IS NOT NULL
+
+UNION ALL
+SELECT
+CAST(REG.REGION_ID AS SMALLINT) AS CLIENT_ID
+,RTL.RTL_ID
+,CAST(CASE
+        WHEN RTLPER.RETAILER_SID_PARENT IS NOT NULL THEN 15
+        ELSE RTL.RTL_LVL END AS SMALLINT) AS RTL_LVL
+,PTP.LTST_PSEUDO_PERIOD_ID AS PER_ID
+,PER.PERIOD_YEAR
+,GFK.GFK_CAT_ID AS LIFT_CAT_ID
+,DT.PROMOTION_BRAND_ID AS PROM_ID
+,CAST(TRUNC(CASE
+WHEN DT.DATA_CONFIDENCE_FG  = 1 THEN 101
+WHEN (DT.DATA_CONFIDENCE_FG  IS NULL OR DT.DATA_CONFIDENCE_FG = 0) AND  MEAS.MEAS_ID IN (49, 50, 51, 52, 53) THEN 101
+ELSE 0 END) AS INTEGER) AS RAW_BUYER_ID
+,CAST(CER.TO_CURRENCY_ISO_CD AS CHAR(3)) AS CURRENCY_ISO_CD
+,MEAS.MEAS_ID
+,CAST(CASE
+                   WHEN MEAS.MEAS_CD = 'turnover_val'               THEN (CAST(DT.TURNOVER_VAL AS DECIMAL(38,11))/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'pot_turnover_val'           THEN (DT.POT_TURNOVER_VAL/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'category_lidl_val'          THEN (DT.CATEGORY_LIDL_VAL/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'trip_cnt'                   THEN (DT.TRIP_CNT/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'buyer_cnt'                  THEN (DT.BUYER_CNT/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'pot_buyer_cnt'              THEN (DT.POT_BUYER_CNT/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'household_in_country_cnt'   THEN (DT.HOUSEHOLD_IN_COUNTRY_CNT/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'spend_per_trip_val'         THEN DT.SPEND_PER_TRIP_VAL
+                   WHEN MEAS.MEAS_CD = 'buy_freq'                   THEN DT.BUY_FREQ
+                   WHEN MEAS.MEAS_CD = 'pot_turnover_exploit_pct'   THEN DT.POT_TURNOVER_EXPLOIT_PCT
+                   WHEN MEAS.MEAS_CD = 'spend_per_trip_val'         THEN DT.SPEND_PER_TRIP_VAL
+                   WHEN MEAS.MEAS_CD = 'spend_per_buyer_val'        THEN DT.SPEND_PER_BUYER_VAL
+                   WHEN MEAS.MEAS_CD = 'turnover_category_val'      THEN (DT.TURNOVER_CATEGORY_VAL/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'household_penetrate_pct'    THEN DT.HOUSEHOLD_PENETRATE_PCT
+                   WHEN MEAS.MEAS_CD = 'loyalty_pct'                THEN DT.LOYALTY_PCT
+                   WHEN MEAS.MEAS_CD = 'closure_rate_pct'           THEN DT.CLOSURE_RATE_PCT
+                   WHEN MEAS.MEAS_CD = 'buyer_quality'              THEN DT.BUYER_QUALITY
+                   WHEN MEAS.MEAS_CD = 'lidl_market_share_pct'      THEN DT.LIDL_MARKET_SHARE_PCT
+                   WHEN MEAS.MEAS_CD = 'lidl_buyer_turnover_val'    THEN (DT.LIDL_BUYER_TURNOVER_VAL/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'new_or_lost_cat_buyer_cnt'  THEN DT.NEW_OR_LOST_CAT_BUYER_CNT
+                   WHEN MEAS.MEAS_CD = 'incr_or_decr_cat_buy_val'   THEN DT.INCR_OR_DECR_CAT_BUY_VAL
+                   WHEN MEAS.MEAS_CD = 'switch_between_stores_val'  THEN DT.SWITCH_BETWEEN_STORES_VAL
+                   WHEN MEAS.MEAS_CD = 'net_switch_gain_val'        THEN DT.NET_SWITCH_GAIN_VAL
+                   WHEN MEAS.MEAS_CD = 'net_switch_loss_val'        THEN DT.NET_SWITCH_LOSS_VAL
+                   WHEN MEAS.MEAS_CD = 'val_k_gl' AND RTL.RTL_ID = 1000 THEN (DT.TURNOVER_VAL/1000)::Decimal(23,5)
+               END *
+                CASE
+                   WHEN MEAS.MONETARY_FG = 1 THEN CER.RATE_CURRENCY_EXCHANGE
+                                             ELSE 1
+                END AS DECIMAL(23,5)) AS VAL
+,CAST(CASE
+                   WHEN MEAS.MEAS_CD = 'turnover_val'               THEN (CAST(PY.TURNOVER_VAL AS DECIMAL(38,11))/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'pot_turnover_val'           THEN (PY.POT_TURNOVER_VAL/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'category_lidl_val'          THEN (PY.CATEGORY_LIDL_VAL/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'trip_cnt'                   THEN (PY.TRIP_CNT/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'buyer_cnt'                  THEN (PY.BUYER_CNT/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'pot_buyer_cnt'              THEN (PY.POT_BUYER_CNT/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'household_in_country_cnt'   THEN (PY.HOUSEHOLD_IN_COUNTRY_CNT/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'spend_per_trip_val'         THEN PY.SPEND_PER_TRIP_VAL
+                   WHEN MEAS.MEAS_CD = 'buy_freq'                   THEN PY.BUY_FREQ
+                   WHEN MEAS.MEAS_CD = 'pot_turnover_exploit_pct'   THEN PY.POT_TURNOVER_EXPLOIT_PCT
+                   WHEN MEAS.MEAS_CD = 'spend_per_trip_val'         THEN PY.SPEND_PER_TRIP_VAL
+                   WHEN MEAS.MEAS_CD = 'spend_per_buyer_val'        THEN PY.SPEND_PER_BUYER_VAL
+                   WHEN MEAS.MEAS_CD = 'turnover_category_val'      THEN (PY.TURNOVER_CATEGORY_VAL/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'household_penetrate_pct'    THEN PY.HOUSEHOLD_PENETRATE_PCT
+                   WHEN MEAS.MEAS_CD = 'loyalty_pct'                THEN PY.LOYALTY_PCT
+                   WHEN MEAS.MEAS_CD = 'closure_rate_pct'           THEN PY.CLOSURE_RATE_PCT
+                   WHEN MEAS.MEAS_CD = 'buyer_quality'              THEN PY.BUYER_QUALITY
+                   WHEN MEAS.MEAS_CD = 'lidl_market_share_pct'      THEN PY.LIDL_MARKET_SHARE_PCT
+                   WHEN MEAS.MEAS_CD = 'lidl_buyer_turnover_val'    THEN (PY.LIDL_BUYER_TURNOVER_VAL/1000)::Decimal(23,5)
+                   WHEN MEAS.MEAS_CD = 'new_or_lost_cat_buyer_cnt'  THEN PY.NEW_OR_LOST_CAT_BUYER_CNT
+                   WHEN MEAS.MEAS_CD = 'incr_or_decr_cat_buy_val'   THEN PY.INCR_OR_DECR_CAT_BUY_VAL
+                   WHEN MEAS.MEAS_CD = 'switch_between_stores_val'  THEN PY.SWITCH_BETWEEN_STORES_VAL
+                   WHEN MEAS.MEAS_CD = 'net_switch_gain_val'        THEN PY.NET_SWITCH_GAIN_VAL
+                   WHEN MEAS.MEAS_CD = 'net_switch_loss_val'        THEN PY.NET_SWITCH_LOSS_VAL
+                   WHEN MEAS.MEAS_CD = 'val_k_gl' AND RTL.RTL_ID = 1000 THEN (PY.TURNOVER_VAL/1000)::Decimal(23,5)
+               END *
+                CASE
+                   WHEN MEAS.MONETARY_FG = 1 THEN CER.RATE_CURRENCY_EXCHANGE
+                                             ELSE 1
+                END AS DECIMAL(23,5)) AS PY_VAL
+,NULL AS MAT_LATEST_FG
+,CAST(COALESCE(DSDE.PERIOD_NAME, PER.PERIOD_NAME) AS VARCHAR(128)) AS PER_DESC
+,CAST(COALESCE(DSEN.PERIOD_NAME, PER.PERIOD_NAME) AS VARCHAR(128)) AS PER_DESC_EN
+,CAST(COALESCE(PYDSDE.PERIOD_NAME, PYPER.PERIOD_NAME) AS VARCHAR(128)) AS PY_PER_DESC
+,CAST(COALESCE(PYDSEN.PERIOD_NAME, PYPER.PERIOD_NAME) AS VARCHAR(128)) AS PY_PER_DESC_EN
+,CAST(0 AS BYTEINT) AS PROT_FG
+
+FROM P_LEW_CORE_AC.V_MARKET_SUBGROUP AS DT
+INNER JOIN P_LEW_PROCESS_MSTR_AC.V_LIL_REGION AS REG
+ON REG.REGION_SID = DT.REGION_SID
+INNER JOIN P_LEW_PROCESS_MSTR_AC.V_LIL_REGION_RETAILER AS RTL
+ON RTL.CLIENT_ID = DT.CLIENT_ID
+AND RTL.RETAILER_SID = DT.RETAILER_SID
+AND RTL.REGION_SID = DT.REGION_SID
+CROSS JOIN (SELECT
+MEAS_ID
+,MEAS_CD
+,MONETARY_FG
+FROM P_LEW_PROCESS_MSTR_AC.V_LIL_MEASURE
+       WHERE MEAS_CD IN (
+       'turnover_val', 'pot_turnover_val', 'category_lidl_val', 'trip_cnt', 'buyer_cnt', 'pot_buyer_cnt'
+       ,'household_in_country_cnt', 'spend_per_trip_val', 'buy_freq', 'pot_turnover_exploit_pct'
+       ,'spend_per_trip_val', 'spend_per_buyer_val', 'turnover_category_val', 'household_penetrate_pct', 'loyalty_pct'
+       ,'closure_rate_pct', 'buyer_quality', 'lidl_market_share_pct', 'lidl_buyer_turnover_val'
+       ,'new_or_lost_cat_buyer_cnt', 'incr_or_decr_cat_buy_val', 'switch_between_stores_val'
+       ,'net_switch_gain_val', 'net_switch_loss_val', 'val_k_gl'
+     )
+   ) AS MEAS
+INNER JOIN P_LEW_PROCESS_MSTR_AC.V_LIL_MEASURE_CLASS AS MC
+ON MC.MEAS_ID = MEAS.MEAS_ID
+AND MC.CLASS_CD IN ('LIFT1', 'LIFTGL')
+INNER JOIN P_LEW_CORE_AC.V_LIL_PERIOD AS PER
+ON PER.CLIENT_ID = DT.CLIENT_ID
+AND PER.PERIOD_SID = DT.PERIOD_SID
+LEFT OUTER JOIN P_LEW_CORE_AC.V_LIL_PERIOD_DESCR AS DSDE
+ON DSDE.PERIOD_SID = PER.PERIOD_SID
+AND DSDE.LANG_CD = 'DE'
+LEFT OUTER JOIN P_LEW_CORE_AC.V_LIL_PERIOD_DESCR AS DSEN
+ON DSEN.PERIOD_SID = PER.PERIOD_SID
+AND DSEN.LANG_CD = 'EN'
+INNER JOIN P_LEW_PROCESS_MSTR_AC.V_LIL_PERIOD AS PERMS
+ON PERMS.CLIENT_ID = DT.CLIENT_ID
+AND PERMS.PERIOD_SID = DT.PERIOD_SID
+INNER JOIN P_LEW_PROCESS_MSTR_AC.V_LIL_REGION_PER_LATEST AS RPL
+ON RPL.CLIENT_ID = DT.CLIENT_ID
+AND RPL.REGION_SID = DT.REGION_SID
+AND RPL.CLASS_CD = MC.CLASS_CD
+AND RPL.LTST_PER_ID = PERMS.PERIOD_ID
+INNER JOIN P_LEW_PROCESS_MSTR_AC.V_LIL_PERIOD_TYPE AS PTP
+ON PTP.PERIOD_TYPE_ID = RPL.PER_TP_ID
+AND PTP.LTST_PSEUDO_PERIOD_ID IS NOT NULL
+INNER JOIN P_LEW_PROCESS_MSTR_AC.V_LIL_GFK_CATEGORY AS GFK
+ON GFK.CLIENT_ID = DT.CLIENT_ID
+AND GFK.GFK_CAT_SID = DT.GFK_CAT_SID
+INNER JOIN P_LEW_MART_CM.V_LIL_CURRENCY_EXCH_RT AS CER
+ON CER.FROM_CURRENCY_ISO_CD = DT.CURR_CD
+LEFT OUTER JOIN P_LEW_CORE_AC.V_MARKET_SUBGROUP AS PY
+ON PY.CLIENT_ID = DT.CLIENT_ID
+AND PY.PERIOD_SID = PER.PERIOD_SID_PY
+AND PY.REGION_SID = DT.REGION_SID
+AND PY.RETAILER_SID = DT.RETAILER_SID
+AND PY.GFK_CAT_SID = DT.GFK_CAT_SID
+AND PY.PROMOTION_BRAND_ID = DT.PROMOTION_BRAND_ID
+LEFT OUTER JOIN P_LEW_CORE_AC.V_LIL_PERIOD AS PYPER
+ON PYPER.CLIENT_ID = PY.CLIENT_ID
+AND PYPER.PERIOD_SID = PY.PERIOD_SID
+LEFT OUTER JOIN P_LEW_CORE_AC.V_LIL_PERIOD_DESCR AS PYDSDE
+ON PYDSDE.PERIOD_SID = PYPER.PERIOD_SID
+AND PYDSDE.LANG_CD = 'DE'
+LEFT OUTER JOIN P_LEW_CORE_AC.V_LIL_PERIOD_DESCR AS PYDSEN
+ON PYDSEN.PERIOD_SID = PYPER.PERIOD_SID
+AND PYDSEN.LANG_CD = 'EN'
+LEFT OUTER JOIN P_LEW_CORE_AC.V_LIL_RETAILER_PERIOD AS RTLPER
+    ON RTLPER.CLIENT_ID = DT.CLIENT_ID
+    AND RTLPER.RETAILER_SID = DT.RETAILER_SID
+    AND RTLPER.PERIOD_SID = DT.PERIOD_SID
+    AND RTLPER.DELETED_FG = 0
+    AND RTLPER.INTERFACE_NAME = 'LIFT_FMCG_Core'
+
+WHERE NOT MEAS.MEAS_ID IN (44)
+AND COALESCE(DT.DELETED_FG, 0) = 0
+AND NOT EXISTS(SELECT
+NULL
+FROM P_LEW_PROCESS_MSTR_AC.V_LIL_DATA_MASK AS DM
+WHERE DM.CLIENT_ID = DT.CLIENT_ID
+AND DM.REGION_SID = DT.REGION_SID
+AND DM.PERIOD_SID = DT.PERIOD_SID
+AND DM.INTERFACE_NAME = 'LIFT_FMCG_Core'
+AND DM.MASK_DATA_FG = 1)
+AND  (VAL IS NOT NULL OR PY_VAL IS NOT NULL)
+)
+SELECT 
+     CLIENT_ID
+    ,RTL_ID
+    ,RTL_LVL
+    ,PER_ID
+    ,PERIOD_YEAR
+    ,LIFT_CAT_ID
+    ,PROM_ID
+    ,RAW_BUYER_ID
+    ,CURRENCY_ISO_CD
+    ,MEAS_ID
+    ,VAL
+    ,PY_VAL
+    ,MAT_LATEST_FG
+    ,PER_DESC
+    ,PER_DESC_EN
+    ,PY_PER_DESC
+    ,PY_PER_DESC_EN
+    ,PROT_FG
+FROM BASE
+
+UNION ALL
+
+SELECT -- duplication for INT
+    7 AS CLIENT_ID
+    ,RTL_ID
+    ,RTL_LVL
+    ,PER_ID
+    ,PERIOD_YEAR
+    ,LIFT_CAT_ID
+    ,PROM_ID
+    ,RAW_BUYER_ID
+    ,CURRENCY_ISO_CD
+    ,MEAS_ID
+    ,VAL
+    ,PY_VAL
+    ,MAT_LATEST_FG
+    ,PER_DESC
+    ,PER_DESC_EN
+    ,PY_PER_DESC
+    ,PY_PER_DESC_EN
+    ,PROT_FG
+FROM BASE
+WHERE
+    CLIENT_ID NOT IN (3301,3303,3302)
+    
+UNION ALL
+
+SELECT -- Competitor Ranks
+    ACT.CLIENT_ID
+    , CASE 
+        WHEN COMPETITOR_RANK_ID = 1 THEN 1010 
+        WHEN COMPETITOR_RANK_ID = 2 THEN 1020 
+        WHEN COMPETITOR_RANK_ID = 3 THEN 1030
+        ELSE 0 END
+        AS RTL_ID
+    ,RTL_LVL
+    ,PER_ID
+    ,PERIOD_YEAR
+    ,LIFT_CAT_ID
+    ,PROM_ID
+    ,RAW_BUYER_ID
+    ,CURRENCY_ISO_CD
+    ,MEAS_ID
+    ,VAL
+    ,PY_VAL
+    ,MAT_LATEST_FG
+    ,PER_DESC
+    ,PER_DESC_EN
+    ,PY_PER_DESC
+    ,PY_PER_DESC_EN
+    ,PROT_FG
+FROM BASE AS ACT
+INNER JOIN P_LEW_MART_CM.T_LIL_COUNTRY_BASED_COMPETITORS AS CC
+    ON ACT.CLIENT_ID = CC.CLIENT_ID AND ACT.RTL_ID = CC.RETAILER_ID
+;

@@ -1,0 +1,26 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_INVENTUR_BEWERTUNG AS 
+    SELECT 
+        mandant_id,
+        inventurart_id,
+        wup_id,
+        nb_id,
+        art_id,
+        dat_preis,
+        beleg_erfasser_id,
+        dat_erstellung,
+        zeit_inventur,
+        wg_id,
+        owg_id,
+        arthiertyp_id,
+        mwst_id,
+        rate_steuersatz,
+        inventur_typ_txt,
+        wrg_id,
+        menge_bme_inventur_diff,
+        menge_bme_inventur_diebstahl,
+        preis_vk_brutto,
+        preis_vk_netto,
+        preis_vk_brutto_korrigiert,
+        betrag_vk_netto_inventur_diff,
+        betrag_vk_netto_inventur_diebstahl
+FROM DBP_DATA.INVENTUR_BEWERTUNG ;

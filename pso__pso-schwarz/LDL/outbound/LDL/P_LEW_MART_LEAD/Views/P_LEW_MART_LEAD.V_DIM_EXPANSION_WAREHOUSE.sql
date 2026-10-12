@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead.v_dim_expansion_warehouse (client_id, expansion_wh_sid, expansion_wh_nr,
+expansion_wh_name, planned_open_dt, real_open_dt, street_name, house_nr, city_name, postbox_nr, zip, phone_nr, fax_nr,
+longitude, latitude, expansion_region_sid, expansion_region_manager_name, lidl_country_cd, lidl_country_name,
+country_grp_sid, country_grp_manager_name, dwh_load_id, dwh_created, dwh_updated) AS SELECT *
+FROM ldl_p_lew_bil_ac.v_dim_expansion_warehouse;

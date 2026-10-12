@@ -1,0 +1,22 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_building_closing_plan_hist (client_id, building_sid, src_temporary_closing_id
+, planned_closing_from_dt, planned_closing_to_dt, temporary_closing_reason_id, act_closing_from_dt, act_closing_to_dt,
+planned_reopening_dt, act_reopening_dt, planned_affected_turnover_days, act_affected_turnover_days_cnt, deleted_fg,
+dwh_valid_from, dwh_valid_to, dwh_load_id, dwh_created, dwh_updated) AS SELECT client_id,
+ building_sid,
+ src_temporary_closing_id,
+ planned_closing_from_dt,
+ planned_closing_to_dt,
+ temporary_closing_reason_id,
+ act_closing_from_dt,
+ act_closing_to_dt,
+ planned_reopening_dt,
+ act_reopening_dt,
+ planned_affected_turnover_days,
+ act_affected_turnover_days_cnt,
+ deleted_fg,
+ dwh_valid_from,
+ dwh_valid_to,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_building_closing_plan_hist;

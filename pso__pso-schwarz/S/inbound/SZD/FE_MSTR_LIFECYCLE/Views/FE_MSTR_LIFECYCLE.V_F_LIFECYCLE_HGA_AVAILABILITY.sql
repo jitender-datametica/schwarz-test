@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIFECYCLE.V_F_LIFECYCLE_HGA_AVAILABILITY
+AS
+SELECT
+ core.t_fact_hga_total_availability.hga_sid
+,core.t_fact_hga_total_availability.total_avail_pct
+,core.t_fact_hga_total_availability.last_online_tmsp
+FROM
+core.t_fact_hga_total_availability
+;

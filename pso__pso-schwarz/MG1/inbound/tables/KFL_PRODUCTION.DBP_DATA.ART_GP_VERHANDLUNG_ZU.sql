@@ -1,0 +1,13 @@
+create or replace TABLE KFL_PRODUCTION.DBP_DATA.ART_GP_VERHANDLUNG_ZU (
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant im DWH.',
+	ART_ID NUMBER(38,0) NOT NULL COMMENT 'Input: Artikel-ID einschließlich der Generationen-ID (9-stellig); Output: 7-stellige L&S-ID + Counter = 8-stellige Artikel-ID. WWNNNNPC (Warengruppe, Nummer, Prüfziffer, Counter) Regel: Neuer Artikel -> Counter +1.',
+	GP_ID NUMBER(38,0) NOT NULL COMMENT 'Geschäftspartner - ID (Lieferanten - ID)',
+	IVN_GRUPPE_ID NUMBER(38,0) COMMENT 'Kauflandweite eindeutige Nummer zur Einordnung von Gruppen von Atrikel-Lieferantenbeziehungen in Ländern zu konzernweiten Gruppen',
+	IVN_VERHANDLUNGS_CLUSTER_ID NUMBER(38,0) COMMENT 'Kauflandweite eindeutige IVN Verhandlungs Cluster fasst die in der IVN schon zusammengefassten Artikel/Lieferant/Land Kombinationen \n            innerhalb der IVN zu verschiedenen IVN-Verhandlungs-Clustern (Gruppen) zusammen.\n            Alle möglichen IVN-Verhandlungs-Cluster können in allen IVN-Gruppen vorkommen.',
+	IVN_SORTIMENTSGRUPPE_ID NUMBER(38,0) COMMENT 'Kauflandweite eindeutige Nummer die eine IVN Segmentgruppe identifiziert.\n            Die IVN-Sortimentgruppe teilt die Artikel in Gruppen ein die in verschiedenen IVN-Verhandlungsclustern\n            und verschiedenen IVN Gruppen vorkommt und ist nicht von IVN-Guppe und IVN-Verhandlungscluster abhängig.\n            Für jede Artikel-Lieferant-Land-Kombination kann nur eine IVN-Segmentgruppe zugeordnet werden. \n            ',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	QUELLSYSTEM_ID NUMBER(38,0) COMMENT 'ID des Quellsystems.',
+	constraint PK_ART_GP_VERHANDLUNG_ZU primary key (MANDANT_ID, ART_ID, GP_ID)
+)COMMENT='Mandant - Artikel - Geschäftspartner zu IVN Gruppe, IVN Verhandlungs Cluster und IVN Sortimentsgruppe.\n             Stellt die Beziehung zwischen Artikel und Geschäftspartner pro Land für Verhandlungen da, wobei nur Geschäftspartner berücksichtigt werden, die in den Bewegungsdaten der letzten 3 Jahre im Ein- oder Verkauf auftauchen.\n             Es gibt jeweils eine eindeutige Zuordnung von mandant_id, art_id, und gp_id.\n             IVN Gruppe (nur IVN Group in Quelle), \n             IVN Verhandlungs Cluster (IVN Cluster in Quelle) \n             und IVN Sortimentgruppe (IVN Segment in Quelle)'
+;

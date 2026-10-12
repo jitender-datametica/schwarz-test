@@ -1,0 +1,28 @@
+/* #-----------------------------------------------------------------------------
+# Description:
+# This view provides an Aggregated Restantenquote data with the granularity of store/day/artikel familie
+#
+#-----------------------------------------------------------------------------
+# History:
+#  1.0     18.01.2023      Michael Morris             Initial Version.
+#
+#----------------------------------------------------------------------------- */
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead_ac.v_agg_shelf_capacity_fam_store_day (client_id
+OPTIONS(description='MIS Client ID'), wh_id OPTIONS(description='Gesellschaft ID'), aspect_id
+OPTIONS(description='Gesellschaftsform (1 = Betriebs- 2 = Vertriebsgesellschaft)'), move_to_store_id
+OPTIONS(description='S-Key der Location, hier der Filiale'), orig_store_nr OPTIONS(description='Fachliche Store ID'),
+dat_formdate OPTIONS(description='Bezugsdatum'), cy_week
+OPTIONS(description='Geschäftsjahr - Woche Id - Format "JJJJMM"'), cy_week_partial_week_id
+OPTIONS(description='Teilwoche: Format yyyywwn, n in (1,2,9)'), cy_month
+OPTIONS(description='Monat des Geschäftsjahres im Format "JJJJMM"'), busyear OPTIONS(description='Geschäftsjahr'),
+currency_iso_cd OPTIONS(description='3 stelliger ISO-Währungs-Code'), curr_tot_id
+OPTIONS(description='Interner Währungs-Code'), item_familygroup_id OPTIONS(description='Artikelfamilie ID'),
+restantenquote_fil_pct
+OPTIONS(description='Durchschnitt aus P_LEW_MART_LEAD.T_SHELF_CAPACITY_ITEM_STORE_DAY restantenquote_fil'),
+regelfuellmenge_0_cnt
+OPTIONS(description='Summe aus P_LEW_MART_LEAD.T_SHELF_CAPACITY_ITEM_STORE_DAY regelfuellmenge_0_fg'), skipped_cnt
+OPTIONS(description='Summe aus P_LEW_MART_LEAD.T_SHELF_CAPACITY_ITEM_STORE_DAY skipped_fg'), dwh_updated
+OPTIONS(description='Technische Zeitstempel'))
+OPTIONS(DESCRIPTION = `AGGREGATED RESTANTENQUOTEN - SCHLÜSSEL: CLIENT_ID/STORE_ID/DAT_FORMDATE/ARTIKEL FAMILIE`) AS
+SELECT *
+FROM ldl_p_lew_mart_lead.v_agg_shelf_capacity_fam_store_day;

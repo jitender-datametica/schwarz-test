@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_in_kostenstelle_per (mandant_id, kostenstelle_id, krk_id, dat_von,
+dat_bis, pc_id, buchungskreis_id, geschaeftsbereich_id, kostenstellenart_id, td_update, td_insert) AS SELECT *
+FROM kfl_production_dbp_data.in_kostenstelle_per;

@@ -1,0 +1,25 @@
+create or replace TABLE LDL_PRODUCTION.P_LEW_CORE.T_NON_PERSONALIZED_DISCOUNT_TRIGGER (
+	CLIENT_ID NUMBER(38,0) NOT NULL COMMENT 'Unique identifier of the DWH client / slice',
+	NP_DISCOUNT_SID NUMBER(38,0) NOT NULL COMMENT 'Surrogate Key of the non personalized discount.',
+	NP_DISCOUNT_ACTION_NR NUMBER(38,0) NOT NULL COMMENT 'Unique Identifier of the action for a non-personalized discount.',
+	NP_DISCOUNT_TRIGGER_NR NUMBER(38,0) NOT NULL COMMENT 'Unique Identifier of the trigger for a non-personalized discount.',
+	NP_DISCOUNT_TRIGGER_TYPE_CD VARCHAR(100) NOT NULL COMMENT 'Code for trigger type of a non-personalized discount.',
+	NP_DISCOUNT_TRIGGER_CONDITION_TYPE_CD VARCHAR(100) COMMENT 'Code for trigger condition of a non-personalized discount.( for trigger_type_cd =''ITEM'' OR ''MERCHANDISE_HIERARCHY_GROUP'').',
+	TRIGGER_MIN_CNT NUMBER(38,0) COMMENT 'The minimum threshold quantity to activate the non-personalized discount.e.g: When the discount is 10+2 gratis, it is activated when 12 items are purchased.(For trigger_type_cd = ''ITEM'' OR ''MERCHANDISE_HIERARCHY_GROUP'' and  trigger_condition_type_cd = ''QUT'').',
+	TRIGGER_MAX_CNT NUMBER(38,0) COMMENT 'The maximum threshold quantity up to which the non-personalized discount apllies..e.g:The discount is valid up to 10 units or 10 EUR.( For trigger_type_cd = ''ITEM'' OR ''MERCHANDISE_HIERARCHY_GROUP'' and  trigger_condition_type_cd = ''QUT'').',
+	TRIGGER_INTERVAL_CNT NUMBER(38,0) COMMENT 'It is the interval quantity in which the non-personalized discount  is re-activated after the minimum threshold quantity has been reached.e.g: The discount is actovated for every 2 units of an item.( For trigger_type_cd = ''ITEM'' OR ''MERCHANDISE_HIERARCHY_GROUP'' and  trigger_condition_type_cd = ''QUTI'').',
+	TRIGGER_MIN_VAL NUMBER(38,5) COMMENT 'The minimum threshold amount to activate the non-personalized discount.(For trigger_type_cd = ''ITEM'' OR ''MERCHANDISE_HIERARCHY_GROUP'' and  trigger_condition_type_cd = ''AMT'').',
+	TRIGGER_MAX_VAL NUMBER(38,5) COMMENT 'The maximum threshold amount up to which the non-personalized discount apllies.( For trigger_type_cd = ''ITEM'' OR ''MERCHANDISE_HIERARCHY_GROUP'' and  trigger_condition_type_cd = ''AMT'').',
+	TRIGGER_INTERVAL_VAL NUMBER(38,5) COMMENT 'It is the interval amount  in which the non-personalized discount  is re-activated after the minimum threshold amount has been reached.(For trigger_type_cd = ''ITEM'' OR ''MERCHANDISE_HIERARCHY_GROUP'' and  trigger_condition_type_cd = ''AMTI'').',
+	TRIGGER_ITEM_PRICE NUMBER(38,5) COMMENT 'The non-personalized discount is activated if an item in the item group has the defined retail price.(For trigger_type_cd = ''ITEM'' OR ''MERCHANDISE_HIERARCHY_GROUP'' and  trigger_condition_type_cd = ''AMTS'').',
+	TRIGGER_MIN_SHOPPING_CART_VAL NUMBER(38,5) COMMENT 'The minimum purchase amount the customer must reach to activate the non-personalized discount(For trigger_type_cd = ''MARKET_BASKET_THRESHOLD'').',
+	COUPON_GTIN VARCHAR(14) COMMENT 'It is a 13-digit EAN code for the coupon and begin with a system-validated coupon prefix managed in the Store Manager application.',
+	COUPON_CONSUMPTION_TYPE_CD VARCHAR(100) COMMENT 'Code for the coupon''s usage of a non-personalized discount.',
+	CURR_SID NUMBER(38,0) NOT NULL COMMENT 'Surrogate Key CURRENCY',
+	CURR_CD VARCHAR(100) NOT NULL COMMENT 'Iso-Code Wahrung; SAP-Retail: tcurc.isocd; SAP-BW: t_bw_z_ds_tcurc.isocd',
+	DWH_CREATED TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Creation timestamp of the record in the DWH.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'Identifier of the last run which inserted or updated the record. -1 means manually inserted.',
+	DWH_UPDATED TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Timestamp of the last update of the record in the DWH.',
+	constraint PK_T_NON_PERSONALIZED_DISCOUNT_TRIGGER primary key (NP_DISCOUNT_SID, NP_DISCOUNT_TRIGGER_NR, NP_DISCOUNT_ACTION_NR)
+)COMMENT='This table is about the condition that must be met to activate a non-personalized discount.'
+;

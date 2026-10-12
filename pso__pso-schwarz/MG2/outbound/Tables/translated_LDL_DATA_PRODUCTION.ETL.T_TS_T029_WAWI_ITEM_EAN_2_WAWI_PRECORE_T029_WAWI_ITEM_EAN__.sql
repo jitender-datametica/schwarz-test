@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t_ts_t029_wawi_item_ean_2_wawi_precore_t029_wawi_item_ean__ (
+ctrcode STRING(3) COLLATE 'und:ci',
+extraction_tmsp DATETIME,
+seqid INTEGER,
+posno INTEGER,
+itemno INTEGER,
+ean INTEGER,
+eandesc STRING(240),
+location STRING(6),
+transferdate DATETIME,
+transferflag INTEGER,
+action_flag INTEGER,
+scn INTEGER,
+dwh_load_id INTEGER,
+record_id STRING(1000),
+deleted_fg BOOL,
+error_descr STRING(1000),
+filename STRING(1000),
+hist_row_no STRING(1000),
+dwh_mapping_tmsp TIMESTAMP,
+dwh_ending_tmsp TIMESTAMP,
+error_fg INTEGER
+);

@@ -1,0 +1,11 @@
+CREATE OR REPLACE TABLE PEP_KPI_WG_ABT_ZU (
+	MANDANT_ID INTEGER NOT NULL COMMENT 'Mandant im DWH',
+	ARTHIERTYP_ID INTEGER NOT NULL COMMENT 'Artikel - Hierarchie - Typ - ID: kennzeichnet, ob es sich um eine Hierarchie mit zwei- oder dreistelligen Warengruppen  handelt',
+	WG_ID INTEGER NOT NULL COMMENT 'ID der Warengruppe',
+	PEP_KPI_ID INTEGER NOT NULL COMMENT 'ID der KPI - Treiberkennzahl für Personaleinsatzplanung',
+	DAYFORCE_ABT_BEZ VARCHAR(40) NOT NULL DEFAULT ' ' COMMENT 'Abteilungsbezeichnung Dayforce HCM (PEP)',
+	PEP_KPI_BEZ VARCHAR(40) COMMENT 'Bezeichnung der KPI - Treiberkennzahl für Personaleinsatzplanung (SQL-Name für die Ausführung des entsprechend SQL)',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration'
+)COMMENT='VIS - Steuerungstabelle für die Datenlieferung an Dayforce HCM (PEP) - Tabelle soll abgelöst werden'
+;

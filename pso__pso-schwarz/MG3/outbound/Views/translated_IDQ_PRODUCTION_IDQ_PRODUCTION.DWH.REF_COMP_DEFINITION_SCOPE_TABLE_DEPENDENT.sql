@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW idq_production_dwh.ref_comp_definition_scope_table_dependent (ref_comp_definition_scope_table_id
+, ref_comp_definition_scope_id, table_leading, table_dependent) AS SELECT id AS ref_comp_definition_scope_table_id,
+ comp_definition_scope_id AS ref_comp_definition_scope_id,
+ table_leading,
+ table_dependent
+FROM idq_production_idq_results.ref_comp_definition_scope_table;

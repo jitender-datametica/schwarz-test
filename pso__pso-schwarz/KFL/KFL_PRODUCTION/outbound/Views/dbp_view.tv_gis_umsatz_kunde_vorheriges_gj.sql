@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.tv_gis_umsatz_kunde_vorheriges_gj AS SELECT *
+FROM kfl_production_dbp_data_center.tv_gis_umsatz_kunde_vorheriges_gj;

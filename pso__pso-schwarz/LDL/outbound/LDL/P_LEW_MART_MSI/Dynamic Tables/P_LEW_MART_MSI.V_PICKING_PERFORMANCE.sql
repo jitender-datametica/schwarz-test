@@ -1,0 +1,37 @@
+CREATE OR REPLACE MATERIALIZED VIEW ldl_p_lew_mart_msi.v_picking_performance
+OPTIONS(ENABLE_REFRESH = TRUE, REFRESH_INTERVAL_MINUTES = 90) AS
+SELECT A.client_id,
+ WH.src_wh_id AS wh_id,
+ A.pick_list_id AS picking_receipt_nr,
+ A.performance_type_cd,
+ A.performance_cd,
+ A.pick_area_id AS picking_area_nr_pp,
+ A.dwh_cal_dt AS dat_performance,
+ A.performance_tmsp AS timestamp_performance,
+ A.transport_method_cd AS means_of_transport_id,
+ A.performance_grp_cd AS performance_grp,
+ A.target_time_cnt AS qty_sum_target_time,
+ A.working_time_cnt AS qty_sum_working_time,
+ A.lead_time_cnt AS qty_sum_lead_time,
+ A.lag_time_cnt AS qty_sum_lag_time,
+ A.extra_time_cnt AS qty_sum_extra_time,
+ A.break_time_cnt AS qty_sum_break_time,
+ A.days_cnt AS cnt_days,
+ A.hours_cnt AS cnt_hours,
+ A.staff_cnt AS cnt_staff,
+ A.order_cnt AS cnt_order,
+ A.target_pick_te_qty AS cnt_te,
+ A.position_total_cnt AS cnt_pick_position,
+ A.act_pick_case_qty AS cnt_pick_case,
+ A.total_weight_gross_qty AS qty_sum_gross_weight,
+ A.total_weight_net_qty AS qty_sum_net_weight,
+ A.break_cnt AS qty_sum_break,
+ A.act_pick_te_qty AS cnt_pick_te,
+ A.target_pick_case_qty AS cnt_target_case,
+ A.act_handhe_cnt AS cnt_pick_handhe,
+ A.act_entry_thm_cnt AS cnt_pick_entry_thm,
+ A.act_orig_thm_cnt AS cnt_pick_orig_thm,
+ A.dwh_load_id AS load_id
+FROM ldl_p_lew_core_ac.v_pick_performance AS A
+ INNER JOIN ldl_p_lew_bil_ac.v_warehouse AS WH ON A.client_id = WH.client_id AND A.loc_sid = WH.loc_sid_wh AND WH.dwh_actual_fg
+    = 1;

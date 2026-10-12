@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_IOS.PSP_KONDITIONSWERT as
+   SELECT * FROM dbp_data.psp_konditionswert;

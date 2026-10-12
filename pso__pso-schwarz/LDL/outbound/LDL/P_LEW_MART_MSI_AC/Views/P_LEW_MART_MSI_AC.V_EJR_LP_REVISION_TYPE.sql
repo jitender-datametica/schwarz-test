@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi_ac.v_ejr_lp_revision_type (revision_type_id, revision_type_desc_at,
+revision_type_desc_be, revision_type_desc_be_fr, revision_type_desc_bg, revision_type_desc_ch, revision_type_desc_cy,
+revision_type_desc_cz, revision_type_desc, revision_type_desc_dk, revision_type_desc_ee, revision_type_desc_es,
+revision_type_desc_fi, revision_type_desc_fr, revision_type_desc_gb, revision_type_desc_gr, revision_type_desc_hr,
+revision_type_desc_hu, revision_type_desc_ie, revision_type_desc_it, revision_type_desc_lt, revision_type_desc_lv,
+revision_type_desc_ni, revision_type_desc_nl, revision_type_desc_de, revision_type_desc_pl, revision_type_desc_pt,
+revision_type_desc_ro, revision_type_desc_se, revision_type_desc_si, revision_type_desc_sk, revision_type_desc_cs,
+revision_type_desc_mt, revision_type_desc_us, revision_type_desc_rs) AS SELECT *
+FROM ldl_p_lew_mart_msi.v_ejr_lp_revision_type;

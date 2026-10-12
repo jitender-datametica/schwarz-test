@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_s_conl_workbench.t_i_cost_sapbw_logistics (
+booking_month INTEGER,
+business_year INTEGER,
+booking_period INTEGER,
+booking_date DATE,
+corporate_division_id STRING(2),
+corporate_division_desc STRING(25),
+warehouse_desc_short STRING(5),
+warehouse_desc STRING(20),
+cost_center INTEGER,
+referencekey INTEGER,
+cost_category STRING(75),
+nat_account_number INTEGER,
+nat_account_desc STRING(75),
+inat_account_number2 STRING(25),
+inat_account_desc2 STRING(75),
+inat_account_number STRING(25),
+inat_account_desc STRING(75),
+value_costs NUMERIC(20,5)
+);

@@ -1,0 +1,37 @@
+CREATE OR REPLACE VIEW idq_production_dq_reports.v_dq_rep_ldl_wawi_era_dienstleistung_sta_13_older_5_years (country_id,
+calculation_time, geaendert_am_dt, geaendert_am, land, client_id, ian, buyer_name, artikelnummer, artikelbezeichnung,
+artikelbezeichnung_de, uwg, artikelfamilie, artikelart, artikelstatus_dl, relevanzkriterien, sta_5, sta_6, sta_7, sta_8
+, sta_9, sta_10, sta_11, sta_11_5, sta_12, sta_13, sta_14, ges_all_listing, ges_no_listing, is_all_status_in_13) AS
+SELECT country_id,
+ calculation_time,
+ geaendert_am_dt,
+ geaendert_am,
+ land,
+ client_id,
+ ian,
+ buyer_name,
+ artikelnummer,
+ artikelbezeichnung,
+ artikelbezeichnung_de,
+ uwg,
+ artikelfamilie,
+ artikelart,
+ artikelstatus_dl,
+ relevanzkriterien,
+ sta_5,
+ sta_6,
+ sta_7,
+ sta_8,
+ sta_9,
+ sta_10,
+ sta_11,
+ sta_11_5,
+ sta_12,
+ sta_13,
+ sta_14,
+ ges_all_listing,
+ ges_no_listing,
+ is_all_status_in_13
+FROM idq_production_dq_reports.dq_rep_ldl_wawi_era_dienstleistung AS T1
+WHERE geaendert_am_dt IS NOT NULL
+ AND geaendert_am_dt < DATE_ADD(CURRENT_DATE, INTERVAL - 5 YEAR);

@@ -1,0 +1,38 @@
+create or replace view UGS_ARIS_PRODUCTION.FE_MSTR_ARIS.V_FACT_INT_PROCESS_TARGET(
+	DWH_TENANT_CD,
+	PROCESS_SID,
+	COUNTRY_ORG_SID,
+	RESP_EMP_POS_NAME,
+	CONTACT_EMP_TXT,
+	RESP_EMP_NAME,
+	PROCESS_UPD_STATUS_CD,
+	PROCESS_CHANGE_LVL_CD,
+	SALES_RELEVANT_FG,
+	STORE_RELEVANT_FG,
+	ORIG_LVL_NR,
+	DWH_CREATED_TMSP,
+	DWH_UPDATED_TMSP,
+	DWH_SRC_FILE_NAME,
+	SRC_TMSP
+) as
+SELECT
+t.DWH_TENANT_CD
+,t.PROCESS_SID
+,t.COUNTRY_ORG_SID
+,p.resp_emp_pos_name
+,p.contact_emp_txt
+,p.resp_emp_name
+,p.process_upd_status_cd
+,p.process_change_lvl_cd
+,p.sales_relevant_fg
+,p.store_relevant_fg
+,p.orig_lvl_nr
+,t.DWH_CREATED_TMSP
+,t.DWH_UPDATED_TMSP
+,t.DWH_SRC_FILE_NAME
+,t.SRC_TMSP
+FROM CORE.T_FACT_INT_PROCESS_TARGET t
+join CORE.T_DIM_PROCESS p
+on (t.process_sid = p.process_sid)
+WHERE t.DWH_VALID_FG
+and p.DWH_VALID_FG;

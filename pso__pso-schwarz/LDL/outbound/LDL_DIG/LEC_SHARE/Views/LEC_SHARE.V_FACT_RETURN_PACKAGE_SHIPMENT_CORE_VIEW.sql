@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_lec_share.v_fact_return_package_shipment_core_view AS SELECT *
+FROM ldl_dig_core.v_fact_return_package_shipment;

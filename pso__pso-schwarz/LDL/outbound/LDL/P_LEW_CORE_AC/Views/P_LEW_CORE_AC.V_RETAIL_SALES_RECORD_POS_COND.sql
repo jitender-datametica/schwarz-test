@@ -1,0 +1,22 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_retail_sales_record_pos_cond (client_id, retail_sales_record_id,
+retail_sales_record_pos_id, cond_type_cd, cond_rec_id, curr_sid, uom_sid, curr_cd, cond_val, gross_val, tax_val, net_val
+, uom_cd, act_qty, lme_qty, dwh_cal_dt, dwh_load_id, dwh_created, dwh_updated) AS SELECT client_id,
+ retail_sales_record_id,
+ retail_sales_record_pos_id,
+ cond_type_cd,
+ cond_rec_id,
+ curr_sid,
+ uom_sid,
+ curr_cd,
+ cond_val,
+ gross_val,
+ tax_val,
+ net_val,
+ uom_cd,
+ act_qty,
+ lme_qty,
+ dwh_cal_dt,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_retail_sales_record_pos_cond;

@@ -1,0 +1,35 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_RPM_ELEMENT_PER AS 
+    SELECT 
+        dat_von
+        ,rpm_hierarchie_id
+        ,rpm_immobilie_id
+        ,projekt_id
+        ,dat_bis
+        ,rpm_status_id
+        ,wrg_id
+        ,dat_start_prognose
+        ,dat_start_plan
+        ,dat_start
+        ,dat_ende_prognose
+        ,dat_ende_plan
+        ,dat_ende
+        ,land_id
+        ,mandant_id
+        ,strasse
+        ,wup_id
+        ,nb_id
+        ,bereich_name
+        ,wup_standort
+        ,plz
+        ,expansionauftrag_nr
+        ,eigenentw
+        ,angebot_nr
+        ,auftraggeber_name
+        ,objekt_planer_name
+        ,gj_umbvorschl
+        ,rpm_projekt_typ_id
+        ,rpm_phase_id
+        ,testmarkt_fg
+        ,massnahmentyp_id
+        ,besitzverhaeltnis_id
+FROM DBP_DATA.rpm_element_per ;

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_windrichtung_map AS SELECT windrichtung_schema_id_source,
+ windrichtung_id_source,
+ windrichtung_schema_id_dest,
+ windrichtung_id_dest
+FROM kfl_production_dbp_data.windrichtung_map;

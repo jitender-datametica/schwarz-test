@@ -1,0 +1,27 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TCACHE_WH_MOVE_MISSING_ITEM_WAREHOUSE
+(
+  CLIENT_ID             NUMBER(38)                    NOT NULL,
+  LOC_SID               NUMBER(38)                    NOT NULL,
+  MISSING_ITEM_EVENT_NR NUMBER(38)                    NOT NULL,
+  ORIG_ITEM_NR          NUMBER(38)                    NOT NULL,
+  CASE_SIZE             NUMBER(38)                    NULL,
+  ITEM_SID_WH           NUMBER(38)                    NULL,
+  INSERT_DT             DATE                          NULL,
+  STC_SLOT_ID           NUMBER(38)                    NULL,
+  MISSING_STATUS_ID     NUMBER(38)                    NULL,
+  WAMAS_REASON_ID       NUMBER(38)                    NULL,
+  WAWI_REASON_ID        NUMBER(38)                    NULL,
+  EST_RECEIVE_DT        DATE                          NULL,
+  RECEIVE_DT            DATE                          NULL,
+  PICK_DT               DATE                          NULL,
+  LIFTER_PICK_ID        NUMBER(38)                    NULL,
+  CALC_PALLET_RATE      NUMBER(38)                    NULL,
+  ORDERED_FOR_TXT       VARCHAR(10)                   NULL,
+  DELETED_FG            NUMBER(38)                    NULL,
+  ACTIVE_FROM_DT        DATE                          NULL,
+  ACTIVE_TO_DT          DATE                          NULL,
+  DAYEND_DT             DATE                          NULL,
+  DWH_LOAD_ID           NUMBER(38)                    NOT NULL,
+  DWH_CREATED           TIMESTAMP_NTZ(6)              NOT NULL,
+  DWH_UPDATED           TIMESTAMP_NTZ(6)              NOT NULL
+);

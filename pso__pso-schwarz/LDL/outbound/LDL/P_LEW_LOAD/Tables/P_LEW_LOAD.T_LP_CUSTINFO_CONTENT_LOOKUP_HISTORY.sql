@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_lp_custinfo_content_lookup_history (
+client_id STRING(100),
+countrychange_min_date DATETIME,
+countrychange_min_country STRING(10),
+countrychange_max_date DATETIME,
+countrychange_max_country STRING(10),
+ssoclientlegaltermsaccepted_ssoclientappid_min_date DATETIME,
+ssoclientlegaltermsaccepted_ssoclientappid_min_country STRING(10),
+ssoclientlegaltermsaccepted_ssoclientappid_max_date DATETIME,
+ssoclientlegaltermsaccepted_ssoclientappid_max_country STRING(10),
+ssoclientlegaltermsdeclined_ssoclientappid_min_date DATETIME,
+ssoclientlegaltermsdeclined_ssoclientappid_min_country STRING(10),
+ssoclientlegaltermsdeclined_ssoclientappid_max_date DATETIME,
+ssoclientlegaltermsdeclined_ssoclientappid_max_country STRING(10)
+);

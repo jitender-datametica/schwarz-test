@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW nfpow_fe_mstr_apollo_kaufland.v_dim_kfl_calendar_year (cal_year, kfl_cal_year_offset,
+kfl_completed_cal_year_offset) AS SELECT cal_year,
+ kfl_cal_year_offset,
+ kfl_completed_cal_year_offset
+FROM nfpow_core.t_dim_kfl_calendar_year;

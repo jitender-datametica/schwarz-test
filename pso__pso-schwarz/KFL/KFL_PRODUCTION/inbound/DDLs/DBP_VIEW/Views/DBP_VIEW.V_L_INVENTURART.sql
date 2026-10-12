@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_L_INVENTURART AS 
+    SELECT 
+        mandant_id,
+        inventurart_id
+FROM DBP_DATA.L_INVENTURART ;

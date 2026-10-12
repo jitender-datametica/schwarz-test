@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_shr.mv_l_unternmns_bereich (mandant_id, unternehmens_bereich_id) AS
+SELECT mandant_id,
+ unternehmens_bereich_id
+FROM kfl_production_dbp_view.v_l_unternmns_bereich AS V01;

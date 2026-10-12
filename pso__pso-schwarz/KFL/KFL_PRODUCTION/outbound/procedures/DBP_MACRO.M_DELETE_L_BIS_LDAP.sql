@@ -1,0 +1,18 @@
+CREATE OR REPLACE PROCEDURE dbp_macro.m_delete_l_bis_ldap(IN MA_LDAP STRING, IN LDAP_LOESCH_FG FLOAT64)
+BEGIN
+DECLARE sql_stmt STRING;
+DECLARE sql_commit STRING;
+BEGIN TRANSACTION;
+SET sql_stmt  =  '''DELETE FROM dbp_security.l_bis_ldap WHERE 1 = @LDAP_LOESCH_FG AND ma_ldap = @MA_LDAP''';
+
+EXECUTE IMMEDIATE (sql_stmt) USING MA_LDAP AS MA_LDAP,  LDAP_LOESCH_FG AS LDAP_LOESCH_FG;
+
+SET sql_stmt  =  '''DELETE FROM dbp_security.bis_einkaeufer_ldap_zu WHERE 1 = @LDAP_LOESCH_FG AND ma_ldap = @MA_LDAP''';
+
+EXECUTE IMMEDIATE (sql_stmt) USING MA_LDAP AS MA_LDAP,  LDAP_LOESCH_FG AS LDAP_LOESCH_FG;
+
+SET sql_commit  =  'COMMIT TRANSACTION';
+
+EXECUTE IMMEDIATE (sql_commit);
+END;
+

@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_0rt_wrf3_attr_2_store_to_wh_delivery_hist (
+client_id BIGNUMERIC(38),
+lidl_country STRING(40),
+rt_wrf3_attr_werks STRING(8),
+rt_wrf3_attr_matkl STRING(18),
+rt_wrf3_attr_loclb STRING(8),
+rt_wrf3_attr_datbi DATE,
+src_werks_store STRING(40),
+src_werks_wh STRING(40),
+src_matkl STRING(40),
+item_grp_cd STRING(20),
+priority BIGNUMERIC(38),
+active_from_dt DATE,
+active_to_dt DATE,
+deleted_fg BIGNUMERIC(38),
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

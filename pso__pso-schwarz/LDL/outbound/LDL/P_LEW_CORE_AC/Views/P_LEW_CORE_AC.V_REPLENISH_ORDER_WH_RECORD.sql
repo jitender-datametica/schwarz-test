@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_replenish_order_wh_record (client_id, loc_sid, order_record_id, order_seq_nr
+, order_created_tmsp, order_updated_tmsp, order_status_cd, order_batch_id, sup_sid, delivery_dt, dwh_cal_dt, dwh_load_id
+, dwh_created, dwh_updated) AS SELECT client_id,
+ loc_sid,
+ order_record_id,
+ order_seq_nr,
+ order_created_tmsp,
+ order_updated_tmsp,
+ order_status_cd,
+ order_batch_id,
+ sup_sid,
+ delivery_dt,
+ dwh_cal_dt,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_replenish_order_wh_record;

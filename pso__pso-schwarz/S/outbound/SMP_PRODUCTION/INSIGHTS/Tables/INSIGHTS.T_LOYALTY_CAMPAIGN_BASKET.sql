@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE smp_production_insights.t_loyalty_campaign_basket (
+division_id STRING(100),
+country_id STRING(100),
+campaign_id STRING(100),
+campaign_name STRING(500),
+campaign_start_dt DATE,
+campaign_end_dt DATE,
+campaign_group_id STRING(100),
+receipt_id STRING(500),
+shopper_id STRING(100),
+ab_group_id INTEGER,
+gtin_id STRING(100),
+gtin_name STRING(5000),
+category_name STRING(5000),
+gtin_gross_sales NUMERIC(29,2),
+gtin_units_purchased NUMERIC(29,2),
+gtin_price NUMERIC(29,5),
+period STRING(100),
+campaign_gtin_fg INTEGER
+);

@@ -1,0 +1,12 @@
+CREATE OR REPLACE VIEW idq_production_dwh.ref_relevance_definition (ref_relevance_definition_id,
+relevance_definition_technical_name, ref_branch_id, ref_source_system_type_id, ref_test_object_type_id,
+relevance_definition_name, relevance_definition_name_de, relevance_definition_name_en) AS SELECT id AS
+ ref_relevance_definition_id,
+ name AS relevance_definition_technical_name,
+ branch_id AS ref_branch_id,
+ source_system_type_id AS ref_source_system_type_id,
+ test_object_type_id AS ref_test_object_type_id,
+ name AS relevance_definition_name,
+ name AS relevance_definition_name_de,
+ name AS relevance_definition_name_en
+FROM idq_production_idq_results.ref_relevance_definition;

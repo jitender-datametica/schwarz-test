@@ -1,0 +1,51 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_LBS.MV_GRUPPE_MANDANT_ZEK_MATRIX(
+	GRUPPE_ID,
+	MANDANT_ID,
+	ZEK_ID,
+	PFLEGEFLAG
+) AS
+
+SELECT 
+ lbs_gruppe_id
+,mandant_id
+,zek_id
+,(CASE WHEN (SELECT COUNT(*) FROM dbp_security.lbs_gruppe_zek_zu x
+WHERE x.lbs_gruppe_id = cx.lbs_gruppe_id 
+AND   x.zek_id = cx.zek_id 
+AND   x.mandant_id = cx.mandant_id) > 0
+THEN 1 ELSE 0 END) AS PflegeFlag
+
+FROM (
+SELECT 
+ v01.lbs_gruppe_id
+,v03.mandant_id
+,v02.zek_id
+
+FROM (dbp_security.lbs_gruppe v01
+CROSS JOIN dbp_msi_view_lbs.mv_zek_gp v02)
+JOIN dbp_msi_view_lbs.mv_mandant v03
+ON (v02.mandant_id = v03.mandant_id)
+
+--Ausschluss der DUMMY-ID 0
+WHERE v01.lbs_gruppe_id <> 0
+--Ausschluss von Elterngruppen
+AND v01.lbs_gruppe_id NOT IN (SELECT v02.lbS_gruppe_parent_id FROM dbp_security.lbs_gruppe_gruppe_zu v02)
+
+--AP0172759/SPEC0207789 Umstellung zek_id auf VARCHAR(3) / sschuecke 30.10.2023
+--Ausschluss der DUMMY-ID 99
+AND v02.zek_id <> '999') cx
+
+UNION
+
+SELECT 
+ v01.lbs_gruppe_id
+,v02.mandant_id
+,'-1' AS zek_id
+,0 AS PflegeFlag
+
+FROM dbp_security.lbs_gruppe v01
+CROSS JOIN dbp_msi_view_lbs.mv_mandant v02
+WHERE v01.lbs_gruppe_id <> 0
+AND   v01.lbs_gruppe_id NOT IN (SELECT lbs_gruppe_id FROM dbp_security.lbs_gruppe_zek_zu WHERE alle_zek_fg = 1 AND zek_id = '-1')
+--Ausschluss von Elterngruppen
+AND v01.lbs_gruppe_id NOT IN (SELECT lbs_gruppe_parent_id FROM dbp_security.lbs_gruppe_gruppe_zu);

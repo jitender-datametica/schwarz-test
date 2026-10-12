@@ -1,0 +1,6 @@
+CREATE OR REPLACE PROCEDURE idq_production_eks_calculation.srmara_eks_item_relevancychecksdetail_zhiderowduplicates_upd()
+BEGIN
+UPDATE idq_production_eks_calculation.stmara_eks_item_relevancychecksdetail SET
+    zhiderow = sr.zhiderownew FROM idq_production_eks_calculation.srmara_eks_item_relevancychecksdetail_zhiderowduplicates_updsel AS sr
+WHERE stmara_eks_item_relevancychecksdetail.uid = sr.uid;
+END;

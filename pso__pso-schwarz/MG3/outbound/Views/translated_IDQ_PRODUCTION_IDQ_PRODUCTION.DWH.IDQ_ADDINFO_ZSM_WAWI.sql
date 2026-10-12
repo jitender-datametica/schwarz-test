@@ -1,0 +1,21 @@
+CREATE OR REPLACE VIEW idq_production_dwh.idq_addinfo_zsm_wawi (idq_addinfo_zsm_wawi_id, sync_report_execution_id,
+leading_primary_key, dependent_primary_key, leading_system_id, dependent_system_id, ref_country_id, lifnr, name, ekorg,
+krednr, sap_krednr, zz_gr_food, zz_gr_nfood, zz_gr_fruit, zz_gr_plant, zz_gr_brand) AS SELECT id AS
+ idq_addinfo_zsm_wawi_id,
+ sync_report_execution_id,
+ leading_primary_key,
+ dependent_primary_key,
+ leading_system_id,
+ dependent_system_id,
+ country_id AS ref_country_id,
+ lifnr,
+ name,
+ ekorg,
+ krednr,
+ sap_krednr,
+ zz_gr_food,
+ zz_gr_nfood,
+ zz_gr_fruit,
+ zz_gr_plant,
+ zz_gr_brand
+FROM idq_production_idq_results.idq_addinfo_zsm_wawi;

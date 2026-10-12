@@ -1,0 +1,190 @@
+
+CREATE OR REPLACE DYNAMIC TABLE P_LEW_MART_CM.V_LIL_LIFT_DM_CHART15(
+     LIFT_CAT_ID
+    ,CLIENT_ID
+    ,PER_ID
+    ,PER_ID_NOT_LATEST
+    ,CLNT_RTL_ID
+    ,CLNT_RTL_LVL
+    ,CURRENCY_ISO_CD
+    ,V_LIDL_CAT_TTSHARE
+    ,VALUE_LIDL
+    ,VALUEPOT_LIDL_CAT_TTSHARE
+    ,VALUEPOT_LIDL
+    ,VPE_LIDL_BAR
+    ,VPE_LIDL
+    ,VPE_BAR
+    ,VPE
+    ,VPE_GAP_PP_BAR
+    ,VPE_GAP_PP
+    ,AVP_LIDL_SHARE_BAR
+    ,AVP_LIDL
+    ,PY_VALUELIDL
+    ,PY_VALUEPOT_LIDL
+    ,PY_VPE_LIDL
+    ,PY_VPE
+    ,PY_VPE_GAP_PP
+    ,PY_AVP_LIDL
+    ,RB
+    ,RB_LIDL
+    ,PROT_FG
+    ,MARKET_SHARE
+) 
+TARGET_LAG = '1 hour, 30 minutes' 
+REFRESH_MODE = FULL 
+INITIALIZE = ON_CREATE 
+WAREHOUSE = WH_LDL_%%environmentAbbreviation%%_DYNAMIC_TABLE_P_LEW_MART_CM
+AS
+WITH CLIENT_PERIOD AS(
+SELECT 
+     client_id
+    ,per_id
+    ,per_tp_id
+FROM p_lew_mart_cm.v_lil_client, p_lew_mart_cm.v_lil_period
+)
+,CLIENT_PERIOD_RTL AS(
+SELECT DISTINCT 
+     a.client_id
+    ,a.per_id
+    ,rtl_id
+    ,rtl_tp_id
+    ,per_tp_id
+FROM CLIENT_PERIOD a
+JOIN P_LEW_MART_CM.V_LIL_LIFT_DATA_ACT b
+ON a.client_id = b.client_id
+AND a.per_id = b.per_id
+JOIN P_LEW_MART_CM.V_LIL_RTL_LVL_TP c
+ON b.rtl_lvl = c.rtl_lvl
+WHERE rtl_tp_id IN (2,3) AND rtl_id NOT IN (930000, 940000, 930100, 930200)
+)
+,BuyersSpend AS(
+SELECT DISTINCT
+     client_id
+    ,per_id
+    ,rtl_id
+    ,rtl_tp_id
+    ,SUM(val) AS "Value"
+FROM P_LEW_MART_CM.V_LIL_LIFT_DATA_ACT a
+JOIN P_LEW_MART_CM.V_LIL_RTL_LVL_TP b
+ON a.rtl_lvl = b.rtl_lvl
+WHERE meas_id = 37 AND prom_id =1 AND lift_cat_id = 1 AND currency_iso_cd = 'EUR' AND rtl_tp_id IN (2,3) AND rtl_id NOT IN (930000, 940000, 930100, 930200)
+GROUP BY 1,2,3,4)
+,BuyersSpendTotal AS(
+SELECT DISTINCT
+     client_id
+    ,per_id
+    ,rtl_tp_id
+    ,val AS "Value"
+FROM P_LEW_MART_CM.V_LIL_LIFT_DATA_ACT a
+JOIN P_LEW_MART_CM.V_LIL_RTL_LVL_TP b
+ON a.rtl_lvl = b.rtl_lvl
+WHERE meas_id = 37 AND prom_id =1 AND lift_cat_id = 1 AND currency_iso_cd = 'EUR'AND rtl_tp_id IN (2,3) AND rtl_id =10)
+,MARKET_SHARE AS(
+SELECT
+   BS.client_id
+  ,BS.per_id
+  ,BS.rtl_id
+  ,BS.rtl_tp_id
+  ,DIV0(BS.Value,BST.Value)*100 AS "val"
+FROM BuyersSpend BS
+JOIN BuyersSpendTotal BST
+  ON BS.client_id = BST.client_id
+  AND BS.per_id = BST.per_id
+  AND BS.rtl_tp_id = BST.rtl_tp_id)
+  
+,MAT_LATEST AS(
+SELECT DISTINCT 
+     CLIENT_ID
+    ,MAX(PER_ID) AS "PER_ID_NOT_LATEST" 
+FROM p_lew_process_mstr_ac.v_lil_lift_dm_chart15
+WHERE PER_ID <>15000000
+GROUP BY CLIENT_ID)
+,Q_LATEST AS(
+SELECT DISTINCT 
+     CLIENT_ID
+    ,MAX(PER_ID) AS "PER_ID_NOT_LATEST" 
+FROM p_lew_process_mstr_ac.v_lil_lift_dm_chart15
+WHERE PER_ID <>3500000 AND SUBSTR(PER_ID,0,1) = 3
+GROUP BY CLIENT_ID)
+,MS_FINAL AS(
+SELECT 
+     CLIENT_ID
+    ,PER_ID
+    ,RTL_ID
+    ,RTL_TP_ID
+    ,PER_TP_ID
+    ,VAL
+    ,GRP
+    ,COALESCE(VAL, MAX(VAL) OVER (PARTITION  BY CLIENT_ID, RTL_TP_ID, RTL_ID, PER_TP_ID, GRP ORDER BY CLIENT_ID ASC, PER_ID ASC,RTL_TP_ID ASC, PER_TP_ID, VAL DESC, GRP ASC)) AS VAL_WIN
+FROM
+(
+SELECT 
+     A.CLIENT_ID
+    ,A.PER_ID
+    ,A.RTL_ID
+    ,A.RTL_TP_ID
+    ,A.PER_TP_ID
+    ,VAL
+    ,COUNT(VAL) OVER (PARTITION BY A.CLIENT_ID, A.RTL_TP_ID, A.RTL_ID, A.PER_TP_ID ORDER BY A.CLIENT_ID ASC, A.PER_ID ASC, A.RTL_TP_ID ASC, A.PER_TP_ID ASC, VAL DESC) AS GRP
+FROM CLIENT_PERIOD_RTL A
+LEFT JOIN MARKET_SHARE B
+ON A.CLIENT_ID = B.CLIENT_ID
+AND A.PER_ID = B.PER_ID
+AND A.RTL_ID = B.rtl_id
+AND A.RTL_TP_ID = B.rtl_tp_id)
+ORDER BY 1 ASC, 2 ASC, 4 ASC, 6 DESC)
+SELECT 
+    DM.lift_cat_id
+   ,DM.client_id
+   ,DM.per_id
+   ,CASE
+        WHEN DM.per_id IN (15000000) THEN
+        MAT.PER_ID_NOT_LATEST
+        WHEN DM.per_id IN (3500000) THEN 
+        Q.PER_ID_NOT_LATEST
+        ELSE DM.per_id
+        END AS "PER_ID_NL"
+   ,DM.rtl_id AS clnt_rtl_id
+   ,DM.rtl_tp_id AS clnt_rtl_lvl
+   ,DM.currency_iso_cd
+   ,(DM.VALUELIDLCATTOTOTALSHARE)::DECIMAL(23,5) AS V_LIDL_CAT_TTSHARE
+   ,DM.VALUELIDL AS VALUELIDL
+   ,(DM.VALUEPOTLIDLCATTOTOTALSHARE)::DECIMAL(23,5) AS VALUEPOT_LIDL_CAT_TTSHARE
+   ,DM.VALUEPOTENTIALLIDL AS VALUEPOT_LIDL
+   ,(DM.VALUEPOTENTIALEXPLOITATIONLIDL)::DECIMAL(23,5) AS VPE_LIDL_BAR
+   ,DM.VALUEPOTENTIALEXPLOITATIONLIDL AS VPE_LIDL
+   ,(DM.VALUEPOTENTIALEXPLOITATION)::DECIMAL(23,5) AS VPE_BAR
+   ,DM.VALUEPOTENTIALEXPLOITATION  AS VPE
+   ,(DM.VPEGAPPP)::DECIMAL(23,5) AS VPE_GAP_PP_BAR
+   ,DM.VPEGAPPP AS VPE_GAP_PP
+   ,(DM.AVPLIDLSHAREBAR)::DECIMAL(23,5) AS AVP_LIDL_SHARE_BAR
+   ,(CASE WHEN DM.ADDEDVALUEPOTENTIALLIDL > 0 THEN ROUND(DM.ADDEDVALUEPOTENTIALLIDL) ELSE NULL END) AS AVP_LIDL
+   ,DM_PY.VALUELIDL AS PY_VALUELIDL
+   ,DM_PY.VALUEPOTENTIALLIDL AS PY_VALUEPOT_LIDL
+   ,DM_PY.VALUEPOTENTIALEXPLOITATIONLIDL AS PY_VPE_LIDL
+   ,DM_PY.VALUEPOTENTIALEXPLOITATION AS PY_VPE
+   ,DM_PY.VPEGAPPP AS PY_VPE_GAP_PP
+   ,(CASE WHEN DM_PY.ADDEDVALUEPOTENTIALLIDL > 0 THEN ROUND(DM_PY.ADDEDVALUEPOTENTIALLIDL) ELSE NULL END) AS PY_AVP_LIDL
+   ,DM.MAXRAWBUYER AS RB
+   ,DM.MAXRAWBUYERLIDL AS RB_LIDL
+   ,CAST(0 AS BYTEINT) AS prot_fg
+   ,MS.val_win AS "MARKET SHARE" 
+FROM p_lew_process_mstr_ac.v_lil_lift_dm_chart15 DM
+LEFT JOIN MS_FINAL MS
+ ON MS.client_id = DM.CLIENT_ID
+    AND MS.per_id = DM.PER_ID
+    AND MS.rtl_id = DM.rtl_id
+    AND MS.rtl_tp_id = DM.rtl_tp_id
+JOIN MAT_LATEST MAT
+ ON DM.CLIENT_ID = MAT.client_id
+JOIN Q_LATEST Q
+ ON DM.CLIENT_ID = Q.client_id
+JOIN P_LEW_MART_CM.V_LIL_PERIOD PER
+ ON PER_ID_NL=PER.per_id
+LEFT JOIN p_lew_process_mstr_ac.v_lil_lift_dm_chart15 DM_PY
+ ON DM_PY.per_id = PER.PY_PER_ID
+    AND DM_PY.client_id = DM.CLIENT_ID
+    AND DM_PY.rtl_id = DM.rtl_id
+    AND DM_PY.rtl_tp_id = DM.rtl_tp_id
+    AND DM_PY.lift_cat_id = DM.lift_cat_id
+    AND DM_PY.currency_iso_cd = DM.currency_iso_cd;

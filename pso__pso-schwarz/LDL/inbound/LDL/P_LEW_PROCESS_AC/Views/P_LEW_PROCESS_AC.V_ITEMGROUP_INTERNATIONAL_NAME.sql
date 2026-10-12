@@ -1,0 +1,27 @@
+CREATE OR REPLACE VIEW P_LEW_PROCESS_AC.V_ITEMGROUP_INTERNATIONAL_NAME
+         AS
+            SELECT   client_id,
+            item_grp_int_sid,
+            item_grp_int_name,
+            item_grp_int_name_BG,
+            item_grp_int_name_CS,
+            item_grp_int_name_DA,
+            item_grp_int_name_DE,
+            item_grp_int_name_EL,
+            item_grp_int_name_EN,
+            item_grp_int_name_ES,
+            item_grp_int_name_FI,
+            item_grp_int_name_FR,
+            item_grp_int_name_HR,
+            item_grp_int_name_HU,
+            item_grp_int_name_IT,
+            item_grp_int_name_LT,
+            item_grp_int_name_NL,
+            item_grp_int_name_PL,
+            item_grp_int_name_PT,
+            item_grp_int_name_RO,
+            item_grp_int_name_SH,
+            item_grp_int_name_SK,
+            item_grp_int_name_SL,
+            item_grp_int_name_SV
+            FROM p_lew_process.v_itemgroup_international_name;

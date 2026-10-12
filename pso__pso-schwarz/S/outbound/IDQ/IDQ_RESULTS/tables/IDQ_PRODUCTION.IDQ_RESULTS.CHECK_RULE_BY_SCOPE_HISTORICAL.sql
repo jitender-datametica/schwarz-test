@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE idq_production_idq_results.check_rule_by_scope_historical (
+test_object_type_id BIGNUMERIC(38,0),
+source_system_id BIGNUMERIC(38,0),
+source_system_type_id BIGNUMERIC(38,0),
+branch_id BIGNUMERIC(38,0),
+country_id BIGNUMERIC(38,0),
+rule_id BIGNUMERIC(38,0),
+status_id BIGNUMERIC(38,0),
+calculation_time DATETIME,
+calculation_day_id BIGNUMERIC(38,0),
+test_result_amount BIGNUMERIC(38,0),
+error_amount BIGNUMERIC(38,0),
+no_error_amount BIGNUMERIC(38,0),
+solved_error_amount BIGNUMERIC(38,0),
+new_error_amount BIGNUMERIC(38,0),
+flip_error_amount BIGNUMERIC(38,0),
+newly_solved_error_amount BIGNUMERIC(38,0),
+overdue_amount BIGNUMERIC(38,0),
+earliest_due_date DATETIME,
+earliest_due_day_id BIGNUMERIC(38,0),
+scope_id BIGNUMERIC(38,0)
+);

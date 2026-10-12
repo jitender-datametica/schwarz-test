@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_eps_l_druck_anlass AS SELECT DISTINCT druck_anlass_id
+FROM kfl_production_dbp_view.v_l_eps_druck_anlass;

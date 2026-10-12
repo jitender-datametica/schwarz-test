@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_msi.t_sys_load_status_store_log (
+run_id BIGNUMERIC(38,0) NOT NULL,
+client_id BIGNUMERIC(38,0) NOT NULL,
+st_loc_sid BIGNUMERIC(38,0),
+kpi_id BIGNUMERIC(38,0),
+dat_dayend DATE,
+rec_cnt BIGNUMERIC(38,0),
+run_tmsp DATETIME
+);

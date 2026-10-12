@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW biaid_tools_projects_production_fe_mstr_timesheets.v_external_supplier (external_supplier_name)
+AS SELECT DISTINCT external_supplier_name
+FROM biaid_tools_projects_production_fe_mstr_timesheets.t_timesheet_entry;

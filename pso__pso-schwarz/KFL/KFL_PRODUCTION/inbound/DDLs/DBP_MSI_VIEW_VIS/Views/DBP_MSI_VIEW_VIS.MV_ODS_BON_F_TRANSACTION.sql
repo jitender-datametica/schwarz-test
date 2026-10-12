@@ -1,0 +1,42 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_VIS.MV_ODS_BON_F_TRANSACTION(
+  BON_ID
+ ,BON_DAT
+ ,WUP_ID
+ ,MANDANT_ID
+ ,KASSE_NR
+ ,BON_BEGINN
+ ,CANCEL_FG
+ ,TRANSACTION_NAME
+ ,BON_NR
+ ,SUSPENDED_FG
+ ,TRAINING_FG
+ ,KPOS_KASSE_TYP
+ ,KASSENSYSTEM_NAME
+ ,KPOS_TRANSACTION_NAME
+ ,KPOS_TRANSACTION_STATUS
+) AS
+
+	-- 2023-08-14 staeblern: SPEC0189820 entfernen  Kassentyp
+	-- 2024-06-20 beisswenger : Filialumgliederung + Review [P1760-DWH]
+
+SELECT
+ bt.BON_ID
+ , bt.BON_DAT
+ , wup.aktuell_wup_id 																AS wup_id
+ , bt.MANDANT_ID
+ , bt.KASSE_NR
+ , bt.BON_BEGINN
+ , bt.CANCEL_FG
+ , bt.TRANSACTION_NAME
+ , bt.BON_NR
+ , bt.SUSPENDED_FG
+ , bt.TRAINING_FG
+ , bt.KPOS_KASSE_TYP
+ , bt.KASSENSYSTEM_NAME
+ , bt.KPOS_TRANSACTION_NAME
+ , bt.KPOS_TRANSACTION_STATUS
+FROM DBP_V_ODS.V_ODS_BON_TRANSACTION bt
+
+INNER JOIN dbp_view.v_wup wup
+ON bt.mandant_id = wup.mandant_id AND bt.wup_id = wup.wup_id
+;

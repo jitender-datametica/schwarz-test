@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE idq_production_eks_calculation.xteks_basicinfo_reccountry (
+listingoverviewid BIGNUMERIC(38,0) NOT NULL,
+casesize INTEGER NOT NULL,
+itemid BIGNUMERIC(38,0) NOT NULL,
+itemno BIGNUMERIC(38,0) NOT NULL,
+sk_itemid BIGNUMERIC(38,0),
+sk_itemno BIGNUMERIC(38,0),
+sk_description_int STRING(100),
+basicpriceunit STRING(200),
+receivingcountry STRING(5) NOT NULL,
+supplierno BIGNUMERIC(38,0) NOT NULL,
+basicpriceid BIGNUMERIC(38,0),
+contractpricerelid BIGNUMERIC(38,0),
+contractlinkid BIGNUMERIC(38,0),
+locationid BIGNUMERIC(38,0),
+contractpricevalidityid BIGNUMERIC(38,0),
+decimalcasesize NUMERIC(6,2),
+zisvalidcontract BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+ziswawirelevant BIGNUMERIC(38,0) DEFAULT 0 NOT NULL
+);

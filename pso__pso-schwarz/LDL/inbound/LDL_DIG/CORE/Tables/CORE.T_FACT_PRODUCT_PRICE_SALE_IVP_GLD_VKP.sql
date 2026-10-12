@@ -1,0 +1,22 @@
+CREATE TABLE CORE.T_FACT_PRODUCT_PRICE_SALE_IVP_GLD_VKP (
+   WSHOP_CD                            VARCHAR(5)      NOT NULL COMMENT 'The unique code for the Lidl webshop, where an order can be placed by a customer.The webshop is defined per political country and is run by an Lidl Digital Country',
+   CAL_DT                              DATE            NOT NULL COMMENT 'Reporting date',
+   DWH_VALID_FG                        BOOLEAN         NOT NULL COMMENT 'An indicator showing the current record in history.',
+   PROD_VARIANT_SID                    NUMBER          NOT NULL COMMENT 'The unique identifier (surrogate key) for the product variant',
+   CURR_CD                             VARCHAR(5)      COMMENT 'Currency in which target is set',
+   GLD_PRICE_NET_EUR_VAL    NUMBER(38, 5)   COMMENT 'Moving average price in euro netto',
+   GLD_PRICE_NET_LOCAL_VAL  NUMBER(38, 5)   COMMENT 'Moving average price in local currency netto',
+   IVP_PRICE_NET_EUR_VAL    NUMBER(38, 5)   COMMENT 'Internal invoice price in euro netto',
+   IVP_PRICE_NET_LOCAL_VAL  NUMBER(38, 5)   COMMENT 'Internal invoice price in local currency  netto',
+   VKP_PRICE_NET_LOCAL_VAL  NUMBER(38, 5)   COMMENT 'VKP - Original (listed) net price of a product in local currency',
+   VKP_PRICE_NET_EUR_VAL    NUMBER(38, 5)   COMMENT 'VKP - Original (listed) net price of a product in eur',
+   VKP_PRICE_GROSS_LOCAL_VAL NUMBER(38, 5)   COMMENT 'VKP - Original (listed) gross price of a product in local currency',
+   VKP_PRICE_GROSS_EUR_VAL  NUMBER(38, 5)   COMMENT 'VKP - Original (listed) gross price of a product in eur',
+   FIRST_VALID_PRICE_FG                BOOLEAN         COMMENT 'Flag indicatiing if this is the first day for which we have valid sale prices for the given product in the given webshop',
+   DWH_CREATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   DWH_UPDATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',
+   DWH_SRC_FILE_NAME                   VARCHAR(255)    NOT NULL COMMENT 'The path and the name of the file(s) from which this record was loaded.',
+   SRC_FILE_TMSP                       TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was extracted from the source.',
+   PROD_VARIANT_NR                     VARCHAR(20)     COMMENT 'The original product variant number',
+   CONSTRAINT PK_T_FACT_PRODUCT_PRICE_SALE_IVP_GLD_VKP PRIMARY KEY (WSHOP_CD, PROD_VARIANT_SID, CAL_DT) NOT ENFORCED
+ )  COMMENT= 'A fact for GSL , IVP and VKP prices taken from sales fact, Fact contains a price taken from latest sale up to end of the day ';

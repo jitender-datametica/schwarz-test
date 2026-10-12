@@ -1,0 +1,41 @@
+CREATE TABLE IF NOT EXISTS ldl_data_etl.t_integra_precore_t451_integra_masterdata (
+ctrcode STRING(3) NOT NULL,
+wh_nr BIGNUMERIC(38,0) NOT NULL,
+c451_id BIGNUMERIC(30,0) NOT NULL,
+c451_itemnr STRING(14) NOT NULL,
+c451_itemstatus STRING(1),
+c451_subitemnr INTEGER NOT NULL,
+c451_casesize NUMERIC(7,3),
+c451_origin STRING(5),
+c451_class STRING(5),
+bkp_c451_caliber_max_tmp INTEGER,
+c451_caliber_max_tmp NUMERIC(10,4),
+c451_caliber_min INTEGER,
+c451_caliber_max INTEGER,
+c451_caliber_unit STRING(25),
+c451_sort STRING(50),
+c451_trademark STRING(50),
+c451_subitem7 STRING(25),
+c451_subitem8 STRING(25),
+c451_subitemstatus STRING(1),
+c451_temp_min NUMERIC(5,2),
+c451_temp_max NUMERIC(5,2),
+c451_dispogroupnr INTEGER NOT NULL,
+c451_dispogroupname STRING(40),
+c451_moddate DATETIME,
+c451_moduser STRING(8),
+c451_dirty_flag INTEGER,
+c451_csize_counter BIGNUMERIC(30,0),
+c451_intern_id INTEGER,
+scn BIGNUMERIC(38,0),
+extraction_tmsp DATETIME,
+extraction_dt DATE,
+dwh_created_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was created in the data warehouse.'),
+dwh_updated_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was last updated.'),
+dwh_load_id BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)'),
+dwh_node_cd STRING(20) NOT NULL
+OPTIONS(description='The code for the source system (or slice of source system) from which this record was loaded.')
+);

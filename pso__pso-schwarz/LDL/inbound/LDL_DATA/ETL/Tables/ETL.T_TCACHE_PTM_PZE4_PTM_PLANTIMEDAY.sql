@@ -1,0 +1,21 @@
+CREATE TABLE ETL.T_TCACHE_PTM_PZE4_PTM_PLANTIMEDAY (
+	INT_ORG_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the internal organization.',
+	BIC_ZMLILA VARCHAR(20) NOT NULL,
+	WH_NO VARCHAR(20),
+	STORE NUMBER(38,0) NOT NULL,
+	CAL_DT DATE NOT NULL,
+	TURNOVER NUMBER(18,5),
+	PLAN_HOURS NUMBER(18,5),
+	PERFORMANCE NUMBER(18,5),
+	INVENTORY NUMBER(18,5),
+	TRAINING NUMBER(18,5),
+	WORKINGDAYS NUMBER(18,5),
+	HOLIDAYS NUMBER(18,5),
+	LASTMODIFICATION TIMESTAMP_LTZ(9),
+	DAY_END_DAT DATE,
+	EXTRACTION_DATE DATE,
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.'
+);

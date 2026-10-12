@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t_ts_t119_status_locked_2_wawi_precore_t119_status_locked__ (
+ctrcode STRING(3) COLLATE 'und:ci',
+extraction_tmsp DATETIME,
+wh_nr INTEGER,
+itemno STRING(18),
+warehouseno INTEGER,
+locked INTEGER,
+moduser STRING(8),
+moddate DATETIME,
+scn INTEGER,
+dwh_load_id INTEGER,
+record_id STRING(1000),
+deleted_fg BOOL,
+error_descr STRING(1000),
+filename STRING(1000),
+hist_row_no STRING(1000),
+dwh_mapping_tmsp TIMESTAMP,
+dwh_ending_tmsp TIMESTAMP,
+error_fg INTEGER
+);

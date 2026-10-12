@@ -1,0 +1,38 @@
+--==============================================================
+-- Table: kmr_frage
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: kmr_frage
+   generated from Powerdesigner on Freitag, 17. Februar 2023 15:05:06
+*/ --------------------------------------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.kmr_frage (
+amx_system_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL
+OPTIONS(description='AMX-System-ID (Core vs. Unternehmenssicherheit). Quellfeld amx_system.'),
+frage_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL
+OPTIONS(description='Frage-ID. Quellfeld guideline_id. Eindeutige ID einer überprüften Frage.'),
+kapitel_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL
+OPTIONS(description='Kapitel-ID. Quellfeld activity_id. Eindeutige ID eines Prüfbereichs.'),
+sort_nr STRING(255)
+OPTIONS(description='Fragennummer. Quellfeld guideline_sort_order. Es ist eine Art ID der Frage im Fragenkatalog einer Landes. Wird diese Frage wieder gestellt / überprüft, hat sie die gleiche sort_nr und frage_text aber eine neue guideline_id.'),
+frage_text STRING(50000)
+OPTIONS(description='Fragetext. Quellfeld guideline_description_text. Der Text beschreibt den tatsächlichen Gegenstand der Frage, oft in deutscher und Landessprache.'),
+anmerkung STRING(50000) OPTIONS(description='Anmerkung zur Frage. Quellfeld guideline_work_description.'),
+frage_status_id BIGNUMERIC(38,0) DEFAULT - 1 OPTIONS(description='Status-ID. Quellfeld guideline_state_id.'),
+frage_typ_id BIGNUMERIC(38,0) DEFAULT - 1 OPTIONS(description='Fragetyp-ID. Quellfeld guideline_checklist_logic_id.'),
+stichprobe_umfang BIGNUMERIC(38,0) OPTIONS(description='Stichprobenumfang. Quellfeld guideline_audited_amount.'),
+ergebnis_num BIGNUMERIC(38,0) OPTIONS(description='Ergebnis numerisch. Quellfeld guideline_numeric_result.'),
+ergebnis_text STRING(255) DEFAULT ' ' OPTIONS(description='Ergebnis textuell. Quellfeld guideline_textual_result.'),
+ergebnis_man STRING(1000) OPTIONS(description='Ergebnis manuell. Quellfeld guideline_enter_result.'),
+aufgedeckte_fehler_anz BIGNUMERIC(38,0)
+OPTIONS(description='Anzahl n.i.O. / aufgedeckter Fehler. Quellfeld guideline_count_errors.'),
+feststellungen_anz BIGNUMERIC(38,0) OPTIONS(description='Anzahl der Feststellungen. Quellfeld cnt_issues.'),
+massnahmen_anz BIGNUMERIC(38,0) OPTIONS(description='Anzahl der Massnahmen. Quellfeld cnt_actions.'),
+td_update TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+td_insert TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+PRIMARY KEY (amx_system_id, frage_id) NOT ENFORCED
+)
+OPTIONS(description='KMR - This table contains details on the questions / guidelines (frage_id) that are being audited for an activity (kapitel_id). The frage_id is linked to the kapitel_id (activity) and in consequence to the hierarchy of the "Prüfprogramm". Does not contain "Kurzchecks". Source view v_dwh_kl_data_guideline.');

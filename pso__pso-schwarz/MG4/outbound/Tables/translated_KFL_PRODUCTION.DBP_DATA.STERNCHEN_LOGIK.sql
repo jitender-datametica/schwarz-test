@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_data.sternchen_logik (
+art_id INTEGER NOT NULL,
+vw_id INTEGER NOT NULL,
+sm_id INTEGER DEFAULT - 9 NOT NULL,
+dat_von DATE NOT NULL,
+mandant_id INTEGER NOT NULL,
+dat_bis DATE NOT NULL,
+list_durchg_fg INTEGER NOT NULL,
+bezugsweg1_fg INTEGER NOT NULL,
+bezugsweg4_fg INTEGER NOT NULL,
+kdis0_fg INTEGER NOT NULL,
+kdis1_fg INTEGER NOT NULL,
+anzahl_markt_soll INTEGER NOT NULL,
+anzahl_markt_listung INTEGER,
+anzahl_markt_bezugsweg1 INTEGER,
+anzahl_markt_bezugsweg4 INTEGER,
+anzahl_markt_kdis0 INTEGER,
+anzahl_markt_kdis1 INTEGER,
+ksm_id STRING(4) COLLATE 'und:ci' DEFAULT '-9' NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

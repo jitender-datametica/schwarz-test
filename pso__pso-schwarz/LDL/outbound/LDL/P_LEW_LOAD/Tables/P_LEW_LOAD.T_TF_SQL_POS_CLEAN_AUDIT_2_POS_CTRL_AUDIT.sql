@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_sql_pos_clean_audit_2_pos_ctrl_audit (
+client_id BIGNUMERIC(38) NOT NULL,
+lidl_country STRING(40) NOT NULL,
+sql_pos_clean_audit_loc_sid_store INTEGER NOT NULL,
+sql_pos_clean_audit_checker_id INTEGER NOT NULL,
+sql_pos_clean_audit_pos_terminal_id INTEGER NOT NULL,
+sql_pos_clean_audit_audit_code INTEGER NOT NULL,
+sql_pos_clean_audit_dat_formdate DATE NOT NULL,
+loc_sid BIGNUMERIC(38) NOT NULL,
+register_id BIGNUMERIC(38) NOT NULL,
+cashier_id BIGNUMERIC(38) NOT NULL,
+cashier_status_id BIGNUMERIC(38) NOT NULL,
+audit_type_id BIGNUMERIC(38) NOT NULL,
+audit_nr BIGNUMERIC(38) NOT NULL,
+audit_cnt BIGNUMERIC(38) NOT NULL,
+audit_val NUMERIC(18,5) NOT NULL,
+dwh_cal_dt DATE NOT NULL,
+extraction_dt DATE,
+dwh_mapping_dt DATE NOT NULL,
+tf_error_fg INTEGER,
+record_id STRING(300) NOT NULL,
+filename STRING(1000) NOT NULL
+);

@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_teku_kategorie AS SELECT teku_kategorie_id,
+ teku_kategorie_nr
+FROM kfl_production_dbp_data.l_teku_kategorie;

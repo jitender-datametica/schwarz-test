@@ -1,0 +1,22 @@
+CREATE TABLE DBP_DATA.EK_INFOSATZ_WUP_ZU (
+   mandant_id                          NUMBER(38,0)    NOT NULL COMMENT 'Mandant im DWH',
+   ek_infosatz_id                      NUMBER(18,0)    NOT NULL COMMENT 'Nummer des Infosatzes. Zusammen mit mandant_id eindeutiger Schlüssel',
+   wup_id                              NUMBER(38,0)    NOT NULL COMMENT 'Mutter Wup ID wird verwendet für Beziehung Lager zu Verteilzentrum',
+   nb_id                               NUMBER(38,0)    NOT NULL COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer',
+   prozent_akzeptanz_unterlief         NUMBER(9,2)     DEFAULT 0 NOT NULL COMMENT 'Prozentwert der Akzeptanz einer Unterlieferung aus untto',
+   loesch_fg                           NUMBER(38,0)    DEFAULT 0 NOT NULL COMMENT 'Flag gelöscht aus eine.loekz. Infosätze können sowohl auf Kopf- als auch auf Pos-Ebene gelöscht sein',
+   mind_bestellmenge                   NUMBER(18,3)    COMMENT 'Mindestbestellmenge',
+   planlieferzeit                      NUMBER(38,0)    COMMENT 'Planlieferzeit in Tagen',
+   rundungsprofil                      VARCHAR(10)     COLLATE 'en-ci' COMMENT 'Rundungsprofil',
+   normal_bestellmenge                 NUMBER(18,3)    COMMENT 'Normalbestellmenge',
+   ueberlieferung_toleranzgrenze       NUMBER(18,3)    COMMENT 'Toleranzgrenze für Überlieferung',
+   ueberlieferung_unbegrenzt_fg        NUMBER(38,0)    COMMENT 'Kennzeichen: unbegrenzte Überlieferung erlaubt',
+   unterlieferung_toleranzgrenze       NUMBER(18,3)    COMMENT 'Toleranzgrenze für Unterlieferung',
+   nettopreis                          NUMBER(18,3)    COMMENT 'Nettopreis im Einkaufsinfo',
+   bmpe                                VARCHAR(3)      COLLATE 'en-ci' COMMENT 'Bestellpreismengeneinheit',
+   bestaet_steuerschluessel            NUMBER(38,0)    COMMENT 'Bestätigungssteuerschlüssel',
+   wrg_id                              VARCHAR(3)      COMMENT 'Kurzbezeichnung der Waehrung, z.Bsp. CZK, EUR',
+   TD_UPDATE 	TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   TD_INSERT 	TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   CONSTRAINT PK_EK_INFOSATZ_WUP_ZU PRIMARY KEY (mandant_id, ek_infosatz_id, wup_id, nb_id) NOT ENFORCED
+)  COMMENT = 'AIS_KMO - Zuordnung Einkaufsinfosaetze zu Betrieben aus der SAP-Quelle EINE';

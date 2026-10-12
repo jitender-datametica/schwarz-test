@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ais_int.mv_l_ivn_verhandlungs_cluster (mandant_id,
+ivn_verhandlungs_cluster_id, ivn_verhandlungs_cluster_bez) AS SELECT mandant_id,
+ ivn_verhandlungs_cluster_id,
+ ivn_verhandlungs_cluster_bez
+FROM kfl_production_dbp_view.v_l_ivn_verhandlungs_cluster;

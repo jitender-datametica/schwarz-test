@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE idq_production_idq_results.idq_addinfo_zsm_wawi (
+id BIGNUMERIC(38,0) NOT NULL,
+sync_report_execution_id BIGNUMERIC(38,0),
+leading_primary_key STRING(1000),
+dependent_primary_key STRING(1000),
+leading_system_id BIGNUMERIC(38,0),
+dependent_system_id BIGNUMERIC(38,0),
+country_id BIGNUMERIC(38,0),
+lifnr BIGNUMERIC(38,0),
+name STRING(160),
+ekorg STRING(4),
+krednr STRING(7),
+sap_krednr INTEGER,
+zz_gr_food STRING(1),
+zz_gr_nfood STRING(1),
+zz_gr_fruit STRING(1),
+zz_gr_plant STRING(1),
+zz_gr_brand STRING(1),
+branch_id BIGNUMERIC(38,0)
+);

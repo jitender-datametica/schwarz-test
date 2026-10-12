@@ -1,0 +1,32 @@
+CREATE OR REPLACE VIEW P_LEW_MART_MSI.V_PALLET_PLAN_WH_WK_MTH(	
+         client_id	
+         ,wh_id	
+         ,aspect_id	
+         ,currency_iso_cd	
+         ,byr	
+         ,cy_month	
+         ,cy_week_partial_week_id	
+         ,cy_month_sequence	
+         ,record_type	
+         ,pallet_plan_rcv_cum_mth	
+         ,pallet_plan_time_cum_mth	
+         ,pallet_plan_rcv_cum_yr	
+         ,pallet_plan_time_cum_yr	
+         )	
+         AS	
+            SELECT	
+            client_id,	
+            wh_id,	
+            aspect_id,	
+            currency_iso_cd,	
+            byr,	
+            cy_month,	
+            cy_week_partial_week_id,	
+            cy_month_sequence,	
+            record_type,	
+            pallet_plan_rcv_cum_mth,	
+            pallet_plan_time_cum_mth,	
+            pallet_plan_rcv_cum_yr,	
+            pallet_plan_time_cum_yr	
+            FROM p_lew_mart_msi.t_pallet_plan_wh_wk_mth	
+;

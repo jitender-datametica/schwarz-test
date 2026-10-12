@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ios.mv_l_sec_mandant_usersequenz_zu AS SELECT mandant_id,
+ LOWER(usersequenz) AS usersequenz
+FROM kfl_production_dbp_security.ios_mandant_usersequenz_zu;

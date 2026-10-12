@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW P_LEW_MART_PIT_ONPREM_AC.V_PIT_STORE_DAY_ITEM_WAWI
+AS
+SELECT
+client_id
+,loc_sid_store
+,itemgroup_int_id
+,action_type_id
+,sub_item_grp_sid
+,item_grp_int_sid
+,orig_item_nr
+,item_sid
+,adv_week_id
+,dat_adv
+,dat_adv_end
+,dwh_cal_dt
+,wawi_apt_real_period_fg
+,sales_net_val
+,sales_qty
+,deliv_qty
+,stc_real_qty
+,sales_price
+,sales_net_price
+,sales_dis_net_price
+,vat_factor
+,vat_pct_val
+,stores_cnt
+,receipts_cnt
+,total_receipts_cnt
+,total_sales_net_val
+FROM p_lew_mart_pit_onprem.t_pit_store_day_item_wawi;

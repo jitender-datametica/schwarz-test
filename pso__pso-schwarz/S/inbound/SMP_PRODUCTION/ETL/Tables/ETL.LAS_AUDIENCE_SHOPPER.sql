@@ -1,0 +1,12 @@
+create or replace TABLE SMP_PRODUCTION.ETL.LAS_AUDIENCE_SHOPPER (
+	COUNTRY_ID VARCHAR(100) COMMENT 'Country iso code',
+	AUDIENCE_TYPE_ID VARCHAR(100) COMMENT 'Audience type r or p',
+	AUDIENCE_ID VARCHAR(100) COMMENT 'Audience/Universe/Segement ID',
+	CATEGORY_NAME VARCHAR(500) COMMENT 'Category Name ',
+	AUDIENCE_NAME VARCHAR(500) COMMENT 'Audience/Universe/Segement Name',
+	SHOPPER_ID VARCHAR(100) COMMENT 'Shopper ID (ssoID)',
+	CELL_GROUP_ID VARCHAR(100) COMMENT 'AB Group: active (Test)/control (Control)',
+	LAST_UPDATE_TIMESTAMP TIMESTAMP_NTZ(9) COMMENT 'Delivery Timestamp from LAS',
+	LOAD_TIMESTAMP TIMESTAMP_NTZ(9) COMMENT 'Timestamp for loading'
+)COMMENT='LAS Audiences/Universes'
+;

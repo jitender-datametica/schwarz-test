@@ -1,0 +1,26 @@
+CREATE OR REPLACE VIEW P_LEW_PROCESS_AC.V_ASSORTMENT_TYPE
+AS
+   SELECT   assortment_type_cd,
+   assortment_type_descr,
+   assortment_type_descr_de,
+   assortment_type_descr_en,
+   assortment_type_descr_bg,
+   assortment_type_descr_cs,
+   assortment_type_descr_da,
+   assortment_type_descr_el,
+   assortment_type_descr_es,
+   assortment_type_descr_fi,
+   assortment_type_descr_fr,
+   assortment_type_descr_hr,
+   assortment_type_descr_hu,
+   assortment_type_descr_it,
+   assortment_type_descr_lt,
+   assortment_type_descr_nl,
+   assortment_type_descr_pl,
+   assortment_type_descr_pt,
+   assortment_type_descr_ro,
+   assortment_type_descr_sh,
+   assortment_type_descr_sk,
+   assortment_type_descr_sl,
+   assortment_type_descr_sv
+   FROM p_lew_process.v_assortment_type;

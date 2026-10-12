@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_sternchen_logik_kreis AS SELECT mandant_id,
+ art_id,
+ kreistyp_gruppe_id,
+ dat_von,
+ dat_bis,
+ list_durchg_fg,
+ bezugsweg1_fg,
+ bezugsweg4_fg,
+ kdis0_fg,
+ kdis1_fg,
+ anzahl_markt_soll,
+ anzahl_markt_listung,
+ anzahl_markt_bezugsweg1,
+ anzahl_markt_bezugsweg4,
+ anzahl_markt_kdis0,
+ anzahl_markt_kdis1
+FROM kfl_production_dbp_data.sternchen_logik_kreis;

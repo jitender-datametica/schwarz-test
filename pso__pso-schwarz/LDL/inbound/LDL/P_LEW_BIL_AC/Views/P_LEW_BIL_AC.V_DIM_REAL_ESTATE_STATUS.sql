@@ -1,0 +1,31 @@
+CREATE OR REPLACE VIEW P_LEW_BIL_AC.V_DIM_REAL_ESTATE_STATUS
+AS
+   SELECT
+        real_estate_status_cd,
+   real_estate_status_descr,
+   real_estate_status_descr_de,
+   real_estate_status_descr_en,
+   real_estate_status_descr_bg,
+   real_estate_status_descr_cs,
+   real_estate_status_descr_da,
+   real_estate_status_descr_el,
+   real_estate_status_descr_es,
+   real_estate_status_descr_fi,
+   real_estate_status_descr_fr,
+   real_estate_status_descr_hr,
+   real_estate_status_descr_hu,
+   real_estate_status_descr_it,
+   real_estate_status_descr_lt,
+   real_estate_status_descr_nl,
+   real_estate_status_descr_pl,
+   real_estate_status_descr_pt,
+   real_estate_status_descr_ro,
+   real_estate_status_descr_sh,
+   real_estate_status_descr_sk,
+   real_estate_status_descr_sl,
+   real_estate_status_descr_sv,
+   dwh_load_id,
+   dwh_created,
+   dwh_updated
+   FROM p_lew_bil.v_dim_real_estate_status
+;

@@ -1,0 +1,11 @@
+create or replace TABLE LDL_DATA_PRODUCTION.CORE_REL.T_UNIT_OF_MEASURE (
+	UOM_CD VARCHAR(20) NOT NULL COMMENT 'The code identifying the unit of measure.',
+	LANG_CD VARCHAR(2) NOT NULL COMMENT 'The code identifying the language.',
+	UOM_NAME VARCHAR(100) NOT NULL COMMENT 'The name for the unit of measure.',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.',
+	constraint PK_T_UNIT_OF_MEASURE primary key (UOM_CD, LANG_CD)
+)COMMENT='The unit in which a quantity is expressed. This includes mostly physical units, such as kilogram, meters or seconds, but also units such as slices or pieces.'
+;

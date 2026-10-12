@@ -1,0 +1,8 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_data.kreistyp_gruppe_spr_zu (
+mandant_id INTEGER NOT NULL,
+kreistyp_gruppe_id STRING(4) COLLATE 'und:ci' NOT NULL,
+spr_id INTEGER NOT NULL,
+kreistyp_gruppe_bez STRING(40) COLLATE 'und:ci',
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

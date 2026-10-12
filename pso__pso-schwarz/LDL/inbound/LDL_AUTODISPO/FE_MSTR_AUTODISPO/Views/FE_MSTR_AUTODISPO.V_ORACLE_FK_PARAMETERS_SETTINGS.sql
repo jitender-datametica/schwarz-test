@@ -1,0 +1,73 @@
+CREATE OR REPLACE VIEW FE_MSTR_AUTODISPO.V_ORACLE_FK_PARAMETERS_SETTINGS (
+	COUNTRY
+	,WH
+	,DATE
+	,PARAMETER_ID
+	,PARAMETER_NAME
+	,ORDER_GROUP_ID
+	,ORDER_GROUP_NAME
+	,CALCULATIONMETHOD
+	,PARAMETER_VALUE
+	,DEFINED_PARAMETER_VALUE
+	,MATCH
+	,ORDER_TYPE
+	) AS
+	
+	/* Version:   1.3
+    ** Author:    Dominik Pfarr
+    ** Date:      2024-06-13
+    ** Changes:   new timestamps; custom run not null; check based on lower case; adjust null handling for 349;adjust case statement
+    */
+	
+	WITH types AS (
+			SELECT country
+				,wh_nr
+				,order_Group_id
+				,parameter_date
+				,MIN(CASE 
+						WHEN (PARAMETER_ID = 348 AND LOWER(ADF_PARAMETER_VALUE) = 'true')
+							THEN '348-TRUCKFULLING'
+						WHEN (PARAMETER_ID = 349 AND ADF_PARAMETER_VALUE IS NOT NULL)
+							THEN '349-CUSTOM RUN'
+						WHEN (PARAMETER_ID = 365 AND LOWER(ADF_PARAMETER_VALUE) = 'true')
+							THEN '365-TOPUP'
+						ELSE '999-STANDARD'
+						END) AS order_type_input
+			FROM CORE.T_ORACLE_V_FK_PARAMETERS_SETTINGS
+			WHERE ORDER_GROUP_ACTIVE_FG = 1
+			GROUP BY country
+				,wh_nr
+				,order_Group_id
+				,parameter_date
+			)
+
+
+SELECT ps.COUNTRY
+	,ps.WH_NR AS WH
+	,ps.PARAMETER_DATE AS DATE
+	,ps.PARAMETER_ID
+	,dc.PARAMETER_NAME
+	,ps.ORDER_GROUP_ID
+	,ps.ORDER_GROUP_NAME
+	,ps.CALCULATIONMETHOD
+	,ps.ADF_PARAMETER_VALUE AS PARAMETER_VALUE
+	,dc.DEFINED_PARAMETER_VALUE
+	,CASE 
+		WHEN ps.PARAMETER_ID = 349 AND defined_parameter_value IS NULL AND PARAMETER_VALUE IS NULL
+			THEN 1
+		WHEN LOWER(parameter_value) = LOWER(defined_parameter_value)
+			THEN 1
+		ELSE 0
+		END AS match
+	,SUBSTR(t.Order_Type_input, 5, 20) AS order_type
+FROM CORE.T_ORACLE_V_FK_PARAMETERS_SETTINGS ps
+INNER JOIN types t
+	ON ps.COUNTRY = t.COUNTRY 
+	AND ps.WH_NR = t.WH_NR 
+	AND ps.ORDER_GROUP_ID = t.ORDER_GROUP_ID 
+	AND ps.PARAMETER_DATE = t.PARAMETER_DATE
+INNER JOIN CORE.T_ORACLE_V_DIC_PARAMETERS_SETTINGS dc
+	ON ps.COUNTRY = dc.COUNTRY 
+	AND ps.PARAMETER_ID = dc.PARAMETER_ID 
+	AND ps.PARAMETER_DATE BETWEEN dwh_valid_from_tmsp AND dwh_valid_to_tmsp
+WHERE ps.ORDER_GROUP_ACTIVE_FG = 1;

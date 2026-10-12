@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital_fraud.v_dim_cal_week AS SELECT cy_week,
+ week_of_year,
+ cy_week_begin_week_part,
+ cy_week_end_week_part,
+ cy_week_begin_dt,
+ cy_week_end_dt,
+ cy_week_week_part_cnt,
+ cy_week_prev_1w,
+ cy_week_prev_1y,
+ cy_week_prev_2y,
+ cy_week_prev_3y,
+ cy_week_prev_4y,
+ cy_week_prev_5y,
+ cy_week_offset,
+ cy_week_short_name,
+ cy_week_name
+FROM ldl_dig_fe_mstr_lidldigital.v_dim_cal_week;

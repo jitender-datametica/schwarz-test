@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_wawi_inv_store_opendocs (client_id, st_loc_sid, wh_loc_sid, inv_id,
+dat_formdate, dat_dayend, sfotype_id, orig_receipt_nr_opendocs, val_debit_opendocs, val_debit_opendocs_net,
+val_credit_opendocs, val_credit_opendocs_net, load_id) AS SELECT client_id,
+ st_loc_sid,
+ wh_loc_sid,
+ inv_id,
+ dat_formdate,
+ dat_dayend,
+ sfotype_id,
+ orig_receipt_nr_opendocs,
+ val_debit_opendocs,
+ val_debit_opendocs_net,
+ val_credit_opendocs,
+ val_credit_opendocs_net,
+ load_id
+FROM ldl_p_lew_core.t_wawi_inv_store_opendocs;

@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE szd_production_etl.t_ts_gtin_level_2_cache_gtin_level_int (
+system_id STRING(100),
+shipped_cartons NUMERIC(29,5),
+pieces_per_carton NUMERIC(29,5),
+net_weight NUMERIC(29,5),
+gross_weight NUMERIC(29,5),
+length NUMERIC(29,5),
+width NUMERIC(29,5),
+height NUMERIC(29,5),
+dwh_src_file_name STRING(500),
+dwh_src_1_tmsp TIMESTAMP,
+update_timestamp TIMESTAMP,
+valid_to TIMESTAMP,
+record_id STRING(1000),
+deleted_fg BOOL,
+error_descr STRING(1000),
+filename STRING(1000),
+hist_row_no STRING(1000),
+dwh_mapping_tmsp TIMESTAMP,
+dwh_ending_tmsp TIMESTAMP,
+error_fg INTEGER,
+dwh_load_id INTEGER
+);

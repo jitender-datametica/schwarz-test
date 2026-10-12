@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_ios_materialized.mv_rpm_immobilie (
+rpm_immobilie_id STRING(32) COLLATE 'und:ci',
+dat_von DATE,
+techn_platz_id STRING(30) COLLATE 'und:ci',
+vs_id INTEGER,
+mandant_id INTEGER,
+wrg_id STRING(3) COLLATE 'und:ci',
+gesamtbew_note NUMERIC(29,2),
+bewertungszahl_a NUMERIC(29,2),
+bewertungszahl_b NUMERIC(29,2),
+bewertungszahl_c NUMERIC(29,2),
+dat_bis DATE,
+eigentum_bez STRING(50),
+beri_relevanz STRING(50),
+gj_umbvorschl INTEGER,
+wup_id INTEGER,
+nb_id INTEGER,
+wup_standort STRING(40) COLLATE 'und:ci',
+strasse STRING(80) COLLATE 'und:ci',
+plz STRING(10) COLLATE 'und:ci',
+zielumsatz_3gj NUMERIC(29,4),
+dat_eroeffn_fb_imm DATE
+);

@@ -1,0 +1,21 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_vis_tag_fwws_gp_wg (mandant_id, nb_id, wup_id, arthiertyp_id,
+abt_id, wg_id, gp_id, dat, kjwo, kjmo, gj, akt_tag, anz_bestell_aenderung, anz_bestell_manuell, anz_bestell_vorschlag,
+anz_bestell_ueber, anz_bestellung) AS SELECT V01.mandant_id,
+ V01.nb_id,
+ WUP.aktuell_wup_id AS wup_id,
+ V01.arthiertyp_id,
+ V01.abt_id,
+ V01.wg_id,
+ V01.gp_id,
+ V01.dat,
+ V01.kjwo,
+ V01.kjmo,
+ V01.gj,
+ V01.akt_tag,
+ V01.anz_bestell_aenderung,
+ V01.anz_bestell_manuell,
+ V01.anz_bestell_vorschlag,
+  V01.anz_bestell_vorschlag - V01.anz_bestell_aenderung AS anz_bestell_ueber,
+  V01.anz_bestell_vorschlag + V01.anz_bestell_manuell AS anz_bestellung
+FROM kfl_production_dbp_msi_v_view.v_vis_tag_fwws_gp_wg AS V01
+ INNER JOIN kfl_production_dbp_view.v_wup AS WUP ON V01.mandant_id = WUP.mandant_id AND V01.wup_id = WUP.wup_id;

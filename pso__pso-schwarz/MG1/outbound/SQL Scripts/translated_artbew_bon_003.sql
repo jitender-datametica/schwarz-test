@@ -1,0 +1,51 @@
+--[OK] statement is translated correctly (syntax and type checks are fine)
+
+
+--WARNING : FORMAT is not supported by Snowflake. Use TO_CHAR() function instead.
+
+
+--2021-09-22 mfialkiewicz drop moved from script 001 
+
+
+DROP TABLE IF EXISTS KFL_PRODUCTION_DBP_ETL.ARTBEW_AGG_TMP;
+
+
+CREATE TABLE IF NOT EXISTS KFL_PRODUCTION_DBP_ETL.ARTBEW_AGG_TMP (
+WUP_ID INTEGER NOT NULL,
+MANDANT_ID BIGNUMERIC NOT NULL,
+NB_ID SMALLINT NOT NULL,
+DAT DATE NOT NULL
+);
+
+
+--[OK] statement is translated correctly (syntax and type checks are fine)
+
+
+INSERT INTO KFL_PRODUCTION_DBP_ETL.ARTBEW_AGG_TMP (WUP_ID, MANDANT_ID, NB_ID, DAT)
+(SELECT WUP_ID,
+  MANDANT_ID,
+  NB_ID,
+  DAT
+ FROM DEFAULTSCHEMA.`_ARTBEW_TMP`
+ GROUP BY WUP_ID,
+  MANDANT_ID,
+  NB_ID,
+  DAT);
+
+
+--[OK] statement is translated correctly (syntax and type checks are fine)
+
+
+INSERT INTO KFL_PRODUCTION_DBP_DATA.ARTBEW_AGG_WT (MANDANT_ID, WUP_ID, NB_ID, DAT)
+(SELECT MANDANT_ID,
+  WUP_ID,
+  NB_ID,
+  DAT
+ FROM KFL_PRODUCTION_DBP_ETL.ARTBEW_AGG_TMP
+ WHERE (MANDANT_ID, CAST(WUP_ID AS BIGNUMERIC), CAST(NB_ID AS BIGNUMERIC), DAT) NOT IN (SELECT (MANDANT_ID, WUP_ID,
+      NB_ID, DAT)
+    FROM KFL_PRODUCTION_DBP_DATA.ARTBEW_AGG_WT)
+ GROUP BY WUP_ID,
+  MANDANT_ID,
+  NB_ID,
+  DAT);

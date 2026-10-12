@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW nfpow_fe_mstr_ekpsnf.v_fact_nfpo_item_sales_variant_local_organization_day (nfpo_item_sid,
+nfpo_gtin_nr, nfpo_org_sid, cal_dt, nfpo_adjust_sales_qty, nfpo_return_qty, nfpo_adjust_sales_net_euro_val,
+nfpo_adjust_sales_gross_euro_val, nfpo_return_net_euro_val, nfpo_return_gross_euro_val, dwh_created_tmsp,
+dwh_updated_tmsp, dwh_src_tmsp, dwh_node_cd) AS SELECT *
+FROM nfpow_core.t_fact_nfpo_item_sales_variant_local_organization_day;

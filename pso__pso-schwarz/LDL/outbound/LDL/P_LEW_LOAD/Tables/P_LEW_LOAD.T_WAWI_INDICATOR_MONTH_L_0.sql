@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_wawi_indicator_month_l_0 (
+indicator_id BIGNUMERIC(38) NOT NULL,
+indicator_type_id BIGNUMERIC(38) NOT NULL,
+org_type_id BIGNUMERIC(38) NOT NULL,
+country_iso_cd STRING(2) COLLATE 'und:ci' NOT NULL,
+org_unit_nr BIGNUMERIC(38),
+cy BIGNUMERIC(38) NOT NULL,
+month_id BIGNUMERIC(38) NOT NULL,
+currency_iso_cd STRING(3) COLLATE 'und:ci',
+val_indicator NUMERIC(18,4),
+dat_dayend DATE NOT NULL,
+load_id BIGNUMERIC(38) NOT NULL,
+bic_zmlila STRING(20),
+extraction_ts DATETIME,
+extraction_date DATE,
+record_id INTEGER,
+source_system STRING(20) COLLATE 'und:ci',
+timestamp_fn DATETIME NOT NULL,
+dc_server_id BIGNUMERIC(38) NOT NULL
+);

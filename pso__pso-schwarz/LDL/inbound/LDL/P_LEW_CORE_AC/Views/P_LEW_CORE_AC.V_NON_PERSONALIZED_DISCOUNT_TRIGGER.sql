@@ -1,0 +1,48 @@
+create or replace view LDL_PRODUCTION.P_LEW_CORE_AC.V_NON_PERSONALIZED_DISCOUNT_TRIGGER(
+	CLIENT_ID COMMENT 'Unique identifier of the DWH client / slice',
+	NP_DISCOUNT_SID COMMENT 'Surrogate Key of the non personalized discount.',
+	NP_DISCOUNT_ACTION_NR COMMENT 'Unique Identifier of the action for a non-personalized discount.',
+	NP_DISCOUNT_TRIGGER_NR COMMENT 'Unique Identifier of the trigger for a non-personalized discount.',
+	NP_DISCOUNT_TRIGGER_TYPE_CD COMMENT 'Code for trigger type of a non-personalized discount.',
+	NP_DISCOUNT_TRIGGER_CONDITION_TYPE_CD COMMENT 'Code for trigger condition of a non-personalized discount.( for trigger_type_cd =''ITEM'' OR ''MERCHANDISE_HIERARCHY_GROUP'').',
+	TRIGGER_MIN_CNT COMMENT 'The minimum threshold quantity to activate the non-personalized discount.e.g: When the discount is 10+2 gratis, it is activated when 12 items are purchased.(For trigger_type_cd = ''ITEM'' OR ''MERCHANDISE_HIERARCHY_GROUP'' and  trigger_condition_type_cd = ''QUT'').',
+	TRIGGER_MAX_CNT COMMENT 'The maximum threshold quantity up to which the non-personalized discount apllies..e.g:The discount is valid up to 10 units or 10 EUR.( For trigger_type_cd = ''ITEM'' OR ''MERCHANDISE_HIERARCHY_GROUP'' and  trigger_condition_type_cd = ''QUT'').',
+	TRIGGER_INTERVAL_CNT COMMENT 'It is the interval quantity in which the non-personalized discount  is re-activated after the minimum threshold quantity has been reached.e.g: The discount is actovated for every 2 units of an item.( For trigger_type_cd = ''ITEM'' OR ''MERCHANDISE_HIERARCHY_GROUP'' and  trigger_condition_type_cd = ''QUTI'').',
+	TRIGGER_MIN_VAL COMMENT 'The minimum threshold amount to activate the non-personalized discount.(For trigger_type_cd = ''ITEM'' OR ''MERCHANDISE_HIERARCHY_GROUP'' and  trigger_condition_type_cd = ''AMT'').',
+	TRIGGER_MAX_VAL COMMENT 'The maximum threshold amount up to which the non-personalized discount apllies.( For trigger_type_cd = ''ITEM'' OR ''MERCHANDISE_HIERARCHY_GROUP'' and  trigger_condition_type_cd = ''AMT'').',
+	TRIGGER_INTERVAL_VAL COMMENT 'It is the interval amount  in which the non-personalized discount  is re-activated after the minimum threshold amount has been reached.(For trigger_type_cd = ''ITEM'' OR ''MERCHANDISE_HIERARCHY_GROUP'' and  trigger_condition_type_cd = ''AMTI'').',
+	TRIGGER_ITEM_PRICE COMMENT 'The non-personalized discount is activated if an item in the item group has the defined retail price.(For trigger_type_cd = ''ITEM'' OR ''MERCHANDISE_HIERARCHY_GROUP'' and  trigger_condition_type_cd = ''AMTS'').',
+	TRIGGER_MIN_SHOPPING_CART_VAL COMMENT 'The minimum purchase amount the customer must reach to activate the non-personalized discount(For trigger_type_cd = ''MARKET_BASKET_THRESHOLD'').',
+	COUPON_GTIN COMMENT 'It is a 13-digit EAN code for the coupon and begin with a system-validated coupon prefix managed in the Store Manager application.',
+	COUPON_CONSUMPTION_TYPE_CD COMMENT 'Code for the coupon''s usage of a non-personalized discount.',
+	CURR_SID COMMENT 'Surrogate Key CURRENCY',
+	CURR_CD COMMENT 'Iso-Code Wahrung; SAP-Retail: tcurc.isocd; SAP-BW: t_bw_z_ds_tcurc.isocd',
+	DWH_CREATED COMMENT 'Creation timestamp of the record in the DWH.',
+	DWH_LOAD_ID COMMENT 'Identifier of the last run which inserted or updated the record. -1 means manually inserted.',
+	DWH_UPDATED COMMENT 'Timestamp of the last update of the record in the DWH.'
+) COMMENT='This table is about the condition that must be met to activate a non-personalized discount.'
+ as 
+    SELECT 
+        client_id,
+        np_discount_sid,
+        np_discount_action_nr,
+        np_discount_trigger_nr,
+        np_discount_trigger_type_cd,
+        np_discount_trigger_condition_type_cd,
+        trigger_min_cnt,
+        trigger_max_cnt,
+        trigger_interval_cnt,
+        trigger_min_val,
+        trigger_max_val,
+        trigger_interval_val,
+        trigger_item_price,
+        trigger_min_shopping_cart_val,
+        coupon_gtin,
+        coupon_consumption_type_cd,
+        curr_sid,
+        curr_cd,
+        dwh_created,
+        dwh_load_id,
+        dwh_updated
+
+FROM P_LEW_CORE.T_NON_PERSONALIZED_DISCOUNT_TRIGGER ;

@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_reb.mv_sm (sm_id, sm_bez, mandant_id, spr_id) AS SELECT sm_id,
+ sm_bez,
+ mandant_id,
+ spr_id
+FROM kfl_production_dbp_view.v_sm
+WHERE mandant_id = 1
+ AND sm_id <> - 9;

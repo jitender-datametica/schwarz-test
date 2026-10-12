@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ek_kun.mv_crm_l_konto_typ AS SELECT crm_konto_typ_id
+FROM kfl_production_dbp_view.v_crm_l_konto_typ;

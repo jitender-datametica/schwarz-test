@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital.v_meta_flag_descriptions AS SELECT *
+FROM ldl_dig_fe_mstr_lidldigital.t_meta_flag_descriptions;

@@ -1,0 +1,13 @@
+BEGIN TRANSACTION;
+
+
+TRUNCATE TABLE szd_production_core.${TST_PREFIX}t_dim_division;
+
+
+INSERT INTO szd_production_core.${TST_PREFIX}t_dim_division (party_sid, dwh_valid_from_tmsp, dwh_valid_to_tmsp, division_cd,
+ division_name, dwh_created_tmsp, dwh_updated_tmsp, dwh_src_file_name, dwh_src_1_tmsp)
+(SELECT *
+ FROM szd_production_core_rel.t_division);
+
+
+COMMIT

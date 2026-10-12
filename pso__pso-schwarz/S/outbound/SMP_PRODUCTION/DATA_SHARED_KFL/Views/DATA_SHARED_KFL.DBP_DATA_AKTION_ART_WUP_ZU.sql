@@ -1,0 +1,23 @@
+CREATE OR REPLACE VIEW smp_production_data_shared_kfl.dbp_data_aktion_art_wup_zu (mandant_id, aktion_id, art_id,
+bewart_id, wup_id, nb_id, vk_aktion_brutto, wrg_id, bezugsweg_id, grund_sperrung, dat_sperrung, aktion_thema_id,
+vk_vor_aktion_brutto, vor_aktion_wrg_id, dat_preisaktiviert, geloescht_sap_fg, dat_geloescht_sap, td_update, td_insert)
+AS SELECT mandant_id,
+ aktion_id,
+ art_id,
+ bewart_id,
+ wup_id,
+ nb_id,
+ vk_aktion_brutto,
+ wrg_id,
+ bezugsweg_id,
+ grund_sperrung,
+ dat_sperrung,
+ aktion_thema_id,
+ vk_vor_aktion_brutto,
+ vor_aktion_wrg_id,
+ dat_preisaktiviert,
+ geloescht_sap_fg,
+ dat_geloescht_sap,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.aktion_art_wup_zu;

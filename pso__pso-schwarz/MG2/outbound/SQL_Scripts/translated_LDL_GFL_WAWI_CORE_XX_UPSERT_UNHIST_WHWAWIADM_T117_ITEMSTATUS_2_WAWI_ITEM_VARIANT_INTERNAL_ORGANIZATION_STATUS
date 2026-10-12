@@ -1,0 +1,4 @@
+UPDATE ldl_data_production_core_rel.t_wawi_item_variant_internal_organization_status SET
+ dwh_valid_fg = IF(CURRENT_TIMESTAMP() BETWEEN t_wawi_item_variant_internal_organization_status.dwh_valid_from_tmsp AND
+    t_wawi_item_variant_internal_organization_status.dwh_valid_to_tmsp, 1, 0) <> 0
+WHERE dwh_valid_fg <> (IF(CURRENT_TIMESTAMP() BETWEEN dwh_valid_from_tmsp AND dwh_valid_to_tmsp, 1, 0) <> 0);

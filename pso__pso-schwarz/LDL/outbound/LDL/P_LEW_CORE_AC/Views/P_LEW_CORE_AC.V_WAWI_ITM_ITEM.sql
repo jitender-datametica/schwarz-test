@@ -1,0 +1,170 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_wawi_itm_item (client_id OPTIONS(description=''), item_sid
+OPTIONS(description=''), dat_rec_start OPTIONS(description=''), dat_rec_end OPTIONS(description=''), dat_valid_from
+OPTIONS(description=''), add_docs_fg OPTIONS(description=''), additions OPTIONS(description=''), age_fg
+OPTIONS(description=''), beverage_tax OPTIONS(description=''), brand_name OPTIONS(description=''), buyer_id
+OPTIONS(description=''), buyer_name OPTIONS(description=''), buying_list_type_id OPTIONS(description=''),
+buying_list_type_desc OPTIONS(description=''), buying_list_orderset_nr OPTIONS(description=''), qty_min_piece_ordering
+OPTIONS(description=''), buyer_name_int OPTIONS(description=''), contract_country_cd OPTIONS(description=''), case_dd
+OPTIONS(description=''), case_depth OPTIONS(description=''), case_euro OPTIONS(description=''), case_layer
+OPTIONS(description=''), case_plu_fg OPTIONS(description=''), case_height OPTIONS(description=''), case_size
+OPTIONS(description=''), case_size_dec OPTIONS(description=''), case_volume OPTIONS(description=''), case_weight
+OPTIONS(description=''), case_width OPTIONS(description=''), commodity_cd OPTIONS(description=''), cont_deposit_item_nr
+OPTIONS(description=''), consumption_tax_main_id OPTIONS(description=''), consumption_tax_sub_id OPTIONS(description=''),
+country_cd OPTIONS(description=''), dangerous_goods_fg OPTIONS(description=''), dat_adv OPTIONS(description=''),
+dat_delisting OPTIONS(description=''), dat_listing OPTIONS(description=''), dat_min_shelflifetest_fg
+OPTIONS(description=''), delisting_fg OPTIONS(description=''), delivery_temp OPTIONS(description=''), val_deposit
+OPTIONS(description=''), direct_delete_mde_fg OPTIONS(description=''), discount_fg OPTIONS(description=''),
+dualsystem_fg OPTIONS(description=''), dur_shelflife_wh OPTIONS(description=''), dur_shelflife_cust
+OPTIONS(description=''), dur_shelflife_store OPTIONS(description=''), factor_period_cust OPTIONS(description=''),
+factor_period_store OPTIONS(description=''), factor_period_wh OPTIONS(description=''), food_fg OPTIONS(description=''),
+forwarding_item_nr OPTIONS(description=''), int_subitemgroup_id OPTIONS(description=''), item_familygroup_id
+OPTIONS(description=''), item_parts OPTIONS(description=''), item_parts_cd OPTIONS(description=''), item_plu_nr
+OPTIONS(description=''), item_short_desc_1 OPTIONS(description=''), item_short_desc_2 OPTIONS(description=''),
+item_text_1 OPTIONS(description=''), item_text_2 OPTIONS(description=''), item_text_3 OPTIONS(description=''),
+item_short_desc_3 OPTIONS(description=''), item_version OPTIONS(description=''), lidl_buying_country_cd
+OPTIONS(description=''), listing_fg OPTIONS(description=''), logistic_unit_cd OPTIONS(description=''), max_receive_temp
+OPTIONS(description=''), mdessp_fg OPTIONS(description=''), minus_fg OPTIONS(description=''), min_case_layer
+OPTIONS(description=''), min_case_dd OPTIONS(description=''), min_case_euro OPTIONS(description=''), min_case_orderunit
+OPTIONS(description=''), min_receive_temp OPTIONS(description=''), net_piece_weight OPTIONS(description=''),
+net_case_weight OPTIONS(description=''), order_area_cd OPTIONS(description=''), orig_item_nr_int OPTIONS(description=''),
+package_qty OPTIONS(description=''), packing OPTIONS(description=''), pct_discount OPTIONS(description=''),
+pct_consumption_tax OPTIONS(description=''), period_id_shelflife_cust OPTIONS(description=''), period_id_shelflife_store
+OPTIONS(description=''), period_id_shelflife_wh OPTIONS(description=''), piece_depth OPTIONS(description=''),
+piece_height OPTIONS(description=''), piece_width OPTIONS(description=''), piece_volume OPTIONS(description=''),
+piece_weight OPTIONS(description=''), piece_net_weight_kg_meas
+OPTIONS(description='Net weight of the item piece, the weight of the contents excluding the packaging, souce system: WAWI, source table: ARTIKELBESTELL, source column: FILLING_QTY'),
+poster_fg OPTIONS(description=''), price_sign_fg OPTIONS(description=''), price_strip_fg OPTIONS(description=''),
+qty_consumption_tax_add OPTIONS(description=''), res_selltime OPTIONS(description=''), reusable_fg
+OPTIONS(description=''), scale_fg OPTIONS(description=''), season_fg OPTIONS(description=''), smallest_orderunit
+OPTIONS(description=''), smallest_unit OPTIONS(description=''), stock_capacity OPTIONS(description=''), status_id_hq
+OPTIONS(description=''), subitemgroup_id OPTIONS(description=''), tax_refund_fg OPTIONS(description=''), taxation
+OPTIONS(description=''), type_cd OPTIONS(description=''), type_receive_temp_fg OPTIONS(description=''), unitsize
+OPTIONS(description=''), val_consumption_tax OPTIONS(description=''), vat_id OPTIONS(description=''), wallow_nr
+OPTIONS(description=''), weight OPTIONS(description=''), weight_item_fg OPTIONS(description=''), write_off
+OPTIONS(description=''), wg_fg OPTIONS(description=''), packagetype_desc OPTIONS(description=''), item_actiongroup_id
+OPTIONS(description=''), item_sub_actiongroup_id OPTIONS(description=''), store_freshness_check_fg
+OPTIONS(description=''), load_id OPTIONS(description='')) OPTIONS(DESCRIPTION = `2DO:TABLE COMMENTPK`) AS SELECT
+ client_id,
+ item_sid,
+ dat_rec_start,
+ dat_rec_end,
+ dat_valid_from,
+ add_docs_fg,
+ additions,
+ age_fg,
+ beverage_tax,
+ brand_name,
+ buyer_id,
+ buyer_name,
+ buying_list_type_id,
+ buying_list_type_desc,
+ buying_list_orderset_nr,
+ qty_min_piece_ordering,
+ buyer_name_int,
+ contract_country_cd,
+ case_dd,
+ case_depth,
+ case_euro,
+ case_layer,
+ case_plu_fg,
+ case_height,
+ case_size,
+ case_size_dec,
+ case_volume,
+ case_weight,
+ case_width,
+ commodity_cd,
+ cont_deposit_item_nr,
+ consumption_tax_main_id,
+ consumption_tax_sub_id,
+ country_cd,
+ dangerous_goods_fg,
+ dat_adv,
+ dat_delisting,
+ dat_listing,
+ dat_min_shelflifetest_fg,
+ delisting_fg,
+ delivery_temp,
+ val_deposit,
+ direct_delete_mde_fg,
+ discount_fg,
+ dualsystem_fg,
+ dur_shelflife_wh,
+ dur_shelflife_cust,
+ dur_shelflife_store,
+ factor_period_cust,
+ factor_period_store,
+ factor_period_wh,
+ food_fg,
+ forwarding_item_nr,
+ int_subitemgroup_id,
+ item_familygroup_id,
+ item_parts,
+ item_parts_cd,
+ item_plu_nr,
+ item_short_desc_1,
+ item_short_desc_2,
+ item_text_1,
+ item_text_2,
+ item_text_3,
+ item_short_desc_3,
+ item_version,
+ lidl_buying_country_cd,
+ listing_fg,
+ logistic_unit_cd,
+ max_receive_temp,
+ mdessp_fg,
+ minus_fg,
+ min_case_layer,
+ min_case_dd,
+ min_case_euro,
+ min_case_orderunit,
+ min_receive_temp,
+ net_piece_weight,
+ net_case_weight,
+ order_area_cd,
+ orig_item_nr_int,
+ package_qty,
+ packing,
+ pct_discount,
+ pct_consumption_tax,
+ period_id_shelflife_cust,
+ period_id_shelflife_store,
+ period_id_shelflife_wh,
+ piece_depth,
+ piece_height,
+ piece_width,
+ piece_volume,
+ piece_weight,
+ piece_net_weight_kg_meas,
+ poster_fg,
+ price_sign_fg,
+ price_strip_fg,
+ qty_consumption_tax_add,
+ res_selltime,
+ reusable_fg,
+ scale_fg,
+ season_fg,
+ smallest_orderunit,
+ smallest_unit,
+ stock_capacity,
+ status_id_hq,
+ subitemgroup_id,
+ tax_refund_fg,
+ taxation,
+ type_cd,
+ type_receive_temp_fg,
+ unitsize,
+ val_consumption_tax,
+ vat_id,
+ wallow_nr,
+ weight,
+ weight_item_fg,
+ write_off,
+ wg_fg,
+ packagetype_desc,
+ item_actiongroup_id,
+ item_sub_actiongroup_id,
+ store_freshness_check_fg,
+ load_id
+FROM ldl_p_lew_core.t_wawi_itm_item;

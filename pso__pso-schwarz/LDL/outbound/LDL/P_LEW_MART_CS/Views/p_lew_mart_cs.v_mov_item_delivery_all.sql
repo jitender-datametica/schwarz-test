@@ -1,0 +1,78 @@
+/*
+#----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS
+#----------------------------------------------------------------------------
+# Interface: DDL for #X_LEW_MART_CS#.v_mov_item_delivery_all
+#----------------------------------------------------------------------------
+# History:
+#  1.0  15.03.2021    Gunes, Oguzhan               Transfer to Snowflake.
+#                                                  https://jira.schwarz/browse/DDLE-1783
+#                                                  Create scripts for snowflake standardisation.
+#----------------------------------------------------------------------------
+*/
+
+
+CREATE OR REPLACE VIEW ldl_p_lew_mart_cs.v_mov_item_delivery_all (client_id, item_id, dat_formdate, receipt_id_del,
+store_id, wh_id, vat_id, order_area_cd, dat_dayend, deliverytype_id, dispo_unit_id, booking_fg, blocking_cd, dsac_nr,
+group_nr, print_nr, satas_nr, pricegroup_act_price, stc_location_id, stc_slot_area, stc_slot_id, pallet_part,
+pallet_part_euro, pallet_part_tiko, comment_del, status_prot_receipt, status_dayend, dur_del, price_wh_del,
+price_wh_net_del, price_str_del, price_str_net_del, price_fg, price_retail_wh, price_retail_wh_net, qty_case_act,
+qty_case_del, qty_case_order, qty_piece_del, qty_piece_act_del, supplier_id, orig_receipt_nr_dir_del, rcv_pos_id,
+dat_booking, dat_rcv_mdd, dd_matched_fg, mdd_user, mdd_return_fg, case_size_real, currency_iso_cd,
+rate_currency_exchange, case_size, wh_id_del, byr, cy_week, src_fg) AS SELECT client_id,
+ item_id,
+ dat_formdate,
+ receipt_id_del,
+ store_id,
+ wh_id,
+ vat_id,
+ order_area_cd,
+ dat_dayend,
+ deliverytype_id,
+ dispo_unit_id,
+ booking_fg,
+ blocking_cd,
+ dsac_nr,
+ group_nr,
+ print_nr,
+ satas_nr,
+ pricegroup_act_price,
+ stc_location_id,
+ stc_slot_area,
+ stc_slot_id,
+ pallet_part,
+ pallet_part_euro,
+ pallet_part_tiko,
+ comment_del,
+ status_prot_receipt,
+ status_dayend,
+ dur_del,
+ price_wh_del,
+ price_wh_net_del,
+ price_str_del,
+ price_str_net_del,
+ price_fg,
+ price_retail_wh,
+ price_retail_wh_net,
+ qty_case_act,
+ qty_case_del,
+ qty_case_order,
+ qty_piece_del,
+ qty_piece_act_del,
+ supplier_id,
+ orig_receipt_nr_dir_del,
+ rcv_pos_id,
+ dat_booking,
+ dat_rcv_mdd,
+ dd_matched_fg,
+ mdd_user,
+ mdd_return_fg,
+ case_size_real,
+ currency_iso_cd,
+ rate_currency_exchange,
+ case_size,
+ wh_id_del,
+ byr,
+ cy_week,
+ src_fg
+FROM ldl_p_lew_mart_msi.v_mov_item_delivery_all;

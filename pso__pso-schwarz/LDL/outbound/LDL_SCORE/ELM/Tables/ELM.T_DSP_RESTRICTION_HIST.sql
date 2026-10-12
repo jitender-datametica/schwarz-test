@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_score_elm.t_dsp_restriction_hist (
+dispoid BIGNUMERIC(38,0) NOT NULL,
+restrictionid BIGNUMERIC(38,0) NOT NULL,
+schemeid BIGNUMERIC(38,0),
+active BIGNUMERIC(38,0),
+orderno BIGNUMERIC(38,0),
+restrictiondesc STRING(250),
+precargoid BIGNUMERIC(38,0),
+restrictiontyp BIGNUMERIC(38,0),
+transtypecapacityid BIGNUMERIC(38,0),
+minorderval BIGNUMERIC(38,0),
+pallettypeid BIGNUMERIC(38,0),
+maxweight BIGNUMERIC(38,5),
+elmstatus BIGNUMERIC(38,0),
+changedate DATE,
+changeuser BIGNUMERIC(38,0),
+source_extraction_tmsp ARRAY < STRING >,
+tech_valid_from TIMESTAMP NOT NULL,
+tech_valid_to TIMESTAMP NOT NULL,
+snflk_insert_tmsp TIMESTAMP NOT NULL,
+snflk_update_tmsp TIMESTAMP NOT NULL,
+PRIMARY KEY (dispoid, restrictionid) NOT ENFORCED
+);

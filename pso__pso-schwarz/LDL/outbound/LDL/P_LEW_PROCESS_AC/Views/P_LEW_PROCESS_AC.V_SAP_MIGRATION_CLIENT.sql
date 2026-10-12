@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process_ac.v_sap_migration_client (client_id, wawi_dwh_client_id, elwis_dwh_ec_cd,
+migrated_start_dt, migrated_end_dt, migrated_fg, car_migrated_start_dt, car_migrated_end_dt, car_migrated_fg,
+dwh_load_id, dwh_created, dwh_updated) AS SELECT client_id,
+ wawi_dwh_client_id,
+ elwis_dwh_ec_cd,
+ migrated_start_dt,
+ migrated_end_dt,
+ migrated_fg,
+ car_migrated_start_dt,
+ car_migrated_end_dt,
+ car_migrated_fg,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_process.t_sap_migration_client;

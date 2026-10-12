@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS idq_production_cbx.ldl_item_article_ean (
+id STRING(32) NOT NULL,
+revision NUMERIC(20,0),
+entity_version NUMERIC(20,0),
+domain_id STRING(400),
+hub_domain_id STRING(400),
+is_for_reference BIGNUMERIC(38,0),
+internal_seq_no NUMERIC(20,0),
+item_id STRING(32),
+ldl_item_size_id STRING(32),
+ldl_item_unique_style_id STRING(32),
+ldl_ean STRING(400),
+ldl_is_exist_quantity BIGNUMERIC(38,0),
+ldl_item_size_ref STRING(1000),
+ldl_item_unique_style_ref STRING(1000),
+duid STRING(100),
+ldl_unit_wt NUMERIC(25,5),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (id) NOT ENFORCED
+);

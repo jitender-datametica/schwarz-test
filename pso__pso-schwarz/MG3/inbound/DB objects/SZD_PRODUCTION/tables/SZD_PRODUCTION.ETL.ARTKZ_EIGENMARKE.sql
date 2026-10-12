@@ -1,0 +1,8 @@
+create or replace TABLE SZD_PRODUCTION.ETL.ARTKZ_EIGENMARKE (
+	EIGENMARKE_ID VARCHAR(8) NOT NULL COLLATE 'en-ci' COMMENT 'Eigenmarken-Kennzeichen (z.Bsp. C f��r Kaufland Klassikartikel)',
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant im DWH',
+	SPR_ID NUMBER(38,0) NOT NULL COMMENT 'ID der Sprache',
+	EIGENMARKE_BEZ VARCHAR(160) COLLATE 'en-ci' COMMENT 'Bezeichnung des Eigenmarkenkennzeichens',
+	TD_UPDATE TIMESTAMP_LTZ(9),
+	TD_INSERT TIMESTAMP_LTZ(9)
+);

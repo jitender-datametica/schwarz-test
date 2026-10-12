@@ -1,0 +1,147 @@
+create or replace view KFL_PRODUCTION.DBP_MSI_VIEW_GEKU.MV_AMX_PRUEFUNG(
+	PRUEFUNG_ID,
+	AMX_SYSTEM_ID,
+	PRUEFUNG_NR,
+	ZUSTAND_ID,
+	PRUEFUNG_BEZ,
+	DAT_START,
+	DAT_ENDE,
+	REVISOR_ID,
+	PRUEFUNG_TYP_ID,
+	PRUEFUNG_KLASSE_ID,
+	PRUEFUNG_ERGEBNIS_WERT,
+	PRUEFUNG_ERGEBNIS_WERT_ONEAMX,
+	BUSINESS_UNIT_ID,
+	MANDANT_ID,
+	WUP_ID,
+	NB_ID,
+	ZEITSPANNE,
+	SEC_KZ
+) as
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT
+
+v01.pruefung_id,
+v01.amx_system_id, 
+v01.pruefung_nr, 
+v01.zustand_id, 
+v01.pruefung_bez, 
+v01.dat_start, 
+v01.dat_ende, 
+v01.revisor_id, 
+v01.pruefung_typ_id, 
+v01.pruefung_klasse_id,
+v01.pruefung_ergebnis_wert, 
+v01.pruefung_ergebnis_wert_oneamx,
+v01.business_unit_id, 
+v01.mandant_id, 
+v03.aktuell_wup_id AS wup_id,
+v03.nb_id,
+v01.zeitspanne, 
+v01.sec_kz
+
+FROM
+
+(SELECT
+ pruefung_id
+,amx_system_id
+,pruefung_nr
+,zustand_id
+,pruefung_bez
+,dat_start
+,dat_ende
+,revisor_id
+,pruefung_typ_id
+,pruefung_klasse_id
+,CASE WHEN amx_system_id = 2 THEN pruefung_ergebnis_wert ELSE 0 END AS pruefung_ergebnis_wert
+,CASE WHEN amx_system_id = 1 THEN pruefung_ergebnis_wert ELSE 0 END AS pruefung_ergebnis_wert_oneamx
+,business_unit_id
+,mandant_id
+,CASE WHEN wup_id = -1 THEN 0 ELSE wup_id END AS wup_id 
+,CASE WHEN zeitspanne = '-1' THEN '' ELSE zeitspanne END AS zeitspanne
+,6 ::BYTEINT AS sec_kz
+
+FROM dbp_view.v_amx_pruefung 
+
+
+UNION
+
+SELECT 
+pruefung_id,
+1 AS amx_system_id, 
+pruefung_nr, 
+zustand_id, 
+pruefung_bez, 
+dat_start, 
+dat_ende, 
+revisor_id, 
+pruefung_typ_id, 
+pruefung_klasse_id,
+0 AS pruefung_ergebnis_wert, 
+pruefung_ergebnis_wert AS pruefung_ergebnis_wert_oneamx,
+business_unit_id, 
+mandant_id, 
+CASE WHEN wup_id = -1 THEN 0 ELSE wup_id END AS wup_id, 
+'' AS zeitspanne, 
+6 ::BYTEINT AS sec_kz
+
+FROM dbp_view.v_amx_de_pruefung) v01
+
+LEFT OUTER JOIN
+( 
+SELECT DISTINCT
+pruefung_id 
+,amx_system_id
+,1 AS asgs_flag 
+FROM dbp_view.v_amx_b_process_pruefung_zu
+
+WHERE ((amx_system_id = 2 AND business_process_id IN (102803,117032,102805))
+OR (amx_system_id = 1 AND business_process_id IN (544687,544691,544689))) 
+
+UNION 
+
+SELECT DISTINCT
+pruefung_id 
+,1 AS amx_system_id 
+,1 AS asgs_flag 
+FROM dbp_view.v_amx_de_b_process_pruefung_zu
+
+WHERE (business_process_id IN (544687,544691,544689)) 
+) v02
+ON v01.pruefung_id = v02.pruefung_id
+AND v01.amx_system_id = v02.amx_system_id
+
+
+LEFT OUTER JOIN dbp_view.v_wup v03
+ON v01.wup_id = v03.wup_id
+AND v01.mandant_id = v03.mandant_id
+
+WHERE  ((v01.amx_system_id = 2 AND v01.zustand_id IN (100003, 100004, 100005, 1001, 100025))
+OR (v01.amx_system_id = 1 AND v01.zustand_id IN (100005,1001,100041)))  
+
+   AND 
+   (
+   (v01.mandant_id = 1 AND asgs_flag = 1 AND dat_ende >= CAST('2015-03-01' AS DATE)) OR (v01.mandant_id = 1 AND asgs_flag IS NULL AND dat_ende >= CAST('2015-06-01' AS DATE)) OR
+   (v01.mandant_id = 2 AND dat_ende >= CAST('2015-03-01' AS DATE)) OR (v01.mandant_id = 3 AND dat_ende >= CAST('2015-06-22' AS DATE)) OR (v01.mandant_id = 4 AND dat_ende >= CAST('2019-10-31' AS DATE) ) OR
+   (v01.mandant_id = 5 AND dat_ende >= CAST('2015-07-16' AS DATE)) OR (v01.mandant_id = 6 AND dat_ende >= CAST('2015-10-29' AS DATE)) OR (v01.mandant_id = 7 AND dat_ende >= CAST('2015-12-01' AS DATE)) OR
+   (v01.mandant_id = 8 AND dat_ende >= CAST('2015-12-01' AS DATE))
+   )
+;

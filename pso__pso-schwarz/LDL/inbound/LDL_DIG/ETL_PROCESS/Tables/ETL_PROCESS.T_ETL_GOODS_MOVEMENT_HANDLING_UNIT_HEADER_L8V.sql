@@ -1,0 +1,85 @@
+/* --------------------------------------------------------------------------------
+   DDL FOR TABLE: T_ETL_GOODS_MOVEMENT_HANDLING_UNIT_HEADER_L8V
+   GENERATED FROM POWERDESIGNER ON Montag, 23. September 2024 13:13:41
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE ETL_PROCESS.T_ETL_GOODS_MOVEMENT_HANDLING_UNIT_HEADER_L8V (
+   HANDLING_UNIT_LOG_ID                VARCHAR(100)    NOT NULL COMMENT 'The handling unit log id represents a specific log entry which is generated for each handling unit movement within the warehouse.',
+   HANDLING_UNIT_SID                   NUMBER          NOT NULL COMMENT 'Surrogate Key of the Handling Unit. Generated based on src_handling_unit_id, sap_sys_name, sap_client_id
+            A Handling unit is a generic term  for a container or a bin that is used to transport items within a warehouse. Several Items can be stored in one container/bin. ',
+   SRC_SYS_ID                          VARCHAR(20)     COMMENT 'It shows from which system the warehouse system the task comes from, e.g. L8V or another system. One source system could have multiple clients which are then identified by this ID.',
+   SRC_HANDLING_UNIT_ID                VARCHAR(64)     COMMENT 'The ID of the Handling Unit in the source system
+            A Handling unit is a generic term  for a container or a bin that is used to transport items within a warehouse. Several Items can be stored in one container/bin. ',
+   UNHASHED_SRC_HANDLING_UNIT_ID       VARCHAR(40)     COMMENT 'Unhashed version of the scr_handling_unit_id.',
+   HANDLING_UNIT_LOC_ID                VARCHAR(100)    COMMENT 'The GUID of the location of the Handling Unit in the warehouse where it is stored. It is different than storage_unit_id as it represents the location in a warehouse whereas the storage_unit_id represents an ID for an object (storage unit).',
+   WH_SID                              NUMBER          COMMENT 'The unique identifier(surrogate key) of  warehouse',
+   WH_CD                               VARCHAR(5)      COMMENT 'Warehouse code',
+   TASK_ID                             VARCHAR(30)     COMMENT 'Code of Warehouse Task',
+   PACK_MATERIAL_ID                    VARCHAR(64)     COMMENT 'The GUID for the packaging material which shows what kind of the material is used. It is unique for each package e.g. Even if 3 cartons are made of the same material, they all will get unique ID.',
+   WH_TASK_CREATED_BY_NAME             VARCHAR(100)    COMMENT 'The name of the User or the System that created the warehouse task.',
+   WH_TASK_CREATE_TMSP                 TIMESTAMP_TZ    COMMENT 'The timestamp when the warehouse task was created.',
+   WH_TASK_CHANGED_BY_NAME             VARCHAR(100)    COMMENT 'The name of the User or the System that changed/updated the task.',
+   WH_TASK_CHANGE_TMSP                 TIMESTAMP_TZ    COMMENT 'The timestamp when the warehouse task was changed/updated.',
+   HANDLING_UNIT_TOTAL_WEIGHT_MEAS     NUMBER(38, 5)   COMMENT 'The weight of the Handling Unit and the items loaded on it.',
+   HANDLING_UNIT_TOTAL_WEIGHT_UOM_SID  NUMBER          COMMENT 'The surrogate key for the unit of measurement for the total weight (handling_unit_total_weight_meas).',
+   HANDLING_UNIT_TOTAL_WEIGHT_UOM_CD   VARCHAR(10)     COMMENT 'The code for the unit of measurement for the total weight (handling_unit_total_weight_meas).',
+   HANDLING_UNIT_LOAD_WEIGHT_MEAS      NUMBER(38, 5)   COMMENT 'The weight of only the loaded items on the Handling Unit.',
+   HANDLING_UNIT_LOAD_WEIGHT_UOM_SID   NUMBER          COMMENT 'The surrogate key for the unit of measurement for the load weight (handling_unit_load_weight_meas).',
+   HANDLING_UNIT_LOAD_WEIGHT_UOM_CD    VARCHAR(10)     COMMENT 'The code for the unit of measurement for the load weight (handling_unit_load_weight_meas).',
+   HANDLING_UNIT_TOTAL_VOLUME_MEAS     NUMBER(38, 5)   COMMENT 'The volume of the Handling Unit and the items loaded on it.',
+   HANDLING_UNIT_TOTAL_VOLUME_UOM_SID  NUMBER          COMMENT 'The surrogate key for the unit of measurement for the total volume (handling_unit_total_volume_meas).',
+   HANDLING_UNIT_TOTAL_VOLUME_UOM_CD   VARCHAR(10)     COMMENT 'The code for the unit of measurement for the total volume (handling_unit_total_volume_meas).',
+   HANDLING_UNIT_LOAD_VOLUME_MEAS      NUMBER(38, 5)   COMMENT 'The volume of only the loaded items on the Handling Unit.',
+   HANDLING_UNIT_VOLUME_MEAS           NUMBER(38, 5)   COMMENT 'The volume of the Handling Unit without the items loaded in it.',
+   HANDLING_UNIT_VOLUME_UOM_SID        NUMBER          COMMENT 'The surrogate key for the unit of measurement for the Handling Unit volume (handling_unit_volume_meas).',
+   HANDLING_UNIT_VOLUME_UOM_CD         VARCHAR(10)     COMMENT 'The code for the unit of measurement for the Handling Unit volume (handling_unit_volume_meas).',
+   HANDLING_UNIT_CAPACITY_MEAS         NUMBER(38, 5)   COMMENT 'It is the total capacity of the Handling unit and the items loaded on it. There is no unit of measure. For example if you define a Storage bin with a capacity of 10. And a Handling Unit Type A with a Capacity of 3 and an other Handling Unit type B with a Capacity of 1.
+            
+            Than you would be able to place 3 HUs of Type A on it (3 x 3 = 9) and one HU of type B (9 + 1 = 10).',
+   HANDLING_UNIT_NET_CAPACITY_MEAS     NUMBER(38, 5)   COMMENT 'The capacity of only the Handling Unit without the items loaded on it.',
+   HANDLING_UNIT_TOTAL_CAPACITY_MEAS   NUMBER(38, 5)   COMMENT 'The total capacity of the Handling Unit and the items loaded on it when the size of the Items exceed the size of the Handling Unit.',
+   HANDLING_UNIT_LENGTH_MEAS           NUMBER(38, 5)   COMMENT 'The length of the Handling Unit.',
+   HANDLING_UNIT_WIDTH_MEAS            NUMBER(38, 5)   COMMENT 'The width of the Handling Unit.',
+   HANDLING_UNIT_HEIGHT_MEAS           NUMBER(38, 5)   COMMENT 'The height of the Handling Unit.',
+   HANDLING_UNIT_UOM_SID               NUMBER          COMMENT 'The surrogate key for the unit of measurement for the length, width and height of the Handling Unit.',
+   HANDLING_UNIT_UOM_CD                VARCHAR(10)     COMMENT 'The code for the unit of measurement for the length, width and height of the Handling Unit.',
+   IS_HANDLING_UNIT_CLOSED_FG          BOOLEAN         COMMENT 'A flag indicating whether a Handling Unit is closed or not. Closed refering to the fact that it cannot handle anymore stock, even when it is not full. It could be packed or wrapped up.',
+   PACK_CAPACITY_MEAS                  NUMBER(38, 5)   COMMENT 'The maximum capacity of the package or the cartons placed on the Handling Unit. It doesn''t refer to the capacity of a storage bin or a shelf.',
+   VIRTUAL_HANDLING_UNIT_CD            VARCHAR(5)      COMMENT 'A code that shows for what reason the virtual handling unit has to be created.The virtual handling unit is almost always used temporarily to indicate handling unit availability. A few examples for the code; A = Dummy Handling Unit für Lokation, B = Geplante Handling Unit, P = Dummy Handling Unit für Pending Differences.',
+   HANDLING_UNIT_TYPE_CD               VARCHAR(10)     COMMENT 'The code shows the type of the Handling Unit e.g. a pallete, a carton etc.',
+   IS_HANDLING_UNIT_AVAIL_FG           BOOLEAN         COMMENT 'A flag that shows whether the Handling Unit is available for use or not.',
+   IS_HANDLING_UNIT_TASK_OPEN_FG       BOOLEAN         COMMENT 'A flag that shows whether there is any open warehouse task for the Handling Unit or not.',
+   STORAGE_PROCESS_STEP_CD             VARCHAR(10)     COMMENT 'This code defines the specific storage process step that is part of the storage process (e.g. Unload, Count, Deconsolidate, Put Away, Remove from Stock, Pack, etc.)',
+   STORAGE_PROCESS_TYPE_CD             VARCHAR(10)     COMMENT 'This code denotes a type of storage process that summarizes storage process steps in order to define complex processes for putaway, stock removal, and warehouse internal movements (e.g. a goods receipt process may contain the storage process steps for unloading and putaway, whereas a goods issue process may contain the storage process steps for stock removal, packing, staging and loading).',
+   IS_HANDLING_UNIT_PROCESS_COMPLETE_FG BOOLEAN         COMMENT 'A flag that shows whether all the planned process for the Handling Unit are complete or not.',
+   CONSOLIDATION_GRP_NAME              VARCHAR(20)     COMMENT 'The name of the consolidation group that the articles processed with the particular task belong to. The consolidation group denotes where the warehouse the articles are going to be sorted.',
+   STOCK_MANAGING_ORG_CD               VARCHAR(32)     COMMENT 'This is the code of the stock managing organization which is in charge of moving stock within the warehouse, sending it to customers or disposing it. 
+            This code is introduced because there is a SAP functionality which allows multiple parties (organizations) to use the same warehouse for storing their stock. 
+            Warehouses, used by Lidl E-Commerce (LEC) will always have the value LEC populated in this field as they are used solely by LEC.',
+   STORAGE_TYPE_CD                     VARCHAR(10)     COMMENT 'A storage type is a physical space characterized by its function in the warehouse where Handling Units could be stored e.g. Bulk Storage Area, General Storage Area etc. A storage type consists of one or more storage units.',
+   STORAGE_SUBTYPE_CD                  VARCHAR(10)     COMMENT 'It is a subdivision of a storage type in the warehouse which groups together storage units with similar attributes e.g. Wine Section, General Storage Section, Valuable etc.',
+   STORAGE_UNIT_ID                     VARCHAR(20)     COMMENT 'A physical place where you can store a Handling Unit. This ID represents an object (storage unit) unlike handling_unit_loc_id which is a GUID for a location in a warehouse.',
+   WH_TASK_PROCESSING_TYPE_CD          VARCHAR(10)     COMMENT 'A technical field to describe the process of a task. e.g. Fragile items should be picked carefully.',
+   IS_HANDLING_UNIT_SYSTEM_CREATED_FG  BOOLEAN         COMMENT 'A flag that shows whether the Handling Unit was created automatically by the system or not.',
+   ITEM_DEFECT_CD                      VARCHAR(5)      COMMENT 'A code that shows if there is any defected item present on Handling Unit and what kind of a defect there is. e.g partially damaged or completely damaged and so on.',
+   HANDLING_UNIT_CREATE_TMSP           TIMESTAMP_TZ    COMMENT 'The point in time when the Handling Unit was created.',
+   PACK_SIZE_CD                        VARCHAR(10)     COMMENT 'The code for the size of the package.',
+   PACK_GROUP_CD                       VARCHAR(10)     COMMENT 'The code for the group of the packages. e.g. there could 3 different kinds of cartons varying either in size or type but they could be grouped under Pallets.',
+   HANDLING_UNIT_STATUS_CD             VARCHAR(5)      COMMENT 'The status of the Handling Unit to see if it is available, deleted or completed.',
+   IS_HANDLING_UNIT_HIGHEST_HIERARCHY_FG BOOLEAN         COMMENT 'A flag that shows whether the Handling Unit belongs to the heighest hierarchy or not. The hierarchy is as follows Bin > Palett > Cartons. When its true then it refers to Bins. When both hierarchy flags (highest and lowest) are false, it refers to Pallets.',
+   IS_HANDLING_UNIT_LOWEST_HIERARCHY_FG BOOLEAN         COMMENT 'A flag that shows whether the Handling Unit belongs to the lowest hierarchy or not. The hierarchy is as follows Bin > Palett > Cartons. When its true, it refers to Cartons. When both hierarchy flags (highest and lowest) are false, it refers to Pallets.',
+   IS_WH_TASK_ASSIGNED_FG              BOOLEAN         COMMENT 'A flag that shows whether the goods on the Handling Unit have a warehouse task assigned to them or not.',
+   IS_HAZARDOUS_SUBSTANCE_FG           BOOLEAN         COMMENT 'A flag that shows whether there is any hazardous substance present on the Handling Unit or not.',
+   HANDLING_UNIT_POS_CD                VARCHAR(5)      COMMENT 'The code describes the physical position of the Handling Unit like shelf numbers. It is used to make the position of the Handling Unit clearer in large storage places.',
+   HANDLING_UNIT_EXT_POS_CD            VARCHAR(22)     COMMENT 'The code that describes the position of the Handling Unit given by the Hauler/Carrier.',
+   HANDLING_UNIT_PROCESS_STATUS_CD     VARCHAR(5)      COMMENT 'The code describes the status of the Handling Unit when it arrives in the warehouse e.g. C = Cross-Docking, H = Consolidation of Goods in holding area standard putaway process.',
+   NESTED_HANDLING_UNIT_CREATE_CD      VARCHAR(5)      COMMENT 'The code that defines the conditions in case there is a nested Handling Unit created. A Nested Handling Unit is created when a Handling Unit is placed with in or on another Handling Unit e.g. A Carton on a Pallet. Some code examples would be, A = Create without label, B = Create with Label. ',
+   DWH_CREATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   DWH_UPDATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',
+   DWH_SRC_FILE_NAME                   VARCHAR(255)    NOT NULL COMMENT 'The path and the name of the file(s) from which this record was loaded.',
+   SRC_FILE_TMSP                       TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was extracted from the source.',
+   SRC_TABLE_NAME                      VARCHAR(100)    COMMENT 'The name of the source table',   
+   CONSTRAINT PK_T_ETL_GOODS_MOVEMENT_HANDLING_UNIT_HEADER_L8V PRIMARY KEY (HANDLING_UNIT_LOG_ID, HANDLING_UNIT_SID) NOT ENFORCED 
+)  COMMENT = 'ETL table containing data about the goods movement at header level with a particular handling unit within a warehouse. 
+             
+             Source: /SCWM/GMHUHDR from L8V source system.';

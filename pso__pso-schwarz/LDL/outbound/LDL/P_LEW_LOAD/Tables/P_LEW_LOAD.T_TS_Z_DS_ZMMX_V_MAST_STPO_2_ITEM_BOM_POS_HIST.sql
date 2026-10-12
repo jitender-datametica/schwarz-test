@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_z_ds_zmmx_v_mast_stpo_2_item_bom_pos_hist (
+record_id INTEGER,
+client_id BIGNUMERIC(38),
+item_bom_sid BIGNUMERIC(38),
+src_stlkn BIGNUMERIC(38),
+bom_pos_nr STRING(20),
+item_sid BIGNUMERIC(38),
+uom_sid BIGNUMERIC(38),
+version_counter BIGNUMERIC(38),
+uom_cd STRING(20),
+component_qty NUMERIC(18,5),
+deleted_fg BIGNUMERIC(38),
+dwh_valid_from DATE,
+dwh_valid_to DATE,
+dwh_load_id BIGNUMERIC(38),
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

@@ -1,0 +1,58 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_IMS_DT.MV_F_IMS_INVEST_PLAN_DET
+(
+	MANDANT_ID,
+	GJ,
+	HOCHRECHNUNG_FG,
+	BERICHTS_POS_INVEST_GRP_ID,
+	PLAN_BETRAG,
+	PSP_ID,
+	SPARTE_ID
+)
+AS
+-- 04.04.2013 twie: Detailtabelle Plandaten
+-- 10.04.2013 twie: Währungsumrechnung
+-- 26.04.2013 twie: standort und planelement in einer Spalte zusammengeführt
+-- 17.05.2013 AL: Umstellung planungs_Element_id auf nummerisch
+-- 28.05.2013 twie: wenn kein Massnahmetyp geliefert auf -1 setzen
+-- 19.06.2013 AL standort_id ==> -1, bei der Maßnahmenplanung ==> Nach Anpassung Excel Beladung rausnehmen
+-- 01.07.2013 twie: Feld in_projekt_id hinzu
+-- 27.09.2013 AL Planungselement negative ID, wegen Überschneidung mit standort_id
+-- 15.10.2013 AL Vorzeichen Logik bei Planungselement ergänzt, um Fehler bei Sparte Vertrieb in der Maßnahmenplanung
+--                    zu beheben
+-- 06.04.2016 twie: AP0001938 Umstelllung neue Planstruktur, u.a. von Projekt- auf PSP-Ebene
+-- 21.04.2016 twie: in_maßnahme_typ_id entfällt, da Tabelle jetzt auf Ebene psp_id (Kind von Maßnahmetyp)
+-- 14.07.2016 twie: auskommentierte Felder entgültig gelöscht
+
+   SELECT
+
+   v01.mandant_id,
+   v01.gj,
+   v01.hr_plan_gesamt_kz AS hochrechnung_fg,
+   v01.berichts_pos_invest_grp_id,
+   CASE WHEN v100.wrg_typ_id = 1
+   THEN v01.plan_betrag
+   ELSE v01.plan_betrag * v300.umrechnungskurs
+   END AS plan_betrag,
+   v01.psp_id,
+   --Zusammenfassen Werbung, KIS, KI zu Zentrale
+   CASE WHEN v01.sparte_id IN (4,6,8) THEN 5 ELSE v01.sparte_id END AS sparte_id
+
+
+   FROM dbp_view.v_ims_invest_plan_det v01
+   -- Ermitllung Währungseinstellung des Users
+   CROSS JOIN dbp_msi.akt_msi_user_wrg_typ_zu v100
+   -- Ermittlung Kurseinstellung des Users
+   CROSS JOIN dbp_msi.akt_msi_user_kurstyp_zu v200
+
+   -- Währungsumrechnung
+   JOIN dbp_view.v_kurs v300
+   ON    v01.wrg_id = v300.von_wrg_id
+   AND CURRENT_DATE BETWEEN v300.dat_von AND v300.dat_bis
+   AND v200.kurstyp_id = v300.kurstyp_id
+   AND v300.nach_wrg_id = 'EUR'
+
+   -- Ermittlung Währungsname
+   JOIN dbp_view.v_mandant_wrg_typ_zu v400
+   ON v01.mandant_id = v400.mandant_id
+   AND v100.wrg_typ_id = v400.wrg_typ_id
+   ;

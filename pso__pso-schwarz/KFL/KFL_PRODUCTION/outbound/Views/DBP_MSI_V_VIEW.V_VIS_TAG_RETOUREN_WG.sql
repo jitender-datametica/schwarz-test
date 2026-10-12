@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_v_view.v_vis_tag_retouren_wg AS SELECT mandant_id,
+ wup_id,
+ nb_id,
+ arthiertyp_id,
+ wg_id,
+ dat,
+ wrg_id,
+ reklamationsgrund_id,
+ abt_id,
+ gj,
+ kjmo,
+ kjwo,
+ vk_menge_re,
+ vk_netto_re
+FROM kfl_production_dbp_msi_data.vis_tag_retouren_wg;

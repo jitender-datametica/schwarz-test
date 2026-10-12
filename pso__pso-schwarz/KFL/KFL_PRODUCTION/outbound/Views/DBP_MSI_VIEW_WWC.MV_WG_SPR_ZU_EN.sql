@@ -1,0 +1,35 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_wwc.mv_wg_spr_zu_en (matkl, spr_id, mandant_id, arthiertyp_id, wg_bez
+, wg_id_bez) AS SELECT wg_id AS matkl,
+ MAX(spr_id) AS spr_id,
+ mandant_id,
+ arthiertyp_id,
+ COALESCE(MAX(CASE
+    WHEN spr_id = 24
+    THEN wg_bez
+    ELSE NULL
+    END), MAX(CASE
+    WHEN spr_id = 22
+    THEN wg_bez
+    ELSE NULL
+    END)) AS wg_bez,
+    CASE
+    WHEN wg_id < 10
+    THEN '00' || CAST(wg_id AS STRING)
+    WHEN wg_id < 100
+    THEN '0' || CAST(wg_id AS STRING)
+    ELSE CAST(wg_id AS STRING)
+    END || ' ' || COALESCE(MAX(CASE
+     WHEN spr_id = 24
+     THEN wg_bez
+     ELSE NULL
+     END), MAX(CASE
+     WHEN spr_id = 22
+     THEN wg_bez
+     ELSE NULL
+     END)) AS wg_id_bez
+FROM kfl_production_dbp_view.v_wg_spr_zu AS V01
+WHERE spr_id IN (22, 24)
+ AND arthiertyp_id = 2
+GROUP BY wg_id,
+ mandant_id,
+ arthiertyp_id;

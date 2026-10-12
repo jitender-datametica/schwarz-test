@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_bcbi_fe_mstr_bcbi.t_cubestatistics (
+rt_is_rep_job_id INTEGER,
+rt_is_proj_id INTEGER,
+rt_is_proj_name STRING(255),
+rt_is_rep_id INTEGER,
+rt_is_rep_name STRING(1000),
+is_rep_loc STRING(4000),
+cubereportguid STRING(32),
+cubeactionid INTEGER,
+servermachine STRING(500),
+rt_is_rep_req_ts DATETIME,
+starttime DATETIME,
+finishtime DATETIME,
+rt_is_error_ind_id BIGNUMERIC(38,0),
+rt_errormessage STRING(4000),
+duration STRING(500),
+rt_job_duration INTEGER,
+rt_resultrows INTEGER,
+rt_sqlpasses INTEGER,
+timestamp_load_bcbi TIMESTAMP,
+user_flag INTEGER
+);

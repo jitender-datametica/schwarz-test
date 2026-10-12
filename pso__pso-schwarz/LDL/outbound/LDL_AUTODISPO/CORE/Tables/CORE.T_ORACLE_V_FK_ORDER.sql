@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_autodispo_core.t_oracle_v_fk_order (
+ord_item_nr STRING(16777216),
+deleted BIGNUMERIC(38,0),
+ord_storecalculation_id BIGNUMERIC(38,2),
+ord_gen_time_id BIGNUMERIC(38,2),
+ord_unit_quantity BIGNUMERIC(38,10),
+ord_case_size BIGNUMERIC(38,2),
+ord_quantity BIGNUMERIC(38,2),
+ord_pieces_quantity BIGNUMERIC(38,10),
+ord_time_id BIGNUMERIC(38,0),
+mod_date DATETIME,
+ord_palettefactor BIGNUMERIC(38,10),
+ord_store_nr BIGNUMERIC(38,0),
+ord_unit_id BIGNUMERIC(38,10),
+country STRING(16777216),
+ord_order_type STRING(16777216),
+source_extraction_tmsp TIMESTAMP,
+snflk_insert_tmsp TIMESTAMP,
+snflk_update_tmsp TIMESTAMP,
+date_ DATE
+) CLUSTER BY date_, country, ord_order_type;

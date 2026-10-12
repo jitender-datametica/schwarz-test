@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_VIS.MV_L_WERBE_TYP as
+   SELECT * FROM dbp_view.v_l_werbe_typ;

@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE smp_production_eval.tmp_campaign_insights (
+division_id STRING(100) NOT NULL,
+country_id STRING(100) NOT NULL,
+division_country_ref INTEGER NOT NULL,
+campaign_id STRING(100) NOT NULL,
+channel_id STRING(100) NOT NULL,
+campaign_name STRING(500) NOT NULL,
+campaign_status_id STRING(100) NOT NULL,
+campaign_start_dt DATE,
+campaign_end_dt DATE,
+attribution_start_dt DATE,
+attribution_end_dt DATE,
+ntp_start_dt DATE,
+ntp_end_dt DATE,
+campaign_6_week_after_start_dt DATE,
+campaign_6_week_after_end_dt DATE,
+supplier_nr INTEGER,
+supplier_id_ref INTEGER,
+article_cnt INTEGER
+);

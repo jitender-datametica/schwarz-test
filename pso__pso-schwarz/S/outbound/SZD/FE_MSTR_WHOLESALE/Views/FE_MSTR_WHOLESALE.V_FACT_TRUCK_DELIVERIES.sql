@@ -1,0 +1,20 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_wholesale.v_fact_truck_deliveries (supplier_party_sid, hauler_party_sid,
+recipient_party_sid, dispoweek_dt, promotion_dt, outbound_dt, arrival_dt, planned_delivery_dt, delivery_dt,
+delivery_note_nr, delivery_date_fixed_fg, total_cnt, outbound_cnt, arrived_cnt, dwh_created_tmsp, dwh_updated_tmsp) AS
+SELECT supplier_party_sid,
+ hauler_party_sid,
+ recipient_party_sid,
+ dispoweek_dt,
+ promotion_dt,
+ outbound_dt,
+ arrival_dt,
+ planned_delivery_dt,
+ delivery_dt,
+ delivery_note_nr,
+ delivery_date_fixed_fg,
+ total_cnt,
+ outbound_cnt,
+ arrived_cnt,
+ dwh_created_tmsp,
+ dwh_updated_tmsp
+FROM szd_core.t_fact_truck_deliveries;

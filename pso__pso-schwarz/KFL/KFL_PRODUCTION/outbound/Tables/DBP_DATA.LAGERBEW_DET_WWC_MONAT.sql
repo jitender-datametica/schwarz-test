@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.lagerbew_det_wwc_monat (
+art_id BIGNUMERIC(38,0) NOT NULL,
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+lager_bewart_id STRING(3) COLLATE 'und:ci' NOT NULL,
+gp_id BIGNUMERIC(38,0) NOT NULL,
+kjmo BIGNUMERIC(38,0) NOT NULL,
+exvkw_gleich_vkwrt_fg BIGNUMERIC(38,0) NOT NULL,
+betrag_lagerbew NUMERIC(18,2) DEFAULT 0 NOT NULL,
+betrag_verkauf NUMERIC(18,2) DEFAULT 0 NOT NULL,
+menge_lagerbew_bme NUMERIC(18,3) DEFAULT 0 NOT NULL,
+betrag_vk_netto NUMERIC(18,2) DEFAULT 0 NOT NULL,
+betrag_verkauf_ist NUMERIC(18,2) DEFAULT 0 NOT NULL,
+betrag_exbwr NUMERIC(18,4) DEFAULT 0 NOT NULL,
+betrag_verkauf_ist_netto NUMERIC(18,4) DEFAULT 0 NOT NULL,
+wrg_id STRING(3) COLLATE 'und:ci' NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+) CLUSTER BY mandant_id, kjmo;

@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_art_bewertungskreis_tag AS SELECT mandant_id,
+ bewertungskreis_id,
+ art_id,
+ dat_gld,
+ preis_steuer_kz,
+ wrg_id,
+ gld,
+ standard_preis,
+ menge_bestand_bme,
+ wert_bestand,
+ vk_wert,
+ zeit_extrakt,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.art_bewertungskreis_tag;

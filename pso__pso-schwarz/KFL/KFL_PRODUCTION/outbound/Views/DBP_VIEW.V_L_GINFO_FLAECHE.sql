@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_ginfo_flaeche AS SELECT mandant_id,
+ ginfo_flaeche_id,
+ ginfo_flaeche_typ_id,
+ techn_platz_id,
+ flaeche_quelle_id
+FROM kfl_production_dbp_data.l_ginfo_flaeche;

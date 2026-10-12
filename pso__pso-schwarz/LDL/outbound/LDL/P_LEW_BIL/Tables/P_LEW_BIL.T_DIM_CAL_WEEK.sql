@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_bil.t_dim_cal_week (
+cy_week BIGNUMERIC(38,0) NOT NULL,
+week_of_year BIGNUMERIC(38,0) NOT NULL,
+cy_week_begin_week_part BIGNUMERIC(38,0) NOT NULL,
+cy_week_end_week_part BIGNUMERIC(38,0) NOT NULL,
+cy_week_begin_dt DATE NOT NULL,
+cy_week_end_dt DATE NOT NULL,
+cy_week_week_part_cnt BIGNUMERIC(38,0),
+cy_week_prev_1w BIGNUMERIC(38,0) NOT NULL,
+cy_week_prev_1y BIGNUMERIC(38,0) NOT NULL,
+cy_week_prev_2y BIGNUMERIC(38,0) NOT NULL,
+cy_week_prev_3y BIGNUMERIC(38,0) NOT NULL,
+cy_week_prev_4y BIGNUMERIC(38,0) NOT NULL,
+cy_week_prev_5y BIGNUMERIC(38,0) NOT NULL,
+cy_week_offset BIGNUMERIC(38,0),
+cy_week_short_name STRING(100) NOT NULL,
+cy_week_name STRING(100) NOT NULL,
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL
+);

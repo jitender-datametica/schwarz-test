@@ -1,0 +1,68 @@
+-- SP_INSERT_REF_EXCLUDE_RULE(NUMBER,NUMBER,NUMBER,NUMBER,NUMBER,VARCHAR,VARCHAR,NUMBER)
+
+CREATE OR REPLACE PROCEDURE IDQ_PRODUCTION.IDQ_RESULTS.SP_INSERT_REF_EXCLUDE_RULE("RULE_ID" NUMBER(38,0), "BRANCH_ID" NUMBER(38,0), "SOURCE_SYSTEM_ID" NUMBER(38,0), "COUNTRY_ID" NUMBER(38,0), "TEST_OBJECT_TYPE_ID" NUMBER(38,0), "INSERTED_BY" VARCHAR(200), "EXCLUDE_REASON" VARCHAR(1000), "EXCLUDE_FLAG" NUMBER(38,0))
+RETURNS NUMBER(38,0)
+LANGUAGE SQL
+EXECUTE AS OWNER
+AS 'BEGIN
+    let COUNT_INSERT := 0;
+    let excluded INTEGER := NULL;
+   	-- @TEST_OBJECT_ID for the moment is a Dummy value not used
+	-- Stop process when Exclude Flag is not 1.
+   IF (EXCLUDE_FLAG != 1 OR EXCLUDE_FLAG is null) THEN
+            Return 0;     
+    END IF;
+    -- get the excluded value
+    SELECT top 1 EXCLUDE_FLAG INTO :excluded 
+    FROM IDQ_RESULTS.REF_EXCLUDE
+    WHERE RULE_ID = :RULE_ID AND BRANCH_ID = :BRANCH_ID
+    AND
+    (
+    -- Source System Primary Key Exclusion
+    -- SOURCE_SYSTEM_PRIMARY_KEY = :SOURCE_SYSTEM_PRIMARY_KEY
+       SOURCE_SYSTEM_PRIMARY_KEY IS NULL
+    )
+    AND
+    (
+    SOURCE_SYSTEM_ID = :SOURCE_SYSTEM_ID
+    AND
+    COUNTRY_ID = :COUNTRY_ID
+    AND
+    TEST_OBJECT_TYPE_ID = :TEST_OBJECT_TYPE_ID
+    );
+
+    -- Already there, do nothing
+    IF (excluded = 1) THEN
+        RETURN 0;
+    END IF;
+
+    -- Update - there, but exclude flag = 0
+     IF (excluded = 0) THEN
+        UPDATE IDQ_RESULTS.REF_EXCLUDE
+        SET EXCLUDE_FLAG = 1,
+            INSERTED_AT = CURRENT_TIMESTAMP(),
+            EXCLUDE_REASON = :EXCLUDE_REASON,
+            -- SOURCE_SYSTEM_PRIMARY_KEY = :SOURCE_SYSTEM_PRIMARY_KEY,
+            INSERTED_BY = :INSERTED_BY,
+            UNDONE_AT = NULL
+                WHERE RULE_ID = :RULE_ID
+                AND
+                BRANCH_ID = :BRANCH_ID
+                AND
+                --SOURCE_SYSTEM_PRIMARY_KEY = :SOURCE_SYSTEM_PRIMARY_KEY
+                SOURCE_SYSTEM_PRIMARY_KEY is null
+                AND
+                SOURCE_SYSTEM_ID = :SOURCE_SYSTEM_ID
+                AND
+                COUNTRY_ID = :COUNTRY_ID;
+                commit;
+       RETURN 1;
+    END IF;
+    
+    -- INSERT Statement - No values was inserted before
+    INSERT INTO IDQ_RESULTS.REF_EXCLUDE
+        (ID, RULE_ID, BRANCH_ID, SOURCE_SYSTEM_PRIMARY_KEY, SOURCE_SYSTEM_ID, COUNTRY_ID, TEST_OBJECT_TYPE_ID, INSERTED_BY, EXCLUDE_REASON, EXCLUDE_FLAG, INSERTED_AT)
+    VALUES
+        ((select max(ID)+1 from IDQ_RESULTS.REF_EXCLUDE), :RULE_ID, :BRANCH_ID, NULL ,:SOURCE_SYSTEM_ID, :COUNTRY_ID, :TEST_OBJECT_TYPE_ID, :INSERTED_BY, :EXCLUDE_REASON, :EXCLUDE_FLAG, CURRENT_TIMESTAMP());
+        commit;
+END';

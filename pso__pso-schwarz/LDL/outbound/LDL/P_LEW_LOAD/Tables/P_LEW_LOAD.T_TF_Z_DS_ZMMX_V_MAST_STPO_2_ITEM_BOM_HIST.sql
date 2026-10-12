@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_z_ds_zmmx_v_mast_stpo_2_item_bom_hist (
+client_id BIGNUMERIC(38),
+lidl_country STRING(40),
+z_ds_zmmx_v_mast_stpo_matnr STRING(36),
+z_ds_zmmx_v_mast_stpo_werks STRING(8),
+z_ds_zmmx_v_mast_stpo_stlan STRING(2),
+z_ds_zmmx_v_mast_stpo_stlnr STRING(16),
+z_ds_zmmx_v_mast_stpo_stlal STRING(4),
+src_matnr STRING(40),
+src_werks STRING(40),
+src_stlnr STRING(40),
+src_stlan STRING(40),
+src_stlal STRING(40),
+bom_alternative_cd STRING(20),
+version_counter BIGNUMERIC(38),
+active_from_dt DATE,
+deleted_fg BIGNUMERIC(38),
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

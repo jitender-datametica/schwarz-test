@@ -1,0 +1,27 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.svmara_eks_item_nettweight_different_packcontent_sel (negotiatingcountry
+, buyershortsign, buyerfirstname, buyerlastname, zmatkl, articlefamily, itemid, itemno, articletype, description,
+zzz_quant_pack_cont, zzz_pack_content, zzz_pack_cont_uom, packagepackaging, eks_nettweight, zrelevantmdm, zsource,
+zactive) AS SELECT svmara_eks_item_nettweight_different_packcontent_sel_all.negotiatingcountry,
+ svmara_eks_item_nettweight_different_packcontent_sel_all.buyershortsign,
+ svmara_eks_item_nettweight_different_packcontent_sel_all.buyerfirstname,
+ svmara_eks_item_nettweight_different_packcontent_sel_all.buyerlastname,
+ svmara_eks_item_nettweight_different_packcontent_sel_all.zmatkl,
+ svmara_eks_item_nettweight_different_packcontent_sel_all.articlefamily,
+ svmara_eks_item_nettweight_different_packcontent_sel_all.itemid,
+ svmara_eks_item_nettweight_different_packcontent_sel_all.itemno,
+ svmara_eks_item_nettweight_different_packcontent_sel_all.articletype,
+ svmara_eks_item_nettweight_different_packcontent_sel_all.description,
+ svmara_eks_item_nettweight_different_packcontent_sel_all.zzz_quant_pack_cont,
+ REPLACE(REPLACE(SUBSTR(CAST(svmara_eks_item_nettweight_different_packcontent_sel_all.zzz_pack_content AS STRING), 1, 9
+    ), CHR(10), ' '), CHR(13), ' ') AS zzz_pack_content,
+ svmara_eks_item_nettweight_different_packcontent_sel_all.zzz_pack_cont_uom,
+ svmara_eks_item_nettweight_different_packcontent_sel_all.packagepackaging,
+ svmara_eks_item_nettweight_different_packcontent_sel_all.eks_nettweight,
+ svmara_eks_item_nettweight_different_packcontent_sel_all.zrelevantmdm,
+ svmara_eks_item_nettweight_different_packcontent_sel_all.zsource,
+ svmara_eks_item_nettweight_different_packcontent_sel_all.zactive
+FROM idq_production_eks_calculation.svmara_eks_item_nettweight_different_packcontent_sel_all
+ LEFT JOIN idq_production_eks_calculation.eks_zsm_excludelist ON
+   svmara_eks_item_nettweight_different_packcontent_sel_all.itemno = eks_zsm_excludelist.itemno AND eks_zsm_excludelist
+   .reportno = '021'
+WHERE eks_zsm_excludelist.itemno IS NULL;

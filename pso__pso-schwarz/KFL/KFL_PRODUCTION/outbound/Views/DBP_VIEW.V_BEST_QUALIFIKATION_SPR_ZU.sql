@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_best_qualifikation_spr_zu AS SELECT mandant_id,
+ best_qualifikation_id,
+ spr_id,
+ best_qualifikation_bez
+FROM kfl_production_dbp_data.best_qualifikation_spr_zu;

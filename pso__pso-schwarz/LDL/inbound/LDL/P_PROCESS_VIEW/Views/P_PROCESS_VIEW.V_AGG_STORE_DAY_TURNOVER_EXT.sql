@@ -1,0 +1,23 @@
+CREATE OR REPLACE VIEW P_PROCESS_VIEW.V_AGG_STORE_DAY_TURNOVER_EXT
+AS
+   SELECT
+    client_id,
+   src_orig_store_nr      AS orig_store_nr,
+   dat_formdate,
+   currency_iso_cd,
+   loc_sid_store          AS store_id,
+   cy_month,
+   cnt_customer,
+   val_rtl,
+   val_rtl_net,
+   val_rtl_extrapol,
+   val_rtl_net_extrapol,
+   val_rtl_kpges,
+   val_rtl_net_kpges,
+   val_rtl_wawi,
+   val_rtl_net_wawi,
+   val_rtl_txj,
+   val_rtl_net_txj,
+   val_rtl_ejr,
+   val_rtl_net_ejr
+   FROM p_lew_bil_ac.v_agg_store_day_turnover_ext;

@@ -1,0 +1,12 @@
+CREATE TABLE core_dim.T_DIM_QUARTER_HOUR (
+   qtr_hr                              NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier for a quarter-hour interval. Format: hhmm, indicating the begin time of the quarter-hour interval, with hh being the hour component and mm the minute component. ',
+   qtr_hr_begin_tm                     TIME(9)         COMMENT 'The start time (inclusive) of the quarter-hour interval. E.g. 00:00:00 for the interval from 00:00:00 to 00:14:59.',
+   qtr_hr_end_tm                       TIME(9)         COMMENT 'The end time (inclusive) of the quarter-hour interval. E.g. 00:14:59 for the interval from 00:00:00 to 00:14:59.',
+   hr                                  NUMBER(38, 0)   NOT NULL COMMENT 'The hour of day, i.e.a number in the range from 0 to 23.',
+   half_hr                             NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier for a half-hour interval. Format: hhmm, indicating the begin time of the half-hour interval, with hh being the hour component and mm the minute component. ',
+   dwh_created_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   dwh_updated_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+   dwh_load_id                         NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+   dwh_node_cd                         VARCHAR(20)     NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.',
+   CONSTRAINT PK_T_DIM_QUARTER_HOUR PRIMARY KEY (qtr_hr) NOT ENFORCED
+ )  COMMENT= 'This minor dimension contains the 96 quarter-hour intervals of a day.';

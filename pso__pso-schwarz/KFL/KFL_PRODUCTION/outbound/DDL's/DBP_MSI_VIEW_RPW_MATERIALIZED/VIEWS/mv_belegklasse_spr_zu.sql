@@ -1,0 +1,9 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_rpw_materialized.mv_belegklasse_spr_zu (
+mandant_id INTEGER,
+belegklasse_id STRING(5),
+spr_id INTEGER,
+belegklasse_bez STRING(40),
+belegklasse_bez_kurz STRING(20),
+belegklasse_bez_lang STRING(100),
+system_id INTEGER
+);

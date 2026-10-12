@@ -1,0 +1,28 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_wwc.mv_inventur_bewertung (mandant_id, inventurart_id, wup_id, nb_id
+, art_id, dat_preis, arthiertyp_id, beleg_erfasser_id, dat_erstellung, zeit_inventur, wg_id_hist, owg_id_hist, mwst_id,
+rate_steuersatz, inventur_typ_txt, wrg_id, menge_bme_inventur_diff, menge_bme_inventur_diebstahl, preis_vk_brutto,
+preis_vk_netto, preis_vk_brutto_korrigiert, betrag_vk_netto_inventur_diff, betrag_vk_netto_inventur_diebstahl) AS SELECT
+ mandant_id,
+ inventurart_id,
+ wup_id,
+ nb_id,
+ art_id,
+ dat_preis,
+ arthiertyp_id,
+ beleg_erfasser_id,
+ dat_erstellung,
+ zeit_inventur,
+ wg_id AS wg_id_hist,
+ owg_id AS owg_id_hist,
+ mwst_id,
+ rate_steuersatz,
+ inventur_typ_txt,
+ wrg_id,
+ menge_bme_inventur_diff,
+ menge_bme_inventur_diebstahl,
+ preis_vk_brutto,
+ preis_vk_netto,
+ preis_vk_brutto_korrigiert,
+ betrag_vk_netto_inventur_diff,
+ betrag_vk_netto_inventur_diebstahl
+FROM kfl_production_dbp_view.v_inventur_bewertung;

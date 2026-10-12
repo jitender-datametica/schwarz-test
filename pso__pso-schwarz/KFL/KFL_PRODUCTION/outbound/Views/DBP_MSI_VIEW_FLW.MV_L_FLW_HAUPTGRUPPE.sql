@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_flw.mv_l_flw_hauptgruppe AS SELECT mandant_id,
+ hauptgruppe_id,
+ hauptgruppe_id AS hauptgruppe_int_id
+FROM kfl_production_dbp_view.v_flw_hauptgruppe;

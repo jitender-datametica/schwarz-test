@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIFECYCLE.MV_L_LIFECYCLE_RVM_CLEANING_TYPE 
+AS SELECT
+ core.t_dim_rvm_cleaning_type.cleaning_type_cd
+,core.t_dim_rvm_cleaning_type.cleaning_type_descr_en
+,core.t_dim_rvm_cleaning_type.cleaning_type_descr_de
+,core.t_dim_rvm_cleaning_type.cleaning_type_descr
+FROM 
+core.t_dim_rvm_cleaning_type
+;

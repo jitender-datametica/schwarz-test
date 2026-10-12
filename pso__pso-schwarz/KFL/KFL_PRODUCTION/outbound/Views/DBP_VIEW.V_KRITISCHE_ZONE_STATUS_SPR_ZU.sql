@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_kritische_zone_status_spr_zu AS SELECT mandant_id,
+ kritische_zone_status_id,
+ spr_id,
+ kritische_zone_status_bez
+FROM kfl_production_dbp_data.kritische_zone_status_spr_zu;

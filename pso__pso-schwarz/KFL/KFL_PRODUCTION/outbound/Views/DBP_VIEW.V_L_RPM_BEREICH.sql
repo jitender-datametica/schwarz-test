@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_rpm_bereich AS SELECT rpm_bereich_id,
+ rpm_hierarchie_id
+FROM kfl_production_dbp_data.l_rpm_bereich;

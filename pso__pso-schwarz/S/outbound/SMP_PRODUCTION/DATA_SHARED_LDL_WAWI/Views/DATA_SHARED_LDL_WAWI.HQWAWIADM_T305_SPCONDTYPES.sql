@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW smp_production_data_shared_ldl_wawi.hqwawiadm_t305_spcondtypes (wawi_instanz_kzl, c305_spcondnr,
+c305_spconddesc, c305_defaultkrednr, c305_matchable, c305_includeinmarg, c305_sign, c305_weightcond, c305_spcondtype,
+scn, delete_fg, extraction_tmsp) AS SELECT wawi_instanz_kzl,
+ c305_spcondnr,
+ c305_spconddesc,
+ c305_defaultkrednr,
+ c305_matchable,
+ c305_includeinmarg,
+ c305_sign,
+ c305_weightcond,
+ c305_spcondtype,
+ scn,
+ delete_fg,
+ extraction_tmsp
+FROM ldl_wawi_production_hqwawiadm.t305_spcondtypes;

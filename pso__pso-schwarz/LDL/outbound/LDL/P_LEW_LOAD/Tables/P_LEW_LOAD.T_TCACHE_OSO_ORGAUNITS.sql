@@ -1,0 +1,27 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tcache_oso_orgaunits (
+extraction_timestamp DATETIME,
+bic_zmlila STRING(100000),
+address JSON,
+closingdate STRING(22),
+employeeid STRING(90),
+employees JSON,
+locale STRING(90),
+name STRING(255),
+openingdate STRING(22),
+organumber BIGNUMERIC(38,0),
+orgaunitid BIGNUMERIC(38,0),
+parentorgaunitid BIGNUMERIC(38,0),
+phone STRING(256),
+region JSON,
+status STRING(30),
+storeid STRING(90),
+taxdata JSON,
+temporaryclosings JSON,
+testorgaunit BOOL,
+timezone STRING(30),
+type STRING(50),
+load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created TIMESTAMP
+OPTIONS(description='The point in time when this record was created in the data warehouse.'),
+dwh_updated TIMESTAMP OPTIONS(description='The point in time when this record was last updated.')
+);

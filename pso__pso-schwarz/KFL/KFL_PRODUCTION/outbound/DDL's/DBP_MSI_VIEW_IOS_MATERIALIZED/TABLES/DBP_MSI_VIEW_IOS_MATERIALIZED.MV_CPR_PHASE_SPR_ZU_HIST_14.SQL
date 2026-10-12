@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_ios_materialized.mv_cpr_phase_spr_zu_hist_14 (
+projekt_phase_id STRING(32) COLLATE 'und:ci',
+mandant_id INTEGER,
+dat_von DATE,
+dat_bis DATE,
+dat_extrakt DATE,
+cpr_phase_bez STRING(16777216) COLLATE 'und:ci',
+cpr_phase_bez_cz STRING(16777216) COLLATE 'und:ci',
+cpr_phase_bez_sk STRING(16777216) COLLATE 'und:ci',
+cpr_phase_bez_hr STRING(16777216) COLLATE 'und:ci',
+cpr_phase_bez_pl STRING(16777216) COLLATE 'und:ci',
+cpr_phase_bez_ro STRING(16777216) COLLATE 'und:ci',
+cpr_phase_bez_en STRING(16777216) COLLATE 'und:ci',
+cpr_phase_bez_bg STRING(16777216) COLLATE 'und:ci',
+cpr_phase_langtext STRING(16777216) COLLATE 'und:ci',
+cpr_phase_langtext_cz STRING(16777216) COLLATE 'und:ci',
+cpr_phase_langtext_sk STRING(16777216) COLLATE 'und:ci',
+cpr_phase_langtext_hr STRING(16777216) COLLATE 'und:ci',
+cpr_phase_langtext_pl STRING(16777216) COLLATE 'und:ci',
+cpr_phase_langtext_ro STRING(16777216) COLLATE 'und:ci',
+cpr_phase_langtext_en STRING(16777216) COLLATE 'und:ci',
+cpr_phase_langtext_bg STRING(16777216) COLLATE 'und:ci'
+);

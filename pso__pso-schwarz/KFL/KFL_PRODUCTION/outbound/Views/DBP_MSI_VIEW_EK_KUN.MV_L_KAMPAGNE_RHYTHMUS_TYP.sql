@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ek_kun.mv_l_kampagne_rhythmus_typ (mandant_id,
+kampagne_rhythmus_typ_id) AS SELECT mandant_id,
+ kampagne_rhythmus_typ_id
+FROM kfl_production_dbp_view.v_l_kampagne_rhythmus_typ;

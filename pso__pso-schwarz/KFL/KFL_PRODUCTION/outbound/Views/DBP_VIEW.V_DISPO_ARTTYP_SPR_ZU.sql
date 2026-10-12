@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_dispo_arttyp_spr_zu AS SELECT mandant_id,
+ spr_id,
+ dispo_arttyp_id,
+ dispo_arttyp_bez,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.dispo_arttyp_spr_zu;

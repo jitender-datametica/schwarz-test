@@ -1,0 +1,60 @@
+--==============================================================
+-- Table: pmr_angebot_art_wup_zu
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: pmr_angebot_art_wup_zu
+   generated from Powerdesigner on Dienstag, 26. November 2024 10:54:58
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE DBP_DATA.PMR_ANGEBOT_ART_WUP_ZU (
+   mandant_id                          NUMBER(38,0)     NOT NULL COMMENT 'Mandant im DWH.',
+   angebot_id                          NUMBER(38,0)     NOT NULL COMMENT 'Aus TableName wbs_werbeaenderungen Offer/Angebot.',
+   art_id                              NUMBER(38,0)     NOT NULL COMMENT 'Input: Artikel - Id einschliesslich der Generationen - ID (9-stellig); Output: 7stellige L&S-ID + Counter = 8stellige ArtikelID. WWNNNNPC (Warengruppe, Nummer, Pruefziffer, Counter) Regel: Neuer Artikel -> Counter +1.',
+   nb_id                               NUMBER(38,0)     NOT NULL COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer.',
+   wup_id                              NUMBER(38,0)     NOT NULL COMMENT 'Mutter Wup ID wird verwendet für Beziehung Lager zu Verteilzentrum.',
+   verkaufsorganisation_id             VARCHAR(4)       NOT NULL COMMENT 'Organisatorische Einheit, die fuer den Vertrieb bestimmter Produkte oder Dienstleistungen verantwortlich ist, z. B. KL = Kaufland.',
+   dat_von                             DATE             COMMENT 'YYYY-MM-DD // Aktion gueltig (von).',
+   dat_bis                             DATE             COMMENT 'YYYY-MM-DD // Aktion gueltig (bis).',
+   preis_aktion                        NUMBER(9,2)      COMMENT 'Aktions-Verkaufspreis (Brutto).',
+   preis_normal                        NUMBER(9,2)      COMMENT 'Normal-Verkaufspreis (Brutto).',
+   preis_nachlass_perc                 NUMBER(9,2)      COMMENT 'Preisnachlass in %.',
+   bestand_bme                         NUMBER(18,3)     COMMENT 'Marktbestand in BME.',
+   mindestmenge_bme                    NUMBER(18,3)     COMMENT 'Mindestmenge in BME.',
+   maximalmenge_bme                    NUMBER(18,3)     COMMENT 'Maximalmenge in BME.',
+   nis_fg                              NUMBER(38,0)     COMMENT 'Flag: Sonstige Aenderung.',
+   aktion_id                           VARCHAR(20)      COMMENT 'Aktionsnummer.',
+   masterbonus_fg                      NUMBER(38,0)     COMMENT 'Flag: Masterbonus.',
+   gondelkopf_fg                       NUMBER(38,0)     COMMENT 'Flag: Gondelkopf.',
+   topartikel_fg                       NUMBER(38,0)     COMMENT 'Flag: Topartikel.',
+   pmr_werbethema_id                   VARCHAR(6)       COMMENT 'Werbethema ID.',
+   pmr_werbethema_beschreibung         VARCHAR(50)      COMMENT 'Werbethemabeschreibung.',
+   bonuskauf_anreiztyp                 VARCHAR(4)       COMMENT 'Kundenkarte "KDP" = personalisiert, "KDN" = für alle Kundenkartenbesitzer.',
+   bonuskauf_geschaeftsvorfall_id      VARCHAR(2)       COMMENT 'BBY Geschaeftsvorfall z.B. Z04 (% Preisnachlass), es gibt derzeit 35 unterschiedliche.',
+   bonuskauf_konditionsart_id          VARCHAR(4)       COMMENT 'Konditionsart, welche an der Kasse verwendet wird. Z.B. ZK01, ZK03.',
+   bonuskauf_limit                     NUMBER(38,0)     COMMENT 'Bonuskaufrabattlimit. Wenn Limit = 3, dann koennen max. 3 Stueck eines Artikel verguenstigt gekauft werden. Der 4. waere wieder Normalpreis.',
+   bonuskauf_fg                        NUMBER(38,0)     COMMENT 'Kennzeichen: Bonuskauf-Aktion.',
+   bonuskauf_bedingung_id              NUMBER(38,0)     COMMENT 'Bonuskauf Bedingung (Kauf / Bonus / Praemie).',
+   bonuskauf_dimension_id              VARCHAR(10)      COMMENT 'Bonuskauf Dimension (Produkt / Produktgruppe / Segment …).',
+   bonuskauf_produktgruppenname        VARCHAR(100)     COMMENT 'Name der Produktgruppe (fasst Artikel zusammen, welche zur gleichen Gruppe gehoeren). Beispiel: Kaufe 1 Artikel aus Produktgruppe „Getraenke“ und 1 Artikel aus Produktgruppe „Snack“ und bekomme dafür 5 € Discount. Du kannst also anhand der Produktgruppe erkennen, welche Artikel zur gleichen Gruppe gehoeren.',
+   bonuskauf_bonusmenge                NUMBER(18,3)     COMMENT 'Menge, die man im Bonus bekommt. Z.B. 2 ST (wenn man 2 ST kostenlos bekommt).',
+   bonuskauf_kaufmenge                 NUMBER(18,3)     COMMENT 'Menge, die man kaufen muss, um den Bonus zu bekommen.',
+   bonuskauf_mindestbetrag             NUMBER(18,3)     COMMENT 'BBY_MIN_AMOUNT ist der Betrag, den der Kunde min. an der Kasse ausgeben muss um den Bonus zu bekommen.',
+   bonuskauf_rabatttype_id             VARCHAR(10)      COMMENT 'Bonuskauf Rabatttyp (Normalpreis / Rabattpreis / Kostenlos / …).',
+   bonuskauf_produktvariante_id        NUMBER(38,0)     COMMENT 'Bonuskauf Produktvariante (Beliebig / Identisch / Andere).',
+   bonuskauf_rabatt_perc               NUMBER(18,3)     COMMENT 'Kann % oder absolut sein, abhaengig von BBY_DISC_TYPE.',
+   bonuskauf_rabatt_zuordnung_id       NUMBER(38,0)     COMMENT 'Bonuskauf Rabattzuordnung (Alle Produkte / guenstigstes / teuerstes).',
+   bonuskauf_promotionstyp             VARCHAR(4)       COMMENT 'Promotionstyp, expected entries e.g. 0001, 0005, ZAI, ZBBR.',
+   preis_niedrigster                   NUMBER(38,2)     COMMENT 'Guenstigster / niedrigster Preis der letzten 30 Tage. Bezugspreis für die Preisvorteilermittlung im Rahmen der Preisangabenverordnung, PAngV.',
+   preis_niedrigster_diff_perc         NUMBER(38,3)     COMMENT 'Prozentualer Unterschied/Preisvorteil (PV, manchmal auch Preisveraenderung) des jetztigen (Angebots-)Preises zum geringsten Preis der vergangenen 30 Tage.',
+   opv_markt_fg                        NUMBER(38,0)     COMMENT 'Flag: Preisvorteil für Artikel in den digitalen Kanälen (App, Web, Digital Signage) zu diesem Markt nicht anzeigen. 1 = kein PV anzeigen, 0 = es wird ein PV angezeigt. Eine 1 hier bedeutet, dass es in diesem Markt für den Artikel in den vergangenen 30 Tagen einen niedrigeren Preisvorteil gab als den aktuell geplanten PV. Das bedeutet auch, dass dann in opv_prospekt_fg eine 1 gesetzt, womit alle zugehörigen Märkte im Leafletcluster betroffen sind. In allen physischen Märkten die zu diesem Leafletcluster gehören wird dann kein PV angezeigt. Ein Markt mit opv_prospekt_fg = 1 kann aber trotzdem hier eine 0 haben und ein PV in digitalen Kanälen angezeigt werden, wenn er in den letzten 30 Tagen keinen günstigeren PV hatte.',
+   opv_prospekt_fg                     NUMBER(38,0)     COMMENT 'Flag: Preisvorteil für Artikel im Prospekt zu dem dieser Markt gehört nicht anzeigen. 1 = kein PV anzeigen, 0 = es wird ein PV angezeigt. Wird auf 1 gesetzt, wenn irgendein Markt im Leafletcluster in den vergangenen 30 Tagen einen niedrigeren Preis hatte als der aktuell geplante PV (opv_markt_fg = 1). Eine 1 hier bedeutet auch, dass in allen physischen Märkten in diesem Leafletcluster kein PV angezeigt wird. Ob sie aber in den digitalen Kanälen anzeigen können hängt von opv_markt_fg ab.',
+   wrg_id                              VARCHAR(3)       COMMENT 'Kurzbezeichnung der Währung, z.Bsp. CZK, EUR',
+   utp_lieferant_bestaetigt_fg         NUMBER(38,0)     COMMENT 'Flag, welches angibt, ob ein UTP-Lieferant die Werbebestellmenge freigegeben hat  (0 oder 1)',
+   preis_niedrigster_logik_cd          VARCHAR(1)       COMMENT 'Der Buchstabe beschreibt, welche Berechnungslogik im SAP zur Ermittlung des günstigsten Preises (PREIS_NIEDRIGSTER und PREIS_NIEDRIGSTER_DIFF_PERC) verwendet wurde. Dies kann z.B. auf Basis der letzten 7 Tage oder letzten 30 Tage geschehen.',
+   stimmung_fg                         NUMBER(38,0)     COMMENT 'Flag beschreibt, ob ein Artikel mit einem stimmungsvollen Motiv im Leaflet abgebildet ist.',
+   preishammer_fg                      NUMBER(38,0)     COMMENT 'Flag beschreibt, ob ein Artikel einen besonders attraktiven Preis hat.',
+   ek_art_id_ref                       NUMBER(38,0)     COMMENT 'Artikelnummer des Produktes aus PMR, welches vom Einkäufer als Referenz vorgeschlagen wird. Sie entspricht dbp_data.art.kl_art_id.',
+   TD_UPDATE                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   TD_INSERT                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   CONSTRAINT PK_PMR_ANGEBOT_ART_WUP_ZU PRIMARY KEY (mandant_id, angebot_id, art_id, nb_id, verkaufsorganisation_id, wup_id) NOT ENFORCED
+)  COMMENT = 'ZPMR_EOP_SST_WBS_TTY/Funktionsbaustein Interface PMR to WBS Local Interface.';

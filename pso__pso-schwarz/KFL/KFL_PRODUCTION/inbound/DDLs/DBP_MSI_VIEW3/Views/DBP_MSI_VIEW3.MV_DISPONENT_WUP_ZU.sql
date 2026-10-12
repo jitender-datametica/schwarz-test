@@ -1,0 +1,12 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW3.MV_DISPONENT_WUP_ZU
+(   mandant_id
+, wup_id
+, nb_id
+, disponent_id
+, disponent_name
+)
+AS
+   SELECT
+  mandant_id, wup_id, nb_id, disponent_id, disponent_name
+
+   FROM dbp_view.v_disponent_wup_zu;

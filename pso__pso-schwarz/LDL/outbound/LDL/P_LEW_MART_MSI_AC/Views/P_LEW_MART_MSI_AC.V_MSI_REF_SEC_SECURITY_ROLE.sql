@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi_ac.v_msi_ref_sec_security_role (security_role_id, security_role_desc) AS
+SELECT security_role_id,
+ security_role_desc
+FROM ldl_p_lew_mart_msi.t_msi_ref_sec_security_role;

@@ -1,0 +1,13 @@
+CREATE OR REPLACE VIEW p_lew_core_ac.v_customer_complaint_service_center (
+	cust_complaint_srv_center_cd
+	,cust_complaint_srv_center_desc
+	,dwh_load_id
+	,dwh_created
+	,dwh_updated
+) AS SELECT
+	cust_complaint_srv_center_cd
+	,cust_complaint_srv_center_desc
+	,dwh_load_id
+	,dwh_created
+	,dwh_updated
+FROM p_lew_core.t_customer_complaint_service_center;

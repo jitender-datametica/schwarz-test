@@ -1,0 +1,13 @@
+create or replace view SZD_PRODUCTION.FE_MSTR_LIFECYCLE.MV_L_LIFECYCLE_RVM_DEPOSIT_OUTPAYMENT_TYPE(
+	DEPOSIT_OUTPAYMENT_TYPE_CD,
+	DEPOSIT_OUTPAYMENT_TYPE_DESCR_EN,
+	DEPOSIT_OUTPAYMENT_TYPE_DESCR_DE,
+	DEPOSIT_OUTPAYMENT_TYPE_DESCR
+) as SELECT 
+  core.t_dim_deposit_outpayment_type.deposit_outpayment_type_cd
+ ,core.t_dim_deposit_outpayment_type.deposit_outpayment_type_descr_en
+ ,core.t_dim_deposit_outpayment_type.deposit_outpayment_type_descr_de
+ ,core.t_dim_deposit_outpayment_type.deposit_outpayment_type_descr
+FROM 
+core.t_dim_deposit_outpayment_type
+;

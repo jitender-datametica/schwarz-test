@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_reb.mv_artkz_discount (discount_id, discount_bez, mandant_id, spr_id
+) AS SELECT discount_id,
+ discount_bez,
+ mandant_id,
+ spr_id
+FROM kfl_production_dbp_view.v_artkz_discount
+WHERE mandant_id = 1
+ AND spr_id = 22;

@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_ref_sdl_building_hist (client_id, building_sid, sdl_ignore_fg,
+sdl_country_code, sdl_building_status, sdl_building_status_co_override, sdl_building_name, sdl_building_name_co_override
+, sdl_building_type, sdl_building_type_co_override, sdl_opening_dt, sdl_opening_dt_co_override, sdl_closing_dt,
+sdl_closing_dt_co_override, sdl_closing_reason, sdl_closing_reason_co_override, sdl_rebuild_fg,
+sdl_rebuild_fg_co_override, sdl_replacement_to_dt, sdl_replacement_to_dt_co_override, sdl_replacement_from_dt,
+sdl_replacement_from_dt_co_override, sdl_sales_area_in_meas, sdl_sales_area_in_meas_co_override, sdl_parking_place_cnt,
+sdl_parking_place_cnt_co_override, sdl_owned_parking_place_cnt, sdl_owned_parking_place_cnt_co_override, sdl_longitude,
+sdl_longitude_co_override, sdl_latitude, sdl_latitude_co_override, sdl_city_group_name, sdl_city_group_name_co_override
+, sdl_city_name, sdl_city_name_co_override, sdl_zip, sdl_zip_co_override, sdl_street_name, sdl_street_name_co_override,
+sdl_house_nr, sdl_house_nr_co_override, sdl_inhabitants_500m_cnt, sdl_inhabitants_500m_cnt_co_override,
+sdl_inhabitants_1000m_cnt, sdl_inhabitants_1000m_cnt_co_override, sdl_inhabitants_catchment_area_cnt,
+sdl_inhabitants_catchment_area_cnt_co_override, sdl_country_wh_nr, sdl_country_wh_nr_co_override, sdl_expansion_wh_nr,
+sdl_expansion_wh_nr_co_override, sdl_balance_sheet_wh_nr, sdl_balance_sheet_wh_nr_co_override, sdl_delivery_wh_nr,
+sdl_delivery_wh_nr_co_override, sdl_sales_wh_nr, sdl_sales_wh_nr_co_override, sdl_owner_wh_nr,
+sdl_owner_wh_nr_co_override, deleted_fg, dwh_valid_from, dwh_valid_to, dwh_load_id, dwh_created, dwh_updated) AS SELECT
+ *
+FROM ldl_p_lew_core.t_ref_sdl_building_hist;

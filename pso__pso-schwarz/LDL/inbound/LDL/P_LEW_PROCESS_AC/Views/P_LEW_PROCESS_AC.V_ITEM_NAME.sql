@@ -1,0 +1,27 @@
+CREATE OR REPLACE VIEW P_LEW_PROCESS_AC.V_ITEM_NAME
+               AS
+                  SELECT   client_id,
+                  item_sid,
+                  item_name,
+                  item_name_BG,
+                  item_name_CS,
+                  item_name_DA,
+                  item_name_DE,
+                  item_name_EL,
+                  item_name_EN,
+                  item_name_ES,
+                  item_name_FI,
+                  item_name_FR,
+                  item_name_HR,
+                  item_name_HU,
+                  item_name_IT,
+                  item_name_LT,
+                  item_name_NL,
+                  item_name_PL,
+                  item_name_PT,
+                  item_name_RO,
+                  item_name_SH,
+                  item_name_SK,
+                  item_name_SL,
+                  item_name_SV
+                  FROM p_lew_process.v_item_name;

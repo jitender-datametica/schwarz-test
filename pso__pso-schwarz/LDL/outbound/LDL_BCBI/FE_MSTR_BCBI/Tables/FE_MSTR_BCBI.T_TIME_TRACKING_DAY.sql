@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS ldl_bcbi_fe_mstr_bcbi.t_time_tracking_day (
+client_id BIGNUMERIC(38,0) NOT NULL,
+loc_sid BIGNUMERIC(38,0) NOT NULL,
+time_record_id BIGNUMERIC(38,0) NOT NULL,
+time_record_change_dt DATE NOT NULL,
+employee_hash STRING(100),
+time_type_sid BIGNUMERIC(38,0),
+hours_cnt NUMERIC(9,5),
+cancel_fg BIGNUMERIC(38,0) NOT NULL,
+dwh_cal_dt DATE NOT NULL,
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL,
+timestamp_load_bcbi TIMESTAMP
+);

@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process_ac.v_itemgroup_international_name AS SELECT *
+FROM ldl_p_lew_process.v_itemgroup_international_name;

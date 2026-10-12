@@ -1,0 +1,50 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_AAD.MV_ODS_BON_LEERGUT(
+
+	BON_ID,
+	BON_ZEILE,
+	MANDANT_ID,
+	WUP_ID,
+	BON_DAT,
+	EAN_KASSE,
+	UMSATZ_BRUTTO,
+	START_BON_ZEILE,
+	BON_NR_EXTERN,
+	KPOS_ERFASSUNG_ID,
+	MENGE,
+	KL_ART_ID,
+	WG_ID,
+	EINH_ID,
+	MWST_ID,
+	BARCODE_LEERGUT
+)
+AS
+SELECT
+	  v01.BON_ID
+	, v01.BON_ZEILE
+	, v01.MANDANT_ID
+	, v02.AKTUELL_WUP_ID AS WUP_ID
+	, v01.BON_DAT
+	, v01.EAN_KASSE
+	, v01.UMSATZ_BRUTTO
+	, v01.START_BON_ZEILE
+	, v01.BON_NR_EXTERN
+	, v01.KPOS_ERFASSUNG_ID
+	, v01.MENGE
+	, v01.KL_ART_ID
+	, v04.WG_ID
+	, v01.EINH_ID
+	, v01.MWST_ID
+	, v01.BARCODE_LEERGUT
+	FROM DBP_V_ODS.V_ODS_BON_LEERGUT v01
+	
+INNER JOIN dbp_view.v_wup v02
+ON v01.wup_id = v02.wup_id
+AND v01.mandant_id = v02.mandant_id
+INNER JOIN dbp_view.v_art v03
+ON v01.kl_art_id=v03.kl_art_id
+AND v01.mandant_id=v03.mandant_id
+INNER JOIN dbp_view.v_art_wg_zu_per v04
+ON v03.art_id=v04.art_id
+AND v03.mandant_id=v04.mandant_id
+
+;

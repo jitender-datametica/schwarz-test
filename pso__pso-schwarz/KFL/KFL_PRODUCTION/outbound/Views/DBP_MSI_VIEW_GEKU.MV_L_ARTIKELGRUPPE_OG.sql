@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku.mv_l_artikelgruppe_og (artikelgruppe_og_id) AS SELECT V01.zusatzinfo_sel_id
+  AS artikelgruppe_og_id
+FROM kfl_production_dbp_view.v_l_geku_zusatzinfo_sel_zu AS V01
+ INNER JOIN kfl_production_dbp_view.v_geku_zusatzinfo_spr_zu AS V02 ON V01.zusatzinfo_id = V02.zusatzinfo_id
+WHERE V02.spr_id = 22
+ AND V02.zusatzinfo_bez = 'Artikelgruppen O&G'
+UNION ALL
+SELECT - 1 AS artikelgruppe_og_id
+FROM kfl_production_dbp_view.v_mandant
+WHERE mandant_id = 1;

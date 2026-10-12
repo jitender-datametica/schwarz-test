@@ -1,0 +1,98 @@
+CREATE OR REPLACE VIEW s_conl.v_org_wh_merge
+AS
+SELECT DISTINCT
+wh_act.aspect_id,
+wh_act.client_id,
+wh.src_wh_id AS wh_id,
+wh_act.country_cd,
+wh_act.gl_region_id,
+wh_act.dat_opening,
+wh_act.costcenter_cd,
+wh_act.company,
+wh_act.order_buying_list_cd,
+wh_act.vat_region_nr,
+wh_act.region_cd,
+wh_act.stock_plain,
+wh_act.sponsion,
+wh_act.global_location_nr,
+wh_act.wh_desc,
+wh_act.distribute_wh_fg,
+wh_act.int_fg,
+wh_act.hq_fg,
+wh_act.prop_wh_fg,
+wh_act.sales_wh_fg,
+wh_act.supp_wh_fg,
+wh_act.wawi_data_fg,
+wh_act.ovis_data_fg,
+wh2.src_wh_id AS parent_wh_id,
+wh_act.buying_region
+FROM p_lew_core_ac.v_wawi_org_wh_merge_act wh_act
+
+INNER JOIN p_lew_bil_ac.v_warehouse wh
+ON wh_act.wh_loc_sid = wh.loc_sid_wh
+AND wh_act.client_id = wh.client_id
+AND wh.dwh_actual_fg = 1
+
+-- Left outer join, weil auch NULL als parend_wh_loc_sid gibt
+LEFT OUTER JOIN p_lew_bil_ac.v_warehouse wh2
+ON wh_act.parent_wh_loc_sid = wh2.loc_sid_wh
+AND wh_act.client_id = wh2.client_id
+AND wh.dwh_actual_fg = 1
+
+WHERE wh_act.client_id IN
+	(SELECT
+client_id
+FROM s_conl.t_user_mapping WHERE lower(user_name) = lower(current_user))
+
+UNION ALL
+/* dummy warehouse for country level in aspect id 1 and 2 */
+SELECT
+multiply.row_no                                   AS aspect_id,
+client_id                                         AS client_id,
+-1 * client_id                                    AS wh_id,
+cntr.country_iso_cd                               AS country_cd,
+-1 * client_id                                    AS gl_region_id,
+NULL                                              AS dat_opening,
+-1 * client_id                                    AS costcenter_cd,
+CAST( NULL      AS VARCHAR (50)    )              AS company,
+NULL                                              AS order_buying_list_cd,
+CAST( NULL      AS VARCHAR(20)     )              AS vat_region_nr,
+NULL                                              AS region_cd,
+NULL                                              AS stock_plain,
+CAST( NULL      AS VARCHAR (50)    )              AS sponsion,
+CAST( NULL      AS VARCHAR (50)    )              AS global_location_nr,
+'#'|| TRIM( cntr.country_iso_cd)
+AS wh_desc,
+NULL                                              AS distribute_wh_fg,
+NULL                                              AS int_fg,
+NULL                                              AS hq_fg,
+NULL                                              AS prop_wh_fg,
+NULL                                              AS sales_wh_fg,
+NULL                                              AS supp_wh_fg,
+NULL                                              AS wawi_data_fg,
+NULL                                              AS ovis_data_fg,
+-1 * client_id                                     AS parent_wh_id,
+CAST( NULL      AS VARCHAR (50)    )              AS buying_region
+FROM p_lew_core_ac.v_wawi_ref_client_country              AS clnt
+
+INNER JOIN p_lew_core_ac.v_wawi_ref_country               AS cntr
+ON clnt.country_id = cntr.country_id
+
+CROSS JOIN (SELECT
+1 AS row_no
+FROM (SELECT
+1 AS one) SUB1
+UNION ALL
+SELECT
+2 AS row_no
+FROM (SELECT
+1 AS two) SUB2
+) AS multiply
+WHERE cntr.dashboard_relevant_fg = 1
+	AND client_id IN
+	(SELECT
+client_id
+FROM s_conl.t_user_mapping WHERE lower(user_name) = lower(current_user));
+
+/*** MSC-WARNING - MSCEWI3045 - MISSING DEPENDENT OBJECTS "p_lew_bil_ac.v_agg_work_time_store_day", "p_lew_bil_ac.v_store_to_warehouse_lastknown" ***/
+

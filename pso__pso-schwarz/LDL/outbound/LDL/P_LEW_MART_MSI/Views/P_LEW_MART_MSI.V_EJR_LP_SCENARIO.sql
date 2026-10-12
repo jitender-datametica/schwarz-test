@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi.v_ejr_lp_scenario AS SELECT scenario_id
+FROM ldl_p_lew_mart_msi.t_msi_ejr_lp_rel_scenario_to_group
+GROUP BY scenario_id;

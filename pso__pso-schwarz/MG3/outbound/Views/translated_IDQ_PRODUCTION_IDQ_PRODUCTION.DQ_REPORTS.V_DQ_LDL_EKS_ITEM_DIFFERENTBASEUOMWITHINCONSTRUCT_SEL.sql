@@ -1,0 +1,27 @@
+CREATE OR REPLACE VIEW idq_production_dq_reports.v_dq_ldl_eks_item_differentbaseuomwithinconstruct_sel (ref_calculation_time
+, ref_country_id, negotiatingcountry, buyershortsign, buyerfirstname, buyerlastname, zmatkl, articlefamily, ba_itemno,
+itemid, itemno, articletype, description, bundlefact, volume, unitdescription, zusatz_gew_art_int, zusatz_gew_art_nat,
+baseuom, zrelevantmdm, zsource, zactive) AS SELECT idq_production_eks_calculation.getlastexecutiontime() AS
+ ref_calculation_time,
+ idq_production_dq_reports.getcountryid_ltlv_workaround(negotiatingcountry, itemno) AS ref_country_id,
+ negotiatingcountry,
+ buyershortsign,
+ buyerfirstname,
+ buyerlastname,
+ zmatkl,
+ articlefamily,
+ ba_itemno,
+ itemid,
+ itemno,
+ articletype,
+ description,
+ bundlefact,
+ volume,
+ unitdescription,
+ zusatz_gew_art_int,
+ zusatz_gew_art_nat,
+ baseuom,
+ zrelevantmdm,
+ zsource,
+ zactive
+FROM idq_production_eks_calculation.svmara_eks_item_differentbaseuomwithinconstruct_sel;

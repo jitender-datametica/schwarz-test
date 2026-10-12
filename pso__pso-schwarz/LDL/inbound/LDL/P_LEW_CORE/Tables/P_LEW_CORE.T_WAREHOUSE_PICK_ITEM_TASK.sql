@@ -1,0 +1,26 @@
+create or replace TABLE LDL_PRODUCTION_CLONE_GOOGLE_20260608_1030.P_LEW_CORE.T_WAREHOUSE_PICK_ITEM_TASK (
+	CLIENT_ID NUMBER(38,0) NOT NULL COMMENT 'DWH-Mandant; FK auf CLIENT',
+	WH_LOC_SID NUMBER(38,0) NOT NULL COMMENT 'Warehouse; FK auf LOCATION',
+	WH_TASK_NR VARCHAR(100) NOT NULL COMMENT 'Identifier of the work task.',
+	WH_SUB_TASK_NR VARCHAR(100) NOT NULL COMMENT 'Additional identifier if the task is split further should full picking not be possible.',
+	WORK_PACKAGE_SID NUMBER(38,0) NOT NULL COMMENT 'Surrogate identifier to be created (country, warehouse and warehouse work package (WHO)).',
+	WH_TASK_PROCESS_NR VARCHAR(100) COMMENT 'Identifier for the of process the work task is for.',
+	WH_TASK_ACTIVITY_TYPE_CD VARCHAR(100) COMMENT 'Activity type of the work task, like pick, replenishment, stock change, internal move or putaway. Denormalized from t_ref_warehouse_process_type.',
+	WH_TASK_STATUS_CD VARCHAR(100) COMMENT 'Status of the work task: open, confirmed, cancelled, etc.',
+	WH_TASK_CREATE_DT DATE COMMENT 'Date when the work pick task was created.',
+	WH_TASK_CREATE_TMSP TIMESTAMP_NTZ(9) COMMENT 'The point in time when the work pick task was created.',
+	WH_TASK_START_DT DATE COMMENT 'Date when the work pick task was started to be worked on.',
+	WH_TASK_START_TMSP TIMESTAMP_NTZ(9) COMMENT 'The point in time when the work pick task was started to be worked on.',
+	WH_TASK_CONFIRM_DT DATE COMMENT 'Date when the work pick task was confirmed.',
+	WH_TASK_CONFIRM_TMSP TIMESTAMP_NTZ(9) COMMENT 'The point in time when the work pick task was confirmed.',
+	WH_TASK_GRP_NR VARCHAR(100) COMMENT 'Task Queue identifier, which is the basis for the work task in resource assignent.',
+	ITEM_SID NUMBER(38,0) COMMENT 'Surrogate Key ITEM (eindeutig ueber alle Laender/Mandanten hinweg).',
+	PICK_CASE_QTY NUMBER(38,5) COMMENT 'Pick quantity in cases.',
+	SRC_HANDLING_UNIT_NR VARCHAR(100) COMMENT 'Source handling unit identifier.',
+	DEST_HANDLING_UNIT_NR VARCHAR(100) COMMENT 'Destination handling unit identifier.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The identifier of the last load run which inserted or updated this row.',
+	DWH_CREATED TIMESTAMP_NTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED TIMESTAMP_NTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',
+	constraint PK_T_WAREHOUSE_PICK_ITEM_TASK primary key (WH_LOC_SID, WH_TASK_NR, WH_SUB_TASK_NR)
+)COMMENT='SAP EWM WH picking task, which encompasses all the PICK+ tasks.'
+;

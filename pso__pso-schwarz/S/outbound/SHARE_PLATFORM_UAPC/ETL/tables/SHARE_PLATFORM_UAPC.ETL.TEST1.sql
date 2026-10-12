@@ -1,0 +1,3 @@
+CREATE OR REPLACE TABLE share_platform_uapc_etl.test1 (
+test_1 STRING(16777216)
+);

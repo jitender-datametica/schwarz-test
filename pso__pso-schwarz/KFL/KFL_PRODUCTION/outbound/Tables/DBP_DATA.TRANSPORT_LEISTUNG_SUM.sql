@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.transport_leistung_sum (
+lagernummer_id STRING(3) COLLATE 'und:ci' NOT NULL,
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+von_lagertyp_id STRING(3) COLLATE 'und:ci' NOT NULL,
+nach_lagertyp_id STRING(3) COLLATE 'und:ci' NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+leist_empfaenger_sap_id STRING(20) COLLATE 'und:ci' NOT NULL,
+leist_empfaenger_gruppe_id STRING(30) COLLATE 'und:ci' NOT NULL,
+dat_leistung DATE NOT NULL,
+transport_gv_id BIGNUMERIC(38,0) NOT NULL,
+gp_id BIGNUMERIC(38,0) NOT NULL,
+menge_kolli NUMERIC(18,3) DEFAULT 0 NOT NULL,
+zeit_sekunden BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+zeit_ruest_sekunden BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+zeit_pause_sekunden BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+anzahl_transportauftrag BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+anzahl_versandblock BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+anzahl_ruestzeit BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+anzahl_pause BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

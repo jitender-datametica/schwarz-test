@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIFECYCLE.MV_L_LIFECYCLE_RVM_MACHINE_SORT_TYPE 
+AS SELECT 
+ core.t_dim_rvm_sort_type.rvm_sort_type_cd
+,core.t_dim_rvm_sort_type.rvm_sort_type_descr_en
+,core.t_dim_rvm_sort_type.rvm_sort_type_descr_de
+,core.t_dim_rvm_sort_type.rvm_sort_type_descr
+FROM 
+core.t_dim_rvm_sort_type
+;

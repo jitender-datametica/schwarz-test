@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ios.mv_l_cpr_kategorie (cpr_kategorie_id) AS SELECT cpr_kategorie_id
+FROM kfl_production_dbp_view.v_l_cpr_kategorie;

@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW P_LEW_BIL.V_DIM_REAL_ESTATE_STATUS as
+   SELECT
+       real_estate_status_cd,
+   real_estate_status_descr,
+   COALESCE(real_estate_status_descr_de, real_estate_status_descr)  AS real_estate_status_descr_de,
+   COALESCE(real_estate_status_descr_en, real_estate_status_descr)  AS real_estate_status_descr_en,
+   COALESCE(real_estate_status_descr_bg, real_estate_status_descr)  AS real_estate_status_descr_bg,
+   COALESCE(real_estate_status_descr_cs, real_estate_status_descr)  AS real_estate_status_descr_cs,
+   COALESCE(real_estate_status_descr_da, real_estate_status_descr)  AS real_estate_status_descr_da,
+   COALESCE(real_estate_status_descr_el, real_estate_status_descr)  AS real_estate_status_descr_el,
+   COALESCE(real_estate_status_descr_es, real_estate_status_descr)  AS real_estate_status_descr_es,
+   COALESCE(real_estate_status_descr_fi, real_estate_status_descr)  AS real_estate_status_descr_fi,
+   COALESCE(real_estate_status_descr_fr, real_estate_status_descr)  AS real_estate_status_descr_fr,
+   COALESCE(real_estate_status_descr_hr, real_estate_status_descr)  AS real_estate_status_descr_hr,
+   COALESCE(real_estate_status_descr_hu, real_estate_status_descr)  AS real_estate_status_descr_hu,
+   COALESCE(real_estate_status_descr_it, real_estate_status_descr)  AS real_estate_status_descr_it,
+   COALESCE(real_estate_status_descr_lt, real_estate_status_descr)  AS real_estate_status_descr_lt,
+   COALESCE(real_estate_status_descr_nl, real_estate_status_descr)  AS real_estate_status_descr_nl,
+   COALESCE(real_estate_status_descr_pl, real_estate_status_descr)  AS real_estate_status_descr_pl,
+   COALESCE(real_estate_status_descr_pt, real_estate_status_descr)  AS real_estate_status_descr_pt,
+   COALESCE(real_estate_status_descr_ro, real_estate_status_descr)  AS real_estate_status_descr_ro,
+   COALESCE(real_estate_status_descr_sh, real_estate_status_descr)  AS real_estate_status_descr_sh,
+   COALESCE(real_estate_status_descr_sk, real_estate_status_descr)  AS real_estate_status_descr_sk,
+   COALESCE(real_estate_status_descr_sl, real_estate_status_descr)  AS real_estate_status_descr_sl,
+   COALESCE(real_estate_status_descr_sv, real_estate_status_descr)  AS real_estate_status_descr_sv,
+   dwh_load_id,
+   dwh_created,
+   dwh_updated
+   FROM p_lew_bil.t_dim_real_estate_status
+;

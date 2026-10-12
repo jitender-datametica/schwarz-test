@@ -1,0 +1,131 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital.v_dim_packaging_material AS SELECT DIM_PM.pack_material_nr,
+ DIM_PM.pack_material_name,
+ DIM_PM.pack_material_descr,
+ DIM_PM.volume_meas,
+ IFNULL(UOM_VOLUME.uom_cd, '-1') AS volume_uom_cd,
+ LEFT(CAST(DIM_PM.volume_meas AS STRING) || ' ' || UOM_VOLUME.uom_cd, 20) AS volume_str,
+  DIM_PM.volume_meas * UOM_VOLUME.uom_standard_multipl_meas AS volume_meas_standard,
+ IFNULL(UOM_VOLUME.uom_standard_cd, '-1') AS volume_meas_standard_uom_cd,
+ DIM_PM.weight_meas,
+ IFNULL(UOM_WEIGHT.uom_cd, '-1') AS weight_uom_cd,
+ LEFT(CAST(DIM_PM.weight_meas AS STRING) || ' ' || UOM_WEIGHT.uom_cd, 20) AS weight_str,
+  DIM_PM.weight_meas * UOM_WEIGHT.uom_standard_multipl_meas AS weight_meas_standard,
+ IFNULL(UOM_WEIGHT.uom_standard_cd, '-1') AS weight_meas_standard_uom_cd,
+ DIM_PM.girth_east_meas,
+ DIM_PM.girth_west_meas,
+ IFNULL(UOM_GIRTH.uom_cd, '-1') AS girth_uom_cd,
+ LEFT(CAST(DIM_PM.girth_east_meas AS STRING) || ' ' || UOM_GIRTH.uom_cd, 20) AS girth_east_str,
+  DIM_PM.girth_east_meas * UOM_GIRTH.uom_standard_multipl_meas AS girth_east_meas_standard,
+ LEFT(CAST(DIM_PM.girth_west_meas AS STRING) || ' ' || UOM_GIRTH.uom_cd, 20) AS girth_west_str,
+  DIM_PM.girth_west_meas * UOM_GIRTH.uom_standard_multipl_meas AS girth_west_meas_standard,
+ IFNULL(UOM_GIRTH.uom_standard_cd, '-1') AS girth_meas_standard_uom_cd,
+ DIM_PM.length_meas,
+ IFNULL(UOM_LENGTH.uom_cd, '-1') AS length_uom_cd,
+ LEFT(CAST(DIM_PM.length_meas AS STRING) || ' ' || UOM_LENGTH.uom_cd, 20) AS length_str,
+  DIM_PM.length_meas * UOM_LENGTH.uom_standard_multipl_meas AS length_meas_standard,
+ IFNULL(UOM_LENGTH.uom_standard_cd, '-1') AS length_meas_standard_uom_cd,
+ DIM_PM.mean_length_meas,
+ LEFT(CAST(DIM_PM.mean_length_meas AS STRING) || ' ' || UOM_LENGTH.uom_cd, 20) AS mean_length_str,
+  DIM_PM.mean_length_meas * UOM_LENGTH.uom_standard_multipl_meas AS mean_length_meas_standard,
+ DIM_PM.shortest_length_meas,
+ LEFT(CAST(DIM_PM.shortest_length_meas AS STRING) || ' ' || UOM_LENGTH.uom_cd, 20) AS shortest_length_str,
+  DIM_PM.shortest_length_meas * UOM_LENGTH.uom_standard_multipl_meas AS shortest_length_meas_standard,
+ DIM_PM.longest_length_meas,
+ LEFT(CAST(DIM_PM.longest_length_meas AS STRING) || ' ' || UOM_LENGTH.uom_cd, 20) AS longest_length_str,
+  DIM_PM.longest_length_meas * UOM_LENGTH.uom_standard_multipl_meas AS longest_length_meas_standard,
+ DIM_PM.width_meas,
+ IFNULL(UOM_WIDTH.uom_cd, '-1') AS width_uom_cd,
+ LEFT(CAST(DIM_PM.width_meas AS STRING) || ' ' || UOM_WIDTH.uom_cd, 20) AS width_str,
+  DIM_PM.width_meas * UOM_WIDTH.uom_standard_multipl_meas AS width_meas_standard,
+ IFNULL(UOM_WIDTH.uom_standard_cd, '-1') AS width_meas_standard_uom_cd,
+ DIM_PM.height_meas,
+ IFNULL(UOM_HEIGHT.uom_cd, '-1') AS height_uom_cd,
+ LEFT(CAST(DIM_PM.height_meas AS STRING) || ' ' || UOM_HEIGHT.uom_cd, 20) AS height_str,
+  DIM_PM.height_meas * UOM_HEIGHT.uom_standard_multipl_meas AS height_meas_standard,
+ IFNULL(UOM_HEIGHT.uom_standard_cd, '-1') AS height_meas_standard_uom_cd,
+ IFNULL(DIM_PM.main_supplier_sid, -1) AS main_supplier_sid,
+  CASE
+  WHEN DIM_PM.prod_add_nr_type_cd = ''
+  THEN '-1'
+  ELSE IFNULL(DIM_PM.prod_add_nr_type_cd, '-1')
+  END AS prod_add_nr_type_cd,
+ DIM_PM.main_ean_nr,
+ DIM_PM.palette_capacity_cnt,
+ DIM_PM.package_capacity_cnt,
+ DIM_PM.container_capacity_cnt,
+  CASE
+  WHEN DIM_PM.prod_brick_cd = ''
+  THEN '-1'
+  ELSE IFNULL(DIM_PM.prod_brick_cd, '-1')
+  END AS prod_brick_cd,
+ DIM_PM.prod_catalog_insert_dt,
+ DIM_PM.prod_catalog_update_dt
+FROM ldl_dig_lec_share.v_dim_packaging_material AS DIM_PM
+ LEFT JOIN ldl_dig_fe_mstr_lidldigital.v_dim_unit_of_measurement AS UOM_VOLUME ON UOM_VOLUME.uom_sid = IFNULL(DIM_PM.volume_uom_sid
+   , -1)
+ LEFT JOIN ldl_dig_fe_mstr_lidldigital.v_dim_unit_of_measurement AS UOM_WEIGHT ON UOM_WEIGHT.uom_sid = IFNULL(DIM_PM.weight_uom_sid
+   , -1)
+ LEFT JOIN ldl_dig_fe_mstr_lidldigital.v_dim_unit_of_measurement AS UOM_GIRTH ON UOM_GIRTH.uom_sid = IFNULL(DIM_PM.girth_uom_sid
+   , -1)
+ LEFT JOIN ldl_dig_fe_mstr_lidldigital.v_dim_unit_of_measurement AS UOM_LENGTH ON UOM_LENGTH.uom_sid = IFNULL(DIM_PM.length_uom_sid
+   , -1)
+ LEFT JOIN ldl_dig_fe_mstr_lidldigital.v_dim_unit_of_measurement AS UOM_WIDTH ON UOM_WIDTH.uom_sid = IFNULL(DIM_PM.width_uom_sid
+   , -1)
+ LEFT JOIN ldl_dig_fe_mstr_lidldigital.v_dim_unit_of_measurement AS UOM_HEIGHT ON UOM_HEIGHT.uom_sid = IFNULL(DIM_PM.height_uom_sid
+   , -1)
+WHERE DIM_PM.dwh_valid_fg
+UNION ALL
+SELECT '-1' AS dm__operand0,
+ '' AS dm__operand1,
+ '' AS dm__operand2,
+ ROUND(CAST('0' AS BIGNUMERIC), 5) AS dm__operand3,
+ '' AS dm__operand4,
+ '' AS dm__operand5,
+ CAST('0' AS BIGNUMERIC) AS dm__operand6,
+ '' AS dm__operand7,
+ ROUND(CAST('0' AS BIGNUMERIC), 5) AS dm__operand8,
+ '' AS dm__operand9,
+ '' AS dm__operand10,
+ CAST('0' AS BIGNUMERIC) AS dm__operand11,
+ '' AS dm__operand12,
+ ROUND(CAST('0' AS BIGNUMERIC), 5) AS dm__operand13,
+ ROUND(CAST('0' AS BIGNUMERIC), 5) AS dm__operand14,
+ '' AS dm__operand15,
+ '' AS dm__operand16,
+ CAST('0' AS BIGNUMERIC) AS dm__operand17,
+ '' AS dm__operand18,
+ CAST('0' AS BIGNUMERIC) AS dm__operand19,
+ '' AS dm__operand20,
+ ROUND(CAST('0' AS BIGNUMERIC), 5) AS dm__operand21,
+ '' AS dm__operand22,
+ '' AS dm__operand23,
+ CAST('0' AS BIGNUMERIC) AS dm__operand24,
+ '' AS dm__operand25,
+ ROUND(CAST('0' AS BIGNUMERIC), 5) AS dm__operand26,
+ '' AS dm__operand27,
+ CAST('0' AS BIGNUMERIC) AS dm__operand28,
+ ROUND(CAST('0' AS BIGNUMERIC), 5) AS dm__operand29,
+ '' AS dm__operand30,
+ CAST('0' AS BIGNUMERIC) AS dm__operand31,
+ ROUND(CAST('0' AS BIGNUMERIC), 5) AS dm__operand32,
+ '' AS dm__operand33,
+ CAST('0' AS BIGNUMERIC) AS dm__operand34,
+ ROUND(CAST('0' AS BIGNUMERIC), 5) AS dm__operand35,
+ '' AS dm__operand36,
+ '' AS dm__operand37,
+ CAST('0' AS BIGNUMERIC) AS dm__operand38,
+ '' AS dm__operand39,
+ ROUND(CAST('0' AS BIGNUMERIC), 5) AS dm__operand40,
+ '' AS dm__operand41,
+ '' AS dm__operand42,
+ CAST('0' AS BIGNUMERIC) AS dm__operand43,
+ '' AS dm__operand44,
+ ROUND(CAST('-1' AS BIGNUMERIC), 0) AS dm__operand45,
+ '-1' AS dm__operand46,
+ '-1' AS dm__operand47,
+ ROUND(CAST('0' AS BIGNUMERIC), 0) AS dm__operand48,
+ ROUND(CAST('0' AS BIGNUMERIC), 0) AS dm__operand49,
+ ROUND(CAST('0' AS BIGNUMERIC), 0) AS dm__operand50,
+ '-1' AS dm__operand51,
+ DATE('1900-01-01') AS dm__operand52,
+ DATE('1900-01-01') AS dm__operand53;

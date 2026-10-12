@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.srmara_eks_item_xteks_basicinfo_reccountry_removeduplicateea_010 (listingoverviewid
+, itemid, receivingcountry, casesize, maxdate) AS SELECT xteks_basicinfo_reccountry.listingoverviewid,
+ xteks_basicinfo_reccountry.itemid,
+ xteks_basicinfo_reccountry.receivingcountry,
+ xteks_basicinfo_reccountry.casesize,
+ MAX(contractpricevalidity.dateuntil) AS maxdate
+FROM idq_production_eks_calculation.xteks_basicinfo_reccountry
+ INNER JOIN idq_production_eks.contractpricevalidity ON xteks_basicinfo_reccountry.contractpricevalidityid =
+  contractpricevalidity.contractpricevalidityid
+WHERE xteks_basicinfo_reccountry.sk_itemid IS NULL
+GROUP BY xteks_basicinfo_reccountry.listingoverviewid,
+ xteks_basicinfo_reccountry.casesize,
+ xteks_basicinfo_reccountry.itemid,
+ xteks_basicinfo_reccountry.receivingcountry
+HAVING MIN(contractpricevalidity.dateuntil) <> maxdate;

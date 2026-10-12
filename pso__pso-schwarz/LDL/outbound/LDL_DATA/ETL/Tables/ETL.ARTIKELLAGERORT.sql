@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_data_etl.artikellagerort (
+ctrcode STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_nr BIGNUMERIC(38,0) NOT NULL,
+artikelnr STRING(18) NOT NULL,
+kartlagerortnr INTEGER,
+lagerplatzkarton INTEGER,
+pallagerortnr INTEGER,
+lagerplatzpalette INTEGER,
+dueslagerortnr INTEGER,
+lagerplatzduesseld INTEGER,
+datum DATETIME,
+bediener STRING(8),
+dummy STRING(254),
+invfig_karton STRING(1),
+invfig_palette STRING(1),
+invfig_duesseld STRING(1),
+scn BIGNUMERIC(38,0) DEFAULT 0,
+extraction_tmsp DATETIME,
+PRIMARY KEY (artikelnr) NOT ENFORCED
+);

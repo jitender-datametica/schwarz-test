@@ -1,0 +1,19 @@
+CREATE TABLE P_LEW_PROCESS_MSTR.T_LIL_ASSORT_REGION_CAT cluster by (client_id)
+     (
+      CLIENT_ID NUMBER(38,0) NOT NULL,
+      REGION_SID NUMBER(38,0) NOT NULL,
+      ASSORT_CAT_SID NUMBER(38,0) NOT NULL,
+      ASSORT_REGION_CAT_ID VARCHAR(27),
+      assort_parnt_cat_name_de VARCHAR(100) COLLATE 'en-ci' ,
+      assort_parnt_cat_name_en VARCHAR(100) COLLATE 'en-ci' ,
+      assort_chld_cat_name_de VARCHAR(100) COLLATE 'en-ci' ,
+      assort_chld_cat_name_en VARCHAR(100) COLLATE 'en-ci' ,
+      SEL_SRT_CD NUMBER(38,0),
+      DATA_AVBL_NOPROMO_FG NUMBER(38,0),
+      DATA_AVBL_PROMO_FG NUMBER(38,0),
+      ACTIVE_FG NUMBER(38,0),
+      DWH_LOAD_ID NUMBER(38,0) NOT NULL,
+      DWH_CREATED TIMESTAMP_LTZ(9) NOT NULL,
+      DWH_UPDATED TIMESTAMP_LTZ(9) NOT NULL,
+      TD_INSERT TIMESTAMP_LTZ(9),
+      TD_UPDATE TIMESTAMP_LTZ(9));

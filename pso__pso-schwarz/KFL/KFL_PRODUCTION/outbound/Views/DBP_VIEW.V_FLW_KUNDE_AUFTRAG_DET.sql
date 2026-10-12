@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_flw_kunde_auftrag_det AS SELECT mandant_id,
+ verkaufs_beleg_id,
+ verkaufs_beleg_pos_id,
+ flw_art_id,
+ verk_menge_einh_id,
+ menge_auftrag_vme_kum,
+ menge_bes_bme_kum,
+ system_id,
+ werk_id,
+ absagegrund_id,
+ nettogew,
+ wert_ek_netto,
+ zwsum_2_betrag,
+ zwsum_4_betrag,
+ sap_art_id_kunde,
+ td_insert,
+ td_update
+FROM kfl_production_dbp_data.flw_kunde_auftrag_det;

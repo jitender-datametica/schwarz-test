@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_infrastructure.v_l_sit_infrastructure_line_of_business AS SELECT lob_cd,
+ lob_name
+FROM szd_core.t_dim_line_of_business;

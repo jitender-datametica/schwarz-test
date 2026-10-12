@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_wabi_sum AS SELECT art_id,
+ mandant_id,
+ wup_id,
+ nb_id,
+ aktion_id,
+ dat,
+ null_bestand_fg,
+ minus_bestand_fg,
+ null_absatz_fg,
+ null_absatz_tag_1_fg,
+ artbew_menge,
+ man_bestellung_fg,
+ man_bestellung_menge,
+ start_bestand,
+ ende_bestand,
+ menge_absatz_af_mittel,
+ rw_fg
+FROM kfl_production_dbp_data.wabi_sum;

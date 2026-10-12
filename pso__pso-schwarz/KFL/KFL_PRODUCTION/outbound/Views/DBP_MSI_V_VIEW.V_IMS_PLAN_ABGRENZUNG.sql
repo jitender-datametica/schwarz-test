@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_v_view.v_ims_plan_abgrenzung AS SELECT mandant_id,
+ psp_id,
+ gjmo,
+ wrg_id,
+ dat_baubeginn,
+ dat_beginn_einrichtung,
+ dat_beginn_kaelte,
+ dat_stille_eroeffnung,
+ dat_bauabnahme,
+ anz_tage_massnahme_gesamt,
+ anz_tage_massnahme_bis_gjmo,
+ plan_abgrenzung_wert_gesamt,
+ plan_abgrenzung_wert_bis_gjmo,
+ betrag_ist_bis_gjmo
+FROM kfl_production_dbp_msi_data.ims_plan_abgrenzung;

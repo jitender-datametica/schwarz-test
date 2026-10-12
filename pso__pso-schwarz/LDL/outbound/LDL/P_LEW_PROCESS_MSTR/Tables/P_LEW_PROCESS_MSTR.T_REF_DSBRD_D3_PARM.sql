@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_process_mstr.t_ref_dsbrd_d3_parm (
+dsbrd_id BIGNUMERIC(38,0) NOT NULL,
+int_id BIGNUMERIC(38,0) NOT NULL,
+client_ctry_id BIGNUMERIC(38,0) NOT NULL,
+client_id BIGNUMERIC(38,0) NOT NULL,
+aspect_id BIGNUMERIC(38,0) NOT NULL,
+wh_id BIGNUMERIC(38,0) NOT NULL,
+move_to_store_id BIGNUMERIC(38,0) NOT NULL,
+org_lvl_id BIGNUMERIC(38,0) NOT NULL,
+tm_lvl_id BIGNUMERIC(38,0) NOT NULL,
+currency_iso_cd STRING(3) NOT NULL,
+curr_tot_id BIGNUMERIC(38,0) NOT NULL,
+cy_month BIGNUMERIC(38,0) NOT NULL,
+cy_week BIGNUMERIC(38,0) NOT NULL,
+byr BIGNUMERIC(38,0) NOT NULL,
+d3_param STRING(8000) NOT NULL,
+load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_inserted DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL
+);

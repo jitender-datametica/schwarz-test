@@ -1,0 +1,5 @@
+create or replace TABLE KFL_PRODUCTION.DBP_MSI_DATA.AKT_MSI_USER (
+	USER_ID VARCHAR(240) NOT NULL,
+	SESSION_ID NUMBER(38,0) DEFAULT -1
+)COMMENT='GT-Tabelle zur Übermittlung des aktuellen MSI-Users'
+;

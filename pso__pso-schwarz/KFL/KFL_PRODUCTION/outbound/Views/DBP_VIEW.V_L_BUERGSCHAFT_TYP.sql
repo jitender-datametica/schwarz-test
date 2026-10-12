@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_buergschaft_typ AS SELECT buergschaft_typ_id,
+ buergschaft_typ_bez
+FROM kfl_production_dbp_data.l_buergschaft_typ;

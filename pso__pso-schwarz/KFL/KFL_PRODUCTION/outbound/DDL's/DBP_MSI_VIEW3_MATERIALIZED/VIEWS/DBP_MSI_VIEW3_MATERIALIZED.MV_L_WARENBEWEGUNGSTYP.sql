@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view3_materialized.mv_l_warenbewegungstyp (mandant_id,
+warenbewegungstyp_id) AS SELECT mandant_id,
+ warenbewegungstyp_id
+FROM kfl_production_dbp_view.v_l_warenbewegungstyp;

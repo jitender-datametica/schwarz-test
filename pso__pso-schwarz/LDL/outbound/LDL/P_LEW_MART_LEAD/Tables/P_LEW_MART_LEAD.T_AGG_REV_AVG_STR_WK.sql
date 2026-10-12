@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_lead.t_agg_rev_avg_str_wk (
+client_id BIGNUMERIC(38,0) NOT NULL,
+loc_sid_store BIGNUMERIC(38,0) NOT NULL,
+currency_iso_cd STRING(3) COLLATE 'und:ci' NOT NULL,
+busyear BIGNUMERIC(38,0) NOT NULL,
+month_id BIGNUMERIC(38,0) NOT NULL,
+cy_week_partial_week_id BIGNUMERIC(38,0) NOT NULL,
+rev_wktd_val BIGNUMERIC(38,8),
+rev_mtd_val BIGNUMERIC(38,8),
+rev_bytd_val BIGNUMERIC(38,8),
+prev1y_rev_wktd_val BIGNUMERIC(38,8),
+prev1y_rev_mtd_val BIGNUMERIC(38,8),
+prev1y_rev_bytd_val BIGNUMERIC(38,8),
+day_cnt_wk BIGNUMERIC(38,0),
+day_cnt_mtd BIGNUMERIC(38,0),
+day_cnt_bytd BIGNUMERIC(38,0),
+day_cnt_py_wk BIGNUMERIC(38,0),
+day_cnt_py_mtd BIGNUMERIC(38,0),
+day_cnt_py_bytd BIGNUMERIC(38,0)
+) CLUSTER BY client_id, month_id;

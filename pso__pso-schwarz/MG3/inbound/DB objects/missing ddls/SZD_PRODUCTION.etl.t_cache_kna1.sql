@@ -1,0 +1,23 @@
+create table if not exists SZD_PRODUCTION.etl.t_cache_kna1 (
+	mandt varchar(3000) collate 'en-ci',
+	kunnr varchar(3000) collate 'en-ci',
+	land1 varchar(3000) collate 'en-ci',
+	name1 varchar(3000) collate 'en-ci',
+	name2 varchar(3000) collate 'en-ci',
+	ort01 varchar(3000) collate 'en-ci',
+	pstlz varchar(3000) collate 'en-ci',
+	sortl varchar(3000) collate 'en-ci',
+	stras varchar(3000) collate 'en-ci',
+	adrnr varchar(3000) collate 'en-ci',
+	bbbnr number(38,9),
+	bbsnr number(38,9),
+	bubkz number(38,9),
+	erdat date,
+	loevm varchar(3000) collate 'en-ci',
+	spras varchar(3000) collate 'en-ci',
+	extraction_date date,
+	dwh_created_tmsp timestamp_ltz(9) comment 'the point in time when this record was created in the data warehouse.',
+	dwh_updated_tmsp timestamp_ltz(9) comment 'the point in time when this record was created or last updated.',
+	dwh_src_file_name varchar(2000),
+	dwh_src_1_tmsp timestamp_ltz(9)
+);

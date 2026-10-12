@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE idq_production_eks.basicprice (
+basicpriceid INTEGER,
+is_fca INTEGER,
+unitid INTEGER,
+pallettypeid INTEGER,
+currencyid INTEGER,
+palletfactor INTEGER,
+pricetypeid INTEGER,
+subcases STRING(255),
+subcasesize STRING(255),
+listingitemid INTEGER,
+price NUMERIC(18,8),
+crdate DATETIME,
+moddate DATETIME,
+cruser STRING(35),
+moduser STRING(35),
+fca_price NUMERIC(18,8),
+fca_fright NUMERIC(18,8),
+casesizecalc INTEGER,
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

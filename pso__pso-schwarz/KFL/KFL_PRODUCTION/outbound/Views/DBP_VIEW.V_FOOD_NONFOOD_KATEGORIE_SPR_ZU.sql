@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_food_nonfood_kategorie_spr_zu AS SELECT mandant_id,
+ food_nonfood_kategorie_id,
+ spr_id,
+ food_nonfood_kategorie_bez
+FROM kfl_production_dbp_data.food_nonfood_kategorie_spr_zu;

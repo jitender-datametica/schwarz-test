@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_VIS_ZAEHL_AUFTRAG AS SELECT ART_ID, MANDANT_ID, WUP_ID, NB_ID, DAT_AUFTRAG, ZAEHL_GRUND_ID, BEZUGSWEG_ID, ZAEHL_SORT_ID, DAT_ZAEHL, ZEIT_ZAEHL, GESENDET_FG, TD_INSERT, TD_UPDATE FROM DBP_DATA.VIS_ZAEHL_AUFTRAG;
+                                                                                                                                                                                               

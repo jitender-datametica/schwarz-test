@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW P_LEW_PROCESS_AC.V_LC_CONF_TCACHE_RECIPIENTS
+AS
+   SELECT * FROM p_lew_process.t_lc_conf_tcache_recipients
+;

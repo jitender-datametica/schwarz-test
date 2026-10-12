@@ -1,0 +1,188 @@
+TRUNCATE TABLE ${TARGET_DB}.${TGT_TARGET_TABLE};
+
+INSERT INTO  ${TEMP_DB}.${SRC2TGT_TEMP_TABLE1}_${SRC_CONTEXT_AREA}
+(
+      CTRCODE
+    , KREDNR
+    , KREDITORGRUPPENNR
+    , KREDITORENNR
+    , GUELTIG_AB
+    , ANREDENNR
+    , STRASSE
+    , PLZPF
+    , POSTFACH
+    , LANDKZL
+    , PLZ
+    , ORT
+    , TELEFON
+    , TELEFAX
+    , MDE_SATZ
+    , DATUM
+    , BEDIENER
+    , TELEFONMDE
+    , COUNTY
+    , STRASSE2
+    , BESTBEREICH
+    , ZAHLUNGSZIEL
+    , KONTONR
+    , WAEHRUNGSKNZ
+    , UMSATZ_ID
+    , MWSTSCHL
+    , KUNDENNR
+    , NAME1
+    , FINANZAMT
+    , UMSIDKNZ
+    , INVENTRYREQ
+    , ANLIEFERUNGSARTKZL
+    , NAME2
+    , NAME3
+    , SUCHNAME
+    , SUPPLIER_CATEGORY
+    , LICENSECODE
+    , DCW_SUPPLIER
+    , CONTACT_NAME
+    , BRANCH
+    , SUPPLIER_REGION
+    , INTERCOMPANY_SUPP
+    , TAX_KEY
+    , BROKEN_LIMIT
+    , GLN
+    , TEXT_1
+    , TEXT_2
+    , TEXT_3
+    , TEXT_4
+    , TEXT_5
+    , BASED_ON_EKS
+    , PBOX_TOWN
+    , EXCLUDE_INTRASTAT
+    , REJECT_INV_DATE
+    , INT_BUY_COUNTRY
+    , SAP_KREDNR
+    , KRED_SORTNR
+    , DIFF_CHECK_ITEM
+    , MANUELL_ALR
+    , STRASSE3
+    , SCN
+    , SUPPLIER_TOLERANCE
+    , VMI_FLAG
+    , WBEREICH_FEM
+    , WBEREICH_FM
+    , WBEREICH_NF
+    , WBEREICH_OG
+    , WBEREICH_BP
+    , WBEREICH_IMP
+    , SUPP_INACTIVE
+    , KRED_SORTDESC
+    , INCLUDE_EK
+    , EXTRACTION_TMSP
+
+    --------------------------------
+    , SOURCE_SYSTEM
+    , EXTRACTION_DT
+    , DWH_MAPPING_TMSP
+    , TF_ERROR_FG
+    , DELETED_FG
+    , RECORD_ID
+    , FILENAME
+    , DWH_NODE_CD
+    , DWH_LOAD_ID
+)
+SELECT 
+      LEFT( src.CTRCODE, 2) as CTRCODE
+    , KREDNR
+    , KREDITORGRUPPENNR
+    , KREDITORENNR
+    , GUELTIG_AB
+    , ANREDENNR
+    , NULL AS STRASSE
+    , NULL AS PLZPF
+    , NULL AS POSTFACH
+    , LANDKZL
+    , 'x' AS PLZ
+    , 'x' AS ORT
+    , NULL AS TELEFON
+    , NULL AS TELEFAX
+    , MDE_SATZ
+    , DATUM
+    , BEDIENER
+    , NULL AS TELEFONMDE
+    , COUNTY
+    , NULL AS STRASSE2
+    , BESTBEREICH
+    , ZAHLUNGSZIEL
+    , NULL AS KONTONR
+    , WAEHRUNGSKNZ
+    , UMSATZ_ID
+    , MWSTSCHL
+    , KUNDENNR
+    , 'x' AS NAME1
+    , FINANZAMT
+    , UMSIDKNZ
+    , INVENTRYREQ
+    , ANLIEFERUNGSARTKZL
+    , NULL AS NAME2
+    , NULL AS NAME3
+    , SUCHNAME
+    , SUPPLIER_CATEGORY
+    , LICENSECODE
+    , DCW_SUPPLIER
+    , NULL AS CONTACT_NAME
+    , BRANCH
+    , SUPPLIER_REGION
+    , INTERCOMPANY_SUPP
+    , TAX_KEY
+    , BROKEN_LIMIT
+    , GLN
+    , TEXT_1
+    , TEXT_2
+    , TEXT_3
+    , TEXT_4
+    , TEXT_5
+    , BASED_ON_EKS
+    , PBOX_TOWN
+    , EXCLUDE_INTRASTAT
+    , REJECT_INV_DATE
+    , INT_BUY_COUNTRY
+    , SAP_KREDNR
+    , KRED_SORTNR
+    , DIFF_CHECK_ITEM
+    , MANUELL_ALR
+    , NULL AS STRASSE3
+    , SCN
+    , SUPPLIER_TOLERANCE
+    , VMI_FLAG
+    , WBEREICH_FEM
+    , WBEREICH_FM
+    , WBEREICH_NF
+    , WBEREICH_OG
+    , WBEREICH_BP
+    , WBEREICH_IMP
+    , SUPP_INACTIVE
+    , KRED_SORTDESC
+    , INCLUDE_EK
+    , EXTRACTION_TMSP
+
+
+    --------------------------------
+    , 'WAWI'                             AS SOURCE_SYSTEM
+    , CURRENT_DATE                       AS EXTRACTION_DT
+    , current_timestamp                  AS DWH_MAPPING_TMSP
+    , 0                                  AS TF_ERROR_FG
+    , 0                                  AS DELETED_FG
+    , 0                                  AS RECORD_ID
+    , '${SRC_INPUT_TABLE}'               AS FILENAME
+    , 'WAWI_HQ'                          AS DWH_NODE_CD
+    , '${LOAD_ID}'                       AS DWH_LOAD_ID
+FROM ${TEMP_DB}.${SRC_INPUT_TABLE} src
+INNER JOIN ETL.WAWI_CONTROL_TABLE ctrl
+ON true
+AND ctrl.SOURCE_TABLE_NAME = UPPER('${TEMP_DB}.${SRC_INPUT_TABLE}')
+AND ctrl.SOURCE_STATUS = 'A'
+AND src.EXTRACTION_TMSP between ctrl.BEGIN_TMSP and ctrl.END_TMSP
+QUALIFY Row_Number() OVER 
+(PARTITION BY 
+    LEFT( src.CTRCODE, 2), 
+    KREDNR 
+ ORDER BY src.EXTRACTION_TMSP DESC
+) = 1 
+;

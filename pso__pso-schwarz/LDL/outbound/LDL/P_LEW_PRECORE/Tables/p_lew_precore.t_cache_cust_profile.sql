@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_precore.t_cache_cust_profile (
+customer_sid BIGNUMERIC(38,0) NOT NULL,
+src_customerid STRING(250) NOT NULL,
+country STRING(5),
+last_countrychange_ts DATETIME,
+notification_push_enabled BIGNUMERIC(38,0),
+notification_mail_enabled BIGNUMERIC(38,0),
+notification_sms_enabled BIGNUMERIC(38,0),
+notification_postal_enabled BIGNUMERIC(38,0),
+notification_whatsapp_enabled BIGNUMERIC(38,0),
+last_notificationchange_ts DATETIME,
+first_legal_terms_accepted_ts DATETIME,
+first_legal_terms_declined_ts DATETIME,
+first_countrychange_ts DATETIME,
+active_country STRING(5),
+notification_version STRING(5),
+extraction_dt DATE,
+dwh_load_id BIGNUMERIC(38,0),
+dwh_created DATETIME,
+dwh_updated DATETIME
+);

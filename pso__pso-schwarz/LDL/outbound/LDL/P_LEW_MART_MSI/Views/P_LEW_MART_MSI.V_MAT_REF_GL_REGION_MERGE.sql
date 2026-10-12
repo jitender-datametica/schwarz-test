@@ -1,0 +1,53 @@
+/* #----------------------------------------------------------------------------
+# History:
+#  1.0  01.10.2018    Khusainov, Timur            Initiliazation
+#  1.1  07.08.2020    Roy,Ritanjal                Introduce new country Latviya
+#  1.2  17.12.2021    Michael Morris              Added Estonia EE
+#---------------------------------------------------------------------------- */
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi.v_mat_ref_gl_region_merge AS SELECT RME.client_id,
+ RME.gl_region_id,
+ RME.gl_region_desc,
+ RME.gl_last_name,
+ RME.gl_first_name,
+ RME.aspect_id,
+ COALESCE(CLE.int_id, - 1335) AS int_id,
+ CLE.country_iso_cd,
+ COALESCE(CLE.country_group_id, - 1335) AS country_group_id,
+ CLE.lisy_sort,
+ CLE.dashboard_relevant_fg,
+ CLE.country_desc_at,
+ CLE.country_desc_be,
+ CLE.country_desc_bg,
+ CLE.country_desc_ch,
+ CLE.country_desc_cy,
+ CLE.country_desc_cz,
+ CLE.country_desc,
+ CLE.country_desc_dk,
+ CLE.country_desc_ee,
+ CLE.country_desc_es,
+ CLE.country_desc_fi,
+ CLE.country_desc_fr,
+ CLE.country_desc_gb,
+ CLE.country_desc_gr,
+ CLE.country_desc_hr,
+ CLE.country_desc_hu,
+ CLE.country_desc_ie,
+ CLE.country_desc_it,
+ CLE.country_desc_lt,
+ CLE.country_desc_ni,
+ CLE.country_desc_nl,
+ CLE.country_desc_de,
+ CLE.country_desc_lv,
+ CLE.country_desc_pl,
+ CLE.country_desc_pt,
+ CLE.country_desc_ro,
+ CLE.country_desc_se,
+ CLE.country_desc_si,
+ CLE.country_desc_sk,
+ CLE.country_desc_cs,
+ CLE.country_desc_mt,
+ CLE.country_desc_us,
+ CLE.country_desc_rs,
+ CLE.country_opening_date
+FROM ldl_p_lew_mart_msi.v_mat0_ref_gl_region_merge AS RME
+ LEFT JOIN ldl_p_lew_mart_msi.v_mat_ref_client_lead AS CLE ON RME.client_id = CLE.client_id;

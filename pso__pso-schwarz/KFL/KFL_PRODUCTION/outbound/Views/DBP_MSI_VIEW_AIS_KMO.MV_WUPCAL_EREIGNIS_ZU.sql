@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ais_kmo.mv_wupcal_ereignis_zu (wup_id, mandant_id, nb_id, dat,
+ereignistyp_id, ereignis_id, offen) AS SELECT wup_id,
+ mandant_id,
+ nb_id,
+ dat,
+ ereignistyp_id,
+ ereignis_id,
+ offen
+FROM kfl_production_dbp_view.v_wupcal_ereignis_zu
+WHERE mandant_id <> 1;

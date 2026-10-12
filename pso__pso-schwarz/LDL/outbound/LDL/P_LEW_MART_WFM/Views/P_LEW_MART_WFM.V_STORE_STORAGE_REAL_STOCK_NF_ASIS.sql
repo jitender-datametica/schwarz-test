@@ -1,0 +1,32 @@
+/*
+#----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS
+#----------------------------------------------------------------------------
+# Interface: DDL for P_LEW_MART_WFM.V_STORE_STORAGE_REAL_STOCK_NF_ASIS 
+#----------------------------------------------------------------------------
+# History:
+#  1.0  06.07.2023    Ulrich Ross        User Story 490502, Init
+#
+#----------------------------------------------------------------------------
+*/
+
+
+CREATE OR REPLACE VIEW ldl_p_lew_mart_wfm.v_store_storage_real_stock_nf_asis (client_id, country_lidl_cd, orig_store_nr
+, loc_sid, wh_id, orig_item_nr, item_sid, retailspace_qty, stock_real_qty, valid_from_stockreal, valid_to_stockreal,
+store_storage_qty, valid_from_storestorage, valid_to_storestorage, update_date, insert_date) AS SELECT client_id,
+ country_lidl_cd,
+ orig_store_nr,
+ loc_sid,
+ wh_id,
+ orig_item_nr,
+ item_sid,
+  stock_real_qty - store_storage_qty AS retailspace_qty,
+ stock_real_qty,
+ valid_from_stockreal,
+ valid_to_stockreal,
+ store_storage_qty,
+ valid_from_storestorage,
+ valid_to_storestorage,
+ update_date,
+ insert_date
+FROM ldl_p_lew_mart_wfm.t_store_storage_real_stock_nf_asis;

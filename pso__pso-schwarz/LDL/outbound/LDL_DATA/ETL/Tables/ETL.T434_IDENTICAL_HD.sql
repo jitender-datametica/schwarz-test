@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS ldl_data_etl.t434_identical_hd (
+ctrcode STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_nr BIGNUMERIC(38,0) NOT NULL,
+c434_id INTEGER NOT NULL,
+c434_moddate DATETIME,
+c434_moduser STRING(8),
+c434_description STRING(40),
+scn BIGNUMERIC(38,0) DEFAULT 0,
+extraction_tmsp DATETIME,
+PRIMARY KEY (c434_id) NOT ENFORCED
+);

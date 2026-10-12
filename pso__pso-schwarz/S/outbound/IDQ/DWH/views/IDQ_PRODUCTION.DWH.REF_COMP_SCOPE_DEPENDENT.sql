@@ -1,0 +1,13 @@
+CREATE OR REPLACE VIEW idq_production_dwh.ref_comp_scope_dependent (dependent_ref_comp_scope_id,
+dependent_ref_source_system_type_id, dependent_ref_source_system_id, dependent_ref_country_id, dependent_ref_branch_id,
+dependent_ref_test_object_type_id, dependent_ref_comp_scope_description, dependent_ref_comp_scope_description_de,
+dependent_ref_comp_scope_description_en) AS SELECT id AS dependent_ref_comp_scope_id,
+ source_system_type_id AS dependent_ref_source_system_type_id,
+ source_system_id AS dependent_ref_source_system_id,
+ country_id AS dependent_ref_country_id,
+ branch_id AS dependent_ref_branch_id,
+ test_object_type_id AS dependent_ref_test_object_type_id,
+ description_de AS dependent_ref_comp_scope_description,
+ description_de AS dependent_ref_comp_scope_description_de,
+ description_en AS dependent_ref_comp_scope_description_en
+FROM idq_production_idq_results.ref_comp_scope;

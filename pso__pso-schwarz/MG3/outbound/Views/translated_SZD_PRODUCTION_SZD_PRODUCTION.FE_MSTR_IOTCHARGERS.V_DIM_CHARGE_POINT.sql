@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_iotchargers.v_dim_charge_point (charge_point_uuid_nr,
+charge_point_connector_label_txt, charge_point_evse_nr, charge_point_ocpp_id) AS SELECT charge_point_uuid_nr,
+ charge_point_connector_label_txt,
+ charge_point_evse_nr,
+ charge_point_ocpp_id
+FROM szd_production_core.t_dim_charge_point
+WHERE dwh_valid_fg;

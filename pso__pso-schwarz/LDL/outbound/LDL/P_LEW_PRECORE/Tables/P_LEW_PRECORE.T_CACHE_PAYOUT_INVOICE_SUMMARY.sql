@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_precore.t_cache_payout_invoice_summary (
+client_id BIGNUMERIC(38,0) NOT NULL,
+payout_invoice_summary_sid BIGNUMERIC(38,0),
+acc_month BIGNUMERIC(38,0),
+accounted_in BIGNUMERIC(38,0),
+acc_type STRING(100),
+acc_sub_type STRING(100),
+client STRING(100),
+currency_iso_code STRING(100),
+goods_in_month BIGNUMERIC(38,0),
+supp_no_nat BIGNUMERIC(38,0),
+item_no_nat BIGNUMERIC(38,0),
+item_family_no STRING(100),
+item_grp_no STRING(100),
+payback_value BIGNUMERIC(38,5),
+period_perf_from TIMESTAMP,
+period_perf_until TIMESTAMP,
+seq_no BIGNUMERIC(38,0),
+extraction_dt DATE,
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created TIMESTAMP NOT NULL,
+dwh_updated TIMESTAMP NOT NULL
+);

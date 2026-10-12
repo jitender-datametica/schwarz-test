@@ -1,0 +1,1 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital.v_fact_customer_return_line AS SELECT 1 AS dummy;

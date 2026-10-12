@@ -1,0 +1,43 @@
+CREATE OR REPLACE VIEW ldl_bcbi_fe_mstr_bcbi.v_dataavail_store_first_transfer AS SELECT t4.client_id,
+ t4.wh_id,
+ t4.orig_store_nr,
+ t4.system_key,
+ t4.dat_dayend,
+ MIN(DATE(t4.timestamp_load_bcbi)) AS first_trans_date
+FROM (SELECT LSP.client_id,
+   wh.wh_id,
+   LSP.orig_store_nr,
+   LSP.system_key,
+   LSP.dat_dayend,
+   LSP.timestamp_load_bcbi,
+   SUM(CASE
+     WHEN LSP.mail_rows IS NULL
+     THEN 1
+     ELSE 0
+     END) AS missing_total
+  FROM ldl_bcbi_fe_mstr_bcbi.t_wawi_sys_load_status_present AS LSP
+   INNER JOIN (SELECT DISTINCT src_wh_id AS wh_id,
+     loc_sid_wh,
+     dwh_valid_from,
+     dwh_valid_to
+    FROM ldl_bcbi_fe_mstr_bcbi.t_warehouse) AS wh ON LSP.wh_loc_sid = wh.loc_sid_wh AND LSP.dat_dayend BETWEEN wh.dwh_valid_from
+     AND wh.dwh_valid_to
+   INNER JOIN ldl_bcbi_fe_mstr_bcbi.v_dataavail_store_expected_list AS EX ON LSP.client_id = EX.client_id AND wh.wh_id =
+        EX.wh_id AND LSP.system_key = EX.system_key AND LSP.interface_key = EX.interface_key AND LSP.dat_dayend = EX.dat_open
+     
+  WHERE LSP.system_key IN (2, 13)
+   AND LSP.dat_dayend < DATE(LSP.timestamp_load_bcbi)
+   AND EX.is_mandatory = 1
+   AND LSP.dat_dayend >= DATE '2022-04-23'
+  GROUP BY LSP.client_id,
+   wh.wh_id,
+   LSP.orig_store_nr,
+   LSP.system_key,
+   LSP.dat_dayend,
+   LSP.timestamp_load_bcbi
+  HAVING missing_total = 0) AS t4
+GROUP BY t4.client_id,
+ t4.wh_id,
+ t4.system_key,
+ t4.orig_store_nr,
+ t4.dat_dayend;

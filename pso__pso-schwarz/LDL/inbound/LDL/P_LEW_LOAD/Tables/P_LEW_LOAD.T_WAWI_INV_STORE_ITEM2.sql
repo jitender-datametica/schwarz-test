@@ -1,0 +1,28 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_WAWI_INV_STORE_ITEM2
+(
+  STORE_ID                NUMBER(38)                    NOT NULL,
+  INV_ID                  NUMBER(38)                    NOT NULL,
+  CLIENT_ID               NUMBER(38)                    NOT NULL,
+  ITEM_ID                 NUMBER(38)                    NOT NULL,
+  POS_NR                  NUMBER(38)                    NOT NULL,
+  DAT_DAYEND              DATE                          NULL,
+  WH_ID                   NUMBER(38)                    NOT NULL,
+  VAT_ID                  NUMBER(38)                    NULL,
+  COMMENT_INV             VARCHAR(50) COLLATE 'en-ci'   NULL,
+  STATUS_INV              NUMBER(38)                    NULL,
+  ORDER_AREA_CD           VARCHAR(5) COLLATE 'en-ci'    NULL,
+  WEIGHT_FG               NUMBER(38)                    NULL,
+  PRICEGROUP_WH           NUMBER(38)                    NULL,
+  PRICEGROUP_STORE        NUMBER(38)                    NULL,
+  PRICE_RETAIL_INV_WH     NUMBER(18,4)                  NULL,
+  PRICE_RETAIL_NET_INV_WH NUMBER(19,5)                  NULL,
+  PRICE_RETAIL_INV        NUMBER(18,4)                  NULL,
+  PRICE_RETAIL_NET_INV    NUMBER(19,5)                  NULL,
+  QTY_CASE_INV            NUMBER(18,4)                  NULL,
+  QTY_PIECE_INV           NUMBER(18,4)                  NULL,
+  QTY_CASE_INV_NEW        NUMBER(18,4)                  NULL,
+  QTY_PIECE_INV_NEW       NUMBER(18,4)                  NULL,
+  INV_AREA_CD             NUMBER(38)                    NULL,
+  CASE_SIZE_DEC           NUMBER(9,4)                   NULL,
+  LOAD_ID                 NUMBER(38)                    NOT NULL
+);

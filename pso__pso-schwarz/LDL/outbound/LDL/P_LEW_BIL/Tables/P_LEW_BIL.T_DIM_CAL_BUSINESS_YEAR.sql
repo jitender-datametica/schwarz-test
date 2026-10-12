@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_bil.t_dim_cal_business_year (
+bus_year BIGNUMERIC(38,0) NOT NULL,
+bus_year_begin_month BIGNUMERIC(38,0) NOT NULL,
+bus_year_end_month BIGNUMERIC(38,0) NOT NULL,
+bus_year_begin_week_part BIGNUMERIC(38,0) NOT NULL,
+bus_year_end_week_part BIGNUMERIC(38,0) NOT NULL,
+bus_year_begin_dt DATE NOT NULL,
+bus_year_end_dt DATE NOT NULL,
+bus_year_week_cnt BIGNUMERIC(38,0),
+bus_year_week_part_cnt BIGNUMERIC(38,0),
+bus_year_day_cnt BIGNUMERIC(38,0),
+bus_year_prev_1y BIGNUMERIC(38,0) NOT NULL,
+bus_year_prev_2y BIGNUMERIC(38,0) NOT NULL,
+bus_year_prev_3y BIGNUMERIC(38,0) NOT NULL,
+bus_year_prev_4y BIGNUMERIC(38,0) NOT NULL,
+bus_year_prev_5y BIGNUMERIC(38,0) NOT NULL,
+bus_year_offset BIGNUMERIC(38,0),
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL
+);

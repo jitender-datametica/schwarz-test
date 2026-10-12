@@ -1,0 +1,20 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_LOG.MV_MARKTBESTAND_ERP AS
+--2024-09-11 | nwag2310 | initial
+SELECT
+v01.MANDANT_ID
+,v01.ART_ID
+,v05.aktuell_wup_id AS WUP_ID
+,v01.NB_ID
+,v01.DAT
+,v01.BESTAND_ID
+,v01.BEZUGSWEG_ID
+,v01.RELEVANT_FG
+,v01.MENGE_LGBEST_ERP_FREI_BME
+,v01.MENGE_LGBEST_ERP_QUAL_BME
+,v01.MENGE_LGBEST_ERP_GESP_BME
+,v01.FORTSCHREIBUNG_FG
+FROM dbp_view.v_marktbestand_erp v01
+JOIN dbp_view.v_wup v05
+   ON v05.mandant_id = v01.mandant_id
+   AND v05.wup_id = v01.wup_id
+   AND v05.nb_id = v01.nb_id;

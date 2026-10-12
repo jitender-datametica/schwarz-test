@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_precore.t_cache_z_ds_wrf_matgrp_strct_hist (
+client_id BIGNUMERIC(38,0) NOT NULL,
+bic_zmlila STRING(20),
+hier_id STRING(20) NOT NULL,
+node STRING(20) NOT NULL,
+spras STRING(20) NOT NULL,
+code STRING(20),
+ltext_wo_code STRING(100) COLLATE 'und:ci' NOT NULL,
+ltextg_wo_code STRING(100) COLLATE 'und:ci',
+ltextlg_wo_code STRING(100) COLLATE 'und:ci',
+ltext STRING(100) COLLATE 'und:ci' NOT NULL,
+ltextg STRING(100) COLLATE 'und:ci',
+ltextlg STRING(100) COLLATE 'und:ci',
+deleted_fg BIGNUMERIC(38,0) NOT NULL,
+dwh_valid_from DATE NOT NULL,
+dwh_valid_to DATE NOT NULL,
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL,
+PRIMARY KEY (client_id, hier_id, node, spras, dwh_valid_from) NOT ENFORCED
+);

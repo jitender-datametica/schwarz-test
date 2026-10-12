@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_score_cargo.t_kontrakt_bruttobetrag_hist (
+kontrakt_bruttobetrag_id BIGNUMERIC(38,0),
+kontrakt_bruttobetrag_rowid STRING(2000),
+kontrakt_bruttobetrag_lastmoddate TIMESTAMP,
+kontrakt_bruttobetrag_abgangsort_rowid STRING(2000),
+kontrakt_bruttobetrag_empfangsort_rowid STRING(2000),
+kontrakt_bruttobetrag_logistiktyp_rowid STRING(2000),
+kontrakt_bruttobetrag_empfangsland_rowid STRING(2000),
+kontrakt_bruttobetrag_palettentyp_rowid STRING(2000),
+kontrakt_bruttobetrag_waehrung_bezeichnung STRING(2000),
+kontrakt_bruttobetrag_waehrung_code STRING(2000),
+kontrakt_bruttobetrag_gueltig_von TIMESTAMP,
+kontrakt_bruttobetrag_gueltig_bis TIMESTAMP,
+kontrakt_bruttobetrag_brutto_pal BIGNUMERIC(38,5),
+kontrakt_bruttobetrag_masterrowid STRING(2000),
+kontrakt_bruttobetrag_logistiktypkontrakt_rowid STRING(2000),
+source_extraction_tmsp ARRAY < STRING >,
+tech_valid_from TIMESTAMP NOT NULL,
+tech_valid_to TIMESTAMP NOT NULL,
+snflk_insert_tmsp TIMESTAMP NOT NULL,
+snflk_update_tmsp TIMESTAMP NOT NULL
+);

@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.umbewertung_werte (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+pae_beleg_id INTEGER NOT NULL,
+kj BIGNUMERIC(38,0) NOT NULL,
+pae_beleg_pos_id BIGNUMERIC(38,0) NOT NULL,
+gjmo BIGNUMERIC(38,0) NOT NULL,
+wrg_bewertung_typ_id STRING(2) COLLATE 'und:ci' NOT NULL,
+wert_bestand NUMERIC(18,4) NOT NULL,
+wert_bestand_alt NUMERIC(18,4) NOT NULL,
+wert_bestand_s_preis NUMERIC(18,4) DEFAULT 0 NOT NULL,
+wert_bestand_s_preis_alt NUMERIC(18,4) DEFAULT 0 NOT NULL,
+gld_alt NUMERIC(18,4) NOT NULL,
+standard_preis_alt NUMERIC(18,4) DEFAULT 0 NOT NULL,
+gld_neu NUMERIC(18,4) NOT NULL,
+standard_preis_neu NUMERIC(18,4) DEFAULT 0 NOT NULL,
+preis_steuer_kz STRING(1) COLLATE 'und:ci' NOT NULL,
+preis_faktor BIGNUMERIC(38,0) NOT NULL,
+wrg_id STRING(3) COLLATE 'und:ci' NOT NULL,
+td_update TIMESTAMP,
+td_insert TIMESTAMP
+);

@@ -1,0 +1,4 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_shr_materialized.mv_l_cluster_bzg (
+betriebszugehoerigkeit_cluster_sort_id INTEGER,
+betriebszugehoerigkeit_cluster_bez STRING(16)
+);

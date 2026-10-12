@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_kmr_pruefprogramm_unterbereich AS SELECT amx_system_id,
+ unterbereich_id,
+ pruefung_id,
+ teilbereich_id,
+ hauptbereich_id,
+ pruefprogramm_id,
+ kapitel_nr,
+ sort_nr,
+ fehlerverdacht_fg,
+ unterbereich_bez,
+ gepr_prozess_id,
+ ergebnis,
+ ergebnis_berechnet,
+ ergebnis_manuell
+FROM kfl_production_dbp_data.kmr_pruefprogramm_unterbereich;

@@ -1,0 +1,39 @@
+/* --------------------------------------------------------------------------------
+   DDL for table: T_CUSTOMS_CLEARANCE_REPORT_LINE
+   generated from Powerdesigner on Freitag, 18. August 2023 09:35:06
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE_REL.T_CUSTOMS_CLEARANCE_REPORT_LINE (
+   MOVEMENT_REF_NUMBER                 VARCHAR(250)    NOT NULL COMMENT 'The movement reference number is a customs identification number that’s created each time a declaration is submitted.',
+   TRADER_REFERENCE                    VARCHAR(250)    NOT NULL COMMENT 'Descriptive attribute - This is a reference assigned by the declarant for the goods covered by the declaration.',
+   ITEM_POSITION                       NUMBER(38, 0)   NOT NULL COMMENT 'The position of the item (report line) within a declaration.',
+   CLEARANCE_DT                        DATE            NOT NULL COMMENT 'The date on which the goods were granted clearance by Customs and any duties/taxes due were paid.',
+   ORIGIN_COUNTRY_LOCATION_SID         NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the political country where the goods are manufactured.',
+   CUSTOMS_PREFERENCE_CD               VARCHAR(50)     NOT NULL COMMENT 'The unique code of the customs procedure code.',
+   CUSTOMS_VALUATION_METHOD_ID         NUMBER(38, 0)   NOT NULL COMMENT 'The unique code of the customs valuation method.',
+   CUSTOMS_PRODUCT_SID                 NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the customs product.',
+   CUSTOMS_PROCEDURE_CD                VARCHAR(50)     NOT NULL COMMENT 'The unique code of the customs procedure code.',
+   ADDITIONAL_SPECIAL_CPC_CODES        VARCHAR(1000)   COMMENT 'Descriptive attribute - Additional special customs procedure codes.',
+   CUSTOMS_CLASSIFICATION_SCHEME_CD    VARCHAR(50)     NOT NULL COMMENT 'The unique code of the customs classification scheme.',
+   CUSTOMS_TARIFF_CODE_CD              VARCHAR(250)    NOT NULL COMMENT 'The standardized customs tariff code number.',
+   FIRST_SUPPLEMENTARY_CD              VARCHAR(50)     COMMENT 'The first supplementary code to the customs tariff code.',
+   SECOND_SUPPLEMENTARY_CD             VARCHAR(50)     COMMENT 'The second supplementary code to the customs tariff code.',
+   INVENTORY_UCR                       VARCHAR(250)    COMMENT 'Descriptive attribute - This field contains any inventory consignment reference that has been declared.',
+   DECLARATION_PART_NUMBER             VARCHAR(50)     COMMENT 'Descriptive attribute - Optionally completed when more than one declaration is made to cover the goods identified by the same Decln UCR. ',
+   ITEM_PRICE                          NUMBER(38, 5)   COMMENT 'Descriptive attribute - Item price in the same currency as the one used for the invoice total amount.',
+   CUSTOMS_VAL                         NUMBER(38, 5)   COMMENT 'Fact - additive - The total value of the item for the purposes of customs duty. In addition to the actual price of the goods this includes additional elements such as Freight Charges to the EU boundary. ',
+   DUTY_PAID_VAL                       NUMBER(38, 5)   COMMENT 'Fact - additive - The total amount of customs duty actually paid outright for the item. This does not include any potential duty calculated but not charged, for example, for IPR. ',
+   VAT_VAL                             NUMBER(38, 5)   COMMENT 'Fact - additive - The total value of the item for purposes of VAT. This can differ from the Customs Value - for example, it includes any customs duty paid together with freight charges from the EU to the UK boundary.',
+   VAT_PAID_VAL                        NUMBER(38, 5)   COMMENT 'Fact - additive - The total amount of VAT paid on the item.',
+   DUTY_SUSPENDED_VAL                  NUMBER(38, 5)   COMMENT 'Fact - additive - The total amount of customs duty suspended for the item.',
+   DUTY_SECURED_VAL                    NUMBER(38, 5)   COMMENT 'Fact - additive - The total amount of customs duty secured for the item. This records any amount declared with a security method of payment indicating that the final amount payable has not been determined.',
+   NET_MASS_QTY                        NUMBER(38, 5)   COMMENT 'Fact - additive - The net mass in kilograms of the goods declared.',
+   SUPPLEMENTARY_UNITS_QTY             NUMBER(38, 5)   COMMENT 'Fact - additive - The commodity code may require a second declaration quantity. If so it appears here in whatever form the Tariff requires – it can be pairs, items, litres, dozens',
+   GOODS_DESCR                         VARCHAR(250)    COMMENT 'Descriptive attribute - Description of the declared goods.',
+   DOCUMENT_REFERENCES                 VARCHAR(1000)   COMMENT 'Descriptive attribute - A list of document references provided by the customs authority.',
+   DWH_CREATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   DWH_UPDATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+   DWH_SRC_FILE_NAME                   VARCHAR(500)    COMMENT 'Contains the name(s) of the input file(s) that delivered the record. It can be either the full path of the BLOG storage or the shortened file path',
+   DWH_SRC_1_TMSP                      TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The extraction timestamp of the record from the source',   
+   CONSTRAINT PK_CUSTOMS_CLEARANCE_REPORT_LINE PRIMARY KEY (MOVEMENT_REF_NUMBER, TRADER_REFERENCE, ITEM_POSITION) NOT ENFORCED 
+)  COMMENT = 'Entity -Tranactional Events - Transaction - The report line as part of a customs clearance report contains detailed information about the customs clearance of an item within the declaration. - - Source - Excel Report from CDS (per Mail)';

@@ -1,0 +1,6 @@
+CREATE OR REPLACE TABLE share_platform_uapc_etl.test_target (
+a BIGNUMERIC(38,0),
+b BIGNUMERIC(38,0),
+c STRING(16777216),
+d BIGNUMERIC(38,0)
+);

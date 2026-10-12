@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_expansionstyp_spr_zu AS SELECT expansionstyp_id,
+ spr_id,
+ expansionstyp_bez
+FROM kfl_production_dbp_data.expansionstyp_spr_zu;

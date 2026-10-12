@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_2lis_02_scl_2_order_record_pos_split (
+record_id INTEGER,
+client_id BIGNUMERIC(38),
+order_record_id NUMERIC(20,0),
+order_record_pos_id BIGNUMERIC(38),
+order_record_pos_split_id BIGNUMERIC(38),
+order_split_qty NUMERIC(18,5),
+delivery_dt DATE,
+dwh_cal_dt DATE,
+dwh_load_id BIGNUMERIC(38),
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

@@ -1,0 +1,32 @@
+CREATE OR REPLACE VIEW P_LEW_MART_LEAD_AC.V_AGG_STAT_ORDER_DAY
+(
+ client_id
+,dat_calendar
+,py_day
+,currency_iso_cd
+,curr_tot_id
+,order_cnt_stationary_day
+,order_lin_cnt_stationary_day
+,turnover_net_val_stationary_day
+,plan_turnover_net_val_stationary_day
+,order_cnt_stationary_pyd
+,order_lin_cnt_stationary_pyd
+,turnover_net_val_stationary_pyd
+)
+AS
+SELECT
+client_id,
+dat_calendar,
+py_day,
+currency_iso_cd,
+curr_tot_id,
+order_cnt_stationary_day,
+order_lin_cnt_stationary_day,
+turnover_net_val_stationary_day,
+plan_turnover_net_val_stationary_day,
+order_cnt_stationary_pyd,
+order_lin_cnt_stationary_pyd,
+turnover_net_val_stationary_pyd
+FROM p_lew_mart_lead.t_agg_stat_order_day;
+
+

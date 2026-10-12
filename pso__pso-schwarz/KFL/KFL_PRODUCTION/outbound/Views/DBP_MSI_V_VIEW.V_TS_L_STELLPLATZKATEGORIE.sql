@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_v_view.v_ts_l_stellplatzkategorie AS SELECT sammel_ladung_fg,
+ anz_stellplatz_von,
+ anz_stellplatz_bis,
+ stellplatzkategorie
+FROM kfl_production_dbp_msi_data.ts_l_stellplatzkategorie;

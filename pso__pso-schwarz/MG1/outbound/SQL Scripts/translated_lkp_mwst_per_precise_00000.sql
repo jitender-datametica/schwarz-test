@@ -1,0 +1,13 @@
+--[OK] statement is translated correctly (syntax and type checks are fine)
+
+
+
+SELECT A.MANDANT_ID,
+ A.MWST_ID,
+ B.DAT,
+ A.MWST,
+ A.SAP_MWST_ID,
+ A.DAT_VON,
+ A.DAT_BIS
+FROM KFL_PRODUCTION_DBP_DATA.MWST_PER AS A
+ INNER JOIN KFL_PRODUCTION_DBP_DATA.TAG AS B ON B.DAT BETWEEN A.DAT_VON AND A.DAT_BIS;

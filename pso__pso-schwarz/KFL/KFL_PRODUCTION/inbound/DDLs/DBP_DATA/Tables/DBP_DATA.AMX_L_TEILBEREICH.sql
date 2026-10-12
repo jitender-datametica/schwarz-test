@@ -1,0 +1,19 @@
+--==============================================================
+-- Table: amx_l_teilbereich
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: amx_l_teilbereich
+   generated from Powerdesigner on Wednesday, February 14, 2024 10:50:36 AM
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE DBP_DATA.AMX_L_TEILBEREICH (
+   teilbereich_id                      NUMBER(38,0)     NOT NULL COMMENT 'Eindeutige ID eines Teilbereichs aus dem Quellfeld content_area.id',
+   amx_system_id                       NUMBER(38,0)     NOT NULL DEFAULT -1 COMMENT 'Unterscheidung zw. Den unterschiedlichen AMX Systemen. 1 = OneAudimex / 2 = KL Audimex',
+   teilbereich_bez                     VARCHAR(255)     NOT NULL COLLATE 'en-ci' DEFAULT ' ' COMMENT 'Bezeichnung des Teilbereichs aus dem Quellfeld name, z.Bsp. Werbevermarktung',
+   amx_grp_id                          NUMBER(38,0)     COMMENT 'Gruppierung zusammengehöriger Elemente aus den unterschiedlichen AMX Systemen
+            ',
+   TD_UPDATE                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   TD_INSERT                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   CONSTRAINT PK_AMX_L_TEILBEREICH PRIMARY KEY (teilbereich_id, amx_system_id) NOT ENFORCED
+)  COMMENT = 'VIS audimex - Lookup Tabelle der Teilbereiche aus der Quelltabelle audimex.content_area';
+

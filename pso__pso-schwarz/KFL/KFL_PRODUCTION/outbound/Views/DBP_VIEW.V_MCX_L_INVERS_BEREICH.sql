@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_mcx_l_invers_bereich AS SELECT invers_ber_id,
+ invers_kat_id
+FROM kfl_production_dbp_data.mcx_l_invers_bereich;

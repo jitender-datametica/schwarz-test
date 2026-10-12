@@ -1,0 +1,21 @@
+INSERT INTO ${TEMP_DB}.${SRC2TGT_TEMP_TABLE1}_${SRC_CONTEXT_AREA} (dwh_node_cd, tf_error_fg, dwh_load_id, record_id,
+ filename, country_org_sid, country_org_cd, error_descr, inv_nr, int_org_sid, inv_type_cd, int_org_type_cd, inv_dt,
+ inv_sid, inv_period_start_dt, inv_period_end_dt, inv_reason_id)
+(SELECT dwh_node_cd,
+  0 AS tf_error_fg,
+  ${LOAD_ID} AS dwh_load_id,
+  CAST(0 AS STRING) AS record_id,
+  'core_rel' AS filename,
+  country_org_sid,
+  country_org_cd,
+  '' AS error_descr,
+  inv_nr,
+  int_org_sid,
+  inv_type_cd,
+  int_org_type_cd,
+  inv_dt,
+  inv_sid,
+  inv_period_start_dt,
+  inv_period_end_dt,
+  COALESCE(inv_reason_id, - 1) AS inv_reason_id
+ FROM ldl_data_production_core_rel.t_inventory AS inv);

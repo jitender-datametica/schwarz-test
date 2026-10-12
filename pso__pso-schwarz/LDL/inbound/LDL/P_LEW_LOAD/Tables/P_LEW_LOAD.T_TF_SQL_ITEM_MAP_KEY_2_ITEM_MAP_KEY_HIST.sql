@@ -1,0 +1,28 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TF_SQL_ITEM_MAP_KEY_2_ITEM_MAP_KEY_HIST
+(
+  CLIENT_ID                 NUMBER(38)                    NOT NULL,
+  LIDL_COUNTRY              VARCHAR(40)                   NOT NULL,
+  SQL_ITEM_MAP_KEY_ITEM_SID NUMBER(10,0)                  NOT NULL,
+  ITEM_SID                  NUMBER(38)                    NOT NULL,
+  ITEM_SID_MAP              NUMBER(38)                    NULL,
+  DWH_ITEM_ID               VARCHAR(20) COLLATE 'en-ci'   NULL,
+  DWH_LOG_VAR_ID            VARCHAR(20) COLLATE 'en-ci'   NULL,
+  DWH_ORIG_ITEM_NR          NUMBER(20,0)                  NULL,
+  DWH_CASE_SIZE             NUMBER(38)                    NULL,
+  ELWIS_DWH_EC_CD           NUMBER(38)                    NULL,
+  ELWIS_DWH_ITM_SID         NUMBER(38)                    NULL,
+  ELWIS_DWH_ITEM_ID         VARCHAR(20) COLLATE 'en-ci'   NULL,
+  WAWI_DWH_CLIENT_ID        NUMBER(38)                    NULL,
+  WAWI_DWH_ITEM_ID          NUMBER(38)                    NULL,
+  WAWI_DWH_ORIG_ITEM_NR     NUMBER(38)                    NULL,
+  WAWI_DWH_CASE_SIZE        NUMBER(38)                    NULL,
+  WAWI_DWH_DAT_VALID_FROM   DATE                          NULL,
+  ACTIVE_FG                 NUMBER(38)                    NULL,
+  SOURCE_CD                 VARCHAR(100) COLLATE 'en-ci'  NULL,
+  DELETED_FG                NUMBER(38)                    NOT NULL,
+  EXTRACTION_DT             DATE                          NULL,
+  DWH_MAPPING_DT            DATE                          NOT NULL,
+  TF_ERROR_FG               NUMBER(1,0)                   NULL,
+  RECORD_ID                 NUMBER(38)                    NOT NULL,
+  FILENAME                  VARCHAR(1000)                 NOT NULL
+);

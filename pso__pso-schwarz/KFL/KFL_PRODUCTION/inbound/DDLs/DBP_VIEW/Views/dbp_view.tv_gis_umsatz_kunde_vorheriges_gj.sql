@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW dbp_view.tv_gis_umsatz_kunde_vorheriges_gj
+AS
+SELECT
+*
+FROM dbp_data_center.tv_gis_umsatz_kunde_vorheriges_gj;

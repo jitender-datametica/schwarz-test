@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_supplier_contact_hist (client_id, loc_sid_wh, sup_contact_id, sup_sid,
+sup_contact_purpose_sid, contact_medium_cd, contact_preference_fg, contact_active_fg, contact_last_changed_dt,
+deleted_fg, dwh_valid_from, dwh_valid_to, dwh_load_id, dwh_created, dwh_updated) AS SELECT client_id,
+ loc_sid_wh,
+ sup_contact_id,
+ sup_sid,
+ sup_contact_purpose_sid,
+ contact_medium_cd,
+ contact_preference_fg,
+ contact_active_fg,
+ contact_last_changed_dt,
+ deleted_fg,
+ dwh_valid_from,
+ dwh_valid_to,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_supplier_contact_hist;

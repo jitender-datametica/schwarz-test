@@ -1,0 +1,46 @@
+create or replace view KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_VIEW.V_ZB_PROJEKT_IST_KOSTEN(
+	MANDANT_ID COMMENT 'Mandant im DWH',
+	BUCHUNG_BELEG_NR COMMENT 'Belegnummer der Buchung',
+	BUCHUNG_BELEG_POS_NR COMMENT 'Nummer der Belegposition / Buchungszeile der Buchung',
+	DAT_BUCHUNG_BELEG COMMENT 'Datum der Buchung',
+	BUCHUNG_TYP_CD COMMENT 'Code gibt an ob es sich um eine Buchung zu einer Bestellung (B), eine Buchung zum Vertrag (V) oder um eine Buchung ohne Bestellung und Vertrag (O) handelt.',
+	KOSTEN_TYP_CD COMMENT 'Code gibt Art der Kosten- / Buchungsposition an: B = Baukostenzuschuss, F = Foerderung, R = Rueckstellung, K = normale Kosten.',
+	PROJEKT_NR COMMENT 'Eindeutige Code des Projektes aus ePPM. ',
+	GEWERK_ID COMMENT 'ID des Gewerkes. Entspricht der letzten Ziffer des langen PSP-Elements.',
+	KONTO_NR COMMENT 'Nummer des Kontos',
+	GEGEN_KONTO_NR COMMENT 'Nummer des Gegenkontos',
+	GP_ID COMMENT 'Geschäftspartner - ID (Lieferanten - ID)',
+	MATERIAL_NR COMMENT 'Nummer des Materials.',
+	BESTELL_BELEG_NR COMMENT 'Handelt es sich um eine Buchung zu einer Bestellung, Belegnummer der Bestellung.',
+	BESTELL_BELEG_POS_NR COMMENT 'Handelt es sich um eine Buchung zu einer Bestellung, Nummer der Belegposition der Bestellung.',
+	KRK_ID COMMENT 'globale ID des Kostenrechnungskreises',
+	KOSTENART_ID COMMENT 'Eindeutiger Fachschluessel fuer die Kostenarten',
+	MIETVERTRAG_NR COMMENT 'Hanelt es sich um den Buchung Typ V und die Buchung kann einem Vertrag zugeordnet werden, befindet sich hier der eindeutige Identfier des zugeordneten Vertrages.',
+	WRG_ID COMMENT 'Kurzbezeichnung der Währung, z.B. CZK, EUR',
+	BETRAG_BUCHUNG COMMENT 'Betrag der Buchung in Landeswährung.',
+	BUCHUNG_BELEG_TXT COMMENT 'Freitext des Buchungsbeleges.'
+) COMMENT='Enthält alle Buchungen die für Immobilienprojekte relevant sind. Diese können entweder aus einer Bestellungen, aus Verträgen und Konditionen oder ohne Bezug zu diesen und nur mit einem referenzierten Konto veranlasst werden.'
+ as 
+    SELECT 
+        mandant_id,
+        buchung_beleg_nr,
+        buchung_beleg_pos_nr,
+        dat_buchung_beleg,
+        buchung_typ_cd,
+        kosten_typ_cd,
+        projekt_nr,
+        gewerk_id,
+        konto_nr,
+        gegen_konto_nr,
+        gp_id,
+        material_nr,
+        bestell_beleg_nr,
+        bestell_beleg_pos_nr,
+        krk_id,
+        kostenart_id,
+        mietvertrag_nr,
+        wrg_id,
+        betrag_buchung,
+        buchung_beleg_txt
+
+FROM DBP_DATA.ZB_PROJEKT_IST_KOSTEN ;

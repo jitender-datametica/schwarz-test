@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ais_kmo.mv_gp_spr_zu (gp_id, mandant_id, gp_name, gp_name_de,
+gp_name_cz, gp_name_pl, gp_name_md, gp_name_sk, gp_name_hr, gp_name_ro, gp_name_bg) AS SELECT V01.gp_id,
+ V01.mandant_id,
+ V01.gp_name_lat AS gp_name,
+ V01.gp_name_lat AS gp_name_de,
+ V01.gp_name_lat AS gp_name_cz,
+ V01.gp_name_lat AS gp_name_pl,
+ V01.gp_name_lat AS gp_name_md,
+ V01.gp_name_lat AS gp_name_s,
+ V01.gp_name_lat AS gp_name_h,
+ V01.gp_name_lat AS gp_name_r,
+ V01.gp_name AS gp_name_bg
+FROM kfl_production_dbp_view.v_gp AS V01
+ INNER JOIN kfl_production_dbp_view.v_region AS V02 ON V01.mandant_id = V02.mandant_id AND V01.land_id = V02.land_id AND
+   V01.region_id = V02.region_id
+WHERE V01.mandant_id <> 1
+ AND V01.einkaufsorganisation_id <> - 1;

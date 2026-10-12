@@ -1,0 +1,27 @@
+CREATE OR REPLACE FUNCTION FE_MSTR_LIDLDIGITAL.F_COUNT_HOLIDAYS_AND_SUNDAYS_AND_SATURDAYS (
+     COUNTRY_CD VARCHAR(5)
+    ,DATE1 DATE
+    ,DATE2 DATE
+)
+RETURNS NUMBER(38,0)
+/*
+    Count the number of holidays and sundays between two given dates.
+*/
+AS
+$$
+    (
+        SELECT COUNT(1) FROM
+            CORE.T_DIM_CAL_HOLIDAY_REGIONAL DIM_CHR
+        WHERE
+            DIM_CHR.COUNTRY_CD = COUNTRY_CD
+            AND DIM_CHR.CAL_DT BETWEEN DATE1 AND DATE2
+            AND DIM_CHR.DAY_OF_WEEK_SHORT_NAME NOT IN ('So', 'Sa')
+    ) + (
+        SELECT COUNT(1) FROM
+            CORE.T_DIM_CAL_DAY DIM_CD
+        WHERE
+            DIM_CD.CAL_DT BETWEEN DATE1 AND DATE2
+            AND DAY_OF_WEEK_SHORT_NAME IN ('So', 'Sa')
+    )
+$$
+;

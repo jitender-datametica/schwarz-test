@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_rueckgabe_verwendung_spr_zu AS SELECT mandant_id,
+ spr_id,
+ rueckgabe_verwendung_kz,
+ rueckgabe_verwendung_bez
+FROM kfl_production_dbp_data.rueckgabe_verwendung_spr_zu;

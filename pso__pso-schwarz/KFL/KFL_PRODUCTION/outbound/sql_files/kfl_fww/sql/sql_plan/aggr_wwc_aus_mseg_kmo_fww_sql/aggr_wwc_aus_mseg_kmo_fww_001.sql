@@ -1,0 +1,12 @@
+SELECT count(*)
+-- begin subquery
+FROM
+    (
+        SELECT TABLES.*
+        FROM
+            dbp_etl.INFORMATION_SCHEMA.TABLES
+        WHERE
+            upper(TABLES.TABLE_SCHEMA) = 'DBP_ETL'
+            AND upper(TABLES.TABLE_NAME) = 'KMO_MSEG_DAT_WWC'
+    ) AS subselect;
+-- end subquery

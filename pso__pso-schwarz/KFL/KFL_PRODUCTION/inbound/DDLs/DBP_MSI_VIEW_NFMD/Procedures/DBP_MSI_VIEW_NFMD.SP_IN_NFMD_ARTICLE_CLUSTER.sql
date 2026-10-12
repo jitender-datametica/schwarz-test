@@ -1,0 +1,273 @@
+CREATE OR REPLACE PROCEDURE DBP_MSI_VIEW_NFMD.SP_IN_NFMD_ARTICLE_CLUSTER(
+	P_MANDANT_ID NUMBER,
+	P_ARTICLE_CLUSTER VARCHAR,
+	P_ARTICLE_CLUSTER_EN VARCHAR ,
+	P_ARTICLE_CLUSTER_LANDESSPRACHE VARCHAR
+	)
+RETURNS STRING
+LANGUAGE SQL
+EXECUTE AS OWNER
+AS
+$$
+BEGIN
+
+CASE :P_MANDANT_ID 
+  WHEN 1 THEN 
+        INSERT INTO DBP_MSI_VIEW_NFMD.TS_NFMD_ARTICLE_CLUSTER (
+                mandant_id,
+                ARTICLE_CLUSTER_ID,
+                ARTICLE_CLUSTER_DESCR,
+                ARTICLE_CLUSTER_DESCR_bg,
+                ARTICLE_CLUSTER_DESCR_cz,
+                ARTICLE_CLUSTER_DESCR_en,
+                ARTICLE_CLUSTER_DESCR_hr,
+                ARTICLE_CLUSTER_DESCR_pl,
+                ARTICLE_CLUSTER_DESCR_ro,
+                ARTICLE_CLUSTER_DESCR_sk,
+                ARTICLE_CLUSTER_DESCR_NATIVE,
+                active_fg
+        )
+        SELECT 
+            :P_MANDANT_ID,
+            CASE WHEN MAX(ARTICLE_CLUSTER_ID) = 97 THEN 100 ELSE MAX(ARTICLE_CLUSTER_ID)+1 END as ARTICLE_CLUSTER_ID,
+            :P_ARTICLE_CLUSTER_LANDESSPRACHE,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_LANDESSPRACHE,
+            1
+       FROM DBP_MSI_VIEW_NFMD.TS_NFMD_ARTICLE_CLUSTER
+            WHERE  MANDANT_ID = :P_MANDANT_ID 
+            AND ARTICLE_CLUSTER_ID NOT IN (98,99);
+
+ WHEN 2 THEN 
+        INSERT INTO DBP_MSI_VIEW_NFMD.TS_NFMD_ARTICLE_CLUSTER (
+                mandant_id,
+                ARTICLE_CLUSTER_ID,
+                ARTICLE_CLUSTER_DESCR,
+                ARTICLE_CLUSTER_DESCR_bg,
+                ARTICLE_CLUSTER_DESCR_cz,
+                ARTICLE_CLUSTER_DESCR_en,
+                ARTICLE_CLUSTER_DESCR_hr,
+                ARTICLE_CLUSTER_DESCR_pl,
+                ARTICLE_CLUSTER_DESCR_ro,
+                ARTICLE_CLUSTER_DESCR_sk,
+                ARTICLE_CLUSTER_DESCR_NATIVE,
+                active_fg
+        )
+        SELECT 
+            :P_MANDANT_ID,
+            CASE WHEN MAX(ARTICLE_CLUSTER_ID) = 97 THEN 100 ELSE MAX(ARTICLE_CLUSTER_ID)+1 END as ARTICLE_CLUSTER_ID,
+            :P_ARTICLE_CLUSTER,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_LANDESSPRACHE,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_LANDESSPRACHE,
+            1
+        FROM DBP_MSI_VIEW_NFMD.TS_NFMD_ARTICLE_CLUSTER
+            WHERE  MANDANT_ID = :P_MANDANT_ID 
+            AND ARTICLE_CLUSTER_ID NOT IN (98,99);
+WHEN 3 THEN 
+        INSERT INTO DBP_MSI_VIEW_NFMD.TS_NFMD_ARTICLE_CLUSTER (
+                mandant_id,
+                ARTICLE_CLUSTER_ID,
+                ARTICLE_CLUSTER_DESCR,
+                ARTICLE_CLUSTER_DESCR_bg,
+                ARTICLE_CLUSTER_DESCR_cz,
+                ARTICLE_CLUSTER_DESCR_en,
+                ARTICLE_CLUSTER_DESCR_hr,
+                ARTICLE_CLUSTER_DESCR_pl,
+                ARTICLE_CLUSTER_DESCR_ro,
+                ARTICLE_CLUSTER_DESCR_sk,
+                ARTICLE_CLUSTER_DESCR_NATIVE,
+                active_fg
+        )
+        SELECT 
+            :P_MANDANT_ID,
+            CASE WHEN MAX(ARTICLE_CLUSTER_ID) = 97 THEN 100 ELSE MAX(ARTICLE_CLUSTER_ID)+1 END as ARTICLE_CLUSTER_ID,
+            :P_ARTICLE_CLUSTER,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_LANDESSPRACHE,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_LANDESSPRACHE,
+            1
+        FROM DBP_MSI_VIEW_NFMD.TS_NFMD_ARTICLE_CLUSTER
+            WHERE  MANDANT_ID = :P_MANDANT_ID 
+            AND ARTICLE_CLUSTER_ID NOT IN (98,99);
+WHEN 4 THEN 
+        INSERT INTO DBP_MSI_VIEW_NFMD.TS_NFMD_ARTICLE_CLUSTER (
+                mandant_id,
+                ARTICLE_CLUSTER_ID,
+                ARTICLE_CLUSTER_DESCR,
+                ARTICLE_CLUSTER_DESCR_bg,
+                ARTICLE_CLUSTER_DESCR_cz,
+                ARTICLE_CLUSTER_DESCR_en,
+                ARTICLE_CLUSTER_DESCR_hr,
+                ARTICLE_CLUSTER_DESCR_pl,
+                ARTICLE_CLUSTER_DESCR_ro,
+                ARTICLE_CLUSTER_DESCR_sk,
+                ARTICLE_CLUSTER_DESCR_NATIVE,
+                active_fg
+        )
+        SELECT 
+            :P_MANDANT_ID,
+            CASE WHEN MAX(ARTICLE_CLUSTER_ID) = 97 THEN 100 ELSE MAX(ARTICLE_CLUSTER_ID)+1 END as ARTICLE_CLUSTER_ID,
+            :P_ARTICLE_CLUSTER,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_LANDESSPRACHE,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_LANDESSPRACHE,
+            1
+        FROM DBP_MSI_VIEW_NFMD.TS_NFMD_ARTICLE_CLUSTER
+            WHERE  MANDANT_ID = :P_MANDANT_ID 
+            AND ARTICLE_CLUSTER_ID NOT IN (98,99);
+WHEN 5 THEN 
+        INSERT INTO DBP_MSI_VIEW_NFMD.TS_NFMD_ARTICLE_CLUSTER (
+                mandant_id,
+                ARTICLE_CLUSTER_ID,
+                ARTICLE_CLUSTER_DESCR,
+                ARTICLE_CLUSTER_DESCR_bg,
+                ARTICLE_CLUSTER_DESCR_cz,
+                ARTICLE_CLUSTER_DESCR_en,
+                ARTICLE_CLUSTER_DESCR_hr,
+                ARTICLE_CLUSTER_DESCR_pl,
+                ARTICLE_CLUSTER_DESCR_ro,
+                ARTICLE_CLUSTER_DESCR_sk,
+                ARTICLE_CLUSTER_DESCR_NATIVE,
+                active_fg
+        )
+        SELECT 
+            :P_MANDANT_ID,
+            CASE WHEN MAX(ARTICLE_CLUSTER_ID) = 97 THEN 100 ELSE MAX(ARTICLE_CLUSTER_ID)+1 END as ARTICLE_CLUSTER_ID,
+            :P_ARTICLE_CLUSTER,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_LANDESSPRACHE,
+            :P_ARTICLE_CLUSTER_LANDESSPRACHE,
+            1
+        FROM DBP_MSI_VIEW_NFMD.TS_NFMD_ARTICLE_CLUSTER
+            WHERE  MANDANT_ID = :P_MANDANT_ID 
+            AND ARTICLE_CLUSTER_ID NOT IN (98,99);
+WHEN 6 THEN 
+        INSERT INTO DBP_MSI_VIEW_NFMD.TS_NFMD_ARTICLE_CLUSTER (
+                mandant_id,
+                ARTICLE_CLUSTER_ID,
+                ARTICLE_CLUSTER_DESCR,
+                ARTICLE_CLUSTER_DESCR_bg,
+                ARTICLE_CLUSTER_DESCR_cz,
+                ARTICLE_CLUSTER_DESCR_en,
+                ARTICLE_CLUSTER_DESCR_hr,
+                ARTICLE_CLUSTER_DESCR_pl,
+                ARTICLE_CLUSTER_DESCR_ro,
+                ARTICLE_CLUSTER_DESCR_sk,
+                ARTICLE_CLUSTER_DESCR_NATIVE,
+                active_fg
+        )
+        SELECT 
+            :P_MANDANT_ID,
+            CASE WHEN MAX(ARTICLE_CLUSTER_ID) = 97 THEN 100 ELSE MAX(ARTICLE_CLUSTER_ID)+1 END as ARTICLE_CLUSTER_ID,
+            :P_ARTICLE_CLUSTER,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_LANDESSPRACHE,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_LANDESSPRACHE,
+            1
+        FROM DBP_MSI_VIEW_NFMD.TS_NFMD_ARTICLE_CLUSTER
+            WHERE  MANDANT_ID = :P_MANDANT_ID 
+            AND ARTICLE_CLUSTER_ID NOT IN (98,99);
+         
+WHEN 7 THEN 
+        INSERT INTO DBP_MSI_VIEW_NFMD.TS_NFMD_ARTICLE_CLUSTER (
+                mandant_id,
+                ARTICLE_CLUSTER_ID,
+                ARTICLE_CLUSTER_DESCR,
+                ARTICLE_CLUSTER_DESCR_bg,
+                ARTICLE_CLUSTER_DESCR_cz,
+                ARTICLE_CLUSTER_DESCR_en,
+                ARTICLE_CLUSTER_DESCR_hr,
+                ARTICLE_CLUSTER_DESCR_pl,
+                ARTICLE_CLUSTER_DESCR_ro,
+                ARTICLE_CLUSTER_DESCR_sk,
+                ARTICLE_CLUSTER_DESCR_NATIVE,
+                active_fg
+        )
+        SELECT 
+            :P_MANDANT_ID,
+            CASE WHEN MAX(ARTICLE_CLUSTER_ID) = 97 THEN 100 ELSE MAX(ARTICLE_CLUSTER_ID)+1 END as ARTICLE_CLUSTER_ID,
+            :P_ARTICLE_CLUSTER,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_LANDESSPRACHE,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_LANDESSPRACHE,
+            1
+        FROM DBP_MSI_VIEW_NFMD.TS_NFMD_ARTICLE_CLUSTER
+            WHERE  MANDANT_ID = :P_MANDANT_ID 
+            AND ARTICLE_CLUSTER_ID NOT IN (98,99);
+WHEN 8 THEN 
+        INSERT INTO DBP_MSI_VIEW_NFMD.TS_NFMD_ARTICLE_CLUSTER (
+                mandant_id,
+                ARTICLE_CLUSTER_ID,
+                ARTICLE_CLUSTER_DESCR,
+                ARTICLE_CLUSTER_DESCR_bg,
+                ARTICLE_CLUSTER_DESCR_cz,
+                ARTICLE_CLUSTER_DESCR_en,
+                ARTICLE_CLUSTER_DESCR_hr,
+                ARTICLE_CLUSTER_DESCR_pl,
+                ARTICLE_CLUSTER_DESCR_ro,
+                ARTICLE_CLUSTER_DESCR_sk,
+                ARTICLE_CLUSTER_DESCR_NATIVE,
+                active_fg
+        )
+        SELECT 
+            :P_MANDANT_ID,
+            CASE WHEN MAX(ARTICLE_CLUSTER_ID) = 97 THEN 100 ELSE MAX(ARTICLE_CLUSTER_ID)+1 END as ARTICLE_CLUSTER_ID,
+            :P_ARTICLE_CLUSTER,
+            :P_ARTICLE_CLUSTER_LANDESSPRACHE,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_EN,
+            :P_ARTICLE_CLUSTER_LANDESSPRACHE,
+            1
+        FROM DBP_MSI_VIEW_NFMD.TS_NFMD_ARTICLE_CLUSTER
+            WHERE  MANDANT_ID = :P_MANDANT_ID 
+            AND ARTICLE_CLUSTER_ID NOT IN (98,99);
+     
+    END;
+
+COMMIT;
+RETURN 'Artikelcluster hinzugefuegt';
+
+END;
+$$;
+    

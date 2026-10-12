@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW P_LEW_MART_WFM_AC.V_OPEN_ORDERS
+(
+client_id
+,country_cd
+,src_wh_id
+,src_orig_item_nr
+,dat_delivery
+,remaining_case
+,complete_case
+,remaining_ep
+,complete_ep
+,remainig_piece
+,complete_piece
+)
+AS
+   (
+   SELECT
+   client_id,
+   country_cd,
+   src_wh_id,
+   src_orig_item_nr,
+   dat_delivery,
+   remaining_case,
+   complete_case,
+   remaining_ep,
+   complete_ep,
+   remainig_piece,
+   complete_piece
+   FROM p_lew_mart_wfm.v_open_orders
+   );

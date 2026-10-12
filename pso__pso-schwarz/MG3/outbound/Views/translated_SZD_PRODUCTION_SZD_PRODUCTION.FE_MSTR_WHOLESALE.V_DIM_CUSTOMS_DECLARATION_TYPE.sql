@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_wholesale.v_dim_customs_declaration_type (customs_declaration_type_cd,
+customs_declaration_type_descr) AS SELECT customs_declaration_type_cd,
+ customs_declaration_type_descr
+FROM szd_production_core.t_dim_customs_declaration_type;

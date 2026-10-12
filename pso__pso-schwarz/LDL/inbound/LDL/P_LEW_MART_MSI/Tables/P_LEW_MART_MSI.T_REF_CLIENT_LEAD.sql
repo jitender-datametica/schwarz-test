@@ -1,0 +1,53 @@
+CREATE TABLE P_LEW_MART_MSI.T_REF_CLIENT_LEAD
+/*
+#----------------------------------------------------------------------------
+# History:
+#  1.0  01.10.2018    Khusainov, Timur            Initiliazation
+#  2.0  06.08.2020    Roy, Ritanjal               Introducing LV
+#  2.1  20.12.2021    Michael Morris              Added Estonia EE
+#  2.2  23.08.2024    Malec, Marcin               Added column vs_sort, with an additional country sorting logic; User Story 665161
+#----------------------------------------------------------------------------
+*/
+(
+    INT_ID NUMBER(38,0) NOT NULL,
+    CLIENT_ID NUMBER(38,0) NOT NULL,
+    COUNTRY_ISO_CD VARCHAR(3) COLLATE 'en-ci',
+    COUNTRY_GROUP_ID NUMBER(38,0) NOT NULL,
+    LISY_SORT NUMBER(38,0),
+    VS_SORT NUMBER(38,0),
+    DASHBOARD_RELEVANT_FG NUMBER(38,0),
+    COUNTRY_DESC_AT VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_BE VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_BG VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_CH VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_CY VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_CZ VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_DK VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_EE VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_ES VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_FI VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_FR VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_GB VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_GR VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_HR VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_HU VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_IE VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_IT VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_LT VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_LV VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_NI VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_NL VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_DE VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_PL VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_PT VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_RO VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_SE VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_SI VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_SK VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_CS VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_MT VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_US VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_DESC_RS VARCHAR(35) COLLATE 'en-ci',
+    COUNTRY_OPENING_DATE VARCHAR(7) COLLATE 'en-ci'
+);

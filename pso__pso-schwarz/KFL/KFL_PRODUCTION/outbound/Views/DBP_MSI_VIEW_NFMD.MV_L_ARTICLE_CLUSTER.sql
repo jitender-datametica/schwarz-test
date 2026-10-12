@@ -1,0 +1,13 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_nfmd.mv_l_article_cluster AS SELECT mandant_id,
+ article_cluster_id,
+ COALESCE(article_cluster_descr, article_cluster_descr_en) AS article_cluster_bez,
+ article_cluster_descr_bg AS article_cluster_bez_bg,
+ article_cluster_descr_cz AS article_cluster_bez_cz,
+ article_cluster_descr_en AS article_cluster_bez_en,
+ article_cluster_descr_hr AS article_cluster_bez_hr,
+ article_cluster_descr_pl AS article_cluster_bez_pl,
+ article_cluster_descr_ro AS article_cluster_bez_ro,
+ article_cluster_descr_sk AS article_cluster_bez_sk,
+ article_cluster_descr_native AS article_cluster_bez_native,
+ active_fg
+FROM kfl_production_dbp_msi_view_nfmd.ts_nfmd_article_cluster;

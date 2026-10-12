@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_autodispo_core.t_internal_forecast_results (
+country STRING(16777216),
+wh BIGNUMERIC(38,0),
+store BIGNUMERIC(38,0),
+itemno STRING(16777216),
+forecast_date STRING(16777216),
+v_model STRING(16777216),
+date_ STRING(16777216),
+forecast_day BIGNUMERIC(38,0),
+pfc BIGNUMERIC(38,10),
+training_date STRING(16777216),
+days_in_history BIGNUMERIC(38,0),
+promotion BIGNUMERIC(38,0),
+price_forecast BIGNUMERIC(38,10),
+forecast_error BIGNUMERIC(38,10),
+source_flag BIGNUMERIC(38,0),
+source_extraction_tmsp TIMESTAMP NOT NULL,
+snflk_insert_tmsp TIMESTAMP NOT NULL,
+snflk_update_tmsp TIMESTAMP NOT NULL
+) CLUSTER BY date_, country, wh;

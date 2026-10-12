@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_v_ods.v_l_bon_load_status_bitfeld AS SELECT bitfeld_position_id,
+ load_status_bez
+FROM kfl_production_dbp_ods.l_bon_load_status_bitfeld;

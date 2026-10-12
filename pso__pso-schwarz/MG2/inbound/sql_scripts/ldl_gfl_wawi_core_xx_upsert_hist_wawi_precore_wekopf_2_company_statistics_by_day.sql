@@ -1,0 +1,218 @@
+INSERT INTO  ${TEMP_DB}.${SRC2TGT_TEMP_TABLE1}_${SRC_CONTEXT_AREA}
+ (
+      INT_COMPANY_NATURAL_KEY
+    , INT_COMPANY_KEY_TYPE_CD
+    , STAT_TYPE_CD 
+    , STAT_DT
+    , BUS_DT
+    , CURR_STAT_FG
+    , STAT_VAL 
+    , CURR_CD
+    , STAT_CNT
+    , STAT_QTY
+    , STAT_MEAS
+    , UOM_CD
+
+-------------------------
+    ,source_system
+    ,extraction_dt
+    ,dwh_mapping_tmsp
+    ,tf_error_fg
+    ,deleted_fg
+    ,record_id
+    ,filename
+    ,dwh_node_cd
+    ,dwh_load_id
+)
+
+SELECT	
+  ctrcode ||'|'|| CAST( CAST(wh_nr AS BIGINT) AS STRING) AS INT_COMPANY_NATURAL_KEY,
+ 'COMPANY' AS INT_COMPANY_KEY_TYPE_CD,
+  138 AS STAT_TYPE_CD,
+  CURRENT_TIMESTAMP AS STAT_DT,
+  wedatum AS BUS_DT,
+  1 AS CURR_STAT_FG,
+  NULL AS STAT_VAL,
+  NULL AS CURR_CD,
+  NULL AS STAT_CNT,
+  SUM(pal_dd_goods) + SUM(pal_eu_goods) AS STAT_QTY,
+  NULL AS STAT_MEAS,
+  NULL AS UOM_CD,
+/*
+  seperator,
+  gatetype,
+  taskid,
+  gingate,
+  carrier,
+  krednr,
+  name,
+  wh_nr,
+  ctrcode,
+  wedatum
+  pal_dd_goods,
+  pal_eu_goods,
+  create_date,
+  mod_date,
+*/
+---------------------
+  'WAWI' source_system,
+  MAX(extraction_tmsp) extraction_dt,
+  MAX(extraction_tmsp) dwh_mapping_tmsp,
+  0 tf_error_fg,
+  0 deleted_fg,
+  0 record_id,
+  '${SRC_INPUT_TABLE}' filename,
+  'WAWI_HQ' dwh_node_cd,
+  '${LOAD_ID}' dwh_load_id 
+FROM 
+(
+SELECT	
+
+  1 AS seperator,
+  C170_GATETYPE AS gatetype,
+  C173_VIEW_TASKID AS taskid,
+  C173_GINGATE AS gingate,
+  TRIM( C173_CARRIER) AS carrier,
+  K.KREDNR AS krednr,
+  K.NAME1 AS name,
+  WK.WH_NR AS wh_nr,
+  WK.CTRCODE AS ctrcode,
+  WK.WEDATUM AS wedatum,
+  MIN( C173_PAL_DD_GOODS) AS pal_dd_goods,
+  MIN( C173_PAL_EU_GOODS) AS pal_eu_goods,
+  MIN( C173_CREATE_DATE) AS create_date,
+  MAX( C173_MOD_DATE) AS mod_date,
+  MAX(WK.extraction_tmsp) AS extraction_tmsp
+
+FROM       ETL.t_wawi_precore_T170_GINGATETYPES GGT
+INNER JOIN ETL.t_wawi_precore_T171_GINGATES GG
+  ON  GGT.C170_GATETYPEID = GG.C171_GATETYPEID 
+  AND GGT.CTRCODE = GG.CTRCODE
+  AND GGT.WH_NR = GG.WH_NR
+INNER JOIN ETL.t_wawi_precore_T173_GINTASKS GT
+  ON  GG.C171_GINGATE = GT.C173_GINGATE 
+  AND GGT.CTRCODE = GT.CTRCODE
+  AND GGT.WH_NR = GT.WH_NR
+INNER JOIN ETL.t_wawi_precore_T174_GINCOUNT GC
+  ON  GC.C174_TASKID = GT.C173_TASKID 
+  AND GGT.CTRCODE = GC.CTRCODE
+  AND GGT.WH_NR = GC.WH_NR
+  AND GC.C174_ITEMSTATUS = 99 
+INNER JOIN ETL.t_wawi_precore_KREDITOR K
+  ON  K.KREDNR = '000' || SUBSTR (C174_PONR,1,4) 
+  AND GGT.CTRCODE = K.CTRCODE 
+INNER JOIN ETL.t_wawi_precore_WEKOPF WK
+  ON  GC.C174_RCVID = WK.ID
+  AND GGT.CTRCODE = WK.CTRCODE
+  AND GGT.WH_NR = WK.WH_NR
+  /* Temporarily filter for testing */
+  AND CAST(WK.WEDATUM AS DATE) > '2023-12-01'
+GROUP BY 
+  1,
+  C170_GATETYPE,
+  C173_VIEW_TASKID,
+  C173_GINGATE,
+  TRIM( C173_CARRIER),
+  K.KREDNR,
+  K.NAME1,  
+  WK.WH_NR,
+  WK.CTRCODE,
+  WK.WEDATUM
+
+UNION SELECT 
+  2 AS seperator,
+  'O&G Lieferungen' AS gatetype,
+  C173_VIEW_TASKID AS taskid,
+  C173_GINGATE AS gingate,
+  TRIM( C173_CARRIER) AS carrier,
+  K.KREDNR AS krednr,
+  K.NAME1 AS name,
+  WK.WH_NR AS wh_nr,
+  WK.CTRCODE AS ctrcode,
+  WK.WEDATUM AS wedatum,
+  MIN( C173_PAL_DD_GOODS) AS pal_dd_goods,
+  MIN( C173_PAL_EU_GOODS) AS pal_eu_goods,
+  MIN( C173_CREATE_DATE) AS create_date,
+  MAX( C173_MOD_DATE) AS mod_date,
+  MAX(WK.extraction_tmsp) AS extraction_tmsp
+
+FROM       ETL.t_wawi_precore_T170_GINGATETYPES GGT
+INNER JOIN ETL.t_wawi_precore_T171_GINGATES GG
+  ON  GGT.C170_GATETYPEID = GG.C171_GATETYPEID 
+  AND GGT.CTRCODE = GG.CTRCODE
+  AND GGT.WH_NR = GG.WH_NR
+INNER JOIN ETL.t_wawi_precore_T173_GINTASKS GT
+  ON  GG.C171_GINGATE = GT.C173_GINGATE 
+  AND GGT.CTRCODE = GT.CTRCODE
+  AND GGT.WH_NR = GT.WH_NR
+INNER JOIN ETL.t_wawi_precore_T187_FV_ORDERS FV
+  ON  FV.C187_TASKID = GT.C173_TASKID 
+  AND GGT.CTRCODE = FV.CTRCODE
+  AND GGT.WH_NR = FV.WH_NR
+  AND FV.C187_ROW_STATUS = 99 
+INNER JOIN ETL.t_wawi_precore_KREDITOR K
+  ON  FV.C187_KREDNR = K.KREDNR 
+  AND GGT.CTRCODE = K.CTRCODE 
+INNER JOIN ETL.t_wawi_precore_WEKOPF WK
+  ON  FV.C187_RCV_ID = WK.ID 
+  AND GGT.CTRCODE = WK.CTRCODE
+  AND GGT.WH_NR = WK.WH_NR
+  /* Temporarily filter for testing */
+  AND CAST(WK.WEDATUM AS DATE) > '2023-12-01'
+GROUP BY 
+  C173_VIEW_TASKID,
+  C173_GINGATE,
+  TRIM( C173_CARRIER),
+  K.KREDNR,
+  K.NAME1,
+  WK.WH_NR,
+  WK.CTRCODE,
+  WK.WEDATUM
+
+UNION SELECT 
+  99 AS seperator,
+  'Manuelle WE' AS gatetype,
+  NULL AS taskid,
+  NULL AS gingate,
+  NULL AS carrier,
+  K.KREDNR AS krednr,
+  K.NAME1 AS name,
+  W.WH_NR AS wh_nr,
+  W.CTRCODE AS ctrcode,
+  W.WEDATUM AS wedatum,
+  SUM( CASE  NVL( W.RCV_UNIT_TYPE,3) WHEN 2 THEN ((W.MENGEKARTON * NVL( W.DECIMALCASE,CAST( SUBSTR (W.ARTIKELNR,-4 )  AS FLOAT) ) + W.MENGESTUECK) / NVL( W.DECIMALCASE,CAST( SUBSTR (W.ARTIKELNR,-4 )  AS FLOAT) )) / NVL( W.PALLET_FACTOR,CASE  NVL( W.RCV_UNIT_TYPE,3)  WHEN 1 THEN NVL( A.KARTON_LAGE,1)  WHEN 2 THEN NVL( A.KARTON_DUESS,A.KARTON_EURO / 2) WHEN 3 THEN A.KARTON_EURO  ELSE 1 END) ELSE 0 END) AS pal_dd_goods,
+  SUM( CASE  NVL( W.RCV_UNIT_TYPE,3) WHEN 3 THEN ((W.MENGEKARTON * NVL( W.DECIMALCASE,CAST( SUBSTR (W.ARTIKELNR,-4 )  AS FLOAT) ) + W.MENGESTUECK) / NVL( W.DECIMALCASE,CAST( SUBSTR (W.ARTIKELNR,-4 )  AS FLOAT) )) / NVL( W.PALLET_FACTOR,CASE  NVL( W.RCV_UNIT_TYPE,3)  WHEN 1 THEN NVL( A.KARTON_LAGE,1)  WHEN 2 THEN NVL( A.KARTON_DUESS,A.KARTON_EURO / 2)  WHEN 3 THEN A.KARTON_EURO  ELSE 1 END) ELSE 0 END) AS pal_eu_goods,
+  NULL AS create_date,
+  NULL AS mod_date,
+  CURRENT_TIMESTAMP AS extraction_tmsp
+FROM  ETL.V62_RECEIVINGS W
+INNER JOIN ETL.t_wawi_precore_KREDITOR K
+  ON  W.KREDNR = K.KREDNR
+  AND W.CTRCODE = K.CTRCODE
+INNER JOIN ETL.t_wawi_precore_ARTIKEL A
+  ON  W.ARTIKELNR = A.ARTIKELNR 
+WHERE ID BETWEEN 783058 AND 783065 
+  AND K.KREDNR = W.KREDNR 
+  AND A.ARTIKELNR = W.ARTIKELNR 
+  AND NVL( W.DECIMALCASE,CAST( SUBSTR (W.ARTIKELNR,-4 )  AS FLOAT) ) > 0
+  AND NVL( W.PALLET_FACTOR,CASE  NVL( W.RCV_UNIT_TYPE,3)  WHEN 1 THEN NVL( A.KARTON_LAGE,1)  WHEN 2 THEN NVL( A.KARTON_DUESS,A.KARTON_EURO / 2)  WHEN 3 THEN A.KARTON_EURO  ELSE 1 END) > 0 AND WEPOSART = 1
+  AND (  EXISTS(  SELECT 1  
+				  FROM ETL.t_wawi_precore_T173_GINTASKS,
+				       ETL.t_wawi_precore_T174_GINCOUNT  
+				  WHERE C173_TASKID = C174_TASKID  AND C174_RCVID = W.ID 
+				  AND C173_GINGATE IS NULL  
+				  AND C173_TASK_TYPE = 0 )  
+				  OR (    NOT EXISTS(  SELECT 1  FROM ETL.t_wawi_precore_T174_GINCOUNT  WHERE C174_RCVID = W.ID) 
+				  AND  NOT EXISTS(  SELECT 1  FROM ETL.t_wawi_precore_T187_FV_ORDERS  WHERE C187_RCV_ID = W.ID  )  
+				     )
+       ) 
+GROUP BY 
+K.KREDNR,
+K.NAME1,
+W.WH_NR,
+W.CTRCODE,
+W.WEDATUM,
+CURRENT_TIMESTAMP
+)
+GROUP BY 1,2,3,4,5,6,7,8,9,11,12,13,16,17,18,19,20
+

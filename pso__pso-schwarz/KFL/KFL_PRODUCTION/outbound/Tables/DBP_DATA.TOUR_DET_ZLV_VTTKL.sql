@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.tour_det_zlv_vttkl (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+tour_id INTEGER NOT NULL,
+kl_tour_pos_id BIGNUMERIC(38,0) NOT NULL,
+lagernummer_id STRING(3) COLLATE 'und:ci' NOT NULL,
+kunde_id STRING(10) COLLATE 'und:ci',
+mandant_id_kunde BIGNUMERIC(38,0),
+status_tour STRING(1) COLLATE 'und:ci' NOT NULL,
+rundlauf_markt_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+zeit_plan_ankunft BIGNUMERIC(38,0),
+menge_stp_geraeumt NUMERIC(9,2),
+cd_fg BIGNUMERIC(38,0),
+wgvgrp_id BIGNUMERIC(38,0),
+dat_tour DATE NOT NULL,
+zeit_relevant_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+oug_tour_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

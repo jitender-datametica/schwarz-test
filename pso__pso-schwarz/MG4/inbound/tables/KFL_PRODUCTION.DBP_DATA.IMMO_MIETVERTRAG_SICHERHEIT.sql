@@ -1,0 +1,26 @@
+create or replace TABLE KFL_PRODUCTION.DBP_DATA.IMMO_MIETVERTRAG_SICHERHEIT (
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant im DWH',
+	MV_INTRENO VARCHAR(20) NOT NULL COLLATE 'en-ci' COMMENT 'Interner Schlüssel des Immobilienobjekts',
+	SICHERHEIT_LFD_NR NUMBER(38,0) NOT NULL COMMENT 'Position innerhalb der Gruppe',
+	BESCHREIBUNG VARCHAR(60) NOT NULL COLLATE 'en-ci' COMMENT 'Beschreibung Sicherheiten',
+	SICHERHEIT_TYP NUMBER(38,0) NOT NULL COMMENT 'Art der Sicherheit',
+	DAT_BIS DATE NOT NULL COMMENT 'Datum: Gültig bis',
+	BETRAG_SOLL NUMBER(18,2) NOT NULL COMMENT 'Sollbetrag Sicherheiten',
+	SOLL_WRG_ID VARCHAR(3) COMMENT 'Kurzbezeichnung der  Währung für den Soll-Betrag, z.B. CZK, EUR',
+	BETRAG_IST NUMBER(18,2) NOT NULL COMMENT 'Istbetrag Sicherheiten',
+	IST_WRG_ID VARCHAR(3) NOT NULL COMMENT 'Kurzbezeichnung der  Währung für den Ist-Betrag, z.B. CZK, EUR',
+	DAT_EINGELOEST_AM DATE NOT NULL COMMENT 'Datum Sicherheit eingelöst am',
+	DAT_RUECKGABE_AM DATE NOT NULL COMMENT 'Datum Rückgabe Sicherheit',
+	DAT_EINGANG_AM DATE NOT NULL COMMENT 'Eingang Sicherheit bei KL',
+	DAT_UEBERGABE_AM DATE NOT NULL COMMENT 'Datum Übergabe an Begünstigten',
+	BUERGSCHAFT_NR VARCHAR(60) NOT NULL COLLATE 'en-ci' COMMENT 'Bürgschaftsnummer',
+	BUERGSCHAFT_GRUND VARCHAR(60) NOT NULL COLLATE 'en-ci' COMMENT 'Bürgschaftsgrund',
+	RUECKGABE_VORAUSSETZUNG VARCHAR(60) NOT NULL COLLATE 'en-ci' COMMENT 'Rückgabevoraussetzung',
+	BANK_ID VARCHAR(10) COLLATE 'en-ci' COMMENT 'Banknummer',
+	KAUTION_BEZ VARCHAR(80) COLLATE 'en-ci' COMMENT 'Kautionsbezeichnung',
+	DAT_AUSSTELLUNG_AM DATE COMMENT 'Deposit Issue Datum',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	constraint PK_IMMO_MIETVERTRAG_SICHERHEIT primary key (MANDANT_ID, MV_INTRENO, SICHERHEIT_LFD_NR)
+)COMMENT='IMMO - Mietvertrag Mietsicherheiten / Bürgschaften - SAP REFX - ZBI_V_DEPOSIT'
+;

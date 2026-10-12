@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.lagerbestand_erp_wg (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+lagerort_id STRING(4) COLLATE 'und:ci' NOT NULL,
+wg_id BIGNUMERIC(38,0) NOT NULL,
+arthiertyp_id BIGNUMERIC(38,0) NOT NULL,
+dat DATE NOT NULL,
+menge_lgbest_erp_frei_bme NUMERIC(18,3),
+menge_lgbest_erp_umlag_bme NUMERIC(18,3),
+menge_lgbest_erp_qual_bme NUMERIC(18,3),
+menge_lgbest_erp_nf_charge_bme NUMERIC(18,3),
+menge_lgbest_erp_gesp_bme NUMERIC(18,3),
+menge_lgbest_erp_ret_gesp_bme NUMERIC(18,3),
+menge_lgbest_erp_kolli NUMERIC(18,3),
+menge_lgbest_erp_palette NUMERIC(18,3),
+betrag_lgbest_erp NUMERIC(18,2),
+wrg_id STRING(3) COLLATE 'und:ci' DEFAULT 'EUR' NOT NULL,
+vk_netto_lgbest_erp NUMERIC(18,4) DEFAULT 0 NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

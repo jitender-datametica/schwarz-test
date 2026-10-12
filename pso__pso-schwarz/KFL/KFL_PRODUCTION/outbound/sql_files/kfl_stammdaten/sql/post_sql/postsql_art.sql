@@ -1,0 +1,46 @@
+--[~OK - basic syntax] correct Snowflake syntax but one or more objects are missing and type check was not applied
+
+
+UPDATE dbp_data.art SET
+    kl_art_id = dt1.`_kl_art_id`,
+    gewart_id = dt1.`_gewart_id`,
+    mwst_id = dt1.`_mwst_id`,
+    loesch_id = dt1.`_loesch_id`,
+    wg_art_fg = dt1.`_wg_art_fg`,
+    lager_prozent = dt1.`_lager_prozent`,
+    temperatur_id = dt1.`_temperatur_id`,
+    saison_id = dt1.`_saison_id`,
+    best_menge_einh_id = dt1.`_best_menge_einh_id`,
+    loeschvorm_fg = dt1.`_loeschvorm_fg`,
+    mhd_zeitraum = dt1.`_mhd_zeitraum`,
+    artikelart_id = dt1.`_artikelart_id`,
+    basismenge_einh_id = dt1.`_basismenge_einh_id`,
+    faktor_nettoinhalt = dt1.`_faktor_nettoinhalt`,
+    artikeltyp_id = dt1.`_artikeltyp_id`,
+    einh_id = dt1.`_einh_id`,
+    kl_art_id_alt = dt1.`_kl_art_id_alt`,
+    positionstyp_grp_id = dt1.`_positionstyp_grp_id`,
+    nettogew = dt1.`_nettogew` FROM (SELECT
+    art_id AS `_art_id`,
+    mandant_id AS `_mandant_id`,
+    kl_art_id AS `_kl_art_id`,
+    gewart_id AS `_gewart_id`,
+    mwst_id AS `_mwst_id`,
+    loesch_id AS `_loesch_id`,
+    wg_art_fg AS `_wg_art_fg`,
+    lager_prozent AS `_lager_prozent`,
+    temperatur_id AS `_temperatur_id`,
+    saison_id AS `_saison_id`,
+    best_menge_einh_id AS `_best_menge_einh_id`,
+    loeschvorm_fg AS `_loeschvorm_fg`,
+    mhd_zeitraum AS `_mhd_zeitraum`,
+    artikelart_id AS `_artikelart_id`,
+    basismenge_einh_id AS `_basismenge_einh_id`,
+    faktor_nettoinhalt AS `_faktor_nettoinhalt`,
+    artikeltyp_id AS `_artikeltyp_id`,
+    einh_id AS `_einh_id`,
+    kl_art_id_alt AS `_kl_art_id_alt`,
+    positionstyp_grp_id AS `_positionstyp_grp_id`,
+    nettogew AS `_nettogew`
+FROM ${TEMP_TABLE}) AS dt1
+WHERE art.art_id = dt1.`_art_id` AND art.mandant_id = dt1.`_mandant_id`;

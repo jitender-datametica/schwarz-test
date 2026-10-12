@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_score_fe_mstr_score.v_dim_logistic_temperature_zone AS SELECT logistic_temp_cd,
+ logistic_temp_descr
+FROM ldl_score_core.t_dim_logistic_temperature_zone;

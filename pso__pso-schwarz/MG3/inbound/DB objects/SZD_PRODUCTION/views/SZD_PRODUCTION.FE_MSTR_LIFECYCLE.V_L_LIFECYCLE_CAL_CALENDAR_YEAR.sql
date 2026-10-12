@@ -1,0 +1,42 @@
+create or replace view SZD_PRODUCTION.FE_MSTR_LIFECYCLE.V_L_LIFECYCLE_CAL_CALENDAR_YEAR(
+	CY,
+	CY_BEGIN_MONTH,
+	CY_END_MONTH,
+	CY_BEGIN_WEEK_PART,
+	CY_END_WEEK_PART,
+	CY_BEGIN_DT,
+	CY_END_DT,
+	CY_WEEK_CNT,
+	CY_WEEK_PART_CNT,
+	CY_DAY_CNT,
+	CY_PREV_1Y,
+	CY_PREV_2Y,
+	CY_PREV_3Y,
+	CY_PREV_4Y,
+	CY_PREV_5Y,
+	CY_OFFSET,
+	DWH_SRC_FILE_NAME,
+	DWH_UPDATED_TMSP
+) as SELECT
+ cy
+,cy_begin_month
+,cy_end_month 
+,cy_begin_week_part 
+,cy_end_week_part 
+,cy_begin_dt  
+,cy_end_dt 
+,cy_week_cnt 
+,cy_week_part_cnt  
+,cy_day_cnt 
+,cy_prev_1y 
+,cy_prev_2y 
+,cy_prev_3y
+,cy_prev_4y
+,cy_prev_5y
+,cy_offset
+,dwh_src_file_name
+,dwh_created_tmsp
+ dwh_updated_tmsp  
+FROM 
+CORE.T_DIM_CAL_CALENDAR_YEAR
+;

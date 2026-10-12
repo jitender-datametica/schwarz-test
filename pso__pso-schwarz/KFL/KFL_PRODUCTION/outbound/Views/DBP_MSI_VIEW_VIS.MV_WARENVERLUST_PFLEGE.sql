@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_warenverlust_pflege (mandant_id, wup_id, art_id, wg_hist_id,
+owg_hist_id, hwg_hist_id, abt_hist_id, inventurart_id, dat_inventur_von, dat_inventur_bis, dat_inventur_buchung_von,
+dat_inventur_buchung_bis, gj, inventur_id, loesch_fg) AS SELECT mandant_id,
+ wup_id,
+ art_id,
+ wg_id AS wg_hist,
+ owg_id AS owg_hist,
+ hwg_id AS hwg_hist,
+ abt_id AS abt_hist,
+ inventurart_id,
+ dat_inventur_von,
+ dat_inventur_bis,
+ dat_inventur_buchung_von,
+ dat_inventur_buchung_bis,
+ gj,
+ inventur_id,
+ loesch_fg
+FROM kfl_production_dbp_view.v_inventur_warenverlust AS WV;

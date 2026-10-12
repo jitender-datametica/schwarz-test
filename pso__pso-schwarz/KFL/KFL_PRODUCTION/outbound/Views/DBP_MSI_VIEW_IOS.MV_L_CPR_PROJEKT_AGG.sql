@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ios.mv_l_cpr_projekt_agg AS SELECT DISTINCT projekt_id
+FROM kfl_production_dbp_view.v_cpr_projekt_bauabschnitt_zu AS V01;

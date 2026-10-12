@@ -1,0 +1,385 @@
+DELETE FROM dbp_etl_process.tupel_mat_etl
+WHERE (
+    mandant_id, a500_kjwo_update) IN (
+    SELECT (mandant_id, MAX(kjwo_update))
+    FROM dbp_data.sortiment_leistung
+    GROUP BY mandant_id
+);
+
+
+INSERT INTO dbp_etl_process.tupel_mat_etl (
+    mandant_id, a500_kjwo_update, matching_id, a425_kjmo, wrg_id,
+    a5_owg_id, a7_wg_id, wug_id, art_id, kl_art_id, a450_art_nielsen_nr, art_bez_deutsch, a14_art_status_de,
+    nielsen_art_bez, nielsen_gtin, a58_rang_umsatz_owg, a2_rang_umsatz_wg, a59_rang_absatz_wg, a16_akt_lieferant_id,
+    a419_hersteller_id, a446_lieferant_bez_latein, a447_hersteller_bez_latein, lieferant_nielsen, a389_zek_id, a391_disc_pe,
+    a392_disc_ohne_etikett, a400_lcf, a393_vegan, a394_gluten, a395_bio, a396_eigenmarke, a397_tierwohl, a398_posten_food,
+    a399_posten_nonfood, a339_umsatzsteuer, a36_gewichtete_distribution, a60_muki_vk_kz, a61_muki_vk_kl_art_id_verkettung,
+    anzahl_markt_wochen_kombis_abverkauf_af, anzahl_markt_wochen_kombis_abverkauf_sa,
+    anzahl_markt_wochen_kombis_abverkauf_af_vj, anzahl_markt_wochen_kombis_abverkauf_sa_vj,
+    a273_kassenumsatz_kl_absolut_brutto, kassenumsatz_af_kl_absolut_brutto, kassenumsatz_sa_kl_absolut_brutto,
+    kassenumsatz_kl_absolut_brutto_vj, kassenumsatz_af_kl_absolut_brutto_vj, kassenumsatz_sa_kl_absolut_brutto_vj,
+    a21_kassenumsatz_kl_absolut_netto, kassenumsatz_af_kl_absolut_netto, kassenumsatz_sa_kl_absolut_netto,
+    kassenumsatz_kl_absolut_netto_vj, kassenumsatz_af_kl_absolut_netto_vj, kassenumsatz_sa_kl_absolut_netto_vj,
+    a17_absatz_kl, absatz_af_kl, absatz_sa_kl, absatz_kl_vj, absatz_af_kl_vj, absatz_sa_kl_vj, a76_absatz_sst1,
+    a78_absatz_sst2, a80_absatz_sst3, a82_absatz_sst4, a84_absatz_sst5, a86_absatz_sst6, a88_absatz_sst7, a62_absatz_ksst1,
+    a64_absatz_ksst2, a66_absatz_ksst3, a68_absatz_ksst4, a70_absatz_ksst5, a72_absatz_ksst6, a74_absatz_ksst7,
+    a90_absatz_ost_basis, a92_absatz_ost_gross, a94_absatz_sued_ost, a96_absatz_sued_west, a98_absatz_west,
+    a100_absatz_nord, markt_wochen_sst1, markt_wochen_sst2, markt_wochen_sst3, markt_wochen_sst4, markt_wochen_sst5,
+    markt_wochen_sst6, markt_wochen_sst7, markt_wochen_ksst1, markt_wochen_ksst2, markt_wochen_ksst3, markt_wochen_ksst4,
+    markt_wochen_ksst5, markt_wochen_ksst6, markt_wochen_ksst7, markt_wochen_ost_basis, markt_wochen_ost_gross,
+    markt_wochen_sued_ost, markt_wochen_sued_west, markt_wochen_west, markt_wochen_nord,
+    anzahl_markt_wochen_kombis_abverkauf_mit_listung, anzahl_markt_wochen_kombis_listung, a31_vk_brutto_kl_pk_1,
+    a333_vk_brutto_kl_pk_2, a54_vk_brutto_kl_pk_3, a334_vk_brutto_kl_pk_4, a432_vk_brutto_kl_pk_5, a433_vk_brutto_kl_pk_6,
+    a434_vk_brutto_kl_pk_7, a435_vk_brutto_kl_pk_8, a436_vk_brutto_kl_pk_9, a437_vk_brutto_kl_pk_10,
+    a30_kb_olk_ek4ndz_stamm, a23_rohertrag_ekmep_olk_4n, a51_listung_sst_pflege, a52_listung_k_sst_pflege,
+    a426_ost_basis_pflege, a427_ost_gross_pflege, a428_sued_ost_pflege, a429_sued_west_pflege, a430_west_pflege,
+    a431_nord_pflege, a50_listungsaktion, a411_stk_rohertrag_pflege, a415_kannibalisierungsfaktor,
+    a412_umsatz_brutto_hochrechnung, a413_absatz_hochrechnung, a414_rohertrag_hochrechnung,
+    a36_gewichtete_distribution_nielsen, a32_umsatz_anteil_wgi_nielsen, a33_umsatz_anteil_wgi_kumuliert_nielsen,
+    a34_vk_brutto_durchschnitt_nielsen, a35_umsatz_nielsen, anz_wochen_de_anz_monate_kmo_nielsen, absatz_nielsen,
+    a376_kl_marktanteil_wg_nielsen, a380_marktanteilbewertung_nielsen, a377_durchschnitt_anz_maerkte_nielsen,
+    a382_sales_units_absatz_verkaufsartikel_in_1000_nielsen, a383_sales_units_verkaufseinheiten_gl_in_1000_normiert_nielsen,
+    a384_durchschn_preis_einheit_gl_normiert_nielsen, a385_numerische_distribution_nielsen, a386_inhaltsmengen_nielsen,
+    a387_duft_geschmack_nielsen, a388_einheit_nielsen, eigenmarke_fg_nielsen, a39_listung_sst_mvke, a38_listung_k_sst_mvke,
+    a40_ost_basis, a41_ost_gross, a42_sued_ost, a43_sued_west, a44_west, a45_nord, a37_listung_erster_markt,
+    a59_anz_maerkte_sst, a449_anz_maerkte_k_sst, a46_max_anz_maerkte_sst, a47_max_anz_maerkte_k_sst,
+    a53_anz_maerkte_listung_gesamt, a57_anz_maerkte_listung_einzel, anz_maerkte_baustein_sonstige, anz_bons_af, anz_bons_sa,
+    anz_bons_gesamt, rohertrag_ekmep_olk_4n_vj, rohertrag_ekmep_olk_4n_af, rohertrag_ekmep_olk_4n_sa,
+    rohertrag_ekmep_olk_4n_af_vj, rohertrag_ekmep_olk_4n_sa_vj, a381_preislagenverteilung,
+    a27_totalabschriften_wert_netto_absolut, a313_preisabschriften_preisanderungen_wert_netto_absolut,
+    totalabschriften_wert_netto_absolut_vj, preisabschriften_preisanderungen_wert_netto_absolut_vj, a402_kolli_la,
+    a401_kolli_bst, a403_restlaufzeit_zl, a404_restlaufzeit_dz, a405_basismengeneinheit,
+    a406_letzte_listungsanderung_sst_ksst, a407_verhandler, a408_display_komponente_kz, a409_kl_art_id_display,
+    a416_artikelrolle_id, kassenumsatz_kl_absolut_netto_wg, anz_bons_tupel, restbon_summe,
+    totalabschriften_wert_netto_absolut_wg, preisabschriften_preisanderungen_wert_netto_absolut_wg, anz_bons_af_markt_tag,
+    anz_bons_sa_markt_tag, cpq_tupel, cp_bons_af, cp_bons_sa, umrech_faktor, lagerprozent, absatz_af_kl_listungswochen,
+    absatz_af_kl_vj_listungswochen, absatz_sa_kl_listungswochen, absatz_sa_kl_vj_listungswochen,
+    kassenumsatz_af_kl_absolut_netto_listungswochen, kassenumsatz_af_kl_absolut_netto_vj_listungswochen,
+    kassenumsatz_sa_kl_absolut_netto_listungswochen, kassenumsatz_sa_kl_absolut_netto_vj_listungswochen,
+    rohertrag_ekmep_olk_4n_af_listungswochen, rohertrag_ekmep_olk_4n_af_vj_listungswochen,
+    rohertrag_ekmep_olk_4n_sa_listungswochen, rohertrag_ekmep_olk_4n_sa_vj_listungswochen, sustain_concat, tupel_typ,
+    a471_marke_nielsen_bez, a515_bio_organic_nielsen_kz, a516_veggy_split_nielsen_kz, a517_laktosefrei_nielsen_kz,
+    a518_glutenfrei_nielsen_kz, a510_muki_ek_kz, a511_muki_ek_kl_art_id_verkettung, a512_muki_wb_kz,
+    a513_muki_wb_kl_art_id_verkettung, a519_umsatz_anteil_wg_nielsen, a520_umsatz_anteil_wg_kumuliert_nielsen,
+    a521_inhalt_menge
+)
+(SELECT DISTINCT
+    mandant_id,
+    a500_kjwo_update,
+    matching_id,
+    a425_kjmo,
+    wrg_id,
+    a5_owg_id,
+    a7_wg_id,
+    wug_id,
+    art_id,
+    kl_art_id,
+    NULL AS a450_art_nielsen_nr,
+    art_bez_deutsch,
+    a14_art_status_de,
+    nielsen_art_bez,
+    nielsen_gtin,
+    a58_rang_umsatz_owg,
+    a2_rang_umsatz_wg,
+    a59_rang_absatz_wg,
+    SUBSTR(CAST(a16_akt_lieferant_id AS STRING), 1, 60) AS a16_akt_lieferant_id,
+    a419_hersteller_id,
+    a446_lieferant_bez_latein,
+    a447_hersteller_bez_latein,
+    lieferant_nielsen,
+    a389_zek_id,
+    a391_disc_pe,
+    a392_disc_ohne_etikett,
+    a400_lcf,
+    a393_vegan,
+    a394_gluten,
+    a395_bio,
+    a396_eigenmarke,
+    a397_tierwohl,
+    a398_posten_food,
+    a399_posten_nonfood,
+    a339_umsatzsteuer,
+    a36_gewichtete_distribution,
+    a60_muki_vk_kz,
+    a61_muki_vk_kl_art_id_verkettung,
+    anzahl_markt_wochen_kombis_abverkauf_af,
+    anzahl_markt_wochen_kombis_abverkauf_sa,
+    anzahl_markt_wochen_kombis_abverkauf_af_vj,
+    anzahl_markt_wochen_kombis_abverkauf_sa_vj,
+    a273_kassenumsatz_kl_absolut_brutto,
+    kassenumsatz_af_kl_absolut_brutto,
+    kassenumsatz_sa_kl_absolut_brutto,
+    kassenumsatz_kl_absolut_brutto_vj,
+    kassenumsatz_af_kl_absolut_brutto_vj,
+    kassenumsatz_sa_kl_absolut_brutto_vj,
+    a21_kassenumsatz_kl_absolut_netto,
+    kassenumsatz_af_kl_absolut_netto,
+    kassenumsatz_sa_kl_absolut_netto,
+    kassenumsatz_kl_absolut_netto_vj,
+    kassenumsatz_af_kl_absolut_netto_vj,
+    kassenumsatz_sa_kl_absolut_netto_vj,
+    a17_absatz_kl,
+    absatz_af_kl,
+    absatz_sa_kl,
+    absatz_kl_vj,
+    absatz_af_kl_vj,
+    absatz_sa_kl_vj,
+    a76_absatz_sst1,
+    a78_absatz_sst2,
+    a80_absatz_sst3,
+    a82_absatz_sst4,
+    a84_absatz_sst5,
+    a86_absatz_sst6,
+    a88_absatz_sst7,
+    a62_absatz_ksst1,
+    a64_absatz_ksst2,
+    a66_absatz_ksst3,
+    a68_absatz_ksst4,
+    a70_absatz_ksst5,
+    a72_absatz_ksst6,
+    a74_absatz_ksst7,
+    a90_absatz_ost_basis,
+    a92_absatz_ost_gross,
+    a94_absatz_sued_ost,
+    a96_absatz_sued_west,
+    a98_absatz_west,
+    a100_absatz_nord,
+    markt_wochen_sst1,
+    markt_wochen_sst2,
+    markt_wochen_sst3,
+    markt_wochen_sst4,
+    markt_wochen_sst5,
+    markt_wochen_sst6,
+    markt_wochen_sst7,
+    markt_wochen_ksst1,
+    markt_wochen_ksst2,
+    markt_wochen_ksst3,
+    markt_wochen_ksst4,
+    markt_wochen_ksst5,
+    markt_wochen_ksst6,
+    markt_wochen_ksst7,
+    markt_wochen_ost_basis,
+    markt_wochen_ost_gross,
+    markt_wochen_sued_ost,
+    markt_wochen_sued_west,
+    markt_wochen_west,
+    markt_wochen_nord,
+    anzahl_markt_wochen_kombis_abverkauf_mit_listung,
+    anzahl_markt_wochen_kombis_listung,
+    a31_vk_brutto_kl_pk_1,
+    a333_vk_brutto_kl_pk_2,
+    a54_vk_brutto_kl_pk_3,
+    a334_vk_brutto_kl_pk_4,
+    a432_vk_brutto_kl_pk_5,
+    a433_vk_brutto_kl_pk_6,
+    a434_vk_brutto_kl_pk_7,
+    a435_vk_brutto_kl_pk_8,
+    a436_vk_brutto_kl_pk_9,
+    a437_vk_brutto_kl_pk_10,
+    a30_kb_olk_ek4ndz_stamm,
+    a23_rohertrag_ekmep_olk_4n,
+    a51_listung_sst_pflege,
+    a52_listung_k_sst_pflege,
+    a426_ost_basis_pflege,
+    a427_ost_gross_pflege,
+    a428_sued_ost_pflege,
+    a429_sued_west_pflege,
+    a430_west_pflege,
+    a431_nord_pflege,
+    a50_listungsaktion,
+    a411_stk_rohertrag_pflege,
+    a415_kannibalisierungsfaktor,
+    a412_umsatz_brutto_hochrechnung,
+    a413_absatz_hochrechnung,
+    a414_rohertrag_hochrechnung,
+    a36_gewichtete_distribution_nielsen,
+    a32_umsatz_anteil_wgi_nielsen,
+    a33_umsatz_anteil_wgi_kumuliert_nielsen,
+    a34_vk_brutto_durchschnitt_nielsen,
+    a35_umsatz_nielsen,
+    anz_wochen_de_anz_monate_kmo_nielsen,
+    absatz_nielsen,
+    a376_kl_marktanteil_wg_nielsen,
+    a380_marktanteilbewertung_nielsen,
+    a377_durchschnitt_anz_maerkte_nielsen,
+    a382_sales_units_absatz_verkaufsartikel_in_1000_nielsen,
+    a383_sales_units_verkaufseinheiten_gl_in_1000_normiert_nielsen,
+    a384_durchschn_preis_einheit_gl_normiert_nielsen,
+    a385_numerische_distribution_nielsen,
+    CAST(a386_inhaltsmengen_nielsen AS STRING) AS a386_inhaltsmengen_nielsen,
+    a387_duft_geschmack_nielsen,
+    a388_einheit_nielsen,
+    eigenmarke_fg_nielsen,
+    a39_listung_sst_mvke,
+    a38_listung_k_sst_mvke,
+    a40_ost_basis,
+    a41_ost_gross,
+    a42_sued_ost,
+    a43_sued_west,
+    a44_west,
+    a45_nord,
+    a37_listung_erster_markt,
+    a59_anz_maerkte_sst,
+    a449_anz_maerkte_k_sst,
+    a46_max_anz_maerkte_sst,
+    a47_max_anz_maerkte_k_sst,
+    a53_anz_maerkte_listung_gesamt,
+    a57_anz_maerkte_listung_einzel,
+    anz_maerkte_baustein_sonstige,
+    anz_bons_af,
+    anz_bons_sa,
+    anz_bons_gesamt,
+    rohertrag_ekmep_olk_4n_vj,
+    rohertrag_ekmep_olk_4n_af,
+    rohertrag_ekmep_olk_4n_sa,
+    rohertrag_ekmep_olk_4n_af_vj,
+    rohertrag_ekmep_olk_4n_sa_vj,
+    a381_preislagenverteilung,
+    a27_totalabschriften_wert_netto_absolut,
+    a313_preisabschriften_preisanderungen_wert_netto_absolut,
+    totalabschriften_wert_netto_absolut_vj,
+    preisabschriften_preisanderungen_wert_netto_absolut_vj,
+    a402_kolli_la,
+    a401_kolli_bst,
+    a403_restlaufzeit_zl,
+    a404_restlaufzeit_dz,
+    a405_basismengeneinheit,
+    a406_letzte_listungsanderung_sst_ksst,
+    a407_verhandler,
+    a408_display_komponente_kz,
+    a409_kl_art_id_display,
+    a416_artikelrolle_id,
+    kassenumsatz_kl_absolut_netto_wg,
+    anz_bons_tupel,
+    restbon_summe,
+    totalabschriften_wert_netto_absolut_wg,
+    preisabschriften_preisanderungen_wert_netto_absolut_wg,
+    anz_bons_af_markt_tag,
+    anz_bons_sa_markt_tag,
+    cpq_tupel,
+    cp_bons_af,
+    cp_bons_sa,
+    umrech_faktor,
+    lagerprozent,
+    absatz_af_kl_listungswochen,
+    absatz_af_kl_vj_listungswochen,
+    absatz_sa_kl_listungswochen,
+    absatz_sa_kl_vj_listungswochen,
+    kassenumsatz_af_kl_absolut_netto_listungswochen,
+    kassenumsatz_af_kl_absolut_netto_vj_listungswochen,
+    kassenumsatz_sa_kl_absolut_netto_listungswochen,
+    kassenumsatz_sa_kl_absolut_netto_vj_listungswochen,
+    rohertrag_ekmep_olk_4n_af_listungswochen,
+    rohertrag_ekmep_olk_4n_af_vj_listungswochen,
+    rohertrag_ekmep_olk_4n_sa_listungswochen,
+    rohertrag_ekmep_olk_4n_sa_vj_listungswochen,
+    sustain_concat,
+    tupel_typ,
+    a471_marke_nielsen_bez,
+    a515_bio_organic_nielsen_kz,
+    a516_veggy_split_nielsen_kz,
+    a517_laktosefrei_nielsen_kz,
+    a518_glutenfrei_nielsen_kz,
+    a510_muki_ek_kz,
+    a511_muki_ek_kl_art_id_verkettung,
+    a512_muki_wb_kz,
+    a513_muki_wb_kl_art_id_verkettung,
+    a519_umsatz_anteil_wg_nielsen,
+    a520_umsatz_anteil_wg_kumuliert_nielsen,
+    a521_inhalt_menge
+FROM dbp_etl_process.tupel_mat
+WHERE (
+    mandant_id, a500_kjwo_update) IN (
+    SELECT (mandant_id, MAX(kjwo_update))
+    FROM dbp_data.sortiment_leistung
+    GROUP BY mandant_id
+));
+
+
+INSERT INTO dbp_data.fanquote (
+    mandant_id, matching_id, kjwo_update, d423_fanquote,
+    a507_umsatz_cardholder, a508_anteil_sa_cardholder, a509_anz_kaeufer, substitute_matching_id, td_update, td_insert
+)
+(
+    SELECT
+        A.mandant_id,
+        A.matching_id,
+        B.kjwo,
+        A.d423_fanquote,
+        A.a507_umsatz_cardholder,
+        A.a508_anteil_sa_cardholder,
+        A.a509_anz_kaeufer,
+        A.substitute_matching_id,
+        CURRENT_TIMESTAMP(),
+        CURRENT_TIMESTAMP()
+    FROM dbp_data.fanquote AS A
+    INNER JOIN dbp_data.woche AS B ON TRUE
+    WHERE
+        A.kjwo_update IN (
+            SELECT MAX(kjwo_update) AS kjwo_update
+            FROM dbp_data.fanquote
+        )
+        AND B.kjwo IN (
+            SELECT MAX(kjwo_update) AS kjwo_update
+            FROM dbp_data.art_kl_preislage_zu_per
+        )
+        AND A.kjwo_update <> B.kjwo
+    GROUP BY
+        A.mandant_id,
+        A.matching_id,
+        A.d423_fanquote,
+        A.a507_umsatz_cardholder,
+        A.a508_anteil_sa_cardholder,
+        A.a509_anz_kaeufer,
+        A.substitute_matching_id,
+        B.kjwo
+);
+
+
+-- final checks...you never know.
+
+
+CREATE OR REPLACE TEMPORARY TABLE _dups AS
+SELECT
+    mandant_id,
+    a500_kjwo_update,
+    matching_id,
+    COUNT(*) AS anz
+FROM dbp_etl_process.tupel_mat_etl
+WHERE
+    a500_kjwo_update IN (
+        SELECT MAX(kjwo_update) AS a1290333724
+        FROM dbp_data.art_kl_preislage_zu_per
+        WHERE mandant_id > 1
+    )
+    AND mandant_id > 1
+GROUP BY
+    mandant_id,
+    a500_kjwo_update,
+    matching_id
+HAVING anz > 1;
+
+
+CREATE OR REPLACE TEMPORARY TABLE _kill_dups AS
+SELECT DISTINCT *
+FROM dbp_etl_process.tupel_mat_etl AS A
+WHERE (
+    mandant_id, a500_kjwo_update, matching_id) IN (
+    SELECT (mandant_id, a500_kjwo_update, matching_id)
+    FROM `_dups`
+);
+
+
+DELETE FROM dbp_etl_process.tupel_mat_etl
+WHERE (
+    mandant_id, a500_kjwo_update, matching_id) IN (
+    SELECT (mandant_id, a500_kjwo_update, matching_id)
+    FROM `_dups`
+);
+
+
+INSERT INTO dbp_etl_process.tupel_mat_etl
+(
+    SELECT *
+    FROM `_kill_dups`
+);

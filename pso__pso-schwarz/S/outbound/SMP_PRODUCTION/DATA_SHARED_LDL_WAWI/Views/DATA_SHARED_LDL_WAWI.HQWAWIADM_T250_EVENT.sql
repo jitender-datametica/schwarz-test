@@ -1,0 +1,22 @@
+CREATE OR REPLACE VIEW smp_production_data_shared_ldl_wawi.hqwawiadm_t250_event (wawi_instanz_kzl, c250_int_eventnr,
+c250_eventnr, c250_busyear, c250_keycode, c250_areacode, c250_type, c250_mod_user, c250_mod_date, c250_desc,
+c250_starttime, c250_endtime, c250_eventprtd, c250_dayendprotnr, c250_comment, scn, delete_fg, extraction_tmsp) AS
+SELECT wawi_instanz_kzl,
+ c250_int_eventnr,
+ c250_eventnr,
+ c250_busyear,
+ c250_keycode,
+ c250_areacode,
+ c250_type,
+ c250_mod_user,
+ c250_mod_date,
+ c250_desc,
+ c250_starttime,
+ c250_endtime,
+ c250_eventprtd,
+ c250_dayendprotnr,
+ c250_comment,
+ scn,
+ delete_fg,
+ extraction_tmsp
+FROM ldl_wawi_production_hqwawiadm.t250_event;

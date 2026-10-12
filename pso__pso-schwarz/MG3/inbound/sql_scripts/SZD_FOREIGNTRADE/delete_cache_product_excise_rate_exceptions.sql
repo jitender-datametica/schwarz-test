@@ -1,0 +1,1 @@
+DELETE FROM ETL.t_cache_product_excise_rate_exceptions;

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_eps_containertyp_anstossherkunft_zu AS SELECT DISTINCT
+ containertyp_id,
+ anstossherkunft_kz
+FROM kfl_production_dbp_view.v_eps_containertyp_anstossherkunft_zu;

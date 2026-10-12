@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_wholesale.v_dim_transhipment_location_type (transhipment_location_type_cd,
+transhipment_location_type_descr) AS SELECT transhipment_location_type_cd,
+ transhipment_location_type_descr
+FROM szd_core.t_dim_transhipment_location_type;

@@ -1,0 +1,96 @@
+create or replace view SMP_PRODUCTION.FE_PORTAL_SMP.V_CAMPAIGN_AB_TEST_GTIN(
+	DIVISION_ID,
+	COUNTRY_ID,
+	CAMPAIGN_ID,
+	CAMPAIGN_NAME,
+	ADVERTISER_ID_SMP,
+	CAMPAIGN_START_DT,
+	CAMPAIGN_END_DT,
+	CHANNEL_ID,
+	AB_SPLIT_DESCR,
+	AB_SPLIT,
+	EXPORT_CSV,
+	GTIN_ID,
+	INCR_CONVERSION,
+	UPLIFT_CONVERSION_PCT,
+	UPLIFT_CONVERSION_DESCR,
+	UPLIFT_SALES_PCT,
+	UPLIFT_SALES_DESCR,
+	CELL_TEST_QTY_SUM,
+	CELL_CONTROL_QTY_SUM,
+	CONVERSION_PERIOD_TEST_CELL_TEST,
+	CONVERSION_PERIOD_PRE_CELL_TEST
+) as 
+SELECT 
+   c.division_id
+  ,c.country_id 
+  ,c.campaign_id
+  ,c.campaign_name
+  ,COALESCE(e.ADVERTISER_ID_SMP_SPLIT, c.ADVERTISER_ID_SMP) AS ADVERTISER_ID_SMP_
+  ,c.campaign_start_dt
+  ,c.campaign_end_dt
+  ,COALESCE(cm.channel_id_map, c.channel_id) AS channel_id
+  ,CAST(ROUND(c.test_cell_pct) AS VARCHAR) || ' / ' || CAST(ROUND(c.control_cell_pct) AS VARCHAR) AS ab_split_descr
+  ,c.ab_group_normalization_factor AS ab_split
+  ,NULL AS export_csv
+  ,D.gtin_id
+  ,d.incr_conversion
+  ,d.uplift_conversion_pct
+  ,CASE WHEN D.uplift_conversion_pct > 0 THEN 'positive lift'
+        WHEN D.uplift_conversion_pct < 0 THEN 'negative lift'
+        ELSE 'no lift'
+   END AS uplift_conversion_descr
+  ,D.uplift_sales_pct
+  ,CASE WHEN D.uplift_sales_pct > 0 THEN 'positive lift'
+        WHEN D.uplift_sales_pct < 0 THEN 'negative lift'
+        ELSE 'no lift'
+   END AS uplift_sales_descr
+  
+  ,d.cell_test_qty_sum
+  ,d.cell_control_qty_sum
+  ,d.conversion_period_test_cell_test
+  ,d.conversion_period_pre_cell_test
+FROM core.t_ab_campaign_setup c
+
+INNER JOIN 
+(
+  SELECT 
+     division_id
+    ,country_id 
+    ,campaign_id
+    ,gtin_id 
+    ,SUM(test_qty) cell_test_qty_sum    
+    ,SUM(control_qty) cell_control_qty_sum
+    ,SUM(CASE WHEN PERIOD = 'TEST' THEN test_qty ELSE 0 END) AS conversion_period_test_cell_test
+    ,SUM(CASE WHEN PERIOD = 'PRE' THEN test_qty ELSE 0 END) AS conversion_period_pre_cell_test
+    
+    ,cell_test_qty_sum - cell_control_qty_sum AS incr_conversion
+    ,DIV0NULL((cell_test_qty_sum - cell_control_qty_sum) , cell_control_qty_sum) -1 AS uplift_conversion_pct
+    ,DIV0NULL((conversion_period_test_cell_test - conversion_period_pre_cell_test) , conversion_period_pre_cell_test) - 1 AS uplift_sales_pct
+  FROM core.v_ab_test_result_week
+  GROUP BY 1,2,3,4
+) d 
+ON c.division_id = D.division_id 
+  AND c.country_id = D.country_id 
+  AND c.campaign_id = D.campaign_id
+
+
+LEFT OUTER JOIN etl_process.t_campaign_advertiser_exception e
+ON c.division_id = e.division_id
+  AND c.country_id = e.country_id
+  AND c.campaign_id = e.campaign_id 
+
+
+LEFT OUTER JOIN etl_process.t_ref_channel_map cm
+ON c.division_id = cm.division_id
+  AND c.country_id = cm.country_id
+  AND c.channel_id = cm.channel_id 
+
+
+INNER JOIN fe_portal_smp.v_campaign_portal_permission p
+ON c.division_id = p.division_id
+  AND c.country_id = p.country_id
+  AND c.campaign_id = p.campaign_id
+
+WHERE 1=2 
+;

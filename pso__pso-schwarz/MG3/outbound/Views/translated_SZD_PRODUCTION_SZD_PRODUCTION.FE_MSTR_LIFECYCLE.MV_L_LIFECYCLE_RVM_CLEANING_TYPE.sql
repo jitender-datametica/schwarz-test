@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_lifecycle.mv_l_lifecycle_rvm_cleaning_type (cleaning_type_cd,
+cleaning_type_descr_en, cleaning_type_descr_de, cleaning_type_descr) AS SELECT cleaning_type_cd,
+ cleaning_type_descr_en,
+ cleaning_type_descr_de,
+ cleaning_type_descr
+FROM szd_production_core.t_dim_rvm_cleaning_type;

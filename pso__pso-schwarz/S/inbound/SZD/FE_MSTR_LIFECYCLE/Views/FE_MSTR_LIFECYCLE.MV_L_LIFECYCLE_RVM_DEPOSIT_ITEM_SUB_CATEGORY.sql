@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIFECYCLE.MV_L_LIFECYCLE_RVM_DEPOSIT_ITEM_SUB_CATEGORY 
+AS SELECT 
+  core.t_dim_deposit_item_sub_category.deposit_item_sub_cat_id
+ ,core.t_dim_deposit_item_sub_category.deposit_item_cat_cd
+ ,core.t_dim_deposit_item_sub_category.deposit_item_sub_cat_descr_de
+ ,core.t_dim_deposit_item_sub_category.deposit_item_sub_cat_descr_en
+ ,core.t_dim_deposit_item_sub_category.deposit_item_sub_cat_descr
+FROM 
+core.t_dim_deposit_item_sub_category
+;

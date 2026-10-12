@@ -1,0 +1,23 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_qs.mv_monat (kjmo, kjmo_vj, gjmo, gjmo_vj, kjqu, gjqu, kj, gj, akt_mo
+, akt_mo_komplett, akt_gjqu, akt_gjqu_komplett, akt_kjqu, akt_kjqu_komplett, akt_gj, akt_gj_komplett, akt_kj,
+akt_kj_komplett, mo_gj, mo_kj) AS SELECT kjmo,
+ kjmo_vj,
+ gjmo,
+ gjmo_vj,
+ kjqu,
+ gjqu,
+ kj,
+ gj,
+ akt_mo,
+ akt_mo_komplett,
+ akt_gjqu,
+ akt_gjqu_komplett,
+ akt_kjqu,
+ akt_kjqu_komplett,
+ akt_gj,
+ akt_gj_komplett,
+ akt_kj,
+ akt_kj_komplett,
+ mo_gj,
+ mo_kj
+FROM kfl_production_dbp_view.v_monat AS V01;

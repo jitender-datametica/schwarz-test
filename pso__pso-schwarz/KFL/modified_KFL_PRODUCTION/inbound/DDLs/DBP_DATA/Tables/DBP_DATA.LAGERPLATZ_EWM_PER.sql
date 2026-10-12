@@ -1,0 +1,62 @@
+--==============================================================
+-- Table: lagerplatz_ewm_per
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: lagerplatz_ewm_per
+   generated from Powerdesigner on Donnerstag, 19. Januar 2023 14:59:07
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE DBP_DATA.LAGERPLATZ_EWM_PER (
+   mandant_id                          INTEGER     NOT NULL COMMENT 'Mandant im DWH',
+   lagernummer_id                      VARCHAR(4)       NOT NULL COMMENT 'Lagernummer / Lagerkomplex.',
+   lagerplatz_id                       VARCHAR(18)      NOT NULL COMMENT 'Lagerplatz.',
+   datzeit_von                         TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Gültig von.',
+   datzeit_bis                         TIMESTAMP_NTZ(9) COMMENT 'Gültig bis.',
+   lagertyp_id                         VARCHAR(4)       COMMENT 'Lagertyp.',
+   lagerbereich_id                     VARCHAR(4)       COMMENT 'Lagerbereich.',
+   lagerplatztyp_id                    VARCHAR(4)       COMMENT 'Lagerplatztyp.',
+   lagerplatz_zugriffstyp_id           VARCHAR(4)       COMMENT 'Lagerplatz-Zugriffstyp.',
+   lagerplatz_aufteilung_id            VARCHAR(1)       COMMENT 'Lagerplatzaufteilung.',
+   lagerplatz_position                 VARCHAR(2)       COMMENT 'Position auf dem Lagerplatz.',
+   auslagerung_sperr_fg                INTEGER     COMMENT 'Sperrkennzeichen: für Auslagerung.',
+   einlagerung_sperr_fg                INTEGER     COMMENT 'Sperrkennzeichen: für Einlagerung.',
+   inventur_block_fg                   INTEGER     COMMENT 'Lagerplatz blockiert wegen Inventur.',
+   aufgeteilt_fg                       INTEGER     COMMENT 'Lagerplatz ist aufgeteilt.',
+   anz_hu                              INTEGER     COMMENT 'Anzahl der Handling Units im Lagerplatz.',
+   anz_hu_max                          INTEGER     COMMENT 'Maximale Anzahl der Handling Unit auf dem Lagerplatz.',
+   gewicht_max                         NUMBER(29,3)     COMMENT 'Maximalgewicht des Lagerplatzes.',
+   gew_einh_id                         VARCHAR(3)       COMMENT 'Gewichtseinheit.',
+   gewicht                             NUMBER(29,3)     COMMENT 'Gewicht der Materialien auf dem Lagerplatz.',
+   volumen_netto                       NUMBER(29,3)     COMMENT 'Ladungs- oder Nettovolumen.',
+   volumen_max                         NUMBER(29,3)     COMMENT 'Maximalvolumen.',
+   vol_einh_id                         VARCHAR(3)       COMMENT 'Volumeneinheit.',
+   kapa_max                            NUMBER(29,3)     COMMENT 'Gesamtkapazität des Lagerplatzes.',
+   kapa_frei                           NUMBER(29,3)     COMMENT 'Freie Kapazität auf dem Lagerplatz.',
+   leer_fg                             INTEGER     COMMENT 'Flag: Lagerplatz leer.',
+   voll_fg                             INTEGER     COMMENT 'Kennzeichen, ob der Platz voll ist.',
+   dat_erste_einlagerung               DATE             COMMENT 'Datum der ersten Einlagerung.',
+   datzeit_letzte_bewegung             TIMESTAMP_NTZ(9) COMMENT 'Letzte Bewegung auf dem Platz.',
+   lageraufgabe_id_letzte_bew          INTEGER     COMMENT 'Lageraufgabe der letzten Bewegung.',
+   brandabschnitt_id                   VARCHAR(2)       COMMENT 'Brandabschnitt.',
+   datzeit_aenderung                   TIMESTAMP_NTZ(9) COMMENT 'Änderungszeitpunkt.',
+   haupt_lagerplatz_id                 VARCHAR(18)      COMMENT 'Lagerplatz.',
+   loc_guid                            VARCHAR(32)      COMMENT 'GUID Lokation.',
+   handling_unit_guid                  VARCHAR(32)      COMMENT 'Eindeutige interne Identifikation einer HU.',
+   gang_id                             INTEGER     COMMENT 'Lagerplatzgang.',
+   saeule_id                           INTEGER     COMMENT 'Lagerplatzsäule.',
+   ebene_id                            VARCHAR(10)      COMMENT 'Lagerplatzebene.',
+   x_koordinate                        NUMBER(29,2)     COMMENT 'X-Koordinate.',
+   y_koordinate                        NUMBER(29,2)     COMMENT 'Y-Koordinate.',
+   z_koordinate                        NUMBER(29,2)     COMMENT 'Z-Koordinate.',
+   lagernereich_lgst_id                VARCHAR(4)       COMMENT 'Lagerungsgruppe für die Layoutorientierung.',
+   feldtyp_id                          VARCHAR(4)       COMMENT 'Feldtyp.',
+   regaltyp_id                         VARCHAR(4)       COMMENT 'Regaltyp.',
+   wa_lane_kapa                        NUMBER(29,2)      COMMENT 'Warenausgang Lane Kapazität.',
+   we_lane_kapa                        NUMBER(29,2)      COMMENT 'Wareneingang Lane Kapazität.',
+   kapa_erh_fg                         INTEGER     COMMENT 'Kapazität für Lane Management erhöhen.',
+   tiefe_frei                          INTEGER     COMMENT 'Freie Platztiefe in Mengeneinheit. Die Einheit ist je nach Lagertyp unterschiedlich, wobei die lagertyp_id darüber Aufschluss geben kann. Es kann z.B. eine Palettenart sein, ein Schnelldreher Durchlauflager für eine Kolliart, ein Lagerort zur Umlagerung, etc.',
+   tiefe_max                           INTEGER     COMMENT 'Maximale Platztiefe in Mengeneinheit. Die Einheit ist je nach Lagertyp unterschiedlich, wobei die lagertyp_id darüber Aufschluss geben kann. Es kann z.B. eine Palettenart sein, ein Schnelldreher Durchlauflager für eine Kolliart, ein Lagerort zur Umlagerung, etc.',
+   TD_UPDATE                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   TD_INSERT                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   CONSTRAINT PK_LAGERPLATZ_EWM_PER PRIMARY KEY (mandant_id, lagernummer_id, lagerplatz_id, datzeit_von) NOT ENFORCED
+)  COMMENT = 'LOG - Lagerplatz EWM. Stündlicher Abzug der Lagerdaten.';

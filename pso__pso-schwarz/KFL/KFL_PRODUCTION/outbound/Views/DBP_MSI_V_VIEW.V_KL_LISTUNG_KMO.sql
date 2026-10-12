@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_v_view.v_kl_listung_kmo AS SELECT kl_listung_kmo_id,
+ mandant_id,
+ listung_art,
+ art_id,
+ wup_id,
+ sm_id_selected,
+ ksm_id_selected,
+ sm_id,
+ ksm_id,
+ umsatz_hr,
+ absatz_hr,
+ rohertrag_hr,
+ erweiterung_fg,
+ reduktion_fg,
+ kjwo_update,
+ list_kz
+FROM kfl_production_dbp_msi_data.kl_listung_kmo;

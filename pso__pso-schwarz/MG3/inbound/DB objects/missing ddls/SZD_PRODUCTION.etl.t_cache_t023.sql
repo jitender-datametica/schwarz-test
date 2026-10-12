@@ -1,0 +1,22 @@
+create table if not exists SZD_PRODUCTION.etl.t_cache_t023 (
+	mandt varchar(3000) collate 'en-ci',
+	matkl varchar(3000) collate 'en-ci',
+	spart varchar(3000) collate 'en-ci',
+	lref3 varchar(3000) collate 'en-ci',
+	wwgda varchar(3000) collate 'en-ci',
+	wwgpa varchar(3000) collate 'en-ci',
+	abtnr varchar(3000) collate 'en-ci',
+	begru varchar(3000) collate 'en-ci',
+	gewei varchar(3000) collate 'en-ci',
+	j_1bnbm varchar(3000) collate 'en-ci',
+	bklas varchar(3000) collate 'en-ci',
+	ekwsl varchar(3000) collate 'en-ci',
+	anlkl varchar(3000) collate 'en-ci',
+	def_schdsc varchar(3000) collate 'en-ci',
+	price_group varchar(3000) collate 'en-ci',
+	extraction_date date,
+	dwh_created_tmsp timestamp_ltz(9) comment 'the point in time when this record was created in the data warehouse.',
+	dwh_updated_tmsp timestamp_ltz(9) comment 'the point in time when this record was created or last updated.',
+	dwh_src_file_name varchar(2000),
+	dwh_src_1_tmsp timestamp_ltz(9)
+);

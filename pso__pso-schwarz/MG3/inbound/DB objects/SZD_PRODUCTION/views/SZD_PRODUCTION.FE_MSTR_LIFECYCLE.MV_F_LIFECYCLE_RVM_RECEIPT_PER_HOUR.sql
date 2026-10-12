@@ -1,0 +1,17 @@
+create or replace view SZD_PRODUCTION.FE_MSTR_LIFECYCLE.MV_F_LIFECYCLE_RVM_RECEIPT_PER_HOUR(
+	BONS_PRO_STUNDE,
+	RECEIPT_HR,
+	RVM_SID,
+	RECEIPT_DT
+) as SELECT
+ COUNT (core.t_fact_deposit_receipt.receipt_nr) AS Bons_pro_Stunde
+,core.t_fact_deposit_receipt.receipt_hr
+,core.t_fact_deposit_receipt.rvm_sid
+,core.t_fact_deposit_receipt.receipt_dt
+FROM
+core.t_fact_deposit_receipt
+GROUP BY
+ receipt_hr
+,receipt_dt
+,rvm_sid
+;

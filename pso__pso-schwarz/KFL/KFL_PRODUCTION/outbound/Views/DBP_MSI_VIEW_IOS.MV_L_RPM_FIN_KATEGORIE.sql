@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ios.mv_l_rpm_fin_kategorie (fin_kategorie_id) AS SELECT
+ fin_kategorie_id
+FROM kfl_production_dbp_view.v_rpm_fin_kategorie_spr_zu AS V03;

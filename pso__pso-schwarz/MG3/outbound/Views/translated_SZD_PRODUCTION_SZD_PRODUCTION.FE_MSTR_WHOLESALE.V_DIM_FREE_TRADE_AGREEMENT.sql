@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_wholesale.v_dim_free_trade_agreement (agreement_sid,
+import_country_location_sid, import_iso_country_cd, import_country_name_de, import_country_name_en,
+origin_country_location_sid, origin_iso_country_cd, origin_country_name_de, origin_country_name_en,
+free_trade_agreement_category_cd, free_trade_agreement_category_name, free_trade_agreement_category_descr) AS SELECT
+ agreement_sid,
+ import_country_location_sid,
+ import_iso_country_cd,
+ import_country_name_de,
+ import_country_name_en,
+ origin_country_location_sid,
+ origin_iso_country_cd,
+ origin_country_name_de,
+ origin_country_name_en,
+ free_trade_agreement_category_cd,
+ free_trade_agreement_category_name,
+ free_trade_agreement_category_descr
+FROM szd_production_core.t_dim_free_trade_agreement
+WHERE dwh_valid_fg;

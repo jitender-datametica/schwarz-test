@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_log.mv_transportation_unit_aktivitaet (mandant_id,
+transportation_unit_id, transportation_unit_id_sr_act_id, kj_transportation_unit, dat_tour, tms, lagernummer_id,
+datzeit_start_plan, datzeit_start_ist, datzeit_ende_plan, datzeit_ende_ist, nutzung_grund_id, punktlichkeit_ankunft_vz,
+punktlichkeit_abfahrt_vz, aktivitaet_richtung_id, belos_tourstatus_id, belos_tourart_id, belos_tourart_subtyp_id,
+belos_sonderabwicklung_id, belos_adresse_spedition_id, tdl_id, tour_services_id, tourart_id, menge_gefahrgut,
+rundlauf_transport_fg, fleischwerk_fg, distribution_abr_fg) AS SELECT *
+FROM kfl_production_dbp_msi_view_log.mv_dt_transportation_unit_aktivitaet;

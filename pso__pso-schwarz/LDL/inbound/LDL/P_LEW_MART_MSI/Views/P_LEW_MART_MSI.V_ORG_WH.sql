@@ -1,0 +1,48 @@
+CREATE OR REPLACE VIEW P_LEW_MART_MSI.V_ORG_WH
+(
+   client_id
+  ,wh_id
+  ,country_cd
+  ,dat_opening
+  ,costcenter_cd
+  ,company
+  ,order_buying_list_cd
+  ,vat_region_nr
+  ,region_cd
+  ,stock_plain
+  ,sponsion
+  ,global_location_nr
+  ,wh_desc
+  ,distribute_wh_fg
+  ,int_fg
+  ,hq_fg
+  ,prop_wh_fg
+  ,sales_wh_fg
+  ,supp_wh_fg
+  ,wawi_data_fg
+  ,ovis_data_fg
+) AS
+SELECT
+   client_id
+  ,wh_id
+  ,country_cd
+  ,dat_opening
+  ,costcenter_cd
+  ,company
+  ,order_buying_list_cd
+  ,vat_region_nr
+  ,region_cd
+  ,stock_plain
+  ,sponsion
+  ,global_location_nr
+  ,wh_desc
+  ,distribute_wh_fg
+  ,int_fg
+  ,hq_fg
+  ,prop_wh_fg
+  ,sales_wh_fg
+  ,supp_wh_fg
+  ,wawi_data_fg
+  ,ovis_data_fg
+FROM p_lew_mart_msi.t_org_wh
+;

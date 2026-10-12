@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_pit_onprem.v_pit_hier_type AS SELECT hier_type_id,
+ hier_type_descr
+FROM ldl_p_lew_mart_pit_onprem.t_pit_hier_type;

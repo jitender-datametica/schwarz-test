@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tcache_stc_item_wh (
+context_load_id BIGNUMERIC(38) NOT NULL,
+client_id BIGNUMERIC(38) NOT NULL,
+context_country STRING(3) COLLATE 'und:ci' NOT NULL,
+loc_sid_wh BIGNUMERIC(38) NOT NULL,
+src_orig_wh_nr BIGNUMERIC(38) NOT NULL,
+item_nr_long STRING(14) COLLATE 'und:ci' NOT NULL,
+item_sid BIGNUMERIC(38) NOT NULL,
+src_orig_item_nr INTEGER NOT NULL,
+src_case_size BIGNUMERIC(38) NOT NULL,
+qty_piece_stc_wh NUMERIC(18,4) NOT NULL,
+price_retail_stc_wh NUMERIC(18,4),
+price_retail_stc_wh_net NUMERIC(18,4),
+from_errorfile_fg BIGNUMERIC(38),
+dat_dayend DATE,
+dwh_load_id BIGNUMERIC(38) NOT NULL,
+dwh_cal_dt DATE,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL
+);

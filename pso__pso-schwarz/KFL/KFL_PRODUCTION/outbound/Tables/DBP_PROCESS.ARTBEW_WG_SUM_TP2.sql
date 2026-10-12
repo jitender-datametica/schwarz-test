@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_process.artbew_wg_sum_tp2 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+wg_id BIGNUMERIC(38,0) NOT NULL,
+wg_art_fg BIGNUMERIC(38,0),
+dat DATE NOT NULL,
+posten_id STRING(2) DEFAULT '  ' NOT NULL,
+menge NUMERIC(18,4),
+umsatz_netto NUMERIC(18,4),
+ek_brutto NUMERIC(18,4),
+ek_netto NUMERIC(18,4),
+ek_nettonetto NUMERIC(18,4),
+ek_kal_basis NUMERIC(18,4),
+ek_mep NUMERIC(18,4),
+einstandspreis NUMERIC(18,4),
+logistikkostenzuschlag NUMERIC(18,4),
+ek_netto_bnk NUMERIC(18,4),
+ek_netto_bnk_sachk NUMERIC(18,4),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

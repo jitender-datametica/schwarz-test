@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_lec_share.v_dim_currency_exchange_rate_type AS SELECT *
+FROM ldl_dig_core.t_dim_currency_exchange_rate_type;

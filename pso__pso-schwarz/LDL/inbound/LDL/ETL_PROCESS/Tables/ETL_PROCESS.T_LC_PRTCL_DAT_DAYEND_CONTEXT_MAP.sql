@@ -1,0 +1,12 @@
+CREATE TABLE ETL_PROCESS.T_LC_PRTCL_DAT_DAYEND_CONTEXT_MAP
+(
+  CONTEXT_COUNTRY_CD  VARCHAR(3) COLLATE 'en-ci'    NOT NULL,
+  CLIENT_ID           NUMBER(38)                    NOT NULL,
+  CONTEXT_LOAD_ID     NUMBER(38)                    NOT NULL,
+  ORIG_STORE_NR       NUMBER(38)                    NOT NULL,
+  LOC_SID             NUMBER(38)                    NOT NULL,
+  DWH_CAL_DT          DATE                          NOT NULL,
+  DAT_DAYEND          DATE                          NOT NULL,
+  CREATED_TS          TIMESTAMP_NTZ(6)              NOT NULL,
+  CONSTRAINT PK_LC_PRTCL_DAT_DAYEND_CONTEXT_MAP PRIMARY KEY (CLIENT_ID,CONTEXT_LOAD_ID,LOC_SID,DWH_CAL_DT,DAT_DAYEND) 
+);

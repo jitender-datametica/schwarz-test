@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.ek_orderbuch (
+art_id BIGNUMERIC(38,0) NOT NULL,
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+dat_von DATE NOT NULL,
+ek_orderbuch_nr BIGNUMERIC(38,0) NOT NULL,
+gp_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+einkaufsorganisation_id BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+vz_wup_id BIGNUMERIC(38,0),
+vz_nb_id BIGNUMERIC(38,0),
+dat_bis DATE DEFAULT CAST('9999-12-31' AS DATE) NOT NULL,
+gesperrt_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+fix_gp_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+td_update TIMESTAMP,
+td_insert TIMESTAMP
+);

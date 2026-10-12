@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_score_fe_mstr_score.t_fact_order_measures (
+delivering_supplier_sid BIGNUMERIC(38,0),
+delivering_supplier_site_sid BIGNUMERIC(38,0),
+main_crossdock_sid BIGNUMERIC(38,0),
+main_crossdock_operating_hauler_sid BIGNUMERIC(38,0),
+executing_hauler_sid BIGNUMERIC(38,0),
+receiving_wh_sid BIGNUMERIC(38,0),
+product_sid BIGNUMERIC(38,0),
+product_variant_sid BIGNUMERIC(38,0),
+bus_country_cd STRING(2),
+logistic_temp_cd STRING(2),
+logistic_type_cd STRING(4),
+missing_reason_cd STRING(7),
+pallet_type_cd STRING(2),
+double_deck_fg BOOL,
+cal_dt DATE,
+case_cnt BIGNUMERIC(38,0),
+pallet_cnt BIGNUMERIC(38,0),
+std_pallet_qty BIGNUMERIC(38,5),
+missing_pallet_cnt BIGNUMERIC(38,0),
+volume_meas BIGNUMERIC(38,5),
+weight_meas BIGNUMERIC(38,5)
+);

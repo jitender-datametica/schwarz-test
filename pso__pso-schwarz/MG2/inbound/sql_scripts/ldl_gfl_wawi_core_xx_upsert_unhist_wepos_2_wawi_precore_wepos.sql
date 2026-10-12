@@ -1,0 +1,190 @@
+TRUNCATE TABLE ${TARGET_DB}.${TGT_TARGET_TABLE};
+
+INSERT INTO  ${TEMP_DB}.${SRC2TGT_TEMP_TABLE1}_${SRC_CONTEXT_AREA}
+(
+      CTRCODE
+    , WH_NR
+    , ID
+    , ARTIKELNR
+    , LAGERORTNR
+    , GESELLSCHAFTSNR
+    , DEBIT_NOTE
+    , NR
+    , ANLIEFERUNGSARTKZL
+    , LANDKZL
+    , WAEHRUNGSKNZ
+    , MENGEKARTON
+    , DISPOLFDNRARTIKEL
+    , ADJUST_STOCK
+    , CONTAINER_DEPOSIT
+    , EKPSTUECKLAND
+    , EKPSTUECKEKLAND
+    , EKPSTUECKDM
+    , ISSUE_SLIP
+    , SUMEKPLAND
+    , SUMEKPDM
+    , SUMEKPEKLAND
+    , SUMVKPNORM
+    , TEILLIEFERUNG
+    , STATUS
+    , MINDESTHALTBARKEIT
+    , DATUM
+    , BEDIENER
+    , RECHPOSNR
+    , WEPOSART
+    , TGSTATUS
+    , WEIGHT_VALUE
+    , MWSTSCHL
+    , TODO
+    , OLDSTATUS
+    , RA_POSNR
+    , RA_ID
+    , KREDNR
+    , ZOLLNR
+    , WEKORRDATUM
+    , RET_VATMULTIPLIER
+    , VKPNORMSTUECK
+    , WEDATUM
+    , SPCONDNR
+    , MATCHABLE
+    , INCLUDEMARGIN
+    , BEV_TAX
+    , LINK_POSNR2
+    , ITEM_FACILITY
+    , PALLET_FACTOR
+    , LINK_POSNR
+    , ITEM_CATEGORY
+    , CHANGE_ID
+    , SPLITLINKPOSNR
+    , SPLIT_TYPE
+    , VALID_FROM
+    , VALID_UNTIL
+    , RCV_UNIT_TYPE
+    , ITEM_FACILITY2
+    , ITEM_FACILITY3
+    , DECIMALCASE
+    , MENGESTUECK
+    , PRICECOND_VALUE
+    , SATAS_ENTREE
+    , POSNR
+    , DEX_STATUS
+    , EWM_SEND_FLAG
+    , CW_CASEQTY
+    , SCN
+    , LPV
+    , SCALEQTY
+    , EXTRACTION_TMSP
+
+
+    --------------------------------
+    , SOURCE_SYSTEM
+    , EXTRACTION_DT
+    , DWH_MAPPING_TMSP
+    , TF_ERROR_FG
+    , DELETED_FG
+    , RECORD_ID
+    , FILENAME
+    , DWH_NODE_CD
+    , DWH_LOAD_ID
+)
+SELECT 
+      LEFT( src.CTRCODE, 2) as CTRCODE
+    , WH_NR
+    , ID
+    , ARTIKELNR
+    , LAGERORTNR
+    , GESELLSCHAFTSNR
+    , DEBIT_NOTE
+    , NR
+    , ANLIEFERUNGSARTKZL
+    , LANDKZL
+    , WAEHRUNGSKNZ
+    , MENGEKARTON
+    , DISPOLFDNRARTIKEL
+    , ADJUST_STOCK
+    , CONTAINER_DEPOSIT
+    , EKPSTUECKLAND
+    , EKPSTUECKEKLAND
+    , EKPSTUECKDM
+    , ISSUE_SLIP
+    , SUMEKPLAND
+    , SUMEKPDM
+    , SUMEKPEKLAND
+    , SUMVKPNORM
+    , TEILLIEFERUNG
+    , STATUS
+    , MINDESTHALTBARKEIT
+    , DATUM
+    , BEDIENER
+    , RECHPOSNR
+    , WEPOSART
+    , TGSTATUS
+    , WEIGHT_VALUE
+    , MWSTSCHL
+    , TODO
+    , OLDSTATUS
+    , RA_POSNR
+    , RA_ID
+    , KREDNR
+    , ZOLLNR
+    , WEKORRDATUM
+    , RET_VATMULTIPLIER
+    , VKPNORMSTUECK
+    , WEDATUM
+    , SPCONDNR
+    , MATCHABLE
+    , INCLUDEMARGIN
+    , BEV_TAX
+    , LINK_POSNR2
+    , ITEM_FACILITY
+    , PALLET_FACTOR
+    , LINK_POSNR
+    , ITEM_CATEGORY
+    , CHANGE_ID
+    , SPLITLINKPOSNR
+    , SPLIT_TYPE
+    , VALID_FROM
+    , VALID_UNTIL
+    , RCV_UNIT_TYPE
+    , ITEM_FACILITY2
+    , ITEM_FACILITY3
+    , DECIMALCASE
+    , MENGESTUECK
+    , PRICECOND_VALUE
+    , SATAS_ENTREE
+    , POSNR
+    , DEX_STATUS
+    , EWM_SEND_FLAG
+    , CW_CASEQTY
+    , SCN
+    , LPV
+    , SCALEQTY
+    , EXTRACTION_TMSP
+
+    --------------------------------
+    , 'WAWI'                             AS SOURCE_SYSTEM
+    , CURRENT_DATE                       AS EXTRACTION_DT
+    , current_timestamp                  AS DWH_MAPPING_TMSP
+    , 0                                  AS TF_ERROR_FG
+    , 0                                  AS DELETED_FG
+    , 0                                  AS RECORD_ID
+    , '${SRC_INPUT_TABLE}'               AS FILENAME
+    , 'WAWI_HQ'                          AS DWH_NODE_CD
+    , '${LOAD_ID}'                       AS DWH_LOAD_ID
+FROM ${TEMP_DB}.${SRC_INPUT_TABLE} src
+INNER JOIN ETL.WAWI_CONTROL_TABLE ctrl
+ON true
+AND ctrl.SOURCE_TABLE_NAME = UPPER('${TEMP_DB}.${SRC_INPUT_TABLE}')
+AND ctrl.SOURCE_STATUS = 'A'
+AND src.EXTRACTION_TMSP between ctrl.BEGIN_TMSP and ctrl.END_TMSP
+QUALIFY Row_Number() OVER 
+(PARTITION BY 
+    LEFT( src.CTRCODE, 2), 
+    ID,
+    ARTIKELNR,
+    LAGERORTNR,
+    GESELLSCHAFTSNR,
+    POSNR
+ ORDER BY src.EXTRACTION_TMSP DESC
+) = 1 
+;

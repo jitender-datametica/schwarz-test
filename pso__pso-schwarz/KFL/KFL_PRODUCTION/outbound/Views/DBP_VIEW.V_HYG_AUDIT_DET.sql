@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_hyg_audit_det AS SELECT frage_katalog_id,
+ hyg_audit_id,
+ audit_instance_id,
+ audit_frage_id,
+ hyg_thema_id,
+ hyg_frage_id,
+ audit_frage_bemerkung,
+ hyg_antwort_id,
+ hyg_antwort_max_punkte,
+ hyg_antwort_punkte,
+ hyg_antwort_stufe,
+ hyg_antwort_farbe,
+ hyg_antwort_rel_punkte,
+ hyg_antwort_string,
+ beantwortet_fg,
+ relevant_fg,
+ gj
+FROM kfl_production_dbp_data.hyg_audit_det;

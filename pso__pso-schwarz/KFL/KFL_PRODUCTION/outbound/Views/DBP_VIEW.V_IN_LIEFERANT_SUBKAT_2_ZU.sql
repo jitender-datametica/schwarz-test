@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_in_lieferant_subkat_2_zu AS SELECT in_lief_id,
+ mandant_id,
+ subkategorie_2_id
+FROM kfl_production_dbp_data.in_lieferant_subkat_2_zu;

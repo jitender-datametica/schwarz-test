@@ -1,0 +1,68 @@
+create or replace view IDQ_PRODUCTION.EKS_CALCULATION.SVMARA_EKS_ITEM_MESSURES_DIFF_BETW_ARTICLESSEL_ALL(
+	NEGOTIATINGCOUNTRY,
+	BUYERSHORTSIGN,
+	BUYERFIRSTNAME,
+	BUYERLASTNAME,
+	ZMATKL,
+	ARTICLEFAMILY,
+	BA_ITEMNO,
+	ITEMID,
+	ITEMNO,
+	ARTICLETYPE,
+	DESCRIPTION,
+	LISTINGOVERVIEWID,
+	CASESIZE,
+	CASEHEIGHT,
+	CASEWIDTH,
+	CASEDEPTH,
+	KOLLIVOLUMEN,
+	AVGVOLUME,
+	VOLUMEN_EINHEIT,
+	PERCENTAGEVOLUME,
+	SUPPLIERNO,
+	SUPPLIERDESCRIPTION,
+	RECEIVINGCOUNTRY,
+	ZRELEVANTMDM,
+	ZSOURCE,
+	ZACTIVE
+) as
+SELECT DISTINCT 
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.zNegotiatingCountry AS NegotiatingCountry, 
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.BuyerSHORTSIGN, 
+                  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.BuyerFirstName, 
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.BuyerLastName,
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.zMATKL, 
+                  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.ArticleFamily,
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.BA_ITEMNO, 
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.ITEMID, 
+                  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.ITEMNO,
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.zArticleType AS ArticleType, 
+                  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.DESCRIPTION_INT AS Description,
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.LISTINGOVERVIEWID, 
+                  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.casesize,
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.CASEHEIGHT, 
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.CASEWIDTH, 
+                  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.CASEDEPTH, 
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.Volume AS KolliVolumen, 
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles020.avgVolume, 
+                  'm3' AS VOLUMEN_EINHEIT,
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles020.percentageVolume, 
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.SupplierNo, 
+                  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.SupplierDescription,
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.receivingcountry,
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.zRelevantMDM, 
+                  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.zSource, 
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.zActive
+FROM     EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010 
+INNER JOIN
+                  EKS_CALCULATION.srMARA_EKS_ITEM_Messures_Diff_BETW_Articles_040 
+				  ON 
+				  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.BA_ITEMNO = EKS_CALCULATION.srMARA_EKS_ITEM_Messures_Diff_BETW_Articles_040.BA_ITEMNO AND 
+                  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.subcasesize = EKS_CALCULATION.srMARA_EKS_ITEM_Messures_Diff_BETW_Articles_040.CASESIZE AND 
+                  EKS_CALCULATION.srMARA_EKS_ITEM_Messures_Diff_BETW_Articles_040.listingoverviewid = EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.LISTINGOVERVIEWID INNER JOIN
+                  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles020 ON EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles020.listingoverviewid = EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.LISTINGOVERVIEWID AND 
+                  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.BA_ITEMNO = EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles020.BA_ITEMNO AND 
+                  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.casesize = EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles020.CASESIZE AND 
+                  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.Volume = EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles020.volume AND 
+                  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.LISTINGOVERVIEWID = EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles020.listingoverviewid
+ORDER BY EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.BA_ITEMNO;

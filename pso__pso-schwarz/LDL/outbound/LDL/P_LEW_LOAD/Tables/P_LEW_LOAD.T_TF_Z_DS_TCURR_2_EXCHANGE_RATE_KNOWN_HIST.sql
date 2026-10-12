@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_z_ds_tcurr_2_exchange_rate_known_hist (
+client_id BIGNUMERIC(38),
+lidl_country STRING(40),
+z_ds_tcurr_kurst STRING(8),
+z_ds_tcurr_fcurr STRING(10),
+z_ds_tcurr_tcurr STRING(10),
+z_ds_tcurr_gdatu STRING(16),
+src_waers_from STRING(40),
+src_waers_to STRING(40),
+src_kurst STRING(40),
+active_from_dt DATE,
+active_to_dt DATE,
+curr_cd_from STRING(20),
+curr_cd_to STRING(20),
+exchange_rate NUMERIC(18,5),
+deleted_fg BIGNUMERIC(38),
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

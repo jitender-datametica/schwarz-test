@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi.v_ref_promotion_domain AS SELECT *
+FROM ldl_p_lew_core_ac.v_wawi_ref_promotion_domain;

@@ -1,0 +1,12 @@
+CREATE OR REPLACE VIEW idq_production_dwh.ref_toolbox_functionalities (ref_toolbox_functionalities_id,
+functionality_group, functionality_short_name, functionality_short_name_de, functionality_short_name_en,
+functionality_description, functionality_description_de, functionality_description_en) AS SELECT id AS
+ ref_toolbox_functionalities_id,
+ functionality_group,
+ functionality_short_name_de AS functionality_short_name,
+ functionality_short_name_de,
+ functionality_short_name_en,
+ functionality_description_de AS functionality_description,
+ functionality_description_de,
+ functionality_description_en
+FROM idq_production_idq_results.ref_toolbox_functionalities;

@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW idq_production_dwh.ref_exclude (ref_exclude_id, ref_rule_id, ref_branch_id,
+source_system_primary_key, ref_source_system_id, ref_country_id, ref_test_object_type_id, inserted_by, exclude_reason,
+exclude_flag, inserted_at, idq_test_object_id, undone_at) AS SELECT id AS ref_exclude_id,
+ rule_id AS ref_rule_id,
+ branch_id AS ref_branch_id,
+ source_system_primary_key,
+ source_system_id AS ref_source_system_id,
+ country_id AS ref_country_id,
+ test_object_type_id AS ref_test_object_type_id,
+ inserted_by,
+ exclude_reason,
+ exclude_flag,
+ inserted_at,
+ test_object_id AS idq_test_object_id,
+ undone_at
+FROM idq_production_idq_results.ref_exclude AS REX;

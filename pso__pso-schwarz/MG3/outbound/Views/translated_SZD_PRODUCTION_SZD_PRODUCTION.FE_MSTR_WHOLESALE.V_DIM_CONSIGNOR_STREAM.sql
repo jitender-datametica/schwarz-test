@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_wholesale.v_dim_consignor_stream (consignor_stream_cd,
+consignor_stream_name) AS SELECT consignor_stream_cd,
+ consignor_stream_name
+FROM szd_production_core.t_dim_consignor_stream;

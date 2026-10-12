@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_lin.mv_lin_kursgruppe_spr_zu_ro (mandant_id, lin_kursgruppe_id,
+lin_kursgruppe_bez) AS SELECT V1.mandant_id,
+ V1.lin_kursgruppe_id,
+ V2.lin_kursgruppe_bez
+FROM kfl_production_dbp_view.v_l_lin_kursgruppe AS V1
+ INNER JOIN kfl_production_dbp_view.v_lin_kursgruppe_spr_zu AS V2 ON V1.lin_kursgruppe_id = V2.lin_kursgruppe_id
+WHERE V2.spr_id = 95
+GROUP BY V1.mandant_id,
+ V1.lin_kursgruppe_id,
+ V2.lin_kursgruppe_bez;

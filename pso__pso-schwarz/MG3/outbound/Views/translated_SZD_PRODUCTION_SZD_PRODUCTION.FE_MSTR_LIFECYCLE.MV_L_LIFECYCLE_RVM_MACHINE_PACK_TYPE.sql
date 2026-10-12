@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_lifecycle.mv_l_lifecycle_rvm_machine_pack_type (rvm_pack_type_cd,
+rvm_pack_type_descr_en, rvm_pack_type_descr_de, rvm_pack_type_descr) AS SELECT rvm_pack_type_cd,
+ rvm_pack_type_descr_en,
+ rvm_pack_type_descr_de,
+ rvm_pack_type_descr
+FROM szd_production_core.t_dim_rvm_pack_type;

@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS dbp_etl.ausp;
+
+
+/* mfialkiewic */ /* CHARACTER  UNICODE CASESPECIFIC NOT NULL */ /* CHARACTER  UNICODE CASESPECIFIC NOT NULL */ CREATE
+TABLE IF NOT EXISTS dbp_etl.ausp (
+    mandant_id INTEGER NOT NULL,
+    objek INTEGER NOT NULL,
+    atinn INTEGER NOT NULL,
+    klart STRING(3) NOT NULL,
+    atwrt STRING(100) NOT NULL,
+    atflv INTEGER NOT NULL,
+    td_insert TIMESTAMP
+);

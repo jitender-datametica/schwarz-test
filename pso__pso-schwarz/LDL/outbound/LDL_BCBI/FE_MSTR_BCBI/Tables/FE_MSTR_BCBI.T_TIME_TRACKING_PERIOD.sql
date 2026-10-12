@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_bcbi_fe_mstr_bcbi.t_time_tracking_period (
+client_id BIGNUMERIC(38,0) NOT NULL,
+loc_sid BIGNUMERIC(38,0) NOT NULL,
+time_record_id BIGNUMERIC(38,0) NOT NULL,
+time_record_change_tmsp DATETIME,
+employee_hash STRING(100),
+time_type_grp_cd STRING(2) NOT NULL,
+time_type_sid BIGNUMERIC(38,0) NOT NULL,
+period_start_tmsp DATETIME,
+period_end_tmsp DATETIME,
+booking_type_from_cd STRING(1),
+booking_type_to_cd STRING(1),
+break_duration_minute BIGNUMERIC(38,0),
+day_factor NUMERIC(2,1),
+performance_factor NUMERIC(3,2),
+cancel_fg BIGNUMERIC(38,0) NOT NULL,
+deleted_fg BIGNUMERIC(38,0),
+dwh_cal_dt DATE NOT NULL,
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL,
+timestamp_load_bcbi TIMESTAMP
+);

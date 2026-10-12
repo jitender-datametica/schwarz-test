@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE ldl_wawi_production_wawiadm.personalstamm (
+personalnr INTEGER NOT NULL,
+taetigkbeznr INTEGER,
+anredennr INTEGER,
+name STRING(28) NOT NULL,
+vorname STRING(28),
+geschlecht INTEGER,
+geb_datum DATETIME,
+strasse STRING(28),
+landkzl STRING(3) NOT NULL,
+plz STRING(15) NOT NULL,
+ort STRING(28) NOT NULL,
+telefon STRING(28),
+gueltig_ab DATETIME,
+einarbeitung INTEGER NOT NULL,
+datum DATETIME,
+bediener STRING(8),
+benutzerid STRING(8),
+scn INTEGER DEFAULT 0,
+PRIMARY KEY (personalnr) NOT ENFORCED
+);

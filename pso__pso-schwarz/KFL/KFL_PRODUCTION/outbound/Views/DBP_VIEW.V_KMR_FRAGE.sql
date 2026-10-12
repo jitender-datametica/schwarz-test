@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_kmr_frage AS SELECT amx_system_id,
+ frage_id,
+ kapitel_id,
+ sort_nr,
+ frage_text,
+ anmerkung,
+ frage_status_id,
+ frage_typ_id,
+ stichprobe_umfang,
+ ergebnis_num,
+ ergebnis_text,
+ ergebnis_man,
+ aufgedeckte_fehler_anz,
+ feststellungen_anz,
+ massnahmen_anz
+FROM kfl_production_dbp_data.kmr_frage;

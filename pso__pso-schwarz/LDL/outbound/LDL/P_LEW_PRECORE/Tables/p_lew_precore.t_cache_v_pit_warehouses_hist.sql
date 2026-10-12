@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_precore.t_cache_v_pit_warehouses_hist (
+client_id INTEGER NOT NULL,
+srcinst_id STRING(100) COLLATE 'und:ci' NOT NULL,
+srcinst_code STRING(100) COLLATE 'und:ci',
+cntry_id STRING(100) COLLATE 'und:ci',
+cntry_code STRING(20) COLLATE 'und:ci',
+warehs_id STRING(100) COLLATE 'und:ci' NOT NULL,
+warehs_no STRING(100) COLLATE 'und:ci',
+warehs_code STRING(20) COLLATE 'und:ci',
+warehs_name STRING(100) COLLATE 'und:ci',
+warehs_valid_from DATE,
+warehs_valid_to DATE,
+deleted_fg INTEGER NOT NULL,
+dwh_valid_from DATE NOT NULL,
+dwh_valid_to DATE NOT NULL,
+dwh_load_id INTEGER NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL,
+PRIMARY KEY (dwh_valid_from) NOT ENFORCED
+);

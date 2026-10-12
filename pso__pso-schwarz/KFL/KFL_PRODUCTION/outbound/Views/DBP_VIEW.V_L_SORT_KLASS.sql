@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_sort_klass AS SELECT mandant_id,
+ klassifizierung_id
+FROM kfl_production_dbp_data.l_sort_klass;

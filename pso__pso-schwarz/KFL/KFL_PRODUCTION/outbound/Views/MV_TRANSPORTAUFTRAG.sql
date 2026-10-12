@@ -1,0 +1,31 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view3.mv_transportauftrag (dat_erstellung, zeit_erstellung, erstellung_dt
+, dat_quittierung, dat_lief_soll, dat_bereitstellung, datzeit_bereitstellung, datzeit_start_ta, datzeit_end_ta,
+lagernummer_id, mandant_id, transport_beleg_id, transportart_id, lvs_bewart_id, lief_beleg_id, ta_prio, dat_prio_upd,
+zeit_prio_upd, nb_id, wup_id, kj_lief_beleg, werbeware_id, lief_pal_typ_id, referenznummer, wg_verkett_id) AS SELECT
+ dat_erstellung,
+ zeit_erstellung,
+ DATETIME(dat_erstellung, COALESCE(zeit_erstellung, TIME '00:00:00')) AS erstellung_dt,
+ dat_quittierung,
+ dat_lief_soll,
+ dat_bereitstellung,
+ datzeit_bereitstellung,
+ datzeit_start_ta,
+ datzeit_end_ta,
+ lagernummer_id,
+ mandant_id,
+ transport_beleg_id,
+ transportart_id,
+ lvs_bewart_id,
+ lief_beleg_id,
+ ta_prio,
+ dat_prio_upd,
+ zeit_prio_upd,
+ nb_id,
+ wup_id,
+ kj_lief_beleg,
+ werbeware_id,
+ lief_pal_typ_id,
+ referenznummer,
+ wg_verkett_id
+FROM kfl_production_dbp_view.v_transportauftrag
+WHERE EXTRACT(YEAR FROM dat_erstellung) >= EXTRACT(YEAR FROM CURRENT_TIMESTAMP()) - 2;

@@ -1,0 +1,56 @@
+
+/*
+#----------------------------------------------------------------------------------------------------------------
+# Interface: DDL for P_LEW_MART_LEAD.V_PRICE_LABEL_HIST
+#----------------------------------------------------------------------------------------------------------------
+# History:
+#  1.0  04.06.2024   Simeon Nikolaev         Initial DDL - ESL Dashboard
+
+#----------------------------------------------------------------------------------------------------------------
+*/
+
+CREATE OR REPLACE VIEW P_LEW_MART_LEAD.V_PRICE_LABEL_HIST(
+   CLIENT_ID
+ , PRICE_LABEL_SID
+ , PRICE_LABEL_LIFECYCLE_STATUS_CD
+ , DAMAGED_FG
+ , PRICE_LABEL_DAMAGE_REASON_ID
+ , LAST_REGISTER_TMSP
+ , LAST_UPDATE_TMSP
+ , LAST_UPDATE_DT
+ , PRICE_LABEL_CREATE_TMSP
+ , PRICE_LABEL_DELETE_TMSP
+ , LAST_DISPLAY_REFRESH_TMSP
+ , LAST_ITEM_LINK_TMSP
+ , DISPLAY_UPDATE_STATUS_NAME
+ , LOC_SID_STORE
+ , DELETED_FG
+ , DWH_VALID_FROM
+ , DWH_VALID_TO
+ , DWH_LOAD_ID
+ , DWH_CREATED
+ , DWH_UPDATED
+) AS
+SELECT
+   CLIENT_ID
+  ,PRICE_LABEL_SID
+  ,PRICE_LABEL_LIFECYCLE_STATUS_CD
+  ,DAMAGED_FG
+  ,PRICE_LABEL_DAMAGE_REASON_ID
+  ,LAST_REGISTER_TMSP
+  ,LAST_UPDATE_TMSP
+  ,TO_DATE(LAST_UPDATE_TMSP) LAST_UPDATE_DT
+  ,PRICE_LABEL_CREATE_TMSP
+  ,PRICE_LABEL_DELETE_TMSP
+  ,LAST_DISPLAY_REFRESH_TMSP
+  ,LAST_ITEM_LINK_TMSP
+  ,DISPLAY_UPDATE_STATUS_NAME
+  ,LOC_SID_STORE
+  ,DELETED_FG
+  ,DWH_VALID_FROM
+  ,DWH_VALID_TO
+  ,DWH_LOAD_ID
+  ,DWH_CREATED
+  ,DWH_UPDATED
+FROM P_LEW_CORE.T_PRICE_LABEL_HIST
+;

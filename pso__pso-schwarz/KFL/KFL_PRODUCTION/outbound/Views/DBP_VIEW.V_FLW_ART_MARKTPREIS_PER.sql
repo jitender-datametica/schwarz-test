@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_flw_art_marktpreis_per AS SELECT flw_art_id,
+ mandant_id,
+ werk_id,
+ dat_von,
+ flw_version_id,
+ dat_bis,
+ bruttopreis,
+ menge,
+ wrg_id,
+ dat_aenderung,
+ system_id,
+ nettopreis,
+ nicht_relevant_fg,
+ td_insert,
+ td_update
+FROM kfl_production_dbp_data.flw_art_marktpreis_per;

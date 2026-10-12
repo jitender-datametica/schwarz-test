@@ -1,0 +1,13 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_AIS_KMO.MV_L_PLATZIERUNGSWG
+(
+mandant_id
+,platzierungswg_id
+,platzierungswg_nr
+)
+AS
+   SELECT
+   mandant_id,
+   platzierungswg_id,
+   platzierungswg_nr
+   FROM dbp_view.v_l_platzierungswg
+   WHERE mandant_id <>1;

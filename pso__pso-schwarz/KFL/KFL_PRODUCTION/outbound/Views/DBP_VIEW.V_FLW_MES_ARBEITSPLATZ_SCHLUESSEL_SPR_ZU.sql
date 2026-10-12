@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_flw_mes_arbeitsplatz_schluessel_spr_zu AS SELECT mandant_id,
+ flw_arbeitsplatzschluessel_id,
+ spr_id,
+ flw_arbeitsplatz_bez
+FROM kfl_production_dbp_data.flw_mes_arbeitsplatz_schluessel_spr_zu;

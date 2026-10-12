@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_ts_werbemittel_avq (mandant_id, werbemittel_avq_prio,
+werbemittel_avq_bez) AS SELECT mandant_id,
+ werbemittel_avq_prio_nr AS werbemittel_avq_prio,
+ werbemittel_avq_prio_bez AS werbemittel_avq_bez
+FROM kfl_production_dbp_view.v_l_werbemittel_avq_prio;

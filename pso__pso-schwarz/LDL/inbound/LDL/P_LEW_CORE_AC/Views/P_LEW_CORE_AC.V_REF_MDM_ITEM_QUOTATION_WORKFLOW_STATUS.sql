@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW P_LEW_CORE_AC.V_REF_MDM_ITEM_QUOTATION_WORKFLOW_STATUS (
+   mdm_item_quotation_workflow_status_cd    COMMENT 'Code for the steps of the workflow for item quotations.
+CBX: CNT_VQ.STATUS'
+  ,mdm_item_quotation_workflow_status_descr COMMENT 'Description for the steps of the workflow for item quotations.'
+  ,dwh_load_id                              COMMENT 'Identifier of the last run which inserted or updated the record. -1 means manually inserted.'
+  ,dwh_created                              COMMENT 'Creation timestamp of the record in the DWH.'
+  ,dwh_updated                              COMMENT 'Timestamp of the last update of the record in the DWH.'
+)
+COMMENT = 'NFPO supplier related quotation workflow steps.
+Manually filled values derived from: CBX: CNT_VQ.STATUS'
+AS SELECT
+   mdm_item_quotation_workflow_status_cd
+  ,mdm_item_quotation_workflow_status_descr
+  ,dwh_load_id
+  ,dwh_created
+  ,dwh_updated
+FROM P_LEW_CORE.T_REF_MDM_ITEM_QUOTATION_WORKFLOW_STATUS
+;

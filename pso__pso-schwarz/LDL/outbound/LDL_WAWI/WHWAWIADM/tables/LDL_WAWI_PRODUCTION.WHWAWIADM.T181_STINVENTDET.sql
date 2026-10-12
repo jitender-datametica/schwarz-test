@@ -1,0 +1,32 @@
+DROP TABLE IF EXISTS ldl_wawi_production_whwawiadm.t181_stinventdet;
+--In BigQuery, primary key columns cannot have collation.Removing the primary key constraint and applying NOT NULL instead, since in BQ, primary keys are not enforced.
+CREATE OR REPLACE TABLE ldl_wawi_production_whwawiadm.t181_stinventdet (
+wawi_instanz_kzl STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_nr INTEGER NOT NULL,
+c181_posnr INTEGER NOT NULL,
+c181_whnr INTEGER NOT NULL,
+c181_itemnr STRING(18),
+c181_itemdesc STRING(100),
+c181_weightitem INTEGER,
+c181_orderarea STRING(2),
+c181_caseqty BIGNUMERIC(30,10),
+c181_pieceqty BIGNUMERIC(30,10),
+c181_whprice BIGNUMERIC(30,10),
+c181_storeprice BIGNUMERIC(30,10),
+c181_whpricegroup INTEGER,
+c181_stpricegroup INTEGER,
+c181_comment STRING(50),
+c181_status INTEGER,
+c181_vatcode INTEGER,
+c181_newcaseqty BIGNUMERIC(30,10),
+c181_newpieceqty BIGNUMERIC(30,10),
+c181_decimalcase NUMERIC(7,3),
+c181_area INTEGER,
+c181_id INTEGER NOT NULL,
+scn BIGNUMERIC(38,0) DEFAULT 0,
+c181_caseqty_old BIGNUMERIC(30,10),
+c181_pieceqty_old BIGNUMERIC(30,10),
+delete_fg STRING(1),
+extraction_tmsp DATETIME,
+PRIMARY KEY (c181_id, c181_posnr, wh_nr) NOT ENFORCED
+) CLUSTER BY c181_id, c181_posnr, wh_nr;

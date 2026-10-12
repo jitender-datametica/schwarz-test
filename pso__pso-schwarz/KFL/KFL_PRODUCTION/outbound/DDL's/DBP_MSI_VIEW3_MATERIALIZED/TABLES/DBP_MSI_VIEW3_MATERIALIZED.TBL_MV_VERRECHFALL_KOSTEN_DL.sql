@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view3_materialized.tbl_mv_verrechfall_kosten_dl (
+mandant_id INTEGER,
+verrechfall_kosten_id INTEGER,
+mwst_id INTEGER,
+storno_fg INTEGER,
+soll_ist_fg INTEGER,
+manuelle_erfassung_fg INTEGER,
+wrg_id STRING(12) COLLATE 'und:ci',
+wrg_typ_id INTEGER,
+verrechfall_id INTEGER,
+dat_verrechnung_intern DATE,
+dat_verrechnung_extern DATE,
+verrechfall_kostenart_id STRING(10) COLLATE 'und:ci',
+verrechfall_status_id STRING(10) COLLATE 'und:ci',
+betrag_kosten NUMERIC(29,2),
+bemerkung STRING(40) COLLATE 'und:ci',
+zeit_verrechnung_intern TIME,
+dt_verechnung_intern DATETIME,
+vorzeichen_fg INTEGER,
+belosart_fg INTEGER
+);

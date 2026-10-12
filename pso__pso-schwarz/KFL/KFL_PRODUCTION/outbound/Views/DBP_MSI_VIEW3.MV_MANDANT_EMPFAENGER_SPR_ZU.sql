@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view3.mv_mandant_empfaenger_spr_zu (mandant_id_empfaenger,
+mandant_bez_empfaenger, mandant_kbez_empfaenger, mandant_sort_id_empfaenger) AS SELECT mandant_id AS
+ mandant_id_empfaenger,
+ mandant_bez AS mandant_bez_empfaenger,
+ mandant_kbez AS mandant_kbez_empfaenger,
+ mandant_sort_id AS mandant_sort_id_empfaenger
+FROM kfl_production_dbp_view.v_mandant;

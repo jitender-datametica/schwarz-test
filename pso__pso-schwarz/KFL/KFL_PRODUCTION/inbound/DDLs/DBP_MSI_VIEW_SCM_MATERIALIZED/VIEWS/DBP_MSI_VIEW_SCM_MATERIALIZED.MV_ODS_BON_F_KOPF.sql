@@ -1,0 +1,40 @@
+create or replace view DBP_MSI_VIEW_SCM_MATERIALIZED.MV_ODS_BON_F_KOPF(
+	BON_ID,
+	BON_DAT,
+	WUP_ID,
+	NB_ID,
+	MANDANT_ID,
+	BON_NR,
+	KASSE_NR,
+	KASSIERER_NR,
+	KUNDE_FG,
+	BON_BEGINN,
+	BON_ENDE,
+	UMSATZ_MWST,
+	UMSATZ_BRUTTO,
+	BON_BOOKING,
+	DAT_BOOKING,
+	TURNOVER_FG,
+	WRG_ID,
+	KASSE_TYP_ID
+) as
+   
+   
+   
+      SELECT
+   bon_id, bon_dat, 
+   
+   
+   v05.aktuell_wup_id ,
+   0 AS nb_id, v01.mandant_id, bon_nr, kasse_nr, kassierer_nr, kunde_fg, bon_beginn, bon_ende, umsatz_mwst, umsatz_brutto, bon_booking, dat_booking, turnover_fg, wrg_id, kasse_typ_id
+   FROM dbp_v_ods.v_ods_bon_kopf v01
+   INNER JOIN dbp_view.v_wup v05
+   ON v05.mandant_id =  v01.mandant_id
+   
+   AND v05.wup_id = v01.wup_id
+   AND ((v05.nb_id IN (2, 0, -111) AND v05.wup_id > 0) OR (v05.nb_id = -1 AND v05.wup_id = 0))
+
+   WHERE (bon_id, v01.wup_id, v01.mandant_id) NOT IN
+   (SELECT bon_id, wup_id, mandant_id
+   FROM dbp_v_ods.v_ods_bon_storno
+   );

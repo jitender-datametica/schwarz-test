@@ -1,0 +1,7 @@
+create or replace TABLE IDQ_PRODUCTION.IDQ_RESULTS.REF_MAIL_KFL_RULE_EKNR_FLAG (
+	ID NUMBER(38,0) NOT NULL autoincrement start 1 increment 1 order,
+	RULE_ID NUMBER(38,0) NOT NULL,
+	COUNTRY_ID NUMBER(38,0) NOT NULL,
+	EK_NR_FLAG NUMBER(38,0),
+	constraint PK_ID primary key (ID)
+);

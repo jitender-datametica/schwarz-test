@@ -1,0 +1,4 @@
+CREATE OR REPLACE PROCEDURE idq_production_eks_calculation.srmara_eks_item_listingoverviewmax_del()
+BEGIN
+TRUNCATE TABLE idq_production_eks_calculation.steks_listingoverviewmax;
+END;

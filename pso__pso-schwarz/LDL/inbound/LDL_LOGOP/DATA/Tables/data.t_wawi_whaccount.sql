@@ -1,0 +1,27 @@
+CREATE TABLE DATA.T_WAWI_WHACCOUNT (
+	CLIENT_ID NUMBER(38,0) NOT NULL COMMENT 'Client id - calculated based on the country code',
+	WH_NR NUMBER(38,0) NOT NULL COMMENT 'Warehouse number',
+	ID_VALUE NUMBER(38,10) NOT NULL,
+	WAWI_INSTANZ_KZL VARCHAR(3) NOT NULL COMMENT 'Country code',
+	T_CODE NUMBER(38,0) COMMENT 'The value C90_T_Code is part of the document type and forms a higher-level grouping of individual document types. T93_FORMTYPE.C93_T_Code',
+	FORM_TYPE NUMBER(38,0) COMMENT 'Specification of the document type or document type T93_FORMTYPE.C93_FormType',
+	STORE_NR NUMBER(38,0) COMMENT 'Specification of the branch number T008_STORE.C008_Store',
+	FORM_DT TIMESTAMP_NTZ(9) COMMENT 'Specification of the document date.',
+	DAY_END_DT TIMESTAMP_NTZ(9) COMMENT 'Specification of the date on which DAY wrote this entry (company daily closing date)',
+	VAT_GRP VARCHAR(15) COMMENT 'No use.',
+	DEBIT NUMBER(38,10) COMMENT 'Specification of the amount by which the company is debited (e.g. for goods receipt or breakage).',
+	CREDIT NUMBER(38,10) COMMENT 'Specification of the amount by which the company is credited (e.g. for goods dispatched or returned to the supplier).',
+	PAGE_NO NUMBER(38,10) COMMENT 'Specification of the account statement number in ACP Account Printing Module.',
+	FORM_NR VARCHAR(20) COMMENT 'Specification of the document number.',
+	DEBIT_NET NUMBER(38,10) COMMENT 'The corresponding net value of the column C90_DEBIT',
+	CREDIT_NET NUMBER(38,10) COMMENT 'The corresponding net value of the column C90_CREDIT',
+	SCN NUMBER(38,0),
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'Load id',
+	DWH_CREATED TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Record created at',
+	DWH_UPDATED TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Record updated at',
+	DWH_VALID_FROM DATE NOT NULL COMMENT 'Valid from date',
+	DWH_VALID_TO DATE NOT NULL COMMENT 'Valid to date',
+	DELETED_FG BOOLEAN NOT NULL COMMENT 'Flag if record is deleted',
+	PRIMARY KEY (CLIENT_ID, WH_NR, ID_VALUE, DWH_VALID_FROM)
+)COMMENT='WAWI - WHWAWIADM.T90_WHACCOUNT table'
+;

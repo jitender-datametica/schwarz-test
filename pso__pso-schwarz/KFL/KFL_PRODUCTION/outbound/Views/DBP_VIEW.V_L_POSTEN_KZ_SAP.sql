@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_posten_kz_sap AS SELECT mandant_id,
+ posten_kz_sap
+FROM kfl_production_dbp_data.l_posten_kz_sap;

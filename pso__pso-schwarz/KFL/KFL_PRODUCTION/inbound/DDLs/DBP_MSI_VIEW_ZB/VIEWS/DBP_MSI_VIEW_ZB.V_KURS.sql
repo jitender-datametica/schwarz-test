@@ -1,0 +1,55 @@
+create or replace view KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_MSI_VIEW_ZB.V_KURS(
+	MANDANT_ID,
+	WRG_TYP_ID,
+	VON_WRG_ID,
+	NACH_WRG_ID,
+	UMRECHNUNGSKURS,
+	KURS,
+	WRG_ID,
+	FAKTOR
+) as(
+SELECT DISTINCT
+   mandant_id,
+   wrg_typ_id,
+   von_wrg_id,
+   nach_wrg_id,
+   umrechnungskurs,
+   kurs              AS kurs    -- Kurs fuer Anzeige im Bericht
+   , nach_wrg_id       AS wrg_id  -- Waehrung fuer Anzeige im Bericht
+   , umrechnungskurs   AS FAKTOR  -- Umrechnungsfaktor fuer Berechnung (ALIAS)
+   FROM (
+   SELECT
+   m.mandant_id,
+   w.wrg_typ_id,
+   k.von_wrg_id,
+   k.nach_wrg_id, 
+   k.umrechnungskurs AS umrechnungskurs,
+   ROUND( 1 / k.umrechnungskurs,5) AS kurs
+   --, w.user_id
+   FROM
+   DBP_DATA.KURS k
+   JOIN DBP_MSI_DATA.USER_WRG_TYP_ZU  w
+   ON w.wrg_typ_id = 0 -- Umrechnung in EUR
+   JOIN DBP_DATA.MANDANT m
+   ON m.default_wrg = k.von_wrg_id
+   WHERE k.kurstyp_id = 3 AND k.dat_bis = '9999-12-31' -- -- Berichtskurs (aktuelle Version)
+
+   UNION ALL
+   
+   SELECT
+   m.mandant_id,
+   w.wrg_typ_id,
+   k.von_wrg_id,
+   k.von_wrg_id AS nach_wrg_id,
+   1 AS umrechnungskurs,
+   1 AS kurs
+   FROM
+   DBP_DATA.KURS k
+   JOIN DBP_MSI_DATA.USER_WRG_TYP_ZU  w
+   ON w.wrg_typ_id = 1 -- Anzeige Landeswaehrung
+   JOIN DBP_DATA.MANDANT m
+   ON m.default_wrg = k.von_wrg_id
+   WHERE k.kurstyp_id = 3 AND k.dat_bis = '9999-12-31' -- -- Berichtskurs (aktuelle Version)
+   ) sub01
+   
+   );

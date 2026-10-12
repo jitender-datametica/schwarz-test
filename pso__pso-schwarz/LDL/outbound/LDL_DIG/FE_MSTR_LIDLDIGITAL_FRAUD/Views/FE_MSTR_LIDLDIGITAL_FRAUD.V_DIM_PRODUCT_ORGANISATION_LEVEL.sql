@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital_fraud.v_dim_product_organisation_level (prod_org_lvl_name,
+prod_org_lvl_descr) AS SELECT *
+FROM ldl_dig_fe_mstr_lidldigital.v_dim_product_organisation_level;

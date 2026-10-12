@@ -1,0 +1,28 @@
+create or replace TABLE KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_DATA.TRANSPORTATION_UNIT (
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant im DWH',
+	TRANSPORTATION_UNIT_ID NUMBER(38,0) NOT NULL COMMENT 'Transporteinheit (intern)',
+	KJ_TRANSPORTATION_UNIT NUMBER(38,0) NOT NULL COMMENT 'Anlagejahr der Transporteinheit',
+	TRANSPORTATION_UNIT_ID_EXT VARCHAR(20) COLLATE 'en-ci' COMMENT 'Transporteinheit (extern)',
+	LIME_ID VARCHAR(32) COMMENT 'GUID Lokation',
+	LIME_ID_AUSGEPACKT VARCHAR(32) COMMENT 'GUID Handling Unit (unpacked)',
+	HANDLING_UNIT_GUID VARCHAR(32) COMMENT 'GUID Handling Unit',
+	TRANSPORTMITTEL VARCHAR(10) COLLATE 'en-ci' COMMENT 'Transportmittel',
+	EIGENTUEMER VARCHAR(10) COLLATE 'en-ci' COMMENT 'Eigentümer',
+	FRACHTFUEHRER VARCHAR(10) COLLATE 'en-ci' COMMENT 'Frachtführer',
+	SCAC VARCHAR(4) COLLATE 'en-ci' COMMENT 'Standard Carrier Alpha Code',
+	MAX_ANZ_SIEGEL NUMBER(38,0) COMMENT 'Max. Anzahl Siegel',
+	FAHRZEUGNUMMER_INTERN VARCHAR(20) COLLATE 'en-ci' COMMENT 'Interne Fahrzeugnummer',
+	LAND_KFZ_KENNZEICHEN VARCHAR(3) COLLATE 'en-ci' COMMENT 'Länderkennzeichen',
+	KFZ_KENNZEICHEN VARCHAR(20) COLLATE 'en-ci' COMMENT 'KFZ-Kennzeichen',
+	TU_PERMANENT_FG VARCHAR(1) COLLATE 'en-ci' COMMENT 'Flag: permanente Transporteinheit',
+	TU_HEAD_FG VARCHAR(1) COLLATE 'en-ci' COMMENT 'Flag: TU-Head',
+	TOR_VORBELADEN_FG VARCHAR(1) COMMENT 'Flag: Tour muss vorbeladen sein',
+	LKW_VORGEKUEHLT_FG VARCHAR(1) COLLATE 'en-ci' COMMENT 'Flag: LKW muss vorgekühlt werden',
+	RUNDLAUF_FG VARCHAR(1) COLLATE 'en-ci' COMMENT 'Flag: Rundlauf-Tour',
+	HU_GEWICHT NUMBER(15,3) COMMENT 'HU-Gewicht',
+	HU_GEWICHT_MENGE_EINH_ID VARCHAR(3) COLLATE 'en-ci' COMMENT 'HU-Gewichtseinheit',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	constraint PK_TRANSPORTATION_UNIT primary key (MANDANT_ID, TRANSPORTATION_UNIT_ID, KJ_TRANSPORTATION_UNIT)
+)COMMENT='Transportation Unit'
+;

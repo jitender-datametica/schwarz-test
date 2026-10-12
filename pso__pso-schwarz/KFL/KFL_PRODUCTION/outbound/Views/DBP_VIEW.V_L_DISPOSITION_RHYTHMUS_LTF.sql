@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_disposition_rhythmus_ltf AS SELECT mandant_id,
+ disposition_rhythmus_ltf_id,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.l_disposition_rhythmus_ltf;

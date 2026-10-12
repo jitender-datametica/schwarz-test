@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW idq_production_dwh.ref_mail_sp_matart (ref_mail_sp_matart_id, matart, ref_source_system_type_id)
+AS SELECT id AS ref_mail_sp_matart_id,
+ matart,
+ 24 AS ref_source_system_type_id
+FROM idq_production_idq_results.ref_mail_sp_matart;

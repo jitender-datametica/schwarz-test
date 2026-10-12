@@ -1,0 +1,22 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ais_kmo.mv_f_anf_markt_bestand_erp AS SELECT V01.mandant_id,
+ V01.wup_id,
+ V01.nb_id,
+ V01.art_id,
+ V01.stimmig_id,
+ DATE_ADD(V02.dat, INTERVAL 1 DAY) AS dat,
+ V01.wrg_id,
+ V01.gp_id,
+ V01.ds_markt_bestand_menge_frei AS an_markt_bestand_menge_frei,
+ V01.ds_markt_bestand_menge_qual AS an_markt_bestand_menge_qual,
+ V01.ds_markt_bestand_menge_ges AS an_markt_bestand_menge_ges,
+ V01.ds_markt_bestand_ekn2_frei AS an_markt_bestand_ekn2_frei,
+ V01.ds_markt_bestand_ekn2_qual AS an_markt_bestand_ekn2_qual,
+ V01.ds_markt_bestand_ekn2_ges AS an_markt_bestand_ekn2_ges,
+ V01.ds_markt_bestand_ekn4_frei AS an_markt_bestand_ekn4_frei,
+ V01.ds_markt_bestand_ekn4_qual AS an_markt_bestand_ekn4_qual,
+ V01.ds_markt_bestand_ekn4_ges AS an_markt_bestand_ekn4_ges,
+ V01.ds_markt_bestand_vkn_frei AS an_markt_bestand_vkn_frei,
+ V01.ds_markt_bestand_vkn_qual AS an_markt_bestand_vkn_qual,
+ V01.ds_markt_bestand_vkn_ges AS an_markt_bestand_vkn_ges
+FROM kfl_production_dbp_msi_view_ais_kmo.mv_f_markt_bestand_erp_per AS V01
+ INNER JOIN kfl_production_dbp_view.v_tag AS V02 ON V01.dat = V02.dat;

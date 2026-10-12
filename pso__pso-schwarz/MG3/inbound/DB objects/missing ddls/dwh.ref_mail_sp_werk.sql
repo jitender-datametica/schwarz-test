@@ -1,0 +1,11 @@
+create or replace view DWH.REF_MAIL_SP_WERK(
+	REF_MAIL_SP_WERK_ID,
+	WERK,
+	REF_SOURCE_SYSTEM_TYPE_ID
+) as 
+	select 
+    ID as REF_MAIL_SP_WERK_ID,
+    WERK,
+    24 as REF_SOURCE_SYSTEM_TYPE_ID
+	from IDQ_RESULTS.REF_MAIL_SP_WERK
+;

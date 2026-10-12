@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_pmr_werbethema (pmr_werbethema_id, pmr_werbethema_bez) AS
+SELECT werbethema_id AS pmr_werbethema_id,
+ werbethema_bez AS pmr_werbethema_bez
+FROM kfl_production_dbp_view.v_angebot_werbemittel_promotion_event_zu AS V01
+GROUP BY pmr_werbethema_id,
+ pmr_werbethema_bez;

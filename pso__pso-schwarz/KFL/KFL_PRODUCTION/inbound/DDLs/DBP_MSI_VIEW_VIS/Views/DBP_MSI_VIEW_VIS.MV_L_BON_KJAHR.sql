@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_VIS.MV_L_BON_KJAHR as
+      SELECT * FROM dbp_view.v_jahr_kj;

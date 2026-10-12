@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_cm_ac.v_lil_period_portion (period_portion_id, period_portion_desc,
+period_portion_short_desc, period_portion_desc_en, period_portion_short_desc_en) AS SELECT *
+FROM ldl_p_lew_mart_cm.v_lil_period_portion;

@@ -1,0 +1,11 @@
+CREATE OR REPLACE VIEW FE_MSTR_MASTER.V_CAL_CUM_PARTIAL_WEEK_TO_DATE (
+cal_dt COMMENT 'The date for which the partial-week-to-date interval is defined.'
+,incl_cal_dt COMMENT 'The date that needs to be included in the partial-week-to-date interval'
+,dwh_created_tmsp COMMENT 'The point in time when this record was created in the data warehouse.'
+,dwh_updated_tmsp COMMENT 'The point in time when this record was created or last updated.'
+) COMMENT = 'This table relates a calendar date to all dates that form the partial-week-to-date interval for this date. E.g. for Saturday, August 3rd 2019 this is Thursday, August 1st 2019, Friday, August 2nd 2019, and Saturday, August 3rd 2019.' AS SELECT
+main.cal_dt AS cal_dt
+,main.incl_cal_dt AS incl_cal_dt
+,main.dwh_created_tmsp AS dwh_created_tmsp
+,main.dwh_updated_tmsp AS dwh_updated_tmsp 
+FROM CORE_REL.T_CAL_CUM_PARTIAL_WEEK_TO_DATE main;

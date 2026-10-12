@@ -1,0 +1,37 @@
+DROP TABLE IF EXISTS dbp_etl.kmo_wpuums;
+
+
+CREATE TABLE IF NOT EXISTS dbp_etl.kmo_wpuums (
+    segnam STRING(1) NOT NULL,
+    landkz STRING(3) NOT NULL,
+    filnr STRING(10),
+    refnum STRING(16),
+    belegdatum STRING(8),
+    belegwaers STRING(4),
+    qualartnr STRING(4),
+    artnr STRING(25),
+    aktionsnr STRING(15),
+    vorzmenge STRING(1),
+    umsmenge STRING(35),
+    vorzwert STRING(1),
+    umswert STRING(35),
+    mwtax STRING(10),
+    wgr STRING(6),
+    promotionart STRING(10),
+    vorzpromotion STRING(1),
+    umspromotion STRING(35),
+    filnr_integer INTEGER,
+    artnr_integer INTEGER,
+    lkp_mandant_id INTEGER,
+    lkp_art_id INTEGER,
+    lkp_wup_id INTEGER,
+    lkp_nb_id INTEGER,
+    lkp_wg_id INTEGER,
+    lkp_arthiertyp_id INTEGER,
+    lkp_zek_id INTEGER,
+    lkp_mwst_id INTEGER,
+    lkp_posten_id STRING(4),
+    lkp_umrechnungskurs FLOAT64,
+    lkp_mwst NUMERIC(29, 2),
+    belegdatum_dat DATE
+);

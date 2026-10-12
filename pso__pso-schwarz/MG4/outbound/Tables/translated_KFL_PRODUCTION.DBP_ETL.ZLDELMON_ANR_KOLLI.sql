@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl.zldelmon_anr_kolli (
+mandant_id INTEGER NOT NULL,
+dat_lief_soll DATE NOT NULL,
+best_beleg_id INTEGER NOT NULL,
+best_beleg_pos_id INTEGER NOT NULL,
+menge_best_bme NUMERIC(18,3) NOT NULL,
+menge_lief_bme NUMERIC(18,3) NOT NULL,
+ek_netto_bnk_soll NUMERIC(18,4),
+ek_netto_bnk_ist NUMERIC(18,4),
+vk_netto_ist NUMERIC(18,4) NOT NULL,
+vk_netto_soll NUMERIC(18,4) NOT NULL,
+menge_best_kolli NUMERIC(18,3) NOT NULL,
+menge_lief_kolli NUMERIC(18,3) NOT NULL,
+best_menge_einh_id STRING(3) COLLATE 'und:ci',
+vk_netto NUMERIC(10,4),
+art_id INTEGER NOT NULL,
+wup_id INTEGER,
+wrg_id STRING(3) COLLATE 'und:ci',
+quelle STRING(10) COLLATE 'und:ci' NOT NULL,
+versandstelle_id STRING(4) COLLATE 'und:ci' NOT NULL
+);

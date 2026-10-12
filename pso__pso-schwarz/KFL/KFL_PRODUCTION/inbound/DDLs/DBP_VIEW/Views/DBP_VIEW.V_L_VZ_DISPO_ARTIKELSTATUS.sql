@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_L_VZ_DISPO_ARTIKELSTATUS AS 
+    SELECT 
+        mandant_id
+        ,vz_dispo_artikelstatus_id
+
+
+FROM DBP_DATA.L_VZ_DISPO_ARTIKELSTATUS ;

@@ -1,0 +1,12 @@
+CREATE TABLE  CORE.T_ORACLE_V_FK_STOCK (
+     STOCK_LOC_ID VARCHAR(16777216)                      ,
+	 COUNTRY VARCHAR(16777216)                           ,
+	 STOCK_ITEM_NR VARCHAR(16777216)                     ,
+	 STOCK_QUANTITY NUMBER(38,2)                         ,
+	 MOD_DATE TIMESTAMP_NTZ(9)                           ,
+	 STOCK_TIME_ID VARCHAR(16777216)                     ,
+	 STOCK_WARE_ID VARCHAR(16777216)                     ,
+	 SOURCE_EXTRACTION_TMSP TIMESTAMP_LTZ(9) NOT NULL    ,
+	 SNFLK_INSERT_TMSP TIMESTAMP_LTZ(9) NOT NULL         ,
+	 SNFLK_UPDATE_TMSP TIMESTAMP_LTZ(9) NOT NULL
+);

@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_flw.mv_l_flw_kalk_variante AS SELECT mandant_id,
+ kalk_variante_id
+FROM kfl_production_dbp_view.v_flw_l_kalk_variante AS V01;

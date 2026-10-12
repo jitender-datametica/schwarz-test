@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_v_ods.v_l_zahlungsmittel AS SELECT zahlungsmittel_id,
+ mandant_id
+FROM kfl_production_dbp_ods.l_zahlungsmittel;

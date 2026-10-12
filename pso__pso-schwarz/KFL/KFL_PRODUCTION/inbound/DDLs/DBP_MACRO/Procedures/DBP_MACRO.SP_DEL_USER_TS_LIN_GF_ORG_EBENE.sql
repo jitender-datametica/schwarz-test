@@ -1,0 +1,43 @@
+ CREATE OR REPLACE PROCEDURE DBP_MACRO.SP_DEL_USER_TS_LIN_GF_ORG_EBENE(
+    P_USER_ID VARCHAR(30),
+    P_HR_OBJEKT_EBENE2_ID FLOAT,
+    P_HR_OBJEKT_EBENE3_ID FLOAT,
+    P_HR_OBJEKT_EBENE4_ID FLOAT,
+    P_LOESCH_FG FLOAT
+) RETURNS BOOLEAN 
+LANGUAGE JAVASCRIPT 
+EXECUTE AS OWNER AS $$ 
+
+if (P_LOESCH_FG = 1) {
+  if (P_HR_OBJEKT_EBENE2_ID != null){
+      var SQL_delete = 'Delete from dbp_msi_data.ts_lin_gf_org_ebene_zu where USER_ID = :1 and  HR_OBJEKT_EBENE2_ID = :2';
+
+      snowflake.createStatement({
+          sqlText : SQL_delete,
+          binds: [P_USER_ID, P_HR_OBJEKT_EBENE2_ID]
+      }).execute();
+
+  } else if (P_HR_OBJEKT_EBENE3_ID != null){
+      var SQL_delete = 'Delete from dbp_msi_data.ts_lin_gf_org_ebene_zu where USER_ID = :1 and HR_OBJEKT_EBENE3_ID = :2';
+      
+       snowflake.createStatement({
+          sqlText : SQL_delete,
+          binds: [P_USER_ID, P_HR_OBJEKT_EBENE3_ID]
+      }).execute();
+      
+  } else if (P_HR_OBJEKT_EBENE4_ID != null){
+     var SQL_delete = 'Delete from dbp_msi_data.ts_lin_gf_org_ebene_zu where USER_ID = :1 and HR_OBJEKT_EBENE4_ID = :2';
+     
+      snowflake.createStatement({
+          sqlText : SQL_delete,
+          binds: [P_USER_ID, P_HR_OBJEKT_EBENE4_ID]
+      }).execute();
+  }
+
+  var sql_commit = `COMMIT;`
+     snowflake.createStatement({
+         sqlText : sql_commit
+      }).execute();
+}
+
+$$;

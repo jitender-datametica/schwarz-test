@@ -1,0 +1,27 @@
+CREATE OR REPLACE TABLE biaid_tools_projects_production_data.t_iam_azure_storage_management (
+storage_account STRING(30) NOT NULL,
+container_name STRING(100) NOT NULL,
+system_group STRING(200) NOT NULL,
+sub_group STRING(500) NOT NULL,
+file_name STRING(2000) NOT NULL,
+file_creation_tmsp DATETIME NOT NULL,
+file_modified_tmsp DATETIME NOT NULL,
+content_length BIGNUMERIC(38,0) NOT NULL,
+content_md5 STRING(1000),
+blob_type STRING(40),
+access_tier STRING(40),
+access_tier_change_time DATETIME,
+access_tier_inferred BOOL,
+expiry_time DATETIME,
+hdi_isfolder BOOL,
+file_owner STRING(40),
+file_owner_group STRING(80),
+permissions STRING(40),
+acl STRING(3000),
+metadata STRING(3000),
+last_access_time DATETIME,
+load_filename STRING(1000),
+load_created DATETIME,
+load_updated DATETIME
+)
+OPTIONS(description='Table belongs to Project inf_azure_management for Kostenreporting. Contact: pavan.chandregowda@mail.schwarz');

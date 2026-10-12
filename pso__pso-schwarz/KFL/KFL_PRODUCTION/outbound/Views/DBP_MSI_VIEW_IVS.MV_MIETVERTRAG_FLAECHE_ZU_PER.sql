@@ -1,0 +1,34 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ivs.mv_mietvertrag_flaeche_zu_per AS SELECT AMVF.mandant_id,
+ AMVF.mietvertrag_id_hilfe,
+ AMVF.mietvertrag_id,
+ AMVF.flaeche_id,
+ AMVF.dat_von,
+ AMVF.dat_bis,
+ AMVF.dat_flaeche_uebergabe,
+ AMVF.dat_flaeche_rueckgabe,
+ AMVF.vertrag_aktiv_fg,
+ AMVF.immo_objekt_id,
+ AMVF.flaeche_typ_id,
+ AMVF.branche_id,
+ AMVF.miete_umsatz_prozent,
+ AMVF.miete_referenz_id,
+ AMVF.mietart_id,
+ AMVF.dat_frei_flaeche_seit,
+  CASE
+  WHEN CURRENT_DATE >= AMVF.dat_frei_flaeche_seit
+  THEN DATE_DIFF(CURRENT_DATE, AMVF.dat_frei_flaeche_seit, DAY)
+  ELSE NULL
+  END AS flaeche_frei_seit_tagen,
+  AMVF.miete_betrag * KURS.kurs AS miete_betrag,
+  AMVF.nebenkosten_betrag * KURS.kurs AS nebenkosten_betrag,
+  AMVF.nebenkosten_abschlag * KURS.kurs AS nebenkosten_abschlag,
+  AMVF.miete_umsatz_abschlag * KURS.kurs AS miete_umsatz_abschlag,
+  AMVF.investmiete_betrag * KURS.kurs AS investmiete_betrag,
+  AMVF.sonst_betrag * KURS.kurs AS sonst_betrag,
+  AMVF.immo_verw_betrag * KURS.kurs AS immo_verw_betrag,
+ KURS.wrg_id,
+ KURS.wrg_typ_id,
+ AMVF.flaeche_status_id
+FROM kfl_production_dbp_msi_v_view.v_ivs_mietvtg_fl_zu_per_msi AS AMVF
+ INNER JOIN kfl_production_dbp_msi_view_ivs.mv_mandant_wrg_kurs_zu_per AS KURS ON AMVF.mandant_id = KURS.mandant_id AND
+   CURRENT_DATE BETWEEN KURS.kurs_dat_von AND KURS.kurs_dat_bis;

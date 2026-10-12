@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_regalachse AS SELECT mandant_id,
+ regalachse_id,
+ layoutbaustein_id,
+ layoutbaustein_version,
+ dat_von,
+ dat_bis,
+ fbb_nr,
+ platzierungsstufe_id,
+ wup_id,
+ nb_id,
+ achsgruppe_id,
+ regalachse_flaeche,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.regalachse;

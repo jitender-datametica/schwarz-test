@@ -1,0 +1,28 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_vis_monat_bestand_wg (mandant_id, nb_id, wup_id, kjmo, gj,
+arthiertyp_id, abt_id, wg_id, wrg_id, relevant_fg, menge_lgbest_erp_frei_bme, menge_lgbest_erp_qual_bme,
+betrag_vk_netto_frei_bme, betrag_vk_netto_qual_bme, betrag_vk_brutto_frei_bme, betrag_vk_brutto_qual_bme,
+menge_lgbest_erp_frei_bme_kum, menge_lgbest_erp_qual_bme_kum, betrag_vk_netto_frei_bme_kum, betrag_vk_netto_qual_bme_kum
+, betrag_vk_brutto_frei_bme_kum, betrag_vk_brutto_qual_bme_kum) AS SELECT V01.mandant_id,
+ V01.nb_id,
+ WUP.aktuell_wup_id AS wup_id,
+ V01.kjmo,
+ V01.gj,
+ V01.arthiertyp_id,
+ V01.abt_id,
+ V01.wg_id,
+ V01.wrg_id,
+ V01.relevant_fg,
+ V01.menge_lgbest_erp_frei_bme,
+ V01.menge_lgbest_erp_qual_bme,
+ V01.betrag_vk_netto_frei_bme,
+ V01.betrag_vk_netto_qual_bme,
+ V01.betrag_vk_brutto_frei_bme,
+ V01.betrag_vk_brutto_qual_bme,
+ V01.menge_lgbest_erp_frei_bme_kum,
+ V01.menge_lgbest_erp_qual_bme_kum,
+ V01.betrag_vk_netto_frei_bme_kum,
+ V01.betrag_vk_netto_qual_bme_kum,
+ V01.betrag_vk_brutto_frei_bme_kum,
+ V01.betrag_vk_brutto_qual_bme_kum
+FROM kfl_production_dbp_msi_v_view.v_vis_monat_bestand_wg AS V01
+ INNER JOIN kfl_production_dbp_view.v_wup AS WUP ON V01.mandant_id = WUP.mandant_id AND V01.wup_id = WUP.wup_id;

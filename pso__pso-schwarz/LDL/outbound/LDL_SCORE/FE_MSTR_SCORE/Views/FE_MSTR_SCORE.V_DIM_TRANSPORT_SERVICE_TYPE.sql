@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_score_fe_mstr_score.v_dim_transport_service_type AS SELECT transport_service_type_cd,
+ transport_service_type_descr
+FROM ldl_score_core.t_dim_transport_service_type;

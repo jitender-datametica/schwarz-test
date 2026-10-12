@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_lifecycle.mv_f_lifecycle_rvm_downtime_statistics AS SELECT rvm_sid,
+ downtime_no_electricity_sec_cnt,
+ downtime_other_rsn_sec_cnt,
+ total_downtime_sec_cnt,
+ cal_dt
+FROM szd_core.t_fact_rvm_downtime_statistics;

@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE idq_production_eks.shelftime (
+shelftimeid BIGNUMERIC(38,0) NOT NULL,
+whfactor BIGNUMERIC(38,0),
+whtimeunitid BIGNUMERIC(38,0),
+storefactor BIGNUMERIC(38,0),
+storetimeunitid BIGNUMERIC(38,0),
+customerfactor BIGNUMERIC(38,0),
+customertimeunitid BIGNUMERIC(38,0),
+monday BIGNUMERIC(38,0),
+tuesday BIGNUMERIC(38,0),
+wednesday BIGNUMERIC(38,0),
+thursday BIGNUMERIC(38,0),
+friday BIGNUMERIC(38,0),
+saturday BIGNUMERIC(38,0),
+sunday BIGNUMERIC(38,0),
+crdate DATETIME,
+moddate DATETIME,
+cruser STRING(35),
+moduser STRING(35),
+frequencefactor BIGNUMERIC(38,0),
+frequencetimeunitid BIGNUMERIC(38,0),
+PRIMARY KEY (shelftimeid) NOT ENFORCED
+);

@@ -1,0 +1,19 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_geku_kundenbarometer (geku_ticket_id_kundenbarometer, wup_id, nb_id,
+mandant_id_wup, dat, note_auswahl, note_frische, note_qualitaet, note_beratung, note_freundlichkeit_allg,
+note_freundlichkeit_theke, note_freundlichkeit_kasse, note_schnelligkeit_kasse, note_schnelligkeit_theke, note_preis) AS
+SELECT geku_ticket_id_kundenbarometer,
+ wup_id,
+ nb_id,
+ mandant_id_wup,
+ dat,
+ note_auswahl,
+ note_frische,
+ note_qualitaet,
+ note_beratung,
+ note_freundlichkeit_allg,
+ note_freundlichkeit_theke,
+ note_freundlichkeit_kasse,
+ note_schnelligkeit_kasse,
+ note_schnelligkeit_theke,
+ note_preis
+FROM kfl_production_dbp_data.geku_kundenbarometer;

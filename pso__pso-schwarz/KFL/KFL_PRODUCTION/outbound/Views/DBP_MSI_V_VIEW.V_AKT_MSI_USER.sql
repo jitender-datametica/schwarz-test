@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_v_view.v_akt_msi_user AS SELECT user_id,
+ session_id
+FROM kfl_production_dbp_msi_data.akt_msi_user;

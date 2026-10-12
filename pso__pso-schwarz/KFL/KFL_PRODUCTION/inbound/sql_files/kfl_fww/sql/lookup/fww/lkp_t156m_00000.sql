@@ -1,0 +1,1 @@
+select LAND,BUSTM,ZUSTD,CNT02,LBBSA from dbp_etl.t156m group by 1,2,3,4,5;

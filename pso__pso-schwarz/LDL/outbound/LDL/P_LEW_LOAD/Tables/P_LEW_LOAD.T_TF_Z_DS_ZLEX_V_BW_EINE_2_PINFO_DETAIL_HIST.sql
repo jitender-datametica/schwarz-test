@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_z_ds_zlex_v_bw_eine_2_pinfo_detail_hist (
+client_id BIGNUMERIC(38),
+lidl_country STRING(40),
+z_ds_zlex_v_bw_eine_infnr STRING(20),
+z_ds_zlex_v_bw_eine_ekorg STRING(8),
+z_ds_zlex_v_bw_eine_esokz STRING(2),
+z_ds_zlex_v_bw_eine_werks STRING(8),
+src_infnr STRING(40),
+src_werks STRING(40),
+src_ekorg STRING(40),
+src_brand_cd STRING(40),
+pinfo_type_cd STRING(20),
+incoterm_1 STRING(20),
+incoterm_2 STRING(100) COLLATE 'und:ci',
+deleted_fg BIGNUMERIC(38),
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

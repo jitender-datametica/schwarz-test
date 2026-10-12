@@ -1,0 +1,3 @@
+CREATE OR REPLACE MATERIALIZED VIEW kfl_production_dbp_msi_view_log.mv_l_queue_prompt AS SELECT queue_id
+FROM kfl_production_dbp_data.lageraufgabe
+GROUP BY queue_id;

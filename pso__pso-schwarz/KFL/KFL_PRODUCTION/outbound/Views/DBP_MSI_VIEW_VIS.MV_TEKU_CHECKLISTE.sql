@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_teku_checkliste (teku_checkliste_id, teku_checkliste_bez) AS
+SELECT teku_checkliste_id,
+ teku_checkliste_bez
+FROM kfl_production_dbp_view.v_l_teku_checkliste;

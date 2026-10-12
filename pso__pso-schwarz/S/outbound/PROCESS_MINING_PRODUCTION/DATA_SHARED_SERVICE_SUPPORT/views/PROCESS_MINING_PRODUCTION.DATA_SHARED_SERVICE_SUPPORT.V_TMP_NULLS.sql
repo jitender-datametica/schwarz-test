@@ -1,0 +1,1 @@
+CREATE OR REPLACE VIEW process_mining_production_data_shared_service_support.v_tmp_nulls (temp) AS SELECT NULL AS temp;

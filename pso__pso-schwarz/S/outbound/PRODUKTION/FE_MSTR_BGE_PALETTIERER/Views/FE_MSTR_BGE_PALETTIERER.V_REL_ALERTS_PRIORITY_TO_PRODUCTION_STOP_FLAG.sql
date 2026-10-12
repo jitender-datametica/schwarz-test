@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW produktion_fe_mstr_bge_palettierer.v_rel_alerts_priority_to_production_stop_flag AS SELECT
+ v_dim_alerts_priority.alerts_priority_id,
+ v_dim_production_stop_flag.alerts_production_stop_fg
+FROM produktion_fe_mstr_bge_palettierer.v_dim_alerts_priority
+ INNER JOIN produktion_fe_mstr_bge_palettierer.v_dim_production_stop_flag ON TRUE
+WHERE v_dim_alerts_priority.alerts_priority_id <> 5
+ OR v_dim_production_stop_flag.alerts_production_stop_fg = false;

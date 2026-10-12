@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view2.mv_ais_mandant_wup (mandant_id, wup_id, nb_id, gp_id,
+stat_bundesamt_wup_id) AS SELECT mandant_id,
+ wup_id,
+ 0 AS nb_id,
+ gp_id,
+ stat_bundesamt_wup_id
+FROM kfl_production_dbp_msi_v_view.v_ais_mandant_wup
+WHERE mandant_id = 1;

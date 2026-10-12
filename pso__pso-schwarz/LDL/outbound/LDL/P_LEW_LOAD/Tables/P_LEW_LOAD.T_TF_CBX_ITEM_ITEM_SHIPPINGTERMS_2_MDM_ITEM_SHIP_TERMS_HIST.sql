@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_cbx_item_item_shippingterms_2_mdm_item_ship_terms_hist (
+client_id BIGNUMERIC(38),
+lidl_country STRING(40),
+cbx_item_item_shippingterms_cbxitem_documentref STRING(250),
+cbx_item_item_shippingterms_cbxitem_shippingterms_market STRING(250),
+cbx_item_item_shippingterms_cbxitem_shippingterms_invoicecurrency STRING(250),
+cbx_item_item_shippingterms_cbxitem_shippingterms_completiontype_code STRING(250),
+cbx_item_item_shippingterms_cbxitem_shippingterms_incoterms_code STRING(250),
+src_item_doc_ref STRING(40),
+market_cd STRING(40),
+src_completion_type_cd STRING(40),
+src_incoterms_cd STRING(40),
+curr_cd_invoice STRING(40),
+deleted_fg BIGNUMERIC(38),
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

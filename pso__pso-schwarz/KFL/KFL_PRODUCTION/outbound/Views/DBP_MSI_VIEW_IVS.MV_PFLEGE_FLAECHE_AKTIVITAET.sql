@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ivs.mv_pflege_flaeche_aktivitaet AS SELECT *
+FROM kfl_production_dbp_dialog.d_flaeche_aktivitaet;

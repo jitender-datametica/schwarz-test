@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_process.load_chk_figures_var (
+cfg_file_name STRING(150) COLLATE 'und:ci' NOT NULL,
+env_file_name STRING(150) COLLATE 'und:ci' NOT NULL,
+sql_name STRING(50) COLLATE 'und:ci' NOT NULL,
+sql_type STRING(10) COLLATE 'und:ci' NOT NULL,
+job_name STRING(50) COLLATE 'und:ci' NOT NULL,
+scr_name STRING(50) COLLATE 'und:ci' NOT NULL,
+proc_type STRING(5) COLLATE 'und:ci' NOT NULL,
+run_on_weekday STRING(50) COLLATE 'und:ci' DEFAULT '1,2,3,4,5,6,7' NOT NULL,
+run_in_month STRING(150) COLLATE 'und:ci' DEFAULT '1,2,3,4,5,6,7,8,9,10,11,12' NOT NULL,
+run_on_day_of_month STRING(150) COLLATE 'und:ci' DEFAULT
+'1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31' NOT NULL,
+tagesversatz BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+dat_beginn DATE NOT NULL,
+dat_ende DATE NOT NULL,
+record_count INTEGER,
+durationsec BIGNUMERIC(38,0),
+teilprojekt_thema_id BIGNUMERIC(38,0),
+generated_not_checked_fg BIGNUMERIC(38,0) DEFAULT 1 NOT NULL,
+aktiv_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+uhrzeit_kz BIGNUMERIC(38,0),
+loop_count BIGNUMERIC(38,0),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

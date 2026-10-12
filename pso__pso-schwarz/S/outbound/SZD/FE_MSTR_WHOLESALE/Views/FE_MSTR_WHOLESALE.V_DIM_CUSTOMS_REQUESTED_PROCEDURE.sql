@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_wholesale.v_dim_customs_requested_procedure (requested_procedure_cd,
+requested_procedure_descr) AS SELECT requested_procedure_cd,
+ requested_procedure_descr
+FROM szd_core.t_dim_customs_requested_procedure;

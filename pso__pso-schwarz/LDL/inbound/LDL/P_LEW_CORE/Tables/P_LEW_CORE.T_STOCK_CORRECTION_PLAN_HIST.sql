@@ -1,0 +1,26 @@
+CREATE TABLE P_LEW_CORE.T_STOCK_CORRECTION_PLAN_HIST 
+(
+   CLIENT_ID            INTEGER                        NOT NULL,
+   LOC_SID_WH           INTEGER                        NOT NULL,
+   STOCK_CORRECTION_PLAN_ID INTEGER                        NOT NULL,
+   LOC_SID_STORE        INTEGER                        NOT NULL,
+   PLAN_ACTIVE_FROM_DT  DATE                           NOT NULL,
+   PLAN_ACTIVE_TO_DT    DATE                           NOT NULL,
+   PLAN_PAUSED_FROM_DT  DATE,
+   PLAN_PAUSED_TO_DT    DATE,
+   CYCLE_ID             SMALLINT                       NOT NULL,
+   CNT_ON_MONDAY_FG     BYTEINT                        NOT NULL,
+   CNT_ON_TUESDAY_FG    BYTEINT                        NOT NULL,
+   CNT_ON_WEDNESDAY_FG  BYTEINT                        NOT NULL,
+   CNT_ON_THURSDAY_FG   BYTEINT                        NOT NULL,
+   CNT_ON_FRIDAY_FG     BYTEINT                        NOT NULL,
+   CNT_ON_SATURDAY_FG   BYTEINT                        NOT NULL,
+   CNT_ON_SUNDAY_FG     BYTEINT                        NOT NULL,
+   DELETED_FG           BYTEINT                        NOT NULL,
+   DWH_VALID_FROM       DATE                           NOT NULL,
+   DWH_VALID_TO         DATE                           NOT NULL,
+   DWH_LOAD_ID          INTEGER                        NOT NULL,
+   DWH_CREATED          TIMESTAMP(6)                   NOT NULL,
+   DWH_UPDATED          TIMESTAMP(6)                   NOT NULL,
+   CONSTRAINT PK_T_STOCK_CORRECTION_PLAN_HIST PRIMARY KEY (STOCK_CORRECTION_PLAN_ID, LOC_SID_WH, DWH_VALID_FROM)
+);

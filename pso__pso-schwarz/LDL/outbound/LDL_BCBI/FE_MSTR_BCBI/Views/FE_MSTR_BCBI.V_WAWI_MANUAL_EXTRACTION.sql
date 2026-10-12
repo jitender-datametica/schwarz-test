@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_bcbi_fe_mstr_bcbi.v_wawi_manual_extraction AS SELECT *
+FROM ldl_bcbi_fe_mstr_bcbi.ts_wawi_manual_extraction;

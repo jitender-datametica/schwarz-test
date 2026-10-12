@@ -1,0 +1,26 @@
+create or replace TABLE LDL_DATA_PRODUCTION.CORE_DIM.T_DIM_CALENDAR_YEAR (
+	CAL_YEAR NUMBER(38,0) NOT NULL COMMENT 'The calendar year as a number in the form YYYY. Eg. 2019',
+	CAL_YEAR_BEGIN_MONTH NUMBER(38,0) NOT NULL COMMENT 'The first (calendar) month (inclusive) of the calendar year as a number in the form YYYYMM. Eg. 201901.',
+	CAL_YEAR_END_MONTH NUMBER(38,0) NOT NULL COMMENT 'The last (calendar) month (inclusive) of the calendar year as a number in the form YYYYMM. Eg. 201912.',
+	CAL_YEAR_BEGIN_PART_WEEK NUMBER(38,0) NOT NULL COMMENT 'The first partial week (inclusive) of the calendar year as a number in the form YYYYWWn. Eg. 2019012.',
+	CAL_YEAR_END_PART_WEEK NUMBER(38,0) NOT NULL COMMENT 'The last partial week (inclusive) of the calendar year as a number in the form YYYYWWn. Eg. 2020011.',
+	CAL_YEAR_BEGIN_DT DATE NOT NULL COMMENT 'The first day (inclusive) of the calendar year as a conventional calendar date in the form ''YYYY-MM-DD''. Eg. ''2019-01-01''.',
+	CAL_YEAR_END_DT DATE NOT NULL COMMENT 'The first day (inclusive) of the calendar year as a conventional calendar date in the form ''YYYY-MM-DD''. Eg. ''2019-12-31''. ',
+	CAL_YEAR_WEEK_CNT NUMBER(38,0) COMMENT 'The number of weeks that this calendar year contains. (i,.e. 52 or 53) If a week spans two years, it is counted for the year, in which it has at least four days.',
+	CAL_YEAR_PART_WEEK_CNT NUMBER(38,0) COMMENT 'The number of partial weeks that this calendar year contains.',
+	CAL_YEAR_DAY_CNT NUMBER(38,0) COMMENT 'The number of days that this calendar year contains. (i,.e. 365 or 366 for leap years)',
+	LEAP_YEAR_FG BOOLEAN NOT NULL COMMENT 'An indicator showing, if this year is a leap year, i.e. if it has 366 days.',
+	PREV_1Y_CAL_YEAR NUMBER(38,0) NOT NULL COMMENT 'The calendar year one year ago as a number in the form YYYY. Eg. 2018, if the current year is 2019.',
+	PREV_2Y_CAL_YEAR NUMBER(38,0) NOT NULL COMMENT 'The calendar year two years ago as a number in the form YYYY. Eg. 2017, if the current year is 2019.',
+	PREV_3Y_CAL_YEAR NUMBER(38,0) NOT NULL COMMENT 'The calendar year three years ago as a number in the form YYYY. Eg. 2016, if the current year is 2019.',
+	PREV_4Y_CAL_YEAR NUMBER(38,0) NOT NULL COMMENT 'The calendar year four years ago as a number in the form YYYY. Eg. 2015, if the current year is 2019.',
+	PREV_5Y_CAL_YEAR NUMBER(38,0) NOT NULL COMMENT 'The calendar year five years ago as a number in the form YYYY. Eg. 2014, if the current year is 2019.',
+	CURR_CAL_YEAR_FG BOOLEAN NOT NULL COMMENT 'This indicator is set for the current calendar year.',
+	CAL_YEAR_OFFSET NUMBER(38,0) COMMENT 'The difference in years between this calendar year and the current calendar year. So if the current year is 2019 then the offset is 0 for 2019, -1 for 2018 and +1 for 2020.',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.',
+	constraint PK_T_DIM_CALENDAR_YEAR primary key (CAL_YEAR)
+)COMMENT='Calendar years, starting on January 1st and ending on December 31st.'
+;

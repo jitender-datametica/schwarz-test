@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku.mv_crm_l_gutschein_grund AS SELECT crm_gutschein_grund_id
+FROM kfl_production_dbp_view.v_crm_l_gutschein_grund;

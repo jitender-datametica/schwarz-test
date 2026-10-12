@@ -1,0 +1,363 @@
+CREATE OR REPLACE VIEW P_LEW_MART_MSI_AC.V_MIS_SEC_DETAILREPORT_ACTIVATION
+(
+detailreport_activation_id
+, detailreport_activation_flag
+, int_rc_vt_umsatz
+, int_rc_vt_umsatz_brutto
+, int_rc_vt_kunden
+, int_rc_vt_plt_lg
+, int_rc_vt_pkl
+, int_rc_vt_invdiff_lg
+, int_rc_vt_lkw_kosten
+, int_rc_vt_nettoleistung
+, int_rc_vt_bon
+, int_rc_vt_prsk_inkl_ext_fl
+, int_rc_vt_abschriften_fl
+, int_rc_vt_invdiff_fl
+, int_rc_vt_invdiff_fl_t_eur
+, int_rc_vt_fehlartikel_fl
+, int_rc_vt_fehlartikel_lg
+, int_rc_vt_abschriften_lg
+, int_oc_vt_umsatz
+, int_oc_vt_umsatz_brutto
+, int_oc_vt_kunden
+, int_oc_vt_nettoleistung
+, int_oc_vt_bon
+, int_oc_vt_prsk_inkl_ext_fl
+, int_oc_vt_abschriften_fl
+, int_oc_vt_invdiff_fl
+, int_oc_vt_invdiff_fl_t_eur
+, int_oc_vt_fehlartikel_fl
+, int_oc_vt_invdiff_lg
+, int_oc_log_umsatz
+, int_oc_log_umsatz_brutto
+, int_oc_log_kunden
+, int_oc_log_plt_lg
+, int_oc_log_prsk_inkl_ext
+, int_oc_log_invdiff_lg
+, int_oc_log_lkw_kosten
+, int_oc_log_abschriften_lg
+, int_oc_log_abschriften_fl
+, int_oc_log_invdiff_fl
+, int_rc_vt_stunden_fil
+, int_oc_vt_stunden_fil
+, dl_rc_vt_umsatz
+, dl_rc_vt_umsatz_brutto
+, dl_rc_vt_kunden
+, dl_rc_vt_plt_lg
+, dl_rc_vt_prsk_inkl_ext_lg
+, dl_rc_vt_invdiff_lg
+, dl_rc_vt_lkw_kosten
+, dl_rc_vt_nettoleistung
+, dl_rc_vt_bon
+, dl_rc_vt_prsk_inkl_ext_fl
+, dl_rc_vt_abschriften_fl
+, dl_rc_vt_invdiff_fl
+, dl_rc_vt_invdiff_fl_t_eur
+, dl_rc_vt_fehlartikel_fl
+, dl_rc_vt_fehlartikel_lg
+, dl_rc_vt_abschriften_lg
+, dl_oc_vt_umsatz
+, dl_oc_vt_umsatz_brutto
+, dl_oc_vt_kunden
+, dl_oc_vt_nettoleistung
+, dl_oc_vt_bon
+, dl_oc_vt_prsk_inkl_ext_fl
+, dl_oc_vt_abschriften_fl
+, dl_oc_vt_invdiff_fl
+, dl_oc_vt_invdiff_fl_t_eur
+, dl_oc_vt_fehlartikel_fl
+, dl_oc_vt_invdiff_lg
+, dl_oc_log_umsatz
+, dl_oc_log_umsatz_brutto
+, dl_oc_log_kunden
+, dl_oc_log_plt_lg
+, dl_oc_log_prsk_inkl_ext
+, dl_oc_log_invdiff_lg
+, dl_oc_log_lkw_kosten
+, dl_oc_log_abschriften_lg
+, dl_oc_log_abschriften_fl
+, dl_oc_log_invdiff_fl
+, dl_rc_vt_stunden_fil
+, dl_oc_vt_stunden_fil
+, ges_oc_vt_umsatz
+, ges_oc_vt_umsatz_brutto
+, ges_oc_vt_kunden
+, ges_oc_vt_nettoleistung
+, ges_oc_vt_prsk_inkl_ext_fl
+, ges_oc_vt_abschriften_fl
+, ges_oc_vt_invdiff_fl
+, ges_oc_vt_invdiff_fl_t_eur
+, ges_oc_vl_umsatz
+, ges_oc_vl_umsatz_brutto
+, ges_oc_vl_kunden
+, ges_oc_vl_nettoleistung
+, ges_oc_vl_prsk_inkl_ext_fl
+, ges_oc_vl_abschriften_fl
+, ges_oc_vl_invdiff_fl
+, ges_oc_vl_invdiff_fl_t_eur
+, ges_oc_bt_umsatz
+, ges_oc_bt_umsatz_brutto
+, ges_oc_bt_kunden
+, ges_oc_bt_plt_lg
+, ges_oc_bt_prsk_inkl_ext_lg
+, ges_oc_bt_invdiff_lg
+, ges_oc_bt_lkw_kosten
+, ges_oc_bt_abschriften_lg
+, ges_oc_bt_abschriften_fl
+, ges_oc_bt_invdiff_fl
+, ges_oc_we_umsatz
+, ges_oc_we_umsatz_brutto
+, ges_oc_we_kunden
+, ges_oc_we_plt_lg
+, ges_oc_we_invdiff_lg
+, ges_oc_wb_umsatz
+, ges_oc_wb_umsatz_brutto
+, ges_oc_wb_kunden
+, ges_oc_wb_plt_lg
+, ges_oc_wb_invdiff_lg
+, ges_oc_wa_umsatz
+, ges_oc_wa_umsatz_brutto
+, ges_oc_wa_kunden
+, ges_oc_wa_plt_lg
+, ges_oc_wa_invdiff_lg
+, ges_oc_wa_lkw_kosten
+, ges_oc_vt_bon
+, ges_oc_vl_bon
+, ges_oc_vt_stunden_fil
+, ges_oc_vl_stunden_fil
+, int_oc_vtwg_umsatz
+, int_oc_vtwg_kunden
+, int_oc_vtwg_fehlartikel_lg
+, int_oc_vtwg_abschriften_lg
+, int_oc_vtwg_bon
+, int_oc_vtwg_abschriften_fl
+, int_oc_vtwg_fehlartikel_fl
+, int_oc_vtwg_preisveranderung
+, dl_oc_vtwg_umsatz
+, dl_oc_vtwg_kunden
+, dl_oc_vtwg_fehlartikel_lg
+, dl_oc_vtwg_abschriften_lg
+, dl_oc_vtwg_bon
+, dl_oc_vtwg_abschriften_fl
+, dl_oc_vtwg_fehlartikel_fl
+, dl_oc_vtwg_preisveranderung
+, ges_oc_vtwg_umsatz
+, ges_oc_vtwg_kunden
+, ges_oc_vtwg_fehlartikel_lg
+, ges_oc_vtwg_abschriften_lg
+, ges_oc_vtwg_bon
+, ges_oc_vtwg_abschriften_fl
+, ges_oc_vtwg_fehlartikel_fl
+, ges_oc_vtwg_preisveranderung
+, int_rc_ek_umsatz
+, int_rc_ek_kunden
+, int_rc_ek_we_kalkulation
+, int_rc_ek_preisveranderung
+, int_rc_ek_kalkulation
+, int_oc_ek_umsatz
+, int_oc_ek_kunden
+, int_oc_ek_we_kalkulation
+, int_oc_ek_preisveranderung
+, int_oc_ek_kalkulation
+, int_oc_ek_abschriften_fl
+, int_oc_ek_fehlartikel_lg
+, int_oc_ek_abschriften_lg
+, dl_rc_ek_umsatz
+, dl_rc_ek_kunden
+, dl_rc_ek_we_kalkulation
+, dl_rc_ek_preisveranderung
+, dl_rc_ek_kalkulation
+, dl_oc_ek_umsatz
+, dl_oc_ek_kunden
+, dl_oc_ek_we_kalkulation
+, dl_oc_ek_preisveranderung
+, dl_oc_ek_kalkulation
+, dl_oc_ek_abschriften_fl
+, dl_oc_ek_fehlartikel_lg
+, dl_oc_ek_abschriften_lg
+ )
+AS
+SELECT
+detailreport_activation_id,
+detailreport_activation_flag,
+int_rc_vt_umsatz,
+int_rc_vt_umsatz_brutto,
+int_rc_vt_kunden,
+int_rc_vt_plt_lg,
+int_rc_vt_pkl,
+int_rc_vt_invdiff_lg,
+int_rc_vt_lkw_kosten,
+int_rc_vt_nettoleistung,
+int_rc_vt_bon,
+int_rc_vt_prsk_inkl_ext_fl,
+int_rc_vt_abschriften_fl,
+int_rc_vt_invdiff_fl,
+int_rc_vt_invdiff_fl_t_eur,
+int_rc_vt_fehlartikel_fl,
+int_rc_vt_fehlartikel_lg,
+int_rc_vt_abschriften_lg,
+int_oc_vt_umsatz,
+int_oc_vt_umsatz_brutto,
+int_oc_vt_kunden,
+int_oc_vt_nettoleistung,
+int_oc_vt_bon,
+int_oc_vt_prsk_inkl_ext_fl,
+int_oc_vt_abschriften_fl,
+int_oc_vt_invdiff_fl,
+int_oc_vt_invdiff_fl_t_eur,
+int_oc_vt_fehlartikel_fl,
+int_oc_vt_invdiff_lg,
+int_oc_log_umsatz,
+int_oc_log_umsatz_brutto,
+int_oc_log_kunden,
+int_oc_log_plt_lg,
+int_oc_log_prsk_inkl_ext,
+int_oc_log_invdiff_lg,
+int_oc_log_lkw_kosten,
+int_oc_log_abschriften_lg,
+int_oc_log_abschriften_fl,
+int_oc_log_invdiff_fl,
+int_rc_vt_stunden_fil,
+int_oc_vt_stunden_fil,
+dl_rc_vt_umsatz,
+dl_rc_vt_umsatz_brutto,
+dl_rc_vt_kunden,
+dl_rc_vt_plt_lg,
+dl_rc_vt_prsk_inkl_ext_lg,
+dl_rc_vt_invdiff_lg,
+dl_rc_vt_lkw_kosten,
+dl_rc_vt_nettoleistung,
+dl_rc_vt_bon,
+dl_rc_vt_prsk_inkl_ext_fl,
+dl_rc_vt_abschriften_fl,
+dl_rc_vt_invdiff_fl,
+dl_rc_vt_invdiff_fl_t_eur,
+dl_rc_vt_fehlartikel_fl,
+dl_rc_vt_fehlartikel_lg,
+dl_rc_vt_abschriften_lg,
+dl_oc_vt_umsatz,
+dl_oc_vt_umsatz_brutto,
+dl_oc_vt_kunden,
+dl_oc_vt_nettoleistung,
+dl_oc_vt_bon,
+dl_oc_vt_prsk_inkl_ext_fl,
+dl_oc_vt_abschriften_fl,
+dl_oc_vt_invdiff_fl,
+dl_oc_vt_invdiff_fl_t_eur,
+dl_oc_vt_fehlartikel_fl,
+dl_oc_vt_invdiff_lg,
+dl_oc_log_umsatz,
+dl_oc_log_umsatz_brutto,
+dl_oc_log_kunden,
+dl_oc_log_plt_lg,
+dl_oc_log_prsk_inkl_ext,
+dl_oc_log_invdiff_lg,
+dl_oc_log_lkw_kosten,
+dl_oc_log_abschriften_lg,
+dl_oc_log_abschriften_fl,
+dl_oc_log_invdiff_fl,
+dl_rc_vt_stunden_fil,
+dl_oc_vt_stunden_fil,
+ges_oc_vt_umsatz,
+ges_oc_vt_umsatz_brutto,
+ges_oc_vt_kunden,
+ges_oc_vt_nettoleistung,
+ges_oc_vt_prsk_inkl_ext_fl,
+ges_oc_vt_abschriften_fl,
+ges_oc_vt_invdiff_fl,
+ges_oc_vt_invdiff_fl_t_eur,
+ges_oc_vl_umsatz,
+ges_oc_vl_umsatz_brutto,
+ges_oc_vl_kunden,
+ges_oc_vl_nettoleistung,
+ges_oc_vl_prsk_inkl_ext_fl,
+ges_oc_vl_abschriften_fl,
+ges_oc_vl_invdiff_fl,
+ges_oc_vl_invdiff_fl_t_eur,
+ges_oc_bt_umsatz,
+ges_oc_bt_umsatz_brutto,
+ges_oc_bt_kunden,
+ges_oc_bt_plt_lg,
+ges_oc_bt_prsk_inkl_ext_lg,
+ges_oc_bt_invdiff_lg,
+ges_oc_bt_lkw_kosten,
+ges_oc_bt_abschriften_lg,
+ges_oc_bt_abschriften_fl,
+ges_oc_bt_invdiff_fl,
+ges_oc_we_umsatz,
+ges_oc_we_umsatz_brutto,
+ges_oc_we_kunden,
+ges_oc_we_plt_lg,
+ges_oc_we_invdiff_lg,
+ges_oc_wb_umsatz,
+ges_oc_wb_umsatz_brutto,
+ges_oc_wb_kunden,
+ges_oc_wb_plt_lg,
+ges_oc_wb_invdiff_lg,
+ges_oc_wa_umsatz,
+ges_oc_wa_umsatz_brutto,
+ges_oc_wa_kunden,
+ges_oc_wa_plt_lg,
+ges_oc_wa_invdiff_lg,
+ges_oc_wa_lkw_kosten,
+ges_oc_vt_bon,
+ges_oc_vl_bon,
+ges_oc_vt_stunden_fil,
+ges_oc_vl_stunden_fil,
+int_oc_vtwg_umsatz,
+int_oc_vtwg_kunden,
+int_oc_vtwg_fehlartikel_lg,
+int_oc_vtwg_abschriften_lg,
+int_oc_vtwg_bon,
+int_oc_vtwg_abschriften_fl,
+int_oc_vtwg_fehlartikel_fl,
+int_oc_vtwg_preisveranderung,
+dl_oc_vtwg_umsatz,
+dl_oc_vtwg_kunden,
+dl_oc_vtwg_fehlartikel_lg,
+dl_oc_vtwg_abschriften_lg,
+dl_oc_vtwg_bon,
+dl_oc_vtwg_abschriften_fl,
+dl_oc_vtwg_fehlartikel_fl,
+dl_oc_vtwg_preisveranderung,
+ges_oc_vtwg_umsatz,
+ges_oc_vtwg_kunden,
+ges_oc_vtwg_fehlartikel_lg,
+ges_oc_vtwg_abschriften_lg,
+ges_oc_vtwg_bon,
+ges_oc_vtwg_abschriften_fl,
+ges_oc_vtwg_fehlartikel_fl,
+ges_oc_vtwg_preisveranderung,
+int_rc_ek_umsatz,
+int_rc_ek_kunden,
+int_rc_ek_we_kalkulation,
+int_rc_ek_preisveranderung,
+int_rc_ek_kalkulation,
+int_oc_ek_umsatz,
+int_oc_ek_kunden,
+int_oc_ek_we_kalkulation,
+int_oc_ek_preisveranderung,
+int_oc_ek_kalkulation,
+int_oc_ek_abschriften_fl,
+int_oc_ek_fehlartikel_lg,
+int_oc_ek_abschriften_lg,
+dl_rc_ek_umsatz,
+dl_rc_ek_kunden,
+dl_rc_ek_we_kalkulation,
+dl_rc_ek_preisveranderung,
+dl_rc_ek_kalkulation,
+dl_oc_ek_umsatz,
+dl_oc_ek_kunden,
+dl_oc_ek_we_kalkulation,
+dl_oc_ek_preisveranderung,
+dl_oc_ek_kalkulation,
+dl_oc_ek_abschriften_fl,
+dl_oc_ek_fehlartikel_lg,
+dl_oc_ek_abschriften_lg
+FROM p_lew_mart_msi.t_mis_sec_detailreport_activation;
+
+
+
+
+

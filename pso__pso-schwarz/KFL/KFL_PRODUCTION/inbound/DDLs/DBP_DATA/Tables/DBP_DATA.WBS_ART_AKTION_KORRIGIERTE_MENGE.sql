@@ -1,0 +1,21 @@
+--==============================================================
+-- Table: wbs_art_aktion_korrigierte_menge
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: wbs_art_aktion_korrigierte_menge
+   generated from Powerdesigner on Donnerstag, 19. Januar 2023 14:26:50
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE DBP_DATA.WBS_ART_AKTION_KORRIGIERTE_MENGE DATA_RETENTION_TIME_IN_DAYS = 15(
+   mandant_id                          NUMBER(38,0)     NOT NULL COMMENT 'Mandant im DWH.',
+   wup_id                              NUMBER(38,0)     NOT NULL COMMENT 'Filial-ID.',
+   nb_id                               NUMBER(38,0)     NOT NULL COMMENT 'Nebenbetriebs-ID.',
+   art_id                              NUMBER(38,0)     NOT NULL COMMENT 'Artikelnuummer',
+   dat_von_aktion                      DATE             NOT NULL COMMENT 'Startdatum des Artikelaktionszeitraums. Kann mehrere Aktionen betreffen, da ein Zeitraum zu mehreren aktion_ids zugeordnet sein kann.',
+   dat_bis_aktion                      DATE             NOT NULL COMMENT 'Enddatum des Artikelaktionszeitraums. Kann mehrere Aktionen betreffen, da ein Zeitraum zu mehreren aktion_ids zugeordnet sein kann.',
+   zeitraum_korrigierte_menge          NUMBER(38,3)     COMMENT 'Um Außreißer bereinigte Abverkaufsmenge im Zeitraum. Da es in einem Zeitraum mehr als eine Aktion geben kann, kann man nicht unterscheiden zu welcher Aktion ein Abverkauf stattfand. Darum hat die Menge eine andere Granularität als Aktion und ist auf Ebene Zeitraum.',
+   TD_UPDATE                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   TD_INSERT                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   CONSTRAINT PK_WBS_ART_AKTION_KORRIGIERTE_MENGE PRIMARY KEY (mandant_id, wup_id, nb_id, art_id, dat_von_aktion, dat_bis_aktion) NOT ENFORCED
+)  COMMENT = 'SCM-WBS - Table for aiding the loading process. This table stores the data coming from AI correcting outliers of promotional item sales quantities. The loading file from AI over time drops their calculations for older promotions and this table keeps record of the data.
+             The corrections for amounts are necessary to create realistic quantity predictions for for future promotions of that article. Outliers happen, i.e., because stores run out of stock, or special outside occasions such as donations lead to large sales quantities. These outliers would skew delivery quantity predictions.';

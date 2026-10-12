@@ -1,0 +1,93 @@
+--==============================================================
+-- Table: wup
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: wup
+   generated from Powerdesigner on Samstag, 14. September 2024 14:46:49
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE DBP_DATA.WUP (
+   wup_id                              INTEGER     NOT NULL COMMENT 'Mutter Wup ID wird verwendet für Beziehung Lager zu Verteilzentrum',
+   nb_id                               INTEGER     NOT NULL COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer',
+   mandant_id                          INTEGER     NOT NULL COMMENT 'Mandant im DWH',
+   vw_id                               INTEGER     DEFAULT 0 COMMENT 'ID des Vertriebsweges. Einkaufs-Sicht auf die wup Objekte (Restaurants und Backshops z.Bsp. haben keinen Vertriebsweg)',
+   vs_id                               INTEGER     DEFAULT 0 COMMENT 'ID der Vertriebsschiene. Vertriebs-Sicht auf die wup Objekte',
+   land_id                             VARCHAR(8)       NOT NULL COLLATE 'en-ci' DEFAULT '  ' COMMENT 'Land, in dem sich der Markt befindet (PL, CZ, DE,..)',
+   region_id                           INTEGER     COMMENT 'Bundesland, in dem sich der Markt befindet',
+   dat_von                             DATE             COMMENT 'Eröffnungsdatum. Muss nicht der 1. Abverkaufstag sein! Format YYYY-MM-DD',
+   wup_typ_id                          INTEGER     DEFAULT 0 COMMENT 'entspricht der Kennzeichnung der Art des Umschlagplatzes (0: normaler Markt; 1: Lager; 2: Verteilzentrum : -1 System. Neu könnten hier auch noch Mitbewerbermärkte geführt werden.',
+   wup_name_v                          VARCHAR(160)     COLLATE 'en-ci' DEFAULT ' ' COMMENT 'Marktbezeichnung für den Vertrieb (aus Hyperion gepflegt)',
+   wup_name_e                          VARCHAR(160)     COLLATE 'en-ci' DEFAULT ' ' COMMENT 'Marktbezeichnung für den Einkauf (aus SAP gepflegt)',
+   wup_standort                        VARCHAR(160)     COLLATE 'en-ci' DEFAULT ' ' COMMENT 'Ortsbezeichnung',
+   wup_plz                             VARCHAR(40)      COLLATE 'en-ci' DEFAULT ' ' COMMENT 'Postleitzahl',
+   wup_str                             VARCHAR(160)     COLLATE 'en-ci' DEFAULT ' ' COMMENT 'Strasse',
+   vf_id                               INTEGER     DEFAULT 0 COMMENT 'Vertriebsform (Kaufland, Handelshof,...)',
+   vkl_id                              INTEGER     DEFAULT -1 COMMENT 'Verkaufsleiter - kommt aus der Hyperion - Schnittstelle',
+   hl_id                               INTEGER     COMMENT 'Hausleiter',
+   dat_bis                             DATE             DEFAULT CAST ('9999-12-31' AS DATE) COMMENT 'Schließungsdatum Format ''YYYY-MM-DD''',
+   lead_mwst                           NUMBER(29,3)      COMMENT 'Mehrwertsteuersatz - ID (<> Mehrwertsteuersatz!)',
+   uebernahme_von                      VARCHAR(160)     COLLATE 'en-ci' DEFAULT ' ' COMMENT 'von welchem Mitbewerber wurde der Markt übernommen',
+   breakevenumsatz                     NUMBER(29,2)     DEFAULT 0 COMMENT 'Kennzahl, kommt aus Hyperion',
+   systemrentabilitaet                 NUMBER(29,2)     DEFAULT 0 COMMENT 'Kennzahl, kommt aus Hyperion',
+   verkaufsflaeche                     NUMBER(29,2)     DEFAULT 0 COMMENT 'Verkaufsfläche des Marktes',
+   betriebsflaeche                     NUMBER(29,2)     DEFAULT 0 COMMENT 'Betriebsfläche des Marktes',
+   fleischsystem                       INTEGER     DEFAULT 0 COMMENT 'Kennzeichnung, ob Fleischtheke vorhanden. Wird z.Zt nicht benutzt',
+   preiskategorie_food                 INTEGER     COMMENT 'Preiskategorie Food für den Markt (wird in TP1 benutzt) In TP2 erfolgt die Zuordnung auf Ebene Markt/Warengruppe',
+   preiskategorie_nonfood              INTEGER     COMMENT 'Preiskategorie Nonfood für den Markt (wird in TP1 benutzt) In TP2 erfolgt die Zuordnung auf Ebene Markt/Warengruppe',
+   sortkategorie_food                  INTEGER     COMMENT 'Sortimentskategorie Food für den Markt (wird in TP1 benutzt) In TP2 erfolgt die Zuordnung auf Ebene Markt/Warengruppe',
+   sortkategorie_nonfood               INTEGER     COMMENT 'Preiskategorie Nonfood für den Markt (wird in TP1 benutzt) In TP2 erfolgt die Zuordnung auf Ebene Markt/Warengruppe. Ist z.Zt. immer mit Null gefüllt',
+   sondermarkt                         INTEGER     COMMENT 'wird z.Zt. nicht benutzt',
+   ref_wup_id                          INTEGER     DEFAULT 0 COMMENT 'wird z.Zt. nicht benutzt',
+   wm_id                               INTEGER     DEFAULT -1 COMMENT 'Warenmanager ID',
+   kassentyp                           VARCHAR(40)      DEFAULT '          ' COMMENT 'im Markt benutztes Kassensystem (aus ods_bon_transaction.kassensystem_name)',
+   dat_qbm_umstellung                  DATE             COMMENT 'Datum seit wann QBM (oder die aktuelle QBM-Version) im Markt aktiv ist',
+   getraenkemarkt_fg                   INTEGER     DEFAULT 0 COMMENT 'Getränkemarkt Flag',
+   kundenfaktor                        NUMBER(38,10)    DEFAULT 1 COMMENT 'Korrekturfaktor zur Ermittlung der Anzahl der Kunden, bei Märkten mit Getränkemarkt angewendet',
+   vz_wup_id                           INTEGER     COMMENT 'Beim wup vom Typ "Lager" ist hier das Verteilzentrum eingetragen',
+   qbm_id                              INTEGER     COMMENT 'Kennzeichnung, ob der Markt über ein QBM-System verfügt (Reklamationsabwicklung)',
+   wup_id_alt                          INTEGER     COMMENT 'Bei Wechsel der Marktnummer wird hier die alte Marktnummer hinterlegt',
+   verkaufsorganisation_id             VARCHAR(4)       COLLATE 'en-ci' COMMENT 'Organisatorische Einheit, die für den Vertrieb bestimmter Produkte oder Dienstleistungen verantwortlich ist, z. B. KL = Kaufland.',
+   buchungskreis_id                    INTEGER     COMMENT 'Zuordnung des Buchungskreises zu dem WUP über die SAP Quelle T001K und T001. Der Buchungskreis entspricht unter dem Mandanten einer Zusammenfassung von Werken (Hierarchie: Mandant, Buchungskreis, Werk/Betrieb). Bsp: Buchungskreis 282 entspricht Kaufland WH Oranienburg GmbH',
+   dat_eroeffnung                      DATE             COMMENT '"Echtes" Eröffnungsdatum des Marktes. Kann von dat_von abweichen.',
+   bewertungskreis_id                  VARCHAR(16)      COLLATE 'en-ci' DEFAULT '    ' COMMENT 'der Bewertungskreis enthält die wup_id. Theoretisch kann auch ein Buchungskreis enthalten sein. Über den Bewertungskreis wird die Verbindung zum Gleitenden Durchschnittspreis hergestellt',
+   wup_stadt                           VARCHAR(160)     COLLATE 'en-ci' DEFAULT ' ' COMMENT 'Ort aus der Adresse des Marktes',
+   haupt_wup_id                        INTEGER     COMMENT 'Hier ist der uebergeordnete wup gespeichert, falls mehrere wup_ids logisch zusammengehoeren (z.Bsp. Restaurant zu Markt)',
+   kreistyp_gruppe_id                  VARCHAR(16)      COLLATE 'en-ci' COMMENT 'Region / Gruppierung Kreistypen',
+   dat_umstellung_waage                DATE             NOT NULL DEFAULT CAST ('9999-12-31' AS DATE) COMMENT 'Datum, ab dem die Waagendaten sich im DWH befinden. Default ist der 31.12.9999',
+   dat_von_alt                         DATE             COMMENT 'Nur bei Umzugsfilialen gefüllt: Das dat_von der Vorgänger-Filiale',
+   dat_eroeffnung_alt                  DATE             COMMENT 'Nur bei Umzugsfilialen gefüllt: Das Eröffnungsdatum der Vorgänger-Filiale',
+   umzugsfiliale_fg                    INTEGER     NOT NULL DEFAULT 0 COMMENT 'Ist = 1 bei geschlossenen Filialen, für die eine Nachfolger-Filiale existiert. Sonst = 0',
+   wup_aenderung_grund_id              INTEGER     NOT NULL DEFAULT 0 COMMENT 'Numerischer Code fuer den Grund der WUP ID Aenderung. Ist gefuellt fuer die wup_id, die die Aenderung erfahren hat, somit bei der aktuellen wup_id standardmaessig 0. Der Aenderungsgrund steht immer in der alten wup ID.
+            Moegliche Auspraegungen:
+            0 = keine Aenderung
+            1 = Umzug (Historie / vor Einfuehrung der Filialumgliederungen)
+            2 = Umzug (seit Einfuehrung der Filialumgliederungen)
+            3 = Umgliederung
+            4 = Abriss / Neubau',
+   gf_id                               INTEGER     DEFAULT -1 COMMENT 'Geschäftsführer ID, numerisch. Wird hierzur Performancesteigerung denormalisiert abgelegt, um den Join zur VKL-Tabelle zu ersparen',
+   umsatz_ea_eur                       NUMBER(29,2)     DEFAULT 0 COMMENT 'Umsatz laut Expansionsauftrag pro Jahr in Euro - Wert wird manuell gepflegt, da keinne SST zur Expansionsdatenbank besteht',
+   umsatz_ea_land                      NUMBER(29,2)     DEFAULT 0 COMMENT 'Umsatz laut Expansionsauftrag pro Jahr in Landeswährung - Wert wird manuell gepflegt, da keinne SST zur Expansionsdatenbank besteht. Umrechnung über Kurstabelle vom Anwender nicht erwünscht.',
+   breitengrad                         NUMBER(38,16)    COMMENT 'Breitengrad aus dem GIS-System (Latitude)',
+   laengengrad                         NUMBER(38,16)    COMMENT 'Längengrad aus dem GIS-System (Longitude)',
+   gis_quali_id                        INTEGER     DEFAULT -1 COMMENT 'Numerische ID des GIS Qualitätskennzeichens. ',
+   gln_id                              VARCHAR(80)      NOT NULL COLLATE 'en-ci' DEFAULT ' ' COMMENT 'Global Location Number - international  eindeutige Kennzeichnung der Lokation. Quelle ist KNA1 (Retail) mit den Feldern bbbnr(Basisnummer), bbsnr(Individueller Nummernteil) und bubkz(Prüfziffer)',
+   fipo_pruef_objekt_id                INTEGER     NOT NULL DEFAULT -1 COMMENT 'eindeutige ID eines Prüfobjekts aus dem Quellfeld pob_id',
+   adresse_id                          INTEGER     DEFAULT -1 COMMENT 'Adressnummer aus dem Quellfeld adrnr. Referenz zur SAP Tabelle adrc (im DWH nicht vorhanden)',
+   dat_dayforce_ab                     DATE             NOT NULL DEFAULT CAST ('9999-12-31' AS DATE) COMMENT 'Datum, ab dem die Personaldaten aus',
+   mandant_id_ursprung                 INTEGER     NOT NULL DEFAULT -1 COMMENT 'ursprüngliche Mandant ID DWH bezüglich des Liefersystem (SAP) - Bsp. Moldau wird im SAP-System Rumänien verwaltet, deshalb wird in diesem Feld die Mandant ID von Rumänien gespeichert',
+   eigentum_miete_kz                   VARCHAR(4)       COLLATE 'en-ci' COMMENT 'Kennzeichen, ob es sich bei der Filiale um Eigentum (=E) oder Mietobjekt (=M) handelt (kann auch null sein, wenn nicht definiert)',
+   dat_letzte_modernisierung_von       DATE             COMMENT 'Datum Start letzte Modernisierungsmaßnahme (Format JJJJ-MM-TT)',
+   dat_letzte_modernisierung_bis       DATE             COMMENT 'Datum Ende letzte Modernisierungsmaßnahme (Format JJJJ-MM-TT)',
+   dat_letzter_facelift                DATE             COMMENT 'Datum Start letzter Facelift (Format JJJJ-MM-TT)',
+   dat_wiedereroeffnung                DATE             COMMENT 'Datum der Wiedereröffnung bei Abriss/Neubau, bei denen die Marktnummer gleich bleibt (Datum wird manuell gepflegt, da keine Quelle)',
+   einwohner_anzahl                    INTEGER     COMMENT 'Einwohner je Markt. Manuelle Befüllung',
+   umsatz_erwartung_eur                NUMBER(29,2)     COMMENT 'Umsatz Erwartung je Markt. Manuelle Befüllung',
+   dat_letzter__facelift_von           DATE             COMMENT 'Datum des letzten Facelifts des Marktes. Manuelle Befüllung',
+   filialtyp_id                        INTEGER     NOT NULL DEFAULT -1 COMMENT 'Filialtypisierung für Sortimentskonzept. (VT Orga INT). Wird jaehrlich manuell aktualisiert.',
+   etagen_anz                          INTEGER     NOT NULL DEFAULT 1 COMMENT 'Anzahl der Etagen, Aktuell liegt diese Information nur für Filialen vor (nb_id = 0). Der Standardwert gilt nur für Filialen. (manuell gepflegt)',
+   orig_wup_id                         INTEGER     COMMENT 'Originale / urspruengliche WUP ID dieser Filiale.',
+   aktuell_wup_id                      INTEGER     COMMENT 'Aktuelle WUP ID dieser Filiale.',
+   TD_UPDATE                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   TD_INSERT                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   CONSTRAINT PK_WUP PRIMARY KEY (wup_id, nb_id, mandant_id) NOT ENFORCED
+)  COMMENT = 'VIS TP2  - Warenumschlagsplatz. Enthält Maerkte, Restaurants, Tankstellen, Laeger und Verteilzentren';

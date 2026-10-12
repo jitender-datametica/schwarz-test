@@ -1,0 +1,12 @@
+create or replace TABLE SZD_PRODUCTION.CORE_REL.T_TICKET_DIVISION_COUNTRY_BUSINESS_REL (
+	TICKET_AGREEMENT_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the agreement ticket. Key generation based on META table for party key space.',
+	AFFECTED_COUNTRY_BUSINESS_LOCATION_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the location as business country.It corresponds either to the business country of the ticket caller (for Incident and Non Standard Request) or to the affected region(s) of a ticket Problem.If the caller''s region is \"empty\",the region is that from the ticket''s First Assignment Group .Key generation based on META table for party key space. ',
+	AFFECTED_DIVISION_PARTY_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the party as a division. It corresponds either to the division of the ticket caller (for Incident and Non Standard Request) or to the affected divsion(s) of a ticket Problem. If the caller''s division is \"empty\", the division  is that from the ticket''s First Assignment Group. Key generation based on META table for party key space.',
+	ASSIGNMENT_TMSP TIMESTAMP_TZ(9) NOT NULL COMMENT 'The point in time, when the country and division were assigned to this ticket..Only a ticket “Problem” can be assigned to several countries and divisions, and an assignment can be repeated during it''s lifecycle.',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was inserted into the table.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last modified. (In case the record has not been modified since its creation, dwh_updated is identical to dwh_created.)',
+	DWH_SRC_FILE_NAME VARCHAR(500) COMMENT 'Contains the name(s) of the input file(s) that delivered the record. It can be either the full path of the BLOG storage or the shortened file path',
+	DWH_SRC_1_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The extraction timestamp of the record from the source',
+	constraint PK_TICKET_DIVISION_COUNTRY_BUSINESS_REL primary key (TICKET_AGREEMENT_SID, AFFECTED_COUNTRY_BUSINESS_LOCATION_SID, AFFECTED_DIVISION_PARTY_SID, ASSIGNMENT_TMSP)
+)COMMENT='M:N Relation Entity - This relation table holds the relation of  tickets (INC, NSR, PRB,..) to their assigned divisons and country businesses. Only tickets \"Problem\" can have several divisions and  country businesses  - Source - IT4You ServiceNow'
+;

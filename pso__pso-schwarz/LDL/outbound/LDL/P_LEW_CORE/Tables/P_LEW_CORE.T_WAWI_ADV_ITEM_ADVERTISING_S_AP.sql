@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_core.t_wawi_adv_item_advertising_s_ap (
+client_id BIGNUMERIC(38,0) NOT NULL,
+wh_loc_sid BIGNUMERIC(38,0) NOT NULL,
+orig_item_nr INTEGER NOT NULL,
+dat_adv DATE NOT NULL,
+dat_rec_start DATE NOT NULL,
+dat_rec_end DATE NOT NULL,
+dat_adv_end DATE,
+dat_adv_desc STRING(50) COLLATE 'und:ci',
+dat_before_sales DATE,
+dat_behind_sales_period1 DATE,
+dat_behind_sales_period2 DATE,
+dat_before_delivery DATE,
+dat_behind_delivery DATE,
+dat_behind_delivery_period1 DATE,
+dat_behind_delivery_period2 DATE,
+dat_behind_sales_extension DATE,
+orig_promotion_domain_nr BIGNUMERIC(38,0),
+timestamp_load DATETIME NOT NULL
+);

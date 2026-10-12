@@ -1,0 +1,156 @@
+CREATE OR REPLACE VIEW P_LEW_CORE_AC.V_PICK_LIST_POS
+
+(
+      client_id
+    , loc_sid
+    , pick_list_id
+    , pick_list_pos_id
+    , pick_seq
+    , pick_area_id
+    , orig_pick_list_id
+    , orig_pick_list_pos_id
+    , pick_order_cd
+    , plan_status_cd
+    , plan_host_status_cd
+    , plan_pos_id
+    , performance_statistic_avail_cd
+    , pick_item_nr
+    , pick_item_name
+    , field_cd
+    , rack_nr
+    , aisle_nr
+    , column_nr
+    , level_nr
+    , protocol_nr
+    , thm_fg
+    , thm_cd
+    , primary_thm_fg
+    , target_tep_pos_nr
+    , pick_method_cd
+    , transport_method_cd
+    , pick_start_dt
+    , pick_start_tmsp
+    , pick_end_tmsp
+    , pick_lead_tmsp
+    , pick_lag_tmsp
+    , case_unit_cd
+    , eve_unit_cd
+    , le2_unit_cd
+    , le3_unit_cd
+    , te_unit_cd
+    , act_empties_case_qty
+    , orig_target_pick_qty
+    , target_pick_qty
+    , act_pick_qty
+    , booking_qty
+    , orig_target_pick_weight_qty
+    , target_pick_weight_qty
+    , act_pick_weight_qty
+    , booking_weight_qty
+    , orig_target_eve_case_factor
+    , target_eve_case_factor
+    , act_eve_case_factor
+    , booking_eve_case_factor
+    , orig_target_case_le2_factor
+    , target_case_le2_factor
+    , act_case_le2_factor
+    , booking_case_le2_factor
+    , orig_target_case_le3_factor
+    , target_case_le3_factor
+    , act_case_le3_factor
+    , booking_case_le3_factor
+    , orig_target_case_te_factor
+    , target_case_te_factor
+    , act_case_te_factor
+    , booking_case_te_factor
+    , avg_weight_eve_qty
+    , target_te_cd
+    , target_te_qty
+    , target_time_cnt
+    , lead_time_cnt
+    , lag_time_cnt
+    , break_time_cnt
+    , break_cnt
+    , dwh_cal_dt
+    , dwh_load_id
+    , dwh_created
+    , dwh_updated
+)
+AS
+   SELECT
+        client_id,
+   loc_sid,
+   pick_list_id,
+   pick_list_pos_id,
+   pick_seq,
+   pick_area_id,
+   orig_pick_list_id,
+   orig_pick_list_pos_id,
+   pick_order_cd,
+   plan_status_cd,
+   plan_host_status_cd,
+   plan_pos_id,
+   performance_statistic_avail_cd,
+   pick_item_nr,
+   pick_item_name,
+   field_cd,
+   rack_nr,
+   aisle_nr,
+   column_nr,
+   level_nr,
+   protocol_nr,
+   thm_fg,
+   thm_cd,
+   primary_thm_fg,
+   target_tep_pos_nr,
+   pick_method_cd,
+   transport_method_cd,
+   pick_start_dt,
+   pick_start_tmsp,
+   pick_end_tmsp,
+   pick_lead_tmsp,
+   pick_lag_tmsp,
+   case_unit_cd,
+   eve_unit_cd,
+   le2_unit_cd,
+   le3_unit_cd,
+   te_unit_cd,
+   act_empties_case_qty,
+   orig_target_pick_qty,
+   target_pick_qty,
+   act_pick_qty,
+   booking_qty,
+   orig_target_pick_weight_qty,
+   target_pick_weight_qty,
+   act_pick_weight_qty,
+   booking_weight_qty,
+   orig_target_eve_case_factor,
+   target_eve_case_factor,
+   act_eve_case_factor,
+   booking_eve_case_factor,
+   orig_target_case_le2_factor,
+   target_case_le2_factor,
+   act_case_le2_factor,
+   booking_case_le2_factor,
+   orig_target_case_le3_factor,
+   target_case_le3_factor,
+   act_case_le3_factor,
+   booking_case_le3_factor,
+   orig_target_case_te_factor,
+   target_case_te_factor,
+   act_case_te_factor,
+   booking_case_te_factor,
+   avg_weight_eve_qty,
+   target_te_cd,
+   target_te_qty,
+   target_time_cnt,
+   lead_time_cnt,
+   lag_time_cnt,
+   break_time_cnt,
+   break_cnt,
+   dwh_cal_dt,
+   dwh_load_id,
+   dwh_created,
+   dwh_updated
+  FROM p_lew_core.t_pick_list_pos
+;

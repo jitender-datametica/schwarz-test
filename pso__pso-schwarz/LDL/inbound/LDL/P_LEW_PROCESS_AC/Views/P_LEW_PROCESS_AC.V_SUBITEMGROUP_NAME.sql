@@ -1,0 +1,27 @@
+CREATE OR REPLACE VIEW P_LEW_PROCESS_AC.V_SUBITEMGROUP_NAME
+      AS
+         SELECT   client_id,
+         sub_item_grp_sid,
+         sub_item_grp_name,
+         sub_item_grp_name_BG,
+         sub_item_grp_name_CS,
+         sub_item_grp_name_DA,
+         sub_item_grp_name_DE,
+         sub_item_grp_name_EL,
+         sub_item_grp_name_EN,
+         sub_item_grp_name_ES,
+         sub_item_grp_name_FI,
+         sub_item_grp_name_FR,
+         sub_item_grp_name_HR,
+         sub_item_grp_name_HU,
+         sub_item_grp_name_IT,
+         sub_item_grp_name_LT,
+         sub_item_grp_name_NL,
+         sub_item_grp_name_PL,
+         sub_item_grp_name_PT,
+         sub_item_grp_name_RO,
+         sub_item_grp_name_SH,
+         sub_item_grp_name_SK,
+         sub_item_grp_name_SL,
+         sub_item_grp_name_SV
+         FROM p_lew_process.v_subitemgroup_name;

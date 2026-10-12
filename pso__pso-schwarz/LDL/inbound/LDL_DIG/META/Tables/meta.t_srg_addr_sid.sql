@@ -1,0 +1,7 @@
+CREATE TABLE meta.t_srg_addr_sid(
+   addr_nr VARCHAR(100),
+   addr_type_cd	VARCHAR(5),
+   addr_sid NUMBER AUTOINCREMENT,
+   SRC_TABLE_NAME	VARCHAR(250),
+   DWH_CREATED_TMSP	TIMESTAMP_LTZ(9)
+);

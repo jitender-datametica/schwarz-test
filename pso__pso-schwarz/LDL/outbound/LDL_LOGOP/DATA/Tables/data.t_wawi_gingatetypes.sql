@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_logop_data.t_wawi_gingatetypes (
+client_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Client id - calculated based on the country code'),
+wawi_instanz_kzl STRING(3) NOT NULL OPTIONS(description='Country code'),
+wh_nr BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Warehouse number'),
+gatetypeid BIGNUMERIC(38,0) NOT NULL OPTIONS(description=''),
+gatetype STRING(33) OPTIONS(description=''),
+show_pallets BIGNUMERIC(38,0) OPTIONS(description=''),
+check_temp BIGNUMERIC(38,0) OPTIONS(description=''),
+mult_bb_date BIGNUMERIC(38,0) OPTIONS(description=''),
+mult_pal_fact BIGNUMERIC(38,0) OPTIONS(description=''),
+def_task_type BIGNUMERIC(38,0) OPTIONS(description=''),
+rcv_lane BIGNUMERIC(38,0) OPTIONS(description=''),
+scn BIGNUMERIC(38,0) OPTIONS(description=''),
+dwh_load_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Load id'),
+dwh_created DATETIME NOT NULL OPTIONS(description='Record created at'),
+dwh_updated DATETIME NOT NULL OPTIONS(description='Record updated at'),
+dwh_valid_from DATE NOT NULL OPTIONS(description='Valid from date'),
+dwh_valid_to DATE NOT NULL OPTIONS(description='Valid to date'),
+deleted_fg BOOL NOT NULL OPTIONS(description='Flag if record is deleted'),
+PRIMARY KEY (client_id, wh_nr, gatetypeid, dwh_valid_from) NOT ENFORCED
+) OPTIONS(description='WAWI - WHWAWIADM.T170_GINGATETYPES table.');

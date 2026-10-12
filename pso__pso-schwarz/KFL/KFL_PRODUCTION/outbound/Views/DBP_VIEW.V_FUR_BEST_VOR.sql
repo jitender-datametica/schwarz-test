@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_fur_best_vor AS SELECT best_vor_id,
+ best_vor_pos_id,
+ art_id,
+ mandant_id,
+ dat_dispo,
+ wup_id,
+ nb_id,
+ gp_id,
+ menge_best_vor,
+ dat_lief_soll,
+ best_vor_einh_id,
+ push_fg,
+ iwt_fg,
+ td_insert,
+ td_update
+FROM kfl_production_dbp_data.fur_best_vor;

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi_ac.v_agg_cntry_itm_mth_sales_asis (client_id, orig_item_nr,
+dat_valid_from_item, cy_month, qty_total, cnt_store_week, avg_qty_sold_per_str_week, val_rtl_ejr_asis,
+val_rtl_net_ejr_asis, val_rtl_str_days_w_sales_asis, val_rtl_str_net_days_w_s_asis, item_turnover_ratio_eff,
+item_turnover_ratio_net_eff, currency_iso_cd) AS SELECT *
+FROM ldl_p_lew_mart_msi.v_agg_cntry_itm_mth_sales_asis;

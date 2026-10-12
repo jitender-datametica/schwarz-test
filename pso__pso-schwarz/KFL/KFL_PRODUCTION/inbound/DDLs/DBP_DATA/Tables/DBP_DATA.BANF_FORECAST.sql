@@ -1,0 +1,26 @@
+--==============================================================
+-- Table: banf_forecast
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: banf_forecast
+   generated from Powerdesigner on Tuesday, February 20, 2024 3:55:29 PM
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE DBP_DATA.BANF_FORECAST (
+   mandant_id                          NUMBER(38,0)     NOT NULL COMMENT 'Mandant im DWH',
+   banf_beleg_id                       VARCHAR(10)      NOT NULL COLLATE 'en-ci' COMMENT 'Bestellanforderungsnummer - kann alphanumerische Werte enthalten',
+   banf_beleg_pos_id                   NUMBER(38,0)     NOT NULL COMMENT 'Positionsnummer der Bestellanforderung',
+   gp_id                               NUMBER(38,0)     COMMENT 'Kontonummer des Lieferanten bzw. Kreditors',
+   wup_id                              NUMBER(38,0)     COMMENT 'Betriebsbezogene Kundennummer',
+   nb_id                               NUMBER(38,0)     COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer',
+   art_id                              NUMBER(38,0)     COMMENT 'Artikelnummer',
+   dat_plan                            DATE             COMMENT 'Planungstag',
+   dat_bestell                         DATE             COMMENT 'Bestelldatum',
+   forecast_menge_kolli                NUMBER(18,3)     COMMENT 'Bestellmenge',
+   forecast_menge_einh_id              VARCHAR(3)       COLLATE 'en-ci' COMMENT 'Bestellmengeneinheit',
+   dat_lief_soll                       DATE             COMMENT 'Lieferdatum',
+   TD_UPDATE                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   TD_INSERT                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   CONSTRAINT PK_BANF_FORECAST PRIMARY KEY (mandant_id, banf_beleg_id, banf_beleg_pos_id) NOT ENFORCED
+)  COMMENT = 'FLW - Bestellanforderung Forecast (PHIT BANF Order Forecast) - SAP RET - ZPHIT_BANF_OF';
+

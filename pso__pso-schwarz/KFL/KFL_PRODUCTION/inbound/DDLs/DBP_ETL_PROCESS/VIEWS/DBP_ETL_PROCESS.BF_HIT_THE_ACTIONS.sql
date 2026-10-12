@@ -1,0 +1,18 @@
+create or replace view DBP_ETL_PROCESS.BF_HIT_THE_ACTIONS(
+	MANDANT_ID,
+	WUP_ID,
+	KJWO,
+	AKTION_THEMA_GRUPPE_ID,
+	ART_ID,
+	KL_ART_ID,
+	MUKI,
+	DAT_BIS,
+	MENGEN_FAKTOR,
+	POSTEN_ID,
+	VK_BRUTTO,
+	TD_UPDATE,
+	TD_INSERT
+) as
+SELECT
+*
+FROM dbp_process.bf_hit_the_actions;

@@ -1,0 +1,18 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TS_CBX_ITEM_ITEMPACKTYPE_2_MDM_PACKING_METHOD
+(
+  RECORD_ID         NUMBER(10,0)                  NULL,
+  CLIENT_ID         NUMBER(38)                    NULL,
+  PACK_METHOD_SID   NUMBER(38)                    NULL,
+  SRC_ASSORTMENT_CD VARCHAR(20) COLLATE 'en-ci'   NULL,
+  SRC_PACK_TYPE_CD  VARCHAR(20) COLLATE 'en-ci'   NULL,
+  PACK_ASSORT_TYPE  VARCHAR(100) COLLATE 'en-ci'  NULL,
+  PACK_METHOD       VARCHAR(100) COLLATE 'en-ci'  NULL,
+  DWH_LOAD_ID       NUMBER(38)                    NULL,
+  DWH_CREATED       TIMESTAMP_NTZ(6)              NULL,
+  DWH_UPDATED       TIMESTAMP_NTZ(6)              NULL,
+  DWH_MAPPING_DT    DATE                          NULL,
+  ERROR_FG          NUMBER(38)                    NULL,
+  ERROR_DESCR       VARCHAR(1000) COLLATE 'en-ci' NULL,
+  FILENAME          VARCHAR(1000) COLLATE 'en-ci' NULL,
+  HIST_ROW_NO       NUMBER(38)                    NULL
+);

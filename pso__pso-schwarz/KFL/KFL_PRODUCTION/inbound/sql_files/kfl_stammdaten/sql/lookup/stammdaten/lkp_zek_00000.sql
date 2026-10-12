@@ -1,0 +1,1 @@
+Select mandant_id,zek_id FROM DBP_DATA.zek group by 1,2;

@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl.stunden (
+gj INTEGER,
+mandant_id INTEGER,
+wup_id INTEGER,
+mae NUMERIC(18,2),
+apr NUMERIC(18,2),
+mai NUMERIC(18,2),
+jun NUMERIC(18,2),
+jul NUMERIC(18,2),
+aug NUMERIC(18,2),
+sep NUMERIC(18,2),
+okt NUMERIC(18,2),
+nov NUMERIC(18,2),
+dez NUMERIC(18,2),
+jan NUMERIC(18,2),
+feb NUMERIC(18,2),
+pl_flag INTEGER,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

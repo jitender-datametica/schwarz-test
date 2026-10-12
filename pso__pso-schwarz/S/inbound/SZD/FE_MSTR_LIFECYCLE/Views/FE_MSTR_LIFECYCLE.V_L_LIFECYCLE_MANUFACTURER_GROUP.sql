@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIFECYCLE.V_L_LIFECYCLE_MANUFACTURER_GROUP
+AS SELECT 
+ core.t_dim_manufacturer_group.manufacturer_group_name
+,core.t_dim_manufacturer_group.manufacturer_group_cd
+FROM 
+core.t_dim_manufacturer_group
+;

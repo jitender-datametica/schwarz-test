@@ -1,0 +1,22 @@
+CREATE OR REPLACE VIEW idq_production_ldl_apt_results.v_dq_rep_apt_with_item_list_rule_2 (rule2_id, ref_calculation_time
+, day_id, ref_country_id, country_code, status_name, promotionitemid, itemnumber, item_promotion_domain, validfrom_kw,
+cnt_items_nf, cnt_items_f, cnt_items_ogbp, calendarweek_number, calendarweek, calendarweek_de, calendarweek_en,
+item_promotionsubdomain_shortdescription) AS SELECT ROW_NUMBER() OVER (ORDER BY day_id IS NULL, day_id) AS rule2_id,
+ CURRENT_DATETIME() AS ref_calculation_time,
+ day_id,
+ ref_country_id,
+ country_code,
+ status_name,
+ promotionitemid,
+ itemnumber,
+ item_promotion_domain,
+ validfrom_kw,
+ cnt_items_nf,
+ cnt_items_f,
+ cnt_items_ogbp,
+ calendarweek_number,
+ calendarweek,
+ calendarweek_de,
+ calendarweek_en,
+ item_promotionsubdomain_shortdescription
+FROM idq_production_ldl_apt_results.t_dq_rep_apt_with_item_list_rule_2;

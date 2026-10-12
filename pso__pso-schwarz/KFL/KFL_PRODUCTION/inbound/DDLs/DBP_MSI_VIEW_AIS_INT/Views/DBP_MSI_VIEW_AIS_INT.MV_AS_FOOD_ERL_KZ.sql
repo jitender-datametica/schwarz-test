@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_AIS_INT.MV_AS_FOOD_ERL_KZ (
+	ERL_KZ
+  ) AS SELECT DISTINCT
+  v01.erl_kz
+  FROM dbp_view.v_as_food v01
+  WHERE mandant_id != 1;

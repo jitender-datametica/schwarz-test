@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_0material_text_2_item (
+record_id INTEGER,
+client_id BIGNUMERIC(38),
+item_sid BIGNUMERIC(38),
+src_matnr STRING(20),
+src_orig_item_nr STRING(20),
+src_dat_valid_from DATE,
+src_case_size STRING(20),
+item_sid_config BIGNUMERIC(38),
+item_name STRING(100) COLLATE 'und:ci',
+log_var_cd STRING(20),
+config_item_cd STRING(20),
+item_eks_cd STRING(20),
+dwh_load_id BIGNUMERIC(38),
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

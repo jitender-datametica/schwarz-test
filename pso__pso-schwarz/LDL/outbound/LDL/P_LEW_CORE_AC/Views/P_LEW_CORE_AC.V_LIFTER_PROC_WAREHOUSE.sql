@@ -1,0 +1,26 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_lifter_proc_warehouse (client_id, lifter_pick_id, loc_sid_wh, item_sid,
+pick_tmsp, lifter_id, lifter_task_id, gate_nr, job_type_id, creator_id, ctw_tmsp, ctw_run_nr, pallet_qty, proc_error_id
+, stc_slot_area_nr, sscc_nr, task_status_id, dayend_dt, dwh_cal_dt, dwh_load_id, dwh_created, dwh_updated) AS SELECT
+ client_id,
+ lifter_pick_id,
+ loc_sid_wh,
+ item_sid,
+ pick_tmsp,
+ lifter_id,
+ lifter_task_id,
+ gate_nr,
+ job_type_id,
+ creator_id,
+ ctw_tmsp,
+ ctw_run_nr,
+ pallet_qty,
+ proc_error_id,
+ stc_slot_area_nr,
+ sscc_nr,
+ task_status_id,
+ dayend_dt,
+ dwh_cal_dt,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_lifter_proc_warehouse;

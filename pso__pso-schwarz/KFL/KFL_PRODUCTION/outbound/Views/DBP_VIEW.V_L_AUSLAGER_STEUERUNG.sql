@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_auslager_steuerung AS SELECT mandant_id,
+ lagernummer_id,
+ auslager_steuerung_id
+FROM kfl_production_dbp_data.l_auslager_steuerung;

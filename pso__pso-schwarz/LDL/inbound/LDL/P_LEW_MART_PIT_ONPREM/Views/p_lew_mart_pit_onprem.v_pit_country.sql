@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW P_LEW_MART_PIT_ONPREM.V_PIT_COUNTRY
+AS
+SELECT
+client_id
+,sales_price_net_fg
+,dwh_created
+FROM p_lew_mart_pit_onprem.t_pit_country;

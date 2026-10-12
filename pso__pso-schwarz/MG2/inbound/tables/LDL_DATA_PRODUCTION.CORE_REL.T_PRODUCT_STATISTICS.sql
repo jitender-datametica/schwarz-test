@@ -1,0 +1,28 @@
+create or replace TABLE LDL_DATA_PRODUCTION.CORE_REL.T_PRODUCT_STATISTICS cluster by (BUS_DT)(
+	STORE_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the store, in which the end-of-day processing happens.',
+	COUNTRY_ORG_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the related country organization.',
+	COUNTRY_ORG_CD VARCHAR(2) NOT NULL COMMENT 'The code of the related business country. (The business country is not identical to a political country.)',
+	REAL_ESTATE_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the real estate object in which the store is located.',
+	STAT_DT DATE NOT NULL COMMENT 'The date when the product statistics were collected. ',
+	BUS_DT DATE NOT NULL COMMENT 'The business date for which the product statistics are generated.',
+	CURR_STAT_FG BOOLEAN NOT NULL COMMENT 'An indicator showing, if this is the current record for the given key, i.e. the record with the latest statistics date. Filtering on this flag returns the statistics after any corrections.',
+	SALES_VARIANT_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the sales variant for which statistics are calculated.',
+	SOLD_CNT NUMBER(38,0) COMMENT 'The number of sales variants which were sold. (In case the sales variant is sold by weight, this attribute is empty.)',
+	RETURNED_CNT NUMBER(38,0) COMMENT 'The number of sales variants which have been returned. (In case the sales variant is sold by weight, this attribute is empty.)',
+	CANCEL_CNT NUMBER(38,0) COMMENT 'The number of sales variants for which the line was cancelled. (In case the sales variant is sold by weight, this attribute is empty.)',
+	SOLD_QTY NUMBER(38,5) COMMENT 'The quantity of the sales variant which was sold - in case the sales variant is sold by weight instead of pieces.',
+	RETURNED_QTY NUMBER(38,5) COMMENT 'The quantity of the sales variant which have been returned- in case the sales variant is sold by weight instead of pieces.',
+	CANCEL_QTY NUMBER(38,5) COMMENT 'The quantity of the sales variants for which the line was cancelled - in case the sales variant is sold by weight instead of pieces.',
+	UOM_CD VARCHAR(20) COMMENT 'The code identifying the unit of measure.',
+	TURNOVER_GROSS_VAL NUMBER(38,5) COMMENT 'The gross turnover in the currency indicated by the currency code, for this store, sales variant and day.',
+	RETURNED_GROSS_VAL NUMBER(38,5) COMMENT 'The gross value of the sales variants which have been returned.',
+	CANCEL_GROSS_VAL NUMBER(38,5) COMMENT 'The gross value of the sales variants for which the line was cancelled.',
+	CURR_CD VARCHAR(3) COMMENT 'The code identifying the currency, according to ISO 4217.',
+	LAST_SALE_TMSP TIMESTAMP_TZ(9) COMMENT 'The time when the last sales was made of this sales variants.',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.',
+	constraint PK_T_PRODUCT_STATISTICS primary key (STORE_SID, REAL_ESTATE_SID, BUS_DT, STAT_DT, SALES_VARIANT_SID)
+)COMMENT='The event of producing product level statistics, showing the quantiy sold and the revenue for each sales variant and store on the given day.'
+;

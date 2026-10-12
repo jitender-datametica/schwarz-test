@@ -1,0 +1,45 @@
+CREATE OR REPLACE VIEW P_LEW_PRECORE_AC.V_CACHE_V_PIT_PROMOTION_SALES_PLANNING_HIST
+(
+   client_id
+ , pvpsp_srcinst_id
+ , pvpsp_srcinst_code
+ , pvpsp_pvpit_id
+ , pvpsp_valid_from
+ , pvpsp_valid_to
+ , pvpsp_salestype_value
+ , pvpsp_proplan_id
+ , pvpsp_storgrp_id
+ , pvpsp_sales_quota
+ , pvpsp_sales_amount
+ , pvpsp_is_writeoff
+ , pvpsp_reduction_amount
+ , deleted_fg
+ , dwh_valid_from
+ , dwh_valid_to
+ , dwh_load_id
+ , dwh_created
+ , dwh_updated
+) 
+AS
+SELECT
+  client_id,
+  pvpsp_srcinst_id,
+  pvpsp_srcinst_code,
+  pvpsp_pvpit_id,
+  pvpsp_valid_from,
+  pvpsp_valid_to,
+  pvpsp_salestype_value,
+  pvpsp_proplan_id,
+  pvpsp_storgrp_id,
+  pvpsp_sales_quota,
+  pvpsp_sales_amount,
+  pvpsp_is_writeoff,
+  pvpsp_reduction_amount,
+  deleted_fg,
+  dwh_valid_from,
+  dwh_valid_to,
+  dwh_load_id,
+  dwh_created,
+  dwh_updated
+FROM p_lew_precore.t_cache_v_pit_promotion_sales_planning_hist
+;

@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_rpw.mv_vs (vs_id, vs_bez, vk_id, mandant_id, vsvt_bez, system_id) AS
+SELECT vs_id,
+ vs_bez,
+ vk_id,
+ mandant_id,
+ vsvt_bez,
+ 7 AS system_id
+FROM kfl_production_dbp_view.v_vs
+WHERE mandant_id = 1;

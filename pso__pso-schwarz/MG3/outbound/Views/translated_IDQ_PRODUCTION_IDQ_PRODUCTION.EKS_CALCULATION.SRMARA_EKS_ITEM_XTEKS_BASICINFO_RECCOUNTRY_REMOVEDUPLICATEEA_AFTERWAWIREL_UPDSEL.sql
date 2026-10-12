@@ -1,0 +1,31 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.srmara_eks_item_xteks_basicinfo_reccountry_removeduplicateea_afterwawirel_updsel
+(listingoverviewid, casesize, itemid, receivingcountry, supplierno, basicpriceid, contractpricevalidityid,
+zisvalidcontract, zisvalidcontractnew, sk_itemid) AS SELECT xteks_basicinfo_reccountry.listingoverviewid,
+ xteks_basicinfo_reccountry.casesize,
+ xteks_basicinfo_reccountry.itemid,
+ xteks_basicinfo_reccountry.receivingcountry,
+ xteks_basicinfo_reccountry.supplierno,
+ MAX(xteks_basicinfo_reccountry.basicpriceid) AS basicpriceid,
+ MAX(xteks_basicinfo_reccountry.contractpricevalidityid) AS contractpricevalidityid,
+ xteks_basicinfo_reccountry.zisvalidcontract,
+ 0 AS zisvalidcontractnew,
+ xteks_basicinfo_reccountry.sk_itemid
+FROM idq_production_eks_calculation.xteks_basicinfo_reccountry
+ INNER JOIN idq_production_eks_calculation.srmara_eks_item_xteks_basicinfo_reccountry_removeduplicateea_010 ON
+     xteks_basicinfo_reccountry.listingoverviewid = srmara_eks_item_xteks_basicinfo_reccountry_removeduplicateea_010.listingoverviewid
+      AND xteks_basicinfo_reccountry.itemid = srmara_eks_item_xteks_basicinfo_reccountry_removeduplicateea_010.itemid
+   AND xteks_basicinfo_reccountry.receivingcountry = srmara_eks_item_xteks_basicinfo_reccountry_removeduplicateea_010.receivingcountry
+     AND xteks_basicinfo_reccountry.casesize = srmara_eks_item_xteks_basicinfo_reccountry_removeduplicateea_010.casesize
+   
+ INNER JOIN idq_production_eks.contractpricevalidity ON xteks_basicinfo_reccountry.contractpricevalidityid =
+   contractpricevalidity.contractpricevalidityid AND srmara_eks_item_xteks_basicinfo_reccountry_removeduplicateea_010.maxdate
+    <> contractpricevalidity.dateuntil
+WHERE xteks_basicinfo_reccountry.sk_itemid IS NULL
+ AND xteks_basicinfo_reccountry.zisvalidcontract = 1
+GROUP BY xteks_basicinfo_reccountry.listingoverviewid,
+ xteks_basicinfo_reccountry.casesize,
+ xteks_basicinfo_reccountry.itemid,
+ xteks_basicinfo_reccountry.receivingcountry,
+ xteks_basicinfo_reccountry.supplierno,
+ xteks_basicinfo_reccountry.zisvalidcontract,
+ xteks_basicinfo_reccountry.sk_itemid;

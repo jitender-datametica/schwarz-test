@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE ldl_data_production_eval.os_sales_2025_20250625_um (
+wshop_cd STRING(16777216),
+prod_sid INTEGER,
+prod_variant_sid INTEGER,
+os_2025_prod_qty NUMERIC(29,5),
+os_2025_cancel_prod_qty NUMERIC(29,5),
+os_2025_return_prod_qty NUMERIC(29,5),
+os_2025_prod_price_net_eur_val NUMERIC(29,5),
+os_2025_cancel_prod_price_net_eur_val NUMERIC(29,5),
+os_2025_return_prod_price_net_eur_val NUMERIC(29,5),
+p_p_ian_nr STRING(16777216),
+prod_family_cd STRING(16777216),
+p_prod_name STRING(16777216),
+prod_descr STRING(16777216),
+p_prod_nr INTEGER,
+pv_p_ian_nr STRING(16777216),
+prod_variant_ian_nr STRING(16777216),
+main_ean_nr STRING(16777216),
+pv_prod_nr INTEGER,
+pv_prod_name STRING(16777216),
+prod_variant_descr STRING(16777216),
+prod_variant_name STRING(16777216)
+);

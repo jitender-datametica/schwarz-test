@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_monat AS SELECT kjmo,
+ kjmo_vj,
+ kj,
+ mo_kj,
+ mo_kj AS jmo,
+ gj,
+ mo_gj,
+ gjmo,
+ gjmo_vj,
+ kjqu,
+ gjqu,
+ akt_mo,
+ akt_mo_komplett,
+ akt_gj,
+ akt_gj_komplett,
+ akt_kj,
+ akt_kj_komplett,
+ akt_kjqu,
+ akt_kjqu_komplett,
+ akt_gjqu,
+ akt_gjqu_komplett,
+ min_dat AS mo_dat_von,
+ max_dat AS mo_dat_bis,
+ ROUND(CAST(FORMAT_DATE('%Y%m', IF(PARSE_DATE('%Y%m', SAFE_CAST(kjmo as STRING)) = LAST_DAY(PARSE_DATE('%Y%m', SAFE_CAST(kjmo as STRING))), LAST_DAY(DATE_ADD(PARSE_DATE('%Y%m', SAFE_CAST(kjmo as STRING)), INTERVAL - 1 MONTH)), DATE_ADD(PARSE_DATE('%Y%m', SAFE_CAST(kjmo as STRING)), INTERVAL - 1
+      MONTH))) AS BIGNUMERIC), 0) AS kjmo_vm,
+ ROUND(CAST(FORMAT_DATE('%Y%m', IF(PARSE_DATE('%Y%m', SAFE_CAST(kjmo as STRING)) = LAST_DAY(PARSE_DATE('%Y%m', SAFE_CAST(kjmo as STRING))), LAST_DAY(DATE_ADD(PARSE_DATE('%Y%m', SAFE_CAST(kjmo as STRING)), INTERVAL - 2 MONTH)), DATE_ADD(PARSE_DATE('%Y%m', SAFE_CAST(kjmo as STRING)), INTERVAL - 2
+      MONTH))) AS BIGNUMERIC), 0) AS kjmo_vvm,
+ akt_mo AS akt_mo_teku
+FROM kfl_production_dbp_view.v_monat AS V01
+WHERE akt_gj BETWEEN - 11 AND 1;

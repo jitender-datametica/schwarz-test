@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ims.mv_l_berichts_pos_it_rwi AS SELECT berichts_position_it_id AS
+ berichts_position_it_rwi_id
+FROM kfl_production_dbp_view.v_l_berichts_pos_it;

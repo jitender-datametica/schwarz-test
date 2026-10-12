@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW nfpow_fe_mstr_apollo_kaufland.v_dim_kfl_promotion_item_type (kfl_client_id,
+kfl_promo_item_type_cd, kfl_promo_item_type_name) AS SELECT kfl_client_id,
+ kfl_promo_item_type_cd,
+ kfl_promo_item_type_name
+FROM nfpow_core.t_dim_kfl_promotion_item_type;

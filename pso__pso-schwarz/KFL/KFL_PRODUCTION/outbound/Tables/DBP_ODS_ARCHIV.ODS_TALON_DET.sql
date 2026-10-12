@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_ods_archiv.ods_talon_det (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+talon_id BIGNUMERIC(36,0) NOT NULL,
+talon_pos_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+kl_art_id BIGNUMERIC(38,0),
+umsatz_brutto NUMERIC(18,4) DEFAULT 0 NOT NULL,
+menge NUMERIC(18,3) DEFAULT 0 NOT NULL,
+mwst NUMERIC(9,4) DEFAULT 0 NOT NULL,
+wg_id BIGNUMERIC(38,0),
+turnover_fg BIGNUMERIC(38,0) DEFAULT 1 NOT NULL,
+artbew_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+aktion_id STRING(10) COLLATE 'und:ci',
+td_update TIMESTAMP,
+td_insert TIMESTAMP
+);

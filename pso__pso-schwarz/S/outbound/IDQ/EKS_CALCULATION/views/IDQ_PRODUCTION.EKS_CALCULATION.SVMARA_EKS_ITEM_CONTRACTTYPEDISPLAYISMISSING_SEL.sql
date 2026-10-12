@@ -1,0 +1,38 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.svmara_eks_item_contracttypedisplayismissing_sel (negotiatingcountry
+, buyershortsign, buyerfirstname, buyerlastname, zmatkl, articlefamily, itemid, itemno, articletype, description,
+contractdesc, luheadline, articleheadline, contractheadline, listingoverviewid, receivingcountry, supplierno,
+supplierdescription, ba_number, ba_description, zrelevantmdm, zsource, zactive) AS SELECT
+ svmara_eks_item_contracttypedisplayismissing_sel_all.negotiatingcountry,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.buyershortsign,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.buyerfirstname,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.buyerlastname,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.zmatkl,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.articlefamily,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.itemid,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.itemno,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.articletype,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.description,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.contractdesc,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.luheadline,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.articleheadline,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.contractheadline,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.listingoverviewid,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.receivingcountry,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.supplierno,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.supplierdescription,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.ba_number,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.ba_description,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.zrelevantmdm,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.zsource,
+ svmara_eks_item_contracttypedisplayismissing_sel_all.zactive
+FROM idq_production_eks_calculation.svmara_eks_item_contracttypedisplayismissing_sel_all
+ LEFT JOIN idq_production_eks_calculation.eks_zsm_excludelist ON svmara_eks_item_contracttypedisplayismissing_sel_all.itemno
+     = eks_zsm_excludelist.itemno AND (svmara_eks_item_contracttypedisplayismissing_sel_all.supplierno =
+         eks_zsm_excludelist.supplierno AND eks_zsm_excludelist.listingoverviewid IS NULL OR
+         svmara_eks_item_contracttypedisplayismissing_sel_all.listingoverviewid = eks_zsm_excludelist.listingoverviewid
+        AND eks_zsm_excludelist.supplierno IS NULL OR svmara_eks_item_contracttypedisplayismissing_sel_all.supplierno =
+        eks_zsm_excludelist.supplierno AND svmara_eks_item_contracttypedisplayismissing_sel_all.listingoverviewid =
+        eks_zsm_excludelist.listingoverviewid OR eks_zsm_excludelist.supplierno IS NULL AND eks_zsm_excludelist.listingoverviewid
+      IS NULL) AND eks_zsm_excludelist.reportno = '065'
+WHERE eks_zsm_excludelist.itemno IS NULL
+ AND svmara_eks_item_contracttypedisplayismissing_sel_all.zactive = 1;

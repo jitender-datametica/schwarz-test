@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.mdl_antwort_spr_zu (
+frage_id BIGNUMERIC(38,0) NOT NULL,
+antwort_id BIGNUMERIC(38,0) NOT NULL,
+spr_id BIGNUMERIC(38,0) NOT NULL,
+antwort_bez STRING(400) COLLATE 'und:ci',
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

@@ -1,0 +1,6 @@
+CREATE OR REPLACE PROCEDURE idq_production_eks_calculation.srmara_eks_item_ziseahasskhasba_upd()
+BEGIN
+UPDATE idq_production_eks_calculation.stmara_eks_item SET
+    ziseahasskhasba = srmara_eks_item_ziseahasskhasba_updsel.ziseahasskhasbanew FROM idq_production_eks_calculation.srmara_eks_item_ziseahasskhasba_updsel
+WHERE stmara_eks_item.itemid = srmara_eks_item_ziseahasskhasba_updsel.itemid;
+END;

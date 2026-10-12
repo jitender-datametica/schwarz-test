@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_kmr_kategorie_spr_zu AS SELECT kmr_kategorie_id,
+ spr_id,
+ kmr_kategorie_bez
+FROM kfl_production_dbp_data.kmr_kategorie_spr_zu;

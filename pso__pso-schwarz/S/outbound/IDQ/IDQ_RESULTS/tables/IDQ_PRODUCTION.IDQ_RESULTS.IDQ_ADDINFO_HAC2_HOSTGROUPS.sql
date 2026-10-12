@@ -1,0 +1,14 @@
+CREATE OR REPLACE TABLE idq_production_idq_results.idq_addinfo_hac2_hostgroups (
+id BIGNUMERIC(38,0) NOT NULL,
+test_object_id BIGNUMERIC(38,0),
+branch_id BIGNUMERIC(38,0),
+source_system_primary_key STRING(100),
+source_system_id BIGNUMERIC(38,0),
+country_id BIGNUMERIC(38,0),
+is_relevant BIGNUMERIC(38,0),
+division STRING(3),
+name STRING(1000),
+application_sit_id_code STRING(100),
+application_sit_id_code_2 STRING(100),
+url STRING(1000)
+);

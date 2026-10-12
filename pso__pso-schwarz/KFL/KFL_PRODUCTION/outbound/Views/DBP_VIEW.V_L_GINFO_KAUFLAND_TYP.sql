@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_ginfo_kaufland_typ AS SELECT kaufland_typ_id,
+ kaufland_typ_bez
+FROM kfl_production_dbp_data.l_ginfo_kaufland_typ;

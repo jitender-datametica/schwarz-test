@@ -1,0 +1,73 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_core.t_customer_complaint_case_hist (
+client_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='DWH-Mandant; FK auf CLIENT'),
+cust_complaint_sid BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Surrogate Key for customer compaint case'),
+src_client_id STRING(250) OPTIONS(description='Client id derived from the data in source system , might be nul'),
+item_sid BIGNUMERIC(38,0) OPTIONS(description='Surrogate Key ITEM (eindeutig ueber alle Laender/Mandanten hinweg)'),
+src_item_nr STRING(250) OPTIONS(description='Technical Identifier from source system'),
+src_item_name STRING(250) OPTIONS(description='Product  Name from source system'),
+src_item_descr STRING(250) OPTIONS(description='Product  Description from source system'),
+src_item_long_descr STRING(250) OPTIONS(description='Product: Long formatted description from source system'),
+src_item_ian STRING(250) OPTIONS(description='Product:  from source system'),
+src_item_gtin STRING(250) OPTIONS(description='Product EAN GTIN from source system'),
+src_item_gtin_descr STRING(250) OPTIONS(description='Product: Description EAN from source system'),
+src_item_sap_nr STRING(250) OPTIONS(description='Stores the online shop SAP article number from source system'),
+item_grp_sid BIGNUMERIC(38,0) OPTIONS(description='Surrogate Key ITEM GROUP'),
+src_item_group_nr STRING(250) OPTIONS(description='Merchandise subgroup name  as coming from Salesforce'),
+src_item_group_name STRING(100) OPTIONS(description='Merchandise subgroup picklist  as coming from Salesforce'),
+item_fam_grp_sid BIGNUMERIC(38,0) OPTIONS(description='Surrogate Key ITEM FAMILYGROUP;'),
+src_item_family_nr STRING(250) OPTIONS(description='Merchandise family number as coming from Salesforce'),
+src_item_family_name STRING(100) OPTIONS(description='Merchandise family number  name  as coming from Salesforce'),
+cust_complaint_srv_center_cd STRING(20)
+OPTIONS(description='The code for the service center for proceeding customer complaint cases.'),
+cust_complaint_srv_area_cd STRING(20)
+OPTIONS(description='The code for the service area originating customer complaint cases'),
+orig_cust_complaint_srv_area_cd STRING(20)
+OPTIONS(description='The code for the service area originating customer complaint cases'),
+cust_complaint_contact_type_cd STRING(20) OPTIONS(description='A code for customer complaint type'),
+cust_complaint_status_cd STRING(250)
+OPTIONS(description='Status code that uniqly identify customer case status ( assigned by DWH)'),
+cust_complaint_sales_channel_cd STRING(20) OPTIONS(description='A code for customer complaint sales channel'),
+cust_complaint_origin_cd STRING(20) OPTIONS(description='A code for customer complaint  origin (Webform, etc)'),
+cust_complaint_origin_group_name STRING(100) OPTIONS(description='A code for customer complaint  origin (Webform, etc)'),
+brand_sid BIGNUMERIC(38,0) OPTIONS(description='Surrogate Key BRAND;'),
+src_brand_name STRING(100) OPTIONS(description='Product Brand Name from source system'),
+sup_sid BIGNUMERIC(38,0) OPTIONS(description='Surrogate Key SUPPLIER'),
+src_sup_nr STRING(100) OPTIONS(description='Source Supplier Number'),
+src_sup_name STRING(100) OPTIONS(description='Source Supplier Name'),
+store_loc_sid BIGNUMERIC(38,0)
+OPTIONS(description='Surrogate Key LOCATION (eindeutig ueber alle Laender/Mandanten hinweg)'),
+src_store_name STRING(100) OPTIONS(description='Related store-account name'),
+wh_loc_sid BIGNUMERIC(38,0)
+OPTIONS(description='Surrogate Key LOCATION (eindeutig ueber alle Laender/Mandanten hinweg)'),
+src_wh_name STRING(100) OPTIONS(description='Related warehouse name'),
+src_wh_acct_name STRING(100) OPTIONS(description='Related warehouse name'),
+src_wh_descr STRING(100) OPTIONS(description='Related warehouse description'),
+cust_complaint_cat_sid BIGNUMERIC(38,0) OPTIONS(description='Surrogate Key for category'),
+cust_complaint_cat_nr STRING(250) OPTIONS(description='Category Number'),
+cust_complaint_low_lvl_cat_name STRING(100) OPTIONS(description='Customer Category Lowest Level Name'),
+cust_complaint_reason STRING(250) OPTIONS(description='Reason for Complaints QA'),
+cust_complaint_short_descr STRING(400) OPTIONS(description='Short Description'),
+cust_complaint_descr STRING(50000) OPTIONS(description='Full Description of the Case'),
+lot_nr STRING(100) OPTIONS(description='Lot / Batch Number'),
+purchase_dt DATE OPTIONS(description='Date of Purchase'),
+best_before_dt DATE OPTIONS(description='Best before date'),
+case_close_dt DATE OPTIONS(description='Date of closing the case'),
+is_critical_fg BIGNUMERIC(38,0) OPTIONS(description='Is case critical'),
+is_illness_injury_fg BIGNUMERIC(38,0) OPTIONS(description='Did Illness / Injury Occur?'),
+is_main_case_fg BIGNUMERIC(38,0) OPTIONS(description='Indicates if a case is a main case vs sub case '),
+is_sub_case_fg BIGNUMERIC(38,0) OPTIONS(description='Indicates if a case is a sub case vs main case '),
+is_parent_case_fg BIGNUMERIC(38,0) OPTIONS(description='Indicates if a case is a parent case vs child case '),
+is_child_case_fg BIGNUMERIC(38,0) OPTIONS(description='Indicates if a case is a child case vs parent case '),
+is_merge_case_fg BIGNUMERIC(38,0) OPTIONS(description='Indicates if a case is a merged case'),
+dwh_valid_from DATE NOT NULL
+OPTIONS(description='Gueltigkeitsbeginn; Teil der DWH-Historisierung; aeltester Satz der Historie erhaelt immer den Wert 01.01.1900 ("minus unendlich")'),
+deleted_fg BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='Artikel ist im Falle deleted_fg = 1 im Zeitraum dwh_valid_from / dwh_valid_to nicht im Quellsystem bekannt; Hinweis: auch bei gesetztem Loeschkz im Quellsystem wird dieser Status angenommen'),
+dwh_valid_to DATE NOT NULL
+OPTIONS(description='Gueltigkeitsende; Teil der DWH-Historisierung; neuster Satz der Historie erhaelt immer den Wert 30.12.9999 ("plus unendlich")'),
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL,
+PRIMARY KEY (cust_complaint_sid, dwh_valid_from) NOT ENFORCED
+)
+OPTIONS(description='The table contais customer complait cases opened in Salesforce or BSI system as a result of a customer reporting issues via mail , web-form or phone ( historized version)');

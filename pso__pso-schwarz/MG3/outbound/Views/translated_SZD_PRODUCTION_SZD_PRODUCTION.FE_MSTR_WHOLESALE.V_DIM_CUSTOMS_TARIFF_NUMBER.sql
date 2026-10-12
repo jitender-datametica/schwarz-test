@@ -1,0 +1,11 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_wholesale.v_dim_customs_tariff_number (customs_classification_scheme_cd,
+customs_tariff_number_cd, customs_tariff_number_descr, food_nonfood_type_cd, food_nonfood_type_name,
+alcoholic_beverage_type_cd, alcoholic_beverage_type_name) AS SELECT customs_classification_scheme_cd,
+ customs_tariff_number_cd,
+ customs_tariff_number_descr,
+ food_nonfood_type_cd,
+ food_nonfood_type_name,
+ alcoholic_beverage_type_cd,
+ alcoholic_beverage_type_name
+FROM szd_production_core.t_dim_customs_tariff_number
+WHERE alcoholic_beverage_type_cd <> '-1';

@@ -1,0 +1,27 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TF_2LIS_13_VDITM_2_RETAIL_SALES_RECORD_POS
+(
+  CLIENT_ID                   NUMBER(38)                    NULL,
+  LIDL_COUNTRY                VARCHAR(40)                   NULL,
+  LIS_13_VDITM_VBELN          VARCHAR(20)                   NULL,
+  LIS_13_VDITM_POSNR          NUMBER(6,0)                   NULL,
+  RETAIL_SALES_RECORD_ID      NUMBER(20,0)                  NULL,
+  RETAIL_SALES_RECORD_POS_ID  NUMBER(38)                    NULL,
+  SRC_MATNR                   VARCHAR(40)                   NULL,
+  SRC_WERKS                   VARCHAR(40)                   NULL,
+  SRC_MSEHI                   VARCHAR(40)                   NULL,
+  SRC_WAERS                   VARCHAR(40)                   NULL,
+  UOM_CD                      VARCHAR(20)                   NULL,
+  QTY_ACT                     NUMBER(18,5)                  NULL,
+  QTY_STOCK_UNIT              NUMBER(18,5)                  NULL,
+  CURR_CD                     VARCHAR(20)                   NULL,
+  NET_VAL                     NUMBER(18,5)                  NULL,
+  TAX_VAL                     NUMBER(18,5)                  NULL,
+  COND_SUBTOTAL_1             NUMBER(18,5)                  NULL,
+  COND_SUBTOTAL_2             NUMBER(18,5)                  NULL,
+  DWH_CAL_DT                  DATE                          NULL,
+  EXTRACTION_DT               DATE                          NULL,
+  DWH_MAPPING_DT              DATE                          NULL,
+  TF_ERROR_FG                 NUMBER(1,0)                   NULL,
+  RECORD_ID                   NUMBER(10,0)                  NULL,
+  FILENAME                    VARCHAR(1000)                 NULL
+);

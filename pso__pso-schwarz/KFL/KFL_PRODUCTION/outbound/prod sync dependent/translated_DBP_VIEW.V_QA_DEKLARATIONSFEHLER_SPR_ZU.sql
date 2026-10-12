@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_qa_deklarationsfehler_spr_zu (mandant_id, qa_deklarationsfehler_id,
+spr_id, qa_deklarationsfehler_bez) AS SELECT mandant_id,
+ qa_deklarationsfehler_id,
+ spr_id,
+ qa_deklarationsfehler_bez
+FROM kfl_production_dbp_data.qa_deklarationsfehler_spr_zu;

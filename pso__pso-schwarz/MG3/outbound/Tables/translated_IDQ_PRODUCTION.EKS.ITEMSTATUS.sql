@@ -1,0 +1,11 @@
+CREATE OR REPLACE TABLE idq_production_eks.itemstatus (
+itemid INTEGER NOT NULL,
+statusid INTEGER NOT NULL,
+datefrom DATETIME NOT NULL,
+dateuntil DATETIME,
+crdate DATETIME,
+moddate DATETIME,
+cruser STRING(35),
+moduser STRING(35),
+PRIMARY KEY (itemid, statusid, datefrom) NOT ENFORCED
+);

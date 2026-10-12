@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t717_bnl_colldata (
+ctrcode STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_nr INTEGER NOT NULL,
+c717_formtype INTEGER NOT NULL,
+c717_itemgrp_nr INTEGER,
+c717_storenr INTEGER,
+c717_whnr INTEGER,
+c717_dayenddate DATETIME NOT NULL,
+c717_formdate DATETIME,
+c717_accountno INTEGER,
+c717_debit BIGNUMERIC(29,10),
+c717_credit BIGNUMERIC(29,10),
+c717_credit_net BIGNUMERIC(29,10),
+c717_debit_net BIGNUMERIC(29,10),
+c717_itemnr STRING(18),
+c717_idvalue BIGNUMERIC(29,10) NOT NULL,
+scn INTEGER DEFAULT 0,
+extraction_tmsp DATETIME,
+PRIMARY KEY (c717_idvalue) NOT ENFORCED
+);

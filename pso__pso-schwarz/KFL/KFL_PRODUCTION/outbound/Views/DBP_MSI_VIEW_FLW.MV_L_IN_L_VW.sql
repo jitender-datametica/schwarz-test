@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_flw.mv_l_in_l_vw (mandant_id, in_vw_id) AS SELECT mandant_id,
+ flw_vw_id AS in_vw_id
+FROM kfl_production_dbp_view.v_flw_l_vw;

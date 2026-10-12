@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku.mv_crm_l_fremdkoerper_fg AS SELECT flag AS fremdkoerper_fg
+FROM kfl_production_dbp_view.v_flag_spr_zu
+GROUP BY fremdkoerper_fg;

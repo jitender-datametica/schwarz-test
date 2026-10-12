@@ -1,0 +1,25 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TCACHE_GPS_SALESORG
+(
+  CLIENT_ID             NUMBER(38)                    NOT NULL,
+  BIC_ZMLILA            VARCHAR(3) COLLATE 'en-ci'    NULL,
+  COUNTRY               VARCHAR(3) COLLATE 'en-ci'    NULL,
+  STORENO               VARCHAR(20) COLLATE 'en-ci'   NULL,
+  WAREHOUSE             VARCHAR(20) COLLATE 'en-ci'   NULL,
+  SALES_MANAGER_ID      VARCHAR(20) COLLATE 'en-ci'   NULL,
+  SALES_MANAGER_NAME    VARCHAR(100) COLLATE 'en-ci'  NULL,
+  ACCOUNT_MANAGER_ID    VARCHAR(20) COLLATE 'en-ci'   NULL,
+  ACCOUNT_MANAGER_NAME  VARCHAR(100) COLLATE 'en-ci'  NULL,
+  STORE_MANAGER_ID      VARCHAR(20) COLLATE 'en-ci'   NULL,
+  STORE_MANAGER_NAME    VARCHAR(100) COLLATE 'en-ci'  NULL,
+  GENERAL_MANAGER_ID    VARCHAR(20) COLLATE 'en-ci'   NULL,
+  GENERAL_MANAGER_NAME  VARCHAR(100) COLLATE 'en-ci'  NULL,
+  SALESAREA             VARCHAR(100) COLLATE 'en-ci'  NULL,
+  VALIDFROM             DATE                          NULL,
+  SEQ_NUM               NUMBER(38,0)                  NOT NULL,
+  ORGUNITS_SEQ_NUM      NUMBER(38,0)                  NOT NULL,
+  FILE_RECORD_ID        NUMBER(38)                    NULL,
+  FILE_EXTRACTION_DATE  DATE                          NULL,
+  DWH_LOAD_ID           NUMBER(38)                    NOT NULL,
+  DWH_CREATED           TIMESTAMP_NTZ(6)              NOT NULL,
+  DWH_UPDATED           TIMESTAMP_NTZ(6)              NOT NULL
+);

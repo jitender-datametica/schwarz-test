@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_msi.t_msi_ejr_cancelled_transact (
+resumed_trans_store_id_ejr BIGNUMERIC(38,0),
+resumed_trans_terminal_id_ejr BIGNUMERIC(38,0),
+resumed_trans_date_ejr DATE,
+resumed_trans_receipt_nr_ejr BIGNUMERIC(38,0),
+resumed_trans_seqnr BIGNUMERIC(38,0),
+st_loc_sid BIGNUMERIC(38,0),
+client_id BIGNUMERIC(38,0),
+pos_terminal_id BIGNUMERIC(38,0),
+dat_formdate DATE,
+orig_receipt_nr_ejr BIGNUMERIC(38,0),
+checker_id BIGNUMERIC(38,0),
+time_receipt_ejr TIME,
+transactiontype_id STRING(3) COLLATE 'und:ci',
+val_susp_retail_ejr NUMERIC(18,4),
+susp_next_transactiontype_id STRING(3) COLLATE 'und:ci',
+val_susp_next_retail_ejr NUMERIC(18,4),
+is_resumed_cancelled BIGNUMERIC(38,0),
+is_next_low_tran_cancelled BIGNUMERIC(38,0),
+is_next_abmeld_cancelled BIGNUMERIC(38,0)
+);

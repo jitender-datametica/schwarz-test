@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE ldl_data_production_meta.t_dv_rwi_turnover_by_store_day_vs_planned_turnover_discrepancy (
+bus_dt DATE,
+int_org_sid INTEGER,
+dwh_valid_from_tmsp TIMESTAMP,
+curr_int_org_nr STRING(20),
+int_org_name STRING(100),
+country_name STRING(100),
+city_name STRING(100),
+turnover_net_val NUMERIC(29,5),
+planned_kpi_meas NUMERIC(29,5),
+turnover_plus_six_percent BIGNUMERIC(29,11),
+turnover_minus_six_percent BIGNUMERIC(29,11),
+failed_turnover_discrepancy INTEGER,
+total INTEGER,
+rule_code STRING(255),
+rule_description STRING(255),
+metric STRING(255),
+dataelem STRING(255),
+dataelem_value NUMERIC(29,5),
+collection_time TIMESTAMP
+);

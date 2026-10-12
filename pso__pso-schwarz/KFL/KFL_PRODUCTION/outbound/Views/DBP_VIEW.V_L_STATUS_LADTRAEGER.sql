@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_status_ladtraeger AS SELECT mandant_id,
+ status_ladtraeger
+FROM kfl_production_dbp_data.l_status_ladtraeger;

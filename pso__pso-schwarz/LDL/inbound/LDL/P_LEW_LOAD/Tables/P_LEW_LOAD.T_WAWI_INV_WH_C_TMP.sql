@@ -1,0 +1,32 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_WAWI_INV_WH_C_TMP
+(
+  ERR_RELEASE             NUMBER(38)                    NULL DEFAULT 0,
+  RELEASE_USER            VARCHAR(30) COLLATE 'en-ci'   NULL,
+  ERR_DATE                DATE                          NOT NULL DEFAULT CURRENT_DATE,
+  ERR_CD                  NUMBER(38)                    NULL,
+  COUNTRY_ISO_CD          VARCHAR(3) COLLATE 'en-ci'    NOT NULL,
+  WH_ID                   VARCHAR(3) COLLATE 'en-ci'    NOT NULL,
+  INV_ID                  NUMBER(38)                    NOT NULL,
+  INV_DESC                VARCHAR(25) COLLATE 'en-ci'   NULL,
+  DAT_DAYEND              DATE                          NOT NULL,
+  INV_TYPE                VARCHAR(1) COLLATE 'en-ci'    NULL,
+  BUSYEAR                 NUMBER(38)                    NULL,
+  DAT_FORMDATE            DATE                          NOT NULL,
+  INV_EVAL_FG             NUMBER(38)                    NULL,
+  STORE_PLACE             NUMBER(38)                    NULL,
+  AISLE_DESC              VARCHAR(35) COLLATE 'en-ci'   NULL,
+  SLOT_NR                 NUMBER(38)                    NOT NULL,
+  ORIG_ITEM_NR            NUMBER(10,0)                  NOT NULL,
+  CASE_SIZE               VARCHAR(4) COLLATE 'en-ci'    NOT NULL,
+  QTY_CASE_INV_WH         FLOAT                         NULL,
+  QTY_PIECE_INV_WH        FLOAT                         NULL,
+  PRICE_RETAIL_INV_WH     FLOAT                         NULL,
+  QTY_EXPECTED_INV_WH     FLOAT                         NULL,
+  QTY_TOTAL_INV_WH        FLOAT                         NULL,
+  QTY_RAMP_INV_WH         FLOAT                         NULL,
+  DIFF_QTY_INV_WH         FLOAT                         NULL,
+  CASE_SIZE_DEC           NUMBER(9,4)                   NULL,
+  PRICE_RETAIL_INV_WH_NET FLOAT                         NULL,
+  LOAD_ID                 NUMBER(38)                    NULL
+)
+;

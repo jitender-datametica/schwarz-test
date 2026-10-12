@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE share_platform_uapc_data_kfl.sap_ind_bsak (
+mandt STRING(16777216),
+bukrs STRING(16777216),
+lifnr STRING(16777216),
+umsks STRING(16777216),
+umskz STRING(16777216),
+augdt DATE,
+augbl STRING(16777216),
+zuonr STRING(16777216),
+gjahr FLOAT64,
+belnr STRING(16777216),
+buzei FLOAT64,
+xzahl STRING(16777216),
+budat DATE,
+zlspr STRING(16777216),
+xblnr STRING(16777216),
+bldat DATE,
+zterm STRING(16777216),
+blart STRING(16777216),
+wrbtr NUMERIC(14,2)
+);

@@ -1,0 +1,13 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIDLDIGITAL.V_DIM_SPECIAL_ANALYSIS_STATUS
+AS SELECT 
+     COLUMN1 AS IS_SPECIAL_ANALYSIS_CD
+    ,COLUMN2 AS IS_SPECIAL_ANALYSIS_CD_NAME
+FROM (
+    SELECT * FROM (
+        VALUES
+             (0, 'nein')
+            ,(1, 'ja')
+            ,(-1, '')
+        )
+    )
+;

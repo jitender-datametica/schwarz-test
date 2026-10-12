@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_dig_etl.t_but020 (
+partner STRING(20) NOT NULL,
+addrnumber STRING(20) NOT NULL,
+xdfadr STRING(2) NOT NULL,
+adext STRING(40) NOT NULL,
+nation STRING(2) NOT NULL,
+guid STRING(64) NOT NULL,
+moveaddr STRING(20) NOT NULL,
+datefrom DATE,
+addressguid STRING(64) NOT NULL,
+addrvalidfrom BIGNUMERIC(32,0) NOT NULL,
+addrvalidto BIGNUMERIC(32,0) NOT NULL,
+addrmovedate BIGNUMERIC(32,0) NOT NULL,
+lastchangedat DATE,
+odq_changemode STRING(2) NOT NULL,
+odq_entitycntr BIGNUMERIC(38,0) NOT NULL,
+sap_sys_name STRING(16777216),
+sap_client_id STRING(16777216),
+tmsp_insert DATETIME,
+tmsp_update DATETIME
+);

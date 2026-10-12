@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_IWT_SPR_ZU
+AS SELECT
+MANDANT_ID     ,
+SPR_ID         ,
+IWT_ID         ,
+IWT_BEZ   ,
+TD_UPDATE               ,
+TD_INSERT   
+FROM
+   DBP_DATA.IWT_SPR_ZU      ;

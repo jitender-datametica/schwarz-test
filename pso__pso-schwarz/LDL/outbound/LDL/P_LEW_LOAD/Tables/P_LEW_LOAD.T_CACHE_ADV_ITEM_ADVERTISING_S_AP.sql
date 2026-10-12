@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_cache_adv_item_advertising_s_ap (
+client_id BIGNUMERIC(38) NOT NULL OPTIONS(description='Mandant'),
+wh_loc_sid BIGNUMERIC(38) NOT NULL OPTIONS(description='Gesellschafts-Nummer'),
+orig_item_nr INTEGER NOT NULL OPTIONS(description='Artikelnummer'),
+dat_adv DATE NOT NULL OPTIONS(description='Werbetermin'),
+dat_rec_start DATE NOT NULL OPTIONS(description='Startdatum technische Gueltigkeit'),
+dat_rec_end DATE NOT NULL OPTIONS(description='Endedatum technische Gueltigkeit'),
+dat_adv_end DATE OPTIONS(description='Ende Werbetermin'),
+dat_adv_desc STRING(50) COLLATE 'und:ci' OPTIONS(description='Beschreibung Werbetermin'),
+dat_before_sales DATE OPTIONS(description='Datum der Betrachtung Abverkaeufe vor Werbetermin'),
+dat_behind_sales_period1 DATE OPTIONS(description='Datum der Betrachtung Abverkaeufe nach Werbetermin 1'),
+dat_behind_sales_period2 DATE OPTIONS(description='Datum der Betrachtung Abverkaeufe nach Werbetermin 2'),
+dat_before_delivery DATE OPTIONS(description='Datum der Betrachtung Anlieferungen vor Werbetermin'),
+dat_behind_delivery DATE OPTIONS(description='Datum der Betrachtung Anlieferungen nach Werbetermin'),
+dat_behind_delivery_period1 DATE OPTIONS(description='Datum der Betrachtung Anlieferungen nach Werbetermin 1'),
+dat_behind_delivery_period2 DATE OPTIONS(description='Datum der Betrachtung Anlieferungen nach Werbetermin 2'),
+dat_behind_sales_extension DATE OPTIONS(description='Datum der Betrachtung Verkaufspreis nach Werbetermin'),
+orig_promotion_domain_nr BIGNUMERIC(38,0) OPTIONS(description='Fachlicher Schluessel fuer Aktionsbereiche'),
+timestamp_load DATETIME NOT NULL OPTIONS(description='Zeitstempel der Beladung')
+);

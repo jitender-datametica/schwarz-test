@@ -1,0 +1,3 @@
+create or replace TABLE IDQ_PRODUCTION.CORE.DEPLOYTEST (
+	A NUMBER(38,0)
+);

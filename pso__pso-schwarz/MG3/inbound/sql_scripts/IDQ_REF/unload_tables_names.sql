@@ -1,0 +1,1 @@
+select t.name as _table_name from sys.tables t where schema_name(t.schema_id) = 'dbo' and t.name like '%REF%' order by _table_name

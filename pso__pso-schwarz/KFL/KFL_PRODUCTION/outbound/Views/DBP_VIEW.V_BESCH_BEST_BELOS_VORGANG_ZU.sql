@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_besch_best_belos_vorgang_zu AS SELECT mandant_id,
+ best_beleg_id,
+ belos_vorgang_id
+FROM kfl_production_dbp_data.besch_best_belos_vorgang_zu;

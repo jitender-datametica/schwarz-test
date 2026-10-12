@@ -1,0 +1,87 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_VIS.MV_KMR_COMPETITOR_COMPANY_GROUP(
+	MANDANT_ID,
+	COMPETITOR_SORT_ID,
+	COMPETITOR_SORT_NAME
+) AS
+
+/*
+	KMR Google : Wettbewerber Company Group (Sortierung)
+	Manuelle Zuordnung (COMPETITOR_SORT) duch Fachbereich
+	2024-02-27 : Redesign, Review, Neue Gruppierung
+	2025-09-09 ssch0611 : Review
+*/
+
+SELECT $1 ::INTEGER AS MANDANT_ID
+	, $2 ::INTEGER  AS COMPETITOR_SORT_ID
+	, $3 ::STRING   AS COMPETITOR_SORT_NAME
+FROM (
+	SELECT 1, 10, 'Lidl'
+	UNION ALL SELECT 1, 20, 'Edeka'
+	UNION ALL SELECT 1, 30, 'Aldi Nord'
+	UNION ALL SELECT 1, 40, 'Aldi Süd'
+	UNION ALL SELECT 1, 50, 'REWE'
+	UNION ALL SELECT 1, 60, 'Globus'
+	UNION ALL SELECT 1, 999, 'undefiniert'
+	
+	UNION ALL SELECT 2, 10, 'Lidl'
+	UNION ALL SELECT 2, 20, 'Albert'
+	UNION ALL SELECT 2, 30, 'Penny'
+	UNION ALL SELECT 2, 40, 'Tesco'
+	UNION ALL SELECT 2, 50, 'Billa'
+	UNION ALL SELECT 2, 60, 'Globus'
+	UNION ALL SELECT 2, 70, 'Coop'
+	UNION ALL SELECT 2, 999, 'undefiniert'
+	
+	UNION ALL SELECT 3, 10, 'Lidl'
+	UNION ALL SELECT 3, 20, 'Biedronka'
+	UNION ALL SELECT 3, 30, 'Auchan'
+	UNION ALL SELECT 3, 40, 'Carrefour'
+	UNION ALL SELECT 3, 50, 'Netto'
+	UNION ALL SELECT 3, 60, 'Aldi'
+	UNION ALL SELECT 3, 70, 'Dino'
+	UNION ALL SELECT 3, 80, 'Stokrotka'
+	UNION ALL SELECT 3, 999, 'undefiniert'
+	
+	UNION ALL SELECT 4, 10, 'Linella'
+	UNION ALL SELECT 4, 20, 'Metro'
+	UNION ALL SELECT 4, 30, 'Green Hills'
+	UNION ALL SELECT 4, 40, 'NR 1'
+	UNION ALL SELECT 4, 50, 'Fidesco'
+	UNION ALL SELECT 4, 60, 'Fourchette'
+	UNION ALL SELECT 4, 70, 'Velmart'
+	UNION ALL SELECT 4, 999, 'undefiniert'
+	
+	UNION ALL SELECT 5, 10, 'Lidl'
+	UNION ALL SELECT 5, 20, 'Coop'
+	UNION ALL SELECT 5, 30, 'Tesco'
+	UNION ALL SELECT 5, 40, 'Billa'
+	UNION ALL SELECT 5, 50, 'Fresh'
+	UNION ALL SELECT 5, 60, 'Terno'
+	UNION ALL SELECT 5, 999, 'undefiniert'
+	
+	UNION ALL SELECT 6, 10, 'Lidl'
+	UNION ALL SELECT 6, 20, 'Konzum'
+	UNION ALL SELECT 6, 30, 'Plodine'
+	UNION ALL SELECT 6, 40, 'Interspar'
+	UNION ALL SELECT 6, 50, 'Spar'
+	UNION ALL SELECT 6, 60, 'Tommy'
+	UNION ALL SELECT 6, 70, 'Euro Spin'
+	UNION ALL SELECT 6, 999, 'undefiniert'
+	
+	UNION ALL SELECT 7, 10, 'Lidl'
+	UNION ALL SELECT 7, 20, 'Carrefour'
+	UNION ALL SELECT 7, 30, 'Profi'
+	UNION ALL SELECT 7, 40, 'Penny'
+	UNION ALL SELECT 7, 50, 'Auchan'
+	UNION ALL SELECT 7, 60, 'Mega Image'
+	UNION ALL SELECT 7, 999, 'undefiniert'
+	
+	UNION ALL SELECT 8, 10, 'Lidl'
+	UNION ALL SELECT 8, 20, 'Billa'
+	UNION ALL SELECT 8, 30, 'Fantastico'
+	UNION ALL SELECT 8, 40, 'T-Market'
+	UNION ALL SELECT 8, 50, 'CBA'
+	UNION ALL SELECT 8, 60, 'Metro'
+	UNION ALL SELECT 8, 70, 'Parkmart'
+	UNION ALL SELECT 8, 999, 'undefiniert'
+) sub;

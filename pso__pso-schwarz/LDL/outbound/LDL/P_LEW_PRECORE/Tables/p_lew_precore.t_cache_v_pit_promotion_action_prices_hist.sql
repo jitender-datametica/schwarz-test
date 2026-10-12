@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_precore.t_cache_v_pit_promotion_action_prices_hist (
+client_id INTEGER NOT NULL,
+pvpap_srcinst_id STRING(100) COLLATE 'und:ci' NOT NULL,
+pvpap_srcinst_code STRING(100) COLLATE 'und:ci',
+pvpap_pvpac_id STRING(100) COLLATE 'und:ci' NOT NULL,
+pvpap_salestype_value STRING(100) COLLATE 'und:ci' NOT NULL,
+pvpap_no INTEGER NOT NULL,
+pvpap_valid_from DATE NOT NULL,
+pvpap_valid_to DATE,
+pvpap_price_action_curry_code STRING(100) COLLATE 'und:ci',
+pvpap_selling_price_action NUMERIC(18,5),
+pvpap_selling_price_comment STRING(1000) COLLATE 'und:ci',
+deleted_fg INTEGER NOT NULL,
+dwh_valid_from DATE NOT NULL,
+dwh_valid_to DATE NOT NULL,
+dwh_load_id INTEGER NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL,
+PRIMARY KEY (pvpap_no, pvpap_valid_from, dwh_valid_from) NOT ENFORCED
+);

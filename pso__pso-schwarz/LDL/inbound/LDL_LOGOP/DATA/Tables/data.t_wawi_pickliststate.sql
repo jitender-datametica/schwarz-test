@@ -1,0 +1,21 @@
+CREATE TABLE DATA.t_wawi_pickliststate (
+client_id 				NUMBER(38,0) 	NOT NULL 	COMMENT 'Client id - calculated based on the country code', 
+wawi_instanz_kzl 		VARCHAR(3)		NOT NULL 	COMMENT 'Country code',
+wh_nr 					NUMBER(38,0)  	NOT NULL 	COMMENT 'Warehouse number',
+picklistno 				NUMBER(38,0) 	NOT NULL 	COMMENT 'Primary key, identification of the picking list number',
+orderarea 				VARCHAR(8) 		NOT NULL 	COMMENT 'Order area number',
+keycode 				NUMBER(38,0)	NULL 		COMMENT 'Current status of the picking list.',
+storeno 				NUMBER(38,0)	NULL 		COMMENT 'Branch number',
+formdate 				TIMESTAMP		NULL 		COMMENT 'Delivery date of the order',
+moddate 				TIMESTAMP		NULL 		COMMENT 'Last time changes were made',
+moduser 				VARCHAR(8)		NULL 		COMMENT 'Last user who made changes',
+oldkeycode 				NUMBER(38,0)	NULL 		COMMENT 'Last status of the picking list',
+scn 					NUMBER(38,0)	NULL 		COMMENT '',
+dwh_load_id    			NUMBER(38,0) 	NOT NULL 	COMMENT 'Load id',
+dwh_created    			TIMESTAMP 		NOT NULL 	COMMENT 'Record created at',
+dwh_updated    			TIMESTAMP 		NOT NULL 	COMMENT 'Record updated at',
+dwh_valid_from 			DATE 			NOT NULL 	COMMENT 'Valid from date',
+dwh_valid_to   			DATE 			NOT NULL 	COMMENT 'Valid to date',
+deleted_fg     			BOOLEAN 		NOT NULL 	COMMENT 'Flag if record is deleted',
+PRIMARY KEY (client_id, wh_nr, picklistno, orderarea, dwh_valid_from)
+) COMMENT = 'WAWI - WHWAWIADM.T831_PICKLISTSTATE. Detailed table for the status of branch orders or picking lists.';

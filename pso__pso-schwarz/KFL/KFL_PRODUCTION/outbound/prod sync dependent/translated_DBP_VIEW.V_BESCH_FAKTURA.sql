@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_besch_faktura (mandant_id, faktura_beleg_id, wrg_id, dat_faktura,
+fakturaart_id, faktura_status_id, verkaufsorganisation_id, kalk_schema_id, auftraggeber_id, storno_fg, dat_erstellung,
+dat_faktura_sap, faktura_typ_id, mandant_id_auftraggeber) AS SELECT mandant_id,
+ faktura_beleg_id,
+ wrg_id,
+ dat_faktura,
+ fakturaart_id,
+ faktura_status_id,
+ verkaufsorganisation_id,
+ kalk_schema_id,
+ auftraggeber_id,
+ storno_fg,
+ dat_erstellung,
+ dat_faktura_sap,
+ faktura_typ_id,
+ mandant_id_auftraggeber
+FROM kfl_production_dbp_data.besch_faktura;

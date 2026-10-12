@@ -1,0 +1,22 @@
+CREATE TABLE DATA.t_wawi_pricegroup (
+client_id 			NUMBER(38,0) 	NOT NULL 	COMMENT 'Client id - calculated based on the country code', 
+wawi_instanz_kzl 	VARCHAR(3)		NOT NULL 	COMMENT 'Country code',
+group_nr 			NUMBER(38,10)	NOT NULL	COMMENT '',
+store_nr 			NUMBER(38,10)	NOT NULL	COMMENT '',
+date_from 			TIMESTAMP		NOT NULL	COMMENT '',
+WAREHOUSE 			NUMBER(38,10)	NOT NULL	COMMENT '',
+group_desc 			VARCHAR(30)		NULL		COMMENT '',
+priority 			NUMBER(38,10)	NULL		COMMENT '',
+edited_by 			VARCHAR(8)		NULL		COMMENT '',
+last_edited 		TIMESTAMP		NULL		COMMENT '',
+date_to 			TIMESTAMP		NULL		COMMENT '',
+add_vat_code 		NUMBER(38,0)	NULL		COMMENT '',
+scn 				NUMBER(38,0)	NULL		COMMENT '',
+dwh_load_id    		NUMBER(38,0) 	NOT NULL 	COMMENT 'Load id',
+dwh_created    		TIMESTAMP 		NOT NULL 	COMMENT 'Record created at',
+dwh_updated    		TIMESTAMP 		NOT NULL 	COMMENT 'Record updated at',
+dwh_valid_from 		DATE 			NOT NULL 	COMMENT 'Valid from date',
+dwh_valid_to   		DATE 			NOT NULL 	COMMENT 'Valid to date',
+deleted_fg     		BOOLEAN 		NOT NULL 	COMMENT 'Flag if record is deleted',
+PRIMARY KEY (client_id, group_nr, store_nr, date_from, WAREHOUSE, dwh_valid_from)
+) COMMENT = 'WAWI - HQWAWIADM.T200_PRICEGROUP table.';

@@ -1,0 +1,65 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_VIS.MV_SSM_WUP_TAG_TREIBER_UNION(
+    MANDANT_ID,
+	WUP_ID,
+	NB_ID,
+	DAT,
+	ZEIT_STUNDE,
+	ZEIT_15MIN,
+	TREIBER_ID,
+	WRG_ID,
+	WERT_TAG
+)
+AS
+    -- TREIBERDATEN AUF MARKT-TAG-TREIBER- EBENE
+    -- 09.04.2020 SNIK1809 AP0052955-SPEC0067085
+    -- 2024-06-20 muellerpatri : Filialumgliederung + Review [P1760-DWH]
+
+SELECT
+    v01.MANDANT_ID
+    , wup.AKTUELL_WUP_ID AS WUP_ID
+    , v01.NB_ID
+    , v01.DAT
+    , 0 AS ZEIT_STUNDE
+    , 0 AS ZEIT_15MIN
+    , v01.TREIBER_ID
+    , v01.WRG_ID
+    , SUM(v01.WERT_TAG) WERT_TAG
+FROM DBP_VIEW.V_SSM_WUP_TAG_TREIBER v01
+INNER JOIN dbp_view.v_wup wup
+ON v01.mandant_id = wup.mandant_id AND v01.wup_id = wup.wup_id
+
+GROUP BY
+    v01.MANDANT_ID
+    , wup.AKTUELL_WUP_ID
+    , v01.NB_ID
+    , v01.DAT
+    , ZEIT_STUNDE
+    , ZEIT_15MIN
+    , v01.TREIBER_ID
+    , v01.WRG_ID
+
+UNION
+SELECT
+    v01.MANDANT_ID
+    , wup.AKTUELL_WUP_ID AS WUP_ID
+    , v01.NB_ID
+    , v01.DAT
+    , v01.ZEIT_STUNDE
+    , v01.ZEIT_15MIN
+    , v01.TREIBER_ID
+    , v01.WRG_ID
+    , SUM(v01.WERT_15MIN) WERT_TAG
+FROM DBP_VIEW.V_SSM_WUP_TAG_15MIN_TREIBER v01
+INNER JOIN dbp_view.v_wup wup
+ON v01.mandant_id = wup.mandant_id AND v01.wup_id = wup.wup_id
+GROUP BY
+    v01.MANDANT_ID
+    , wup.AKTUELL_WUP_ID
+    , v01.NB_ID
+    , v01.DAT
+    , v01.ZEIT_STUNDE
+    , v01.ZEIT_15MIN
+    , v01.TREIBER_ID
+    , v01.WRG_ID;
+
+

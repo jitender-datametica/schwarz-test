@@ -1,0 +1,54 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_WWC.MV_COI_UMP_WUP
+--mcie, added referenzgrund
+--29/09/2019, cbru1709, referenzgrund zu referenzgrund_id geändert wegen neuer LU-Tabelle
+(
+mandant_id,
+gj_plan,
+version_id,
+wup_id,
+nb_id,
+planfiliale_fg,
+land_level,
+wup_standort,
+dat_eroeffnung,
+dat_schliessung,
+vs_id,
+wup_id_referenz,
+faktor_wup_referenz,
+faktor_basis,
+dat_fleisch_theke,
+dat_wurst_theke,
+dat_kaese_theke,
+dat_gefluegel_theke,
+dat_feinkost_theke,
+dat_fisch_theke,
+dat_wup_ref_von,
+dat_wup_ref_bis,
+referenzgrund_id
+)
+AS
+   SELECT
+   mandant_id,
+   gj_plan,
+   version_id,
+   wup_id,
+   nb_id,
+   planfiliale_fg,
+   land_level,
+   wup_standort,
+   dat_eroeffnung,
+   dat_schliessung,
+   vs_id,
+   wup_id_referenz,
+   faktor_wup_referenz,
+   faktor_basis,
+   dat_fleisch_theke,
+   dat_wurst_theke,
+   dat_kaese_theke,
+   dat_gefluegel_theke,
+   dat_feinkost_theke,
+   dat_fisch_theke,
+   dat_wup_ref_von,
+   dat_wup_ref_bis,
+   referenzgrund_id
+   FROM dbp_view.v_coi_ump_wup;

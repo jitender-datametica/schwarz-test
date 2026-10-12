@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW P_LEW_CORE_AC.V_REF_AGE_RANGE AS 
+    SELECT 
+        age_range_cd
+        ,age_range_descr
+        ,dwh_load_id
+        ,dwh_created
+        ,dwh_updated
+FROM P_LEW_CORE.T_REF_AGE_RANGE ;

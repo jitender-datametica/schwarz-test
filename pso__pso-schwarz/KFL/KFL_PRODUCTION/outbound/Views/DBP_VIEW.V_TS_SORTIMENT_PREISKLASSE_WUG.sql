@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_ts_sortiment_preisklasse_wug AS SELECT mandant_id,
+ arthiertyp_id,
+ wg_id,
+ wug_id,
+ wrg_id,
+ preislage_1,
+ preislage_2,
+ preislage_3,
+ preislage_4,
+ preislage_5,
+ preislage_6,
+ preislage_7,
+ preislage_8,
+ preislage_9,
+ preislage_10,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.ts_sortiment_preisklasse_wug;

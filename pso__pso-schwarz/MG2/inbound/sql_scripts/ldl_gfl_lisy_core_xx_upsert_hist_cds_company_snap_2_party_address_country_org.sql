@@ -1,0 +1,71 @@
+INSERT INTO  ETL.${SRC2TGT_TEMP_TABLE1}_${SRC_CONTEXT_AREA}
+(
+	PARTY_KEY_TYPE_CD,
+        PARTY_NATURAL_KEY,
+	ADDR_KEY_TYPE_CD,
+        ADDR_NATURAL_KEY,
+	ADDR_USG_TYPE_CD,
+        PARTY_TYPE_CD,
+	ADDR_TYPE_CD,        
+        SOURCE_SYSTEM,
+        EXTRACTION_DT,
+        DWH_MAPPING_TMSP,
+        TF_ERROR_FG,
+        DELETED_FG,
+        RECORD_ID,
+        FILENAME,
+        DWH_NODE_CD,
+        DWH_LOAD_ID
+)
+WITH RANKED_ADDR AS 
+(
+	SELECT
+		SUBSTR(IGL_ASSOCIATIONNUMBER, 1,2) AS PARTY_NATURAL_KEY,
+        SUBSTR(IGL_ASSOCIATIONNUMBER, 1,2)||'|'||TO_NUMBER(REGEXP_REPLACE(IGL_ASSOCIATIONNUMBER, '[^0-9]', '')) AS COMPANY_NATURAL_KEY,
+		COALESCE(SRC.IGL_ISOCODE2, '') 
+			|| '|' || COALESCE(SRC.IGL_CITY, '') 
+			|| '|' || COALESCE(SRC.IGL_POSTALCODE, '') 
+			|| '|' || COALESCE(SRC.IGL_STREET, '') || '|' || COALESCE(SRC.IGL_HOUSENUMBER, '') AS ADDR_NATURAL_KEY,
+		CASE
+			WHEN igl_companytypecode = 285540000 THEN 1 -- (delivery company)
+			WHEN igl_companytypecode = 285540002 THEN 2 -- (sales company)
+			WHEN igl_companytypecode = 285540001 THEN 3 -- (head office)
+			WHEN igl_companytypecode = 285540003 THEN 4 -- (expansion company)
+			ELSE 99 --(lowest ranking)
+		END AS RANKING,
+        SUM(DECODE(IGL_COMPANYTYPECODE, 285540001, 1, 0)) OVER (PARTITION BY COMPANY_NATURAL_KEY) AS IS_COUNTRY_ORG,
+		SRC.*
+	FROM etl_process.T_${SRC_INPUT_TABLE} SRC
+	WHERE IGL_COMPANYTYPECODE IS NOT NULL
+		AND IGL_COMPANYTYPECODE IN (285540000, 285540001, 285540002, 285540003, 285540005, 285540006)
+		AND IGL_ASSOCIATIONNUMBER IS NOT NULL
+        AND REGEXP_LIKE(IGL_ASSOCIATIONNUMBER, '^[A-Z]{2}.*') 
+		AND IGL_ISOCODE2 IS NOT NULL
+		AND DELETED != 'x'
+	-- make sure we are working with Head offices
+)
+SELECT
+     'COUNTRY' AS PARTY_KEY_TYPE_CD,
+     PARTY_NATURAL_KEY AS PARTY_NATURAL_KEY,
+     'STAD' AS ADDR_KEY_TYPE_CD,
+     ADDR_NATURAL_KEY AS ADDR_NATURAL_KEY,
+     'SA_MN' AS ADDR_USG_TYPE_CD,
+     'INT_ORG' AS PARTY_TYPE_CD,
+     'STAD' AS ADDR_TYPE_CD,
+     'LISY' AS SOURCE_SYSTEM,
+     CURRENT_DATE AS EXTRACTION_DT,
+     SINKMODIFIEDON AS DWH_MAPPING_TMSP,
+     0 AS TF_ERROR_FG,
+     0 AS DELETED_FG,
+     0 AS RECORD_ID,
+     't_${SRC_INPUT_TABLE}' AS FILENAME,
+     'LISY' AS DWH_NODE_CD,
+     '${LOAD_ID}' as DWH_LOAD_ID 
+FROM RANKED_ADDR
+WHERE is_country_org = 1 
+    -- even if these companies come with a flag that they are country orgs, we ignore them
+	-- we expect the country orgs for these countries to be other companies and there can be only one country org 
+	-- FR|99, CZ|1, SI|1
+    and COMPANY_NATURAL_KEY not in ('FR|1', 'FR|2', 'CZ|2', 'SI|5', 'DE|10', 'DE|79')
+QUALIFY ROW_NUMBER() OVER (PARTITION BY COMPANY_NATURAL_KEY ORDER BY RANKING) = 1
+;

@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW idq_production_dwh.idq_addinfo_wawi_numberrange_item (id, test_object_id,
+source_system_primary_key, source_system_id, country_id, branch_id, is_relevant, artikelnummer, artikelbez_lang,
+artikelbez_deutsch, warengruppe, unterwarengruppe, artikelstatus, relevanzkriterien) AS SELECT id,
+ test_object_id,
+ source_system_primary_key,
+ source_system_id,
+ country_id,
+ branch_id,
+ is_relevant,
+ artikelnummer,
+ artikelbez_lang,
+ artikelbez_deutsch,
+ warengruppe,
+ unterwarengruppe,
+ artikelstatus,
+ relevanzkriterien
+FROM idq_production_idq_results.idq_addinfo_wawi_numberrange_item;

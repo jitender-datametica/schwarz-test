@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW P_LEW_MART_PIT_ONPREM.V_ADVERT_WEEK_PERIOD
+AS
+SELECT
+client_id
+,adv_week_id
+,adv_period_id
+,adv_week_period_start_dt
+,adv_week_period_end_dt
+,adv_week_period_sort_val
+FROM P_LEW_MART_PIT_ONPREM.t_advert_week_period;

@@ -1,0 +1,9 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl.scenario_31_card_check (
+mandant_id INTEGER,
+wup_id INTEGER,
+bon_id STRING(100),
+bon_dat DATE,
+hashed_cashier_id STRING(255),
+card_num STRING(120),
+cnt INTEGER
+);

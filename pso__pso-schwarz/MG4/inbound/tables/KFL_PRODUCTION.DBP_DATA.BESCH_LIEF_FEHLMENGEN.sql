@@ -1,0 +1,38 @@
+create or replace TABLE KFL_PRODUCTION.DBP_DATA.BESCH_LIEF_FEHLMENGEN cluster by (
+     MANDANT_ID,
+     DAT_LIEF_SOLL 
+)(
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant im DWH',
+	ART_ID NUMBER(38,0) NOT NULL COMMENT 'Artikel aus BESCH_LIEF_DET oder angereichert aus BESCH_BEST_DET(EKKO)',
+	WUP_ID NUMBER(38,0) NOT NULL COMMENT 'Verteilzentrum aus BESCH_LIEF bzw. BESCH_BEST',
+	NB_ID NUMBER(38,0) NOT NULL COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer',
+	EMPFAENGER_WUP_ID NUMBER(38,0) NOT NULL DEFAULT -1 COMMENT 'Empfangende Filiale aus BESCH_LIEF bzw. BESCH_BEST',
+	EMPFAENGER_NB_ID NUMBER(38,0) NOT NULL COMMENT 'Nebenbetriebs-ID des empfangenden Marktes. In der Tabelle nur deswegen enthalten, weil FrontEnd ein bestehendes Attribut aus mandant, wup, nb verwendet',
+	MANDANT_ID_EMPFAENGER NUMBER(38,0) NOT NULL COMMENT 'Der Empfaenger kann zu einem anderen Mandanten als der liefernde WUP gehoeren, z.Bsp. Lager aus CZ beliefert Markt in SK',
+	LAGERORT_ID VARCHAR(4) NOT NULL COLLATE 'en-ci' COMMENT 'Lagerort_id',
+	DAT_LIEF_SOLL DATE NOT NULL COMMENT 'Soll Lieferdatum',
+	BESTELLART_ID VARCHAR(4) NOT NULL COLLATE 'en-ci' COMMENT 'Angereichert aus BESCH_BEST(EKKO)',
+	DIFF_ID VARCHAR(1) NOT NULL COLLATE 'en-ci' DEFAULT ' ' COMMENT 'Wenn Eintrag in BESCH_LIEF_DET vorhanden dann diff_id aus BESCH_LIEF_DET ansonsten leer',
+	KUERZUNG_FG NUMBER(38,0) NOT NULL DEFAULT 0 COMMENT 'Wenn entsprechenden Eintrag in besch_lief_kuerzung vorhanden dann 1 ansonsten 0',
+	WRG_ID VARCHAR(3) NOT NULL COLLATE 'en-ci' COMMENT 'Kurzbezeichnung der Währung, z.Bsp. CZK, EUR',
+	MENGE_LIEF_SOLL_KOLLI NUMBER(18,3) NOT NULL DEFAULT 0 COMMENT 'bestellte Menge in Kolli umgerechnet',
+	MENGE_LIEF_IST_KOLLI NUMBER(18,3) NOT NULL DEFAULT 0 COMMENT 'tatsächlich gelieferte Menge in Kolli',
+	EK_NETTO_BNK_SOLL NUMBER(18,4) WITH MASKING POLICY #unknown_policy COMMENT 'Einkaufspreis netto_bnk bezogen auf die bestellte Menge.',
+	EK_NETTO_BNK_IST NUMBER(18,4) WITH MASKING POLICY #unknown_policy COMMENT 'Einkaufspreis netto_bnk bezogen auf die gelieferte Menge.',
+	VK_NETTO_IST NUMBER(18,4) NOT NULL DEFAULT 0 COMMENT 'Verkaufspreis netto  bezogen auf die gelieferte Menge',
+	VK_NETTO_SOLL NUMBER(18,4) NOT NULL DEFAULT 0 COMMENT 'Verkaufspreis netto  bezogen auf die bestellte Menge',
+	UMRECHNUNGSKURS NUMBER(38,5) NOT NULL COMMENT 'Umrechnungskurs zur Umrechnung in Euro. Wird aus der Tabelle kurs angereichert',
+	UMRECHNUNGSKURS_HIST NUMBER(38,5) NOT NULL DEFAULT 0 COMMENT 'Historischer Berichtskurs aus dbp_data.kurs ',
+	KUERZ_MENGE_LIEF_SOLL_KOLLI NUMBER(18,3) NOT NULL COMMENT 'Gekürzte Soll-Liefermenge in Kolli',
+	KUERZ_MENGE_LIEF_IST_KOLLI NUMBER(18,3) NOT NULL COMMENT 'Gekürzte Ist-Liefermenge in Kolli',
+	KUERZ_EK_NETTO_BNK_SOLL NUMBER(18,4) NOT NULL WITH MASKING POLICY #unknown_policy COMMENT 'Einkaufspreis netto_bnk bezogen auf die gekürzte Soll-Menge',
+	KUERZ_EK_NETTO_BNK_IST NUMBER(18,4) NOT NULL WITH MASKING POLICY #unknown_policy COMMENT 'Einkaufspreis netto_bnk bezogen auf die gekürzte Ist-Menge',
+	KUERZ_VK_NETTO_SOLL NUMBER(18,4) NOT NULL COMMENT 'Verkaufspreis netto_bnk bezogen auf die gekürzte Soll-Menge',
+	KUERZ_VK_NETTO_IST NUMBER(18,4) NOT NULL COMMENT 'Verkaufspreis  bezogen auf die gekürzte Ist-Menge',
+	BEST_BELEG_ID NUMBER(18,0) COMMENT 'Das Feld enthält die Beleg ID der Bestellung und dient der eindeutigen Identifikation der Bestellbelege. Aus ebeln',
+	BEST_BELEG_POS_ID NUMBER(38,0) COMMENT 'Die Belegposition ID der Bestellung dient der eindeutigen Identifikation der Bestellpositionen pro Bestellung.Aus ebelp',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	constraint PK_BESCH_LIEF_FEHLMENGEN primary key (MANDANT_ID, ART_ID, WUP_ID, NB_ID, EMPFAENGER_WUP_ID, EMPFAENGER_NB_ID, MANDANT_ID_EMPFAENGER, LAGERORT_ID, DAT_LIEF_SOLL, BESTELLART_ID, DIFF_ID, KUERZUNG_FG, WRG_ID)
+)COMMENT='AIS KMO - Aggregat für nicht gelieferte Ware in KMO. Wird aus besch_lief_det und besch_lief_kuerzung versorgt und mit Preisen angereichert '
+;

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_log.mv_ts_scm_geschaeftsvorfall_prozess_spr_zu (scm_gv_prozess_id,
+scm_gv_prozess_bez) AS SELECT ROUND(CAST(scm_gv_prozess_id AS BIGNUMERIC), 0) AS scm_gv_prozess_id,
+ scm_gv_grp_bez AS scm_gv_prozess_bez
+FROM kfl_production_dbp_view.v_ts_scm_geschaeftsvorfall_prozess_spr_zu;

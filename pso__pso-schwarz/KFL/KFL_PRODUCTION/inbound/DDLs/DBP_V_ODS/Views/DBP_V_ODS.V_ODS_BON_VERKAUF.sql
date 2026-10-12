@@ -1,0 +1,27 @@
+CREATE OR REPLACE VIEW DBP_V_ODS.V_ODS_BON_VERKAUF AS 
+    SELECT 
+        bon_id,
+        bon_zeile,
+        mandant_id,
+        wup_id,
+        bon_dat,
+        kl_art_id,
+        ean_kasse,
+        wg_id,
+        menge,
+        einh_id,
+        umsatz_brutto,
+        mwst_id,
+        erfassung_id,
+        aktion_id,
+        talon_id,
+        start_bon_zeile,
+        bon_nr_extern,
+        kpos_erfassung_id,
+        umsatz_brutto_norm,
+        vk_brutto_obb,
+        bon_vorgang_id,
+        barcode_string,
+        barcode_leergut,
+        zeilenstorno_fg
+FROM DBP_ODS.ODS_BON_VERKAUF;

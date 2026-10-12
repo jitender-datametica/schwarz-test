@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku.mv_l_geku_massnahme (geku_massnahme_uid, geku_massnahme_id) AS
+SELECT geku_massnahme_uid,
+ geku_massnahme_id
+FROM kfl_production_dbp_view.v_l_geku_massnahme;

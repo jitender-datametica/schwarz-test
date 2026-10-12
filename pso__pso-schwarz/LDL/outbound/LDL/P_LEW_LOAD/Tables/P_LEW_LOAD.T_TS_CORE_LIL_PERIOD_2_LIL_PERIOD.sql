@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_core_lil_period_2_lil_period (
+record_id STRING(1000) COLLATE 'und:ci',
+client_id BIGNUMERIC(38),
+period_sid BIGNUMERIC(38),
+src_period_cd STRING(20),
+period_name STRING(100) COLLATE 'und:ci',
+period_type_id BIGNUMERIC(38),
+period_type_name STRING(100) COLLATE 'und:ci',
+period_year BIGNUMERIC(38),
+period_sid_py BIGNUMERIC(38),
+period_sid_pq BIGNUMERIC(38),
+dwh_load_id BIGNUMERIC(38),
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

@@ -1,0 +1,14 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_sok_wup_denorm (mandant_id, wup_id, anz_einkaufswagen_boxen,
+anz_heissgetraenke_automaten, anz_t_zellen_backshop, haeufigste_ultra_frische_listungsstufe_kz,
+haeufigste_mopro_listungsstufe_kz, haeufigste_tiko_listungsstufe_kz, haeufigste_trocken_listungsstufe_kz,
+haeufigste_nonfood_listungsstufe_kz) AS SELECT mandant_id,
+ wup_id,
+ anz_einkaufswagen_boxen,
+ anz_heissgetraenke_automaten,
+ anz_t_zellen_backshop,
+ haeufigste_ultra_frische_listungsstufe_kz,
+ haeufigste_mopro_listungsstufe_kz,
+ haeufigste_tiko_listungsstufe_kz,
+ haeufigste_trocken_listungsstufe_kz,
+ haeufigste_nonfood_listungsstufe_kz
+FROM kfl_production_dbp_msi_v_view.v_wup_denorm AS DEN;

@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_log.mv_belos_tourstatus_spr_zu AS SELECT belos_tourstatus_id,
+ belos_tourstatus_bez
+FROM kfl_production_dbp_view.v_belos_tourstatus_spr_zu AS V01;

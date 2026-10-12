@@ -1,0 +1,7 @@
+CREATE OR REPLACE PROCEDURE idq_production_idq_results.sp_manage_toolbox_rights(IN MSTR_USER STRING, IN SYSCHECK_EXCLUDE_FLAG INT64, IN SYSCHECK_PARAMETER_FLAG INT64, IN SYSCHECK_ALERTS_FLAG INT64, IN SYSCOMP_EXCLUDE_FLAG INT64, IN SYSCOMP_PARAMETER_FLAG INT64, IN SYSCOMP_ALERTS_FLAG INT64, IN RELEVANCE_EXCLUDE_FLAG INT64, IN RELEVANCE_PARAMETER_FLAG INT64, IN RELEVANCE_ALERTS_FLAG INT64, IN RULE_CATALOG_FLAG INT64, IN TOOLBOX_ADMIN_FLAG INT64, IN MAIL_KFL_EK_NR_FLAG INT64)
+BEGIN
+BEGIN TRANSACTION;
+INSERT INTO idq_production_idq_results.ref_toolbox_execution_rights (mstr_user, syscheck_exclude_flag, syscheck_parameter_flag, syscheck_alerts_flag, syscomp_exclude_flag, syscomp_parameter_flag, syscomp_alerts_flag, relevance_exclude_flag, relevance_parameter_flag, relevance_alerts_flag, rule_catalog_flag, toolbox_admin_flag, mail_kfl_ek_nr_flag)
+(SELECT MSTR_USER AS mstr_user, SYSCHECK_EXCLUDE_FLAG AS syscheck_exclude_flag, SYSCHECK_PARAMETER_FLAG AS syscheck_parameter_flag, SYSCHECK_ALERTS_FLAG AS syscheck_alerts_flag, SYSCOMP_EXCLUDE_FLAG AS syscomp_exclude_flag, SYSCOMP_PARAMETER_FLAG AS syscomp_parameter_flag, SYSCOMP_ALERTS_FLAG AS syscomp_alerts_flag, RELEVANCE_EXCLUDE_FLAG AS relevance_exclude_flag, RELEVANCE_PARAMETER_FLAG AS relevance_parameter_flag, RELEVANCE_ALERTS_FLAG AS relevance_alerts_flag, RULE_CATALOG_FLAG AS rule_catalog_flag, TOOLBOX_ADMIN_FLAG AS toolbox_admin_flag, MAIL_KFL_EK_NR_FLAG AS mail_kfl_ek_nr_flag);
+COMMIT TRANSACTION;
+END;

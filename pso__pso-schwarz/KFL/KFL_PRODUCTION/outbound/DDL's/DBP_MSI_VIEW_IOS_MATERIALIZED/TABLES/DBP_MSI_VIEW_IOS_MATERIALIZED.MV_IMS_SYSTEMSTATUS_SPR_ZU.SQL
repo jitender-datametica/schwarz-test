@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_ios_materialized.mv_ims_systemstatus_spr_zu (
+systemstatus_id STRING(5) COLLATE 'und:ci',
+mandant_id INTEGER,
+systemstatus_bez_kurz STRING(16777216) COLLATE 'und:ci',
+systemstatus_bez_kurz_cz STRING(16777216) COLLATE 'und:ci',
+systemstatus_bez_kurz_sk STRING(16777216) COLLATE 'und:ci',
+systemstatus_bez_kurz_hr STRING(16777216) COLLATE 'und:ci',
+systemstatus_bez_kurz_pl STRING(16777216) COLLATE 'und:ci',
+systemstatus_bez_kurz_ro STRING(16777216) COLLATE 'und:ci',
+systemstatus_bez_kurz_en STRING(16777216) COLLATE 'und:ci',
+systemstatus_bez_kurz_bg STRING(16777216) COLLATE 'und:ci',
+systemstatus_bez STRING(16777216) COLLATE 'und:ci',
+systemstatus_bez_cz STRING(16777216) COLLATE 'und:ci',
+systemstatus_bez_sk STRING(16777216) COLLATE 'und:ci',
+systemstatus_bez_hr STRING(16777216) COLLATE 'und:ci',
+systemstatus_bez_pl STRING(16777216) COLLATE 'und:ci',
+systemstatus_bez_ro STRING(16777216) COLLATE 'und:ci',
+systemstatus_bez_en STRING(16777216) COLLATE 'und:ci',
+systemstatus_bez_bg STRING(16777216) COLLATE 'und:ci'
+);

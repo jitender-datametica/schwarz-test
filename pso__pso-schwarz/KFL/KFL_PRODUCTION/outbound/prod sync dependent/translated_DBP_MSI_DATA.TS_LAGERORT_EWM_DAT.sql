@@ -1,0 +1,17 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_data.ts_lagerort_ewm_dat (
+mandant_id INTEGER NOT NULL OPTIONS(description='Mandant im DWH.'),
+lagerort_id STRING(4) COLLATE 'und:ci' NOT NULL
+OPTIONS(description='Dieses Feld referenziert die DWH Tabelle Lagerort.'),
+lagernummer_id STRING(4) COLLATE 'und:ci' NOT NULL
+OPTIONS(description='ID der Lagernummer - hoechste Ebene der Lagerhierarchie.'),
+wup_id INTEGER NOT NULL OPTIONS(description='Mutter Wup ID, wird verwendet fuer Beziehung Lager zu Verteilzentrum.'),
+nb_id INTEGER NOT NULL
+OPTIONS(description='Im bisherigen System die 4. Stelle der Marktnummer, die Nebenbetriebskennziffer.'),
+dat DATE NOT NULL OPTIONS(description='Datum des EWM-GoLive.'),
+td_update TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+td_insert TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+PRIMARY KEY (mandant_id, wup_id, nb_id) NOT ENFORCED
+)
+OPTIONS(description='EWM-GoLive Date per Lagerort (starting with this date, data should be excluded from LIS reporting).');

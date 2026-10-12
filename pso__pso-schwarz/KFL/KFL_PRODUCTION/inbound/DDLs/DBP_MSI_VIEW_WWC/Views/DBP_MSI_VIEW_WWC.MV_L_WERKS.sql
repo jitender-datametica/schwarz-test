@@ -1,0 +1,5 @@
+CREATE OR REPLACE view DBP_MSI_VIEW_WWC.MV_L_WERKS as
+   SELECT
+   v01.betriebsflaeche, v01.bewertungskreis_id, v01.breakevenumsatz, v01.buchungskreis_id, v01.dat_bis, v01.dat_eroeffnung, v01.dat_qbm_umstellung, v01.dat_von, v01.fleischsystem, v01.getraenkemarkt_fg, v01.haupt_wup_id, v01.hl_id, v01.kassentyp, v01.kreistyp_gruppe_id, v01.kundenfaktor, v01.land_id, v01.lead_mwst, v01.mandant_id, v01.nb_id, v01.preiskategorie_food, v01.preiskategorie_nonfood, v01.qbm_id, v01.ref_wup_id, v01.region_id, v01.sondermarkt, v01.sortkategorie_food, v01.sortkategorie_nonfood, v01.systemrentabilitaet, v01.uebernahme_von, v01.verkaufsflaeche, v01.verkaufsorganisation_id, v01.vf_id, v01.vkl_id, v01.vs_id, v01.vw_id, v01.vz_wup_id, v01.wm_id, v01.wup_id AS WERKS, v01.wup_id_alt, v01.wup_name_e, v01.wup_name_v, v01.wup_plz, v01.wup_stadt, v01.wup_standort AS WERKS_BEZ, v01.wup_str, v01.wup_typ_id
+
+   FROM dbp_view.v_wup v01;

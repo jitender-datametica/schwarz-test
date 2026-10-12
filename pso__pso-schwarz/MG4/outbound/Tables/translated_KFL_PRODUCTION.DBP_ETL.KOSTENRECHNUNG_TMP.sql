@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl.kostenrechnung_tmp (
+kjmo INTEGER NOT NULL,
+gjmo INTEGER NOT NULL,
+gj INTEGER,
+akt_gj INTEGER,
+akt_mo INTEGER,
+mo_kj INTEGER,
+wup_id INTEGER,
+nb_id INTEGER,
+mandant_id INTEGER,
+ums_n_ker NUMERIC(18,2),
+ums_n_ker_plan NUMERIC(18,2),
+rohertrag NUMERIC(18,2),
+rohertrag_plan NUMERIC(18,2),
+pk_ker NUMERIC(18,2),
+pk_ker_plan NUMERIC(18,2),
+pk_ohne NUMERIC(18,2),
+pk_ohne_plan NUMERIC(18,2),
+umsatz_wrg STRING(3)
+);

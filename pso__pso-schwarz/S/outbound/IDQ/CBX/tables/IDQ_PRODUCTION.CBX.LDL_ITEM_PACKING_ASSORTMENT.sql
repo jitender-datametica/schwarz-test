@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE idq_production_cbx.ldl_item_packing_assortment (
+id STRING(32) NOT NULL,
+ldl_item_style_nos STRING(16777216),
+revision NUMERIC(20,0),
+entity_version NUMERIC(20,0),
+domain_id STRING(400),
+hub_domain_id STRING(400),
+is_for_reference BIGNUMERIC(38,0),
+internal_seq_no NUMERIC(20,0),
+item_id STRING(32),
+ldl_packing_method_id STRING(32),
+ldl_set_no NUMERIC(20,0),
+ldl_packing_method_ref STRING(1000),
+ldl_item_style_ids STRING(16777216),
+ldl_item_style_product_names STRING(16777216),
+duid STRING(100),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (id) NOT ENFORCED
+);

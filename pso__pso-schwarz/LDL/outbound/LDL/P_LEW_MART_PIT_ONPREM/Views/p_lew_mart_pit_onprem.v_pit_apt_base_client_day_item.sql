@@ -1,0 +1,21 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_pit_onprem.v_pit_apt_base_client_day_item (client_id, dwh_cal_dt, adv_week_id,
+item_sid, adv_period_id, promotion_start_dt, promotion_end_dt, advert_theme_sid, item_list_type_id, sortiment_fg,
+retail_price_old, retail_price_new, same_apt_price_fg, promotion_truncated_fg, promotion_deleted_fg,
+promotion_excluded_fg) AS SELECT APT.client_id,
+ CAL.cal_dt AS dwh_cal_dt,
+ APT.adv_week_id,
+ APT.item_sid,
+ APT.adv_period_id,
+ APT.promotion_start_dt,
+ APT.promotion_end_dt,
+ APT.advert_theme_sid,
+ APT.item_list_type_id,
+ APT.sortiment_fg,
+ APT.retail_price_old,
+ APT.retail_price_new,
+ APT.same_apt_price_fg,
+ APT.promotion_truncated_fg,
+ APT.promotion_deleted_fg,
+ APT.promotion_excluded_fg
+FROM ldl_p_lew_mart_pit_onprem.t_pit_apt_base_client_promotionperiod_item AS APT
+ INNER JOIN ldl_p_lew_bil_ac.v_dim_cal_day AS CAL ON CAL.cal_dt BETWEEN APT.promotion_start_dt AND APT.promotion_end_dt;

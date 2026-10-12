@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_transportstatus AS SELECT mandant_id,
+ transportstatus_id
+FROM kfl_production_dbp_data.l_transportstatus;

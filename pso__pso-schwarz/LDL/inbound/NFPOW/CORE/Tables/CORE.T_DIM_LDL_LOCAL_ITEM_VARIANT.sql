@@ -1,0 +1,20 @@
+CREATE TABLE CORE.T_DIM_LDL_LOCAL_ITEM_VARIANT DATA_RETENTION_TIME_IN_DAYS = 2 (
+   lob_cd                              VARCHAR(100)     NOT NULL,
+   ldl_item_sid                        NUMBER(38,0)     NOT NULL,
+   ldl_client_id                       NUMBER(38,0)     NOT NULL,
+   ldl_item_nr                         NUMBER(38,0),
+   case_size_qty                       NUMBER(38,5),
+   active_from_dt                      DATE,
+   ldl_item_ian_nr                     NUMBER(38,0)     NOT NULL,
+   ldl_brand_list_type_id              NUMBER(38,0)     COMMENT 'WAWI: P_LEW_MART_MSI_AC_MATERIALIZED.v_ref_itm_list_type_buylist',
+   ldl_list_type_id                    NUMBER(38,0)     COMMENT 'WAWI:p_lew_mart_lead_ac.V_ITM_ITEM.listing_type_id',
+   ldl_brand_name                      VARCHAR(100)     COMMENT 'WAWI:p_lew_mart_lead_ac.V_ITM_ITEM.brand',
+   ldl_item_fam_grp_nr                 NUMBER(38,0)     COMMENT 'WAWI:p_lew_mart_lead_ac.V_ITM_ITEM.item_familygroup_id',
+   ldl_sub_item_grp_id                 NUMBER(38,0)     COMMENT 'WAWI:p_lew_mart_lead_ac.V_ITM_ITEM.subitemgroup_id',
+   ldl_item_name                       VARCHAR(100)     COMMENT 'WAWI:p_lew_mart_lead_ac.V_ITM_ITEM.item_desc',
+   item_origin_type_cd                 VARCHAR(100),
+   dwh_created_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'Zeitstempel der Ersteinfügung des Datensatzes ins DWH.',
+   dwh_updated_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'Zeitstempel der letzten Änderung des Datensatzes im DWH.',
+   dwh_src_tmsp                        TIMESTAMP_LTZ(9) NOT NULL COMMENT 'Timestamp of source extraction.',   
+   CONSTRAINT PK_T_DIM_LDL_LOCAL_ITEM_VARIANT PRIMARY KEY (lob_cd, ldl_item_sid) NOT ENFORCED 
+)  COMMENT = '';

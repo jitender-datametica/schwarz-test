@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_analytics_ac.v_pit_advert_medium_grp_map_input AS SELECT client_id,
+ advert_medium_descr,
+ adv_medium_disp_order_nbr,
+ adv_medium_ignore_fg,
+ adv_medium_delete_fg,
+ adv_medium_grp_lidlplus_fg,
+ advert_medium_grp_descr,
+ adv_medium_grp_disp_order_nbr,
+ dwh_created
+FROM ldl_p_lew_mart_analytics.t_pit_advert_medium_grp_map_input;

@@ -1,0 +1,79 @@
+/* --------------------------------------------------------------------------------
+   DDL for View: FE_MSTR_APOLLO_KAUFLAND.V_DIM_KFL_ITEM_SALES_VARIANT
+*/ --------------------------------------------------------------------------------
+
+
+CREATE OR REPLACE VIEW nfpow_fe_mstr_apollo_kaufland.v_dim_kfl_item_sales_variant (lob_cd, kfl_client_id, kfl_item_nr,
+gtin_nr, nfpo_item_set_sid, nfpo_item_set_style_nr, nfpo_item_set_style_name, nfpo_item_size_sid, nfpo_item_size_nr,
+nfpo_item_size_name, nfpo_item_variant_sid, nfpo_item_variant_nr, nfpo_item_variant_name, kfl_item_name,
+kfl_sub_item_grp_id, kfl_sub_item_grp_name, kfl_item_grp_id, kfl_item_grp_name, kfl_major_item_grp_id,
+kfl_major_item_grp_name, kfl_main_item_grp_id, kfl_main_item_grp_name, kfl_department_id, kfl_department_name,
+kfl_home_brand_cd, kfl_home_brand_name, kfl_season_nr, kfl_season_name, nfpo_season_name, kfl_competition_type_id,
+kfl_competition_type_txt, kfl_main_purch_mgr_nr, kfl_promo_item_type_cd, kfl_promo_item_type_name, kfl_negotiator_cd,
+kfl_discount_item_fg, kfl_bio_label_fg, kfl_green_button_label_fg, kfl_client_cd, kfl_client_name, nfpo_item_sid,
+ldl_item_ian_nr, nfpo_item_sel_nr, nfpo_item_name, nfpo_kfl_brand_sid, nfpo_kfl_brand_name, nfpo_ldl_brand_sid,
+nfpo_ldl_brand_name, nfpo_ldl_brand_type_cd, nfpo_ldl_brand_type_name, nfpo_sup_sid, nfpo_sup_name, nfpo_parent_item_sid
+, nfpo_parent_item_name, ldl_parent_item_ian_nr) AS SELECT lob_cd,
+ kfl_client_id,
+  CASE
+  WHEN lob_cd = 'KFL' AND kfl_client_id = 1
+  THEN CAST(kfl_item_nr / 100 AS BIGNUMERIC)
+  WHEN lob_cd = 'KFL' AND kfl_client_id > 1
+  THEN CAST(kfl_item_nr / 10 AS BIGNUMERIC)
+  WHEN lob_cd = 'LDL'
+  THEN CAST(kfl_item_nr / 100 AS BIGNUMERIC)
+  ELSE NULL
+  END AS kfl_item_nr,
+ gtin_nr,
+ nfpo_item_set_sid,
+ nfpo_item_set_style_nr,
+ nfpo_item_set_style_name,
+ nfpo_item_size_sid,
+ nfpo_item_size_nr,
+ nfpo_item_size_name,
+ nfpo_item_variant_sid,
+ nfpo_item_variant_nr,
+ nfpo_item_variant_name,
+ kfl_item_name,
+ kfl_sub_item_grp_id,
+ kfl_sub_item_grp_name,
+ kfl_item_grp_id,
+ kfl_item_grp_name,
+ kfl_major_item_grp_id,
+ kfl_major_item_grp_name,
+ kfl_main_item_grp_id,
+ kfl_main_item_grp_name,
+ kfl_department_id,
+ kfl_department_name,
+ kfl_home_brand_cd,
+ kfl_home_brand_name,
+ kfl_season_nr,
+ kfl_season_name,
+ nfpo_season_name,
+ kfl_competition_type_id,
+ kfl_competition_type_txt,
+ kfl_main_purch_mgr_nr,
+ kfl_promo_item_type_cd,
+ kfl_promo_item_type_name,
+ kfl_negotiator_cd,
+ kfl_discount_item_fg,
+ kfl_bio_label_fg,
+ kfl_green_button_label_fg,
+ kfl_client_cd,
+ kfl_client_name,
+ nfpo_item_sid,
+ ldl_item_ian_nr,
+ nfpo_item_sel_nr,
+ nfpo_item_name,
+ nfpo_kfl_brand_sid,
+ nfpo_kfl_brand_name,
+ nfpo_ldl_brand_sid,
+ nfpo_ldl_brand_name,
+ nfpo_ldl_brand_type_cd,
+ nfpo_ldl_brand_type_name,
+ nfpo_sup_sid,
+ nfpo_sup_name,
+ nfpo_parent_item_sid,
+ nfpo_parent_item_name,
+ ldl_parent_item_ian_nr
+FROM nfpow_core.t_dim_kfl_item_sales_variant;

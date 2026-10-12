@@ -1,0 +1,75 @@
+/*
+====================================================================================================
+Division		|	Lidl
+Solution		|	Operational Logistics (LOGOP)
+DB schema		|	data
+DB table		|	t_sapewm_warehouseorder
+Description		|	SAP EWM - source table
+====================================================================================================
+*/
+
+
+CREATE TABLE IF NOT EXISTS ldl_logop_data.t_sapewm_warehouseorder (
+client_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Client id - calculated based on the country code'),
+lidl_country STRING(3) NOT NULL OPTIONS(description='Country code. Original field name bic_zmlila'),
+source_system STRING(30) NOT NULL OPTIONS(description='Source system'),
+wh_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Warehouse ID. Subset of Warehouse Number'),
+lgnum STRING(5) NOT NULL OPTIONS(description='Warehouse Number/Warehouse Complex'),
+who BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Warehouse Order Number'),
+wcr STRING(4) OPTIONS(description='Warehouse Order Creation Rule'),
+cat_type STRING(1) OPTIONS(description='Category of Warehouse Order Creation Rule'),
+hdr_procty STRING(4) OPTIONS(description='Document Header Warehouse Process Type'),
+queue STRING(10) OPTIONS(description='Queue'),
+wave BIGNUMERIC(38,0) OPTIONS(description='Wave'),
+status STRING(1) OPTIONS(description='Warehouse Order Status'),
+aarea STRING(4) OPTIONS(description='Warehouse Order Activity Area'),
+created_by STRING(12) OPTIONS(description='Created By'),
+created_date DATE OPTIONS(description='Created On'),
+created_time TIME OPTIONS(description='Created At'),
+processor STRING(12) OPTIONS(description='Processor'),
+rsrc STRING(18) OPTIONS(description='Resource (Means of Transportation or User)'),
+started_date DATE OPTIONS(description='Start Date'),
+started_time TIME OPTIONS(description='Start Time'),
+ls_date DATE OPTIONS(description='Latest Start Date'),
+ls_time TIME OPTIONS(description='Latest Start Time'),
+changed_by STRING(12) OPTIONS(description='Changed By'),
+changed_date DATE OPTIONS(description='Changed On'),
+changed_time TIME OPTIONS(description='Changed At'),
+confirmed_by STRING(12) OPTIONS(description='Confirmed by'),
+confirmed_date DATE OPTIONS(description='Confirmation Date'),
+confirmed_time TIME OPTIONS(description='Confirmation Time'),
+plandura BIGNUMERIC(38,3) OPTIONS(description='Planned Execution Time of Warehouse Order'),
+actdura BIGNUMERIC(38,3) OPTIONS(description='Actual Execution Time of Warehouse Order'),
+unit_t STRING(3) OPTIONS(description='Warehouse Order: Time Unit'),
+topwhoid BIGNUMERIC(38,0) OPTIONS(description='Warehouse Order Number of Higher-Level Warehouse Order'),
+refwhoid BIGNUMERIC(38,0) OPTIONS(description='Warehouse Order Number of Subsequent Warehouse Order'),
+flginv BOOL OPTIONS(description='WO Contains Physical Inventory Document'),
+flgwho BOOL OPTIONS(description='WO Contains Warehouse Order'),
+flgto BOOL OPTIONS(description='Warehouse Order Contains Warehouse Task'),
+whologno STRING(14) OPTIONS(description='Warehouse Order Log Number'),
+count_to BIGNUMERIC(38,0) OPTIONS(description='Number of WTs'),
+sum_weight BIGNUMERIC(38,3) OPTIONS(description='Total Weight'),
+unit_w STRING(3) OPTIONS(description='Weight Unit'),
+sum_volum BIGNUMERIC(38,3) OPTIONS(description='Total Volume'),
+unit_v STRING(3) OPTIONS(description='Volume Unit'),
+sum_reachtime BIGNUMERIC(38,3) OPTIONS(description='Total Processing Time'),
+unit_rt STRING(3) OPTIONS(description='Time Unit'),
+pick_comp_date DATE OPTIONS(description='Planned Completion Date'),
+pick_comp_time TIME OPTIONS(description='Planned Completion Time'),
+wave_type STRING(4) OPTIONS(description='Wave Type'),
+splitwhoid BIGNUMERIC(38,0) OPTIONS(description='Warehouse Order Number of WO That Was Split'),
+flgsplit BOOL OPTIONS(description='Warehouse Order Was Split'),
+hazmat BOOL OPTIONS(description='Hazardous Substance Relevant for Storage'),
+start_bin STRING(18) OPTIONS(description='Starting Point for Processing Resource'),
+who_dummy STRING(1) OPTIONS(description='Dummy function in length 1'),
+zz_ship_to STRING(10) OPTIONS(description='Store Number'),
+zz_ship_to_name STRING(40) OPTIONS(description='Store Name'),
+zz_stag_delay STRING(4) OPTIONS(description='delay status for WO in queue'),
+zz_pshu_ind STRING(4) OPTIONS(description='PSHU Indicator'),
+zz_pshu_whohu STRING(32) OPTIONS(description='PSHU Guid from WHOHU'),
+zz_pshu_hdr STRING(32) OPTIONS(description='PSHU Guid from Header'),
+dwh_load_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Load id'),
+dwh_created DATETIME NOT NULL OPTIONS(description='Record created at'),
+dwh_updated DATETIME NOT NULL OPTIONS(description='Record updated at'),
+PRIMARY KEY (client_id, lgnum, who) NOT ENFORCED
+) OPTIONS(description='SAP EWM - Transfer Order Details for the WM Monitor Output');

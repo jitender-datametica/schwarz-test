@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_wup_wg_verkettung_hierarchie_per AS SELECT mandant_id,
+ wup_id,
+ nb_id,
+ wg_verkett_hier_id,
+ palettenlaenge,
+ palettenbreite,
+ palettenhoehe,
+ palettengroesse_einh_id,
+ palettenvolumen,
+ palettenvolumen_einh_id,
+ volumenabw_max,
+ volumen_max,
+ akl_komm_fg,
+ klapp_pal_fg,
+ volumengrenze_kkp,
+ dat_von,
+ dat_bis
+FROM kfl_production_dbp_data.wup_wg_verkettung_hierarchie_per;

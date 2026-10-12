@@ -1,0 +1,3081 @@
+DECLARE SV_MIN_WORK_DAYS BIGNUMERIC;
+-- Cashiers qualify for audit only if they have worked at least this number of days
+DECLARE SV_MIN_RECEIPTS BIGNUMERIC;
+-- Cashiers qualify for audit only if they have made at least this number of receipts
+DECLARE SV_SELF_CASH_REGISTER_NR BIGNUMERIC;
+-- Cash Registers with higher number are self-checkout, and should be excluded
+-- setting session variable for performance optimization (T_STORES_QUALIFIED is transient table populated before this script is invoked)
+DECLARE SV_MIN_DT BIGNUMERIC;
+DECLARE SV_MAX_DT BIGNUMERIC;
+SET SV_MIN_WORK_DAYS = NUMERIC '7';
+SET SV_MIN_RECEIPTS = NUMERIC '200';
+SET SV_SELF_CASH_REGISTER_NR = NUMERIC '80';
+SET SV_MIN_DT = (
+  SELECT
+      min(T_STORES_QUALIFIED.BUS_DT)
+    FROM
+      LDL_DATA_PRODUCTION.ETL.T_STORES_QUALIFIED
+);
+SET SV_MAX_DT = (
+  SELECT
+      max(T_STORES_QUALIFIED.BUS_DT)
+    FROM
+      LDL_DATA_PRODUCTION.ETL.T_STORES_QUALIFIED
+);
+--------------------------------------------------------------------------------
+-- 1.1 Make temp tables will all relavant RetailEvents (T_RETAIL_EVENT) and all relevant line (T_PRODUCT_RETAIL_LINE)
+-- 	these temp tables will be used 8-9 later so we save a lot of time that could be wasted querying these big tables
+--
+-- 	especially considering the fetish snowflake has for T_PRODUCT_RETAIL_LINE and how often it just decides to read it fist -
+-- 		the full table, with no filers (instead of reading T_STORES_QUALIFIED first and using it as filter for T_PRODUCT_RETAIL_LINE)
+--
+-- 	we also take only necessary cols
+CREATE OR REPLACE TEMPORARY TABLE T_TMP_RETAIL_EVENT
+  (
+    RETAIL_EVENT_SID ERROR_TYPE(Error<error-type>),
+    CASH_REGISTER_EVENT_NR ERROR_TYPE(Error<error-type>),
+    EVENT_END_TMSP ERROR_TYPE(Error<error-type>),
+    BUS_DT ERROR_TYPE(Error<error-type>),
+    STORE_SID ERROR_TYPE(Error<error-type>),
+    COUNTRY_ORG_CD ERROR_TYPE(Error<error-type>),
+    CASH_REGISTER_SID ERROR_TYPE(Error<error-type>),
+    CASH_REGISTER_TYPE_CD ERROR_TYPE(Error<error-type>),
+    CASHIER_HASH ERROR_TYPE(Error<error-type>),
+    CUST_SID ERROR_TYPE(Error<error-type>),
+    CUST_IDENT_TYPE_CD ERROR_TYPE(Error<error-type>),
+    RETAIL_EVENT_TYPE_CD ERROR_TYPE(Error<error-type>),
+    RETAIL_EVENT_SCENARIO_ID ERROR_TYPE(Error<error-type>),
+    CANCEL_FG ERROR_TYPE(Error<error-type>),
+    SUSPEND_FG ERROR_TYPE(Error<error-type>),
+    SUSP_RETAIL_EVENT_SID ERROR_TYPE(Error<error-type>),
+    TXN_GROSS_VAL ERROR_TYPE(Error<error-type>),
+    TXN_NET_VAL ERROR_TYPE(Error<error-type>),
+    TXN_VAT_VAL ERROR_TYPE(Error<error-type>),
+    TURNOVER_RELEVANT_FG ERROR_TYPE(Error<error-type>),
+    CASH_REGISTER_NR ERROR_TYPE(Error<error-type>),
+    CASHIER_NR ERROR_TYPE(Error<error-type>),
+    SALES_COMPANY_SID ERROR_TYPE(Error<error-type>),
+    STORE_SELECTED_FG ERROR_TYPE(Error<error-type>),
+    IS_DIRECTLY_ORDERED ERROR_TYPE(Error<error-type>)
+  )
+  AS
+    SELECT
+        -- enriched with these five additional cols
+        RE.RETAIL_EVENT_SID,
+        RE.CASH_REGISTER_EVENT_NR,
+        RE.EVENT_END_TMSP,
+        RE.BUS_DT,
+        RE.STORE_SID,
+        RE.COUNTRY_ORG_CD,
+        RE.CASH_REGISTER_SID,
+        RE.CASH_REGISTER_TYPE_CD,
+        RE.CASHIER_HASH,
+        RE.CUST_SID,
+        RE.CUST_IDENT_TYPE_CD,
+        RE.RETAIL_EVENT_TYPE_CD,
+        RE.RETAIL_EVENT_SCENARIO_ID,
+        RE.CANCEL_FG,
+        RE.SUSPEND_FG,
+        RE.SUSP_RETAIL_EVENT_SID,
+        RE.TXN_GROSS_VAL,
+        RE.TXN_NET_VAL,
+        RE.TXN_VAT_VAL,
+        RE.TURNOVER_RELEVANT_FG,
+        CR.CASH_REGISTER_NR,
+        CE.CASHIER_NR,
+        S.SALES_COMPANY_SID,
+        S.STORE_SELECTED_FG,
+        S.IS_DIRECTLY_ORDERED
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_STORES_QUALIFIED AS S
+        INNER JOIN LDL_DATA_PRODUCTION.CORE_REL.T_RETAIL_EVENT AS RE ON RE.COUNTRY_ORG_CD = S.COUNTRY_ORG_CD
+         AND RE.STORE_SID = S.STORE_SID
+         AND RE.BUS_DT = S.BUS_DT
+        INNER JOIN LDL_DATA_PRODUCTION.CORE_APP_FRAUD_DETECTION.T_CASHIER_ENCRYPTION AS CE ON RE.CASHIER_HASH = CE.CASHIER_HASH
+         AND RE.BUS_DT = CE.BUS_DT
+        INNER JOIN LDL_DATA_PRODUCTION.CORE_REL.T_CASH_REGISTER AS CR ON CR.CASH_REGISTER_SID = RE.CASH_REGISTER_SID
+         AND CR.DWH_VALID_FG = true
+;
+-- temp table with Retail Lines events
+CREATE OR REPLACE TEMPORARY TABLE T_TMP_PRODUCT_RETAIL_LINE
+  (
+    RETAIL_EVENT_SID ERROR_TYPE(Error<error-type>),
+    RETAIL_EVENT_LINE_SEQ ERROR_TYPE(Error<error-type>),
+    EVENT_END_TMSP ERROR_TYPE(Error<error-type>),
+    BUS_DT ERROR_TYPE(Error<error-type>),
+    STORE_SID ERROR_TYPE(Error<error-type>),
+    COUNTRY_ORG_CD ERROR_TYPE(Error<error-type>),
+    CASH_REGISTER_SID ERROR_TYPE(Error<error-type>),
+    CASHIER_HASH ERROR_TYPE(Error<error-type>),
+    PROD_RETAIL_LINE_TYPE_CD ERROR_TYPE(Error<error-type>),
+    RETAIL_EVENT_LINE_SCENARIO_ID ERROR_TYPE(Error<error-type>),
+    PROD_VARIANT_SID ERROR_TYPE(Error<error-type>),
+    LOCAL_PROD_NR ERROR_TYPE(Error<error-type>),
+    PROD_VARIANT_INPUT_NR ERROR_TYPE(Error<error-type>),
+    PROD_VARIANT_CNT ERROR_TYPE(Error<error-type>),
+    PROD_VARIANT_QTY ERROR_TYPE(Error<error-type>),
+    RETAIL_LINE_GROSS_VAL ERROR_TYPE(Error<error-type>),
+    RETAIL_LINE_NET_VAL ERROR_TYPE(Error<error-type>),
+    RETAIL_LINE_VAT_VAL ERROR_TYPE(Error<error-type>),
+    TAX_PCT ERROR_TYPE(Error<error-type>),
+    TURNOVER_RELEVANT_FG ERROR_TYPE(Error<error-type>),
+    PROD_ENTRY_METHOD_CD ERROR_TYPE(Error<error-type>),
+    ORIG_SALES_EVENT_SID ERROR_TYPE(Error<error-type>),
+    CANCEL_LINE_SEQ ERROR_TYPE(Error<error-type>)
+  )
+  AS
+    SELECT
+        PRL.RETAIL_EVENT_SID,
+        PRL.RETAIL_EVENT_LINE_SEQ,
+        PRL.EVENT_END_TMSP,
+        PRL.BUS_DT,
+        PRL.STORE_SID,
+        PRL.COUNTRY_ORG_CD,
+        PRL.CASH_REGISTER_SID,
+        PRL.CASHIER_HASH,
+        PRL.PROD_RETAIL_LINE_TYPE_CD,
+        PRL.RETAIL_EVENT_LINE_SCENARIO_ID,
+        PRL.PROD_VARIANT_SID,
+        PRL.LOCAL_PROD_NR,
+        PRL.PROD_VARIANT_INPUT_NR,
+        PRL.PROD_VARIANT_CNT,
+        PRL.PROD_VARIANT_QTY,
+        PRL.RETAIL_LINE_GROSS_VAL,
+        PRL.RETAIL_LINE_NET_VAL,
+        PRL.RETAIL_LINE_VAT_VAL,
+        PRL.TAX_PCT,
+        PRL.TURNOVER_RELEVANT_FG,
+        PRL.PROD_ENTRY_METHOD_CD,
+        PRL.ORIG_SALES_EVENT_SID,
+        PRL.CANCEL_LINE_SEQ
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_STORES_QUALIFIED AS S
+        INNER JOIN LDL_DATA_PRODUCTION.CORE_REL.T_PRODUCT_RETAIL_LINE AS PRL ON PRL.COUNTRY_ORG_CD = S.COUNTRY_ORG_CD
+         AND PRL.STORE_SID = S.STORE_SID
+         AND PRL.BUS_DT = S.BUS_DT
+;
+CREATE OR REPLACE TEMPORARY TABLE T_TMP_PRICE_INFORMATION_EVENT
+  (
+    PRICE_INFO_EVENT_SID ERROR_TYPE(Error<error-type>),
+    CASH_REGISTER_EVENT_NR ERROR_TYPE(Error<error-type>),
+    COUNTRY_ORG_CD ERROR_TYPE(Error<error-type>),
+    STORE_SID ERROR_TYPE(Error<error-type>),
+    BUS_DT ERROR_TYPE(Error<error-type>),
+    EVENT_TMSP ERROR_TYPE(Error<error-type>),
+    CASH_REGISTER_TYPE_CD ERROR_TYPE(Error<error-type>),
+    CASHIER_HASH ERROR_TYPE(Error<error-type>),
+    PROD_PRICE ERROR_TYPE(Error<error-type>),
+    CURR_CD ERROR_TYPE(Error<error-type>),
+    CASH_REGISTER_SID ERROR_TYPE(Error<error-type>),
+    PROD_VARIANT_SID ERROR_TYPE(Error<error-type>),
+    CASHIER_NR ERROR_TYPE(Error<error-type>),
+    CASH_REGISTER_NR ERROR_TYPE(Error<error-type>),
+    SALES_COMPANY_SID ERROR_TYPE(Error<error-type>),
+    STORE_SELECTED_FG ERROR_TYPE(Error<error-type>),
+    IS_DIRECTLY_ORDERED ERROR_TYPE(Error<error-type>)
+  )
+  AS
+    SELECT
+        -- enriched with these five additional cols
+        TPIE.PRICE_INFO_EVENT_SID,
+        TPIE.CASH_REGISTER_EVENT_NR,
+        TPIE.COUNTRY_ORG_CD,
+        TPIE.STORE_SID,
+        TPIE.BUS_DT,
+        TPIE.EVENT_TMSP,
+        TPIE.CASH_REGISTER_TYPE_CD,
+        TPIE.CASHIER_HASH,
+        TPIE.PROD_PRICE,
+        TPIE.CURR_CD,
+        TPIE.CASH_REGISTER_SID,
+        TPIE.PROD_VARIANT_SID,
+        CE.CASHIER_NR,
+        CR.CASH_REGISTER_NR,
+        SQ.SALES_COMPANY_SID,
+        SQ.STORE_SELECTED_FG,
+        SQ.IS_DIRECTLY_ORDERED
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_STORES_QUALIFIED AS SQ
+        INNER JOIN LDL_DATA_PRODUCTION.CORE_REL.T_PRICE_INFORMATION_EVENT AS TPIE ON TPIE.STORE_SID = SQ.STORE_SID
+         AND TPIE.BUS_DT = SQ.BUS_DT
+         AND TPIE.COUNTRY_ORG_CD = SQ.COUNTRY_ORG_CD
+        INNER JOIN LDL_DATA_PRODUCTION.CORE_APP_FRAUD_DETECTION.T_CASHIER_ENCRYPTION AS CE ON CE.CASHIER_HASH = TPIE.CASHIER_HASH
+        INNER JOIN LDL_DATA_PRODUCTION.CORE_REL.T_CASH_REGISTER AS CR ON CR.CASH_REGISTER_SID = TPIE.CASH_REGISTER_SID
+         AND CR.DWH_VALID_FG = true
+;
+CREATE OR REPLACE TEMPORARY TABLE T_TMP_TECHNICAL_CASH_REGISTER_EVENT
+  (
+    TECH_CASH_REGISTER_EVENT_SID ERROR_TYPE(Error<error-type>),
+    CASH_REGISTER_EVENT_NR ERROR_TYPE(Error<error-type>),
+    COUNTRY_ORG_CD ERROR_TYPE(Error<error-type>),
+    STORE_SID ERROR_TYPE(Error<error-type>),
+    BUS_DT ERROR_TYPE(Error<error-type>),
+    EVENT_TMSP ERROR_TYPE(Error<error-type>),
+    CASH_REGISTER_TYPE_CD ERROR_TYPE(Error<error-type>),
+    TECH_CASH_REGISTER_EVENT_TYPE_CD ERROR_TYPE(Error<error-type>),
+    CASHIER_HASH ERROR_TYPE(Error<error-type>),
+    CASH_REGISTER_SID ERROR_TYPE(Error<error-type>),
+    CASHIER_NR ERROR_TYPE(Error<error-type>),
+    CASH_REGISTER_NR ERROR_TYPE(Error<error-type>),
+    SALES_COMPANY_SID ERROR_TYPE(Error<error-type>),
+    STORE_SELECTED_FG ERROR_TYPE(Error<error-type>),
+    IS_DIRECTLY_ORDERED ERROR_TYPE(Error<error-type>)
+  )
+  AS
+    SELECT
+        -- enriched with these five additional cols
+        TTCRE.TECH_CASH_REGISTER_EVENT_SID,
+        TTCRE.CASH_REGISTER_EVENT_NR,
+        TTCRE.COUNTRY_ORG_CD,
+        TTCRE.STORE_SID,
+        TTCRE.BUS_DT,
+        TTCRE.EVENT_TMSP,
+        TTCRE.CASH_REGISTER_TYPE_CD,
+        TTCRE.TECH_CASH_REGISTER_EVENT_TYPE_CD,
+        TTCRE.CASHIER_HASH,
+        TTCRE.CASH_REGISTER_SID,
+        TCE.CASHIER_NR,
+        CR.CASH_REGISTER_NR,
+        SQ.SALES_COMPANY_SID,
+        SQ.STORE_SELECTED_FG,
+        SQ.IS_DIRECTLY_ORDERED
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_STORES_QUALIFIED AS SQ
+        INNER JOIN LDL_DATA_PRODUCTION.CORE_REL.T_TECHNICAL_CASH_REGISTER_EVENT AS TTCRE ON TTCRE.STORE_SID = SQ.STORE_SID
+         AND TTCRE.BUS_DT = SQ.BUS_DT
+         AND TTCRE.COUNTRY_ORG_CD = SQ.COUNTRY_ORG_CD
+        INNER JOIN LDL_DATA_PRODUCTION.CORE_APP_FRAUD_DETECTION.T_CASHIER_ENCRYPTION AS TCE ON TTCRE.CASHIER_HASH = TCE.CASHIER_HASH
+        INNER JOIN LDL_DATA_PRODUCTION.CORE_REL.T_CASH_REGISTER AS CR ON CR.CASH_REGISTER_SID = TTCRE.CASH_REGISTER_SID
+         AND CR.DWH_VALID_FG = true
+;
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- 	1.2
+-- 	Granularity: STORE_SID, CASHIER_HASH (alternatively STORE_SID + CASHIER_NR + BUS_DT0, as we have new Hash each day)
+-- 		We will use this view to filter cashiers only for classification table
+-- 		this is why we have the filter and s.IS_DIRECTLY_ORDERED = 1
+CREATE OR REPLACE TEMPORARY TABLE T_TMP_CASHIERS_QUALIFIED
+  (
+    STORE_SID ERROR_TYPE(Error<error-type>),
+    COUNTRY_ORG_CD ERROR_TYPE(Error<error-type>),
+    CASHIER_NR ERROR_TYPE(Error<error-type>),
+    CASHIER_HASH ERROR_TYPE(Error<error-type>),
+    BUS_DT ERROR_TYPE(Error<error-type>)
+  )
+  AS
+    WITH ALL_EVENTS AS (
+      SELECT
+          T_TMP_RETAIL_EVENT.CASHIER_HASH,
+          T_TMP_RETAIL_EVENT.STORE_SID,
+          T_TMP_RETAIL_EVENT.CASHIER_NR,
+          T_TMP_RETAIL_EVENT.BUS_DT,
+          T_TMP_RETAIL_EVENT.COUNTRY_ORG_CD,
+          -- In MIS system only sales receipts with transaction code 100 were qualified for workdays count filter
+          -- 100 means sales receipts that were not suspended or aborted so both conditions in a CASE statement below should correspond to that logic
+          CASE
+            WHEN T_TMP_RETAIL_EVENT.RETAIL_EVENT_TYPE_CD = 'S'
+             AND T_TMP_RETAIL_EVENT.TURNOVER_RELEVANT_FG = true THEN NUMERIC '1'
+            ELSE NUMERIC '0'
+          END AS WORKDAYS_CNT_RELEVANT_FG
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_RETAIL_EVENT
+        -- IS_DIRECTLY_ORDERED=1 means store is explicitly ordered for investigation or belongs to company that is ordered for investigation
+        -- IS_DIRECTLY_ORDERED=0 (sibling store) means store is NOT ordered, but is included because another store from same company is explicitly ordered (while the whole company is NOT ordered)
+        -- also field STORE_SELECTED_FG exists. It is 1 only for stores that are explicitly ordered while their company is NOT ordered
+        WHERE T_TMP_RETAIL_EVENT.IS_DIRECTLY_ORDERED = NUMERIC '1' /* excluding siblings*/
+      UNION ALL
+      SELECT
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.CASHIER_HASH,
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.STORE_SID,
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.CASHIER_NR,
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.BUS_DT,
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.COUNTRY_ORG_CD,
+          -- No workdays count relevant events within technical events set so setting the flag to 0
+          NUMERIC '0' AS WORKDAYS_CNT_RELEVANT_FG
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_TECHNICAL_CASH_REGISTER_EVENT
+        WHERE T_TMP_TECHNICAL_CASH_REGISTER_EVENT.IS_DIRECTLY_ORDERED = NUMERIC '1' /* excluding siblings*/
+      UNION ALL
+      SELECT
+          T_TMP_PRICE_INFORMATION_EVENT.CASHIER_HASH,
+          T_TMP_PRICE_INFORMATION_EVENT.STORE_SID,
+          T_TMP_PRICE_INFORMATION_EVENT.CASHIER_NR,
+          T_TMP_PRICE_INFORMATION_EVENT.BUS_DT,
+          T_TMP_PRICE_INFORMATION_EVENT.COUNTRY_ORG_CD,
+          -- No workdays count relevant events within price check events set so setting the flag to 0
+          NUMERIC '0' AS WORKDAYS_CNT_RELEVANT_FG
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_PRICE_INFORMATION_EVENT
+        WHERE T_TMP_PRICE_INFORMATION_EVENT.IS_DIRECTLY_ORDERED = NUMERIC '1' /* excluding siblings*/
+    ), CASHIER_DAILY_STATS AS (
+      SELECT
+          ALL_EVENTS.CASHIER_HASH,
+          ALL_EVENTS.STORE_SID,
+          ALL_EVENTS.CASHIER_NR,
+          ALL_EVENTS.BUS_DT,
+          ALL_EVENTS.COUNTRY_ORG_CD,
+          sum(ALL_EVENTS.WORKDAYS_CNT_RELEVANT_FG) AS CASHIER_DAILY_SALES_CNT,
+          CAST(count(*) as BIGNUMERIC) AS CASHIER_DAILY_RETAIL_EVENTS_CNT,
+          sum(CASE
+             sum(ALL_EVENTS.WORKDAYS_CNT_RELEVANT_FG)
+            WHEN NUMERIC '0' THEN NUMERIC '0'
+            ELSE NUMERIC '1'
+          END) OVER (PARTITION BY ALL_EVENTS.STORE_SID, ALL_EVENTS.CASHIER_NR) AS CASHIER_WORKDAYS_CNT,
+          sum(CAST(count(*) as BIGNUMERIC)) OVER (PARTITION BY ALL_EVENTS.STORE_SID, ALL_EVENTS.CASHIER_NR) AS CASHIER_RETAIL_EVENTS_CNT
+        FROM
+          ALL_EVENTS
+        GROUP BY 1, 2, 3, 4, 5
+    )
+    SELECT
+        CASHIER_DAILY_STATS.STORE_SID,
+        CASHIER_DAILY_STATS.COUNTRY_ORG_CD,
+        CASHIER_DAILY_STATS.CASHIER_NR,
+        CASHIER_DAILY_STATS.CASHIER_HASH,
+        CASHIER_DAILY_STATS.BUS_DT
+      FROM
+        CASHIER_DAILY_STATS
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND CASHIER_DAILY_STATS.CASHIER_WORKDAYS_CNT > SV_MIN_WORK_DAYS
+       AND CASHIER_DAILY_STATS.CASHIER_RETAIL_EVENTS_CNT > SV_MIN_RECEIPTS
+;
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--
+-- Get stats on EVENT LEVEL for all stores and days, and calculate flag is a cashier is qualified
+-- 		All rows will go into the statistic table
+-- 		Only rows for qualified cashiers will go into CLASSIFICATION table
+--
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- 	2.1
+CREATE OR REPLACE TEMPORARY TABLE T_TMP_DISCOUNT_SCENARIOS
+  AS
+    WITH DISCOUNT_LINES_EVAL AS (
+      SELECT
+          -- "Anzahl Bons mit Rabattwert >=X pro Bon"
+          -- calculate a flag which line is "manual" discount
+          RE.RETAIL_EVENT_SID,
+          RE.CASH_REGISTER_EVENT_NR,
+          RE.COUNTRY_ORG_CD,
+          RE.STORE_SID,
+          RE.BUS_DT,
+          RE.EVENT_END_TMSP,
+          RE.CUST_SID,
+          RE.CUST_IDENT_TYPE_CD,
+          RE.CASHIER_NR,
+          RE.CASH_REGISTER_NR,
+          RE.CASH_REGISTER_TYPE_CD,
+          PRL.RETAIL_EVENT_LINE_SEQ,
+          PRL.TAX_PCT,
+          DL.DISCOUNT_VAL,
+          CASE
+            WHEN DL.RETAIL_EVENT_LINE_SCENARIO_ID BETWEEN NUMERIC '400' AND NUMERIC '599'
+             AND NOT (length(PRL.PROD_VARIANT_INPUT_NR) BETWEEN NUMERIC '15' AND NUMERIC '17'
+             AND PRL.PROD_VARIANT_INPUT_NR LIKE ANY ('55%', '56%')) THEN NUMERIC '1'
+            ELSE NUMERIC '0'
+          END AS IS_MANUAL_DISCOUNT_LINE_FG
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_RETAIL_EVENT AS RE
+          INNER JOIN LDL_DATA_PRODUCTION.CORE_REL.T_DISCOUNT_LINE AS DL ON DL.RETAIL_EVENT_SID = RE.RETAIL_EVENT_SID
+           AND DL.COUNTRY_ORG_CD = RE.COUNTRY_ORG_CD
+           AND DL.BUS_DT = RE.BUS_DT
+          INNER JOIN LDL_DATA_PRODUCTION.ETL.T_TMP_PRODUCT_RETAIL_LINE AS PRL ON PRL.RETAIL_EVENT_SID = DL.RETAIL_EVENT_SID
+           AND PRL.RETAIL_EVENT_LINE_SEQ = DL.DISCOUNTED_LINE_SEQ
+        WHERE NUMERIC '1' = NUMERIC '1'
+         AND RE.TURNOVER_RELEVANT_FG = true /* this eliminates cancelled (aborted) and suspended receipts too*/
+         AND abs(DL.DISCOUNT_VAL) > NUMERIC '0.01'
+         AND DL.BUS_DT BETWEEN SV_MIN_DT AND SV_MAX_DT
+    ), DISCOUNTS_EVAL AS (
+      SELECT
+          DLE.RETAIL_EVENT_SID AS CASH_REGISTER_EVENT_SID,
+          any_value(DLE.CASH_REGISTER_EVENT_NR) AS CASH_REGISTER_EVENT_NR,
+          any_value(DLE.COUNTRY_ORG_CD) AS COUNTRY_ORG_CD,
+          any_value(DLE.STORE_SID) AS STORE_SID,
+          any_value(DLE.BUS_DT) AS BUS_DT,
+          any_value(CAST(extract(HOUR from CAST(DLE.EVENT_END_TMSP as DATETIME)) as BIGNUMERIC)) AS EVENT_END_HR,
+          any_value(DLE.CUST_SID) AS CUST_SID,
+          any_value(DLE.CUST_IDENT_TYPE_CD) AS CUST_IDENT_TYPE_CD,
+          any_value(DLE.CASHIER_NR) AS CASHIER_NR,
+          any_value(DLE.CASH_REGISTER_NR) AS CASH_REGISTER_NR,
+          any_value(DLE.CASH_REGISTER_TYPE_CD) AS CASH_REGISTER_TYPE_CD,
+          -- it is possible that 1 retail line has 2 discounts ( 2 discount lines)
+          -- so the next two columns could have different numbers
+          CAST(count(*) as BIGNUMERIC) AS DISCOUNT_LINE_CNT,
+          CAST(count(DISTINCT DLE.RETAIL_EVENT_LINE_SEQ) as BIGNUMERIC) AS DISCOUNTED_LINES_CNT,
+          sum(abs(DLE.DISCOUNT_VAL)) AS DISCOUNT_GROSS_VAL,
+          sum(abs(DLE.DISCOUNT_VAL / (NUMERIC '1' + DLE.TAX_PCT / NUMERIC '100'))) AS DISCOUNT_NET_VAL,
+          -- same as 4 cols above but only manual lines are considered
+          sum(DLE.IS_MANUAL_DISCOUNT_LINE_FG) AS MANUAL_DISCOUNT_LINE_CNT,
+          CAST(count(DISTINCT CASE
+             DLE.IS_MANUAL_DISCOUNT_LINE_FG
+            WHEN NUMERIC '1' THEN DLE.RETAIL_EVENT_LINE_SEQ
+            ELSE NULL
+          END) as BIGNUMERIC) AS MANUAL_DISCOUNTED_LINES_CNT,
+          sum(abs(DLE.DISCOUNT_VAL * DLE.IS_MANUAL_DISCOUNT_LINE_FG)) AS MANUAL_DISCOUNT_GROSS_VAL,
+          sum(abs(DLE.DISCOUNT_VAL * DLE.IS_MANUAL_DISCOUNT_LINE_FG / (NUMERIC '1' + DLE.TAX_PCT / NUMERIC '100'))) AS MANUAL_DISCOUNT_NET_VAL
+        FROM
+          DISCOUNT_LINES_EVAL AS DLE
+        GROUP BY 1
+    ), MATERIALIZE_PARAM_VIEW AS (
+      SELECT
+          *
+        FROM
+          LDL_DATA_PRODUCTION.CORE_APP_FRAUD_DETECTION.V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE
+        WHERE V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE.SCENARIO_ID IN(
+          NUMERIC '54' /* "Anzahl Bons mit >=X rabattierten Artikeln pro Bon"*/, NUMERIC '55'
+        )
+    )
+    SELECT
+        DE.CASH_REGISTER_EVENT_SID,
+        DE.CASH_REGISTER_EVENT_NR,
+        DE.COUNTRY_ORG_CD,
+        DE.STORE_SID,
+        DE.BUS_DT,
+        DE.EVENT_END_HR,
+        DE.CUST_SID,
+        DE.CUST_IDENT_TYPE_CD,
+        DE.CASHIER_NR,
+        DE.CASH_REGISTER_NR,
+        DE.CASH_REGISTER_TYPE_CD,
+        DE.DISCOUNT_LINE_CNT,
+        DE.DISCOUNTED_LINES_CNT,
+        DE.DISCOUNT_NET_VAL,
+        DE.DISCOUNT_GROSS_VAL,
+        DE.MANUAL_DISCOUNT_LINE_CNT,
+        DE.MANUAL_DISCOUNTED_LINES_CNT,
+        DE.MANUAL_DISCOUNT_NET_VAL,
+        DE.MANUAL_DISCOUNT_GROSS_VAL,
+        if(DE.MANUAL_DISCOUNTED_LINES_CNT > NUMERIC '0', NUMERIC '1', NUMERIC '0') AS HAS_MANUAL_DISCOUNT_FG,
+        CASE
+          WHEN P_MDL.IS_SCENARIO_ENABLED_IN_COUNTRY_FG = true
+           AND DE.MANUAL_DISCOUNTED_LINES_CNT >= P_MDL.PARAM_VAL_QTY THEN NUMERIC '1'
+          ELSE NUMERIC '0'
+        END AS HAS_MANY_DISCOUNTED_LINES_FG,
+        CASE
+          WHEN P_MDV.IS_SCENARIO_ENABLED_IN_COUNTRY_FG = true
+           AND DE.MANUAL_DISCOUNT_GROSS_VAL >= P_MDV.PARAM_VAL_QTY THEN NUMERIC '1'
+          ELSE NUMERIC '0'
+        END AS HAS_HIGH_VALUE_DISCOUNT_FG
+      FROM
+        DISCOUNTS_EVAL AS DE
+        LEFT OUTER JOIN MATERIALIZE_PARAM_VIEW AS P_MDL /* parameter "minimum discounted lines" (Anzahl Bons mit >=X rabattierten Artikeln pro Bon)*/ ON P_MDL.COUNTRY_ORG_CD = DE.COUNTRY_ORG_CD
+         AND P_MDL.SCENARIO_ID = NUMERIC '54'
+         AND P_MDL.PARAM_ID = NUMERIC '131'
+        LEFT OUTER JOIN MATERIALIZE_PARAM_VIEW AS P_MDV /* parameter "minimum discount value" (Anzahl Bons mit Rabattwert >=X LW pro Bon)*/ ON P_MDV.COUNTRY_ORG_CD = DE.COUNTRY_ORG_CD
+         AND P_MDV.SCENARIO_ID = NUMERIC '55'
+         AND P_MDV.PARAM_ID = NUMERIC '132'
+;
+-- 	2.2
+CREATE OR REPLACE TEMPORARY TABLE T_TMP_STORNO_SCENARIOS
+  AS
+    WITH IMPORTANT_PROD_FLAG AS (
+      SELECT
+          -- for every cancelled line we will produce a flag "is_prod_important_fg" that will be reused in many other columns
+          -- some poducts are NOT important for cancelled lines (such as Bakery/Fruits/Vegetables/Flowers) - the other products are "important"
+          -- "important" products are relevant for all "storno" scenarios, while "not important" products need to be counted only in one scenario
+          RE.RETAIL_EVENT_SID AS CASH_REGISTER_EVENT_SID,
+          RE.CASH_REGISTER_EVENT_NR,
+          RE.COUNTRY_ORG_CD,
+          RE.STORE_SID,
+          RE.BUS_DT,
+          CAST(extract(HOUR from CAST(RE.EVENT_END_TMSP as DATETIME)) as BIGNUMERIC) AS EVENT_END_HR,
+          RE.CUST_SID,
+          RE.CUST_IDENT_TYPE_CD,
+          RE.CASHIER_NR,
+          RE.CASH_REGISTER_NR,
+          RE.CASH_REGISTER_TYPE_CD,
+          PRL.RETAIL_LINE_GROSS_VAL,
+          PRL.RETAIL_LINE_GROSS_VAL - PRL.RETAIL_LINE_VAT_VAL AS CANCELLED_NET_VAL,
+          CASE
+            WHEN P.INT_ITEM_GRP_NR IS NOT NULL
+             AND P.INT_ITEM_GRP_NR NOT IN(
+              '10', '20'
+            ) /* exclude Fruit/Vegetables and Flowers*/
+             AND P.SUB_ITEM_GRP_NR IS NOT NULL
+             AND P.SUB_ITEM_GRP_NR <> '74' /* exclude bakery*/ THEN NUMERIC '1'
+            ELSE NUMERIC '0'
+          END AS IS_PROD_IMPORTANT_FG
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_RETAIL_EVENT AS RE
+          INNER JOIN LDL_DATA_PRODUCTION.ETL.T_TMP_PRODUCT_RETAIL_LINE AS PRL ON RE.RETAIL_EVENT_SID = PRL.RETAIL_EVENT_SID
+          INNER JOIN LDL_DATA_PRODUCTION.CORE_DIM.T_DIM_SALES_VARIANT AS P ON PRL.PROD_VARIANT_SID = P.SALES_VARIANT_SID
+           AND P.DWH_VALID_FG = true
+        WHERE NUMERIC '1' = NUMERIC '1'
+         AND RE.RETAIL_EVENT_TYPE_CD = 'S'
+         AND PRL.CANCEL_LINE_SEQ IS NOT NULL
+         AND RE.TURNOVER_RELEVANT_FG = true /* this eliminates cancelled (aborted) and suspended receipts too*/
+    )
+    SELECT
+        IPF.CASH_REGISTER_EVENT_SID,
+        any_value(IPF.CASH_REGISTER_EVENT_NR) AS CASH_REGISTER_EVENT_NR,
+        any_value(IPF.COUNTRY_ORG_CD) AS COUNTRY_ORG_CD,
+        any_value(IPF.STORE_SID) AS STORE_SID,
+        any_value(IPF.BUS_DT) AS BUS_DT,
+        any_value(IPF.EVENT_END_HR) AS EVENT_END_HR,
+        any_value(IPF.CUST_SID) AS CUST_SID,
+        any_value(IPF.CUST_IDENT_TYPE_CD) AS CUST_IDENT_TYPE_CD,
+        any_value(IPF.CASHIER_NR) AS CASHIER_NR,
+        any_value(IPF.CASH_REGISTER_NR) AS CASH_REGISTER_NR,
+        any_value(IPF.CASH_REGISTER_TYPE_CD) AS CASH_REGISTER_TYPE_CD,
+        CAST(count(*) as BIGNUMERIC) AS TOTAL_CANCELLED_LINE_CNT,
+        sum(IPF.CANCELLED_NET_VAL) AS TOTAL_CANCELLED_NET_VAL,
+        sum(IPF.RETAIL_LINE_GROSS_VAL) AS TOTAL_CANCELLED_GROSS_VAL,
+        sum(IPF.IS_PROD_IMPORTANT_FG) AS IMPORTANT_PROD_CANCELLED_LINE_CNT,
+        sum(IPF.IS_PROD_IMPORTANT_FG * IPF.CANCELLED_NET_VAL) AS IMPORTANT_PROD_CANCELLED_NET_VAL,
+        sum(IPF.IS_PROD_IMPORTANT_FG * IPF.RETAIL_LINE_GROSS_VAL) AS IMPORTANT_PROD_CANCELLED_GROSS_VAL
+      FROM
+        IMPORTANT_PROD_FLAG AS IPF
+      GROUP BY 1
+;
+-- 	2.3
+CREATE OR REPLACE TEMPORARY TABLE T_TMP_PRICE_CHECK_SCENARIOS
+  AS
+    WITH ALL_EVENTS AS (
+      SELECT
+          -- "Anzahl Preisanzeigen direkt vor Kleinstbon"
+          T_TMP_RETAIL_EVENT.RETAIL_EVENT_SID AS CASH_REGISTER_EVENT_SID,
+          T_TMP_RETAIL_EVENT.CASH_REGISTER_EVENT_NR,
+          T_TMP_RETAIL_EVENT.COUNTRY_ORG_CD,
+          T_TMP_RETAIL_EVENT.STORE_SID,
+          T_TMP_RETAIL_EVENT.BUS_DT,
+          T_TMP_RETAIL_EVENT.EVENT_END_TMSP AS EVENT_TMSP,
+          T_TMP_RETAIL_EVENT.RETAIL_EVENT_SCENARIO_ID AS CASH_REGISTER_EVENT_TYPE_CD,
+          T_TMP_RETAIL_EVENT.CASH_REGISTER_SID,
+          T_TMP_RETAIL_EVENT.CASH_REGISTER_TYPE_CD,
+          T_TMP_RETAIL_EVENT.CASH_REGISTER_NR,
+          T_TMP_RETAIL_EVENT.CASHIER_NR,
+          NULL AS PROD_VARIANT_SID,
+          T_TMP_RETAIL_EVENT.TXN_GROSS_VAL,
+          T_TMP_RETAIL_EVENT.SALES_COMPANY_SID,
+          T_TMP_RETAIL_EVENT.STORE_SELECTED_FG,
+          T_TMP_RETAIL_EVENT.IS_DIRECTLY_ORDERED
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_RETAIL_EVENT
+      UNION ALL
+      SELECT
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.TECH_CASH_REGISTER_EVENT_SID AS CASH_REGISTER_EVENT_SID,
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.CASH_REGISTER_EVENT_NR,
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.COUNTRY_ORG_CD,
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.STORE_SID,
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.BUS_DT,
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.EVENT_TMSP,
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.TECH_CASH_REGISTER_EVENT_TYPE_CD AS CASH_REGISTER_EVENT_TYPE_CD,
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.CASH_REGISTER_SID,
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.CASH_REGISTER_TYPE_CD,
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.CASH_REGISTER_NR,
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.CASHIER_NR,
+          NULL AS PROD_VARIANT_SID,
+          NUMERIC '0' AS TXN_GROSS_VAL,
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.SALES_COMPANY_SID,
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.STORE_SELECTED_FG,
+          T_TMP_TECHNICAL_CASH_REGISTER_EVENT.IS_DIRECTLY_ORDERED
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_TECHNICAL_CASH_REGISTER_EVENT
+      UNION ALL
+      SELECT
+          T_TMP_PRICE_INFORMATION_EVENT.PRICE_INFO_EVENT_SID AS CASH_REGISTER_EVENT_SID,
+          T_TMP_PRICE_INFORMATION_EVENT.CASH_REGISTER_EVENT_NR,
+          T_TMP_PRICE_INFORMATION_EVENT.COUNTRY_ORG_CD,
+          T_TMP_PRICE_INFORMATION_EVENT.STORE_SID,
+          T_TMP_PRICE_INFORMATION_EVENT.BUS_DT,
+          T_TMP_PRICE_INFORMATION_EVENT.EVENT_TMSP,
+          NUMERIC '480' AS CASH_REGISTER_EVENT_TYPE_CD,
+          T_TMP_PRICE_INFORMATION_EVENT.CASH_REGISTER_SID,
+          T_TMP_PRICE_INFORMATION_EVENT.CASH_REGISTER_TYPE_CD,
+          T_TMP_PRICE_INFORMATION_EVENT.CASH_REGISTER_NR,
+          T_TMP_PRICE_INFORMATION_EVENT.CASHIER_NR,
+          T_TMP_PRICE_INFORMATION_EVENT.PROD_VARIANT_SID,
+          T_TMP_PRICE_INFORMATION_EVENT.PROD_PRICE AS TXN_GROSS_VAL,
+          T_TMP_PRICE_INFORMATION_EVENT.SALES_COMPANY_SID,
+          T_TMP_PRICE_INFORMATION_EVENT.STORE_SELECTED_FG,
+          T_TMP_PRICE_INFORMATION_EVENT.IS_DIRECTLY_ORDERED
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_PRICE_INFORMATION_EVENT
+    ), ALL_EVENTS_WITH_CHANGE_FLAG AS (
+      SELECT
+          AE.*,
+          CASE
+            WHEN AE.CASH_REGISTER_EVENT_TYPE_CD <> lag(AE.CASH_REGISTER_EVENT_TYPE_CD, 1) OVER (PARTITION BY AE.BUS_DT, AE.CASH_REGISTER_SID ORDER BY if(AE.CASH_REGISTER_EVENT_NR IS NULL, 0, 1) DESC, AE.CASH_REGISTER_EVENT_NR) THEN NUMERIC '1'
+            ELSE NUMERIC '0'
+          END AS EVENT_TYPE_CHANGE_FG,
+          row_number() OVER (PARTITION BY AE.BUS_DT, AE.CASH_REGISTER_SID ORDER BY if(AE.EVENT_TMSP IS NULL, 0, 1) DESC, AE.EVENT_TMSP, if(AE.CASH_REGISTER_EVENT_NR IS NULL, 0, 1) DESC, AE.CASH_REGISTER_EVENT_NR) AS RNK
+        FROM
+          ALL_EVENTS AS AE
+    ), ALL_EVENTS_WITH_GROUPS AS (
+      SELECT
+          AE1.*,
+          sum(AE1.EVENT_TYPE_CHANGE_FG) OVER (PARTITION BY AE1.CASH_REGISTER_SID, AE1.BUS_DT ORDER BY AE1.RNK NULLS LAST ROWS UNBOUNDED PRECEDING) AS GROUP_ID
+        FROM
+          ALL_EVENTS_WITH_CHANGE_FLAG AS AE1
+    ), PRICE_INFO_EVENTS_WITH_NEXT_EVENT AS (
+      SELECT
+          -- param has same value for all receips in given country
+          PIE.CASH_REGISTER_EVENT_SID,
+          PIE.CASH_REGISTER_EVENT_NR,
+          PIE.COUNTRY_ORG_CD,
+          PIE.STORE_SID,
+          PIE.BUS_DT,
+          PIE.EVENT_TMSP,
+          PIE.CASH_REGISTER_TYPE_CD,
+          PIE.CASH_REGISTER_NR,
+          PIE.CASHIER_NR,
+          PIE.TXN_GROSS_VAL,
+          PIE.CASH_REGISTER_SID,
+          PIE.PROD_VARIANT_SID,
+          PIE.GROUP_ID,
+          PIE.SALES_COMPANY_SID,
+          PIE.STORE_SELECTED_FG,
+          PIE.IS_DIRECTLY_ORDERED,
+          ANPE.CASH_REGISTER_EVENT_SID AS NEXT_EVENT_SID,
+          ANPE.CASH_REGISTER_EVENT_TYPE_CD AS NEXT_EVENT_TYPE_CD,
+          ANPE.TXN_GROSS_VAL AS NEXT_TXN_GROSS_VAL
+        FROM
+          ALL_EVENTS_WITH_GROUPS AS PIE /* we will take only PriceInfo events here (see the WHERE)*/
+          LEFT OUTER JOIN ALL_EVENTS AS ANPE /* we need only non-PriceInfo events here. Also some types of technical events are excluded*/ ON ANPE.BUS_DT = PIE.BUS_DT
+           AND ANPE.CASH_REGISTER_SID = PIE.CASH_REGISTER_SID
+           AND ANPE.CASH_REGISTER_EVENT_TYPE_CD NOT IN(
+            NUMERIC '480', NUMERIC '400', NUMERIC '405', NUMERIC '420', NUMERIC '425', NUMERIC '430'
+          )
+           AND ANPE.CASH_REGISTER_EVENT_NR > PIE.CASH_REGISTER_EVENT_NR
+        WHERE PIE.CASH_REGISTER_EVENT_TYPE_CD = NUMERIC '480'
+        QUALIFY row_number() OVER (PARTITION BY PIE.CASH_REGISTER_EVENT_SID ORDER BY if(ANPE.CASH_REGISTER_EVENT_NR IS NULL, 0, 1) DESC, ANPE.CASH_REGISTER_EVENT_NR) = NUMERIC '1'
+    ), MATERIALIZE_PARAM_VIEW AS (
+      SELECT
+          V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE.*
+        FROM
+          LDL_DATA_PRODUCTION.CORE_APP_FRAUD_DETECTION.V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE
+        WHERE V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE.SCENARIO_ID IN(
+          NUMERIC '47' /* "Anzahl Preisanzeigen mit Non-Food Artikeln >= X LW"*/, NUMERIC '50' /* "Anzahl Vorgänge > X Preisanzeigen in Folge"*/, NUMERIC '52'
+        )
+    ), SMALL_SALE_EVENTS AS (
+      SELECT
+          RETAIL_EVENT_SID
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_PRODUCT_RETAIL_LINE AS PRL
+          INNER JOIN MATERIALIZE_PARAM_VIEW AS P_SSMA  ON P_SSMA.COUNTRY_ORG_CD = PRL.COUNTRY_ORG_CD
+           AND P_SSMA.SCENARIO_ID = NUMERIC '52'
+           AND P_SSMA.PARAM_ID = NUMERIC '130'
+           AND P_SSMA.IS_SCENARIO_ENABLED_IN_COUNTRY_FG = true
+        WHERE NUMERIC '1' = NUMERIC '1'
+         AND PRL.TURNOVER_RELEVANT_FG = true
+        GROUP BY PRL.RETAIL_EVENT_SID
+        HAVING NUMERIC '1' = NUMERIC '1'
+         AND sum(CASE
+          -- only one retail line
+          WHEN RETAIL_EVENT_LINE_SCENARIO_ID IN(
+            NUMERIC '101', NUMERIC '102', NUMERIC '120', NUMERIC '122', NUMERIC '201', NUMERIC '202', NUMERIC '220', NUMERIC '222'
+          ) THEN NUMERIC '1'
+          ELSE NUMERIC '0'
+        END) = NUMERIC '1'
+         AND sum(CASE
+          -- and 0 cancelled lines
+          WHEN CANCEL_LINE_SEQ IS NOT NULL
+           AND RETAIL_LINE_GROSS_VAL > NUMERIC '0' THEN NUMERIC '1'
+          ELSE NUMERIC '0'
+        END) = NUMERIC '0'
+         AND sum(CASE
+          -- and amount of the receipt is below threshold
+          WHEN RETAIL_EVENT_LINE_SCENARIO_ID IN(
+            NUMERIC '101', NUMERIC '102', NUMERIC '120', NUMERIC '122', NUMERIC '201', NUMERIC '202', NUMERIC '220', NUMERIC '222'
+          ) THEN RETAIL_LINE_GROSS_VAL
+          ELSE NUMERIC '0'
+        END) < any_value(P_SSMA.PARAM_VAL_QTY)
+    )
+    SELECT
+        PIE.CASH_REGISTER_EVENT_SID,
+        PIE.CASH_REGISTER_EVENT_NR,
+        PIE.COUNTRY_ORG_CD,
+        PIE.STORE_SID,
+        PIE.BUS_DT,
+        CAST(extract(HOUR from CAST(PIE.EVENT_TMSP as DATETIME)) as BIGNUMERIC) AS EVENT_END_HR,
+        CAST(NULL as BIGNUMERIC) AS CUST_SID,
+        CAST(NULL as STRING) AS CUST_IDENT_TYPE_CD,
+        PIE.CASHIER_NR,
+        PIE.CASH_REGISTER_NR,
+        PIE.CASH_REGISTER_TYPE_CD,
+        PIE.SALES_COMPANY_SID,
+        PIE.STORE_SELECTED_FG,
+        PIE.TXN_GROSS_VAL,
+        CAST(count(*) OVER (PARTITION BY PIE.BUS_DT, PIE.CASH_REGISTER_SID, PIE.GROUP_ID) as BIGNUMERIC) AS CONSECUTIVE_PIE_IN_GROUP_CNT,
+        row_number() OVER (PARTITION BY PIE.BUS_DT, PIE.CASH_REGISTER_SID, PIE.GROUP_ID ORDER BY if(PIE.CASH_REGISTER_EVENT_NR IS NULL, 0, 1) DESC, PIE.CASH_REGISTER_EVENT_NR) AS RN_IN_GROUP,
+        -- for scenario 47
+        CASE
+          WHEN P_NFAMA.IS_SCENARIO_ENABLED_IN_COUNTRY_FG = true
+           AND PIE.TXN_GROSS_VAL >= P_NFAMA.PARAM_VAL_QTY
+           AND round(SAFE_CAST(PV.INT_ITEM_GRP_NR AS BIGNUMERIC), 0) = NUMERIC '70' THEN NUMERIC '1'
+          ELSE NUMERIC '0'
+        END AS IS_NON_FOOD_FG,
+        -- for scenario 48
+        if(round(SAFE_CAST(PV.SUB_ITEM_GRP_NR AS BIGNUMERIC), 0) = NUMERIC '80', NUMERIC '1', NUMERIC '0') AS IS_TOBACCO_FG,
+        -- for scenario 49
+        if(round(SAFE_CAST(PV.SUB_ITEM_GRP_NR AS BIGNUMERIC), 0) IN(
+          NUMERIC '60', NUMERIC '61', NUMERIC '63'
+        ), NUMERIC '1', NUMERIC '0') AS IS_ALCOHOL_FG,
+        -- for scenario 50
+        CASE
+          WHEN P_CPC.IS_SCENARIO_ENABLED_IN_COUNTRY_FG = true
+           AND count(*) OVER (PARTITION BY PIE.BUS_DT, PIE.CASH_REGISTER_SID, PIE.GROUP_ID) >= P_CPC.PARAM_VAL_QTY
+           AND row_number() OVER (PARTITION BY PIE.BUS_DT, PIE.CASH_REGISTER_SID, PIE.GROUP_ID ORDER BY if(PIE.CASH_REGISTER_EVENT_NR IS NULL, 0, 1) DESC, PIE.CASH_REGISTER_EVENT_NR) = NUMERIC '1' THEN NUMERIC '1'
+          -- many "price checks" in same group (meaning they are consecutive)
+          -- we mark only one (the first) per group
+          ELSE NUMERIC '0'
+        END AS IS_MULTI_PIE_FG,
+        -- for scenario 51
+        if(PIE.NEXT_EVENT_TYPE_CD = NUMERIC '410', NUMERIC '1', NUMERIC '0') AS IS_NEXT_LOGOFF_FG,
+        -- for scenario 52
+        if(PIE.NEXT_EVENT_TYPE_CD = NUMERIC '100'
+         AND SSE.RETAIL_EVENT_SID IS NOT NULL, NUMERIC '1', NUMERIC '0') AS IS_NEXT_SMALL_SALE_FG
+      FROM
+        PRICE_INFO_EVENTS_WITH_NEXT_EVENT AS PIE
+        LEFT OUTER JOIN LDL_DATA_PRODUCTION.CORE_DIM.T_DIM_SALES_VARIANT AS PV ON PV.SALES_VARIANT_SID = PIE.PROD_VARIANT_SID
+         AND PV.DWH_VALID_FG = true
+        LEFT OUTER JOIN MATERIALIZE_PARAM_VIEW AS P_NFAMA /* parameter "non-food article min amount"*/ ON P_NFAMA.COUNTRY_ORG_CD = PIE.COUNTRY_ORG_CD
+         AND P_NFAMA.SCENARIO_ID = NUMERIC '47'
+         AND P_NFAMA.PARAM_ID = NUMERIC '129'
+        LEFT OUTER JOIN MATERIALIZE_PARAM_VIEW AS P_CPC /* parameter "consecutive price checks"*/ ON P_CPC.COUNTRY_ORG_CD = PIE.COUNTRY_ORG_CD
+         AND P_CPC.SCENARIO_ID = NUMERIC '50'
+         AND P_CPC.PARAM_ID = NUMERIC '128'
+        LEFT OUTER JOIN SMALL_SALE_EVENTS AS SSE ON SSE.RETAIL_EVENT_SID = PIE.NEXT_EVENT_SID
+;
+-- 	2.4
+CREATE OR REPLACE TEMPORARY TABLE T_TMP_SUSPEND_SCENARIOS
+  AS
+    WITH CONT_SALES_EVENT AS (
+      SELECT DISTINCT
+          -- Sales events that COULD be the events completing the suspended receipts
+          -- incorrect data sometimes exists and 1 suspended receipt is resumed with two different receipts
+          C_RE.SUSP_RETAIL_EVENT_SID
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_RETAIL_EVENT AS C_RE
+        WHERE NUMERIC '1' = NUMERIC '1'
+         AND C_RE.SUSP_RETAIL_EVENT_SID IS NOT NULL
+         AND C_RE.RETAIL_EVENT_TYPE_CD = 'S'
+    )
+    SELECT
+        -- Removed both conditions. Doesn't matter for continuation receipt if it's a normal sales, cancellation or another suspended receipt - any continuation for a suspended receipt means that this suspended receipt is resolved
+        -- and c_re.SUSPEND_FG = FALSE
+        -- and c_re.CANCEL_FG = FALSE
+        RE.RETAIL_EVENT_SID AS CASH_REGISTER_EVENT_SID,
+        RE.CASH_REGISTER_EVENT_NR,
+        RE.COUNTRY_ORG_CD,
+        RE.STORE_SID,
+        RE.BUS_DT,
+        CAST(extract(HOUR from CAST(RE.EVENT_END_TMSP as DATETIME)) as BIGNUMERIC) AS EVENT_END_HR,
+        RE.CUST_SID,
+        RE.CUST_IDENT_TYPE_CD,
+        RE.CASHIER_NR,
+        RE.CASH_REGISTER_NR,
+        RE.CASH_REGISTER_TYPE_CD,
+        CASE
+          WHEN CSE.SUSP_RETAIL_EVENT_SID IS NOT DISTINCT FROM CAST(NULL as STRING) THEN NUMERIC '0'
+          ELSE NUMERIC '1'
+        END AS IS_RECEIPT_RESOLVED_FG,
+        NUMERIC '1' AS SUSPENDED_CNT,
+        abs(RE.TXN_NET_VAL) /* SUSPENDED_UNRESOLVED_NET_VAL*/ AS SUSPENDED_NET_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_RETAIL_EVENT AS RE
+        LEFT OUTER JOIN CONT_SALES_EVENT AS CSE ON CSE.SUSP_RETAIL_EVENT_SID = RE.RETAIL_EVENT_SID
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND RE.RETAIL_EVENT_TYPE_CD = 'S'
+       AND RE.SUSPEND_FG = true /* suspended*/
+       AND RE.CANCEL_FG = false
+;
+-- not cancelled (aborted)
+-- 	2.5
+CREATE OR REPLACE TEMPORARY TABLE T_TMP_ABORT_SCENARIOS
+  AS
+    WITH MATERIALIZE_PARAM_VIEW AS (
+      SELECT
+          V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE.*
+        FROM
+          LDL_DATA_PRODUCTION.CORE_APP_FRAUD_DETECTION.V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE
+        WHERE V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE.SCENARIO_ID = NUMERIC '32'
+    )
+    SELECT
+        RE.RETAIL_EVENT_SID AS CASH_REGISTER_EVENT_SID,
+        RE.CASH_REGISTER_EVENT_NR,
+        RE.COUNTRY_ORG_CD,
+        RE.STORE_SID,
+        RE.BUS_DT,
+        CAST(extract(HOUR from CAST(RE.EVENT_END_TMSP as DATETIME)) as BIGNUMERIC) AS EVENT_END_HR,
+        RE.CUST_SID,
+        RE.CUST_IDENT_TYPE_CD,
+        RE.CASHIER_NR,
+        RE.CASH_REGISTER_NR,
+        RE.CASH_REGISTER_TYPE_CD,
+        NUMERIC '1' AS CASH_REGISTER_ABORT_CNT,
+        abs(RE.TXN_NET_VAL) AS ABORT_NET_VAL,
+        -- Calculating if the gross value satisfies the threshold as flag
+        -- Receipts for Gesamtwert Bonabbruch scenario have to satisfy the threshold but for Gesamtanzahl Bonabbruch all receipts are qualified
+        CASE
+           RE.TXN_GROSS_VAL >= MPV.PARAM_VAL_QTY
+          WHEN true THEN NUMERIC '1'
+          ELSE NUMERIC '0'
+        END AS IS_VALUE_ABOVE_THRESHOLD_FG
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_RETAIL_EVENT AS RE
+        INNER JOIN MATERIALIZE_PARAM_VIEW AS MPV ON RE.COUNTRY_ORG_CD = MPV.COUNTRY_ORG_CD
+         AND MPV.PARAM_ID = NUMERIC '97'
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND RE.RETAIL_EVENT_TYPE_CD = 'S'
+       AND RE.CANCEL_FG = true /* Aborted*/
+      -- aborted receipts without any retail lines are not correct data and not relevant for the scenario
+       AND EXISTS (
+        SELECT
+            NUMERIC '1'
+          FROM
+            LDL_DATA_PRODUCTION.ETL.T_TMP_PRODUCT_RETAIL_LINE AS PRL
+          WHERE PRL.RETAIL_EVENT_SID = RE.RETAIL_EVENT_SID
+      )
+;
+-- 	2.6
+CREATE OR REPLACE TEMPORARY TABLE T_TMP_RETURN_SCENARIOS
+  AS
+    WITH ORIG_RE AS (
+      SELECT
+          ORIG_RE.RETAIL_EVENT_SID,
+          ORIG_RE.BUS_DT,
+          ORIG_RE.STORE_SID,
+          ORIG_CE.CASHIER_NR
+        FROM
+          LDL_DATA_PRODUCTION.CORE_REL.T_RETAIL_EVENT AS ORIG_RE
+          LEFT OUTER JOIN LDL_DATA_PRODUCTION.CORE_APP_FRAUD_DETECTION.T_CASHIER_ENCRYPTION AS ORIG_CE ON ORIG_CE.CASHIER_HASH = ORIG_RE.CASHIER_HASH
+        WHERE ORIG_RE.COUNTRY_ORG_CD IN(
+          SELECT DISTINCT
+              COUNTRY_ORG_CD
+            FROM
+              LDL_DATA_PRODUCTION.ETL.T_STORES_QUALIFIED
+        )
+         AND ORIG_RE.BUS_DT >= date_sub(SV_MIN_DT, interval 365 DAY) /* we assume there is no way an item is returned more than a year after purchase*/
+    ), AGG_RETURN_LINES AS (
+      SELECT
+          TPRL.RETAIL_EVENT_SID,
+          CAST(count(*) as BIGNUMERIC) /* includes return deposit lines (type RD)*/ AS RETURN_LINE_CNT,
+          sum(if(TPRL.PROD_ENTRY_METHOD_CD IN(
+            'SC'
+          ), NUMERIC '1', NUMERIC '0')) AS RETURN_SCANNED_LINE_CNT,
+          sum(if(TPRL.PROD_ENTRY_METHOD_CD IN(
+            'KE'
+          ), NUMERIC '1', NUMERIC '0')) AS RETURN_MANUAL_NO_DV_LINE_CNT,
+          sum(if(TPRL.PROD_ENTRY_METHOD_CD IN(
+            'DV'
+          ), NUMERIC '1', NUMERIC '0')) AS RETURN_MANUAL_DV_LINE_CNT,
+          sum(if(TPRL.PROD_ENTRY_METHOD_CD IN(
+            'KE'
+          ), NUMERIC '1', NUMERIC '0')) + sum(if(TPRL.PROD_ENTRY_METHOD_CD IN(
+            'DV'
+          ), NUMERIC '1', NUMERIC '0')) AS RETURN_MANUAL_LINE_CNT,
+          sum(if(ORIG_RE.RETAIL_EVENT_SID IS NULL
+           AND PROD_RETAIL_LINE_TYPE_CD = 'R', NUMERIC '1', NUMERIC '0')) AS RETURN_NO_ORIG_LINE_CNT,
+          sum(if(TPRL.PROD_ENTRY_METHOD_CD IN(
+            'SC'
+          ), abs(TPRL.RETAIL_LINE_GROSS_VAL - TPRL.RETAIL_LINE_VAT_VAL), NUMERIC '0')) AS RETURN_SCANNED_NET_VAL,
+          sum(if(TPRL.PROD_ENTRY_METHOD_CD IN(
+            'KE'
+          ), abs(TPRL.RETAIL_LINE_GROSS_VAL - TPRL.RETAIL_LINE_VAT_VAL), NUMERIC '0')) AS RETURN_MANUAL_NO_DV_NET_VAL,
+          sum(if(TPRL.PROD_ENTRY_METHOD_CD IN(
+            'DV'
+          ), abs(TPRL.RETAIL_LINE_GROSS_VAL - TPRL.RETAIL_LINE_VAT_VAL), NUMERIC '0')) AS RETURN_MANUAL_DV_NET_VAL,
+          sum(if(TPRL.PROD_ENTRY_METHOD_CD IN(
+            'KE'
+          ), abs(TPRL.RETAIL_LINE_GROSS_VAL - TPRL.RETAIL_LINE_VAT_VAL), NUMERIC '0')) + sum(if(TPRL.PROD_ENTRY_METHOD_CD IN(
+            'DV'
+          ), abs(TPRL.RETAIL_LINE_GROSS_VAL - TPRL.RETAIL_LINE_VAT_VAL), NUMERIC '0')) AS RETURN_MANUAL_NET_VAL,
+          sum(if(ORIG_RE.RETAIL_EVENT_SID IS NULL
+           AND PROD_RETAIL_LINE_TYPE_CD = 'R', abs(TPRL.RETAIL_LINE_GROSS_VAL - TPRL.RETAIL_LINE_VAT_VAL), NUMERIC '0')) AS RETURN_NO_ORIG_NET_VAL,
+          sum(if(TPRL.PROD_RETAIL_LINE_TYPE_CD = 'R', coalesce(TPRL.PROD_VARIANT_CNT, TPRL.PROD_VARIANT_QTY), NUMERIC '0')) AS RETURN_ITEMS_QTY,
+          -- for return events, lines of type R have reference to original event, but lines of type 'RD' does not have it, and ORIG_ values will be NULL
+          -- so we must apply MAX to make sure we get the real values of the original event
+          max(ORIG_RE.BUS_DT) AS O_BUS_DT,
+          max(ORIG_RE.STORE_SID) AS O_STORE_SID,
+          max(ORIG_RE.CASHIER_NR) AS O_CASHIER_NR
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_PRODUCT_RETAIL_LINE AS TPRL
+          LEFT OUTER JOIN ORIG_RE ON ORIG_RE.RETAIL_EVENT_SID = TPRL.ORIG_SALES_EVENT_SID
+        -- Exclude cancellation lines
+        WHERE TPRL.CANCEL_LINE_SEQ IS NULL
+        GROUP BY 1
+    )
+    SELECT
+        RE.RETAIL_EVENT_SID AS CASH_REGISTER_EVENT_SID,
+        RE.CASH_REGISTER_EVENT_NR,
+        RE.COUNTRY_ORG_CD,
+        RE.STORE_SID,
+        RE.BUS_DT,
+        CAST(extract(HOUR from CAST(RE.EVENT_END_TMSP as DATETIME)) as BIGNUMERIC) AS EVENT_END_HR,
+        RE.CUST_SID,
+        RE.CUST_IDENT_TYPE_CD,
+        RE.CASHIER_NR,
+        RE.CASH_REGISTER_NR,
+        RE.CASH_REGISTER_TYPE_CD,
+        is_same_cashier_fg AS IS_SAME_CASHIER_FG,
+        if(is_same_cashier_fg = NUMERIC '1'
+         AND RE.BUS_DT = ARL.O_BUS_DT, NUMERIC '1', NUMERIC '0') AS IS_SAME_CASHIER_DAY_FG,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        ARL.RETURN_LINE_CNT,
+        ARL.RETURN_SCANNED_LINE_CNT,
+        ARL.RETURN_MANUAL_NO_DV_LINE_CNT,
+        ARL.RETURN_MANUAL_DV_LINE_CNT,
+        ARL.RETURN_MANUAL_LINE_CNT,
+        ARL.RETURN_NO_ORIG_LINE_CNT,
+        abs(RE.TXN_NET_VAL) AS RETURN_NET_VAL,
+        ARL.RETURN_SCANNED_NET_VAL,
+        ARL.RETURN_MANUAL_NO_DV_NET_VAL,
+        ARL.RETURN_MANUAL_DV_NET_VAL,
+        ARL.RETURN_MANUAL_NET_VAL,
+        ARL.RETURN_NO_ORIG_NET_VAL,
+        abs(ARL.RETURN_ITEMS_QTY) AS RETURN_ITEMS_QTY
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_RETAIL_EVENT AS RE
+        INNER JOIN AGG_RETURN_LINES AS ARL ON RE.RETAIL_EVENT_SID = ARL.RETAIL_EVENT_SID
+        CROSS JOIN UNNEST(ARRAY[
+          if(RE.CASHIER_NR = ARL.O_CASHIER_NR
+           AND RE.STORE_SID = ARL.O_STORE_SID, NUMERIC '1', NUMERIC '0')
+        ]) AS is_same_cashier_fg
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND RE.RETAIL_EVENT_TYPE_CD = 'R'
+       AND RE.TURNOVER_RELEVANT_FG = true
+;
+-- 	2.7
+CREATE OR REPLACE TEMPORARY TABLE T_TMP_SMALL_SALE_SCENARIOS
+  AS
+    WITH MATERIALIZE_PARAM_VIEW AS (
+      SELECT
+          V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE.*
+        FROM
+          LDL_DATA_PRODUCTION.CORE_APP_FRAUD_DETECTION.V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE
+        WHERE V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE.SCENARIO_ID = NUMERIC '25'
+    )
+    SELECT
+        RE.RETAIL_EVENT_SID AS CASH_REGISTER_EVENT_SID,
+        any_value(RE.CASH_REGISTER_EVENT_NR) AS CASH_REGISTER_EVENT_NR,
+        any_value(RE.COUNTRY_ORG_CD) AS COUNTRY_ORG_CD,
+        any_value(RE.STORE_SID) AS STORE_SID,
+        any_value(RE.BUS_DT) AS BUS_DT,
+        any_value(CAST(extract(HOUR from CAST(RE.EVENT_END_TMSP as DATETIME)) as BIGNUMERIC)) AS EVENT_END_HR,
+        any_value(RE.CUST_SID) AS CUST_SID,
+        any_value(RE.CUST_IDENT_TYPE_CD) AS CUST_IDENT_TYPE_CD,
+        any_value(RE.CASHIER_NR) AS CASHIER_NR,
+        any_value(RE.CASH_REGISTER_NR) AS CASH_REGISTER_NR,
+        any_value(RE.CASH_REGISTER_TYPE_CD) AS CASH_REGISTER_TYPE_CD,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        CAST(count(PRL.RETAIL_EVENT_LINE_SEQ) as BIGNUMERIC) /*small sale is, by definition, a sale where there is only one sales line with no deposits returned or cancelled lines, however there can be additional line for a deposit sold, e.g. one bottle of soda + deposit, and it's still qualified as a small sale but in fact it gives 2 actual receipt lines*/ AS SMALL_SALE_LINE_CNT,
+        any_value(RE.TXN_NET_VAL) AS SMALL_SALE_NET_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_RETAIL_EVENT AS RE
+        INNER JOIN LDL_DATA_PRODUCTION.ETL.T_TMP_PRODUCT_RETAIL_LINE AS PRL ON RE.RETAIL_EVENT_SID = PRL.RETAIL_EVENT_SID
+        INNER JOIN MATERIALIZE_PARAM_VIEW AS MPV ON RE.COUNTRY_ORG_CD = MPV.COUNTRY_ORG_CD
+         AND MPV.PARAM_ID = NUMERIC '77'
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND RE.RETAIL_EVENT_TYPE_CD = 'S'
+       AND RE.TXN_GROSS_VAL < MPV.PARAM_VAL_QTY /*receipt's total gross value higher than value in parameter - Kleinstbon qualification*/
+       AND RE.TURNOVER_RELEVANT_FG = true /* this eliminates cancelled (aborted) and suspended receipts too*/
+      GROUP BY 1
+      HAVING sum(CASE
+         PRL.PROD_RETAIL_LINE_TYPE_CD
+        WHEN 'S' THEN NUMERIC '1'
+        ELSE NUMERIC '0'
+      END) = CASH_REGISTER_EVENT_CNT /*only one sales line in receipt*/
+       AND sum(CASE
+         PRL.PROD_RETAIL_LINE_TYPE_CD
+        WHEN 'D' THEN NUMERIC '1'
+        ELSE NUMERIC '0'
+      END) = NUMERIC '0' /*no deposit return lines in receipt*/
+       AND sum(CASE
+        WHEN PRL.CANCEL_LINE_SEQ IS NOT NULL
+         AND PRL.RETAIL_LINE_GROSS_VAL > NUMERIC '0' THEN NUMERIC '1'
+        ELSE NUMERIC '0'
+      END) = NUMERIC '0'
+;
+-- no cancel lines in receipt
+-- 	2.8
+-- Creating a temp table for all technical events
+-- This will be used as a source for classification table load (logon, logoff events) and as a base for the anchor CTE in cashier by store day load
+CREATE OR REPLACE TEMPORARY TABLE T_TMP_TECH_EVENTS
+  AS
+    SELECT
+        T_TMP_TECHNICAL_CASH_REGISTER_EVENT.TECH_CASH_REGISTER_EVENT_SID AS CASH_REGISTER_EVENT_SID,
+        T_TMP_TECHNICAL_CASH_REGISTER_EVENT.CASH_REGISTER_EVENT_NR,
+        T_TMP_TECHNICAL_CASH_REGISTER_EVENT.COUNTRY_ORG_CD,
+        T_TMP_TECHNICAL_CASH_REGISTER_EVENT.STORE_SID,
+        T_TMP_TECHNICAL_CASH_REGISTER_EVENT.BUS_DT,
+        CAST(extract(HOUR from CAST(T_TMP_TECHNICAL_CASH_REGISTER_EVENT.EVENT_TMSP as DATETIME)) as BIGNUMERIC) AS EVENT_END_HR,
+        CAST(NULL as BIGNUMERIC) AS CUST_SID,
+        CAST(NULL as STRING) AS CUST_IDENT_TYPE_CD,
+        T_TMP_TECHNICAL_CASH_REGISTER_EVENT.CASHIER_NR,
+        T_TMP_TECHNICAL_CASH_REGISTER_EVENT.CASH_REGISTER_NR,
+        T_TMP_TECHNICAL_CASH_REGISTER_EVENT.CASH_REGISTER_TYPE_CD,
+        T_TMP_TECHNICAL_CASH_REGISTER_EVENT.SALES_COMPANY_SID,
+        T_TMP_TECHNICAL_CASH_REGISTER_EVENT.STORE_SELECTED_FG,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        NUMERIC '0' AS LOGON_LOGOFF_LINE_CNT,
+        NUMERIC '0' AS LOGON_LOGOFF_NET_VAL,
+        T_TMP_TECHNICAL_CASH_REGISTER_EVENT.TECH_CASH_REGISTER_EVENT_TYPE_CD
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_TECHNICAL_CASH_REGISTER_EVENT
+;
+-- 	2.9
+CREATE OR REPLACE TEMPORARY TABLE T_TMP_DEPOSIT_SCENARIOS
+  AS
+    SELECT
+        RE.RETAIL_EVENT_SID AS CASH_REGISTER_EVENT_SID,
+        any_value(RE.CASH_REGISTER_EVENT_NR) AS CASH_REGISTER_EVENT_NR,
+        any_value(RE.COUNTRY_ORG_CD) AS COUNTRY_ORG_CD,
+        any_value(RE.STORE_SID) AS STORE_SID,
+        any_value(RE.BUS_DT) AS BUS_DT,
+        any_value(CAST(extract(HOUR from CAST(RE.EVENT_END_TMSP as DATETIME)) as BIGNUMERIC)) AS EVENT_END_HR,
+        any_value(RE.CUST_SID) AS CUST_SID,
+        any_value(RE.CUST_IDENT_TYPE_CD) AS CUST_IDENT_TYPE_CD,
+        any_value(RE.CASHIER_NR) AS CASHIER_NR,
+        any_value(RE.CASH_REGISTER_NR) AS CASH_REGISTER_NR,
+        any_value(RE.CASH_REGISTER_TYPE_CD) AS CASH_REGISTER_TYPE_CD,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        -- line counts
+        sum(CASE
+           PRL.PROD_RETAIL_LINE_TYPE_CD
+          WHEN 'SD' THEN NUMERIC '1'
+          ELSE NUMERIC '0'
+        END) AS SOLD_DEPOSIT_LINE_CNT,
+        sum(CASE
+           PRL.PROD_RETAIL_LINE_TYPE_CD
+          WHEN 'D' THEN NUMERIC '1'
+          ELSE NUMERIC '0'
+        END) AS RETURNED_DEPOSIT_LINE_CNT,
+        sum(CASE
+          WHEN PRL.PROD_RETAIL_LINE_TYPE_CD IN(
+            'D', 'SD'
+          ) THEN NUMERIC '0'
+          ELSE NUMERIC '1'
+        END) AS NON_DEPOSIT_LINES_CNT,
+        sum(CASE
+          WHEN PRL.PROD_RETAIL_LINE_TYPE_CD = 'D'
+           AND PRL.PROD_ENTRY_METHOD_CD IN(
+            'KE', 'DV'
+          )
+           AND length(PRL.PROD_VARIANT_INPUT_NR) < NUMERIC '19' THEN NUMERIC '1'
+          ELSE NUMERIC '0'
+        END) AS DEPOSIT_RETURN_MANUAL_INPUT_LINES_CNT,
+        -- NET Amounts
+        sum(CASE
+           PRL.PROD_RETAIL_LINE_TYPE_CD
+          WHEN 'SD' THEN PRL.RETAIL_LINE_GROSS_VAL - PRL.RETAIL_LINE_VAT_VAL
+          ELSE NUMERIC '0'
+        END) AS DEPOSIT_SALES_NET_VAL,
+        abs(sum(CASE
+           PRL.PROD_RETAIL_LINE_TYPE_CD
+          WHEN 'D' THEN PRL.RETAIL_LINE_GROSS_VAL - PRL.RETAIL_LINE_VAT_VAL
+          ELSE NUMERIC '0'
+        END)) AS DEPOSIT_RETURN_NET_VAL,
+        abs(sum(CASE
+          WHEN PRL.PROD_RETAIL_LINE_TYPE_CD = 'D'
+           AND PRL.PROD_ENTRY_METHOD_CD IN(
+            'KE', 'DV'
+          )
+           AND length(PRL.PROD_VARIANT_INPUT_NR) < NUMERIC '19' THEN PRL.RETAIL_LINE_GROSS_VAL - PRL.RETAIL_LINE_VAT_VAL
+          ELSE NUMERIC '0'
+        END)) AS DEPOSIT_RETURN_MANUAL_INPUT_NET_VAL,
+        -- GROSS Amounts
+        sum(CASE
+           PRL.PROD_RETAIL_LINE_TYPE_CD
+          WHEN 'SD' THEN PRL.RETAIL_LINE_GROSS_VAL
+          ELSE NUMERIC '0'
+        END) AS DEPOSIT_SALES_GROSS_VAL,
+        abs(sum(CASE
+           PRL.PROD_RETAIL_LINE_TYPE_CD
+          WHEN 'D' THEN PRL.RETAIL_LINE_GROSS_VAL
+          ELSE NUMERIC '0'
+        END)) AS DEPOSIT_RETURN_GROSS_VAL,
+        abs(sum(CASE
+          WHEN PRL.PROD_RETAIL_LINE_TYPE_CD = 'D'
+           AND PRL.PROD_ENTRY_METHOD_CD IN(
+            'KE', 'DV'
+          )
+           AND length(PRL.PROD_VARIANT_INPUT_NR) < NUMERIC '19' THEN PRL.RETAIL_LINE_GROSS_VAL
+          ELSE NUMERIC '0'
+        END)) AS DEPOSIT_RETURN_MANUAL_INPUT_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_RETAIL_EVENT AS RE
+        INNER JOIN LDL_DATA_PRODUCTION.ETL.T_TMP_PRODUCT_RETAIL_LINE AS PRL ON RE.RETAIL_EVENT_SID = PRL.RETAIL_EVENT_SID
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND RE.RETAIL_EVENT_TYPE_CD = 'S'
+       AND RE.TURNOVER_RELEVANT_FG = true /* this eliminates cancelled (aborted) and suspended receipts too*/
+       AND PRL.TURNOVER_RELEVANT_FG = true
+      GROUP BY 1
+      HAVING RETURNED_DEPOSIT_LINE_CNT + SOLD_DEPOSIT_LINE_CNT > NUMERIC '0'
+;
+-- 	2.10
+CREATE OR REPLACE TEMPORARY TABLE T_TMP_LIDL_PLUS_SCENARIOS
+  AS
+    SELECT
+        RE.RETAIL_EVENT_SID AS CASH_REGISTER_EVENT_SID,
+        any_value(RE.CASH_REGISTER_EVENT_NR) AS CASH_REGISTER_EVENT_NR,
+        any_value(RE.COUNTRY_ORG_CD) AS COUNTRY_ORG_CD,
+        any_value(RE.STORE_SID) AS STORE_SID,
+        any_value(RE.BUS_DT) AS BUS_DT,
+        any_value(CAST(extract(HOUR from CAST(RE.EVENT_END_TMSP as DATETIME)) as BIGNUMERIC)) AS EVENT_END_HR,
+        any_value(RE.CUST_SID) AS CUST_SID,
+        any_value(RE.CUST_IDENT_TYPE_CD) AS CUST_IDENT_TYPE_CD,
+        any_value(RE.CASHIER_NR) AS CASHIER_NR,
+        any_value(RE.CASH_REGISTER_NR) AS CASH_REGISTER_NR,
+        any_value(RE.CASH_REGISTER_TYPE_CD) AS CASH_REGISTER_TYPE_CD,
+        NUMERIC '1' AS EVENT_CNT,
+        any_value(abs(RE.TXN_NET_VAL)) AS EVENT_NET_VAL,
+        CAST(count(*) as BIGNUMERIC) AS EVENT_LINE_CNT
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_RETAIL_EVENT AS RE
+        INNER JOIN LDL_DATA_PRODUCTION.ETL.T_TMP_PRODUCT_RETAIL_LINE AS PRL ON RE.RETAIL_EVENT_SID = PRL.RETAIL_EVENT_SID
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND RE.RETAIL_EVENT_TYPE_CD = 'S'
+       AND RE.TURNOVER_RELEVANT_FG = true
+       AND PRL.PROD_RETAIL_LINE_TYPE_CD = 'S'
+       AND PRL.TURNOVER_RELEVANT_FG = true
+       AND RE.CUST_IDENT_TYPE_CD IS NOT NULL /* cust identified him/herself somehow as lidl plus user (by using phone number, plastic card ... )*/
+      GROUP BY 1
+;
+-- 	2.11
+-- Creating a separate temporary table as this set will be used twice - in steps 2.12 and in 3.2
+CREATE OR REPLACE TEMPORARY TABLE T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS
+  AS
+    WITH STORE_DATE_CASHIER AS (
+      SELECT
+          -- The granularity of statistics table has changed from store/cashier/day to store/cashier/day/hour.
+          -- In such circumstances the technical events temp table cannot be treated as an anchor anymore - despite the fact that it has to be at least a pair of tech events daily for a cashier (1 log on and 1 log off) it may happen that these events can occur just twice per whole cashier shift, i.e. log on at 8:00 and log off at 16:00
+          -- In that case all retail events that could be registered in between but in hours not being the ones coming from log on and log off, like 9:30, 12:13, 15:59 will not have their matching anchor records coming from tech events and thus will be discarded
+          -- To avoid replacing left joins with full outer joins in the last query of this temp table which would make join conditions very extensive and less readible the anchor data set will be represented by distinctive combinations of store/cashier/day values from data of all types of events cross joined with generated numbers from 0 to 23 representing day hours
+          -- As last step all store/cashier/day/hour combinations are filtered - if there is no data attached from all scenario CTEs to any of these combinations then they will be discarded as dummy
+          -- Union of technical, price info and retail events - this is to prevent the situation when we are lacking some part of POS source data for some reason.
+          -- It happened in the past that we missed some part of technical events data - when tech events CTE was the only anchor this caused other retail data to be discarded during statistics table load
+          -- Now if the similar data issue appears again we will at least be able to load retail data, even without tech events being available in the source
+          T_TMP_TECH_EVENTS.STORE_SID,
+          T_TMP_TECH_EVENTS.BUS_DT,
+          T_TMP_TECH_EVENTS.CASHIER_NR,
+          T_TMP_TECH_EVENTS.SALES_COMPANY_SID,
+          T_TMP_TECH_EVENTS.STORE_SELECTED_FG
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_TECH_EVENTS
+      UNION DISTINCT
+      SELECT
+          T_TMP_PRICE_CHECK_SCENARIOS.STORE_SID,
+          T_TMP_PRICE_CHECK_SCENARIOS.BUS_DT,
+          T_TMP_PRICE_CHECK_SCENARIOS.CASHIER_NR,
+          T_TMP_PRICE_CHECK_SCENARIOS.SALES_COMPANY_SID,
+          T_TMP_PRICE_CHECK_SCENARIOS.STORE_SELECTED_FG
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_PRICE_CHECK_SCENARIOS
+      UNION DISTINCT
+      SELECT
+          T_TMP_RETAIL_EVENT.STORE_SID,
+          T_TMP_RETAIL_EVENT.BUS_DT,
+          T_TMP_RETAIL_EVENT.CASHIER_NR,
+          T_TMP_RETAIL_EVENT.SALES_COMPANY_SID,
+          T_TMP_RETAIL_EVENT.STORE_SELECTED_FG
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_RETAIL_EVENT
+    ), WORKING_HOURS AS (
+      SELECT
+          -- working_hours set will be used as the anchor. It contains all store/cashier/day/hour combinations for the scope of the ordered data so all other scenario CTEs will be added with LEFT JOIN to this one. sales_company_sid and store_selected_fg added for further ranking purposes - both will not impact the anchor grain
+          SDC.STORE_SID,
+          SDC.BUS_DT,
+          SDC.CASHIER_NR,
+          SDC.SALES_COMPANY_SID,
+          SDC.STORE_SELECTED_FG,
+          row_number() OVER (PARTITION BY SDC.STORE_SID, SDC.BUS_DT, SDC.CASHIER_NR ORDER BY if(NUMERIC '1' IS NULL, 0, 1) DESC, NUMERIC '1') - NUMERIC '1' AS EVENT_END_HR
+          -- Cross join applied to distribute 0-23 numbers through all store/cashier/day combinations
+        FROM
+          UNNEST(generate_array(NUMERIC '0', NUMERIC '23')) AS n
+          CROSS JOIN STORE_DATE_CASHIER AS SDC
+    ), TECH_EVENTS_AGG AS (
+      SELECT
+          -- The "other" CTEs that will be joined with the "anchor"
+          -- from LDL_DATA_PRODUCTION.2.8
+          T_TMP_TECH_EVENTS.STORE_SID,
+          T_TMP_TECH_EVENTS.BUS_DT,
+          T_TMP_TECH_EVENTS.CASHIER_NR,
+          T_TMP_TECH_EVENTS.EVENT_END_HR,
+          any_value(T_TMP_TECH_EVENTS.SALES_COMPANY_SID) AS SALES_COMPANY_SID,
+          any_value(T_TMP_TECH_EVENTS.STORE_SELECTED_FG) AS STORE_SELECTED_FG,
+          CAST(count(T_TMP_TECH_EVENTS.CASH_REGISTER_EVENT_SID) as BIGNUMERIC) AS TECH_EVENTS_CNT,
+          sum(CASE
+             T_TMP_TECH_EVENTS.TECH_CASH_REGISTER_EVENT_TYPE_CD
+            WHEN NUMERIC '415' THEN NUMERIC '1'
+            ELSE NUMERIC '0'
+          END) AS LOGIN_CNT,
+          sum(CASE
+             T_TMP_TECH_EVENTS.TECH_CASH_REGISTER_EVENT_TYPE_CD
+            WHEN NUMERIC '410' THEN NUMERIC '1'
+            ELSE NUMERIC '0'
+          END) AS LOGOFF_CNT
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_TECH_EVENTS
+        -- WHERE CASH_REGISTER_TYPE_CD = 'TIL'
+        GROUP BY 1, 2, 3, 4
+    ), SALES_RETURNS_HEADER_AGG AS (
+      SELECT
+          -- CTE for all retail events split into two - sales_returns_header_agg and sales_returns_agg
+          -- First step: calculate sales, return and total net values from header information
+          RE.RETAIL_EVENT_SID,
+          RE.RETAIL_EVENT_TYPE_CD,
+          RE.STORE_SID,
+          RE.BUS_DT,
+          RE.CASHIER_NR,
+          CAST(extract(HOUR from CAST(RE.EVENT_END_TMSP as DATETIME)) as BIGNUMERIC) AS EVENT_END_HR,
+          sum(CASE
+            WHEN RE.TURNOVER_RELEVANT_FG = true THEN RE.TXN_NET_VAL
+            ELSE NUMERIC '0'
+          END) OVER (PARTITION BY RE.STORE_SID, RE.BUS_DT, RE.CASHIER_NR, CAST(extract(HOUR from CAST(RE.EVENT_END_TMSP as DATETIME)) as BIGNUMERIC)) AS RETAIL_NET_VAL,
+          sum(CASE
+            WHEN RE.TURNOVER_RELEVANT_FG = true
+             AND RE.RETAIL_EVENT_TYPE_CD = 'S' THEN RE.TXN_NET_VAL
+            ELSE NUMERIC '0'
+          END) OVER (PARTITION BY RE.STORE_SID, RE.BUS_DT, RE.CASHIER_NR, CAST(extract(HOUR from CAST(RE.EVENT_END_TMSP as DATETIME)) as BIGNUMERIC)) AS SALES_NET_VAL,
+          sum(CASE
+            WHEN RE.TURNOVER_RELEVANT_FG = true
+             AND RE.RETAIL_EVENT_TYPE_CD = 'R' THEN RE.TXN_NET_VAL
+            ELSE NUMERIC '0'
+          END) OVER (PARTITION BY RE.STORE_SID, RE.BUS_DT, RE.CASHIER_NR, CAST(extract(HOUR from CAST(RE.EVENT_END_TMSP as DATETIME)) as BIGNUMERIC)) AS RETURN_NET_VAL
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_RETAIL_EVENT AS RE
+    ), SALES_RETURNS_AGG AS (
+      SELECT
+          -- WHERE re.CASH_REGISTER_TYPE_CD = 'TIL'
+          -- Second step: calculate event counts and event line counts with use of receipt lines information
+          SRHA.STORE_SID,
+          SRHA.BUS_DT,
+          SRHA.CASHIER_NR,
+          SRHA.EVENT_END_HR,
+          CAST(count(DISTINCT SRHA.RETAIL_EVENT_SID) as BIGNUMERIC) AS RETAIL_EVENT_CNT,
+          CAST(count(PRL.RETAIL_EVENT_LINE_SEQ) as BIGNUMERIC) AS RETAIL_EVENT_LINE_CNT,
+          any_value(SRHA.RETAIL_NET_VAL) AS RETAIL_NET_VAL,
+          CAST(count(DISTINCT CASE
+             SRHA.RETAIL_EVENT_TYPE_CD
+            WHEN 'S' THEN SRHA.RETAIL_EVENT_SID
+            ELSE NULL
+          END) as BIGNUMERIC) AS SALES_EVENT_CNT,
+          sum(CASE
+             SRHA.RETAIL_EVENT_TYPE_CD
+            WHEN 'S' THEN NUMERIC '1'
+            ELSE NUMERIC '0'
+          END) AS SALES_EVENT_LINE_CNT,
+          any_value(SRHA.SALES_NET_VAL) AS SALES_NET_VAL,
+          CAST(count(DISTINCT CASE
+             SRHA.RETAIL_EVENT_TYPE_CD
+            WHEN 'R' THEN SRHA.RETAIL_EVENT_SID
+            ELSE NULL
+          END) as BIGNUMERIC) AS RETURN_EVENT_CNT,
+          sum(CASE
+             SRHA.RETAIL_EVENT_TYPE_CD
+            WHEN 'R' THEN NUMERIC '1'
+            ELSE NUMERIC '0'
+          END) AS RETURN_EVENT_LINE_CNT,
+          any_value(SRHA.RETURN_NET_VAL) AS RETURN_NET_VAL
+        FROM
+          SALES_RETURNS_HEADER_AGG AS SRHA
+          INNER JOIN LDL_DATA_PRODUCTION.ETL.T_TMP_PRODUCT_RETAIL_LINE AS PRL ON SRHA.RETAIL_EVENT_SID = PRL.RETAIL_EVENT_SID
+        GROUP BY 1, 2, 3, 4
+    ), DISCOUNT_SCENARIOS_AGG AS (
+      SELECT
+          -- from LDL_DATA_PRODUCTION.2.1
+          T_TMP_DISCOUNT_SCENARIOS.STORE_SID,
+          T_TMP_DISCOUNT_SCENARIOS.BUS_DT,
+          T_TMP_DISCOUNT_SCENARIOS.CASHIER_NR,
+          T_TMP_DISCOUNT_SCENARIOS.EVENT_END_HR,
+          sum(T_TMP_DISCOUNT_SCENARIOS.MANUAL_DISCOUNT_LINE_CNT) AS DISCOUNT_LINE_CNT,
+          sum(T_TMP_DISCOUNT_SCENARIOS.MANUAL_DISCOUNT_NET_VAL) AS DISCOUNT_NET_VAL
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_DISCOUNT_SCENARIOS
+        WHERE (T_TMP_DISCOUNT_SCENARIOS.CASH_REGISTER_TYPE_CD = 'TIL'
+         OR T_TMP_DISCOUNT_SCENARIOS.CASH_REGISTER_TYPE_CD IS NULL)
+         AND T_TMP_DISCOUNT_SCENARIOS.HAS_MANUAL_DISCOUNT_FG = NUMERIC '1'
+        GROUP BY 1, 2, 3, 4
+    ), STORNO_SCENARIOS_AGG AS (
+      SELECT
+          -- from LDL_DATA_PRODUCTION.2.2
+          T_TMP_STORNO_SCENARIOS.STORE_SID,
+          T_TMP_STORNO_SCENARIOS.BUS_DT,
+          T_TMP_STORNO_SCENARIOS.CASHIER_NR,
+          T_TMP_STORNO_SCENARIOS.EVENT_END_HR,
+          sum(T_TMP_STORNO_SCENARIOS.TOTAL_CANCELLED_LINE_CNT) AS CANCELLED_LINE_CNT,
+          sum(T_TMP_STORNO_SCENARIOS.TOTAL_CANCELLED_NET_VAL) AS CANCELLED_NET_VAL,
+          sum(T_TMP_STORNO_SCENARIOS.TOTAL_CANCELLED_GROSS_VAL) AS CANCELLED_GROSS_VAL
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_STORNO_SCENARIOS
+        WHERE (T_TMP_STORNO_SCENARIOS.CASH_REGISTER_TYPE_CD = 'TIL'
+         OR T_TMP_STORNO_SCENARIOS.CASH_REGISTER_TYPE_CD IS NULL)
+        -- take only events with cancellation of important products. If event has cancellations only of  Flowers/Bakery/Fruit/Veggies and no other product, then it is excluded
+        -- but for included events, take all lines and amounts (event flowers/bakery/fruit/veggies)
+         AND T_TMP_STORNO_SCENARIOS.IMPORTANT_PROD_CANCELLED_LINE_CNT > NUMERIC '0'
+        GROUP BY 1, 2, 3, 4
+    ), PRICE_INFO_AGG AS (
+      SELECT
+          -- from LDL_DATA_PRODUCTION.2.3
+          T_TMP_PRICE_CHECK_SCENARIOS.STORE_SID,
+          T_TMP_PRICE_CHECK_SCENARIOS.BUS_DT,
+          T_TMP_PRICE_CHECK_SCENARIOS.CASHIER_NR,
+          T_TMP_PRICE_CHECK_SCENARIOS.EVENT_END_HR,
+          CAST(count(*) as BIGNUMERIC) AS PRICE_INFO_CNT
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_PRICE_CHECK_SCENARIOS
+        WHERE T_TMP_PRICE_CHECK_SCENARIOS.CASH_REGISTER_TYPE_CD = 'TIL'
+         OR T_TMP_PRICE_CHECK_SCENARIOS.CASH_REGISTER_TYPE_CD IS NULL
+        GROUP BY 1, 2, 3, 4
+    ), SUSPEND_RECEIPT_SCENARIOS_AGG AS (
+      SELECT
+          -- from LDL_DATA_PRODUCTION.2.4
+          T_TMP_SUSPEND_SCENARIOS.STORE_SID,
+          T_TMP_SUSPEND_SCENARIOS.BUS_DT,
+          T_TMP_SUSPEND_SCENARIOS.CASHIER_NR,
+          T_TMP_SUSPEND_SCENARIOS.EVENT_END_HR,
+          CAST(count(*) as BIGNUMERIC) AS SUSPENDED_UNRESOLVED_CNT,
+          sum(T_TMP_SUSPEND_SCENARIOS.SUSPENDED_NET_VAL) AS SUSPENDED_UNRESOLVED_NET_VAL
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_SUSPEND_SCENARIOS
+        WHERE T_TMP_SUSPEND_SCENARIOS.IS_RECEIPT_RESOLVED_FG = NUMERIC '0'
+         AND (T_TMP_SUSPEND_SCENARIOS.CASH_REGISTER_TYPE_CD = 'TIL'
+         OR T_TMP_SUSPEND_SCENARIOS.CASH_REGISTER_TYPE_CD IS NULL)
+        GROUP BY 1, 2, 3, 4
+    ), ABORT_SCENARIOS_AGG AS (
+      SELECT
+          -- from LDL_DATA_PRODUCTION.2.5
+          T_TMP_ABORT_SCENARIOS.STORE_SID,
+          T_TMP_ABORT_SCENARIOS.BUS_DT,
+          T_TMP_ABORT_SCENARIOS.CASHIER_NR,
+          T_TMP_ABORT_SCENARIOS.EVENT_END_HR,
+          -- ABORT_CNT is for Gesamtanzahl Bonabbruch scenario - doesn't require the threshold filter
+          CAST(count(*) as BIGNUMERIC) AS ABORT_CNT,
+          -- ABORT_NET_VAL is for Gesamtwert Bonabbruch scenario - this one requires the threshold filter
+          sum(CASE
+             T_TMP_ABORT_SCENARIOS.IS_VALUE_ABOVE_THRESHOLD_FG
+            WHEN NUMERIC '1' THEN T_TMP_ABORT_SCENARIOS.ABORT_NET_VAL
+            ELSE NUMERIC '0'
+          END) AS ABORT_NET_VAL
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_ABORT_SCENARIOS
+        WHERE T_TMP_ABORT_SCENARIOS.CASH_REGISTER_TYPE_CD = 'TIL'
+         OR T_TMP_ABORT_SCENARIOS.CASH_REGISTER_TYPE_CD IS NULL
+        GROUP BY 1, 2, 3, 4
+    ), RETURN_SCENARIOS_AGG AS (
+      SELECT
+          -- from LDL_DATA_PRODUCTION.2.6
+          T_TMP_RETURN_SCENARIOS.STORE_SID,
+          T_TMP_RETURN_SCENARIOS.BUS_DT,
+          T_TMP_RETURN_SCENARIOS.CASHIER_NR,
+          T_TMP_RETURN_SCENARIOS.EVENT_END_HR,
+          CAST(count(*) as BIGNUMERIC) AS RETURN_CNT,
+          sum(T_TMP_RETURN_SCENARIOS.RETURN_NET_VAL) AS RETURN_NET_VAL,
+          sum(CASE
+             T_TMP_RETURN_SCENARIOS.RETURN_MANUAL_LINE_CNT
+            WHEN NUMERIC '0' THEN NUMERIC '0'
+            ELSE NUMERIC '1'
+          END) AS RETURN_MANUAL_RECEIPT_CNT,
+          sum(T_TMP_RETURN_SCENARIOS.RETURN_MANUAL_NET_VAL) AS RETURN_MANUAL_RECEIPT_NET_VAL,
+          sum(CASE
+             T_TMP_RETURN_SCENARIOS.RETURN_NO_ORIG_LINE_CNT
+            WHEN NUMERIC '0' THEN NUMERIC '0'
+            ELSE NUMERIC '1'
+          END) AS RETURN_WITHOUT_RECEIPT_CNT,
+          sum(T_TMP_RETURN_SCENARIOS.RETURN_NO_ORIG_NET_VAL) AS RETURN_WITHOUT_RECEIPT_NET_VAL,
+          sum(T_TMP_RETURN_SCENARIOS.RETURN_ITEMS_QTY) AS RETURN_ITEMS_QTY
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_RETURN_SCENARIOS
+        -- include self-checkout to make it identical to old system. For "returns" self-checkout is included there
+        -- this is why the filter is commented
+        -- WHERE CASH_REGISTER_TYPE_CD = 'TIL'
+        GROUP BY 1, 2, 3, 4
+    ), SMALL_SALE_SCENARIOS_AGG AS (
+      SELECT
+          -- from LDL_DATA_PRODUCTION.2.7
+          T_TMP_SMALL_SALE_SCENARIOS.STORE_SID,
+          T_TMP_SMALL_SALE_SCENARIOS.BUS_DT,
+          T_TMP_SMALL_SALE_SCENARIOS.CASHIER_NR,
+          T_TMP_SMALL_SALE_SCENARIOS.EVENT_END_HR,
+          CAST(count(*) as BIGNUMERIC) AS SMALL_SALE_CNT,
+          sum(T_TMP_SMALL_SALE_SCENARIOS.SMALL_SALE_NET_VAL) AS SMALL_SALE_NET_VAL
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_SMALL_SALE_SCENARIOS
+        WHERE T_TMP_SMALL_SALE_SCENARIOS.CASH_REGISTER_TYPE_CD = 'TIL'
+         OR T_TMP_SMALL_SALE_SCENARIOS.CASH_REGISTER_TYPE_CD IS NULL
+        GROUP BY 1, 2, 3, 4
+    ), DEPOSIT_SCENARIOS_AGG AS (
+      SELECT
+          -- from LDL_DATA_PRODUCTION.2.9
+          T_TMP_DEPOSIT_SCENARIOS.STORE_SID,
+          T_TMP_DEPOSIT_SCENARIOS.BUS_DT,
+          T_TMP_DEPOSIT_SCENARIOS.CASHIER_NR,
+          T_TMP_DEPOSIT_SCENARIOS.EVENT_END_HR,
+          sum(T_TMP_DEPOSIT_SCENARIOS.DEPOSIT_SALES_NET_VAL) AS DEPOSIT_SALES_NET_VAL,
+          sum(T_TMP_DEPOSIT_SCENARIOS.DEPOSIT_RETURN_NET_VAL) AS DEPOSIT_RETURN_NET_VAL,
+          sum(T_TMP_DEPOSIT_SCENARIOS.DEPOSIT_RETURN_MANUAL_INPUT_NET_VAL) AS DEPOSIT_RETURN_MANUAL_INPUT_NET_VAL,
+          sum(T_TMP_DEPOSIT_SCENARIOS.DEPOSIT_RETURN_MANUAL_INPUT_GROSS_VAL) AS DEPOSIT_RETURN_MANUAL_INPUT_GROSS_VAL,
+          sum(CASE
+             T_TMP_DEPOSIT_SCENARIOS.NON_DEPOSIT_LINES_CNT
+            WHEN NUMERIC '0' THEN sum(T_TMP_DEPOSIT_SCENARIOS.DEPOSIT_RETURN_NET_VAL)
+            ELSE NUMERIC '0'
+          END) AS DEPOSIT_ONLY_RETURN_NET_VAL
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_DEPOSIT_SCENARIOS
+        -- including self-checkout intentionally. to make this identical to old world.
+        -- This is why the filter is commented
+        -- WHERE CASH_REGISTER_TYPE_CD = 'TIL'
+        GROUP BY 1, 2, 3, 4
+    ), OUTLIER_DAYS_CALC AS (
+      SELECT
+          SALES_RETURNS_AGG.STORE_SID,
+          SALES_RETURNS_AGG.BUS_DT,
+          SALES_RETURNS_AGG.CASHIER_NR,
+          abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) AS DAILY_RETAIL_NET_VAL,
+          abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) AS DAILY_RETURN_NET_VAL,
+          CASE
+            WHEN abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' IS NULL
+             OR abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) IS NULL THEN NULL
+            WHEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) = 0.0 THEN 0.0
+            ELSE abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' / CAST(abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) as FLOAT64)
+          END AS DAILY_RETURN_PERCENTAGE,
+          -- Supporting attribute for ORDER BY clause in rankings in case of no returns were generated by cashier in the whole day
+          -- In such situations when no returns are made, only the total turnover should be considered for ranking purposes but only as a secondary ORDER BY expression
+          -- It means that if there ARE returns made by cashier then this attribute should not affect the primary ranking expression which is the return/retail percentage, hence the -1 assignment
+          CASE
+             CASE
+              WHEN abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' IS NULL
+               OR abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) IS NULL THEN NULL
+              WHEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) = 0.0 THEN 0.0
+              ELSE abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' / CAST(abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) as FLOAT64)
+            END
+            WHEN CAST(NUMERIC '0' as FLOAT64) THEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL))
+            ELSE -NUMERIC '1'
+          END AS NO_RETURN_EXPR,
+          -- When no returns are available the rule is: higher retail value means lesser return percentage for ranking. Hence the ascending ordering for no_return_expr in highest_rnk and descending ordering in lowest_rnk
+          rank() OVER (PARTITION BY SALES_RETURNS_AGG.STORE_SID, SALES_RETURNS_AGG.CASHIER_NR ORDER BY CASE
+            WHEN abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' IS NULL
+             OR abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) IS NULL THEN NULL
+            WHEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) = 0.0 THEN 0.0
+            ELSE abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' / CAST(abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) as FLOAT64)
+          END DESC, if(CASE
+             CASE
+              WHEN abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' IS NULL
+               OR abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) IS NULL THEN NULL
+              WHEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) = 0.0 THEN 0.0
+              ELSE abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' / CAST(abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) as FLOAT64)
+            END
+            WHEN CAST(NUMERIC '0' as FLOAT64) THEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL))
+            ELSE -NUMERIC '1'
+          END IS NULL, 0, 1) DESC, CASE
+             CASE
+              WHEN abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' IS NULL
+               OR abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) IS NULL THEN NULL
+              WHEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) = 0.0 THEN 0.0
+              ELSE abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' / CAST(abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) as FLOAT64)
+            END
+            WHEN CAST(NUMERIC '0' as FLOAT64) THEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL))
+            ELSE -NUMERIC '1'
+          END) AS HIGHEST_RNK,
+          rank() OVER (PARTITION BY SALES_RETURNS_AGG.STORE_SID, SALES_RETURNS_AGG.CASHIER_NR ORDER BY if(CASE
+            WHEN abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' IS NULL
+             OR abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) IS NULL THEN NULL
+            WHEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) = 0.0 THEN 0.0
+            ELSE abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' / CAST(abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) as FLOAT64)
+          END IS NULL, 0, 1) DESC, CASE
+            WHEN abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' IS NULL
+             OR abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) IS NULL THEN NULL
+            WHEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) = 0.0 THEN 0.0
+            ELSE abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' / CAST(abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) as FLOAT64)
+          END, if(CASE
+             CASE
+              WHEN abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' IS NULL
+               OR abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) IS NULL THEN NULL
+              WHEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) = 0.0 THEN 0.0
+              ELSE abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' / CAST(abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) as FLOAT64)
+            END
+            WHEN CAST(NUMERIC '0' as FLOAT64) THEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL))
+            ELSE -NUMERIC '1'
+          END IS NULL, 0, 1), CASE
+             CASE
+              WHEN abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' IS NULL
+               OR abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) IS NULL THEN NULL
+              WHEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) = 0.0 THEN 0.0
+              ELSE abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' / CAST(abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) as FLOAT64)
+            END
+            WHEN CAST(NUMERIC '0' as FLOAT64) THEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL))
+            ELSE -NUMERIC '1'
+          END DESC) AS LOWEST_RNK,
+          CASE
+            WHEN rank() OVER (PARTITION BY SALES_RETURNS_AGG.STORE_SID, SALES_RETURNS_AGG.CASHIER_NR ORDER BY CASE
+              WHEN abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' IS NULL
+               OR abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) IS NULL THEN NULL
+              WHEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) = 0.0 THEN 0.0
+              ELSE abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' / CAST(abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) as FLOAT64)
+            END DESC, if(CASE
+               CASE
+                WHEN abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' IS NULL
+                 OR abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) IS NULL THEN NULL
+                WHEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) = 0.0 THEN 0.0
+                ELSE abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' / CAST(abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) as FLOAT64)
+              END
+              WHEN CAST(NUMERIC '0' as FLOAT64) THEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL))
+              ELSE -NUMERIC '1'
+            END IS NULL, 0, 1) DESC, CASE
+               CASE
+                WHEN abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' IS NULL
+                 OR abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) IS NULL THEN NULL
+                WHEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) = 0.0 THEN 0.0
+                ELSE abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' / CAST(abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) as FLOAT64)
+              END
+              WHEN CAST(NUMERIC '0' as FLOAT64) THEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL))
+              ELSE -NUMERIC '1'
+            END) <= NUMERIC '2' THEN true
+            WHEN rank() OVER (PARTITION BY SALES_RETURNS_AGG.STORE_SID, SALES_RETURNS_AGG.CASHIER_NR ORDER BY if(CASE
+              WHEN abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' IS NULL
+               OR abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) IS NULL THEN NULL
+              WHEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) = 0.0 THEN 0.0
+              ELSE abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' / CAST(abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) as FLOAT64)
+            END IS NULL, 0, 1) DESC, CASE
+              WHEN abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' IS NULL
+               OR abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) IS NULL THEN NULL
+              WHEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) = 0.0 THEN 0.0
+              ELSE abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' / CAST(abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) as FLOAT64)
+            END, if(CASE
+               CASE
+                WHEN abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' IS NULL
+                 OR abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) IS NULL THEN NULL
+                WHEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) = 0.0 THEN 0.0
+                ELSE abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' / CAST(abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) as FLOAT64)
+              END
+              WHEN CAST(NUMERIC '0' as FLOAT64) THEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL))
+              ELSE -NUMERIC '1'
+            END IS NULL, 0, 1), CASE
+               CASE
+                WHEN abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' IS NULL
+                 OR abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) IS NULL THEN NULL
+                WHEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) = 0.0 THEN 0.0
+                ELSE abs(sum(SALES_RETURNS_AGG.RETURN_NET_VAL)) * NUMERIC '100' / CAST(abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL)) as FLOAT64)
+              END
+              WHEN CAST(NUMERIC '0' as FLOAT64) THEN abs(sum(SALES_RETURNS_AGG.RETAIL_NET_VAL))
+              ELSE -NUMERIC '1'
+            END DESC) <= NUMERIC '2' THEN true
+            ELSE false
+          END AS IS_OUTLIER_DAY_RETURN_FG
+        FROM
+          SALES_RETURNS_AGG
+        GROUP BY 1, 2, 3
+        -- Days with no retail and no returns made should be excluded from outlier ranking logic
+        HAVING DAILY_RETAIL_NET_VAL + DAILY_RETURN_NET_VAL > NUMERIC '0'
+        -- Cashier needs to have any return made within the timeframe to be assessed
+        QUALIFY sum(DAILY_RETURN_NET_VAL) OVER (PARTITION BY SALES_RETURNS_AGG.STORE_SID, SALES_RETURNS_AGG.CASHIER_NR) <> NUMERIC '0'
+    )
+    SELECT
+        WH.STORE_SID,
+        WH.BUS_DT,
+        WH.CASHIER_NR,
+        WH.EVENT_END_HR,
+        -- pulling sales_company_sid, store_selected_fg and is_qualified_cashier flags for ranking purposes in step 2.12
+        WH.SALES_COMPANY_SID,
+        WH.STORE_SELECTED_FG,
+        coalesce(SRA.SALES_NET_VAL, NUMERIC '0') AS SALES_NET_VAL,
+        coalesce(RSA.RETURN_NET_VAL, NUMERIC '0') AS RETURN_NET_VAL,
+        -- outlier_days_calc CTE was left joined - if the flag is null then it means that the cashier didn't make any return transactions during the timeframe or there was no retail and returns made during any specific day by a cashier
+        -- If it's set to True then the data for that store/cashier/day combination should be skipped in rankings and in further processing in a frontend mat view - return/retail percentage is a the outlier value
+        -- If it's set to False then the data can be included in rankings and in a frontend layer
+        ODC.IS_OUTLIER_DAY_RETURN_FG,
+        coalesce(SRA.RETAIL_EVENT_CNT, NUMERIC '0') + coalesce(PIA.PRICE_INFO_CNT, NUMERIC '0') + coalesce(TEA.TECH_EVENTS_CNT, NUMERIC '0') AS EVENT_CNT,
+        -- tech and price_info events are always 1 line
+        coalesce(SRA.RETAIL_EVENT_LINE_CNT, NUMERIC '0') + coalesce(PIA.PRICE_INFO_CNT, NUMERIC '0') + coalesce(TEA.TECH_EVENTS_CNT, NUMERIC '0') AS EVENT_LINE_CNT,
+        coalesce(RSA.RETURN_CNT, NUMERIC '0') AS RETURN_CNT,
+        coalesce(SSA.CANCELLED_LINE_CNT, NUMERIC '0') AS CANCELLED_LINE_CNT,
+        coalesce(SSA.CANCELLED_NET_VAL, NUMERIC '0') AS CANCELLED_NET_VAL,
+        coalesce(DSA.DISCOUNT_LINE_CNT, NUMERIC '0') AS DISCOUNT_LINE_CNT,
+        coalesce(DSA.DISCOUNT_NET_VAL, NUMERIC '0') AS DISCOUNT_NET_VAL,
+        coalesce(ASA.ABORT_CNT, NUMERIC '0') AS ABORT_CNT,
+        coalesce(ASA.ABORT_NET_VAL, NUMERIC '0') AS ABORT_NET_VAL,
+        coalesce(SRSA.SUSPENDED_UNRESOLVED_CNT, NUMERIC '0') AS SUSPENDED_UNRESOLVED_CNT,
+        coalesce(SRSA.SUSPENDED_UNRESOLVED_NET_VAL, NUMERIC '0') AS SUSPENDED_UNRESOLVED_NET_VAL,
+        coalesce(PIA.PRICE_INFO_CNT, NUMERIC '0') AS PRICE_INFO_CNT,
+        coalesce(RSA.RETURN_WITHOUT_RECEIPT_CNT, NUMERIC '0') AS RETURN_WITHOUT_RECEIPT_CNT,
+        coalesce(RSA.RETURN_WITHOUT_RECEIPT_NET_VAL, NUMERIC '0') AS RETURN_WITHOUT_RECEIPT_NET_VAL,
+        coalesce(DESA.DEPOSIT_SALES_NET_VAL, NUMERIC '0') AS DEPOSIT_SALES_NET_VAL,
+        coalesce(DESA.DEPOSIT_RETURN_NET_VAL, NUMERIC '0') AS DEPOSIT_RETURN_NET_VAL,
+        coalesce(DESA.DEPOSIT_RETURN_MANUAL_INPUT_NET_VAL, NUMERIC '0') AS DEPOSIT_RETURN_MANUAL_INPUT_NET_VAL,
+        coalesce(DESA.DEPOSIT_RETURN_MANUAL_INPUT_GROSS_VAL, NUMERIC '0') AS DEPOSIT_RETURN_MANUAL_INPUT_GROSS_VAL,
+        coalesce(DESA.DEPOSIT_ONLY_RETURN_NET_VAL, NUMERIC '0') AS DEPOSIT_ONLY_RETURN_NET_VAL,
+        coalesce(SSSA.SMALL_SALE_CNT, NUMERIC '0') AS SMALL_SALES_CNT,
+        coalesce(TEA.LOGIN_CNT, NUMERIC '0') AS LOGIN_CNT,
+        coalesce(TEA.LOGOFF_CNT, NUMERIC '0') AS LOGOFF_CNT,
+        -- added these 3 columns to calculate few rankings properly
+        coalesce(RSA.RETURN_MANUAL_RECEIPT_CNT, NUMERIC '0') AS RETURN_MANUAL_RECEIPT_CNT,
+        coalesce(RSA.RETURN_ITEMS_QTY, NUMERIC '0') AS RETURN_ITEMS_QTY,
+        coalesce(SRA.RETAIL_NET_VAL, NUMERIC '0') AS RETAIL_NET_VAL
+      FROM
+        WORKING_HOURS AS WH
+        LEFT OUTER JOIN TECH_EVENTS_AGG AS TEA ON TEA.STORE_SID = WH.STORE_SID
+         AND TEA.BUS_DT = WH.BUS_DT
+         AND TEA.CASHIER_NR = WH.CASHIER_NR
+         AND TEA.EVENT_END_HR = WH.EVENT_END_HR
+        LEFT OUTER JOIN SALES_RETURNS_AGG AS SRA ON SRA.STORE_SID = WH.STORE_SID
+         AND SRA.BUS_DT = WH.BUS_DT
+         AND SRA.CASHIER_NR = WH.CASHIER_NR
+         AND SRA.EVENT_END_HR = WH.EVENT_END_HR
+        LEFT OUTER JOIN DISCOUNT_SCENARIOS_AGG AS DSA ON DSA.STORE_SID = WH.STORE_SID
+         AND DSA.BUS_DT = WH.BUS_DT
+         AND DSA.CASHIER_NR = WH.CASHIER_NR
+         AND DSA.EVENT_END_HR = WH.EVENT_END_HR
+        LEFT OUTER JOIN STORNO_SCENARIOS_AGG AS SSA ON SSA.STORE_SID = WH.STORE_SID
+         AND SSA.BUS_DT = WH.BUS_DT
+         AND SSA.CASHIER_NR = WH.CASHIER_NR
+         AND SSA.EVENT_END_HR = WH.EVENT_END_HR
+        LEFT OUTER JOIN PRICE_INFO_AGG AS PIA ON PIA.STORE_SID = WH.STORE_SID
+         AND PIA.BUS_DT = WH.BUS_DT
+         AND PIA.CASHIER_NR = WH.CASHIER_NR
+         AND PIA.EVENT_END_HR = WH.EVENT_END_HR
+        LEFT OUTER JOIN SUSPEND_RECEIPT_SCENARIOS_AGG AS SRSA ON SRSA.STORE_SID = WH.STORE_SID
+         AND SRSA.BUS_DT = WH.BUS_DT
+         AND SRSA.CASHIER_NR = WH.CASHIER_NR
+         AND SRSA.EVENT_END_HR = WH.EVENT_END_HR
+        LEFT OUTER JOIN ABORT_SCENARIOS_AGG AS ASA ON ASA.STORE_SID = WH.STORE_SID
+         AND ASA.BUS_DT = WH.BUS_DT
+         AND ASA.CASHIER_NR = WH.CASHIER_NR
+         AND ASA.EVENT_END_HR = WH.EVENT_END_HR
+        LEFT OUTER JOIN RETURN_SCENARIOS_AGG AS RSA ON RSA.STORE_SID = WH.STORE_SID
+         AND RSA.BUS_DT = WH.BUS_DT
+         AND RSA.CASHIER_NR = WH.CASHIER_NR
+         AND RSA.EVENT_END_HR = WH.EVENT_END_HR
+        LEFT OUTER JOIN SMALL_SALE_SCENARIOS_AGG AS SSSA ON SSSA.STORE_SID = WH.STORE_SID
+         AND SSSA.BUS_DT = WH.BUS_DT
+         AND SSSA.CASHIER_NR = WH.CASHIER_NR
+         AND SSSA.EVENT_END_HR = WH.EVENT_END_HR
+        LEFT OUTER JOIN DEPOSIT_SCENARIOS_AGG AS DESA ON DESA.STORE_SID = WH.STORE_SID
+         AND DESA.BUS_DT = WH.BUS_DT
+         AND DESA.CASHIER_NR = WH.CASHIER_NR
+         AND DESA.EVENT_END_HR = WH.EVENT_END_HR
+        LEFT OUTER JOIN OUTLIER_DAYS_CALC AS ODC ON ODC.STORE_SID = WH.STORE_SID
+         AND ODC.BUS_DT = WH.BUS_DT
+         AND ODC.CASHIER_NR = WH.CASHIER_NR
+      -- Filtering out store/cashier/day/hour combinations with no events assigned
+      -- Checking store_sid attribute only - if it's null after joining then it means that there is no data for that scenario at all. Discard the whole combination only when ALL scenario store_sid attributes are null
+      WHERE TEA.STORE_SID IS NOT NULL
+       OR SRA.STORE_SID IS NOT NULL
+       OR DSA.STORE_SID IS NOT NULL
+       OR SSA.STORE_SID IS NOT NULL
+       OR PIA.STORE_SID IS NOT NULL
+       OR SRSA.STORE_SID IS NOT NULL
+       OR ASA.STORE_SID IS NOT NULL
+       OR RSA.STORE_SID IS NOT NULL
+       OR SSSA.STORE_SID IS NOT NULL
+       OR DESA.STORE_SID IS NOT NULL
+;
+-- 2.12
+CREATE OR REPLACE TEMPORARY TABLE T_TMP_CASHIER_RANKINGS_BY_WAREHOUSE
+  AS
+    WITH AGG AS (
+      SELECT
+          STATS.SALES_COMPANY_SID,
+          STATS.STORE_SID,
+          STATS.CASHIER_NR,
+          any_value(STATS.STORE_SELECTED_FG) AS STORE_SELECTED_FG,
+          -- cq.CASHIER_NR is either equal to stats.CASHIER_NR for all rows of the store/company or null for all rows of Store/company
+          -- we put it in aggregate so we can use it in the select
+          CASE
+            WHEN max(CQ.CASHIER_NR) IS NOT DISTINCT FROM NULL THEN NUMERIC '0'
+            ELSE NUMERIC '1'
+          END AS IS_CASHIER_QUALIFIED_FG,
+          sum(STATS.DEPOSIT_ONLY_RETURN_NET_VAL) AS DEPOSIT_ONLY_RETURN_NET_VAL,
+          sum(STATS.DEPOSIT_RETURN_MANUAL_INPUT_GROSS_VAL) AS DEPOSIT_RETURN_MANUAL_INPUT_GROSS_VAL,
+          CASE
+            WHEN sum(STATS.DEPOSIT_RETURN_NET_VAL) IS NULL
+             OR sum(STATS.DEPOSIT_SALES_NET_VAL) IS NULL THEN NULL
+            WHEN sum(STATS.DEPOSIT_SALES_NET_VAL) = 0.0 THEN 0.0
+            ELSE sum(STATS.DEPOSIT_RETURN_NET_VAL) / CAST(sum(STATS.DEPOSIT_SALES_NET_VAL) as FLOAT64)
+          END AS DEPOSIT_RETURN_SALES_PERCENTAGE,
+          CASE
+            WHEN sum(STATS.LOGIN_CNT) IS NULL
+             OR count(DISTINCT STATS.BUS_DT) IS NULL THEN NULL
+            WHEN count(DISTINCT STATS.BUS_DT) = 0.0 THEN 0.0
+            ELSE sum(STATS.LOGIN_CNT) / CAST(CAST(count(DISTINCT STATS.BUS_DT) as BIGNUMERIC) as FLOAT64)
+          END AS LOGIN_AVG_CNT,
+          sum(STATS.SMALL_SALES_CNT) AS SMALL_SALES_CNT,
+          sum(STATS.RETURN_CNT) AS RETURN_CNT,
+          sum(STATS.RETURN_MANUAL_RECEIPT_CNT) AS RETURN_MANUAL_RECEIPT_CNT,
+          CASE
+            WHEN sum(STATS.RETURN_NET_VAL) IS NULL
+             OR sum(STATS.RETURN_ITEMS_QTY) IS NULL THEN NULL
+            WHEN sum(STATS.RETURN_ITEMS_QTY) = 0.0 THEN 0.0
+            ELSE sum(STATS.RETURN_NET_VAL) / CAST(sum(STATS.RETURN_ITEMS_QTY) as FLOAT64)
+          END AS RETURN_AVG_VAL,
+          -- Exception for Geldrückgabenquote ranking - include the data in calculation only if it's not coming from outlier days
+          abs(CASE
+            WHEN sum(CASE
+               STATS.IS_OUTLIER_DAY_RETURN_FG
+              WHEN false THEN STATS.RETURN_NET_VAL
+              ELSE NUMERIC '0'
+            END) IS NULL
+             OR sum(CASE
+               STATS.IS_OUTLIER_DAY_RETURN_FG
+              WHEN false THEN STATS.RETAIL_NET_VAL
+              ELSE NUMERIC '0'
+            END) IS NULL THEN NULL
+            WHEN sum(CASE
+               STATS.IS_OUTLIER_DAY_RETURN_FG
+              WHEN false THEN STATS.RETAIL_NET_VAL
+              ELSE NUMERIC '0'
+            END) = 0.0 THEN 0.0
+            ELSE sum(CASE
+               STATS.IS_OUTLIER_DAY_RETURN_FG
+              WHEN false THEN STATS.RETURN_NET_VAL
+              ELSE NUMERIC '0'
+            END) / CAST(sum(CASE
+               STATS.IS_OUTLIER_DAY_RETURN_FG
+              WHEN false THEN STATS.RETAIL_NET_VAL
+              ELSE NUMERIC '0'
+            END) as FLOAT64)
+          END) AS RETURN_RETAIL_PERCENTAGE,
+          sum(STATS.RETURN_WITHOUT_RECEIPT_CNT) AS RETURN_WITHOUT_RECEIPT_CNT,
+          sum(STATS.SUSPENDED_UNRESOLVED_CNT) AS SUSPENDED_UNRESOLVED_CNT,
+          sum(STATS.ABORT_NET_VAL) AS ABORT_VAL,
+          sum(STATS.ABORT_CNT) AS ABORT_CNT,
+          CASE
+            WHEN sum(STATS.CANCELLED_LINE_CNT) IS NULL
+             OR sum(STATS.EVENT_CNT) IS NULL THEN NULL
+            WHEN sum(STATS.EVENT_CNT) = 0.0 THEN 0.0
+            ELSE sum(STATS.CANCELLED_LINE_CNT) / CAST(sum(STATS.EVENT_CNT) as FLOAT64)
+          END AS CANCELLED_LINE_CNT_PERCENTAGE,
+          CASE
+            WHEN sum(STATS.CANCELLED_NET_VAL) IS NULL
+             OR sum(STATS.RETAIL_NET_VAL) IS NULL THEN NULL
+            WHEN sum(STATS.RETAIL_NET_VAL) = 0.0 THEN 0.0
+            ELSE sum(STATS.CANCELLED_NET_VAL) / CAST(sum(STATS.RETAIL_NET_VAL) as FLOAT64)
+          END AS CANCELLED_LINE_VAL_PERCENTAGE,
+          sum(STATS.PRICE_INFO_CNT) AS PRICE_INFO_CNT,
+          sum(STATS.DISCOUNT_LINE_CNT) AS DISCOUNT_LINE_CNT,
+          CASE
+            WHEN sum(STATS.DISCOUNT_NET_VAL) IS NULL
+             OR sum(STATS.RETAIL_NET_VAL) IS NULL THEN NULL
+            WHEN sum(STATS.RETAIL_NET_VAL) = 0.0 THEN 0.0
+            ELSE sum(STATS.DISCOUNT_NET_VAL) / CAST(sum(STATS.RETAIL_NET_VAL) as FLOAT64)
+          END AS DISCOUNT_LINE_VAL_PERCENTAGE
+        FROM
+          LDL_DATA_PRODUCTION.ETL.T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS AS STATS
+          LEFT OUTER JOIN LDL_DATA_PRODUCTION.ETL.T_TMP_CASHIERS_QUALIFIED AS CQ ON STATS.STORE_SID = CQ.STORE_SID
+           AND STATS.BUS_DT = CQ.BUS_DT
+           AND STATS.CASHIER_NR = CQ.CASHIER_NR
+        GROUP BY 1, 2, 3
+    )
+    SELECT
+        AGG.SALES_COMPANY_SID,
+        AGG.STORE_SID,
+        AGG.CASHIER_NR,
+        AGG.STORE_SELECTED_FG,
+        AGG.IS_CASHIER_QUALIFIED_FG,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.DEPOSIT_ONLY_RETURN_NET_VAL IS NULL, 0, 1), AGG.DEPOSIT_ONLY_RETURN_NET_VAL DESC) AS RNK_DEPOSIT_ONLY_RETURN_VAL,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.DEPOSIT_RETURN_MANUAL_INPUT_GROSS_VAL IS NULL, 0, 1), AGG.DEPOSIT_RETURN_MANUAL_INPUT_GROSS_VAL DESC) AS RNK_DEPOSIT_MANUAL_INPUT_VAL,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.DEPOSIT_RETURN_SALES_PERCENTAGE IS NULL, 0, 1), AGG.DEPOSIT_RETURN_SALES_PERCENTAGE DESC) AS RNK_DEPOSIT_RETURN_SALES_PERCENTAGE,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.LOGIN_AVG_CNT IS NULL, 0, 1), AGG.LOGIN_AVG_CNT DESC) AS RNK_LOGIN_AVG_CNT,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.SMALL_SALES_CNT IS NULL, 0, 1), AGG.SMALL_SALES_CNT DESC) AS RNK_SMALL_SALES_CNT,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.RETURN_CNT IS NULL, 0, 1), AGG.RETURN_CNT DESC) AS RNK_RETURN_CNT,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.RETURN_MANUAL_RECEIPT_CNT IS NULL, 0, 1), AGG.RETURN_MANUAL_RECEIPT_CNT DESC) AS RNK_RETURN_MANUAL_RECEIPT_CNT,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.RETURN_AVG_VAL IS NULL, 0, 1), AGG.RETURN_AVG_VAL DESC) AS RNK_RETURN_AVG_VAL,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.RETURN_RETAIL_PERCENTAGE IS NULL, 0, 1), AGG.RETURN_RETAIL_PERCENTAGE DESC) AS RNK_RETURN_RETAIL_PERCENTAGE,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.RETURN_WITHOUT_RECEIPT_CNT IS NULL, 0, 1), AGG.RETURN_WITHOUT_RECEIPT_CNT DESC) AS RNK_RETURN_WITHOUT_RECEIPT_CNT,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.SUSPENDED_UNRESOLVED_CNT IS NULL, 0, 1), AGG.SUSPENDED_UNRESOLVED_CNT DESC) AS RNK_SUSPENDED_UNRESOLVED_CNT,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.ABORT_VAL IS NULL, 0, 1), AGG.ABORT_VAL DESC) AS RNK_ABORT_VAL,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.ABORT_CNT IS NULL, 0, 1), AGG.ABORT_CNT DESC) AS RNK_ABORT_CNT,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.CANCELLED_LINE_CNT_PERCENTAGE IS NULL, 0, 1), AGG.CANCELLED_LINE_CNT_PERCENTAGE DESC) AS RNK_CANCELLED_LINE_CNT_PERCENTAGE,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.CANCELLED_LINE_VAL_PERCENTAGE IS NULL, 0, 1), AGG.CANCELLED_LINE_VAL_PERCENTAGE DESC) AS RNK_CANCELLED_LINE_VAL_PERCENTAGE,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.PRICE_INFO_CNT IS NULL, 0, 1), AGG.PRICE_INFO_CNT DESC) AS RNK_PRICE_INFO_CNT,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.DISCOUNT_LINE_CNT IS NULL, 0, 1), AGG.DISCOUNT_LINE_CNT DESC) AS RNK_DISCOUNT_LINE_CNT,
+        rank() OVER (PARTITION BY AGG.SALES_COMPANY_SID ORDER BY if(AGG.IS_CASHIER_QUALIFIED_FG IS NULL, 0, 1), AGG.IS_CASHIER_QUALIFIED_FG DESC, if(AGG.DISCOUNT_LINE_VAL_PERCENTAGE IS NULL, 0, 1), AGG.DISCOUNT_LINE_VAL_PERCENTAGE DESC) AS RNK_DISCOUNT_LINE_VAL_PERCENTAGE
+      FROM
+        AGG
+;
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--
+-- Load Targets
+--
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- 3.0
+-- delete before insert to update receipts information in case it comes with changes for the same period
+DELETE FROM LDL_DATA_PRODUCTION.CORE_APP_FRAUD_DETECTION.T_CASH_REGISTER_EVENT_CLASSIFICATION AS C WHERE C.SCENARIO_ID IN(
+  SELECT
+      S.SCENARIO_ID
+    FROM
+      LDL_DATA_PRODUCTION.CORE_APP_FRAUD_DETECTION.T_FRAUD_DETECTION_SCENARIO AS S
+    WHERE SCENARIO_TYPE_CD = 'MAN'
+)
+ AND (C.STORE_SID, C.BUS_DT) IN(
+  SELECT DISTINCT AS STRUCT
+      STORE_SID,
+      BUS_DT
+    FROM
+      LDL_DATA_PRODUCTION.ETL.T_STORES_QUALIFIED
+);
+DELETE FROM LDL_DATA_PRODUCTION.CORE_APP_FRAUD_DETECTION.T_STATISTICS_BY_STORE_HOUR_CASHIER AS C WHERE (C.INT_ORG_SID, C.BUS_DT) IN(
+  SELECT DISTINCT AS STRUCT
+      STORE_SID,
+      BUS_DT
+    FROM
+      LDL_DATA_PRODUCTION.ETL.T_STORES_QUALIFIED
+);
+-- we want to delete the data for all cashiers and all scenarios for these stores
+-- this is why STORE_SID as filter is enough
+DELETE FROM LDL_DATA_PRODUCTION.CORE_APP_FRAUD_DETECTION.T_CASHIER_RANKING_BY_FRAUD_SCENARIO AS TRG WHERE TRG.STORE_SID IN(
+  SELECT
+      SQ.STORE_SID
+    FROM
+      LDL_DATA_PRODUCTION.ETL.T_STORES_QUALIFIED AS SQ
+);
+-- 	3.1
+INSERT INTO LDL_DATA_PRODUCTION.CORE_APP_FRAUD_DETECTION.T_CASH_REGISTER_EVENT_CLASSIFICATION (CASH_REGISTER_EVENT_SID, CASH_REGISTER_EVENT_NR, SCENARIO_ID, COUNTRY_ORG_CD, STORE_SID, BUS_DT, EVENT_END_HR, CUST_SID, CUST_IDENT_TYPE_CD, CASHIER_NR, CASH_REGISTER_EVENT_CNT, CASH_REGISTER_EVENT_AFFECTED_LINE_CNT, CASH_REGISTER_EVENT_AFFECTED_NET_VAL, CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL, DWH_CREATED_TMSP, DWH_UPDATED_TMSP, DWH_LOAD_ID, DWH_NODE_CD)
+  WITH ENABLED_SCENARIOS AS (
+    SELECT DISTINCT
+        V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE.SCENARIO_ID,
+        V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE.COUNTRY_ORG_CD
+      FROM
+        LDL_DATA_PRODUCTION.CORE_APP_FRAUD_DETECTION.V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE
+      WHERE V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE.IS_SCENARIO_ENABLED_IN_COUNTRY_FG = true
+  ), GATHER_ALL_KPIS AS (
+    SELECT
+        -- Manual Discount Scenario (from LDL_DATA_PRODUCTION.2.1) - Gesamtanzahl manueller Rabatt
+        DS.CASH_REGISTER_EVENT_SID,
+        DS.CASH_REGISTER_EVENT_NR,
+        NUMERIC '38' AS SCENARIO_ID,
+        DS.COUNTRY_ORG_CD,
+        DS.STORE_SID,
+        DS.BUS_DT,
+        DS.EVENT_END_HR,
+        DS.CUST_SID,
+        DS.CUST_IDENT_TYPE_CD,
+        DS.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        DS.MANUAL_DISCOUNT_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        DS.MANUAL_DISCOUNT_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        DS.MANUAL_DISCOUNT_GROSS_VAL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_DISCOUNT_SCENARIOS AS DS
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND (DS.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR DS.CASH_REGISTER_TYPE_CD IS NULL)
+       AND DS.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '38'
+      )
+       AND DS.HAS_MANUAL_DISCOUNT_FG = NUMERIC '1'
+    UNION ALL
+    SELECT
+        -- Manual Discount Scenario (from LDL_DATA_PRODUCTION.2.1) - Rabattquote (manuell)
+        DS.CASH_REGISTER_EVENT_SID,
+        DS.CASH_REGISTER_EVENT_NR,
+        NUMERIC '39' AS SCENARIO_ID,
+        DS.COUNTRY_ORG_CD,
+        DS.STORE_SID,
+        DS.BUS_DT,
+        DS.EVENT_END_HR,
+        DS.CUST_SID,
+        DS.CUST_IDENT_TYPE_CD,
+        DS.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        DS.MANUAL_DISCOUNT_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        DS.MANUAL_DISCOUNT_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        DS.MANUAL_DISCOUNT_GROSS_VAL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_DISCOUNT_SCENARIOS AS DS
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND (DS.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR DS.CASH_REGISTER_TYPE_CD IS NULL)
+       AND DS.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '39'
+      )
+       AND DS.HAS_MANUAL_DISCOUNT_FG = NUMERIC '1'
+    UNION ALL
+    SELECT
+        -- Discount Scenario (from LDL_DATA_PRODUCTION.2.1) - Rabattquote in %
+        DS.CASH_REGISTER_EVENT_SID,
+        DS.CASH_REGISTER_EVENT_NR,
+        NUMERIC '53' AS SCENARIO_ID,
+        DS.COUNTRY_ORG_CD,
+        DS.STORE_SID,
+        DS.BUS_DT,
+        DS.EVENT_END_HR,
+        DS.CUST_SID,
+        DS.CUST_IDENT_TYPE_CD,
+        DS.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        DS.DISCOUNT_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        DS.DISCOUNT_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        DS.DISCOUNT_GROSS_VAL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_DISCOUNT_SCENARIOS AS DS
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND (DS.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR DS.CASH_REGISTER_TYPE_CD IS NULL)
+       AND DS.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '53'
+      )
+       AND DS.HAS_MANUAL_DISCOUNT_FG = NUMERIC '1'
+    UNION ALL
+    SELECT
+        -- Discount Scenario (from LDL_DATA_PRODUCTION.2.1) - Anzahl Bons mit >=X rabattierten Artikeln pro Bon
+        DS.CASH_REGISTER_EVENT_SID,
+        DS.CASH_REGISTER_EVENT_NR,
+        NUMERIC '54' AS SCENARIO_ID,
+        DS.COUNTRY_ORG_CD,
+        DS.STORE_SID,
+        DS.BUS_DT,
+        DS.EVENT_END_HR,
+        DS.CUST_SID,
+        DS.CUST_IDENT_TYPE_CD,
+        DS.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        DS.MANUAL_DISCOUNT_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        DS.MANUAL_DISCOUNT_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        DS.MANUAL_DISCOUNT_GROSS_VAL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_DISCOUNT_SCENARIOS AS DS
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND (DS.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR DS.CASH_REGISTER_TYPE_CD IS NULL)
+       AND DS.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '54'
+      )
+       AND DS.HAS_MANY_DISCOUNTED_LINES_FG = NUMERIC '1'
+       AND DS.HAS_MANUAL_DISCOUNT_FG = NUMERIC '1'
+    UNION ALL
+    SELECT
+        -- Discount Scenario (from LDL_DATA_PRODUCTION.2.1) - Anzahl Bons mit Rabattwert >=X pro Bon
+        DS.CASH_REGISTER_EVENT_SID,
+        DS.CASH_REGISTER_EVENT_NR,
+        NUMERIC '55' AS SCENARIO_ID,
+        DS.COUNTRY_ORG_CD,
+        DS.STORE_SID,
+        DS.BUS_DT,
+        DS.EVENT_END_HR,
+        DS.CUST_SID,
+        DS.CUST_IDENT_TYPE_CD,
+        DS.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        DS.MANUAL_DISCOUNT_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        DS.MANUAL_DISCOUNT_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        DS.MANUAL_DISCOUNT_GROSS_VAL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_DISCOUNT_SCENARIOS AS DS
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND (DS.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR DS.CASH_REGISTER_TYPE_CD IS NULL)
+       AND DS.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '55'
+      )
+       AND DS.HAS_HIGH_VALUE_DISCOUNT_FG = NUMERIC '1'
+       AND DS.HAS_MANUAL_DISCOUNT_FG = NUMERIC '1'
+    UNION ALL
+    SELECT
+        -- Storno Scenarios (from LDL_DATA_PRODUCTION.2.2) - Anzahl storni per 100 bons
+        TSS.CASH_REGISTER_EVENT_SID,
+        TSS.CASH_REGISTER_EVENT_NR,
+        NUMERIC '34' AS SCENARIO_ID,
+        TSS.COUNTRY_ORG_CD,
+        TSS.STORE_SID,
+        TSS.BUS_DT,
+        TSS.EVENT_END_HR,
+        TSS.CUST_SID,
+        TSS.CUST_IDENT_TYPE_CD,
+        TSS.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        TSS.TOTAL_CANCELLED_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        TSS.TOTAL_CANCELLED_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_STORNO_SCENARIOS AS TSS
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND (TSS.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR TSS.CASH_REGISTER_TYPE_CD IS NULL)
+       AND TSS.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '34'
+      )
+      -- take only events with cancellation of important products. If event has cancellations only of  Flowers/Bakery/Fruit/Veggies and no other product, then it is excluded
+      -- but for included events, take all lines and amounts (event flowers/bakery/fruit/veggies)
+       AND TSS.IMPORTANT_PROD_CANCELLED_LINE_CNT > NUMERIC '0'
+    UNION ALL
+    SELECT
+        -- Storno Scenarios (from LDL_DATA_PRODUCTION.2.2) - Stornoquote
+        TSS.CASH_REGISTER_EVENT_SID,
+        TSS.CASH_REGISTER_EVENT_NR,
+        NUMERIC '35' AS SCENARIO_ID,
+        TSS.COUNTRY_ORG_CD,
+        TSS.STORE_SID,
+        TSS.BUS_DT,
+        TSS.EVENT_END_HR,
+        TSS.CUST_SID,
+        TSS.CUST_IDENT_TYPE_CD,
+        TSS.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        TSS.TOTAL_CANCELLED_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        TSS.TOTAL_CANCELLED_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_STORNO_SCENARIOS AS TSS
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND (TSS.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR TSS.CASH_REGISTER_TYPE_CD IS NULL)
+       AND TSS.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '35'
+      )
+      -- take only events with cancellation of important products. If event has cancellations only of  Flowers/Bakery/Fruit/Veggies and no other product, then it is excluded
+      -- but for included events, take all lines and amounts (event flowers/bakery/fruit/veggies)
+       AND TSS.IMPORTANT_PROD_CANCELLED_LINE_CNT > NUMERIC '0'
+    UNION ALL
+    SELECT
+        -- Price Check Scenarios (from LDL_DATA_PRODUCTION.2.3) - Gesamtanzahl Preisanzeigen
+        TPCS.CASH_REGISTER_EVENT_SID,
+        TPCS.CASH_REGISTER_EVENT_NR,
+        NUMERIC '36' AS SCENARIO_ID,
+        TPCS.COUNTRY_ORG_CD,
+        TPCS.STORE_SID,
+        TPCS.BUS_DT,
+        TPCS.EVENT_END_HR,
+        TPCS.CUST_SID,
+        TPCS.CUST_IDENT_TYPE_CD,
+        TPCS.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        NUMERIC '0' AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        TPCS.TXN_GROSS_VAL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_PRICE_CHECK_SCENARIOS AS TPCS
+      WHERE (TPCS.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR TPCS.CASH_REGISTER_TYPE_CD IS NULL)
+       AND TPCS.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '36'
+      )
+    UNION ALL
+    SELECT
+        -- Price Check Scenarios (from LDL_DATA_PRODUCTION.2.3) - "Anzahl Preisanzeigen mit Non-Food Artikeln >= X LW"
+        TPCS.CASH_REGISTER_EVENT_SID,
+        TPCS.CASH_REGISTER_EVENT_NR,
+        NUMERIC '47' AS SCENARIO_ID,
+        TPCS.COUNTRY_ORG_CD,
+        TPCS.STORE_SID,
+        TPCS.BUS_DT,
+        TPCS.EVENT_END_HR,
+        TPCS.CUST_SID,
+        TPCS.CUST_IDENT_TYPE_CD,
+        TPCS.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        NUMERIC '0' AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_PRICE_CHECK_SCENARIOS AS TPCS
+      WHERE (TPCS.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR TPCS.CASH_REGISTER_TYPE_CD IS NULL)
+       AND TPCS.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '47'
+      )
+       AND TPCS.IS_NON_FOOD_FG = NUMERIC '1'
+    UNION ALL
+    SELECT
+        -- Price Check Scenarios (from LDL_DATA_PRODUCTION.2.3) - "Anzahl Preisanzeigen mit Tabakartikeln"
+        TPCS.CASH_REGISTER_EVENT_SID,
+        TPCS.CASH_REGISTER_EVENT_NR,
+        NUMERIC '48' AS SCENARIO_ID,
+        TPCS.COUNTRY_ORG_CD,
+        TPCS.STORE_SID,
+        TPCS.BUS_DT,
+        TPCS.EVENT_END_HR,
+        TPCS.CUST_SID,
+        TPCS.CUST_IDENT_TYPE_CD,
+        TPCS.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        NUMERIC '0' AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_PRICE_CHECK_SCENARIOS AS TPCS
+      WHERE (TPCS.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR TPCS.CASH_REGISTER_TYPE_CD IS NULL)
+       AND TPCS.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '48'
+      )
+       AND TPCS.IS_TOBACCO_FG = NUMERIC '1'
+    UNION ALL
+    SELECT
+        -- Price Check Scenarios (from LDL_DATA_PRODUCTION.2.3) - "Anzahl Preisanzeigen mit Alkoholartikeln"
+        TPCS.CASH_REGISTER_EVENT_SID,
+        TPCS.CASH_REGISTER_EVENT_NR,
+        NUMERIC '49' AS SCENARIO_ID,
+        TPCS.COUNTRY_ORG_CD,
+        TPCS.STORE_SID,
+        TPCS.BUS_DT,
+        TPCS.EVENT_END_HR,
+        TPCS.CUST_SID,
+        TPCS.CUST_IDENT_TYPE_CD,
+        TPCS.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        NUMERIC '0' AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_PRICE_CHECK_SCENARIOS AS TPCS
+      WHERE (TPCS.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR TPCS.CASH_REGISTER_TYPE_CD IS NULL)
+       AND TPCS.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '49'
+      )
+       AND TPCS.IS_ALCOHOL_FG = NUMERIC '1'
+    UNION ALL
+    SELECT
+        -- Price Check Scenarios (from LDL_DATA_PRODUCTION.2.3) - "Anzahl Vorgänge > X Preisanzeigen in Folge"
+        TPCS.CASH_REGISTER_EVENT_SID,
+        TPCS.CASH_REGISTER_EVENT_NR,
+        NUMERIC '50' AS SCENARIO_ID,
+        TPCS.COUNTRY_ORG_CD,
+        TPCS.STORE_SID,
+        TPCS.BUS_DT,
+        TPCS.EVENT_END_HR,
+        TPCS.CUST_SID,
+        TPCS.CUST_IDENT_TYPE_CD,
+        TPCS.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        NUMERIC '0' AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_PRICE_CHECK_SCENARIOS AS TPCS
+      WHERE (TPCS.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR TPCS.CASH_REGISTER_TYPE_CD IS NULL)
+       AND TPCS.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '50'
+      )
+       AND TPCS.IS_MULTI_PIE_FG = NUMERIC '1'
+    UNION ALL
+    SELECT
+        -- Price Check Scenarios (from LDL_DATA_PRODUCTION.2.3) - "Anzahl Preisanzeigen direkt vor Abmeldung"
+        TPCS.CASH_REGISTER_EVENT_SID,
+        TPCS.CASH_REGISTER_EVENT_NR,
+        NUMERIC '51' AS SCENARIO_ID,
+        TPCS.COUNTRY_ORG_CD,
+        TPCS.STORE_SID,
+        TPCS.BUS_DT,
+        TPCS.EVENT_END_HR,
+        TPCS.CUST_SID,
+        TPCS.CUST_IDENT_TYPE_CD,
+        TPCS.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        NUMERIC '0' AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_PRICE_CHECK_SCENARIOS AS TPCS
+      WHERE (TPCS.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR TPCS.CASH_REGISTER_TYPE_CD IS NULL)
+       AND TPCS.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '51'
+      )
+       AND TPCS.IS_NEXT_LOGOFF_FG = NUMERIC '1'
+    UNION ALL
+    SELECT
+        -- Price Check Scenarios (from LDL_DATA_PRODUCTION.2.3) - "Anzahl Preisanzeigen direkt vor Kleinstbon"
+        TPCS.CASH_REGISTER_EVENT_SID,
+        TPCS.CASH_REGISTER_EVENT_NR,
+        NUMERIC '52' AS SCENARIO_ID,
+        TPCS.COUNTRY_ORG_CD,
+        TPCS.STORE_SID,
+        TPCS.BUS_DT,
+        TPCS.EVENT_END_HR,
+        TPCS.CUST_SID,
+        TPCS.CUST_IDENT_TYPE_CD,
+        TPCS.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        NUMERIC '0' AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_PRICE_CHECK_SCENARIOS AS TPCS
+      WHERE (TPCS.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR TPCS.CASH_REGISTER_TYPE_CD IS NULL)
+       AND TPCS.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '52'
+      )
+       AND TPCS.IS_NEXT_SMALL_SALE_FG = NUMERIC '1'
+    UNION ALL
+    SELECT
+        -- Suspended Receipts Scenarios (from LDL_DATA_PRODUCTION.2.4) - Gesamtanzahl Bonrückstellungen
+        SS.CASH_REGISTER_EVENT_SID,
+        SS.CASH_REGISTER_EVENT_NR,
+        NUMERIC '31' AS SCENARIO_ID,
+        SS.COUNTRY_ORG_CD,
+        SS.STORE_SID,
+        SS.BUS_DT,
+        SS.EVENT_END_HR,
+        SS.CUST_SID,
+        SS.CUST_IDENT_TYPE_CD,
+        SS.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        SS.SUSPENDED_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        SS.SUSPENDED_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_SUSPEND_SCENARIOS AS SS
+      WHERE (SS.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR SS.CASH_REGISTER_TYPE_CD IS NULL)
+       AND SS.IS_RECEIPT_RESOLVED_FG = NUMERIC '0' /* only unresolved receipts are counted in scenario 31*/
+       AND SS.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '31'
+      )
+    UNION ALL
+    SELECT
+        -- all suspended reciepts are counted in scenario 42
+        SS.CASH_REGISTER_EVENT_SID,
+        SS.CASH_REGISTER_EVENT_NR,
+        NUMERIC '42' AS SCENARIO_ID,
+        SS.COUNTRY_ORG_CD,
+        SS.STORE_SID,
+        SS.BUS_DT,
+        SS.EVENT_END_HR,
+        SS.CUST_SID,
+        SS.CUST_IDENT_TYPE_CD,
+        SS.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        SS.SUSPENDED_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        SS.SUSPENDED_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_SUSPEND_SCENARIOS AS SS
+      WHERE (SS.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR SS.CASH_REGISTER_TYPE_CD IS NULL)
+       AND SS.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '42'
+      )
+    UNION ALL
+    SELECT
+        -- Aborted Receipts Scenarios (from LDL_DATA_PRODUCTION.2.5) - Gesamtwert Bonabbruch
+        AB_S.CASH_REGISTER_EVENT_SID,
+        AB_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '32' AS SCENARIO_ID,
+        AB_S.COUNTRY_ORG_CD,
+        AB_S.STORE_SID,
+        AB_S.BUS_DT,
+        AB_S.EVENT_END_HR,
+        AB_S.CUST_SID,
+        AB_S.CUST_IDENT_TYPE_CD,
+        AB_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        AB_S.CASH_REGISTER_ABORT_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        AB_S.ABORT_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_ABORT_SCENARIOS AS AB_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND (AB_S.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR AB_S.CASH_REGISTER_TYPE_CD IS NULL)
+       AND AB_S.IS_VALUE_ABOVE_THRESHOLD_FG = NUMERIC '1' /*only receipts with the gross value above the threshold*/
+       AND AB_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '32'
+      )
+    UNION ALL
+    SELECT
+        -- Aborted Receipts Scenarios (from LDL_DATA_PRODUCTION.2.5) - Gesamtanzahl Bonabbruch
+        AB_S.CASH_REGISTER_EVENT_SID,
+        AB_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '33' AS SCENARIO_ID,
+        AB_S.COUNTRY_ORG_CD,
+        AB_S.STORE_SID,
+        AB_S.BUS_DT,
+        AB_S.EVENT_END_HR,
+        AB_S.CUST_SID,
+        AB_S.CUST_IDENT_TYPE_CD,
+        AB_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        AB_S.CASH_REGISTER_ABORT_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        AB_S.ABORT_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_ABORT_SCENARIOS AS AB_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND (AB_S.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR AB_S.CASH_REGISTER_TYPE_CD IS NULL)
+       AND AB_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '33'
+      )
+    UNION ALL
+    SELECT
+        -- Generic return receipts Scenarios - no filter on specific return type (from LDL_DATA_PRODUCTION.2.6) - Gesamtanzahl Geldrückgaben
+        R_S.CASH_REGISTER_EVENT_SID,
+        R_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '26' AS SCENARIO_ID,
+        R_S.COUNTRY_ORG_CD,
+        R_S.STORE_SID,
+        R_S.BUS_DT,
+        R_S.EVENT_END_HR,
+        R_S.CUST_SID,
+        R_S.CUST_IDENT_TYPE_CD,
+        R_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        R_S.RETURN_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        R_S.RETURN_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_RETURN_SCENARIOS AS R_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND R_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '26'
+      )
+    UNION ALL
+    SELECT
+        -- Intentionally including "self-checkout" events, to make the logic same as "old system"
+        -- AND CASH_REGISTER_TYPE_CD = 'TIL'
+        -- Generic return receipts Scenarios - no filter on specific return type (from LDL_DATA_PRODUCTION.2.6) - Ø-Geldrückgabenwert
+        R_S.CASH_REGISTER_EVENT_SID,
+        R_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '28' AS SCENARIO_ID,
+        R_S.COUNTRY_ORG_CD,
+        R_S.STORE_SID,
+        R_S.BUS_DT,
+        R_S.EVENT_END_HR,
+        R_S.CUST_SID,
+        R_S.CUST_IDENT_TYPE_CD,
+        R_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        R_S.RETURN_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        R_S.RETURN_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_RETURN_SCENARIOS AS R_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND R_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '28'
+      )
+    UNION ALL
+    SELECT
+        -- Intentionally including "self-checkout" events, to make the logic same as "old system"
+        -- AND CASH_REGISTER_TYPE_CD = 'TIL'
+        -- Generic return receipts Scenarios - no filter on specific return type (from LDL_DATA_PRODUCTION.2.6) - Geldrückgabenquote
+        R_S.CASH_REGISTER_EVENT_SID,
+        R_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '29' AS SCENARIO_ID,
+        R_S.COUNTRY_ORG_CD,
+        R_S.STORE_SID,
+        R_S.BUS_DT,
+        R_S.EVENT_END_HR,
+        R_S.CUST_SID,
+        R_S.CUST_IDENT_TYPE_CD,
+        R_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        R_S.RETURN_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        R_S.RETURN_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_RETURN_SCENARIOS AS R_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+       AND R_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '29'
+      )
+    UNION ALL
+    SELECT
+        -- Intentionally including "self-checkout" events, to make the logic same as "old system"
+        -- AND CASH_REGISTER_TYPE_CD = 'TIL'
+        -- Manual return receipts Scenarios - at least one manual return line available in return receipt (from LDL_DATA_PRODUCTION.2.6) - Gesamtanzahl manuelle Geldrückgaben
+        MR_S.CASH_REGISTER_EVENT_SID,
+        MR_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '27' AS SCENARIO_ID,
+        MR_S.COUNTRY_ORG_CD,
+        MR_S.STORE_SID,
+        MR_S.BUS_DT,
+        MR_S.EVENT_END_HR,
+        MR_S.CUST_SID,
+        MR_S.CUST_IDENT_TYPE_CD,
+        MR_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        MR_S.RETURN_MANUAL_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        MR_S.RETURN_MANUAL_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_RETURN_SCENARIOS AS MR_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+      -- Intentionally including "self-checkout" events, to make the logic same as "old system"
+      -- AND CASH_REGISTER_TYPE_CD = 'TIL'
+       AND MR_S.RETURN_MANUAL_LINE_CNT > NUMERIC '0' /*manual line count filter*/
+       AND MR_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '27'
+      )
+    UNION ALL
+    SELECT
+        -- Return receipts with no original receipt Scenarios - at least one return line without an original receipt (from LDL_DATA_PRODUCTION.2.6) - Gesamtanzahl Geldrückgabe ohne Originalbon
+        NOR_S.CASH_REGISTER_EVENT_SID,
+        NOR_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '30' AS SCENARIO_ID,
+        NOR_S.COUNTRY_ORG_CD,
+        NOR_S.STORE_SID,
+        NOR_S.BUS_DT,
+        NOR_S.EVENT_END_HR,
+        NOR_S.CUST_SID,
+        NOR_S.CUST_IDENT_TYPE_CD,
+        NOR_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        NOR_S.RETURN_NO_ORIG_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        NOR_S.RETURN_NO_ORIG_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_RETURN_SCENARIOS AS NOR_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+      -- Intentionally including "self-checkout" events, to make the logic same as "old system"
+      -- AND CASH_REGISTER_TYPE_CD = 'TIL'
+       AND NOR_S.RETURN_NO_ORIG_LINE_CNT > NUMERIC '0' /*no original receipt filter*/
+       AND NOR_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '30'
+      )
+    UNION ALL
+    SELECT
+        -- Return receipts for which the date and cashier is the same as those of the original purchase receipt (from LDL_DATA_PRODUCTION.2.6)
+        -- unlike scenario 46, here the data of purchase and return must be the same
+        RSDC_S.CASH_REGISTER_EVENT_SID,
+        RSDC_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '41' AS SCENARIO_ID,
+        RSDC_S.COUNTRY_ORG_CD,
+        RSDC_S.STORE_SID,
+        RSDC_S.BUS_DT,
+        RSDC_S.EVENT_END_HR,
+        RSDC_S.CUST_SID,
+        RSDC_S.CUST_IDENT_TYPE_CD,
+        RSDC_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        RSDC_S.RETURN_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        RSDC_S.RETURN_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_RETURN_SCENARIOS AS RSDC_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+      -- Intentionally including "self-checkout" events, to make the logic same as "old system"
+      -- and CASH_REGISTER_TYPE_CD = 'TIL'
+       AND RSDC_S.IS_SAME_CASHIER_DAY_FG = NUMERIC '1' /*same cashier and day filter*/
+       AND RSDC_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '41'
+      )
+    UNION ALL
+    SELECT
+        -- "Gesamtanzahl gescannte Geldrückgaben" - Amount and line count of scanned Returns
+        RS_S.CASH_REGISTER_EVENT_SID,
+        RS_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '43' AS SCENARIO_ID,
+        RS_S.COUNTRY_ORG_CD,
+        RS_S.STORE_SID,
+        RS_S.BUS_DT,
+        RS_S.EVENT_END_HR,
+        RS_S.CUST_SID,
+        RS_S.CUST_IDENT_TYPE_CD,
+        RS_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        RS_S.RETURN_SCANNED_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        RS_S.RETURN_SCANNED_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_RETURN_SCENARIOS AS RS_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+      -- Intentionally including "self-checkout" events, to make the logic same as "old system"
+      -- and CASH_REGISTER_TYPE_CD = 'TIL'
+       AND RS_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '43'
+      )
+       AND RS_S.RETURN_SCANNED_LINE_CNT > NUMERIC '0'
+    UNION ALL
+    SELECT
+        -- "Gesamtanzahl manuelle Geldrückgabe (ohne DV)" - Amount and line count of manually entered returns (excluding entry method "DV")
+        RM_NODV_S.CASH_REGISTER_EVENT_SID,
+        RM_NODV_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '44' AS SCENARIO_ID,
+        RM_NODV_S.COUNTRY_ORG_CD,
+        RM_NODV_S.STORE_SID,
+        RM_NODV_S.BUS_DT,
+        RM_NODV_S.EVENT_END_HR,
+        RM_NODV_S.CUST_SID,
+        RM_NODV_S.CUST_IDENT_TYPE_CD,
+        RM_NODV_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        RM_NODV_S.RETURN_MANUAL_NO_DV_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        RM_NODV_S.RETURN_MANUAL_NO_DV_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_RETURN_SCENARIOS AS RM_NODV_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+      -- Intentionally including "self-checkout" events, to make the logic same as "old system"
+      -- and CASH_REGISTER_TYPE_CD = 'TIL'
+       AND RM_NODV_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '44'
+      )
+       AND RM_NODV_S.RETURN_MANUAL_NO_DV_LINE_CNT > NUMERIC '0'
+    UNION ALL
+    SELECT
+        -- "Anzahl Geldrückgaben DV" - Amount and line count of manually entered returns only considering entry method "DV"
+        RM_DV_S.CASH_REGISTER_EVENT_SID,
+        RM_DV_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '45' AS SCENARIO_ID,
+        RM_DV_S.COUNTRY_ORG_CD,
+        RM_DV_S.STORE_SID,
+        RM_DV_S.BUS_DT,
+        RM_DV_S.EVENT_END_HR,
+        RM_DV_S.CUST_SID,
+        RM_DV_S.CUST_IDENT_TYPE_CD,
+        RM_DV_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        RM_DV_S.RETURN_MANUAL_DV_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        RM_DV_S.RETURN_MANUAL_DV_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_RETURN_SCENARIOS AS RM_DV_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+      -- Intentionally including "self-checkout" events, to make the logic same as "old system"
+      -- and CASH_REGISTER_TYPE_CD = 'TIL'
+       AND RM_DV_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '45'
+      )
+       AND RM_DV_S.RETURN_MANUAL_DV_LINE_CNT > NUMERIC '0'
+    UNION ALL
+    SELECT
+        -- "Anzahl Geldrückgaben mit Originalbon vom selben Bediener" - Return receipts for which the cashier is the same as those of the original purchase receipt (from LDL_DATA_PRODUCTION.2.6)
+        -- unlike scenario 41, here the data of purchase and return could be different
+        RSC_S.CASH_REGISTER_EVENT_SID,
+        RSC_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '46' AS SCENARIO_ID,
+        RSC_S.COUNTRY_ORG_CD,
+        RSC_S.STORE_SID,
+        RSC_S.BUS_DT,
+        RSC_S.EVENT_END_HR,
+        RSC_S.CUST_SID,
+        RSC_S.CUST_IDENT_TYPE_CD,
+        RSC_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        RSC_S.RETURN_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        RSC_S.RETURN_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_RETURN_SCENARIOS AS RSC_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+      -- Intentionally including "self-checkout" events, to make the logic same as "old system"
+      -- and CASH_REGISTER_TYPE_CD = 'TIL'
+       AND RSC_S.IS_SAME_CASHIER_FG = NUMERIC '1' /*same cashier and day filter*/
+       AND RSC_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '46'
+      )
+    UNION ALL
+    SELECT
+        -- Small sale scenarios (from LDL_DATA_PRODUCTION.2.7) - Anzahl Kleinstbon
+        SS_S.CASH_REGISTER_EVENT_SID,
+        SS_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '25' AS SCENARIO_ID,
+        SS_S.COUNTRY_ORG_CD,
+        SS_S.STORE_SID,
+        SS_S.BUS_DT,
+        SS_S.EVENT_END_HR,
+        SS_S.CUST_SID,
+        SS_S.CUST_IDENT_TYPE_CD,
+        SS_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        SS_S.SMALL_SALE_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        SS_S.SMALL_SALE_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_SMALL_SALE_SCENARIOS AS SS_S
+      WHERE (SS_S.CASH_REGISTER_TYPE_CD = 'TIL'
+       OR SS_S.CASH_REGISTER_TYPE_CD IS NULL)
+       AND SS_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '25'
+      )
+    UNION ALL
+    SELECT
+        -- Logon logoff scenarios (from LDL_DATA_PRODUCTION.2.8) - Anzahl An-/Abmeldung
+        LL_S.CASH_REGISTER_EVENT_SID,
+        LL_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '24' AS SCENARIO_ID,
+        LL_S.COUNTRY_ORG_CD,
+        LL_S.STORE_SID,
+        LL_S.BUS_DT,
+        LL_S.EVENT_END_HR,
+        LL_S.CUST_SID,
+        LL_S.CUST_IDENT_TYPE_CD,
+        LL_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        LL_S.LOGON_LOGOFF_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        LL_S.LOGON_LOGOFF_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_TECH_EVENTS AS LL_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+      -- Intentionally including "self-checkout" events, to make the logic same as "old system"
+      -- and CASH_REGISTER_TYPE_CD = 'TIL'
+       AND LL_S.TECH_CASH_REGISTER_EVENT_TYPE_CD IN(
+        NUMERIC '410', NUMERIC '415'
+      ) /*loading logon and logoff event types only for this scenario*/
+       AND LL_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '24'
+      )
+    UNION ALL
+    SELECT
+        -- Deposit generic scenario (from LDL_DATA_PRODUCTION.2.9) - Pfandquote
+        DG_S.CASH_REGISTER_EVENT_SID,
+        DG_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '23' AS SCENARIO_ID,
+        DG_S.COUNTRY_ORG_CD,
+        DG_S.STORE_SID,
+        DG_S.BUS_DT,
+        DG_S.EVENT_END_HR,
+        DG_S.CUST_SID,
+        DG_S.CUST_IDENT_TYPE_CD,
+        DG_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        DG_S.SOLD_DEPOSIT_LINE_CNT + DG_S.RETURNED_DEPOSIT_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        DG_S.DEPOSIT_SALES_NET_VAL + DG_S.DEPOSIT_RETURN_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        DG_S.DEPOSIT_SALES_GROSS_VAL + DG_S.DEPOSIT_RETURN_GROSS_VAL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_DEPOSIT_SCENARIOS AS DG_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+      -- Intentionally including "self-checkout" events, to make the logic same as "old system"
+      -- and CASH_REGISTER_TYPE_CD = 'TIL'
+       AND DG_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '23'
+      )
+    UNION ALL
+    SELECT
+        -- Deposit manual scenario (from LDL_DATA_PRODUCTION.2.9) - Wert manuelle Pfandauszahlungen
+        DM_S.CASH_REGISTER_EVENT_SID,
+        DM_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '22' AS SCENARIO_ID,
+        DM_S.COUNTRY_ORG_CD,
+        DM_S.STORE_SID,
+        DM_S.BUS_DT,
+        DM_S.EVENT_END_HR,
+        DM_S.CUST_SID,
+        DM_S.CUST_IDENT_TYPE_CD,
+        DM_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        DM_S.DEPOSIT_RETURN_MANUAL_INPUT_LINES_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        DM_S.DEPOSIT_RETURN_MANUAL_INPUT_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        DM_S.DEPOSIT_RETURN_MANUAL_INPUT_GROSS_VAL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_DEPOSIT_SCENARIOS AS DM_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+      -- Intentionally including "self-checkout" events, to make the logic same as "old system"
+      -- and CASH_REGISTER_TYPE_CD = 'TIL'
+       AND DM_S.DEPOSIT_RETURN_MANUAL_INPUT_LINES_CNT > NUMERIC '0' /*loading only these receipts with any manual deposit*/
+       AND DM_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '22'
+      )
+    UNION ALL
+    SELECT
+        -- Deposit only scenario (from LDL_DATA_PRODUCTION.2.9) - Wert reine Pfandauszahlungen
+        DO_S.CASH_REGISTER_EVENT_SID,
+        DO_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '21' AS SCENARIO_ID,
+        DO_S.COUNTRY_ORG_CD,
+        DO_S.STORE_SID,
+        DO_S.BUS_DT,
+        DO_S.EVENT_END_HR,
+        DO_S.CUST_SID,
+        DO_S.CUST_IDENT_TYPE_CD,
+        DO_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        DO_S.RETURNED_DEPOSIT_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        DO_S.DEPOSIT_RETURN_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        DO_S.DEPOSIT_RETURN_GROSS_VAL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_DEPOSIT_SCENARIOS AS DO_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+      -- Intentionally including "self-checkout" events, to make the logic same as "old system"
+      -- and CASH_REGISTER_TYPE_CD = 'TIL'
+       AND DO_S.NON_DEPOSIT_LINES_CNT = NUMERIC '0' /*loading only these receipts with no other lines than deposits*/
+       AND DO_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '21'
+      )
+    UNION ALL
+    SELECT
+        -- Deposit ALL scenario (from LDL_DATA_PRODUCTION.2.9) - Wert Pfandauszahlungen (similar to 21, but we include all receipts with any deposit returns, not only "PURE" deposit returns
+        DO_S.CASH_REGISTER_EVENT_SID,
+        DO_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '56' AS SCENARIO_ID,
+        DO_S.COUNTRY_ORG_CD,
+        DO_S.STORE_SID,
+        DO_S.BUS_DT,
+        DO_S.EVENT_END_HR,
+        DO_S.CUST_SID,
+        DO_S.CUST_IDENT_TYPE_CD,
+        DO_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        DO_S.RETURNED_DEPOSIT_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        DO_S.DEPOSIT_RETURN_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        DO_S.DEPOSIT_RETURN_GROSS_VAL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_DEPOSIT_SCENARIOS AS DO_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+      -- Intentionally including "self-checkout" events, to make the logic same as "old system"
+      -- and CASH_REGISTER_TYPE_CD = 'TIL'
+       AND DO_S.RETURNED_DEPOSIT_LINE_CNT > NUMERIC '0' /*loading only these receipts with any deposit return lines*/
+       AND DO_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '56'
+      )
+    UNION ALL
+    SELECT
+        -- Manual Deposit only scenario (from LDL_DATA_PRODUCTION.2.9) - Reine und manuelle Pfandauszahlung
+        DO_S.CASH_REGISTER_EVENT_SID,
+        DO_S.CASH_REGISTER_EVENT_NR,
+        NUMERIC '57' AS SCENARIO_ID,
+        DO_S.COUNTRY_ORG_CD,
+        DO_S.STORE_SID,
+        DO_S.BUS_DT,
+        DO_S.EVENT_END_HR,
+        DO_S.CUST_SID,
+        DO_S.CUST_IDENT_TYPE_CD,
+        DO_S.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        DO_S.DEPOSIT_RETURN_MANUAL_INPUT_LINES_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        DO_S.DEPOSIT_RETURN_MANUAL_INPUT_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        DO_S.DEPOSIT_RETURN_MANUAL_INPUT_GROSS_VAL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_DEPOSIT_SCENARIOS AS DO_S
+      WHERE NUMERIC '1' = NUMERIC '1'
+      -- Intentionally including "self-checkout" events, to make the logic same as "old system"
+      -- and CASH_REGISTER_TYPE_CD = 'TIL'
+       AND DO_S.NON_DEPOSIT_LINES_CNT = NUMERIC '0' /*loading only these receipts with no other lines than deposits*/
+       AND DO_S.DEPOSIT_RETURN_MANUAL_INPUT_LINES_CNT = DO_S.RETURNED_DEPOSIT_LINE_CNT /*loading only these receipts where the total number of deposit return lines is coming only from manual deposit returns*/
+       AND DO_S.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '57'
+      )
+    UNION ALL
+    SELECT
+        -- Lidl Plus usage scenario (from LDL_DATA_PRODUCTION.2.10)
+        LPS.CASH_REGISTER_EVENT_SID,
+        LPS.CASH_REGISTER_EVENT_NR,
+        NUMERIC '40' AS SCENARIO_ID,
+        LPS.COUNTRY_ORG_CD,
+        LPS.STORE_SID,
+        LPS.BUS_DT,
+        LPS.EVENT_END_HR,
+        LPS.CUST_SID,
+        LPS.CUST_IDENT_TYPE_CD,
+        LPS.CASHIER_NR,
+        NUMERIC '1' AS CASH_REGISTER_EVENT_CNT,
+        LPS.EVENT_LINE_CNT AS CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+        LPS.EVENT_NET_VAL AS CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+        NULL AS CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL
+      FROM
+        LDL_DATA_PRODUCTION.ETL.T_TMP_LIDL_PLUS_SCENARIOS AS LPS
+      WHERE NUMERIC '1' = NUMERIC '1'
+      -- Intentionally including "self-checkout" events, to make the logic same as "old system"
+      -- and CASH_REGISTER_TYPE_CD = 'TIL'
+       AND LPS.COUNTRY_ORG_CD IN(
+        SELECT
+            ENABLED_SCENARIOS.COUNTRY_ORG_CD
+          FROM
+            ENABLED_SCENARIOS
+          WHERE ENABLED_SCENARIOS.SCENARIO_ID = NUMERIC '40'
+      )
+  )
+  SELECT
+      GATHER_ALL_KPIS.CASH_REGISTER_EVENT_SID,
+      GATHER_ALL_KPIS.CASH_REGISTER_EVENT_NR,
+      GATHER_ALL_KPIS.SCENARIO_ID,
+      GATHER_ALL_KPIS.COUNTRY_ORG_CD,
+      GATHER_ALL_KPIS.STORE_SID,
+      GATHER_ALL_KPIS.BUS_DT,
+      GATHER_ALL_KPIS.EVENT_END_HR,
+      -- in reporting schemas (CORE_DIM, CORE_APP_FRAUD_DETECTION) we set dummy values, not NULLs
+      coalesce(GATHER_ALL_KPIS.CUST_SID, -NUMERIC '1'),
+      coalesce(GATHER_ALL_KPIS.CUST_IDENT_TYPE_CD, '@'),
+      GATHER_ALL_KPIS.CASHIER_NR,
+      GATHER_ALL_KPIS.CASH_REGISTER_EVENT_CNT,
+      GATHER_ALL_KPIS.CASH_REGISTER_EVENT_AFFECTED_LINE_CNT,
+      GATHER_ALL_KPIS.CASH_REGISTER_EVENT_AFFECTED_NET_VAL,
+      GATHER_ALL_KPIS.CASH_REGISTER_EVENT_AFFECTED_GROSS_VAL,
+      current_timestamp() AS DWH_CREATED_TMSP,
+      current_timestamp() AS DWH_UPDATED_TMSP,
+      GATHER_ALL_KPIS.${LOAD_ID} AS DWH_LOAD_ID,
+      'CORE_REL' AS DWH_NODE_CD
+    FROM
+      GATHER_ALL_KPIS
+  ORDER BY
+    BUS_DT NULLS LAST
+;
+--------------------------------------------
+------------------------------------------------------------
+-- 3.2
+-- INSERT into "STATISTICS table"
+INSERT INTO LDL_DATA_PRODUCTION.CORE_APP_FRAUD_DETECTION.T_STATISTICS_BY_STORE_HOUR_CASHIER (INT_ORG_SID, BUS_DT, CASHIER_NR, EVENT_END_HR, SALES_NET_VAL, RETURN_NET_VAL, IS_OUTLIER_DAY_RETURN_FG, EVENT_CNT, EVENT_LINE_CNT, RETURN_CNT, CANCELLED_LINE_CNT, CANCELLED_NET_VAL, DISCOUNT_LINE_CNT, DISCOUNT_NET_VAL, ABORT_CNT, ABORT_NET_VAL, SUSPENDED_UNRESOLVED_CNT, SUSPENDED_UNRESOLVED_NET_VAL, PRICE_INFO_CNT, RETURN_WITHOUT_RECEIPT_CNT, RETURN_WITHOUT_RECEIPT_NET_VAL, DEPOSIT_SALES_NET_VAL, DEPOSIT_RETURN_NET_VAL, DEPOSIT_RETURN_MANUAL_INPUT_NET_VAL, DEPOSIT_RETURN_MANUAL_INPUT_GROSS_VAL, DEPOSIT_ONLY_RETURN_NET_VAL, SMALL_SALES_CNT, LOGIN_CNT, LOGOFF_CNT, DWH_CREATED_TMSP, DWH_UPDATED_TMSP, DWH_LOAD_ID, DWH_NODE_CD)
+  SELECT
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.STORE_SID,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.BUS_DT,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.CASHIER_NR,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.EVENT_END_HR,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.SALES_NET_VAL,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.RETURN_NET_VAL,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.IS_OUTLIER_DAY_RETURN_FG,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.EVENT_CNT,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.EVENT_LINE_CNT,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.RETURN_CNT,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.CANCELLED_LINE_CNT,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.CANCELLED_NET_VAL,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.DISCOUNT_LINE_CNT,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.DISCOUNT_NET_VAL,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.ABORT_CNT,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.ABORT_NET_VAL,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.SUSPENDED_UNRESOLVED_CNT,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.SUSPENDED_UNRESOLVED_NET_VAL,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.PRICE_INFO_CNT,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.RETURN_WITHOUT_RECEIPT_CNT,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.RETURN_WITHOUT_RECEIPT_NET_VAL,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.DEPOSIT_SALES_NET_VAL,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.DEPOSIT_RETURN_NET_VAL,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.DEPOSIT_RETURN_MANUAL_INPUT_NET_VAL,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.DEPOSIT_RETURN_MANUAL_INPUT_GROSS_VAL,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.DEPOSIT_ONLY_RETURN_NET_VAL,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.SMALL_SALES_CNT,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.LOGIN_CNT,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.LOGOFF_CNT,
+      current_timestamp() AS DWH_CREATED_TMSP,
+      current_timestamp() AS DWH_UPDATED_TMSP,
+      T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS.${LOAD_ID} AS DWH_LOAD_ID,
+      'CORE_REL' AS DWH_NODE_CD
+    FROM
+      LDL_DATA_PRODUCTION.ETL.T_TMP_STORE_CASHIER_BY_HOUR_STATISTICS
+;
+------------------------------------------------------------
+------------------------------------------------------------
+-- 3.3 INSERT into "Ranking" Table
+INSERT INTO LDL_DATA_PRODUCTION.CORE_APP_FRAUD_DETECTION.T_CASHIER_RANKING_BY_FRAUD_SCENARIO (SALES_COMPANY_SID, STORE_SID, CASHIER_NR, SCENARIO_ID, RANK_SEQ, RELEVANT_FOR_MANUAL_REPORT_FG, DWH_CREATED_TMSP, DWH_UPDATED_TMSP, DWH_LOAD_ID, DWH_NODE_CD)
+  WITH MATERIALIZE_PARAM_VIEW AS (
+    SELECT
+        -- 1 row per Country+Scenario with the value of the ranking threshold
+        V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE.SCENARIO_ID,
+        V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE.COUNTRY_ORG_CD,
+        max(CASE
+          WHEN V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE.PARAM_ID IN(
+            NUMERIC '65' /* for scenario_id 21*/, NUMERIC '68' /* for scenario_id 22*/, NUMERIC '71' /* for scenario_id 23*/, NUMERIC '74' /* for scenario_id 24*/, NUMERIC '78' /* for scenario_id 25*/, NUMERIC '79' /* for scenario_id 26*/, NUMERIC '82' /* for scenario_id 27*/, NUMERIC '85' /* for scenario_id 28*/, NUMERIC '88' /* for scenario_id 29*/, NUMERIC '91' /* for scenario_id 30*/, NUMERIC '94' /* for scenario_id 31*/, NUMERIC '98' /* for scenario_id 32*/, NUMERIC '101' /* for scenario_id 33*/, NUMERIC '107' /* for scenario_id 34*/, NUMERIC '110' /* for scenario_id 35*/, NUMERIC '113' /* for scenario_id 36*/, NUMERIC '119' /* for scenario_id 38*/, NUMERIC '122'
+          ) THEN V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE.PARAM_VAL_QTY
+          -- for scenario_id 39
+          ELSE NULL
+        END) AS SCENARIO_RANK_THRESHOLD
+      FROM
+        LDL_DATA_PRODUCTION.CORE_APP_FRAUD_DETECTION.V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE
+      WHERE NUMERIC '1' = NUMERIC '1'
+      -- Manual scenario IDs (ranking thresholds available for 21 to 39)
+      -- the target table should be populated only for scenarios for which the ranking matters
+       AND V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE.SCENARIO_ID BETWEEN NUMERIC '21' AND NUMERIC '39'
+      -- if scneario is not enabled all cashiers/stores from that country will be eliminated in the inner join
+       AND V_FRAUD_DETECTION_PARAMETER_CURRENT_VALUE.IS_SCENARIO_ENABLED_IN_COUNTRY_FG = true
+      GROUP BY 1, 2
+      HAVING NUMERIC '1' = NUMERIC '1'
+       AND SCENARIO_RANK_THRESHOLD IS NOT NULL
+  )
+  SELECT
+      -- scenarios like 37 should also be eliminated
+      CR.SALES_COMPANY_SID,
+      CR.STORE_SID,
+      CR.CASHIER_NR,
+      MPV.SCENARIO_ID,
+      rank_seq AS RANK_SEQ,
+      rank_seq <= MPV.SCENARIO_RANK_THRESHOLD
+       OR CR.STORE_SELECTED_FG = NUMERIC '1' AS RELEVANT_FOR_MANUAL_REPORT_FG,
+      current_timestamp() AS DWH_CREATED_TMSP,
+      current_timestamp() AS DWH_UPDATED_TMSP,
+      ${LOAD_ID} AS DWH_LOAD_ID,
+      'CORE_REL' AS DWH_NODE_CD
+    FROM
+      LDL_DATA_PRODUCTION.ETL.T_TMP_CASHIER_RANKINGS_BY_WAREHOUSE AS CR /* 1 row per Cashier (cashier_nr+store_sid)*/
+      INNER JOIN LDL_DATA_PRODUCTION.CORE_DIM.T_DIM_INTERNAL_ORGANIZATION AS IO /* add CountryCD attribute for each Cashier*/ ON IO.INT_ORG_SID = CR.STORE_SID
+       AND IO.DWH_VALID_FG = true
+      INNER JOIN MATERIALIZE_PARAM_VIEW AS MPV /* 1 row per Country+Scenario, but also eliminate disabled scenarios*/ ON MPV.COUNTRY_ORG_CD = IO.COUNTRY_ORG_CD
+      CROSS JOIN UNNEST(ARRAY[
+        CASE
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '21'
+          ) THEN RNK_DEPOSIT_ONLY_RETURN_VAL
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '22'
+          ) THEN RNK_DEPOSIT_MANUAL_INPUT_VAL
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '23'
+          ) THEN RNK_DEPOSIT_RETURN_SALES_PERCENTAGE
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '24'
+          ) THEN RNK_LOGIN_AVG_CNT
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '25'
+          ) THEN RNK_SMALL_SALES_CNT
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '26'
+          ) THEN RNK_RETURN_CNT
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '27'
+          ) THEN RNK_RETURN_MANUAL_RECEIPT_CNT
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '28'
+          ) THEN RNK_RETURN_AVG_VAL
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '29'
+          ) THEN RNK_RETURN_RETAIL_PERCENTAGE
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '30'
+          ) THEN RNK_RETURN_WITHOUT_RECEIPT_CNT
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '31'
+          ) THEN RNK_SUSPENDED_UNRESOLVED_CNT
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '32'
+          ) THEN RNK_ABORT_VAL
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '33'
+          ) THEN RNK_ABORT_CNT
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '34'
+          ) THEN RNK_CANCELLED_LINE_CNT_PERCENTAGE
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '35'
+          ) THEN RNK_CANCELLED_LINE_VAL_PERCENTAGE
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '36'
+          ) THEN RNK_PRICE_INFO_CNT
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '38'
+          ) THEN RNK_DISCOUNT_LINE_CNT
+          WHEN MPV.SCENARIO_ID IN(
+            NUMERIC '39'
+          ) THEN RNK_DISCOUNT_LINE_VAL_PERCENTAGE
+          ELSE NULL
+        END
+      ]) AS rank_seq
+;
+-- consecutive events in the same CASH_REGISTER_SID, of same type have the same GROUP_ID

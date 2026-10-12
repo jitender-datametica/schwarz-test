@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ek_kun.mv_crm_l_eingangskanal (crm_eingangskanal_id) AS SELECT
+ crm_eingangskanal_id
+FROM kfl_production_dbp_data.crm_l_eingangskanal;

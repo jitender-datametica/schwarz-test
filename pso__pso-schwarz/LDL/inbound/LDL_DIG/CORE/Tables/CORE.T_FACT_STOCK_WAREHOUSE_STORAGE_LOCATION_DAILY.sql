@@ -1,0 +1,20 @@
+CREATE TABLE CORE.T_FACT_STOCK_WAREHOUSE_STORAGE_LOCATION_DAILY (
+   WH_SID                              NUMBER          NOT NULL COMMENT 'The unique identifier (surrogate key) for the warehouse',
+   STORAGE_LOC_CD                      VARCHAR(10)     NOT NULL COMMENT 'The code which identifies the storage location (10001, 1002, etc)',
+   PROD_VARIANT_SID                    NUMBER          NOT NULL COMMENT 'The unique identifier (surrogate key) for the product variant',
+   CAL_DT                              DATE            NOT NULL COMMENT 'The day represented as a calendar date of the form YYYY-MM-DD. YYYY is the calendar year, MM (between 1 and 12) the calendar month and DD the day of the calendar month (between 1 and 31). ',
+   ACTIVE_FG                           BOOLEAN         COMMENT 'An indicator showing the current record from a business perspective,',
+   WH_CD                               VARCHAR(5)      COMMENT 'A short unique code for the warehouses which receives the deliveries',
+   BLOCKED_STOCK_CNT                   NUMBER          COMMENT 'Stock of a product stored in the warehouse but currently blocked (not usable / not sellable).',
+   BLOCKED_STOCK_RETURN_CNT            NUMBER          COMMENT 'This is the stock of the customer returns, which is not used as a regular stock to sell the articles to the customers.',
+   UNRESTRICTED_STOCK_CNT              NUMBER          COMMENT 'An unrestricted batch is stock we can offer to a customer, and therefore is included in the ATP calculation. The status is first set to unrestricted use upon receipt of a new batch. ',
+   RESTRICTED_STOCK_CNT                NUMBER          COMMENT 'A restricted batch is stock we cannot offer to a customer, and therefore is not included in the ATP calculation.',
+   IN_TRANSFER_CNT                     NUMBER          COMMENT 'Stock in transfer from one storage location to another',
+   IN_QTY_INSPECTION_CNT               NUMBER          COMMENT 'Quality inspection stock is delivered material that is retained for quality inspection',
+   DWH_CREATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   DWH_UPDATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',
+   DWH_SRC_FILE_NAME                   VARCHAR(255)    COMMENT 'The path and the name of the file(s) from which this record was loaded.',
+   SRC_FILE_TMSP                       TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was extracted from the source.',
+   PROD_VARIANT_NR                     VARCHAR(20)     COMMENT 'The product variant number',
+   CONSTRAINT PK_T_FACT_STOCK_WAREHOUSE_STORAGE_LOCATION_DAILY PRIMARY KEY (WH_SID, STORAGE_LOC_CD, PROD_VARIANT_SID, CAL_DT) NOT ENFORCED
+ )  COMMENT= 'The table contains the intraday updates of available products in a stock of an particular warehouse.';

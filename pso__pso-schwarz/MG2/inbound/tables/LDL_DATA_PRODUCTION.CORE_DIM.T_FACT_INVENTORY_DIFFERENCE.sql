@@ -1,0 +1,19 @@
+create or replace TABLE LDL_DATA_PRODUCTION.CORE_DIM.T_FACT_INVENTORY_DIFFERENCE (
+	INV_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the inventory event.',
+	INV_TYPE_CD VARCHAR(20) NOT NULL COMMENT 'The code identifying the subtype discriminator for inventories. It distinguishes between full and partial inventories.',
+	INV_DT DATE NOT NULL COMMENT 'The date for which the inventory was done.',
+	INT_ORG_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the store or warehouse, where the inventory was done.',
+	INT_ORG_TYPE_CD VARCHAR(20) NOT NULL COMMENT 'The code identifying the discriminators for internal organizations.',
+	COUNTRY_ORG_CD VARCHAR(2) NOT NULL COMMENT 'The code of the business country for which the related country organization is responsible. (The business country is not identical to a political country.) ',
+	CALC_STOCK_NET_VAL NUMBER(38,5) COMMENT 'The total value of all products which should have been on stock in this internal organization (i.e. store or warehouse) on the inventory date. The value is based on the net sales prices that applies to this organization and on the calculated stock quantity. This measure is not additive across time!',
+	INV_NET_VAL NUMBER(38,5) COMMENT 'The total value of all products which have been counted as part of the inventory process in this internal organization (i.e. store or warehouse) on the inventory date. The value is based on the net sales price that applies to this organization and and on the counted quantity. This measure is not additive across time! It is not necessarily in sync with the sum of the inventory amounts on product level.',
+	INV_DIFF_NET_VAL NUMBER(38,5) COMMENT 'The net amount of the inventory difference, i.e. the difference between the value of the calculated stock and the counted stock. This measure is not necessarily in sync with the sum of the inventory differences on product level.',
+	TURNOVER_NET_VAL NUMBER(38,5) COMMENT 'The net turnover amount in the given currency which was generated in this internal organization (i.e. store or warehouse) for the inventory period. This is the consolidated amount after applying the priority logic. The turnover is the difference of sales and returns. (In case the internal organization references a warehouse, this is only that portion of the turnover which was generated directly in the warehouse. Turnover of stores which are managed by this warehouse, are not included.) The inventory period is the time interval between the last full inventory and this inventory. This measure is not necessarily in sync with the sum of the inventory turnover on product level.',
+	CURR_CD VARCHAR(3) NOT NULL COMMENT 'The code identifying the currency according to ISO-4217.',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.',
+	constraint PK_T_FACT_INVENTORY_DIFFERENCE primary key (INV_SID)
+)COMMENT='A transactional fact holding inventory differences for full inventories in stores and warehouses. The inventory difference is the delta between the calculated stock and the stock that has been counted.'
+;

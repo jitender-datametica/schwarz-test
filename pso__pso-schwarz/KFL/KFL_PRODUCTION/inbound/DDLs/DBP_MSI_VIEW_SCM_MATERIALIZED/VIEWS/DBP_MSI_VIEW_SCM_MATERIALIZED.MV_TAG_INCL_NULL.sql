@@ -1,0 +1,24 @@
+create or replace view DBP_MSI_VIEW_SCM_MATERIALIZED.MV_TAG_INCL_NULL(
+	DAT,
+	KJWO,
+	KJMO,
+	KJ,
+	GJ
+) as
+--2023-06-28,dknop, initial
+SELECT DAT,
+       KJWO,
+       KJMO,
+       KJ,
+       AKT_GJ 
+
+FROM DBP_VIEW.V_TAG V01
+WHERE V01.AKT_GJ BETWEEN -11 AND 1
+
+UNION
+SELECT
+ '1900-01-01'
+,NULL
+,NULL
+,NULL
+,NULL;

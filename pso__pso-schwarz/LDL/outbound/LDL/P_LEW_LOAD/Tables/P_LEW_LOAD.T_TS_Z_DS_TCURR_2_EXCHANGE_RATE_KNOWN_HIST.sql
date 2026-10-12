@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_z_ds_tcurr_2_exchange_rate_known_hist (
+record_id INTEGER,
+client_id BIGNUMERIC(38),
+curr_sid_from BIGNUMERIC(38),
+curr_sid_to BIGNUMERIC(38),
+x_rate_type_sid BIGNUMERIC(38),
+active_from_dt DATE,
+active_to_dt DATE,
+curr_cd_from STRING(20),
+curr_cd_to STRING(20),
+exchange_rate NUMERIC(18,5),
+deleted_fg BIGNUMERIC(38),
+dwh_valid_from DATE,
+dwh_valid_to DATE,
+dwh_load_id BIGNUMERIC(38),
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

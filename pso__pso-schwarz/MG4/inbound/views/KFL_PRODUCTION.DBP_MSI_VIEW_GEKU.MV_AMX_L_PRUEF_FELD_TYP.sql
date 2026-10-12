@@ -1,0 +1,18 @@
+create or replace view KFL_PRODUCTION.DBP_MSI_VIEW_GEKU.MV_AMX_L_PRUEF_FELD_TYP(
+	PRUEF_FELD_TYP_ID,
+	AMX_SYSTEM_ID,
+	PRUEF_FELD_TYP_BEZ,
+	PRUEF_FELD_TYP_TYP_ID
+) as
+-- 20160322 KKaiser, neu für AP0002158 Audimex
+-- 20160429 twie: Filter auf Prüfobjekte, Prüfprozesse eigene Lookup
+-- 20170803 twie: SPEC0024880 audimex Datenmodell von VIS in KMR umziehen
+-- 20200629 twie: SPEC0080405 Erweiterung aller audimex Tabellen um amx_system_id für den PK
+
+SELECT
+pruef_feld_typ_id
+,amx_system_id
+,pruef_feld_typ_bez
+,pruef_feld_typ_typ_id
+FROM dbp_view.v_amx_l_pruef_feld_typ
+WHERE pruef_feld_typ_typ_id = 1;

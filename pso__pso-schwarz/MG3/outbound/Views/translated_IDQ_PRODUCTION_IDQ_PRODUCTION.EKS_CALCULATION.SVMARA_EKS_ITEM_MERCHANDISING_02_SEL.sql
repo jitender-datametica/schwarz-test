@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.svmara_eks_item_merchandising_02_sel (baitemnumber,
+merchandisinggroup) AS SELECT svmara_eks_item_merchandising_01_sel.baitemnumber,
+ COUNT(DISTINCT svmara_eks_item_merchandising_01_sel.merchandisinggroup) AS merchandisinggroup
+FROM idq_production_eks_calculation.stmara_eks_item
+ INNER JOIN idq_production_eks_calculation.svmara_eks_item_merchandising_01_sel ON stmara_eks_item.zitem_ba =
+  svmara_eks_item_merchandising_01_sel.baitemnumber
+GROUP BY svmara_eks_item_merchandising_01_sel.baitemnumber
+HAVING merchandisinggroup > 1;

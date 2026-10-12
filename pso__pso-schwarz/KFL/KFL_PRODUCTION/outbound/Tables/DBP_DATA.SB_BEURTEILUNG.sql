@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.sb_beurteilung (
+beurteilung_id BIGNUMERIC(38,0) NOT NULL,
+beurteiler_id BIGNUMERIC(38,0) NOT NULL,
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+note_gesamt NUMERIC(9,2) NOT NULL,
+eindruck_gesamt STRING(500) COLLATE 'und:ci',
+dat_beurteilung DATE NOT NULL,
+zeit_beurteilung BIGNUMERIC(38,0) NOT NULL,
+hl_anwesend_fg BIGNUMERIC(38,0) NOT NULL,
+chef_tag_fg BIGNUMERIC(38,0) NOT NULL,
+hotday_fg BIGNUMERIC(38,0) NOT NULL,
+frueh_kz STRING(30) COLLATE 'und:ci' NOT NULL,
+tf_fg BIGNUMERIC(38,0) NOT NULL,
+dat_erfassung DATE,
+loesch_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+pep_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+kennzahl_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+sb_checkliste_typ_id BIGNUMERIC(38,0) DEFAULT 1 NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

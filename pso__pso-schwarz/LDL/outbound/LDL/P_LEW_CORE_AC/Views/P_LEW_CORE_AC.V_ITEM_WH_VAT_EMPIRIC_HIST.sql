@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_item_wh_vat_empiric_hist (client_id, loc_sid_wh, vat_exception, item_sid,
+vat_pct_calc_type_id, vat_pct, deleted_fg, dwh_valid_from, dwh_valid_to, dwh_last_confirm_dt, dwh_load_id, dwh_created,
+dwh_updated) AS SELECT client_id,
+ loc_sid_wh,
+ vat_exception,
+ item_sid,
+ vat_pct_calc_type_id,
+ vat_pct,
+ deleted_fg,
+ dwh_valid_from,
+ dwh_valid_to,
+ dwh_last_confirm_dt,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_item_wh_vat_empiric_hist;

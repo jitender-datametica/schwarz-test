@@ -1,0 +1,47 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_lifecycle.v_l_lifecycle_cal_week (cy_week, week_of_year,
+cy_week_begin_week_part, cy_week_end_week_part, cy_week_begin_dt, cy_week_end_dt, cy_week_week_part_cnt, cy_week_prev_1w
+, cy_week_prev_2w, cy_week_prev_3w, cy_week_prev_4w, cy_week_prev_5w, cy_week_prev_6w, cy_week_prev_7w, cy_week_prev_8w
+, cy_week_prev_9w, cy_week_prev_10w, cy_week_prev_1y, cy_week_prev_2y, cy_week_prev_3y, cy_week_prev_4y, cy_week_prev_5y
+, cy_week_offset, cy_week_short_name, cy_week_name, cy_week_name_de, cy_week_name_ch, cy_week_name_en, cy_week_name_cz,
+cy_week_name_lt, cy_week_name_sk, cy_week_name_si, cy_week_name_ro, cy_week_sep_name, dwh_src_file_name,
+dwh_created_tmsp, dwh_updated_tmsp) AS SELECT cy_week,
+ week_of_year,
+ cy_week_begin_week_part,
+ cy_week_end_week_part,
+ cy_week_begin_dt,
+ cy_week_end_dt,
+ cy_week_week_part_cnt,
+ cy_week_prev_1w,
+ cy_week_prev_2w,
+ cy_week_prev_3w,
+ cy_week_prev_4w,
+ cy_week_prev_5w,
+ cy_week_prev_6w,
+ cy_week_prev_7w,
+ cy_week_prev_8w,
+ cy_week_prev_9w,
+ cy_week_prev_10w,
+ cy_week_prev_1y,
+ cy_week_prev_2y,
+ cy_week_prev_3y,
+ cy_week_prev_4y,
+ cy_week_prev_5y,
+ cy_week_offset,
+ cy_week_short_name,
+ cy_week_name,
+ cy_week_name AS cy_week_name_de,
+ cy_week_name AS cy_week_name_ch,
+ cy_week_sep_name AS cy_week_name_en,
+ cy_week_sep_name AS cy_week_name_cz,
+ cy_week_sep_name AS cy_week_name_lt,
+ cy_week_sep_name AS cy_week_name_sk,
+ cy_week_sep_name AS cy_week_name_si,
+ cy_week_sep_name AS cy_week_name_ro,
+ cy_week_sep_name,
+ dwh_src_file_name,
+ dwh_created_tmsp,
+ dwh_updated_tmsp
+FROM szd_production_core.t_dim_cal_week
+WHERE cy_week <= CAST(IF(LENGTH(SUBSTR(SAFE_CAST(EXTRACT(ISOWEEK FROM CURRENT_DATE) as STRING), 1, 10)) = 1, CONCAT(EXTRACT(YEAR FROM CURRENT_DATE), '0', EXTRACT(ISOWEEK FROM CURRENT_DATE)), CONCAT(EXTRACT(YEAR FROM CURRENT_DATE), EXTRACT(ISOWEEK FROM CURRENT_DATE))) AS FLOAT64)
+  
+ORDER BY cy_week DESC NULLS FIRST;

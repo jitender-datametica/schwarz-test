@@ -1,0 +1,10 @@
+CREATE OR REPLACE TABLE smp_production_eval.ab_always_w34_35_new_universe (
+division_id STRING(100),
+country_id STRING(100),
+shopper_id STRING(100),
+cell_group_id STRING(7),
+test_group_num INTEGER,
+control_group_num INTEGER,
+row_num INTEGER,
+to_use_in_campaign INTEGER
+);

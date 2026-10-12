@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_anlieferung_management AS SELECT anlieferung_id,
+ mandant_id,
+ entladestelle_id,
+ menge_palette_gesamt,
+ datzeit_entl_gebucht,
+ datzeit_ankunft,
+ datzeit_tor,
+ datzeit_entl_beginn,
+ datzeit_entl_ende,
+ datzeit_ausfahrt,
+ anlieferung_status1_id,
+ anlieferung_status2_id,
+ sako_fg,
+ retoure_kz,
+ anlieferung_spediteur_id
+FROM kfl_production_dbp_data.anlieferung_management;

@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_l_hyg_thema_gruppe_mutter AS SELECT DISTINCT
+ hyg_thema_gruppe_mutter_id
+FROM kfl_production_dbp_msi_view_vis.ts_hyg_thema_gruppen_zu AS V01;

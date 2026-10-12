@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_0vendor_attr_2_supplier_hist (
+client_id BIGNUMERIC(38),
+lidl_country STRING(40),
+vendor_attr_lifnr STRING(20),
+src_lifnr STRING(40),
+src_werks STRING(40),
+src_land1_negot STRING(40),
+src_addrnumber STRING(40),
+country_cd_negot STRING(20),
+debtor_cd STRING(20),
+name_1 STRING(100) COLLATE 'und:ci',
+int_location_no_1 BIGNUMERIC(38),
+int_location_no_2 BIGNUMERIC(38),
+int_location_checking_no BIGNUMERIC(38),
+deleted_fg BIGNUMERIC(38),
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

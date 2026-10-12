@@ -1,0 +1,77 @@
+--AW 2021-04-22 check OK
+INSERT INTO DBP_DATA.gp (mandant_id
+                                      ,gp_id
+                                      ,einkaufsorganisation_id
+                                      ,dat_von
+                                      ,dat_bis
+                                      ,anlieferung_id
+                                      ,gp_name
+                                      ,gp_strasse
+                                      ,gp_plz
+                                      ,gp_ort
+                                      ,land_id
+                                      ,hgp_id
+                                      ,zek_id
+                                      ,lieferzeit
+                                      ,zahlungsziel_id
+                                      ,agb_id
+                                      ,iso_id
+                                      ,eigenverpackung_id
+                                      ,eigenmarke_id
+                                      ,audit_id
+                                      ,audit_dat
+                                      ,herst_fg
+                                      ,zahlart_id
+                                      ,retour_sperr_fg
+                                      ,system_id
+                                      ,gp_branche_id
+                                      ,wewa_fg
+                                      ,loesch_fg
+                                      ,region_id
+                                      ,min_pal_faktor_lkw
+                                      ,gln_bbnr
+                                      ,gln_bsnr
+                                      ,gln_bubkz
+                                      ,breitengrad
+                                      ,laengengrad
+                                      ,markant_id)
+SELECT mandant_id
+      ,gp_id
+      ,einkaufsorganisation_id
+      ,dat_von
+      ,dat_bis
+      ,anlieferung_id
+      ,gp_name
+      ,gp_strasse
+      ,gp_plz
+      ,gp_ort
+      ,land_id
+      ,hgp_id
+      ,zek_id
+      ,lieferzeit
+      ,zahlungsziel_id
+      ,agb_id
+      ,iso_id
+      ,eigenverpackung_id
+      ,eigenmarke_id
+      ,audit_id
+      ,audit_dat
+      ,herst_fg
+      ,zahlart_id
+      ,retour_sperr_fg
+      ,system_id
+      ,gp_branche_id
+      ,wewa_fg
+      ,loesch_fg
+      ,region_id
+      ,min_pal_faktor_lkw
+      ,gln_bbnr
+      ,gln_bsnr
+      ,gln_bubkz
+      ,breitengrad
+      ,laengengrad
+      ,'' as markant_id
+FROM DBP_ETL_PROCESS.gp_land_zu
+WHERE (mandant_id,gp_id) NOT IN (SELECT mandant_id,gp_id FROM DBP_DATA.gp)
+;
+

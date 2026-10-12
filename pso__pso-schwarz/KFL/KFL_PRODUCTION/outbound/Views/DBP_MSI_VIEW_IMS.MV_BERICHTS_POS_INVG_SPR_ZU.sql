@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ims.mv_berichts_pos_invg_spr_zu AS SELECT berichts_pos_invest_grp_id
+ ,
+ berichts_pos_invest_grp_bez
+FROM kfl_production_dbp_view.v_berichts_pos_inv_grp_spr_zu
+WHERE spr_id = 22;

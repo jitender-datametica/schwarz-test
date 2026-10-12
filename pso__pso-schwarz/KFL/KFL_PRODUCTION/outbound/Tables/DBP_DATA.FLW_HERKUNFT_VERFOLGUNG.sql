@@ -1,0 +1,34 @@
+--==============================================================
+-- Table: flw_herkunft_verfolgung
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: flw_herkunft_verfolgung
+   generated from Powerdesigner on Freitag, 12. April 2024 11:53:04
+*/ --------------------------------------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.flw_herkunft_verfolgung (
+mandant_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Mandant im DWH'),
+werk_id BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='Numerischer Surrogate key für das Werk, aus werks. - Quelle - lookup der Werk-Id für WERKS'),
+aenderung_id BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='Aenderungsgeschichte ID in der Quelle, eine eindeutige Nummer die genau diesen einen Datensatz behandelt. - Quelle - CHGID'),
+datzeit_erstellung DATETIME NOT NULL
+OPTIONS(description='Datum und Uhrzeit an dem der Satz im System erstellt wurde. - Quelle - ERDAT und ERZET'),
+dat_produktion DATE NOT NULL
+OPTIONS(description='Datum an dem die Produktion stattgefunden hat. - Quelle - ZDPS_PROD_DATE'),
+alt_identifikation_id STRING(10)
+OPTIONS(description='Die Identifikationsnummer stellt eine Gruppierung von Material nach Anlieferung, ES-/ EZ-Nummer, Kategorie und Herkunft (Land) dar.            Sie dient dazu eine Vermischung von Herkunft nach Land und/oder ES-/ EZ-Nummer zu verhindern/nachzuverfolgen.            ES-/EZ-Nummer ist hierbei die Europäische Schlachtbetriebsnummer/Schlachthofnummer ist eine europäische Zulassungsnummer für jeden Betrieb bzw. Werk.            Es gibt Fälle, die nicht identifikationspflichtig sind da nur bei Rind vorgeschrieben, in diesen Fall können die Identifikationsnummern leer sein.            Identifikationsnummer basierend auf Anlieferung, Herkunft, Es/Ez-Nummer (europäische Schlachtbetriebsnummer/ Zerlegebetriebsnummer) und Kategorie (z.B. keine Ausprägung, Jungbulle, Rind, Färse).            Die Identifikationsnummer ist eine Eigenschaft der Charge und kann für mehrere Chargen gleich sein. - Quelle - WEID_OLD'),
+neu_identifikation_id STRING(10)
+OPTIONS(description='Die Identifikationsnummer stellt eine Gruppierung von Material nach Anlieferung, ES-/ EZ-Nummer, Kategorie und Herkunft (Land) dar.            Sie dient dazu eine Vermischung von Herkunft nach Land und/oder ES-/ EZ-Nummer zu verhindern/nachzuverfolgen.            ES-/EZ-Nummer ist hierbei die Europäische Schlachtbetriebsnummer/Schlachthofnummer ist eine europäische Zulassungsnummer für jeden Betrieb bzw. Werk.            Es gibt Fälle die nicht identifikationspflichtig sind da nur bei Rind vorgeschrieben, in diesen Fall können die Identifikationsnummern leer sein.            Identifikationsnummer basierend auf Anlieferung, Herkunft, Es/Ez-Nummer (europäische Schlachtbetriebsnummer/ Zerlegebetriebsnummer) und Kategorie (z.B. keine Ausprägung, Jungbulle, Rind, Färse).            Die Identifikationsnummer ist eine Eigenschaft der Charge und kann für mehrere Chargen gleich sein. - Quelle - WEID_NEW'),
+alt_wechsel_id STRING(9)
+OPTIONS(description='Die Wechsel-Id dient zur räumlichen und zeitlichen Positionierung des über die Identifikationsnummer beschriebenen Materials im Verarbeitungsprozess.            Für die Vergabe einer Wechsel-Id sind Faktoren wie Arbeitsplatz, Identifikationsnummer, EZ / ES-Nr., Länderherkunft, Tiergattung, Schlachtdatum ausschlaggebend.            Die Wechsel-Id entsteht dabei am Ausgang eines Prozessschrittes in Folge eines Fertigungsauftrages, z.B. Zerlegung und Verteilung auf verschiedene Transporteinheiten (Palette, Haken, Box, Rauchwagen, usw.)            Gründe für eine Wechsel-Id können etwa Wechsel des Arbeitsplatzes, die Transporteinheit(-en), die Auftragsnummer, der Wechsel des Identen am Stritt im Prozess, damit einhergehend möglicherweise ein anderes Schlachtdatum am Arbeitsplatz/ anderes Herkunftsland oder Wechsel der Gattung sein.            Ist das Material nicht identifikationspflichtig, können beide Felder dafür leer sein. - Quelle - WCHID_OLD'),
+neu_wechsel_id STRING(9)
+OPTIONS(description='Die Wechsel-Id dient zur räumlichen und zeitlichen Positionierung des über die Identifikationsnummer beschriebenen Materials im Verarbeitungsprozess.            Für die Vergabe einer Wechsel-Id sind Faktoren wie Arbeitsplatz, Identifikationsnummer, EZ / ES-Nr., Länderherkunft, Tiergattung, Schlachtdatum ausschlaggebend.            Die Wechsel-Id entsteht dabei am Ausgang eines Prozessschrittes in Folge eines Fertigungsauftrages, z.B. Zerlegung und Verteilung auf verschiedene Transporteinheiten (Palette, Haken, Box, Rauchwagen, usw.)            Gründe für eine Wechsel-Id können etwa Wechsel des Arbeitsplatzes, die Transporteinheit(-en), die Auftragsnummer, der Wechsel des Identen am Stritt im Prozess, damit einhergehend möglicherweise ein anderes Schlachtdatum am Arbeitsplatz/ anderes Herkunftsland oder Wechsel der Gattung sein.            Ist das Material nicht identifikationspflichtig, können beide Felder dafür leer sein. - Quelle - WCHID_NEW'),
+td_update TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+td_insert TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+PRIMARY KEY (mandant_id, werk_id, aenderung_id, datzeit_erstellung) NOT ENFORCED
+)
+OPTIONS(description='Tabelle zur Verfolgung der Identifikationsnummern und Wechsel-IDs, über die Zeit, durch den Verarbeitungsprozess im Werk vom Wareneingang zum Warenausgang. - Quelle - ZFWMYM_CHGHIST');

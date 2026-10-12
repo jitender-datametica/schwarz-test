@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital.v_dim_transformation_prev_cy_dat_calendar_samewday (cal_dt,
+cal_dt_swday_prev_1y) AS SELECT cal_dt,
+ cal_dt_swday_prev_1y
+FROM ldl_dig_lec_share.v_dim_cal_day;

@@ -1,0 +1,38 @@
+INSERT INTO  ${TEMP_DB}.${SRC2TGT_TEMP_TABLE1}_${SRC_CONTEXT_AREA}
+(
+        INV_KEY_TYPE_CD
+       ,INV_NATURAL_KEY
+       ,INV_STATUS_TYPE_CD
+       ,SOURCE_SYSTEM
+       ,EXTRACTION_DT
+       ,DWH_MAPPING_TMSP
+       ,TF_ERROR_FG
+       ,DELETED_FG
+       ,RECORD_ID
+       ,FILENAME
+       ,DWH_NODE_CD
+       ,DWH_LOAD_ID
+)
+SELECT  
+       'PART' AS INV_KEY_TYPE_CD,
+        CTRCODE || '|' || WH_NR || '|' || C438_INV_ID  AS INV_NATURAL_KEY,
+        CASE WHEN C438_STATUS=10 THEN -10
+             WHEN C438_STATUS=20 THEN -20
+             WHEN C438_STATUS=99 THEN -99
+        ELSE C438_STATUS END inv_status_type_cd,
+        'WAWI_WH' AS SOURCE_SYSTEM,
+        EXTRACTION_TMSP AS EXTRACTION_DT,
+        CURRENT_TIMESTAMP() AS DWH_MAPPING_TMSP,
+        0 AS TF_ERROR_FG,
+        0 AS DELETED_FG,
+        0 AS RECORD_ID,
+        't_${SRC_INPUT_TABLE}' AS FILENAME,
+        'WAWI_WH' AS DWH_NODE_CD,
+        '${LOAD_ID}' as DWH_LOAD_ID 
+FROM etl_process.t_${SRC_INPUT_TABLE}  src
+INNER JOIN ${TEMP_DB}.WAWI_CONTROL_TABLE ctrl
+ON true
+AND ctrl.SOURCE_TABLE_NAME = UPPER('${TEMP_DB}.t438_part_inv_head_wh')
+AND ctrl.SOURCE_STATUS = 'A'
+AND src.EXTRACTION_TMSP between ctrl.BEGIN_TMSP and ctrl.END_TMSP
+;

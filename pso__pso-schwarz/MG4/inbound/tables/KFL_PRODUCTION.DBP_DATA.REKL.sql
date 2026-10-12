@@ -1,0 +1,27 @@
+create or replace TABLE KFL_PRODUCTION.DBP_DATA.REKL (
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant im DWH.',
+	NB_ID NUMBER(38,0) NOT NULL COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer.',
+	DAT DATE NOT NULL COMMENT 'Datum des Reklamationsvorgangs.',
+	WUP_ID NUMBER(38,0) NOT NULL COMMENT 'Warenumschlagsplatz, an dem die Reklamation erfasst wurde',
+	ART_ID NUMBER(38,0) NOT NULL COMMENT 'Artikelnummer im DWH. Input: Artikel-ID einschließlich der Generationen-ID (9-stellig); Output: 7-stellige L&S-ID + Counter = 8-stellige Artikel-ID. WWNNNNPC (Warengruppe, Nummer, Prüfziffer, Counter) Regel: Neuer Artikel -> Counter +1.',
+	KASSE_NR NUMBER(38,0) NOT NULL DEFAULT -1 COMMENT 'Nummer der Kasse - wird für Eindeutigkeit der Daten benötigt. Nur bei Datenquelle Bondaten gefüllt, sonst -1.',
+	BON_NR NUMBER(38,0) NOT NULL DEFAULT -1 COMMENT 'Nummer des Kassenbons - wird für Eindeutigkeit der Daten benötigt. Nur bei Datenquelle Bondaten gefüllt, sonst -1.',
+	POS_NR NUMBER(38,0) NOT NULL DEFAULT -1 COMMENT 'Position auf dem Kassenbon - wird für Eindeutigkeit der Daten benötigt. Nur bei Datenquelle Bondaten gefüllt, sonst -1.',
+	REKLAMATIONSGRUND_ID NUMBER(38,0) NOT NULL COMMENT 'Reklamationskennzeichen, z.Bsp. 30.',
+	VK_BRUTTO_RE NUMBER(38,2) NOT NULL COMMENT 'Reklamierter Verkaufspreis pro Mengeneinheit.',
+	VK_MENGE_RE NUMBER(38,3) NOT NULL COMMENT 'Menge des reklamierten Artikels.',
+	GP_ID NUMBER(38,0) NOT NULL COMMENT 'Hauptlieferant (Kreditor), 6-stellige Lieferantennummer.',
+	MHD VARCHAR(6) COLLATE 'en-ci' COMMENT 'Mindesthaltbarkeitsdatum, kommt in verschiedenen Formaten: TTMMJJ oder MMJJ oder JJ.',
+	LOS_CHARGE VARCHAR(20) COLLATE 'en-ci' COMMENT 'Inhalt vom Erfasser frei vergebbar, z. Bsp. 4014500008844 oder dbb007ewg.',
+	ART_ID_REF NUMBER(38,0) NOT NULL DEFAULT -1 COMMENT 'Referenzartikelnummer. Hier sind filialfremde Kaufland-Artikelnummern hinterlegt, wenn zutreffend, sonst -1.',
+	KUNDEN_TEXT VARCHAR(100) NOT NULL COLLATE 'en-ci' DEFAULT ' ' COMMENT 'Freitextfeld, kann bei Rückgabe der Ware befüllt werden.',
+	WRG_ID VARCHAR(3) NOT NULL COLLATE 'en-ci' COMMENT 'Kurzbezeichnung der Währung, z.Bsp. CZK, EUR.',
+	BON_STORNO_FG NUMBER(38,0) NOT NULL DEFAULT 0 COMMENT 'Markierung für stornierten Satz. 1 = wurde storniert und wird nicht in die Auswertung einbezogen.',
+	MIT_WARE_FG NUMBER(38,0) NOT NULL DEFAULT 1 COMMENT 'Zeigt an, ob die Rückgabe mit oder ohne Ware erfolgt ist. Mit Ware = 1, ohne Ware = 0. Ab KW19/2012 stimmig. Wird im Versorgungsprozess aus Return Reason und Return Type Code befüllt.',
+	START_BON_ZEILE TIMESTAMP_NTZ(9) COMMENT 'Zeitstempel bei Beginn der Bewegung.',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	EAN_KASSE NUMBER(38,0) COMMENT 'Die EAN des Artikels.\n            Ein Kauflandartikel im System existiert unter einer Artikelnummer, welche mehrere GTINs zugeordnet haben kann. Beispiel: Alle Ravensburger Puzzle laufen unter einer einzigen Artikelnummer in SAP, da einfach nur allgemein \"Puzzle\" eingekauft wird und der Lieferant selbst entscheidet welche verschiedenen Arten er bereitstellt. Jede Puzzleart hat eine eigene GTIN, aber läuft in SAP unter einer gemeinsamen Nummer (Haupt-GTIN). Die genaue GTIN (EAN) des betrachteten Artikels lässt sich deshalb nur an der Kasse genau zuordnen.',
+	constraint PK_REKL primary key (MANDANT_ID, NB_ID, DAT, WUP_ID, ART_ID, KASSE_NR, BON_NR, POS_NR)
+)COMMENT='TP2_AIS - Reklamation QBM - MULTISET'
+;

@@ -1,0 +1,4 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_flw_materialized.mv_tag_superweekend_zu (
+dat DATE,
+kjwo_sw INTEGER
+);

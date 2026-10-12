@@ -1,0 +1,13 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_AIS_INT.MV_SORT_MAT_KJMO
+(
+KJMO,
+KJMO_VJ,
+AKT_MO
+) 
+AS
+SELECT
+ v01.kjmo
+,v01.kjmo_vj
+,v01.akt_mo
+FROM dbp_data.monat  v01
+WHERE v01.akt_mo BETWEEN -36 AND 0;

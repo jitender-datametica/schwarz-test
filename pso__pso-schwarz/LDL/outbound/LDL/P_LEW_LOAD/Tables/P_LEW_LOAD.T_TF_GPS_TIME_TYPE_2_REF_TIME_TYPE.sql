@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_gps_time_type_2_ref_time_type (
+client_id BIGNUMERIC(38) NOT NULL,
+lidl_country STRING(40) NOT NULL,
+gps_time_type_country_iso_cd STRING(9) NOT NULL,
+gps_time_type_wh_id BIGNUMERIC(38,0) NOT NULL,
+gps_time_type_missingtype_id BIGNUMERIC(38,0) NOT NULL,
+wh_id INTEGER NOT NULL,
+missingtype_id INTEGER NOT NULL,
+src_wh_id BIGNUMERIC(38),
+src_time_type_id BIGNUMERIC(38),
+src_time_type_cd STRING(20) COLLATE 'und:ci',
+time_type_short_descr STRING(20) COLLATE 'und:ci',
+time_type_descr STRING(100) COLLATE 'und:ci',
+presence_fg BIGNUMERIC(38),
+performance_relevant_fg BIGNUMERIC(38),
+source_system STRING(20) COLLATE 'und:ci',
+extraction_dt DATE,
+dwh_mapping_dt DATE NOT NULL,
+tf_error_fg INTEGER,
+record_id STRING(300) NOT NULL,
+filename STRING(1000) NOT NULL
+);

@@ -1,0 +1,28 @@
+CREATE TABLE DBP_MSI_DATA.ERWARTETE_ENTWICKLUNG (
+	MANDANT_ID INTEGER NOT NULL COMMENT 'Mandant im DWH',
+	KJMO INTEGER NOT NULL COMMENT 'Monat eines Kalenderjahres, Format JJJJMM',
+	MATCHING_ID INTEGER NOT NULL COMMENT 'Gruppierungskriterium für Artikel (kann auch nur ein Artikel sein), die über die GTIN zu Nielsen-Artikel gematched werden',
+	SM_ID INTEGER NOT NULL COMMENT 'Sortimentsmodul ID. Es gibt 8 Sortimentsstufen. -1: keine Sortimentsstufe zugeordnet',
+	KSM_ID VARCHAR(16) NOT NULL COLLATE 'en-ci' COMMENT 'Sortimentsmodul ID für die neuen Sortimentsstufen',
+	KJWO_UPDATE INTEGER NOT NULL COMMENT 'Kalenderjahreswoche. Format JJJJWW',
+	WRG_ID VARCHAR(12) COLLATE 'en-ci' COMMENT 'Kurzbezeichnung der Währung, z.Bsp. CZK, EUR',
+	KL_WG_ID INTEGER COMMENT 'ID Kaufland Warengruppen für Nielsen-Daten (Vergabe im Beladeprozess)',
+	KL_OWG_ID INTEGER COMMENT 'ID Kaufland Oberwarengruppe für Nielsen-Daten (Vergabe im Beladeprozess)',
+	KL_UWG_ID INTEGER COMMENT 'ID Kaufland Unterwarengruppen für Nielsen-Daten (Vergabe im Beladeprozess)',
+	HWG_ID INTEGER COMMENT 'ID der Hauptwarengruppe',
+	OWG_ID INTEGER COMMENT 'ID der Oberwarengruppe',
+	WG_ID INTEGER COMMENT 'ID der Warengruppe',
+	WUG_ID INTEGER,
+	OST_BASIS_PFLEGE VARCHAR(8) COLLATE 'en-ci' COMMENT 'Listung Ost Basis gepflegt durch ZEK',
+	OST_GROSS_PFLEGE VARCHAR(8) COLLATE 'en-ci' COMMENT 'ost_gross_pflege',
+	SUED_OST_PFLEGE VARCHAR(8) COLLATE 'en-ci' COMMENT 'sued_ost_pflege',
+	SUED_WEST_PFLEGE VARCHAR(8) COLLATE 'en-ci' COMMENT 'sued_west_pflege',
+	WEST_PFLEGE VARCHAR(8) COLLATE 'en-ci' COMMENT 'west_pflege',
+	NORD_PFLEGE VARCHAR(8) COLLATE 'en-ci' COMMENT 'nord_pflege',
+	UMSATZ_HR NUMBER(29,4) NOT NULL COMMENT 'Hochrechnung Umsatz (stored Procedure zur Laufzeit der Ermittlung)',
+	ABSATZ_HR NUMBER(29,4) NOT NULL COMMENT 'Hochrechnung Absatz (stored Procedure zur Laufzeit der Ermittlung)',
+	ROHERTRAG_HR NUMBER(29,4) NOT NULL COMMENT 'Hochrechnung Rohertrag (stored Procedure zur Laufzeit der Ermittlung)',
+	TD_UPDATE TIMESTAMP_LTZ(9),
+	TD_INSERT TIMESTAMP_LTZ(9)
+)COMMENT='EK-INT -  Sortimentstool - Tabelle für Zwischenablage der Werte für die erwartete Entwicklung'
+;

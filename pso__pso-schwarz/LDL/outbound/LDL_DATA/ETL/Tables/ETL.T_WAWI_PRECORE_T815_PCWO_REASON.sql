@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_data_etl.t_wawi_precore_t815_pcwo_reason (
+ctrcode STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_nr BIGNUMERIC(38,0) NOT NULL,
+c815_reason_id INTEGER NOT NULL,
+c815_reason_id_int INTEGER NOT NULL,
+c815_grp_id INTEGER,
+c815_reason_desc_int STRING(50),
+c815_reason_desc_nat STRING(50) NOT NULL,
+c815_grp_desc STRING(50),
+c815_active_flag INTEGER NOT NULL,
+c815_bnl_grp INTEGER,
+c815_new_grp INTEGER,
+c815_moddate DATETIME,
+c815_moduser STRING(8),
+scn BIGNUMERIC(38,0) DEFAULT 0,
+c815_displaytype INTEGER,
+extraction_tmsp DATETIME,
+dwh_created_tmsp TIMESTAMP,
+dwh_updated_tmsp TIMESTAMP,
+dwh_load_id BIGNUMERIC(38,0) NOT NULL
+);

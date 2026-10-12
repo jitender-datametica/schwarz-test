@@ -1,0 +1,45 @@
+ /*
+#----------------------------------------------------------------------------------------------------------------
+# Interface: DDL for P_LEW_MART_LEAD.V_ESL_PRICE_LABEL_REPAIR_STATE
+#----------------------------------------------------------------------------------------------------------------
+# History:
+#  1.0  30.08.2024	SIMEON NIKOLAEV	INITIAL SETUP
+#  1.1  22.10.2024	SIMEON NIKOLAEV	PRICE_LABEL_CLIENT_ID
+#
+#----------------------------------------------------------------------------------------------------------------
+*/
+CREATE OR REPLACE VIEW P_LEW_MART_LEAD.V_ESL_PRICE_LABEL_REPAIR_STATE
+(
+   PRICE_LABEL_SID
+  ,PRICE_LABEL_PRODUCER_NAME
+  ,REPAIR_START_DT
+  ,REPAIR_END_DT
+  ,PRICE_LABEL_WARRANTY_STATUS_CD
+  ,PRICE_LABEL_REPAIR_RESULT_CD
+  ,PRICE_LABEL_REPAIR_BATCH_NR
+  ,PRICE_LABEL_REPAIR_ORIGIN_NAME
+  ,DEFECT_TXT
+  ,REPAIR_PROCESS_NAME
+  ,DWH_LOAD_ID
+  ,DWH_CREATED
+  ,DWH_UPDATED
+  ,PRICE_LABEL_CLIENT_ID
+) AS
+SELECT 
+   PRICE_LABEL_SID
+  ,PRICE_LABEL_PRODUCER_NAME
+  ,REPAIR_START_DT
+  ,REPAIR_END_DT
+  ,PRICE_LABEL_WARRANTY_STATUS_CD
+  ,PRICE_LABEL_REPAIR_RESULT_CD
+  ,PRICE_LABEL_REPAIR_BATCH_NR
+  ,PRICE_LABEL_REPAIR_ORIGIN_NAME
+  ,DEFECT_TXT
+  ,REPAIR_PROCESS_NAME
+  ,DWH_LOAD_ID
+  ,DWH_CREATED
+  ,DWH_UPDATED
+  ,PRICE_LABEL_CLIENT_ID
+	
+FROM P_LEW_CORE_AC.V_ESL_PRICE_LABEL_REPAIR_STATE
+;

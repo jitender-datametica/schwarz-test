@@ -1,0 +1,21 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process_mstr_ac.v_lil_measure (meas_id, meas_desc, meas_base_desc, meas_tp_id, meas_cd
+, liam1_srt_cd, liam2_srt_cd, liam3_srt_cd, liam4_srt_cd, lift1_srt_cd, lcsd_srt_cd, liam4_meas_grp_id, format_id,
+frac_lgth, monetary_fg, dwh_load_id, dwh_created, dwh_updated) AS SELECT meas_id,
+ meas_desc,
+ meas_base_desc,
+ meas_tp_id,
+ meas_cd,
+ liam1_srt_cd,
+ liam2_srt_cd,
+ liam3_srt_cd,
+ liam4_srt_cd,
+ lift1_srt_cd,
+ lcsd_srt_cd,
+ liam4_meas_grp_id,
+ format_id,
+ frac_lgth,
+ monetary_fg,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_process_mstr.t_lil_measure;

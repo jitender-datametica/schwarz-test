@@ -1,0 +1,23 @@
+--==============================================================
+-- Table: art_basis_gebinde_zu
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: art_basis_gebinde_zu
+   generated from Powerdesigner on Montag, 28. Oktober 2024 11:00:17
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE DBP_DATA.ART_BASIS_GEBINDE_ZU (
+   mandant_id                          NUMBER(38,0)     NOT NULL COMMENT 'Mandant im DWH',
+   art_id_basis                        NUMBER(38,0)     NOT NULL COMMENT 'Basisartikel',
+   art_id_gebinde                      NUMBER(38,0)     NOT NULL COMMENT 'Gebindeartikel',
+   umrech_zaehler                      NUMBER(38,0)     COMMENT 'Zähler für die Umrechnung',
+   umrech_nenner                       NUMBER(38,0)     COMMENT 'Nenner für die Umrechnung',
+   umrech_faktor                       NUMBER(9,3)      COMMENT 'Faktor für die Umrechnung',
+   anz_basis_art                       NUMBER(38,0)     COMMENT 'Anzahl des Basisartikel im Gebinde. Ein Basisartikel kann aus einem oder mehreren Einzelartikeln bestehen. - Quelle: ZEKFLAKI.Y',
+   anz_einzel_art                      NUMBER(38,0)     COMMENT 'Anzahl der Einzelartikel im Gebinde. - Quelle: ZEKFLAKI.ME_ASF',
+   dispo_fg                            NUMBER(38,0)     COMMENT 'Dispokennzeichen',
+   status_kz                           VARCHAR(1)       COMMENT 'Kennzeichen für den Status des Eintrags im Quellsystem: L = gelöscht, N = neu, A = Änderung. - Quelle: ZEKFLAKI.VWKZ',
+   TD_UPDATE                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   TD_INSERT                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   CONSTRAINT PK_ART_BASIS_GEBINDE_ZU PRIMARY KEY (mandant_id, art_id_basis, art_id_gebinde) NOT ENFORCED
+)  COMMENT = 'Zuordnungstabelle Basisartikel zu Gebindeartikel';

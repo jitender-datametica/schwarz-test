@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE idq_production_eks.address (
+addressid INTEGER,
+regionid INTEGER,
+is_sap INTEGER,
+moddate STRING(40),
+crdate STRING(40),
+zipcode STRING(10),
+moduser STRING(35),
+cruser STRING(35),
+street1 STRING(40),
+city STRING(40),
+name1 STRING(80),
+sap_id STRING(15),
+sap_indicator STRING(3),
+district STRING(40),
+street2 STRING(40),
+name2 STRING(80),
+name3 STRING(80),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

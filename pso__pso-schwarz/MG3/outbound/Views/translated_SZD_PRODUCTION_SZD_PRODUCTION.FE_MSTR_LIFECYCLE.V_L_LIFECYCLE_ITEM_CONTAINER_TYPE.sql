@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_lifecycle.v_l_lifecycle_item_container_type (item_container_type_cd,
+item_container_type_descr, item_container_type_descr_de, item_container_type_descr_en) AS SELECT item_container_type_cd
+ ,
+ item_container_type_descr,
+ item_container_type_descr_de,
+ item_container_type_descr_en
+FROM szd_production_core.t_dim_item_container_type;

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW production_production_fe_mstr_bge_palettierer.v_dim_alerts_location_classification (alerts_location_classification_id
+, alerts_location_classification_desc) AS SELECT alerts_location_classification_id,
+ alerts_location_classification_desc
+FROM production_production_core.t_dim_alerts_location_classification;

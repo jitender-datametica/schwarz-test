@@ -1,0 +1,19 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital.v_dim_product_utilisation_date (prod_sid, prod_nr, is_catalog_prod_fg
+, assortment_plan_period_nr, min_delivery_date, max_delivery_date, promo_dur_week_cnt, calculated_utilisation,
+correct_utilisation, correct_utilisation_date_only, correct_utilisation_week, weeks_until_utilisation,
+calculated_information_concept, correct_information_concept, used_delivery_utilisation_date) AS SELECT prod_sid,
+ prod_nr,
+ is_catalog_prod_fg,
+ assortment_plan_period_nr,
+ min_delivery_date,
+ max_delivery_date,
+ promo_dur_week_cnt,
+ calculated_utilisation,
+ correct_utilisation,
+ correct_utilisation_date_only,
+ correct_utilisation_week,
+ weeks_until_utilisation,
+ calculated_information_concept,
+ correct_information_concept,
+ used_delivery_utilisation_date
+FROM ldl_dig_lec_share.v_dim_product_utilisation_date_core_view;

@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_wholesale.v_dim_milestone_progress_status (container_status_nr_sid,
+container_status_nr_parent_id, container_status_desc, container_status_2_desc) AS SELECT milestone_progress_detail_cd AS
+ container_status_nr_sid,
+ milestone_progress_overall_cd AS container_status_nr_parent_id,
+ milestone_progress_detail_descr AS container_status_desc,
+ milestone_progress_overall_descr AS container_status_2_desc
+FROM szd_production_core.t_dim_milestone_progress_status;

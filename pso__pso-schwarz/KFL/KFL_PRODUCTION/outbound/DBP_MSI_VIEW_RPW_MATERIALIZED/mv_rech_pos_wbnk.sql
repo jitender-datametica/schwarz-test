@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE dbp_msi_view_rpw_materialized.mv_rech_pos_wbnk (
+system_id INTEGER,
+mandant_id INTEGER,
+rech_beleg_id INTEGER,
+gj INTEGER,
+rech_beleg_pos_id INTEGER,
+betrag_netto NUMERIC(29,4),
+betrag_brutto NUMERIC(29,2),
+wbnk_planungs_kz STRING(20),
+wbnkart_id STRING(4) COLLATE 'und:ci',
+arthiertyp_id INTEGER,
+wg_id INTEGER,
+wup_id INTEGER,
+nb_id INTEGER,
+pos_manuell_erstellt_fg INTEGER,
+dat_beleg DATE,
+dat_buch DATE,
+dat_rpw DATE,
+dat_erfasst DATE,
+kontierungsblock_nr INTEGER
+);

@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_analytics.v_pit_adv_period AS SELECT adv_period_id,
+ adv_period_descr
+FROM ldl_p_lew_mart_analytics.t_advert_period;

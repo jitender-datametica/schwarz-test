@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_p_lew_bil_ac.x_20190604_v_agg_store_day_item_sfo_asis_960589 AS SELECT *
+FROM ldl_p_lew_bil.v_agg_store_day_item_sfo_asis;

@@ -1,0 +1,9 @@
+CREATE OR REPLACE TABLE ldl_wawi_production_whwawiadm.wawi_consolidation_extract_log (
+wawi_instanz_kzl STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_nr STRING(5),
+table_name STRING(16777216),
+max_scn INTEGER,
+created_tmsp DATETIME,
+updated_tmsp DATETIME,
+max_dfg_scn INTEGER
+);

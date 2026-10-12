@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_flw_kalk_preise AS SELECT schnittliste_id,
+ flw_art_id,
+ input_material_typ_id,
+ sek_schl_typ_id,
+ sek_schl_id,
+ mandant_id,
+ system_id,
+ menge,
+ menge_einh_id,
+ menge_dme,
+ dme_einh_id,
+ preis_kg,
+ wrg_id,
+ gesamt_wert,
+ td_insert,
+ td_update
+FROM kfl_production_dbp_data.flw_kalk_preise;

@@ -1,0 +1,74 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi.v_itm_orig_item_desc (client_id OPTIONS(description='Landes ID'), orig_item_nr
+OPTIONS(description='Original Artikelnummer'), dat_valid_from OPTIONS(description='Gültig ab'), item_desc_at
+OPTIONS(description='Landesspezifische Artikelbeschreibung AT'), item_desc_be
+OPTIONS(description='Landesspezifische Artikelbeschreibung BE'), item_desc_be_fr
+OPTIONS(description='Landesspezifische Artikelbeschreibung BE_FR'), item_desc_bg
+OPTIONS(description='Landesspezifische Artikelbeschreibung BG'), item_desc_ch
+OPTIONS(description='Landesspezifische Artikelbeschreibung CH'), item_desc_cy
+OPTIONS(description='Landesspezifische Artikelbeschreibung CY'), item_desc_cz
+OPTIONS(description='Landesspezifische Artikelbeschreibung CZ'), item_desc
+OPTIONS(description='Generische Artikelbeschreibung'), item_desc_dk
+OPTIONS(description='Landesspezifische Artikelbeschreibung DK'), item_desc_ee
+OPTIONS(description='Landesspezifische Artikelbeschreibung EE'), item_desc_es
+OPTIONS(description='Landesspezifische Artikelbeschreibung ES'), item_desc_fi
+OPTIONS(description='Landesspezifische Artikelbeschreibung FI'), item_desc_fr
+OPTIONS(description='Landesspezifische Artikelbeschreibung FR'), item_desc_gb
+OPTIONS(description='Landesspezifische Artikelbeschreibung GB'), item_desc_gr
+OPTIONS(description='Landesspezifische Artikelbeschreibung GR'), item_desc_hr
+OPTIONS(description='Landesspezifische Artikelbeschreibung HR'), item_desc_hu
+OPTIONS(description='Landesspezifische Artikelbeschreibung HU'), item_desc_ie
+OPTIONS(description='Landesspezifische Artikelbeschreibung IE'), item_desc_it
+OPTIONS(description='Landesspezifische Artikelbeschreibung IT'), item_desc_lt
+OPTIONS(description='Landesspezifische Artikelbeschreibung LT'), item_desc_lv
+OPTIONS(description='Landesspezifische Artikelbeschreibung LV'), item_desc_ni
+OPTIONS(description='Landesspezifische Artikelbeschreibung NI'), item_desc_nl
+OPTIONS(description='Landesspezifische Artikelbeschreibung NL'), item_desc_de
+OPTIONS(description='Landesspezifische Artikelbeschreibung DE'), item_desc_pl
+OPTIONS(description='Landesspezifische Artikelbeschreibung PL'), item_desc_pt
+OPTIONS(description='Landesspezifische Artikelbeschreibung PT'), item_desc_ro
+OPTIONS(description='Landesspezifische Artikelbeschreibung RO'), item_desc_se
+OPTIONS(description='Landesspezifische Artikelbeschreibung SE'), item_desc_si
+OPTIONS(description='Landesspezifische Artikelbeschreibung SI'), item_desc_sk
+OPTIONS(description='Landesspezifische Artikelbeschreibung SK'), item_desc_cs
+OPTIONS(description='Landesspezifische Artikelbeschreibung CS'), item_desc_mt
+OPTIONS(description='Landesspezifische Artikelbeschreibung MT'), item_desc_us
+OPTIONS(description='Landesspezifische Artikelbeschreibung US'), item_desc_rs
+OPTIONS(description='Landesspezifische Artikelbeschreibung RS'))
+OPTIONS(DESCRIPTION = `MULTI LANGUAGE ARTIKELBESCHREIBUNGEN`) AS SELECT client_id,
+ orig_item_nr,
+ dat_valid_from,
+ COALESCE(item_desc_at, item_desc) AS item_desc_at,
+ COALESCE(item_desc_be, item_desc) AS item_desc_be,
+ COALESCE(item_desc_be, item_desc) AS item_desc_be_fr,
+ COALESCE(item_desc_bg, item_desc) AS item_desc_bg,
+ COALESCE(item_desc_ch, item_desc) AS item_desc_ch,
+ COALESCE(item_desc_cy, item_desc) AS item_desc_cy,
+ COALESCE(item_desc_cz, item_desc) AS item_desc_cz,
+ item_desc,
+ COALESCE(item_desc_dk, item_desc) AS item_desc_dk,
+ COALESCE(item_desc_ee, item_desc) AS item_desc_ee,
+ COALESCE(item_desc_es, item_desc) AS item_desc_es,
+ COALESCE(item_desc_fi, item_desc) AS item_desc_fi,
+ COALESCE(item_desc_fr, item_desc) AS item_desc_fr,
+ COALESCE(item_desc_gb, item_desc) AS item_desc_gb,
+ COALESCE(item_desc_gr, item_desc) AS item_desc_gr,
+ COALESCE(item_desc_hr, item_desc) AS item_desc_hr,
+ COALESCE(item_desc_hu, item_desc) AS item_desc_hu,
+ COALESCE(item_desc_ie, item_desc) AS item_desc_ie,
+ COALESCE(item_desc_it, item_desc) AS item_desc_it,
+ COALESCE(item_desc_lt, item_desc) AS item_desc_lt,
+ COALESCE(item_desc_lv, item_desc) AS item_desc_lv,
+ COALESCE(item_desc_ni, item_desc) AS item_desc_ni,
+ COALESCE(item_desc_nl, item_desc) AS item_desc_nl,
+ COALESCE(item_desc_de, item_desc) AS item_desc_de,
+ COALESCE(item_desc_pl, item_desc) AS item_desc_pl,
+ COALESCE(item_desc_pt, item_desc) AS item_desc_pt,
+ COALESCE(item_desc_ro, item_desc) AS item_desc_ro,
+ COALESCE(item_desc_se, item_desc) AS item_desc_se,
+ COALESCE(item_desc_si, item_desc) AS item_desc_si,
+ COALESCE(item_desc_sk, item_desc) AS item_desc_sk,
+ COALESCE(item_desc_cs, item_desc) AS item_desc_cs,
+ COALESCE(item_desc_mt, item_desc) AS item_desc_mt,
+ COALESCE(item_desc_us, item_desc) AS item_desc_us,
+ COALESCE(item_desc_rs, item_desc) AS item_desc_rs
+FROM ldl_p_lew_mart_msi.t_itm_orig_item_desc;

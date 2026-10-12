@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_msi.t_pallet_rcv_wh_day_spot (
+client_id BIGNUMERIC(38,0),
+wh_id BIGNUMERIC(38,0),
+aspect_id BIGNUMERIC(38,0),
+currency_iso_cd STRING(3) COLLATE 'und:ci',
+business_yr BIGNUMERIC(38,0),
+month_id BIGNUMERIC(38,0),
+week_id BIGNUMERIC(38,0),
+cy_partial_week BIGNUMERIC(38,0),
+dat_calendar DATE,
+cy_month_sequence BIGNUMERIC(38,0),
+last_cwd_fg BIGNUMERIC(38,0),
+last_cmd_fg BIGNUMERIC(38,0),
+record_type STRING(10) COLLATE 'und:ci',
+dup_fg BIGNUMERIC(38,0),
+pallet_rcv BIGNUMERIC(38,8),
+pallet_time BIGNUMERIC(38,8),
+p1y_cwd_pallet_rcv BIGNUMERIC(38,8),
+p1y_cwd_pallet_time BIGNUMERIC(38,8),
+p1y_cmd_pallet_rcv BIGNUMERIC(38,8),
+p1y_cmd_pallet_time BIGNUMERIC(38,8)
+);

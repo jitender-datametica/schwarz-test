@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_ladungstraeger AS SELECT mandant_id,
+ lagernummer_id,
+ art_id,
+ wup_id,
+ nb_id,
+ tour_id,
+ lief_beleg_id,
+ handling_unit_id_ext,
+ kj_lief_beleg,
+ system_id,
+ anz_ladtraeger,
+ status_ladtraeger,
+ dat_erstellung,
+ anz_ladtraeger_orig,
+ anz_ladtraeger_defekt,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.ladungstraeger;

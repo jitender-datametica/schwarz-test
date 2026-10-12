@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_art_nielsen_uwg_nielsen_zu AS SELECT mandant_id,
+ art_nielsen_id,
+ kl_uwg_id
+FROM kfl_production_dbp_data.art_nielsen_uwg_nielsen_zu;

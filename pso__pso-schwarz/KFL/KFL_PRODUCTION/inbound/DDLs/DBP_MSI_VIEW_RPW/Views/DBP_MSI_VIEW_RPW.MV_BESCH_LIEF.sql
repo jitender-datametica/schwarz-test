@@ -1,0 +1,41 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_RPW.MV_BESCH_LIEF
+          (
+          mandant_id
+          ,lief_beleg_id
+          ,wup_id
+          ,nb_id
+          ,versandstelle_id
+          ,verkaufsorganisation_id
+          ,lief_typ_id
+          ,dat_lief_soll
+          ,vertr_beleg_typ_id
+          ,lief_pal_typ_id
+          ,lagerhierarchie_id
+          ,kunde_id
+          ,auftraggeber_id
+          ,anzahl_packstueck
+          ,werbeware_id
+          ,dat_lagerbew_ist
+          ,system_id
+          )
+          AS
+             SELECT
+             mandant_id,
+             lief_beleg_id,
+             wup_id,
+             nb_id,
+             versandstelle_id,
+             verkaufsorganisation_id,
+             lief_typ_id,
+             dat_lief_soll,
+             vertr_beleg_typ_id,
+             lief_pal_typ_id,
+             lagernummer_id,
+             kunde_id,
+             auftraggeber_id,
+             anzahl_packstueck,
+             werbeware_id,
+             dat_lagerbew_ist,
+             7
+             FROM dbp_view.v_besch_lief
+             WHERE mandant_id = 1;

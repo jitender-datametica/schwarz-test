@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi.v_adv_item_advertising (client_id, wh_loc_sid, item_sid, dat_adv, dat_dayend,
+week_adv, dat_notification1, dat_notification2, dat_notificationx, repeat_fg, price_retail_adv, price_retail_net_adv,
+case_size_dec, load_id) AS SELECT *
+FROM ldl_p_lew_core_ac.v_wawi_adv_item_advertising;

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_aad.mv_jahr_gj AS SELECT gj,
+ akt_gj,
+ akt_gj_komplett
+FROM kfl_production_dbp_view.v_jahr_gj AS V01
+WHERE gj >= 2023;

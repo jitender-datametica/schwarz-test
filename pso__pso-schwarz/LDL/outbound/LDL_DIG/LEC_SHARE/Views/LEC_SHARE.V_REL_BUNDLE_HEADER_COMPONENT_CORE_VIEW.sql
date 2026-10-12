@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_lec_share.v_rel_bundle_header_component_core_view AS SELECT *
+FROM ldl_dig_core.v_rel_bundle_header_component;

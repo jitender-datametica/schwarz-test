@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_core.t_loc_map_key (
+client_id BIGNUMERIC(38,0) NOT NULL,
+loc_sid BIGNUMERIC(38,0) NOT NULL,
+dwh_loc_id STRING(20),
+dwh_wh_id BIGNUMERIC(38,0),
+dwh_orig_store_nr BIGNUMERIC(38,0),
+elwis_dwh_ec_cd BIGNUMERIC(38,0),
+elwis_dwh_loc_sid BIGNUMERIC(38,0),
+elwis_dwh_loc_id STRING(20),
+wawi_dwh_client_id BIGNUMERIC(38,0),
+wawi_dwh_store_id BIGNUMERIC(38,0),
+wawi_dwh_orig_store_nr BIGNUMERIC(38,0),
+wawi_dwh_wh_id BIGNUMERIC(38,0),
+loc_cd STRING(20) COLLATE 'und:ci',
+active_fg BIGNUMERIC(38,0),
+source_cd STRING(100) COLLATE 'und:ci',
+dwh_create DATETIME,
+dwh_upd DATETIME,
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+PRIMARY KEY (loc_sid) NOT ENFORCED
+);

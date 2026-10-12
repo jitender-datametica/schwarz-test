@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_L_FOOD_NONFOOD_KATEGORIE AS 
+    SELECT 
+        mandant_id,
+        food_nonfood_kategorie_id
+FROM DBP_DATA.L_FOOD_NONFOOD_KATEGORIE ;

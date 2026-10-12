@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_ios_materialized.mv_cpr_bau_gv_per (
+projekt_id STRING(32) COLLATE 'und:ci',
+projekt_nr STRING(30) COLLATE 'und:ci',
+dat_von DATE,
+bau_gv_dok_id STRING(32) COLLATE 'und:ci',
+dat_bis DATE,
+dok_ersteller_name STRING(20) COLLATE 'und:ci',
+datzeit_erstellung DATETIME,
+dok_aenderer_name STRING(20) COLLATE 'und:ci',
+datzeit_aenderung DATETIME,
+dok_gueltig_bis DATE,
+dok_aktenzeichen STRING(40) COLLATE 'und:ci',
+dok_dat_eingang DATE,
+dokumentart_bez STRING(255) COLLATE 'und:ci',
+dokument_unterart_bez STRING(255) COLLATE 'und:ci',
+dok_relevanz_kz STRING(1) COLLATE 'und:ci',
+cpr_systemstatus1_id INTEGER,
+bau_gv_abgebrochen INTEGER,
+aktuelles_datum DATE,
+mandant_id INTEGER
+);

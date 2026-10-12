@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_handling_unit_rekl AS SELECT handling_unit_id,
+ art_id,
+ mandant_id,
+ handling_unit_pos_id,
+ dat_buch,
+ dat_erfasst,
+ menge_bme,
+ tour_id,
+ wup_id,
+ nb_id,
+ vz_wup_id,
+ lis_rekl_grund_id,
+ lis_rekl_status_id,
+ versandstelle_id
+FROM kfl_production_dbp_data.handling_unit_rekl;

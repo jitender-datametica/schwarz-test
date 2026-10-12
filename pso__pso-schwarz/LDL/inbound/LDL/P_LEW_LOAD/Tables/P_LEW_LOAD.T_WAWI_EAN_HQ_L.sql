@@ -1,0 +1,15 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_WAWI_EAN_HQ_L
+(
+  COUNTRY_ISO_CD  VARCHAR(3) COLLATE 'en-ci'    NOT NULL,
+  WH_ID_HQ        VARCHAR(3) COLLATE 'en-ci'    NOT NULL,
+  ITEM_NR_LONG    VARCHAR(14) COLLATE 'en-ci'   NOT NULL,
+  ORIG_ITEM_NR    NUMBER(10,0)                  NOT NULL,
+  CASE_SIZE       NUMBER(38)                    NOT NULL,
+  EAN             VARCHAR(13) COLLATE 'en-ci'   NOT NULL,
+  EAN_ITEM_DESC   VARCHAR(30) COLLATE 'en-ci'   NULL,
+  CUSTOM_NR       VARCHAR(20) COLLATE 'en-ci'   NULL,
+  CUSTOM_KEY      VARCHAR(10) COLLATE 'en-ci'   NULL,
+  ONLINE_DESC VARCHAR(250) COLLATE 'en-ci',
+  DAT_DAYEND      DATE                          NULL,
+  LOAD_ID         NUMBER(38)                    NULL
+);

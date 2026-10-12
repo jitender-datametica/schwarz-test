@@ -1,0 +1,14 @@
+create or replace view IDQ_PRODUCTION.DWH.REF_STATUS(
+	REF_STATUS_ID,
+	STATUS_TECHNICAL_NAME,
+	STATUS_NAME,
+	STATUS_NAME_DE,
+	STATUS_NAME_EN
+) as
+  SELECT ID                      AS REF_STATUS_ID
+        ,STATUS	                 AS STATUS_TECHNICAL_NAME
+        ,NAME_DE  				 AS STATUS_NAME
+        ,NAME_DE				 AS STATUS_NAME_DE
+        ,NAME_EN				 AS STATUS_NAME_EN
+  FROM idq_results.REF_STATUS WHERE id in (4, 5, 6)
+;

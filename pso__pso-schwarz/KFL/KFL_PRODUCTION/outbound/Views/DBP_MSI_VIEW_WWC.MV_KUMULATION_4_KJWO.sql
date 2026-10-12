@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_wwc.mv_kumulation_4_kjwo (kjwo, kjwo_kum) AS SELECT A.kjwo,
+ B.kjwo AS kjwo_kum
+FROM kfl_production_dbp_view.v_woche AS A
+ INNER JOIN kfl_production_dbp_view.v_woche AS B ON A.akt_wo BETWEEN B.akt_wo AND (B.akt_wo + 3);

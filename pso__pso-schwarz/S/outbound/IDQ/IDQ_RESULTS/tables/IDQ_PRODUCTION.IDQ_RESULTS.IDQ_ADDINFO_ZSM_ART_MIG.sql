@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE idq_production_idq_results.idq_addinfo_zsm_art_mig (
+id BIGNUMERIC(38,0) NOT NULL,
+test_object_id BIGNUMERIC(38,0),
+source_system_primary_key STRING(1000),
+source_system_id BIGNUMERIC(38,0),
+country_id BIGNUMERIC(38,0),
+branch_id BIGNUMERIC(38,0),
+is_relevant BIGNUMERIC(38,0),
+artikelnummer STRING(18),
+artikelbezeichnung STRING(40),
+`alte artikelnummer` STRING(18),
+artikelart STRING(4),
+warenbereich STRING(9),
+warengruppe STRING(9),
+berechtigungsgruppe STRING(4),
+status STRING(2),
+erstellungsdatum STRING(10),
+aenderungsdatum_am_status STRING(20),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (id) NOT ENFORCED
+);

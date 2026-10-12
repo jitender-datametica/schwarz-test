@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_transportauftrag_einlagerstrategie AS SELECT mandant_id,
+ transport_beleg_id,
+ lagernummer_id,
+ wup_id,
+ nb_id,
+ entfernung_horz_1,
+ aufschlag_gangwechsel_1,
+ aufschlag_hoehe_1,
+ lagerplatz_typ_aufschlag_1,
+ entfernung_horz_2,
+ aufschlag_gangwechsel_2,
+ aufschlag_hoehe_2,
+ lagerplatz_typ_aufschlag_2,
+ palettensteuerung_indiv_fg,
+ alternative_griffzone_fg,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.transportauftrag_einlagerstrategie;

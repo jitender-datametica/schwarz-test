@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_wawi_itm_item_renumbering (orig_list_nr, client_id, item_nr_long,
+orig_item_nr, sap_item_nr_long, sap_orig_item_nr, item_desc, subitemgroup_id, dat_valid_from, dat_update,
+case_size_detection_fg, load_id) AS SELECT orig_list_nr,
+ client_id,
+ item_nr_long,
+ orig_item_nr,
+ sap_item_nr_long,
+ sap_orig_item_nr,
+ item_desc,
+ subitemgroup_id,
+ dat_valid_from,
+ dat_update,
+ case_size_detection_fg,
+ load_id
+FROM ldl_p_lew_core.t_wawi_itm_item_renumbering;

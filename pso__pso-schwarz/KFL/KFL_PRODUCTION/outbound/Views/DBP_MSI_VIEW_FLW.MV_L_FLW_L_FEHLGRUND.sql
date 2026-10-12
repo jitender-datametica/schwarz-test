@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_flw.mv_l_flw_l_fehlgrund (mandant_id, fehlgrund_id, fehlgrund_bez) AS
+SELECT mandant_id,
+ fehlgrund_id,
+ fehlgrund_bez
+FROM kfl_production_dbp_view.v_flw_l_fehlgrund AS V01;

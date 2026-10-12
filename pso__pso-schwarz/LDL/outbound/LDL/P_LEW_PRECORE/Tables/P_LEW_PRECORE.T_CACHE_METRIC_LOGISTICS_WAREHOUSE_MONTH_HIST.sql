@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_precore.t_cache_metric_logistics_warehouse_month_hist (
+client_id BIGNUMERIC(38,0) NOT NULL,
+country_cd STRING(2) COLLATE 'und:ci' NOT NULL,
+wh_id BIGNUMERIC(38,0) NOT NULL,
+wh_cd STRING(3) COLLATE 'und:ci',
+loc_sid BIGNUMERIC(38,0),
+cy_month BIGNUMERIC(38,0) NOT NULL,
+metric_type_name STRING(100) COLLATE 'und:ci' NOT NULL,
+curr_cd STRING(3) COLLATE 'und:ci' NOT NULL,
+current_year_act_val NUMERIC(18,5),
+current_year_plan_val NUMERIC(18,5),
+prev_year_act_val NUMERIC(18,5),
+file_name STRING(100) COLLATE 'und:ci',
+deleted_fg BIGNUMERIC(38,0) NOT NULL,
+dwh_valid_from DATE NOT NULL,
+dwh_valid_to DATE NOT NULL,
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL,
+PRIMARY KEY (wh_id, cy_month, dwh_valid_from) NOT ENFORCED
+);

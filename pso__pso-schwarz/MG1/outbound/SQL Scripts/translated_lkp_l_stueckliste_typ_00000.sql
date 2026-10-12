@@ -1,0 +1,9 @@
+--[OK] statement is translated correctly (syntax and type checks are fine)
+
+
+
+SELECT MANDANT_ID,
+ STUECKLISTE_TYP_ID
+FROM KFL_PRODUCTION_DBP_DATA.L_STUECKLISTE_TYP
+ORDER BY MANDANT_ID NULLS LAST,
+ STUECKLISTE_TYP_ID NULLS LAST;

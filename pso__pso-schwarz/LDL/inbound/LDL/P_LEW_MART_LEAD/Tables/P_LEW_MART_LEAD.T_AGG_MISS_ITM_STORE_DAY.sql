@@ -1,0 +1,17 @@
+CREATE TABLE P_LEW_MART_LEAD.T_AGG_MISS_ITM_STORE_DAY CLUSTER BY (  client_id, dat_formdate ) COMMENT = 'Aggregationstabelle für Fehlartikel: Granularität = client/loc_sid_store/dat_formdate'
+(
+  client_id                NUMBER(38,0) NOT NULL COMMENT 'MIS Client ID'
+, loc_sid_store            NUMBER(38,0) NOT NULL COMMENT 'S-Key der Location, hier der Filiale'
+, dat_formdate             DATE         NOT NULL COMMENT 'Bezugsdatum'
+, day_of_week              NUMBER(38,0) NOT NULL COMMENT 'Tagesnummer der Woche 1-7'
+, cy_month                 NUMBER(38,0) NOT NULL COMMENT 'Monat des Geschäftsjahres im Format "JJJJMM"'
+, cy_partial_week_id       NUMBER(38,0) NOT NULL COMMENT 'Teilwoche: Format yyyywwn, n in (1,2,9)'
+, cy_week                  NUMBER(38,0) NOT NULL COMMENT 'Geschäftsjahr - Woche Id - Format "JJJJMM"'
+, busyear                  NUMBER(38,0) NOT NULL COMMENT 'Geschäftsjahr'
+, currency_iso_cd          VARCHAR(3)            COMMENT '3 stelliger Währungs-Code'
+, curr_tot_id              NUMBER(38,0)          COMMENT 'Interner Währungs-Code'
+, miss_item_cnt            BIGINT                COMMENT 'Anzahl der Fehlartikel'
+, skipped_fg               NUMBER(1,0)           COMMENT '0 - Nicht skipped, 1 - Skipped.  Skipped = miss_item_cnt > p_value aus P_LEW_MART_LEAD.T_VT_REF_PARAMETER mit p_id = 1'
+, dwh_updated              TIMESTAMP    NOT NULL COMMENT 'Technische Zeitstempel'
+)
+;

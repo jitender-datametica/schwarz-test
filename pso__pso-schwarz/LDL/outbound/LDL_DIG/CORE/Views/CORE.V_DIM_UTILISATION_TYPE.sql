@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_dig_core.v_dim_utilisation_type (util_action_cd)
+OPTIONS(DESCRIPTION = `A VIEW THAT CONTAINS ALL DISTINCT VALUES FOR UTILISATION ACTION CODES FROM T_FACT_PRODUCT_UTILISATION`)
+AS SELECT DISTINCT util_action_cd
+FROM ldl_dig_core.t_fact_product_utilisation;

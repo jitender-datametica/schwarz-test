@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_tp_objekt_per AS SELECT mandant_id,
+ tp_objekt_id,
+ dat_von,
+ techn_platz_id,
+ dat_bis,
+ tp_objekt_typ,
+ hersteller_name,
+ hersteller_land_id,
+ hersteller_typ_bez,
+ hersteller_serial_id,
+ bau_kj,
+ bau_kjmo,
+ dat_gewaehrleistung_start,
+ dat_gewaehrleistung_ende,
+ tp_objekt_nr
+FROM kfl_production_dbp_data.tp_objekt_per;

@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl.st_listung_sm_kw_kmo (
+mandant_id INTEGER,
+kjwo INTEGER,
+sm_id INTEGER,
+ksm_id STRING(4) COLLATE 'und:ci',
+wg_id INTEGER,
+art_id INTEGER,
+wup_id INTEGER,
+nb_id INTEGER,
+bewart_id INTEGER,
+menge NUMERIC(29,3),
+umsatz_netto NUMERIC(29,4),
+ek_mep NUMERIC(29,4),
+einstandspreis NUMERIC(29,4),
+absatz NUMERIC(29,3),
+absatz_sa NUMERIC(29,3),
+absatz_af NUMERIC(29,3),
+anz_wo_mit_absatz INTEGER,
+anz_wo_mit_absatz_sa INTEGER,
+anz_wo_mit_absatz_af INTEGER
+);

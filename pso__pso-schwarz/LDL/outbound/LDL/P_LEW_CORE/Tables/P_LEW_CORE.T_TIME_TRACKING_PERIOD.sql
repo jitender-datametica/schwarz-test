@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_core.t_time_tracking_period (
+client_id BIGNUMERIC(38,0) NOT NULL,
+loc_sid BIGNUMERIC(38,0) NOT NULL,
+time_record_id BIGNUMERIC(38,0) NOT NULL,
+time_record_change_tmsp DATETIME,
+employee_hash STRING(100) COLLATE 'und:ci',
+time_type_grp_cd STRING(2) COLLATE 'und:ci' NOT NULL,
+time_type_sid BIGNUMERIC(38,0) NOT NULL,
+period_start_tmsp DATETIME,
+period_end_tmsp DATETIME,
+booking_type_from_cd STRING(1) COLLATE 'und:ci',
+booking_type_to_cd STRING(1) COLLATE 'und:ci',
+break_duration_minute BIGNUMERIC(38,0),
+day_factor NUMERIC(2,1),
+performance_factor NUMERIC(3,2),
+cancel_fg BIGNUMERIC(38,0) NOT NULL,
+deleted_fg BIGNUMERIC(38,0),
+dwh_cal_dt DATE NOT NULL,
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL,
+PRIMARY KEY (client_id, loc_sid, time_record_id, time_type_sid, cancel_fg, dwh_cal_dt) NOT ENFORCED
+) CLUSTER BY client_id, dwh_cal_dt;

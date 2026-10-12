@@ -1,0 +1,26 @@
+create or replace TABLE LDL_DATA_PRODUCTION.CORE_REL.T_WAWI_INVENTORY_RESULT cluster by (INV_DT)(
+	INV_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the inventory event.',
+	WAWI_ITEM_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) of the Wawi item.',
+	DWH_VALID_FROM_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record became valid.',
+	DWH_VALID_TO_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was no longer valid.',
+	DWH_VALID_FG BOOLEAN NOT NULL COMMENT 'An indicator showing the current record, i.e. where the current date is between dwh_valid_from and dwh_valid_to.',
+	INV_DT DATE NOT NULL COMMENT 'The date when the inventory is carried out.',
+	INV_TYPE_CD VARCHAR(20) NOT NULL COMMENT 'The code identifying the subtype discriminator for inventories.',
+	INT_ORG_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the internal organization.',
+	INT_ORG_TYPE_CD VARCHAR(20) COMMENT 'The code identifying the discriminators for internal organizations.',
+	COUNTRY_ORG_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the related country organization.',
+	COUNTRY_ORG_CD VARCHAR(2) NOT NULL COMMENT 'The code of the related business country. (The business country is not identical to a political country.)',
+	INV_SALES_UNIT_CNT NUMBER(38,5) COMMENT 'The number of individual items (which belong to the given Wawi item) which are actually on stock. E.g. if there are two boxes with 20 items each, the stock count is 40. For weight-based products this attribute is empty.',
+	INV_DIFF_SALES_UNIT_CNT NUMBER(38,5) COMMENT 'The inventory difference, expressed as the number of individual items (that belong to the given Wawi item). The inventory difference is the difference between the counted value and the calculated stock value. For weight-based products this attribute is empty.',
+	INV_QTY NUMBER(38,5) COMMENT 'The weight of the product which is actually on stock, expressed in the indicated unit of measure. (This attribute is only filled for weight-based products.)',
+	INV_DIFF_QTY NUMBER(38,5) COMMENT 'The inventory difference, expressed in the indicated unit of measure. The inventory difference is the difference between the counted value and the calculated stock value. This attribute is only filled for weight-based products.',
+	UOM_CD VARCHAR(20) COMMENT 'The code identifying the unit of measure for the inventory quantity.',
+	INV_PROD_REASON_ID NUMBER(38,0) COMMENT 'The identifier for the reason why an inventory was initiated for a certain product.',
+	INV_RESULT_STATUS_TYPE_ID NUMBER(38,0) COMMENT 'The identifier for the counting status of an inventory result. It shows, if the product could be counted.',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.',
+	constraint PK_T_WAWI_INVENTORY_RESULT primary key (WAWI_ITEM_SID, INV_SID, DWH_VALID_FROM_TMSP)
+)COMMENT='The inventory process produces counts for each Wawi item. The inventory result is shown either in kilograms (or any other unit of measure describing the weight) or as the number of sales variants of the respective Wawi item. So if there are two boxes with 20 sales item each, the inventory count is 40.'
+;

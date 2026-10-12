@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_fipo_l_kategorie_1 AS SELECT fipo_kategorie_id,
+ fipo_kategorie_nr,
+ fipo_bereich_id
+FROM kfl_production_dbp_view.v_fipo_l_kategorie_1;

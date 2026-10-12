@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS ldl_dig_core.t_dim_travel_booking_coupon_1 (
+trav_booking_coupon_cd STRING(25) NOT NULL
+OPTIONS(description='The codes that customer entered during booking process to activate Coupon.( examples 3001, 3002, etc)'),
+trav_booking_coupon_descr STRING(250) NOT NULL
+OPTIONS(description='The decription for code that customer entered during booking process to activate Coupon.( examples Coupon OoH, Coupon CRM)'),
+dwh_created_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was created in the data warehouse.'),
+dwh_updated_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was last updated.'),
+dwh_src_file_name STRING(255)
+OPTIONS(description='The path and the name of the file(s) from which this record was loaded.'),
+src_file_tmsp TIMESTAMP
+OPTIONS(description='The point in time when this record was extracted from the source.'),
+PRIMARY KEY (trav_booking_coupon_cd) NOT ENFORCED
+)
+OPTIONS(description='This minor dimension defines  the list of codes that customer entered during booking process to activate Coupon.');

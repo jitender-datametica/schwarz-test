@@ -1,0 +1,41 @@
+CREATE OR REPLACE VIEW P_LEW_PRECORE_AC.V_LDI_ORDER_SUMMARY_1
+(
+   client_id,
+   country_cd,
+   bus_year,
+   month_of_bus_year,
+   adj_order_cnt,
+   adj_order_line_cnt,
+   adj_turnover_net_val,
+   adj_turnover_curr_sid,
+   adj_turnover_curr_cd,
+   adj_turnover_eur_net_val,
+   plan_turnover_net_val,
+   plan_turnover_curr_sid,
+   plan_turnover_curr_cd,
+   dwh_cal_dt,
+   dwh_load_id,
+   dwh_created,
+   dwh_updated
+)
+AS
+   SELECT
+      client_id,
+   country_cd,
+   bus_year,
+   month_of_bus_year,
+   adj_order_cnt,
+   adj_order_line_cnt,
+   adj_turnover_net_val,
+   adj_turnover_curr_sid,
+   adj_turnover_curr_cd,
+   adj_turnover_eur_net_val,
+   plan_turnover_net_val,
+   plan_turnover_curr_sid,
+   plan_turnover_curr_cd,
+   dwh_cal_dt,
+   dwh_load_id,
+   dwh_created,
+   dwh_updated
+FROM p_lew_precore.t_ldi_order_summary_1
+;

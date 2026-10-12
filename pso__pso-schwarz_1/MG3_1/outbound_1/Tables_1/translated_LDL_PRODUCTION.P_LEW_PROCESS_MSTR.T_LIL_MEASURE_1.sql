@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE ldl_production_p_lew_process_mstr.t_lil_measure_1 (
+meas_id INTEGER NOT NULL,
+meas_desc STRING(800) NOT NULL,
+meas_base_desc STRING(800) NOT NULL,
+meas_tp_id INTEGER NOT NULL,
+meas_cd STRING(800) NOT NULL,
+liam1_srt_cd INTEGER,
+liam2_srt_cd INTEGER,
+liam3_srt_cd INTEGER,
+liam4_srt_cd INTEGER,
+lift1_srt_cd INTEGER,
+lcsd_srt_cd INTEGER,
+liam4_meas_grp_id INTEGER DEFAULT - 1 NOT NULL,
+format_id INTEGER DEFAULT - 1 NOT NULL,
+frac_lgth INTEGER,
+monetary_fg INTEGER NOT NULL,
+dwh_load_id INTEGER NOT NULL,
+dwh_created TIMESTAMP NOT NULL,
+dwh_updated TIMESTAMP NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

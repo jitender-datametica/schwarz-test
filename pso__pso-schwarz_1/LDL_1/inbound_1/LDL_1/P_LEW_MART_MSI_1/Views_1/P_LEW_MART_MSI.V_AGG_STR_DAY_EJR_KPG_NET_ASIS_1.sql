@@ -1,0 +1,28 @@
+CREATE OR REPLACE VIEW P_LEW_MART_MSI.V_AGG_STR_DAY_EJR_KPG_NET_ASIS_1 as
+   /* 
+   #DescStart# 
+   #$Revision: 6244 $, $LastChangedBy: hwieber $ 
+   #SubjectAreas#: KPGES Views 
+   #DescEnd# 
+   */
+   SELECT
+   client_id,
+   src_orig_store_nr           AS orig_store_nr,
+   dat_formdate,
+   currency_iso_cd,
+   loc_sid_store                 AS store_id,
+   cy_month,
+   cnt_customer,
+   val_rtl,
+   val_rtl_net,
+   val_rtl_extrapol,
+   val_rtl_net_extrapol,
+   val_rtl_kpges,
+   val_rtl_net_kpges,
+   val_rtl_wawi,
+   val_rtl_net_wawi,
+   val_rtl_txj,
+   val_rtl_net_txj,
+   val_rtl_ejr,
+   val_rtl_net_ejr
+    FROM p_lew_bil_ac.v_agg_store_day_turnover_ext_1;

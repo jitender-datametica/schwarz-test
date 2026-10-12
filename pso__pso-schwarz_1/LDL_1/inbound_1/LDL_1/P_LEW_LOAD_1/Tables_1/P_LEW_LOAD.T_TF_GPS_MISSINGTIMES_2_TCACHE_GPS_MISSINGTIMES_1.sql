@@ -1,0 +1,27 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TF_GPS_MISSINGTIMES_2_TCACHE_GPS_MISSINGTIMES_1
+(
+  CLIENT_ID                     NUMBER(38)                    NOT NULL,
+  LIDL_COUNTRY                  VARCHAR(40)                   NOT NULL,
+  GPS_MISSINGTIMES_BIC_ZMLILA   VARCHAR(250) COLLATE 'en-ci'  NOT NULL,
+  GPS_MISSINGTIMES_ORG_SHORT    VARCHAR(250) COLLATE 'en-ci'  NOT NULL,
+  GPS_MISSINGTIMES_DOCNR        VARCHAR(250) COLLATE 'en-ci'  NOT NULL,
+  GPS_MISSINGTIMES_BEGDA        DATE                          NOT NULL,
+  GPS_MISSINGTIMES_STATUS       NUMBER(38,0)                  NOT NULL,
+  GPS_MISSINGTIMES_DAYEND_DATE  DATE                          NOT NULL,
+  BIC_ZMLILA                    VARCHAR(20)                   NOT NULL,
+  ORIG_STORE_NR                 NUMBER(10,0)                  NOT NULL,
+  TIME_RECORD_ID                NUMBER(38)                    NOT NULL,
+  TIME_RECORD_CHANGE_DT         DATE                          NOT NULL,
+  EMPLOYEE_HASH                 VARCHAR(100) COLLATE 'en-ci'  NULL,
+  WH_ID                         NUMBER(10,0)                  NULL,
+  MISSINGTYPE_ID                VARCHAR(40)                   NULL,
+  HOURS_CNT                     NUMBER(9,5)                   NULL,
+  CANCEL_FG                     NUMBER(38)                    NOT NULL,
+  FILE_RECORD_ID                NUMBER(38)                    NULL,
+  DWH_CAL_DT                    DATE                          NULL,
+  EXTRACTION_DT                 DATE                          NULL,
+  DWH_MAPPING_DT                DATE                          NOT NULL,
+  TF_ERROR_FG                   NUMBER(1,0)                   NULL,
+  RECORD_ID                     VARCHAR(300)                  NOT NULL,
+  FILENAME                      VARCHAR(1000)                 NOT NULL
+);

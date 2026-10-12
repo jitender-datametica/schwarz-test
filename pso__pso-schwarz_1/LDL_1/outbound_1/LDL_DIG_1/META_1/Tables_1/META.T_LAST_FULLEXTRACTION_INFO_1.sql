@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS ldl_dig_meta.t_last_fullextraction_info_1 (
+storagearea STRING(16777216) NOT NULL,
+application STRING(16777216) NOT NULL,
+systemgroup STRING(16777216) NOT NULL,
+interface STRING(16777216) NOT NULL,
+company STRING(16777216) NOT NULL,
+country_1 STRING(16777216) NOT NULL,
+securelevel STRING(16777216) NOT NULL,
+storageno STRING(16777216) NOT NULL,
+client STRING(16777216) NOT NULL,
+last_start_time DATETIME NOT NULL,
+last_duration TIME NOT NULL,
+project STRING(16777216),
+description STRING(16777216),
+dwh_updated_tmsp DATETIME DEFAULT CURRENT_DATETIME(),
+dwh_created_tmsp DATETIME DEFAULT CURRENT_DATETIME()
+);

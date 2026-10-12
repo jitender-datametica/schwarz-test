@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.lagerbestand_charge_erp_per_1 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+art_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+lagerort_id STRING(4) COLLATE 'und:ci' NOT NULL,
+charge_id STRING(10) COLLATE 'und:ci' NOT NULL,
+lagerort_loesch_fg BIGNUMERIC(38,0),
+dat_von DATE NOT NULL,
+dat_bis DATE NOT NULL,
+gjmo_buch BIGNUMERIC(38,0),
+inventur_sperr_fg BIGNUMERIC(38,0),
+menge_chbest_erp_umlag_bme NUMERIC(13,3),
+menge_chbest_erp_qual_bme NUMERIC(13,3),
+menge_chbest_erp_nf_charge_bme NUMERIC(13,3),
+menge_chbest_erp_gesp_bme NUMERIC(13,3),
+menge_chbest_erp_frei_bme NUMERIC(13,3),
+menge_chbest_erp_ret_gesp_bme NUMERIC(13,3),
+td_update TIMESTAMP,
+td_insert TIMESTAMP
+);

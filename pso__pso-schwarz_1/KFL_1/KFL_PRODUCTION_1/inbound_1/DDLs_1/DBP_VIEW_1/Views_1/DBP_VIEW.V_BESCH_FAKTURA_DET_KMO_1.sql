@@ -1,0 +1,25 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_BESCH_FAKTURA_DET_KMO_1 AS 
+    SELECT 
+        mandant_id
+        ,faktura_beleg_id
+        ,faktura_beleg_pos_id
+        ,dat_faktura_sap
+        ,art_id
+        ,wup_id
+        ,nb_id
+        ,menge_faktura_bme
+        ,betrag_verrechnung
+        ,betrag_netto
+        ,zwsum_1_betrag
+        ,betrag_mwst
+        ,retoure_pos_kz
+        ,basismenge_einh_id
+        ,verk_menge_einh_id
+        ,menge_faktura_lme
+        ,aktion_id
+        ,steuer_typ_id
+        ,sap_mwst_id
+        ,wrg_id
+        ,vk_aktion_brutto
+        ,vk_vor_aktion_brutto
+FROM DBP_DATA.besch_faktura_det_kmo_1 ;

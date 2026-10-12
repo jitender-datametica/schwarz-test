@@ -1,0 +1,61 @@
+create or replace view IDQ_PRODUCTION.DWH.CHECK_TEST_RESULT_TEST_KFL_1(
+	CHECK_TEST_RESULT_ID,
+	IDQ_TEST_OBJECT_ID,
+	REF_RULE_ID,
+	IS_ERROR_DETECTED,
+	FIRST_NEGATIVE_TEST,
+	REF_TIME_FIRST_NEGATIVE_TEST_DAY_ID,
+	FIRST_POSITIVE_TEST,
+	REF_TIME_FIRST_POSITIVE_TEST_DAY_ID,
+	ERROR_SOLVED,
+	DUE_DATE,
+	REF_TIME_DUE_DAY_ID,
+	FLIP_COUNT,
+	REF_FIELD_ID,
+	REF_SOURCE_SYSTEM_TYPE_ID,
+	REF_SOURCE_SYSTEM_ID,
+	REF_BRANCH_ID,
+	REF_COUNTRY_ID,
+	REF_TEST_OBJECT_TYPE_ID,
+	REF_CRITICALITY_ID,
+	REF_DIMENSION_ID,
+	REF_TEST_OBJECT_TYPE_LEVEL_1_ID,
+	REF_TEST_OBJECT_TYPE_LEVEL_2_ID,
+	REF_TEST_OBJECT_TYPE_LEVEL_3_ID
+) as
+SELECT 10000 * Cast(CTR.TEST_OBJECT_ID as BigInt) + CTR.RULE_ID    AS CHECK_TEST_RESULT_ID
+      ,CTR.TEST_OBJECT_ID                                            AS IDQ_TEST_OBJECT_ID
+      ,CTR.RULE_ID                                                   AS REF_RULE_ID
+      ,CTR.IS_ERROR_DETECTED                                         AS IS_ERROR_DETECTED
+      ,CTR.FIRST_NEGATIVE_TEST                                       AS FIRST_NEGATIVE_TEST
+      ,CTR.FIRST_NEGATIVE_TEST_DAY_ID                                AS REF_TIME_FIRST_NEGATIVE_TEST_DAY_ID
+      ,CTR.FIRST_POSITIVE_TEST                                       AS FIRST_POSITIVE_TEST
+      ,CTR.FIRST_POSITIVE_TEST_DAY_ID                                AS REF_TIME_FIRST_POSITIVE_TEST_DAY_ID
+      ,CTR.ERROR_SOLVED                                              AS ERROR_SOLVED
+      ,CTR.DUE_DATE                                                  AS DUE_DATE
+      ,CTR.DUE_DAY_ID                                                AS REF_TIME_DUE_DAY_ID
+      ,CTR.FLIP_COUNT                                                AS FLIP_COUNT
+      ,RR.FIELD_ID                                                   AS REF_FIELD_ID
+      ,SRS.SOURCE_SYSTEM_TYPE_ID                                     AS REF_SOURCE_SYSTEM_TYPE_ID
+      ,ITO.SOURCE_SYSTEM_ID                                          AS REF_SOURCE_SYSTEM_ID
+      ,ITO.BRANCH_ID                                                 AS REF_BRANCH_ID
+      ,ITO.COUNTRY_ID                                                AS REF_COUNTRY_ID
+      ,ITO.TEST_OBJECT_TYPE_ID                                       AS REF_TEST_OBJECT_TYPE_ID
+      ,RR.CRITICALITY_ID                                             AS REF_CRITICALITY_ID
+      ,RR.DIMENSION_ID                                               AS REF_DIMENSION_ID
+      ,TOTE.LEVEL_1_ID                                               AS REF_TEST_OBJECT_TYPE_LEVEL_1_ID
+      ,TOTE.LEVEL_2_ID                                               AS REF_TEST_OBJECT_TYPE_LEVEL_2_ID
+      ,TOTE.LEVEL_3_ID                                               AS REF_TEST_OBJECT_TYPE_LEVEL_3_ID
+FROM idq_results.CHECK_TEST_RESULT_CURRENT_1 CTR
+INNER JOIN idq_results.IDQ_TEST_OBJECT_1 AS ITO
+  ON CTR.TEST_OBJECT_ID = ITO.ID
+INNER JOIN idq_results.REF_SOURCE_SYSTEM_1 AS SRS
+  ON ITO.SOURCE_SYSTEM_ID = SRS.ID
+INNER JOIN idq_results.REF_RULE_1 AS RR
+  ON CTR.RULE_ID =  RR.ID
+INNER JOIN idq_results.REF_CRITICALITY_1 AS CRT
+  ON  RR.CRITICALITY_ID = CRT.ID
+INNER JOIN idq_results.REF_TEST_OBJECT_TYPE_EXTENDED_1 as TOTE
+  ON ITO.TEST_OBJECT_TYPE_ID = TOTE.ID
+  where ctr.is_error_detected = 1 and srs.source_system_type_id = 14
+;

@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_ios_materialized.mv_massnahme_spr_zu_1 (
+massnahme_id STRING(20) COLLATE 'und:ci',
+massnahmenart_id INTEGER,
+massnahmenart_bez STRING(16777216) COLLATE 'und:ci',
+massnahmenart_bez_cz STRING(16777216) COLLATE 'und:ci',
+massnahmenart_bez_sk STRING(16777216) COLLATE 'und:ci',
+massnahmenart_bez_hr STRING(16777216) COLLATE 'und:ci',
+massnahmenart_bez_pl STRING(16777216) COLLATE 'und:ci',
+massnahmenart_bez_ro STRING(16777216) COLLATE 'und:ci',
+massnahmenart_bez_en STRING(16777216) COLLATE 'und:ci',
+massnahmenart_bez_bg STRING(16777216) COLLATE 'und:ci',
+massnahmen_gruppe_id INTEGER,
+massnahmen_gruppe STRING(16777216),
+massnahmen_gruppe_cz STRING(16777216),
+massnahmen_gruppe_pl STRING(16777216),
+massnahmen_gruppe_bg STRING(16777216),
+massnahmen_gruppe_hr STRING(16777216),
+massnahmen_gruppe_ro STRING(16777216),
+massnahmen_gruppe_sk STRING(16777216)
+);

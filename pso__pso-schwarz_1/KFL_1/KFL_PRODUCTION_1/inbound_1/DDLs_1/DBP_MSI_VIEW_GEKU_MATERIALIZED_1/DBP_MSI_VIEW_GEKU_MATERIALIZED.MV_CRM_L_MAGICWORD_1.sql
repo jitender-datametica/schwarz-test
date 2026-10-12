@@ -1,0 +1,8 @@
+create or replace view KFL_PRODUCTION.DBP_MSI_VIEW_GEKU_MATERIALIZED.MV_CRM_L_MAGICWORD_1(
+	CRM_MAGICWORD_ID
+) as
+-- 10.05.2022 twie: SPEC0145413 Lookup CRM Zauberwort
+
+SELECT
+   CRM_MAGICWORD_ID
+FROM dbp_view.v_crm_l_magicword_1;

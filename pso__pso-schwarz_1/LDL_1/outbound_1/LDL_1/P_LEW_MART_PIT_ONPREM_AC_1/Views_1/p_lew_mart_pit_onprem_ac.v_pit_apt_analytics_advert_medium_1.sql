@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_pit_onprem_ac.v_pit_apt_analytics_advert_medium_1 (client_id, anl_advert_medium_sid
+, advert_medium, advert_medium_sort_val, advert_medium_group_sid, advert_medium_group, advert_medium_group_sort_val,
+advert_medium_ignore_fg, advert_medium_delete_fg) AS SELECT *
+FROM ldl_p_lew_mart_pit_onprem.v_pit_apt_analytics_advert_medium_1 AS AAM;

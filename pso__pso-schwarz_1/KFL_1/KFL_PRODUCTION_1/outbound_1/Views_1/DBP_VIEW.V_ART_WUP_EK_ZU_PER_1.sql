@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_art_wup_ek_zu_per_1 AS SELECT art_id,
+ mandant_id,
+ wup_id,
+ nb_id,
+ dat_von,
+ dat_bis,
+ ek_netto,
+ ek_netto_bnk,
+ ek_mep,
+ einstandspreis,
+ komponentenmenge,
+ wrg_id,
+ ek_nettonetto,
+ kein_zekp_fg
+FROM kfl_production_dbp_data.art_wup_ek_zu_per_1;

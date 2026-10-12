@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_hydra_taetigkeit_typ_1 AS SELECT mandant_id,
+ taetigkeit_typ_id,
+ taetigkeit_typ_bez
+FROM kfl_production_dbp_data.l_hydra_taetigkeit_typ_1;

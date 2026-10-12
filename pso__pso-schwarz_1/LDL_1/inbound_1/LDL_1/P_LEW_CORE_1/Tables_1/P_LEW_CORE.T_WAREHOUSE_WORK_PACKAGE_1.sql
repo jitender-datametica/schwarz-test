@@ -1,0 +1,26 @@
+create or replace TABLE LDL_PRODUCTION_CLONE_GOOGLE_20260608_1030.P_LEW_CORE.T_WAREHOUSE_WORK_PACKAGE_1 (
+	CLIENT_ID NUMBER(38,0) NOT NULL COMMENT 'DWH-Mandant_1; FK auf CLIENT',
+	WORK_PACKAGE_SID NUMBER(38,0) NOT NULL COMMENT 'Surrogate identifier to be created (country_1, warehouse and warehouse work package_1 (WHO)).',
+	WH_LOC_SID NUMBER(38,0) NOT NULL COMMENT 'Warehouse; FK auf LOCATION_1',
+	WORK_PACKAGE_NR VARCHAR(100) NOT NULL COMMENT 'Identifier in EWM for WH work package_1 (WHO).',
+	WH_NR VARCHAR(100) COMMENT 'Identifier of warehouses in the WAWI source system.',
+	WORK_PACKAGE_PROCESS_NR VARCHAR(100) COMMENT 'Identifier for the process the work package_1 is for.',
+	WORK_PACKAGE_ACTIVITY_TYPE_CD VARCHAR(100) COMMENT 'Activity type of the work package_1 like pick, replenishment, stock change, internal move or putaway. Denormalized from t_ref_warehouse_process_type.',
+	WORK_PACKAGE_GRP_NR VARCHAR(100) COMMENT 'WHO Queue identifier, which is the basis for grouping the work task in a work package.',
+	WORK_PACKAGE_STATUS_CD VARCHAR(100) COMMENT 'Status_1 of the work package_1: open, confirmed, in progress, etc.',
+	TGT_STORE_LOC_SID NUMBER(38,0) COMMENT 'Location_1 SID of the target store for which the work package_1 is.',
+	TGT_WH_LOC_SID NUMBER(38,0) COMMENT 'Location_1 SID of the target warehouse for which the work package_1 is.',
+	TGT_SUP_SID NUMBER(38,0) COMMENT 'Target supplier_1 for which the work package_1 is.',
+	WORK_PACKAGE_CREATE_DT DATE COMMENT 'Date when the work package_1 was created.',
+	WORK_PACKAGE_CREATE_TMSP TIMESTAMP_NTZ(9) COMMENT 'The point in time when the work package_1 was created.',
+	WORK_PACKAGE_START_DT DATE COMMENT 'Date when the work package_1 was started to be worked on.',
+	WORK_PACKAGE_START_TMSP TIMESTAMP_NTZ(9) COMMENT 'The point in time when the work package_1 was started to be worked on.',
+	WORK_PACKAGE_CONFIRM_DT DATE COMMENT 'Date when the work package_1 was confirmed.',
+	WORK_PACKAGE_CONFIRM_TMSP TIMESTAMP_NTZ(9) COMMENT 'The point in time when the work package_1 was confirmed.',
+	WH_ZONE_NR VARCHAR(100) COMMENT 'Zone in the WH, split based on activity, inventory, layout, etc.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The identifier of the last load run which inserted or updated this row.',
+	DWH_CREATED TIMESTAMP_NTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED TIMESTAMP_NTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',
+	constraint PK_T_WAREHOUSE_WORK_PACKAGE primary key (WORK_PACKAGE_SID)
+)COMMENT='SAP EWM data for WH orders. which are the work packages for WH processing (picking, putaway, etc.).'
+;

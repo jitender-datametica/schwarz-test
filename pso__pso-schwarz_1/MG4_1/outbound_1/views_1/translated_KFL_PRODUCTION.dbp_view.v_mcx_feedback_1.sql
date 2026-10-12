@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_mcx_feedback_1 (feedback_id, umfrage_id, befragter_id, frage_id, scale_id
+, antwort_id, datzeit_abschluss, dat_feedback, abschluss_id, mandant_id, gf_id, wup_id, nb_id, dat, zeitspanne,
+zeitspanne_id, bonwertspanne, td_update, td_insert) AS SELECT *
+FROM kfl_production_dbp_data.mcx_feedback_1;

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_vz_dispo_artikelstatus_spr_zu_1 AS SELECT mandant_id,
+ spr_id,
+ vz_dispo_artikelstatus_id,
+ vz_dispo_artikelstatus_bez
+FROM kfl_production_dbp_data.vz_dispo_artikelstatus_spr_zu_1;

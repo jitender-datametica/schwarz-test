@@ -1,0 +1,27 @@
+DROP TABLE IF EXISTS kfl_production_dbp_etl_process.ods_bon_verkauf_delta_load_1;
+CREATE OR REPLACE TABLE kfl_production_dbp_etl_process.ods_bon_verkauf_delta_load_1 (
+bon_id STRING(100) NOT NULL,
+bon_zeile BIGNUMERIC(38,0) NOT NULL,
+kl_art_id BIGNUMERIC(38,0),
+ean_kasse NUMERIC(26,0),
+wg_id BIGNUMERIC(38,0),
+menge NUMERIC(18,3) DEFAULT 0 NOT NULL,
+einh_id STRING(12),
+umsatz_brutto NUMERIC(18,4) DEFAULT 0 NOT NULL,
+mwst_id BIGNUMERIC(38,0) NOT NULL,
+erfassung_id STRING(40),
+aktion_id STRING(80) NOT NULL,
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+talon_id BIGNUMERIC(36,0) DEFAULT 0 NOT NULL,
+start_bon_zeile TIMESTAMP,
+bon_nr_extern BIGNUMERIC(38,0),
+kpos_erfassung_id STRING(2040),
+umsatz_brutto_norm NUMERIC(18,4) DEFAULT 0 NOT NULL,
+vk_brutto_obb NUMERIC(18,4) DEFAULT 0 NOT NULL,
+bon_vorgang_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+barcode_string STRING(400),
+bon_dat DATE NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+) CLUSTER BY mandant_id, bon_dat, wup_id;

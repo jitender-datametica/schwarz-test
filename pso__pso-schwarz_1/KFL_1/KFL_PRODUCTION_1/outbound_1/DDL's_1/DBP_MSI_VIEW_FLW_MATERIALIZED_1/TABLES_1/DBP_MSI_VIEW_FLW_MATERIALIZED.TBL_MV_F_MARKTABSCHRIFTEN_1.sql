@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE dbp_msi_view_flw_materialized.tbl_mv_f_marktabschriften_1 (
+mandant_id INTEGER,
+in_kunde_id INTEGER,
+kunde_nr STRING(10) COLLATE 'und:ci',
+kunde_name STRING(40) COLLATE 'und:ci',
+dat DATE,
+in_art_id INTEGER,
+in_art_nr STRING(20) COLLATE 'und:ci',
+abschriften_fg INTEGER,
+aufschriften_fg INTEGER,
+menge_erf NUMERIC(29,3),
+menge_bestand_bme NUMERIC(29,3),
+wrg_id STRING(3) COLLATE 'und:ci',
+default_wrg STRING(12) COLLATE 'und:ci',
+diff_wert_bestand_netto NUMERIC(29,2),
+preis_aend_grund_id INTEGER,
+umbew_beleg_id INTEGER,
+wert_bestand_brutto_alt NUMERIC(29,2),
+diff_wert_bestand_brutto NUMERIC(29,2),
+vk_brutto_alt NUMERIC(29,2)
+);

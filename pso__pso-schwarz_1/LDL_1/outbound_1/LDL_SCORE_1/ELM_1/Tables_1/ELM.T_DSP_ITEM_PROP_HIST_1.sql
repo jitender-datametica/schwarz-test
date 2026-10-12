@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_score_elm.t_dsp_item_prop_hist_1 (
+dispoid BIGNUMERIC(38,0) NOT NULL,
+itempropid BIGNUMERIC(38,0) NOT NULL,
+suppliercargowayid BIGNUMERIC(38,0),
+itemid BIGNUMERIC(38,0),
+palfactor BIGNUMERIC(38,0),
+pallettypeid BIGNUMERIC(38,0),
+palweight BIGNUMERIC(38,10),
+palheight BIGNUMERIC(38,0),
+doubledeckflag BIGNUMERIC(38,0),
+minorderqty BIGNUMERIC(38,0),
+elmstatus BIGNUMERIC(38,0),
+changedate DATE,
+changeuser BIGNUMERIC(38,0),
+excise_tax_flag BIGNUMERIC(38,0),
+source_extraction_tmsp ARRAY < STRING >,
+tech_valid_from TIMESTAMP NOT NULL,
+tech_valid_to TIMESTAMP NOT NULL,
+snflk_insert_tmsp TIMESTAMP NOT NULL,
+snflk_update_tmsp TIMESTAMP NOT NULL,
+PRIMARY KEY (dispoid, itempropid) NOT ENFORCED
+);

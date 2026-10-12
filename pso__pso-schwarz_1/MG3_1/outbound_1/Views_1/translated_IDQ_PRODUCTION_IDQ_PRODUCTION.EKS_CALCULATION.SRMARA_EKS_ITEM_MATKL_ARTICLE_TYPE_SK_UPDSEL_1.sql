@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.srmara_eks_item_matkl_article_type_sk_updsel_1 (itemid, zlegacymatnr
+, zlegacymatkl, zmatkl, zlegacymatklnew, zmatklnew) AS SELECT stmara_eks_item.itemid,
+ stmara_eks_item.zlegacymatnr,
+ stmara_eks_item.zlegacymatkl,
+ stmara_eks_item.zmatkl,
+ srmara_eks_item_matkl_article_type_sk_010.zlegacymatklnew,
+ srmara_eks_item_matkl_article_type_sk_010.zmatklnew
+FROM idq_production_eks_calculation.stmara_eks_item_1
+ INNER JOIN idq_production_eks_calculation.srmara_eks_item_matkl_article_type_sk_010_1 ON stmara_eks_item.zlegacymatnr =
+  srmara_eks_item_matkl_article_type_sk_010.zlegacymatnr;

@@ -1,0 +1,1 @@
+Select mandant_id, gp_id, gp_teilsortiment_id, einkaufsorganisation_id, zahlungsziel_id, zek_id from DBP_DATA.l_gp_teilsortiment_1 where zahlungsziel_id  not like '% %' and zahlungsziel_id  <> '';

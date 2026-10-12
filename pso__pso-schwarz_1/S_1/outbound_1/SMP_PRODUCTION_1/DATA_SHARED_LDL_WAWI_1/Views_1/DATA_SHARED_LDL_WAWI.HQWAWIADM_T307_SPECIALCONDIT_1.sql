@@ -1,0 +1,26 @@
+CREATE OR REPLACE VIEW smp_production_data_shared_ldl_wawi.hqwawiadm_t307_specialcondit_1 (wawi_instanz_kzl, c307_spcondnr
+, c307_krednr, c307_artikelnr, c307_validfrom, c307_validuntil, c307_spsubnr, c307_factkrednr, c307_currency, c307_value
+, c307_sign, c307_includemargin, c307_matchable, c307_mod_date, c307_mod_user, c307_warehouseno, c307_percent,
+c307_pricegroup, c307_casesize, scn, delete_fg, extraction_tmsp) AS SELECT wawi_instanz_kzl,
+ c307_spcondnr,
+ c307_krednr,
+ c307_artikelnr,
+ c307_validfrom,
+ c307_validuntil,
+ c307_spsubnr,
+ c307_factkrednr,
+ c307_currency,
+ c307_value,
+ c307_sign,
+ c307_includemargin,
+ c307_matchable,
+ c307_mod_date,
+ c307_mod_user,
+ c307_warehouseno,
+ c307_percent,
+ c307_pricegroup,
+ c307_casesize,
+ scn,
+ delete_fg,
+ extraction_tmsp
+FROM ldl_wawi_production_hqwawiadm.t307_specialcondit_1;

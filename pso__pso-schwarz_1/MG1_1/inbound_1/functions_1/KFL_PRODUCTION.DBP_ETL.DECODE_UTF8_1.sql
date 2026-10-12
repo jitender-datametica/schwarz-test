@@ -1,0 +1,10 @@
+CREATE OR REPLACE FUNCTION KFL_PRODUCTION.DBP_ETL.DECODE_UTF8("S" VARCHAR)
+RETURNS VARCHAR
+LANGUAGE JAVASCRIPT
+AS '
+try {
+return decodeURIComponent(escape(S));
+} catch (e) {
+return S;
+}
+';

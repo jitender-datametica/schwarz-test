@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_werbemittel_art_spr_zu_1 AS SELECT spr_id,
+ werbemittel_art_id,
+ werbemittel_art_bez
+FROM kfl_production_dbp_data.werbemittel_art_spr_zu_1;

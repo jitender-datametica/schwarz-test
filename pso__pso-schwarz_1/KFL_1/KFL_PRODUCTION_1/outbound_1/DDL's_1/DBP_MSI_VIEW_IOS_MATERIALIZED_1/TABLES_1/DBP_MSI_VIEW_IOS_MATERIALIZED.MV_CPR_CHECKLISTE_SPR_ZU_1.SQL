@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_ios_materialized.mv_cpr_checkliste_spr_zu_1 (
+mandant_id INTEGER,
+cpr_checkliste_id STRING(32) COLLATE 'und:ci',
+cpr_checkliste_langtext STRING(16777216) COLLATE 'und:ci',
+cpr_checkliste_langtext_cz STRING(16777216) COLLATE 'und:ci',
+cpr_checkliste_langtext_sk STRING(16777216) COLLATE 'und:ci',
+cpr_checkliste_langtext_hr STRING(16777216) COLLATE 'und:ci',
+cpr_checkliste_langtext_pl STRING(16777216) COLLATE 'und:ci',
+cpr_checkliste_langtext_ro STRING(16777216) COLLATE 'und:ci',
+cpr_checkliste_langtext_en STRING(16777216) COLLATE 'und:ci',
+cpr_checkliste_langtext_bg STRING(16777216) COLLATE 'und:ci',
+cpr_checkliste_bez STRING(16777216) COLLATE 'und:ci',
+cpr_checkliste_bez_cz STRING(16777216) COLLATE 'und:ci',
+cpr_checkliste_bez_sk STRING(16777216) COLLATE 'und:ci',
+cpr_checkliste_bez_hr STRING(16777216) COLLATE 'und:ci',
+cpr_checkliste_bez_pl STRING(16777216) COLLATE 'und:ci',
+cpr_checkliste_bez_ro STRING(16777216) COLLATE 'und:ci',
+cpr_checkliste_bez_en STRING(16777216) COLLATE 'und:ci',
+cpr_checkliste_bez_bg STRING(16777216) COLLATE 'und:ci'
+);

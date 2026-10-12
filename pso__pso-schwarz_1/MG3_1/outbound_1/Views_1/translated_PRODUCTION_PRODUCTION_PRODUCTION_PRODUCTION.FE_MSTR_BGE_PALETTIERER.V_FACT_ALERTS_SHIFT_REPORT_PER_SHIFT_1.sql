@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW production_production_fe_mstr_bge_palettierer.v_fact_alerts_shift_report_per_shift_1 (alerts_day_shift_id
+, alerts_shift_report_agreement_txt, alerts_shift_report_next_shift_txt, alerts_shift_report_out_of_order_txt,
+alerts_shift_report_security_issues) AS SELECT shft.alerts_day_shift_id,
+ COALESCE(srps.alerts_shift_report_agreement_txt, '') AS alerts_shift_report_agreement_txt,
+ COALESCE(srps.alerts_shift_report_next_shift_txt, '') AS alerts_shift_report_next_shift_txt,
+ COALESCE(srps.alerts_shift_report_out_of_order_txt, '') AS alerts_shift_report_out_of_order_txt,
+ COALESCE(srps.alerts_shift_report_security_issues, '') AS alerts_shift_report_security_issues
+FROM production_production_core.t_dim_alerts_day_shift_1 AS shft
+ LEFT JOIN production_production_core.t_fact_alerts_shift_report_per_shift_1 AS srps ON shft.alerts_day_shift_id = srps.alerts_day_shift_id;

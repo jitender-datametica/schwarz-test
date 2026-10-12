@@ -1,0 +1,47 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_rpw.mv_besch_rech_k_vorgang_1 (system_id, mandant_id, rech_beleg_id, gj
+, dat_erfasst, dat_buch, dat_beleg, dat_leist_erstellung, dat_rpw, dat_vorerfasst, obj_id, gp_id,
+einkaufsorganisation_id, wup_id, nb_id, belegart_id, rech_beleg_status_id, erfassung_id, ersteller_id,
+rech_beleg_storno_id, storno_gj, buch_grund_int_id, buch_grund_ext_id, row_fg, storno_fg, geloescht_fg, gebucht_fg,
+vorgang_fg, beleg_typ_id, betrag_brutto, betrag_netto, betrag_mwst, anz_beleg, anz_beleg_vorgang, manuelle_buchung_fg,
+ocr_eingangskanal_id) AS SELECT 7 AS system_id,
+ mandant_id,
+ rech_beleg_id,
+ gj,
+ dat_vorerfasst AS dat_erfasst_,
+ dat_buch,
+ dat_beleg,
+ dat_leist_erstellung,
+  CASE
+  WHEN rech_beleg_status_id = '5'
+  THEN CAST(dat_erfasst AS STRING)
+  ELSE NULL
+  END AS dat_rpw,
+ dat_vorerfasst,
+ obj_id,
+ gp_id,
+ einkaufsorganisation_id,
+ wup_id,
+ nb_id,
+ belegart_id,
+ rech_beleg_status_id,
+ erfassung_id,
+ ersteller_id,
+ rech_beleg_storno_id,
+ storno_gj,
+ buch_grund_int_id,
+ buch_grund_ext_id,
+ row_fg,
+ storno_fg,
+ geloescht_fg,
+ gebucht_fg,
+ vorgang_fg,
+ beleg_typ_id,
+ betrag_brutto,
+ betrag_netto,
+ betrag_mwst,
+ anz_beleg,
+ anz_beleg_vorgang,
+ manuelle_buchung_fg,
+ ocr_eingangskanal_id
+FROM kfl_production_dbp_view.v_besch_rech_k_vorgang_1
+WHERE mandant_id = 1;

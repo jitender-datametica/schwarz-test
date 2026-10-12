@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_lec_share.v_rel_brick_code_attribute_value_1 AS SELECT *
+FROM ldl_dig_core.t_rel_brick_code_attribute_value_1;

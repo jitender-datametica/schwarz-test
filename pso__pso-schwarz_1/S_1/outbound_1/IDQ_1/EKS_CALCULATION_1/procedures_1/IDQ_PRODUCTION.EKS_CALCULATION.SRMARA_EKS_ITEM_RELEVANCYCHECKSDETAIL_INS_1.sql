@@ -1,0 +1,7 @@
+CREATE OR REPLACE PROCEDURE eks_calculation.srmara_eks_item_relevancychecksdetail_ins()
+BEGIN
+INSERT INTO eks_calculation.stmara_eks_item_relevancychecksdetail_1 (itemid, itemno, shortdesc_int, znegotiatingcountry, `lo country_1`, receivingcountry, supplierno, casesize, zarticletype, zlegacymatkl, itemno_ba, bitflag, zisvalidbitflag, zisin_use, zisfood, ziseahassk, ziseahasba, zisskhasba, ziseahasskhasba, zisvalidconstruct, zhasvalidtimelinelu, zhasvalidmaxlu, listingoverviewid, zhasvalidcontractdate, zhasvalidadsflg, ziscurrentcontract, ziscurrentcontractfromsk, zforcerelevant, zforcenotrelevant, zisrelevantbyassociation, zactive, ineksdata, adsflg, item_datefrom, item_dateuntil, contractpricevalidityid, zhiderow, zhidecontract, zhideskflag, sk_itemno, zrelevantmdm)
+(SELECT itemid, itemno, shortdesc_int, znegotiatingcountry, `lo country_1`, receivingcountry, supplierno, casesize, zarticletype, zlegacymatkl, itemno_ba, bitflag, zisvalidbitflag, zisin_use, zisfood, ziseahassk, ziseahasba, zisskhasba, ziseahasskhasba, zisvalidconstruct, zhasvalidtimelinelu, zhasvalidmaxlu, listingoverviewid, zhasvalidcontractdate, zhasvalidadsflg, ziscurrentcontract, ziscurrentcontractfromsk, zforcerelevant, zforcenotrelevant, zisrelevantbyassociation, zactive, ineksdata, adsflg, item_datefrom, item_dateuntil, contractpricevalidityid, 0, 0, 0, sk_itemno, zrelevantmdm
+    FROM eks_calculation.srmara_eks_item_relevancychecksdetail_inssel_1);
+END;
+

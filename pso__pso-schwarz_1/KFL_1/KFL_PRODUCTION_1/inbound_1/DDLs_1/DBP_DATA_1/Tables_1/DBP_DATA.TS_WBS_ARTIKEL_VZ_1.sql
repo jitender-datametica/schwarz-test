@@ -1,0 +1,26 @@
+create or replace TABLE KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_DATA.TS_WBS_ARTIKEL_VZ_1 (
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant_1 im DWH.',
+	KJWO NUMBER(38,0) NOT NULL COMMENT 'Kalenderwoche Aktionsstart.',
+	ANGEBOT_NR VARCHAR(50) NOT NULL COMMENT 'Numerische oder Alphanumerische Nummer des Angebots',
+	AKTION_ID VARCHAR(10) NOT NULL COMMENT 'Aktionsnummer.',
+	ART_ID NUMBER(38,0) NOT NULL COMMENT 'Artikelnummer.',
+	WUP_ID_VZ NUMBER(38,0) NOT NULL COMMENT 'Verteilzentrum VZ.',
+	NB_ID_VZ NUMBER(38,0) NOT NULL COMMENT 'Nebenbetriebsnummer VZ.',
+	MANDANT_ID_VZ NUMBER(38,0) NOT NULL COMMENT 'Mandant_1 im DWH VZ.',
+	BEZUGSWEG_ID NUMBER(38,0) NOT NULL COMMENT 'Kennzeichnet, ob der Artikel_1 vom Zentrallager bezogen wird (Bezugsweg = 4) oder direkt vom Lieferanten (Bezugsweg = 1).',
+	GP_ID NUMBER(38,0) NOT NULL COMMENT 'Lieferantenummer aus lifnr., Kontonummer des Lieferanten bzw. Kreditors.',
+	CLEAR_STOCK_ID NUMBER(38,0) COMMENT 'Clear-Stock ID that says how to distribute stock. The goal is to change the clear-stock-flag-logic so, that the user has the possibility to use a third option for distributing the DC stock:\n            1) 0 = do not apply the logic (distribute according to demand in the stores)\n            2) 1 = distribute the whole blocked stock in DC\n            3) 2 = distribute the whole stock in DC (blocked stock + free stock)',
+	LIEFERUNG_TAG_OFFSET NUMBER(38,0) COMMENT 'Delivery Date UBP.',
+	ESTIMATION_FG NUMBER(38,0) COMMENT 'Flag: Sagt aus, ob der betrachtete Artikel_1 bei der Werbemengenfindung durch WBS berücksichtigt wird.',
+	ADJUSTMENT_ID NUMBER(38,0) COMMENT 'Mit der Adjustment_ID kann der Benutzer entscheiden, auf welche Weise die Nachversorgung in WBS TP1 berechnet werden soll.\n            0 = UDF&R: UDF berechnet die Prognosen und übergibt sie an F&R\n            1 = Standard adjustment (WBS): WBS berechnet die Nachversorgungsmenge und stellt sie den Benutzern als PREX-Upload zur Verfügung.\n            2 = Platzhalter (Stand 28.03.2025)\n            3 = External adjustment: Die SAP Autodispo errechnet keine Mengen. In diesem Fall ist eine_1 manuelle Bestellanlage durch das Land_1 notwendig. ',
+	MAX_KAPA_FG NUMBER(38,0) COMMENT 'Flag: Max. Kapa.',
+	DAT_LETZTE_NACHVERSORGUNG DATE COMMENT 'Datum letzte Nachversorgung.',
+	MAX_KAPA_ENDBESTAND_PROZ NUMBER(38,3) COMMENT 'Max. Kapa für Endbestand in %',
+	REST_VON_NORMALBESTAND_PROZ NUMBER(38,3) COMMENT 'Restbestand in % vom Normalbestand',
+	NACHVERSORGUNG_SCHWELLWERT_PAL_ABRUNDUNG_PROZ NUMBER(38,3) COMMENT 'WBS Nachversorgung: Paletten Abrundung Schwellwert in %',
+	NACHVERSORGUNG_SCHWELLWERT_PAL_AUFRUNDUNG_PROZ NUMBER(38,3) COMMENT 'WBS Nachversorgung: Paletten Aufrundung (nur im Nicht-Äderungsfall) in %',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	constraint PK_TS_WBS_ARTIKEL_VZ primary key (MANDANT_ID, AKTION_ID, ANGEBOT_NR, KJWO, ART_ID, WUP_ID_VZ, NB_ID_VZ, MANDANT_ID_VZ, BEZUGSWEG_ID, GP_ID)
+)COMMENT='SCM-WBS - This table contains settings for WBS calculation core on product level. Content is maintained by transaction services document. Promotional weeks are added in advance and users can make changes to the settings, in which case the contents here are overwritten.'
+;

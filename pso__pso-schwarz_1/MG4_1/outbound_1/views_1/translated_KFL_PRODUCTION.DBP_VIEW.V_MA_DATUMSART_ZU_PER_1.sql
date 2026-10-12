@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_ma_datumsart_zu_per_1 (mandant_id, datumsart_id, mitarbeiter_id, kjmo,
+dat_von, dat_bis) AS SELECT mandant_id,
+ datumsart_id,
+ mitarbeiter_id,
+ kjmo,
+ dat_von,
+ dat_bis
+FROM kfl_production_dbp_data.ma_datumsart_zu_per_1;

@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_bil.t_agg_store_day_turnover_ext_1 (
+client_id BIGNUMERIC(38,0) NOT NULL,
+src_orig_store_nr BIGNUMERIC(38,0) NOT NULL,
+dat_formdate DATE NOT NULL,
+currency_iso_cd STRING(3) COLLATE 'und:ci' NOT NULL,
+loc_sid_store BIGNUMERIC(38,0) NOT NULL,
+cy_month BIGNUMERIC(38,0) NOT NULL,
+cnt_customer NUMERIC(18,4),
+cnt_customer_extrapol NUMERIC(18,4),
+val_rtl BIGNUMERIC(38,5),
+val_rtl_net BIGNUMERIC(38,5),
+val_rtl_extrapol BIGNUMERIC(38,5),
+val_rtl_net_extrapol BIGNUMERIC(38,5),
+val_rtl_kpges BIGNUMERIC(38,5),
+val_rtl_net_kpges BIGNUMERIC(38,5),
+val_rtl_wawi BIGNUMERIC(38,5),
+val_rtl_net_wawi BIGNUMERIC(38,5),
+val_rtl_txj BIGNUMERIC(38,5),
+val_rtl_net_txj BIGNUMERIC(38,5),
+val_rtl_ejr BIGNUMERIC(38,5),
+val_rtl_net_ejr BIGNUMERIC(38,5)
+) CLUSTER BY client_id, dat_formdate;

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead.v_item_prpty_lst_item_prpty_rel_1 (item_prpty_lst_id, item_prpty_lst_id_curr,
+item_prpty_sid) AS SELECT item_prpty_lst_id,
+ item_prpty_lst_id AS item_prpty_lst_id_curr,
+ item_prpty_sid
+FROM ldl_p_lew_mart_lead.t_item_prpty_lst_item_prpty_rel_1;

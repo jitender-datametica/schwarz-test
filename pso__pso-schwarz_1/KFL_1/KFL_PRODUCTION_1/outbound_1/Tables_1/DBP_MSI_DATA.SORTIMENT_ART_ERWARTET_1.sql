@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_msi_data.sortiment_art_erwartet_1 (
+mandant_id BIGNUMERIC(38,0),
+matching_id BIGNUMERIC(38,0),
+kjmo BIGNUMERIC(38,0),
+kjwo_update BIGNUMERIC(38,0),
+listung_sst_pflege BIGNUMERIC(38,0),
+art_id BIGNUMERIC(38,0),
+gtin STRING(30) COLLATE 'und:ci',
+stk_re_pflege BIGNUMERIC(38,5),
+status_1 STRING(1),
+region_summary BIGNUMERIC(38,0),
+var_ost_basis_pflege STRING(1) COLLATE 'und:ci',
+var_ost_gross_pflege STRING(1) COLLATE 'und:ci',
+var_sued_ost_pflege STRING(1) COLLATE 'und:ci',
+var_sued_west_pflege STRING(1) COLLATE 'und:ci',
+var_west_pflege STRING(1) COLLATE 'und:ci',
+var_nord_pflege STRING(1) COLLATE 'und:ci',
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_ref_customer_complaint_sales_channel_1 (cust_complaint_sales_channel_cd,
+cust_complaint_sales_channel_desc, dwh_load_id, dwh_created, dwh_updated) AS SELECT cust_complaint_sales_channel_cd,
+ cust_complaint_sales_channel_desc,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_ref_customer_complaint_sales_channel_1;

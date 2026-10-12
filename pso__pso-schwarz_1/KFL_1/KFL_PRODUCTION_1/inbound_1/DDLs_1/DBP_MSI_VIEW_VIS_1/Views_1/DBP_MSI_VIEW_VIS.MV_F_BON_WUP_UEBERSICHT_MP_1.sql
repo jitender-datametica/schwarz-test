@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_VIS.MV_F_BON_WUP_UEBERSICHT_MP_1 as
+      SELECT * FROM dbp_bda_view.v_bon_kassierer_anz;

@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.vis_monat_inventur_diff_1 (
+kjmo BIGNUMERIC(38,0) NOT NULL,
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+wg_id BIGNUMERIC(38,0) NOT NULL,
+arthiertyp_id BIGNUMERIC(38,0) NOT NULL,
+custom_1_id STRING(30) COLLATE 'und:ci' DEFAULT ' ' NOT NULL,
+custom_2_id STRING(30) COLLATE 'und:ci' DEFAULT ' ' NOT NULL,
+custom_3_id STRING(30) COLLATE 'und:ci' DEFAULT ' ' NOT NULL,
+custom_4_id STRING(30) COLLATE 'und:ci' DEFAULT ' ' NOT NULL,
+ums_brutto_ist_hfm NUMERIC(18,4),
+betrag_inv_diff_brutto_hfm NUMERIC(18,4),
+ums_brutto_plan_hfm NUMERIC(18,4),
+betrag_inv_diff_plan_hfm NUMERIC(18,4),
+menge_end_bestand_hfm NUMERIC(18,3),
+bestand_berechnet_fg BIGNUMERIC(38,0) DEFAULT 1 NOT NULL,
+betrag_abschr_brutto_hfm NUMERIC(18,4),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

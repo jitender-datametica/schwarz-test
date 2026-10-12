@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_l_vk_konzept_1 AS SELECT DISTINCT mandant_id,
+ vk_konzept_id
+FROM kfl_production_dbp_msi_v_view.v_vk_konzept_spr_zu_1 AS V01;

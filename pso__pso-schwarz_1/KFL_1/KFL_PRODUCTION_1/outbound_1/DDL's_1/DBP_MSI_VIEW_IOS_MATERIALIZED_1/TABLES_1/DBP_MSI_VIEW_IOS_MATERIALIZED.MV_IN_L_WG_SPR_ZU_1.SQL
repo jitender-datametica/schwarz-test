@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_ios_materialized.mv_in_l_wg_spr_zu_1 (
+mandant_id INTEGER,
+in_wg_id STRING(10) COLLATE 'und:ci',
+in_wg_struktur_id STRING(20) COLLATE 'und:ci',
+in_wg_bez STRING(16777216) COLLATE 'und:ci',
+in_wg_bez_cz STRING(16777216) COLLATE 'und:ci',
+in_wg_bez_sk STRING(16777216) COLLATE 'und:ci',
+in_wg_bez_hr STRING(16777216) COLLATE 'und:ci',
+in_wg_bez_pl STRING(16777216) COLLATE 'und:ci',
+in_wg_bez_ro STRING(16777216) COLLATE 'und:ci',
+in_wg_bez_en STRING(16777216) COLLATE 'und:ci',
+in_wg_bez_bg STRING(16777216) COLLATE 'und:ci',
+in_wg_bez_lang STRING(16777216) COLLATE 'und:ci',
+in_wg_bez_lang_cz STRING(16777216) COLLATE 'und:ci',
+in_wg_bez_lang_sk STRING(16777216) COLLATE 'und:ci',
+in_wg_bez_lang_hr STRING(16777216) COLLATE 'und:ci',
+in_wg_bez_lang_pl STRING(16777216) COLLATE 'und:ci',
+in_wg_bez_lang_ro STRING(16777216) COLLATE 'und:ci',
+in_wg_bez_lang_en STRING(16777216) COLLATE 'und:ci',
+in_wg_bez_lang_bg STRING(16777216) COLLATE 'und:ci'
+);

@@ -1,0 +1,60 @@
+CREATE OR REPLACE VIEW P_LEW_MART_CM.V_LIL_LIAM_MARKET_ARTICLE_FEATURE_1(
+	CLIENT_ID
+	,REGION_SID
+	,PERIOD_ID
+	,LIAM_PARNT_CLNT_CAT_ID
+	,LIAM_CLNT_CAT_ID
+	,CURRENCY_ISO_CD
+	,HOUSEHOLD_IN_COUNTRY_CNT
+	,BUYER_CNT
+	,TURNOVER_VAL
+	,PENETRATE_ABS_PCT
+	,FEATURE1
+	,FEATURE2
+	,FEATURE3
+	,FEATURE4
+	,FEATURE5
+	,FEATURE6
+	,FEATURE7
+	,FEATURE8
+	,FEATURE9
+	,FEATURE10
+	,FEATURE11
+	,FEATURE12
+	,FEATURE13
+	,FEATURE14
+) AS
+SELECT 
+	DECODE(maf.client_id, 33, 331, maf.client_id) AS client_id
+	,maf.REGION_SID
+	,PERIOD_ID
+	,CAST(SUBSTR(arc.assort_region_cat_id,1,13)||'00005000000000' AS CHAR(27)) AS liam_parnt_clnt_cat_id
+	,CAST(arc.assort_region_cat_id AS CHAR(27)) AS liam_clnt_cat_id
+	,CAST(cer.to_currency_iso_cd AS CHAR(3)) AS currency_iso_cd
+	,HOUSEHOLD_IN_COUNTRY_CNT
+	,BUYER_CNT
+	,(maf.turnover_val/1000*cer.rate_currency_exchange) AS TURNOVER_VAL
+	,PENETRATE_ABS_PCT
+	,FEATURE1_NAME
+	,FEATURE2_NAME
+	,FEATURE3_NAME
+	,FEATURE4_NAME
+	,FEATURE5_NAME
+	,FEATURE6_NAME
+	,FEATURE7_NAME
+	,FEATURE8_NAME
+	,FEATURE9_NAME
+	,FEATURE10_NAME
+	,FEATURE11_NAME
+	,FEATURE12_NAME
+	,FEATURE13_NAME
+	,FEATURE14_NAME
+FROM P_LEW_CORE_AC.V_MARKET_ARTICLE_FEATURE_1 MAF
+INNER JOIN P_LEW_PROCESS_MSTR_AC.v_lil_period_1 AS pp
+	ON maf.period_sid=pp.period_sid
+INNER JOIN P_LEW_PROCESS_MSTR_AC.v_lil_assort_region_cat_1 AS arc
+	ON arc.client_id = maf.client_id
+	AND arc.region_sid = maf.region_sid
+	AND arc.assort_cat_sid = maf.assort_cat_sid
+INNER JOIN P_LEW_MART_CM.v_lil_currency_exch_rt_1 AS cer
+    ON cer.from_currency_iso_cd = maf.curr_cd;

@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_bcbi_fe_mstr_bcbi.t_cubeavail_1 (
+zone STRING(2),
+job_id INTEGER,
+project_id INTEGER,
+project_name STRING(255),
+report_id INTEGER,
+report_name STRING(255),
+report_location STRING(255),
+cubereportguid STRING(32),
+cubeactionid INTEGER,
+servermachine STRING(500),
+request_time_ts DATETIME,
+starttime DATETIME,
+finishtime DATETIME,
+error_id BIGNUMERIC(38,0),
+error_desc STRING(4000),
+job_duration_ms INTEGER,
+job_duration_min NUMERIC(8,2),
+result_rows INTEGER,
+sql_passes INTEGER,
+timestamp_load_bcbi TIMESTAMP
+);

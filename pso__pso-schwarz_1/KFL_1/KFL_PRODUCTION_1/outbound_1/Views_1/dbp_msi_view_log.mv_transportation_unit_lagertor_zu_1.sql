@@ -1,0 +1,11 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_log.mv_transportation_unit_lagertor_zu_1 (mandant_id,
+transportation_unit_id, kj_transportation_unit, transportation_unit_sr_act_id, ladegruppe_versandstelle_id, lagertor_id
+, datzeit_erstelliung, tor_distanz_gewichtung) AS SELECT mandant_id,
+ transportation_unit_id,
+ kj_transportation_unit,
+ transportation_unit_sr_act_id,
+ ladegruppe_versandstelle_id,
+ lagertor_id,
+ datzeit_erstelliung,
+ tor_distanz_gewichtung
+FROM kfl_production_dbp_view.v_transportation_unit_lagertor_zu_1;

@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE idq_production_eks.item_1 (
+itemid INTEGER,
+bitflag INTEGER,
+employeeid INTEGER,
+cr_locationid INTEGER,
+itemgrouptypeid INTEGER,
+itemno INTEGER,
+itemtempno INTEGER,
+crdate DATETIME,
+moddate DATETIME,
+cruser STRING(35),
+moduser STRING(35),
+shortdesc_int STRING(40),
+shortdesc_nat STRING(40),
+description_int STRING(100),
+description_nat STRING(100),
+in_use INTEGER,
+brandtypeid INTEGER,
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

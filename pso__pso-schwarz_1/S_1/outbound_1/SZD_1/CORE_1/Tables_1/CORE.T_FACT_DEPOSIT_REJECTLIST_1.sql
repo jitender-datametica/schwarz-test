@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS szd_core.t_fact_deposit_rejectlist_1 (
+rvm_sid BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='The unique identifier (surrogate key) for the despotie machine which is located in a store'),
+reject_dt DATE NOT NULL OPTIONS(description='The date when the deposit item_1 was rejected.'),
+reject_tm TIME NOT NULL OPTIONS(description='The time when the deposit item_1 was rejected.'),
+reject_reason_group_id BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='The rejections defined by the customer as groups of similar rejections'),
+deposit_item_cat_cd STRING(50) NOT NULL
+OPTIONS(description='The category of the deposit item_1 i.e. refillable, non-refillable'),
+ean_1 STRING(20) NOT NULL OPTIONS(description='European article number'),
+dwh_created_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was inserted into the table.'),
+dwh_updated_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was last modified. (In case the record has not been modified since its creation, dwh_updated is identical to dwh_created.)'),
+PRIMARY KEY (rvm_sid, reject_dt, reject_tm) NOT ENFORCED
+) OPTIONS(description='Transactional facts capturing deposit machines rejecting items');

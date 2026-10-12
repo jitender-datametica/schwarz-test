@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS idq_production_cbx.ldl_item_lsv_1 (
+id STRING(32) NOT NULL,
+revision NUMERIC(20,0),
+entity_version NUMERIC(20,0),
+domain_id STRING(400),
+hub_domain_id STRING(400),
+is_for_reference BIGNUMERIC(38,0),
+internal_seq_no NUMERIC(20,0),
+item_id STRING(32),
+ldl_seq NUMERIC(20,0),
+ldl_code STRING(400),
+ldl_name STRING(400),
+ldl_country_block_names STRING(1000),
+ldl_country_names STRING(1000),
+ldl_country_codes STRING(1000),
+duid STRING(100),
+ldl_lsv_unique_id STRING(400),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (id) NOT ENFORCED
+);

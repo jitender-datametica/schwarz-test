@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_precore.t_cache_v_pit_pact_storgrp_prices_hist_1 (
+client_id BIGNUMERIC(38,0) NOT NULL,
+pvpgp_srcinst_id STRING(100) COLLATE 'und:ci' NOT NULL,
+pvpgp_srcinst_code STRING(100) COLLATE 'und:ci',
+pvpgp_pvpac_id STRING(100) COLLATE 'und:ci' NOT NULL,
+pvpgp_salestype_value STRING(100) COLLATE 'und:ci' NOT NULL,
+pvpgp_no BIGNUMERIC(38,0) NOT NULL,
+pvpgp_valid_from DATE NOT NULL,
+pvpgp_valid_to DATE,
+pvpgp_proplan_id STRING(100) COLLATE 'und:ci' NOT NULL,
+pvpgp_storgrp_id STRING(100) COLLATE 'und:ci' NOT NULL,
+pvpgp_price_action_curry_code STRING(100) COLLATE 'und:ci',
+pvpgp_selling_price_action NUMERIC(18,5),
+pvpgp_selling_price_comment STRING(1000) COLLATE 'und:ci',
+deleted_fg BIGNUMERIC(38,0) NOT NULL,
+dwh_valid_from DATE NOT NULL,
+dwh_valid_to DATE NOT NULL,
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL,
+PRIMARY KEY (pvpgp_no, pvpgp_valid_from, dwh_valid_from) NOT ENFORCED
+);

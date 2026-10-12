@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_pit_onprem_ac.v_pit_item_elwis_brand_type_store_day_1 (client_id, store_sid,
+dwh_cal_dt, item_sid, brand_sid, brand_type_mark, brand_type_label, deleted_fg) AS SELECT client_id,
+ store_sid,
+ dwh_cal_dt,
+ item_sid,
+ brand_sid,
+ brand_type_mark,
+ brand_type_label,
+ deleted_fg
+FROM ldl_p_lew_mart_pit_onprem.t_pit_item_elwis_brand_type_store_day_1 AS EBT;

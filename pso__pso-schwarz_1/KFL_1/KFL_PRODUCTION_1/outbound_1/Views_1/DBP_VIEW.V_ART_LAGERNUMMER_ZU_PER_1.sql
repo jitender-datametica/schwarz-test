@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_art_lagernummer_zu_per_1 AS SELECT mandant_id,
+ lagernummer_id,
+ art_id,
+ wup_id,
+ nb_id,
+ dat_von,
+ lager_bereich_kz,
+ einlager_typ_kz,
+ lager_einheiten_typ,
+ kapazitaet_verbrauch,
+ anz_ladtraeger_max,
+ stellplatz_faktor,
+ zlv_ladhilf_fg,
+ dat_bis
+FROM kfl_production_dbp_data.art_lagernummer_zu_per_1;

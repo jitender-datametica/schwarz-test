@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_immo_l_partner_1 (partner_id, anrede, vorname, nachname, gebiet_id,
+verbund_kz, strasse, haus_nr, plz, ort, land_1, td_update, td_insert) AS SELECT partner_id,
+ anrede,
+ vorname,
+ nachname,
+ gebiet_id,
+ verbund_kz,
+ strasse,
+ haus_nr,
+ plz,
+ ort,
+ land_1,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.immo_l_partner_1;

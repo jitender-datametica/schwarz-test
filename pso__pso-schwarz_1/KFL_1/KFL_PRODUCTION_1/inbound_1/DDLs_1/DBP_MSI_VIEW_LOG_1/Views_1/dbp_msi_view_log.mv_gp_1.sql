@@ -1,0 +1,60 @@
+CREATE OR REPLACE VIEW dbp_msi_view_log.mv_gp_1 -- 02.03.2020, AP0053509, SPEC0071753, srom0404, initiale Anlage_1
+(
+ gp_id
+,mandant_id
+,dat_von
+,agb_id
+,dat_bis
+,iso_id
+,eigenverpackung_id
+,eigenmarke
+,audit
+,audit_dat
+,anlieferung
+,gp_name
+,strasse
+,plz
+,ort
+,land_id
+,hgp_id
+,zek_id
+,lieferzeit
+,zahlungsziel_id
+,ampel_flg
+,einkaufsorganisation_id
+,min_pal_faktor_lkw
+,gln_bbnr
+,gln_bsnr
+,gln_bubkz
+)
+AS
+SELECT
+v01.gp_id,
+v01.mandant_id,
+v01.dat_von,
+v01.agb_id,
+v01.dat_bis,
+v01.iso_id,
+v01.eigenverpackung_id,
+v01.eigenmarke_id,
+v01.audit_id,
+v01.audit_dat,
+v01.anlieferung_id,
+v01.gp_name,
+v01.gp_strasse,
+v01.gp_plz,
+v01.gp_ort,
+v01.land_id,
+CASE
+WHEN Coalesce(v01.hgp_id , -1) = -1 THEN v01.gp_id
+ELSE v01.hgp_id END AS hgp_id,
+v01.zek_id,
+v01.lieferzeit,
+v01.zahlungsziel_id,
+1,
+v01.einkaufsorganisation_id,
+v01.min_pal_faktor_lkw,
+v01.gln_bbnr,
+v01.gln_bsnr,
+v01.gln_bubkz
+FROM dbp_view.v_gp_1 v01;

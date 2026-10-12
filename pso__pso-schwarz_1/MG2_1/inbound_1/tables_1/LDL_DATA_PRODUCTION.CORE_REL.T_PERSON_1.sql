@@ -1,0 +1,26 @@
+create or replace TABLE LDL_DATA_PRODUCTION.CORE_REL.T_PERSON_1 (
+	PERSON_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the person.',
+	DWH_VALID_FROM_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record became valid.',
+	DWH_VALID_TO_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was no longer valid.',
+	DWH_VALID_FG BOOLEAN NOT NULL COMMENT 'An indicator showing the current record, i.e. where the current date is between dwh_valid_from and dwh_valid_to.',
+	GENDER_CD VARCHAR(20) NOT NULL COMMENT 'The code identifying the gender.',
+	FIRST_NAME VARCHAR(100) COMMENT 'The first name (given name) of the person.',
+	FAMILY_NAME VARCHAR(100) COMMENT 'The family name / surname of the person.',
+	BIRTH_DT DATE COMMENT 'The date when the person was born.',
+	IS_CUST_FG BOOLEAN NOT NULL COMMENT 'An indicator showing, if the person is a customer.',
+	IS_EMP_FG BOOLEAN NOT NULL COMMENT 'An indicator showing, if the person is a employee.',
+	IS_BUYER_FG BOOLEAN COMMENT 'An indicator showing, if the employee_1 as the role of a buyer.',
+	IS_DATA_STEWARD_FG BOOLEAN COMMENT 'An indicator showing, if the employee_1 is a data steward.',
+	IS_CASHIER_FG BOOLEAN COMMENT 'An indicator showing, if the employee_1 is a cashier.',
+	EMP_NR VARCHAR(20) COMMENT 'The number which identifies the employee. In case the employee_1 leaves and gets re_1-hired later on, he might get a different employee_1 number.',
+	BUYER_NR VARCHAR(20) COMMENT 'The number which identifies the buyer within the organization.',
+	HIRE_DT DATE COMMENT 'The date when the employee_1 was hired. In case the employee_1 leaves the organization and gets re_1-hired later on, this is the latest hire date.',
+	TERM_DT DATE COMMENT 'The date, when the employee_1 left the organization. For active employees this date is empty.',
+	MGR_EMP_SID NUMBER(38,0) COMMENT 'The unique identifier (surrogate key) for the manager of the employee.',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.',
+	constraint PK_T_PERSON primary key (PERSON_SID, DWH_VALID_FROM_TMSP)
+)COMMENT='People who are of interest to the Schwarz Group.'
+;

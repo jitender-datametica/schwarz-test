@@ -1,0 +1,14 @@
+CREATE TABLE FE_MSTR_LIDLDIGITAL.T_META_FLAG_DESCRIPTIONS_1
+/*
+    This table provides descriptions for flags in fact tables.
+    Example:
+        INSERT INTO FE_MSTR_LIDLDIGITAL.T_META_FLAG_DESCRIPTIONS_1 VALUES ('COMMODITY_FG', TRUE, 'Handelsware', 'commodity');
+        INSERT INTO FE_MSTR_LIDLDIGITAL.T_META_FLAG_DESCRIPTIONS_1 VALUES ('COMMODITY_FG', FALSE, 'keine Handelsware', 'not a commodity');
+*/
+(
+    FLAG_NAME VARCHAR(100) NOT NULL,
+    FLAG_VALUE BOOLEAN,
+    FLAG_DESCR_DE VARCHAR(100),
+    FLAG_DESCR_EN VARCHAR(100)
+)
+;

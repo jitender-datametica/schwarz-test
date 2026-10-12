@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_analytics_ac.v_pit_item_familygroup_1 AS SELECT client_id,
+ item_fam_grp_sid,
+ item_fam_grp_descr
+FROM ldl_p_lew_mart_analytics.v_pit_item_familygroup_1;

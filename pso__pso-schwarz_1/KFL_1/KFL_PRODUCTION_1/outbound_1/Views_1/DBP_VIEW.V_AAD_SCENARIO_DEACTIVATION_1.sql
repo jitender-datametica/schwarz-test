@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_aad_scenario_deactivation_1 AS SELECT scenario_id,
+ mandant_id,
+ dwh_created_tmsp
+FROM kfl_production_dbp_data.aad_scenario_deactivation_1;

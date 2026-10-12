@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_log.mv_ts_scm_geschaeftsvorfall_grp_spr_zu_1 (scm_gv_grp_id, spr_id,
+scm_gv_grp_bez) AS SELECT DISTINCT *
+FROM kfl_production_dbp_view.v_ts_scm_geschaeftsvorfall_grp_spr_zu_1;

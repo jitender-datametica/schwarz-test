@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_ios_materialized.mv_techn_platz_spr_zu_1 (
+techn_platz_id STRING(30) COLLATE 'und:ci',
+fg INTEGER,
+tech_platz_bez STRING(16777216) COLLATE 'und:ci',
+tech_platz_bez_cz STRING(16777216) COLLATE 'und:ci',
+tech_platz_bez_sk STRING(16777216) COLLATE 'und:ci',
+tech_platz_bez_hr STRING(16777216) COLLATE 'und:ci',
+tech_platz_bez_pl STRING(16777216) COLLATE 'und:ci',
+tech_platz_bez_ro STRING(16777216) COLLATE 'und:ci',
+tech_platz_bez_en STRING(16777216) COLLATE 'und:ci',
+tech_platz_bez_bg STRING(16777216) COLLATE 'und:ci',
+tech_platz_kbez STRING(16777216) COLLATE 'und:ci',
+tech_platz_kbez_cz STRING(16777216) COLLATE 'und:ci',
+tech_platz_kbez_sk STRING(16777216) COLLATE 'und:ci',
+tech_platz_kbez_hr STRING(16777216) COLLATE 'und:ci',
+tech_platz_kbez_pl STRING(16777216) COLLATE 'und:ci',
+tech_platz_kbez_ro STRING(16777216) COLLATE 'und:ci',
+tech_platz_kbez_en STRING(16777216) COLLATE 'und:ci',
+tech_platz_kbez_bg STRING(16777216) COLLATE 'und:ci',
+mandant_id INTEGER
+);

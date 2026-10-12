@@ -1,0 +1,9 @@
+CREATE OR REPLACE DYNAMIC TABLE DBP_MSI_VIEW_IMMO.MV_L_KJ_JAHR_1(
+	KJ,
+	AKT_KJ,
+	AKT_KJ_KOMPLETT
+) TARGET_LAG = '1 hour, 30 minutes' REFRESH_MODE = FULL INITIALIZE = ON_CREATE WAREHOUSE = WH_KFL_%%environmentAbbreviation%%_DYNAMIC_TABLE_IMMO
+ AS
+   SELECT
+   kj, akt_kj, akt_kj_komplett
+   FROM dbp_view.v_jahr_kj_1;

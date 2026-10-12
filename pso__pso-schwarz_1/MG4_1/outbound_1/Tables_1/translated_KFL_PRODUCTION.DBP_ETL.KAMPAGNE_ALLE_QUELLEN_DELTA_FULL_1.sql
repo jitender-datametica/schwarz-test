@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl.kampagne_alle_quellen_delta_full_1 (
+mandant_id INTEGER,
+nachricht_workflow_id STRING(200),
+nachricht_vorlage_id STRING(200),
+kommunikationskanal_id INTEGER,
+datzeit_nachricht_aktion TIMESTAMP,
+kjmo INTEGER,
+nachricht_aktion_typ_id INTEGER,
+kampagne_id STRING(200),
+kampagne_kunde_id STRING(200),
+blockiert_typ_name STRING(16777216),
+bounce_typ_name STRING(16777216),
+nachricht_subvorlage_id_liste_txt STRING(200),
+nachricht_subvorlage_name_liste_txt STRING(16777216),
+email_domain_name STRING(200),
+betriebssystem_name STRING(12),
+personalisierte_url_name STRING(16777216),
+personalisierte_url_txt STRING(16777216),
+zugestellt_fg INTEGER
+);

@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE idq_production_kfl_ret.zek_sustain_icon_1 (
+mandt STRING(3) NOT NULL,
+nicon STRING(3) NOT NULL,
+p_name STRING(32),
+wertxt STRING(50),
+hier INTEGER,
+steck STRING(1),
+zek_icon_bg STRING(1),
+zek_icon_cz STRING(1),
+zek_icon_de STRING(1),
+zek_icon_hr STRING(1),
+zek_icon_pl STRING(1),
+zek_icon_ro STRING(1),
+zek_icon_sk STRING(1),
+zek_icon_au STRING(1),
+dlset STRING(1),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (mandt, nicon) NOT ENFORCED
+);

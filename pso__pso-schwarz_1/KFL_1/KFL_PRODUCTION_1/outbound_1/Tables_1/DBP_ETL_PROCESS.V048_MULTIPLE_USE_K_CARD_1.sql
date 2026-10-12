@@ -1,0 +1,17 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl_process.v048_multiple_use_k_card_1 (
+scenario_id INTEGER,
+bon_id STRING(25),
+bon_nr BIGNUMERIC(38,0),
+wup_id BIGNUMERIC(38,0),
+bon_dat DATE,
+mandant_id BIGNUMERIC(38,0),
+hashed_cashier_id STRING(255),
+kasse_nr BIGNUMERIC(38,0),
+wrg_id STRING(3),
+bon_booking DATETIME,
+scenario_fraud_value BIGNUMERIC(30,4),
+dwh_created_tmsp TIMESTAMP,
+dwh_updated_tmsp TIMESTAMP,
+td_update TIMESTAMP,
+td_insert TIMESTAMP
+) OPTIONS(description='mat-View for Scenario 48: multiple use k-card');

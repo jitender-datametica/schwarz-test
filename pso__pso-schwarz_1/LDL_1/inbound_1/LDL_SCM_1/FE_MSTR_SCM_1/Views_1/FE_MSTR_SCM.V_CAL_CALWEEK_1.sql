@@ -1,0 +1,11 @@
+CREATE OR REPLACE VIEW FE_MSTR_SCM.V_CAL_CALWEEK_1(
+	 CAL_WEEK
+	 ,BUSYEAR
+	 ,CAL_MONTH
+) AS
+SELECT DISTINCT 
+	cy_week AS cal_week
+	,busyear
+	,cy_month AS cal_month
+FROM CORE_REL.V_CAL_CALENDARDAY_1
+;

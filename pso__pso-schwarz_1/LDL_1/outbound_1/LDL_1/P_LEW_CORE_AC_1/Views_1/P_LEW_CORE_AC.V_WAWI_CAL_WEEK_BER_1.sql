@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_wawi_cal_week_ber_1 (dat_calendar, prev_cy_dat_calendar_swd_ber,
+prev_cy_dat_calendar_swd_ber_cum) AS SELECT dat_calendar,
+ prev_cy_dat_calendar_swd_ber,
+ prev_cy_dat_calendar_swd_ber_cum
+FROM ldl_p_lew_core.t_wawi_cal_week_ber_1;

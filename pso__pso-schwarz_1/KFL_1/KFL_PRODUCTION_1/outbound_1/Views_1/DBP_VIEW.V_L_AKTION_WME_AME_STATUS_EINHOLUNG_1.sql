@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_aktion_wme_ame_status_einholung_1 AS SELECT mandant_id,
+ status_einholung_id
+FROM kfl_production_dbp_data.l_aktion_wme_ame_status_einholung_1;

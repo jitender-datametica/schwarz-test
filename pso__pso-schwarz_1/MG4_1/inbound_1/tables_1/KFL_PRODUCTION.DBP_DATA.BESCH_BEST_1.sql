@@ -1,0 +1,25 @@
+create or replace TABLE KFL_PRODUCTION.DBP_DATA.BESCH_BEST_1 (
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant_1 im DWH',
+	BEST_BELEG_ID NUMBER(18,0) NOT NULL COMMENT 'Das Feld enthält die Beleg ID der Bestellung und dient der eindeutigen Identifikation der Bestellbelege.',
+	GP_ID NUMBER(38,0) NOT NULL COMMENT 'Geschäftspartner - ID (Lieferanten - ID)',
+	DAT_BEST_BELEG DATE NOT NULL COMMENT 'Dieses Feld enthält das Belegdatum der Bestellung.',
+	BESTELLART_ID VARCHAR(4) NOT NULL COLLATE 'en-ci' COMMENT 'Durch die Einkaufsbelegart kann man z.B. zwischen einer Bestellung, einer Anfrage und einem Lieferplan unterscheiden.',
+	LOESCH_FG NUMBER(38,0) NOT NULL COMMENT 'Das loesch_fg enthält das Löschkennzeichen für diese Position, Wert 1 entspricht gelöscht.',
+	NACHBEST_FG NUMBER(38,0) NOT NULL COMMENT 'Dieses Kennzeichen steuert beim Anlegen einer Bestellung, ob sie als Nachbestel-lung behandelt wird. Ist das Kennzeichen gesetzt, können aus dieser Bestellung ausschließlich Lieferungen generiert werden, die mit geringerer Priorität kommissioniert werden.',
+	EINKAUFSORGANISATION_ID NUMBER(38,0) NOT NULL COMMENT 'Einkaufsorganisation aus ekorg',
+	KUNDE_ID VARCHAR(10) COLLATE 'en-ci' COMMENT 'Kannfeld: Eingabe des Marktes der eine_1 Veraenderung im Preis erhalten soll. Vom Normalpreis auf Sonderpreis oder umgekehrt.',
+	DAT_AENDERUNG DATE COMMENT 'Dieses Datum stellt das Übernahmedatum bei einem neuen Beleg bzw. das Updatedatum bei einer neuen Version eines Datensatzes dar.',
+	WUP_ID NUMBER(38,0) COMMENT 'Verteilzentrum für die Bestellung (auf Kopfebene)',
+	NB_ID NUMBER(38,0) COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer',
+	BEST_BELEG_STATUS_ID VARCHAR(1) COLLATE 'en-ci' COMMENT 'Status_1 der Bestellung, z. B. C entspricht Bestellung aus Wareneingang',
+	SYSTEM_ID NUMBER(38,0) NOT NULL DEFAULT 7 COMMENT 'Die System ID kennzeichnet das Quellsystem der Daten (z. B. SAP PR1).',
+	EMPFAENGER_WUP_ID NUMBER(38,0) COMMENT 'Bei dezentraler Bestellung ist dieser Wert mit dem Empfänger der Ware befüllt. Denormalisiert aus der Detailtabelle.',
+	ANZ_POS_AKTIV NUMBER(38,0) NOT NULL DEFAULT 0 COMMENT 'Anzahl der nicht gelöschten Positionen aus der Detailtabelle. Denormalisiert',
+	ANZ_POS_OFFEN NUMBER(38,0) NOT NULL DEFAULT 0 COMMENT 'Anzahl der noch nicht gelieferten Positionen aus der Detailtabelle. Nur nicht gelöschte. Denormalisiert',
+	SUBMI_ID VARCHAR(10) COLLATE 'en-ci' COMMENT 'Submissionsnummer aus submi. Nummer oder Bezeichnung, die der Verwaltung mehrerer Anfragen oder Bestellungen dient.',
+	REF_BELEG_ID_INTERN VARCHAR(20) COLLATE 'en-ci' COMMENT 'Interne Referenznummer des Kunden oder Lieferanten aus ihrez',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	constraint PK_BESCH_BEST primary key (MANDANT_ID, BEST_BELEG_ID)
+)COMMENT='TP408_LVS - In dieser Tabelle sind die Kopfdaten der Bestellungen aus der SAP Tabelle EKKO_1 enthalten.  - MULTISET'
+;

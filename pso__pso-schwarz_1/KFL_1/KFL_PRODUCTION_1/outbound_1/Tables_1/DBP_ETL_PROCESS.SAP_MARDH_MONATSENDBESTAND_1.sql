@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl_process.sap_mardh_monatsendbestand_1 (
+art_id BIGNUMERIC(38,0),
+mandant_id BIGNUMERIC(38,0),
+wup_id BIGNUMERIC(38,0),
+nb_id BIGNUMERIC(38,0),
+gjmo BIGNUMERIC(38,0),
+lagerort_id STRING(4) COLLATE 'und:ci',
+menge_lgbest_erp_frei_bme NUMERIC(18,3),
+menge_lgbest_erp_umlag_bme NUMERIC(18,3),
+menge_lgbest_erp_qual_bme NUMERIC(18,3),
+menge_lgbest_erp_nf_charge_bme NUMERIC(18,3),
+menge_lgbest_erp_gesp_bme NUMERIC(18,3),
+menge_lgbest_erp_ret_gesp_bme NUMERIC(18,3),
+gjmo_bis BIGNUMERIC(38,0),
+mard_fg BIGNUMERIC(38,0),
+datzeit_daten_abzug DATETIME,
+vk_brutto NUMERIC(9,3),
+td_update TIMESTAMP,
+td_insert TIMESTAMP,
+wrg_id STRING(3),
+update_mode STRING(255)
+);

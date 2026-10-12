@@ -1,0 +1,38 @@
+CREATE OR REPLACE MATERIALIZED VIEW ldl_p_lew_mart_msi.v_stc_slot_area_1
+OPTIONS(ENABLE_REFRESH = TRUE, REFRESH_INTERVAL_MINUTES = 90) AS
+SELECT WSSA.client_id,
+ W.src_wh_id AS wh_id,
+ WSSA.stc_slot_area,
+ WSSA.dat_rec_start,
+ WSSA.dat_rec_end,
+ WSSA.stc_slot_id_from,
+ WSSA.stc_slot_id_until,
+ WSSA.stc_location_id,
+ WSSA.allocation_info,
+ WSSA.stc_location_nr_wamas,
+ WSSA.qty_max_case,
+ WSSA.qty_max_layer,
+ WSSA.qty_max_dd,
+ WSSA.qty_max_euro,
+ WSSA.max_order_amount,
+ WSSA.stc_slot_send_cd,
+ WSSA.mde_print_cd,
+ WSSA.wamas_group,
+ WSSA.pallet_factor_avg,
+ WSSA.pallet_target_height_go,
+ WSSA.pallet_feet_height_go,
+ WSSA.tour_active_cd,
+ WSSA.tlb_serial_nr,
+ WSSA.avg_mde_factor_active_cd,
+ WSSA.factor_type,
+ WSSA.factor_value,
+ WSSA.weight_euro_avg,
+ WSSA.weight_dd_avg,
+ WSSA.weight_box_avg,
+ WSSA.weight_tktrolli_avg,
+ WSSA.weight_rolli_avg,
+ WSSA.ssi_fg,
+ WSSA.load_id
+FROM ldl_p_lew_core_ac.v_wawi_stc_slot_area_1 AS WSSA
+ INNER JOIN ldl_p_lew_bil_ac.v_warehouse_1 AS W ON WSSA.client_id = W.client_id AND WSSA.wh_loc_sid = W.loc_sid_wh AND W.dwh_actual_fg
+    = 1;

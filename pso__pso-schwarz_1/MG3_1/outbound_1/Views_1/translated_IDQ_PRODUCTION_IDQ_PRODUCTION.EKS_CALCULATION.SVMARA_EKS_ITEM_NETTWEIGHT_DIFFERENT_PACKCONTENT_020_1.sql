@@ -1,0 +1,14 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.svmara_eks_item_nettweight_different_packcontent_020_1 (znegotiatingcountry
+, zitem_ba, itemno, zarticletype, itemid, nettweight_calc, eks_nettweight, netweight_unitid, zzz_pack_cont_uom) AS
+SELECT svmara_eks_item_nettweight_different_packcontent_010.znegotiatingcountry,
+ svmara_eks_item_nettweight_different_packcontent_010.zitem_ba,
+ svmara_eks_item_nettweight_different_packcontent_010.itemno,
+ svmara_eks_item_nettweight_different_packcontent_010.zarticletype,
+ svmara_eks_item_nettweight_different_packcontent_010.itemid,
+  ROUND(CAST(itemdetail.netweight AS NUMERIC), 3) * 1000 AS nettweight_calc,
+ itemdetail.netweight AS eks_nettweight,
+ itemdetail.netweight_unitid,
+ svmara_eks_item_nettweight_different_packcontent_010.zzz_pack_cont_uom
+FROM idq_production_eks.itemdetail_1
+ INNER JOIN idq_production_eks_calculation.svmara_eks_item_nettweight_different_packcontent_010_1 ON itemdetail.itemid =
+  svmara_eks_item_nettweight_different_packcontent_010.itemid;

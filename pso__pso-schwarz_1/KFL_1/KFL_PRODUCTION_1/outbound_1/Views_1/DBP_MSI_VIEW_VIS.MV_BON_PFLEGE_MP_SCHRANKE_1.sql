@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_bon_pflege_mp_schranke_1 AS SELECT *
+FROM kfl_production_dbp_dialog.d_l_mp_1;

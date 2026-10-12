@@ -1,0 +1,31 @@
+create or replace TABLE KFL_PRODUCTION.DBP_ETL.ART_UMBEWERTUNG_TEMP_1 cluster by (
+     MANDANT_ID,
+     DAT_UMBEW 
+)(
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant_1 im DWH',
+	UMBEW_BELEG_ID NUMBER(18,0) NOT NULL COMMENT 'Belegnummer der Umbewertung_1 aus SAP UBLNR',
+	UMBEW_BELEG_POS_ID NUMBER(38,0) NOT NULL COMMENT 'Positionsnummer des Belegs aus uzeil',
+	KJ NUMBER(38,0) NOT NULL COMMENT 'Kalenderjahr des Belegs aus ubjahr',
+	PREIS_AEND_GRUND_ID NUMBER(38,0) NOT NULL COMMENT 'ID des Preisänderungsgrunds, z-Bsp. 12. Aus pv_grund',
+	ART_ID NUMBER(38,0) NOT NULL COMMENT 'Input: Artikel_1 - Id einschliesslich der Generationen - ID (9-stellig);',
+	WUP_ID NUMBER(38,0) NOT NULL COMMENT 'Mutter Wup_1 ID wird verwendet für Beziehung Lager zu Verteilzentrum',
+	NB_ID NUMBER(38,0) NOT NULL COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer',
+	DAT_UMBEW DATE NOT NULL COMMENT 'Kalenderdatum der Umbewertung_1 im Format JJJJ-MM_1-TT. Aus vpdat',
+	VK_BRUTTO_ALT NUMBER(9,2) NOT NULL COMMENT 'alter Verkausfspreis VPALT aus USEG',
+	MENGE_UMBEW NUMBER(18,3) NOT NULL COMMENT 'Bestandsmenge in Basismengeneinheit aus menge: Das Feld wird in SAP nicht mehr fortgeschrieben',
+	DIFF_WERT_BESTAND_BRUTTO NUMBER(18,2) NOT NULL COMMENT 'Wert der Umbewertung_1 mit Steuern auf Basis der Bestandmenge aus USEG.VKSAD',
+	DIFF_WERT_BESTAND_NETTO NUMBER(18,2) NOT NULL COMMENT 'Wert der Umbewertung_1 ohne Steuern auf Basis der Bestandmenge aus USEG.VKSADN',
+	WRG_ID VARCHAR(3) NOT NULL COLLATE 'en-ci' COMMENT 'Kurzbezeichnung der Währung, z.Bsp. CZK, EUR',
+	MENGE_ERF NUMBER(18,3) NOT NULL DEFAULT 0 COMMENT 'Menge in Erfassungsmengeneinheit zur VK_1-Preisumbewertung aus erfmg',
+	MENGE_BESTAND_BME NUMBER(18,3) NOT NULL DEFAULT 0 COMMENT 'Gesamter bewerteter Bestand aus lbkum',
+	WERT_BESTAND_BRUTTO_ALT NUMBER(18,2) NOT NULL DEFAULT 0 COMMENT 'Wert des gesamten bewerteten Bestands zum (Brutto)Verkaufspreis vor der Umbewertung_1 aus vksal_old',
+	VERK_MENGE_EINH_ID VARCHAR(3) NOT NULL COLLATE 'en-ci' COMMENT 'Verkaufsmengeneinheit zu menge_erf. Aus vrkme',
+	BUCHUNGSKREIS_ID NUMBER(38,0) NOT NULL COMMENT 'Zuordnung des Buchungskreises zu dem WUP_1 über die SAP Quelle T001K und T001. Der Buchungskreis entspricht unter dem Mandanten einer Zusammenfassung von Werken (Hierarchie: Mandant_1, Buchungskreis, Werk/Betrieb). Bsp: Buchungskreis 282 entspricht Kaufland',
+	SOLL_HABEN_KZ VARCHAR(1) NOT NULL COLLATE 'en-ci' COMMENT 'Zeigt, auf welcher Seite des Kontos (S = Soll, H = Haben) die Fortschreibung der Verkehrszahlen erfolgt.Aus shkzg',
+	ART_ID_BF NUMBER(38,0) COMMENT 'Artikel_1, auf dem der Bestand geführt wird aus matbf. Referenz zu art_1',
+	VK_BRUTTO_NEU NUMBER(9,2) NOT NULL DEFAULT 0 COMMENT 'neuer Verkausfspreis vpneu aus USEG',
+	WERT_BESTAND_NETTO_ALT NUMBER(18,2) NOT NULL DEFAULT 0 COMMENT 'Bestandswert zu netto alt aus vksaln_old',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	constraint PK_ART_UMBEWERTUNG primary key (MANDANT_ID, UMBEW_BELEG_ID, UMBEW_BELEG_POS_ID, KJ)
+);

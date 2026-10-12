@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_teku_frage_menue_zu_1 AS SELECT teku_fragestellung_id,
+ teku_fragestellung_pos_id,
+ teku_frage_id,
+ teku_menue_id
+FROM kfl_production_dbp_data.teku_frage_menue_zu_1;

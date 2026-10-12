@@ -1,0 +1,20 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_wholesale.v_fact_lot_milestone_dates_1 (lot_prod_instance_group_sid,
+progress_changed_tmsp, trans_atd, trans_ata, cargo_ready_by_supplier, shipment_release, eta_in_lot, etd_in_lot,
+offical_delivery_week_dt, owim_offical_delivery_week_dt, dest_customs_clearance_dt, dest_customs_clearance_result_cd,
+latest_container_arrival_domestic_terminal_dt, latest_container_goods_in_warehouse_dt, latest_quality_approved_dt) AS
+SELECT lot_product_instance_group_sid AS lot_prod_instance_group_sid,
+ progress_changed_tmsp,
+ latest_actual_departure_dt AS trans_atd,
+ latest_actual_arrival_dt AS trans_ata,
+ latest_cargo_ready_by_supplier_dt AS cargo_ready_by_supplier,
+ latest_shipment_release_dt AS shipment_release,
+ latest_estimated_arrival_dt AS eta_in_lot,
+ latest_estimated_departure_dt AS etd_in_lot,
+ latest_official_delivery_week_start_dt AS offical_delivery_week_dt,
+ latest_owim_offical_delivery_week_start_dt AS owim_offical_delivery_week_dt,
+ latest_destination_customs_clearance_dt AS dest_customs_clearance_dt,
+ latest_destination_customs_clearance_result_cd AS dest_customs_clearance_result_cd,
+ latest_container_arrival_domestic_terminal_dt,
+ latest_container_goods_in_warehouse_dt,
+ latest_quality_approved_dt
+FROM szd_production_core.t_fact_lot_milestone_progress_1;

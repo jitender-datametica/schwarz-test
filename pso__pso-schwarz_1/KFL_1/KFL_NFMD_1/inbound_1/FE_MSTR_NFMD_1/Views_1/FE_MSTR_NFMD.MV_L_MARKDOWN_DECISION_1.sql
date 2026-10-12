@@ -1,0 +1,27 @@
+Create or Replace VIEW FE_MSTR_NFMD.MV_L_MARKDOWN_DECISION_1 as 
+Select 
+MANDANT_ID,
+markdown_decision_ID as MARKDOWN_DECISION,
+markdown_decision_ID,
+COALESCE(markdown_decision,markdown_decision_en) AS MARKDOWN_DECISION_BEZ, 
+--markdown_decision AS LABEL, 
+markdown_decision_bg AS MARKDOWN_DECISION_BEZ_bg,
+markdown_decision_cz AS MARKDOWN_DECISION_BEZ_cz,
+markdown_decision_en AS MARKDOWN_DECISION_BEZ_en,
+markdown_decision_hr AS MARKDOWN_DECISION_BEZ_hr,
+markdown_decision_pl AS MARKDOWN_DECISION_BEZ_pl,
+markdown_decision_ro AS MARKDOWN_DECISION_BEZ_ro,
+markdown_decision_sk AS MARKDOWN_DECISION_BEZ_sk,
+markdown_decision_landessprache as MARKDOWN_DECISION_BEZ_landessprache,
+--Concat(markdown_decision_ID, ' - ', markdown_decision) as MARKDOWN_DECISION_BEZ,
+Concat(markdown_decision_ID, ' - ', COALESCE(markdown_decision,markdown_decision_en)) as MARKDOWN_DECISION_DROPDOWN_BEZ,
+CONCAT(markdown_decision_id, ' - ', markdown_decision_bg) AS MARKDOWN_DECISION_DROPDOWN_BEZ_bg,
+CONCAT(markdown_decision_id, ' - ', markdown_decision_cz) AS MARKDOWN_DECISION_DROPDOWN_BEZ_cz,
+CONCAT(markdown_decision_id, ' - ', markdown_decision_en) AS MARKDOWN_DECISION_DROPDOWN_BEZ_en,
+CONCAT(markdown_decision_id, ' - ', markdown_decision_hr) AS MARKDOWN_DECISION_DROPDOWN_BEZ_hr,
+CONCAT(markdown_decision_id, ' - ', markdown_decision_pl) AS MARKDOWN_DECISION_DROPDOWN_BEZ_pl,
+CONCAT(markdown_decision_id, ' - ', markdown_decision_ro) AS MARKDOWN_DECISION_DROPDOWN_BEZ_ro,
+CONCAT(markdown_decision_id, ' - ', markdown_decision_sk) AS MARKDOWN_DECISION_DROPDOWN_BEZ_sk,
+flag_aktiv,
+flag_deaktiv
+from CORE.TS_L_MARKDOWN_DECISION_1;

@@ -1,0 +1,29 @@
+CREATE OR REPLACE VIEW P_LEW_MART_MSI.V_AGG_STORE_DAY_SELL_QTY_PRCLC_1 as
+
+         /*
+         #DescStart#
+         #$Revision: 6244 $, $LastChangedBy: hwieber $
+         #SubjectAreas#: Preis und Verkaufsdaten (Kasse + Retail + Wawi)
+         #DescEnd#
+         */
+         SELECT
+          client_id,
+         client_desc,
+         account_manager_id,
+         account_manager_name,
+         sales_manager_id,
+         sales_manager_name,
+         move_to_store_id,
+         move_store_desc,
+         wh_id,
+         wh_desc,
+         wh_id_exp,
+         aspect_id,
+         aspect_desc,
+         dat_formdate,
+         wt_hrs_net,
+         wt_hrs_net_py,
+         mt_hrs_net,
+         mt_hrs_net_py
+         FROM p_lew_mart_msi.t_agg_store_day_sell_prclc_1
+         WHERE curr_tot_id=0;

@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_data_etl.t220_dangerous_goods_1 (
+ctrcode STRING(3) COLLATE 'und:ci' NOT NULL,
+c220_itemno STRING(18) NOT NULL,
+c220_un_no STRING(4) NOT NULL,
+c220_un_desc STRING(150) NOT NULL,
+c220_dang_slip STRING(11),
+c220_lq_grp INTEGER,
+c220_trans_cat INTEGER,
+c220_gross_wght NUMERIC(6,3) NOT NULL,
+c220_pack_grp STRING(5),
+c220_factor INTEGER,
+c220_tunnelcode STRING(10),
+scn BIGNUMERIC(38,0) DEFAULT 0,
+c220_un_desc_de STRING(150),
+c220_limit_lq_qty NUMERIC(11,3),
+c220_lq_grp_flag INTEGER,
+c220_env_haz_flag INTEGER,
+extraction_tmsp DATETIME,
+PRIMARY KEY (c220_itemno) NOT ENFORCED
+);

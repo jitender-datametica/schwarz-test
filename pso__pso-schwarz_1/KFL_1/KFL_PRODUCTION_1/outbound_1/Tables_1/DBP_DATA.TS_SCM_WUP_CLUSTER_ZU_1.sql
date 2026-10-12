@@ -1,0 +1,19 @@
+--==============================================================
+-- Table: ts_scm_wup_cluster_zu_1
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: ts_scm_wup_cluster_zu_1
+   generated from Powerdesigner on Freitag, 30. April 2021 16:24:24
+*/ --------------------------------------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.ts_scm_wup_cluster_zu_1 (
+mandant_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Mandant_1 im DWH'),
+wup_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Marktnummer'),
+wup_cluster_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Marktcluster ID'),
+nb_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Nebenbetrieb'),
+td_update TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+td_insert TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration')
+) OPTIONS(description='Marktcluster (Zuordnung) für KL_SCM');

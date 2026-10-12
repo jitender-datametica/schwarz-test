@@ -1,0 +1,20 @@
+CREATE OR REPLACE PROCEDURE "SRMARA_EKS_ITEM_XTEKS_BASICINFO_RECCOUNTRY_ZISVALIDCONTRACT_RESETZISFOODZISVALIDCONSTRUCT_UPD"()
+RETURNS VARCHAR(16777216)
+LANGUAGE SQL
+EXECUTE AS CALLER
+AS '
+BEGIN
+Update EKS_CALCULATION.XTEKS_BASICINFO_RECCOUNTRY_1 as xt
+SET  zIsValidContract = sr.zIsValidContractNew
+FROM EKS_CALCULATION.srMARA_EKS_ITEM_xtEKS_BASICINFO_RecCountry_zIsValidContract_ResetzIsFoodzIsValidConstruct_UpdSel_1 AS sr
+WHERE xt.listingoverviewid = sr.listingoverviewid
+and xt.itemid = sr.ITEMID
+and xt.casesize = sr.casesize
+and xt.supplierno = sr.supplierno
+and xt.ITEMNO = sr.ITEMNO
+and xt.SK_ITEMID = sr.SK_ITEMID
+and xt.SK_ITEMNO = sr.SK_ITEMNO
+and xt.RECEIVINGCOUNTRY = sr.RECEIVINGCOUNTRY
+;
+END;
+';

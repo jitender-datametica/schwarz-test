@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_eps_l_anstossherkunft_1 AS SELECT DISTINCT anstossherkunft_kz
+FROM kfl_production_dbp_view.v_l_eps_anstossherkunft_1;

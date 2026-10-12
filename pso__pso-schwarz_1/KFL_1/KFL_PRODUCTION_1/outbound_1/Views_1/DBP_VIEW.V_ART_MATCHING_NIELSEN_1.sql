@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_art_matching_nielsen_1 AS SELECT mandant_id,
+ art_matching_id
+FROM kfl_production_dbp_data.art_matching_nielsen_1;

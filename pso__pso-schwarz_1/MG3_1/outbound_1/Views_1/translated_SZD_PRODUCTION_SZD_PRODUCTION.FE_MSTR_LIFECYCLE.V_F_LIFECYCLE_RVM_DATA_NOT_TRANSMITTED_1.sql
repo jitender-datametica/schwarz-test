@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_lifecycle.v_f_lifecycle_rvm_data_not_transmitted_1 (rvm_sid,
+rvm_processing_dt, diff_in_days_cnt) AS SELECT rvm_sid,
+ rvm_processing_dt,
+ diff_in_days_cnt
+FROM szd_production_core.t_fact_rvm_delivery_status_1;

@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_wbs_l_markt_cluster_min_platzierung_1 AS SELECT mandant_id,
+ min_platzierung_markt_cluster_id
+FROM kfl_production_dbp_data.wbs_l_markt_cluster_min_platzierung_1;

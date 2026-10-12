@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_infrastructure.v_l_sit_infrastructure_internal_organizational_unit_relation_flag_1 AS
+SELECT DISTINCT int_org_unit_relation_type
+FROM szd_core.t_rel_internal_organizational_unit_1;

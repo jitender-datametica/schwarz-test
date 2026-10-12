@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.artikellagerort_1 (
+ctrcode STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_nr INTEGER NOT NULL,
+artikelnr STRING(18) NOT NULL,
+kartlagerortnr INTEGER,
+lagerplatzkarton INTEGER,
+pallagerortnr INTEGER,
+lagerplatzpalette INTEGER,
+dueslagerortnr INTEGER,
+lagerplatzduesseld INTEGER,
+datum DATETIME,
+bediener STRING(8),
+dummy_1 STRING(254),
+invfig_karton STRING(1),
+invfig_palette STRING(1),
+invfig_duesseld STRING(1),
+scn INTEGER DEFAULT 0,
+extraction_tmsp DATETIME,
+PRIMARY KEY (artikelnr) NOT ENFORCED
+);

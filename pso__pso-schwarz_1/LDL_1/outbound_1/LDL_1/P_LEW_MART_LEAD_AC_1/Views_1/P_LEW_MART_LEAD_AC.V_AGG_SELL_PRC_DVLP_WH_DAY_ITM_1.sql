@@ -1,0 +1,35 @@
+/*
+#-------------------------------------------------------------------------------
+#  LIDL Stiftung & Co. KG - DWH / MIS
+#-------------------------------------------------------------------------------
+# Interface: Individual load SQL for loading of aggregate t_agg_sell_prc_dvlp_wh_day_itm_1
+#-------------------------------------------------------------------------------
+#
+#-------------------------------------------------------------------------------
+# Subversion Infostamp End
+#----------------------------------------------------------------------------
+# History:
+# NR  | DATE       | 1st AND 2nd NAME | DESCRIPTION OF CHANGES
+#
+# 1.0  2022-09-14   Aleksander Bialek    Initial version, wh-day-itm level aggregation view for price development metrics.
+#
+#----------------------------------------------------------------------------
+*/
+
+
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead_ac.v_agg_sell_prc_dvlp_wh_day_itm_1 (client_id, wh_id, item_sid, dat_formdate,
+sales_volume_val, sales_piece_qty, sales_volume_val_py, sales_piece_qty_py, sales_volume_val_swpy, sales_piece_qty_swpy
+, currency_iso_cd) AS SELECT AGG.client_id,
+ AGG.wh_id,
+ AGG.item_sid,
+ AGG.dat_formdate,
+ AGG.sales_volume_val,
+ AGG.sales_piece_qty,
+ AGG.sales_volume_val_py,
+ AGG.sales_piece_qty_py,
+ AGG.sales_volume_val_swpy,
+ AGG.sales_piece_qty_swpy,
+ CRY.currency_iso_cd
+FROM ldl_p_lew_mart_lead.t_agg_sell_prc_dvlp_wh_day_itm_1 AS AGG
+ INNER JOIN ldl_p_lew_core_ac.v_wawi_ref_client_currency_rate_1 AS CRY ON AGG.client_id = CRY.client_id AND CURRENT_DATE
+   BETWEEN CRY.dat_rec_start AND CRY.dat_rec_end;

@@ -1,0 +1,20 @@
+CREATE TABLE core_rel.T_TRANSPORT_PLAN_DIRECT_TRANSPORT_MOVEMENT_1 (
+   inbound_dispo_order_sid             NUMBER          NOT NULL COMMENT 'Unique identifier of the corresponding dispositon.',
+   order_reference_nr                  VARCHAR(250)    NOT NULL COMMENT '14 digit number containing info about log-type (digits 1-2), main cross-dock (digits 3-5), delivery date at the cross-dock (digits 6-11) and receiving regional subsidiary (digits 12-14)',
+   vehicle_id                          VARCHAR(20)     NOT NULL COMMENT 'The unique identifier of the vehicle used for transport.',
+   transport_start_site_sid            NUMBER          NOT NULL COMMENT 'A unique identifier of the site where the transport starts ( supplier_1 warehouse)',
+   transport_end_site_sid              NUMBER          COMMENT 'A unique identifier of the site where the transport ends (RDC)',
+   supplier_sid                        NUMBER          NOT NULL COMMENT 'A unique identifier for the logistics company (hauler) handling the transport.',
+   hauler_sid                          NUMBER          COMMENT 'The unique identifier of the delivering party, e.g. the supplier.',
+   ready_for_collection_dt             DATE            COMMENT 'This time when the carrier or a responsible party was notified that the goods were available to be collected.',
+   latest_delivery_dt                  DATE            COMMENT 'The planned reception time at ELM.',
+   latest_loading_release_dt           DATE            COMMENT 'The last possible time a truck can arrive and pick up goods to ensure they arrive on time. This is a target timestamp that''s either set by the carrier or is a predefined timestamp.',
+   advised_for_collection_dt           DATE            COMMENT 'The initial planned timestamp for goods collection, as set by the hauler. This represents the first scheduled date and time for pickup.',
+   collected_dt                        DATE            COMMENT 'The actual time the goods are picked up.',
+   unloaded_at_wh_dt                   DATE            COMMENT 'The time the truck driver states they were at the warehouse.',
+   delay_reason_hauler_descr           VARCHAR(100)    COMMENT 'A description for the specific reason for a transport delay caused by the hauler or logistics company.',
+   delay_reason_supplier_descr         VARCHAR(100)    COMMENT 'A description for the specific reason for a transport delay caused by the supplier_1 or logistics company.',
+   dwh_created_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   dwh_updated_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',   
+   CONSTRAINT PK_T_TRANSPORT_PLAN_DIRECT_TRANSPORT_MOVEMENT PRIMARY KEY (order_reference_nr, vehicle_id) NOT ENFORCED 
+)  COMMENT = 'his entity provides detailed transport information for all products within a disposition, managed through a Cross-Docking system. The data outlines the travel route for goods that are transported from a supplier_1''s warehouse to a cross-docking facility, where they are rerouted to another  cross-docking facility or Regional Distribution Center (RDC).';

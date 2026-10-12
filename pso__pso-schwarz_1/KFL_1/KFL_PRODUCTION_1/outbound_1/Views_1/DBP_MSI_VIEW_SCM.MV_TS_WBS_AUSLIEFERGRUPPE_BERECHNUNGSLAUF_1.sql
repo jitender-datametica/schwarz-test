@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_ts_wbs_ausliefergruppe_berechnungslauf_1 (mandant_id,
+ausliefergruppe_id, berechnungsprozess_id, berechnungslauf_nr, zeitslot_id) AS SELECT mandant_id,
+ ausliefergruppe_id,
+ berechnungsprozess_id,
+ berechnungslauf_nr,
+ zeitslot_id
+FROM kfl_production_dbp_msi_v_view.v_ts_wbs_ausliefergruppe_berechnungslauf_1 AS V1;

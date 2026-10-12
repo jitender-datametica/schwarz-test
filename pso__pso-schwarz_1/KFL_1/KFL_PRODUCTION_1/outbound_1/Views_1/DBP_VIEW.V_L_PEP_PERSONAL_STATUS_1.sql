@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_pep_personal_status_1 AS SELECT idmastatus,
+ personal_status_bez_k,
+ personal_status_bez_l
+FROM kfl_production_dbp_data.l_pep_personal_status_1;

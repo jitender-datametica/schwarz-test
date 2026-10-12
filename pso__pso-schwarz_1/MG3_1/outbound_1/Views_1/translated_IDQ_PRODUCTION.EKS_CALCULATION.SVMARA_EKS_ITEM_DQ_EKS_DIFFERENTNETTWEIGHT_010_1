@@ -1,0 +1,51 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.svmara_eks_item_dq_eks_differentnettweight_010_1 (zrelevantmdm,
+zsource, zactive, znegotiatingcountry, itemid, itemno, zarticletype, description_int, zmatkl, articlefamily, buyerid,
+buyerfirstname, buyerlastname, buyershortsign, supplierno, supplierdescription, receivingcountry, gebinde_anzahl,
+gebinde_inhalt, gebinde_einheit, gebinde_verpakung, netweight, zusatz_gew_art_int, zusatz_gew_art_nat) AS SELECT
+DISTINCT CASE
+  WHEN stmara_eks_item.itemid IS NULL
+  THEN stmara_eks_item_1.zrelevantmdm
+  ELSE stmara_eks_item.zrelevantmdm
+  END AS zrelevantmdm,
+ stmara_eks_item_1.zsource,
+ stmara_eks_item_1.zactive,
+ stmara_eks_item_1.znegotiatingcountry,
+ stmara_eks_item_1.itemid,
+ stmara_eks_item_1.itemno,
+ stmara_eks_item_1.zarticletype,
+ stmara_eks_item_1.description_int,
+ stmara_eks_item_1.zmatkl,
+ stmara_eks_item_1.articlefamily,
+ stmara_eks_item_1.buyerid,
+ stmara_eks_item_1.buyerfirstname,
+ stmara_eks_item_1.buyerlastname,
+ stmara_eks_item_1.buyershortsign,
+ IFNULL(supplier.supplierno, steks_supplier_1.supplierno) AS supplierno,
+ IFNULL(supplier.description, steks_supplier_1.description) AS supplierdescription,
+ IFNULL(steks_listingoverviewmax.receivingcountry, steks_listingoverviewmax_1.receivingcountry) AS receivingcountry,
+ itemdetail.bundlefact AS gebinde_anzahl,
+ itemdetail.volume AS gebinde_inhalt,
+ item_unit.description AS gebinde_einheit,
+ package_type.description AS gebinde_verpakung,
+ itemdetail.netweight,
+ itemdetail.text_int AS zusatz_gew_art_int,
+ itemdetail.text_nat AS zusatz_gew_art_nat
+FROM idq_production_eks_calculation.stmara_eks_item_1 AS stmara_eks_item_1
+ INNER JOIN idq_production_eks.itemdetail_1 ON stmara_eks_item_1.itemid = itemdetail.itemid
+ LEFT JOIN (idq_production_eks.itemsorting_1 INNER JOIN idq_production_eks_calculation.stmara_eks_item_1 ON itemsorting.sortitemid
+      = stmara_eks_item.itemid AND stmara_eks_item.zarticletype = 'SK' AND stmara_eks_item.ziscurrentcontract = 1) ON
+  stmara_eks_item_1.itemid = itemsorting.itemid
+ LEFT JOIN (idq_production_eks.supplier_1 AS steks_supplier_1 INNER JOIN idq_production_eks_calculation.steks_listingoverviewmax_1
+   AS steks_listingoverviewmax_1 ON steks_supplier_1.supplierno = steks_listingoverviewmax_1.supplierno) ON itemsorting_1
+  .sortitemid = steks_listingoverviewmax_1.itemid
+ LEFT JOIN (idq_production_eks.translation_int_unit_1 AS item_unit INNER JOIN idq_production_eks.unit_1 ON item_unit.translationid
+    = unit.shortdescid) ON itemdetail.unitid = unit.unitid
+ LEFT JOIN (idq_production_eks.package_1 INNER JOIN idq_production_eks.translation_int_1 AS package_type ON package.shortdescid
+    = package_type.translationid) ON itemdetail.packageid = package.packageid
+ LEFT JOIN idq_production_eks_calculation.steks_listingoverviewmax_1 ON stmara_eks_item_1.itemid =
+  steks_listingoverviewmax.itemid
+ LEFT JOIN idq_production_eks.supplier_1 ON steks_listingoverviewmax.supplierno = supplier.supplierno
+WHERE stmara_eks_item_1.zarticletype = 'EA' AND stmara_eks_item_1.ziscurrentcontract = 1 AND stmara_eks_item_1.zactive =
+   1
+ OR stmara_eks_item_1.zarticletype = 'EA' AND stmara_eks_item_1.zactive = 1 AND stmara_eks_item_1.ziscurrentcontractfromsk
+    = 1;

@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process_ac.v_bo_flop10_client_status_1 AS SELECT client_id,
+ sap_cluster_cd
+FROM ldl_p_lew_process.t_bo_flop10_client_status_1;

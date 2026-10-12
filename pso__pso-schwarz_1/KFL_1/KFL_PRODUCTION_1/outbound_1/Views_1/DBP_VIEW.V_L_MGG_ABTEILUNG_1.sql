@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_mgg_abteilung_1 AS SELECT mandant_id,
+ mgg_abteilung_id,
+ food_nonfood_kategorie_id
+FROM kfl_production_dbp_data.l_mgg_abteilung_1;

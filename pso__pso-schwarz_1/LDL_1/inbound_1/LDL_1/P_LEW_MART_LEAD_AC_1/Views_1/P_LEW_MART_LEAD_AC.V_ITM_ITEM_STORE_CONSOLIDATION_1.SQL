@@ -1,0 +1,42 @@
+/*
+#----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS.
+#----------------------------------------------------------------------------
+# History:
+#  1.0  18.03.2021       Michael Morris                Initial Version
+#                                                      20210318_2789_itm_store_cons
+#                                                      https://jira.schwarz/browse/INTMIG-779
+#                                                      SF: https://jira.schwarz/browse/INTMIG-1399
+#----------------------------------------------------------------------------
+*/
+CREATE OR REPLACE VIEW P_LEW_MART_LEAD_AC.v_itm_item_store_consolidation_1 COMMENT='Item_1/Store consolidatio view'
+
+(
+      client_id
+    , wh_id
+    , aspect_id
+    , store_id
+    , item_id
+    , itm_consgrp_id
+    , cons_item_id
+    , cons_orig_item_nr
+    , cons_dat_valid_from_item
+    , cons_fg
+    , itm_consgrp_desc
+    , item_desc
+) AS
+SELECT
+      client_id
+    , wh_id
+    , aspect_id
+    , store_id
+    , item_id
+    , itm_consgrp_id
+    , cons_item_id
+    , cons_orig_item_nr
+    , cons_dat_valid_from_item
+    , cons_fg
+    , itm_consgrp_desc
+    , item_desc
+FROM P_LEW_MART_LEAD.v_itm_item_store_consolidation_1 
+;

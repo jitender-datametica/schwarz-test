@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_belos_leistungsart_spr_zu_1 AS SELECT mandant_id,
+ belos_leistungsart_id,
+ spr_id,
+ belos_leistungsart_bez
+FROM kfl_production_dbp_data.belos_leistungsart_spr_zu_1;

@@ -1,0 +1,9 @@
+CREATE TABLE DBP_MSI_VIEW_BIS.TS_L_BIS_KENNZAHL_1 (
+bis_kennzahl_id BYTEINT NOT NULL,
+bis_kennzahl_bez VARCHAR(100) COLLATE 'en-ci',
+TD_UPDATE TIMESTAMP_LTZ(9),
+TD_INSERT TIMESTAMP_LTZ(9),
+UNIQUE ( bis_kennzahl_id)
+);
+
+

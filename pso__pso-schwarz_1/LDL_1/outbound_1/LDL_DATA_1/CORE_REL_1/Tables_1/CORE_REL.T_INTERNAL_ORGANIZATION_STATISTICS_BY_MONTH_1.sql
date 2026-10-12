@@ -1,0 +1,37 @@
+CREATE TABLE IF NOT EXISTS ldl_data_core_rel.t_internal_organization_statistics_by_month_1 (
+int_org_sid BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='The unique identifier (surrogate key) for the internal organization, for which statistics have been calculated.'),
+int_org_type_cd STRING(20) NOT NULL
+OPTIONS(description='The code identifying the discriminators for internal organizations.'),
+stat_type_cd STRING(20) NOT NULL
+OPTIONS(description='The code identifying the kind of metric which is calculated for internal organizations.'),
+stat_dt DATE NOT NULL OPTIONS(description='The date when the statistics were collected. '),
+cal_month BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='The identifier of a calendar_1 month in the form YYYYMM. E.g. 202101 für January 2021.'),
+curr_stat_fg BOOL NOT NULL
+OPTIONS(description='An indicator showing, if this is the current record(s) for the given key, Filtering on this flag returns the statistics after any corrections.'),
+stat_src_cd STRING(20) NOT NULL
+OPTIONS(description='The code identifying the source or system which provided the statistics.'),
+stat_val BIGNUMERIC(38,5)
+OPTIONS(description='The calculated statistics amount for the given month, statistics type and internal organization. (Depending on the statistics type this may be a net or a gross value.)'),
+curr_cd STRING(3) OPTIONS(description='The code identifying the currency, according to ISO 4217.'),
+stat_cnt BIGNUMERIC(38,0)
+OPTIONS(description='The calculated statistics count for the given month, statistics type and internal organization.'),
+stat_qty BIGNUMERIC(38,5)
+OPTIONS(description='The calculated statistics quantity for the given month, statistics type and internal organization.'),
+stat_pct BIGNUMERIC(38,5)
+OPTIONS(description='The calculated statistics percentage for the given day, statistics type and internal organization.'),
+stat_meas BIGNUMERIC(38,5)
+OPTIONS(description='The calculated statistics measure for the given month, statistics type and internal organization.'),
+uom_cd STRING(20) OPTIONS(description='The code identifying the unit_1 of measure for the statistics measure.'),
+dwh_created_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was created in the data warehouse.'),
+dwh_updated_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was created or last updated.'),
+dwh_load_id BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)'),
+dwh_node_cd STRING(20) NOT NULL
+OPTIONS(description='The code for the source system (or slice of source system) from which this record was loaded.'),
+PRIMARY KEY (stat_dt, int_org_sid, cal_month, stat_type_cd) NOT ENFORCED
+)
+OPTIONS(description='Various derived metrics can be calculated on the level of a month and an internal organization, such as a store or an internal company. These values are not necessarily in sync with the underlying base events. The table contains separate columns for each domain of statistics values. Depending on the statistics type, one of them is filled.');

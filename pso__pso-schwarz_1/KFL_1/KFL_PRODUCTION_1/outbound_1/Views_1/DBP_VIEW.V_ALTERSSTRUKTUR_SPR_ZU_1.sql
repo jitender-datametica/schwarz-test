@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_altersstruktur_spr_zu_1 AS SELECT altersstruktur_id,
+ spr_id,
+ altersstruktur_bez
+FROM kfl_production_dbp_data.altersstruktur_spr_zu_1;

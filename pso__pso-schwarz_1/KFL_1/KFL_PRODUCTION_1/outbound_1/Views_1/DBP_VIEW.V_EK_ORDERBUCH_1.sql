@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_ek_orderbuch_1 AS SELECT art_id,
+ mandant_id,
+ wup_id,
+ nb_id,
+ dat_von,
+ ek_orderbuch_nr,
+ gp_id,
+ einkaufsorganisation_id,
+ vz_wup_id,
+ vz_nb_id,
+ dat_bis,
+ gesperrt_fg,
+ fix_gp_fg,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.ek_orderbuch_1;

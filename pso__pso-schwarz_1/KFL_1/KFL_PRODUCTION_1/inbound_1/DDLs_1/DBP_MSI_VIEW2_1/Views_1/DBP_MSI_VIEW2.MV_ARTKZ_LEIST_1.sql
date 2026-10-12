@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW2.MV_ARTKZ_LEIST_1
+(
+leist_id
+,leist_bez
+,mandant_id
+,spr_id
+)
+AS
+   SELECT
+  CASE
+  WHEN leist_id=''
+  THEN 'keine'
+  ELSE leist_id
+  END, leist_bez, mandant_id, spr_id
+   FROM dbp_view.v_artkz_leist_1
+   WHERE leist_id not in ('N','N2','N3','O1','O2','O3','WA','WB','WC','WD')
+   AND mandant_id = 1;

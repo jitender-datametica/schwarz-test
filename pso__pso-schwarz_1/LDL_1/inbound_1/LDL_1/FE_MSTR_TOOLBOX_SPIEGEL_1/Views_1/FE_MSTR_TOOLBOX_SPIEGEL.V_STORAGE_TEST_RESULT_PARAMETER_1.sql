@@ -1,0 +1,48 @@
+create or replace view LDL_PRODUCTION.FE_MSTR_TOOLBOX_SPIEGEL.V_STORAGE_TEST_RESULT_PARAMETER_1(
+	STORAGE_TEST_EXEC_SID,
+	ORIG_STORE_NR,
+	STORE_DESC,
+	END_WEEK,
+	END_WEEK_DISPLAY,
+	ANALYSIS_START_WEEK,
+	ANALYSIS_START_WEEK_DISPLAY,
+	ANALYSIS_END_WEEK,
+	ANALYSIS_END_WEEK_DISPLAY,
+	SALES_AREA,
+	TOP_MEASURE_1,
+	TOP_MEASURE_2,
+	TOP_MEASURE_3,
+	TOP_MEASURE_4,
+	TOP_MEASURE_5,
+	RECONSTRUCTION_WEEK,
+	EXCLUDED_WEEK,
+	EXCLUDED_WEEK_HEADER,
+	TEST_WEEK_CNT,
+	RECONSTRUCTION_WEEK_STATUS,
+	KW_AGGREGATE_UNTIL
+) as 
+SELECT 
+storage_test_exec_sid 
+    ,orig_store_nr
+	,store_desc
+    ,end_week 
+	,end_week_display
+    ,analysis_start_week
+	,analysis_start_week_display
+    ,analysis_end_week
+	,analysis_end_week_display
+    ,sales_area
+    ,top_measure_1
+    ,top_measure_2
+    ,top_measure_3
+    ,top_measure_4
+    ,top_measure_5
+    ,reconstruction_week
+    ,excluded_week
+	,excluded_week_header
+	,test_week_cnt
+	,reconstruction_week_status
+	,kw_aggregate_until
+    FROM 
+    FE_MSTR_TOOLBOX_SPIEGEL.T_STORAGE_TEST_RESULT_PARAMETER_1
+;

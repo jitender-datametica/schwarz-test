@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_fipo_antwort_text_zu_1 AS SELECT fipo_antwort_id,
+ fipo_standard_text_id
+FROM kfl_production_dbp_view.v_fipo_antwort_text_zu_1;

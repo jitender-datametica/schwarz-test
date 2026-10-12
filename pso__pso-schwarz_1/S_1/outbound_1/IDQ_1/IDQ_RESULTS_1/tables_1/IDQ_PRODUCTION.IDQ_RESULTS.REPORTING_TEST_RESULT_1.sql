@@ -1,0 +1,11 @@
+CREATE OR REPLACE TABLE idq_production_idq_results.reporting_test_result_1 (
+id BIGNUMERIC(38,0) NOT NULL,
+test_object_id BIGNUMERIC(38,0),
+rule_id BIGNUMERIC(38,0),
+in_report_included BIGNUMERIC(38,0),
+first_include DATETIME,
+first_exclude DATETIME,
+first_include_day_id BIGNUMERIC(38,0),
+first_exclude_day_id BIGNUMERIC(38,0),
+PRIMARY KEY (id) NOT ENFORCED
+);

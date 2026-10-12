@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_v_view.v_ts_personalteilbereich_wup_zu_1 AS SELECT mandant_id,
+ personalteilbereich_id,
+ wup_id,
+ nb_id
+FROM kfl_production_dbp_msi_data.ts_personalteilbereich_wup_zu_1;

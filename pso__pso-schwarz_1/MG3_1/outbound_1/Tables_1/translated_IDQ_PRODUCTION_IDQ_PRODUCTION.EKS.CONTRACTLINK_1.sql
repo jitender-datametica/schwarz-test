@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE idq_production_eks.contractlink_1 (
+contractlinkid INTEGER,
+lock_contract INTEGER,
+no_addendum INTEGER,
+no_rv INTEGER,
+ekm_contract_type INTEGER,
+statusid INTEGER,
+ekmversion INTEGER,
+version INTEGER,
+locationid INTEGER,
+listingoverviewid INTEGER,
+crdate DATETIME,
+moddate DATETIME,
+cruser STRING(35),
+moduser STRING(35),
+employeeid INTEGER,
+contactid INTEGER,
+supplierno INTEGER,
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

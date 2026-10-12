@@ -1,0 +1,28 @@
+CREATE OR REPLACE VIEW ldl_p_lew_bil.v_agg_store_mth_turnover_ext_1 (client_id, src_orig_store_nr, loc_sid_store, cy_month
+, currency_iso_cd, cnt_customer, cnt_customer_extrapol, val_rtl, val_rtl_net, val_rtl_extrapol, val_rtl_net_extrapol,
+val_rtl_kpges, val_rtl_net_kpges, val_rtl_wawi, val_rtl_net_wawi, val_rtl_txj, val_rtl_net_txj, val_rtl_ejr,
+val_rtl_net_ejr) AS SELECT client_id,
+ src_orig_store_nr,
+ loc_sid_store,
+ cy_month,
+ currency_iso_cd,
+ SUM(cnt_customer) AS cnt_customer,
+ SUM(cnt_customer_extrapol) AS cnt_customer_extrapol,
+ SUM(val_rtl) AS val_rtl,
+ SUM(val_rtl_net) AS val_rtl_net,
+ SUM(val_rtl_extrapol) AS val_rtl_extrapol,
+ SUM(val_rtl_net_extrapol) AS val_rtl_net_extrapol,
+ SUM(val_rtl_kpges) AS val_rtl_kpges,
+ SUM(val_rtl_net_kpges) AS val_rtl_net_kpges,
+ SUM(val_rtl_wawi) AS val_rtl_wawi,
+ SUM(val_rtl_net_wawi) AS val_rtl_net_wawi,
+ SUM(val_rtl_txj) AS val_rtl_txj,
+ SUM(val_rtl_net_txj) AS val_rtl_net_txj,
+ SUM(val_rtl_ejr) AS val_rtl_ejr,
+ SUM(val_rtl_net_ejr) AS val_rtl_net_ejr
+FROM ldl_p_lew_bil.t_agg_store_day_turnover_ext_1
+GROUP BY client_id,
+ src_orig_store_nr,
+ loc_sid_store,
+ cy_month,
+ currency_iso_cd;

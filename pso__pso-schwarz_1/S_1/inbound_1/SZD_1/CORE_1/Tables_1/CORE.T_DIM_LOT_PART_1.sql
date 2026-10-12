@@ -1,0 +1,30 @@
+/* --------------------------------------------------------------------------------
+   DDL for table: T_DIM_LOT_PART_1
+   generated from Powerdesigner on Freitag, 2. August 2024 08:21:50
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE.T_DIM_LOT_PART_1 DATA_RETENTION_TIME_IN_DAYS = 7 (
+   PRODUCT_INSTANCE_GROUP_SID          NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the lot.',
+   DWH_VALID_FROM_TMSP                 TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record became valid.',
+   DWH_VALID_TO_TMSP                   TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was no longer valid.',
+   DWH_VALID_FG                        BOOLEAN         NOT NULL COMMENT 'An indicator showing the current record, i.e. where the current date is between dwh_valid_from and dwh_valid_to.',
+   LOT_PART_STATUS_CD                  VARCHAR(50)     NOT NULL COMMENT 'Natural Key/Business Key - The status_1 code for the lot part',
+   LOT_PRODUCT_INSTANCE_GROUP_SID      NUMBER(38, 0)   NOT NULL COMMENT 'Natural Key/Business Key - The unique identifier (surrogate key) for the lot.',
+   SHIPPING_DESTINATION_CD             VARCHAR(50)     NOT NULL COMMENT 'Natural Key/Business Key - The code identifying a political country_1 according to ISO 3166.',
+   LOB_CD                              VARCHAR(50)     NOT NULL COMMENT 'The code for the line of business within the Schwarz Group, i.e.Lidl or Kaufland
+            lob=line os business',
+   GTIN_NR                             VARCHAR(50)     COMMENT 'Descriptive Attribute - GTIN',
+   SPARE_UNIT_FG                       BOOLEAN         NOT NULL COMMENT 'Indication if spare unit_1 or not',
+   SHIPPED_CARTON_QTY                  NUMBER(38, 5)   COMMENT 'Fact - additive - Amount of cartons that were shipped ( same as produced )',
+   PIECE_PER_CARTON_QTY                NUMBER(38, 5)   COMMENT 'Fact - additive - Units / pieces per carton. For example there can be 20 T-Shirts in a box -> PCS/Carton = 20',
+   LENGTH_M_MEAS                       NUMBER(38, 5)   COMMENT 'Measure - Length dimensions of a shipped carton ',
+   WIDTH_M_MEAS                        NUMBER(38, 5)   COMMENT 'Measure - Width dimensions of a shipped carton ',
+   HEIGHT_M_MEAS                       NUMBER(38, 5)   COMMENT 'Measure - Height dimensions of a shipped carton ',
+   NET_WEIGHT_KG_QTY                   NUMBER(38, 5)   COMMENT 'Fact - additive - Cartons are measured and weightened in the warehouse. Net weight is the goods without the carton',
+   GROSS_WEIGHT_KG_QTY                 NUMBER(38, 5)   COMMENT 'Fact - additive -Weight of a complete carton as it will be put in a container',
+   DWH_CREATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   DWH_UPDATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+   DWH_SRC_FILE_NAME                   VARCHAR(500)    COMMENT 'The path and the name of the file(s) from which this record was loaded.',
+   DWH_SRC_1_TMSP                      TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was extracted from the source.',   
+   CONSTRAINT PK_DIM_LOT_PART PRIMARY KEY (PRODUCT_INSTANCE_GROUP_SID, DWH_VALID_FROM_TMSP) NOT ENFORCED 
+)  COMMENT = 'Major Dimension - A shipment of particular product variant. - Source - VMT';

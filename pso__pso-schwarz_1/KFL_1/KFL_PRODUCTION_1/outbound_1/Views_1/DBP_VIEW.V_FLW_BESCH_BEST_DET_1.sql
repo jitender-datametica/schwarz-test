@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_flw_besch_best_det_1 AS SELECT mandant_id,
+ best_beleg_id,
+ best_beleg_pos_id,
+ flw_art_id,
+ menge_best_bme,
+ best_menge_einh_id,
+ best_preis_menge_einh_id,
+ loesch_id,
+ werk_id,
+ retourenpos_fg,
+ dupli_fg,
+ besch_pos_typ_id,
+ system_id,
+ nettopreis,
+ td_insert,
+ td_update
+FROM kfl_production_dbp_data.flw_besch_best_det_1;

@@ -1,0 +1,21 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital.v_agg_sales_daily_1 (wshop_cd, cal_dt, order_cnt,
+total_prod_price_net_eur_val, tgt_revenue_net_eur_val, cogs_price_net_eur_val, tgt_cogs_net_eur_val,
+total_return_prod_order_dt_price_net_eur_val, total_return_prod_price_net_eur_val, total_cancel_prod_price_net_eur_val,
+cancel_cogs_price_net_eur_val, total_prod_coupon_net_eur_val, total_delivery_paushal_net_eur_val,
+total_delivery_paushal_coupon_net_eur_val, total_delivery_cost_net_eur_val) AS SELECT IFNULL(wshop_cd, '-1') AS wshop_cd
+ ,
+ cal_dt,
+ order_cnt,
+ total_prod_price_net_eur_val,
+ tgt_revenue_net_eur_val,
+ cogs_price_net_eur_val,
+ tgt_cogs_net_eur_val,
+ total_return_prod_order_dt_price_net_eur_val,
+ total_return_prod_price_net_eur_val,
+ total_cancel_prod_price_net_eur_val,
+ cancel_cogs_price_net_eur_val,
+ total_prod_coupon_net_eur_val,
+ total_delivery_paushal_net_eur_val,
+ total_delivery_paushal_coupon_net_eur_val,
+ total_delivery_cost_net_eur_val
+FROM ldl_dig_lec_share.v_agg_sales_daily_1;

@@ -1,0 +1,16 @@
+CREATE OR REPLACE TABLE ldl_wawi_production_wawiadm.t246_contact_supplier_1 (
+c246_id INTEGER NOT NULL,
+c246_supp_nr STRING(7) NOT NULL,
+c246_c245_id INTEGER NOT NULL,
+c246_value STRING(241) NOT NULL,
+c246_contact_person STRING(100),
+c246_preference INTEGER NOT NULL,
+c246_wh_nr INTEGER NOT NULL,
+c246_moduser STRING(20) NOT NULL,
+c246_moddate DATETIME NOT NULL,
+c246_validfrom DATETIME,
+c246_active INTEGER NOT NULL,
+c246_role INTEGER,
+scn INTEGER DEFAULT 0,
+PRIMARY KEY (c246_id) NOT ENFORCED
+);

@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_rueckfuehrung_lt_1 AS SELECT mandant_id,
+ tour_id,
+ wup_id,
+ nb_id,
+ art_id,
+ lagerbew_beleg_id,
+ kj,
+ lfnr,
+ mandant_id_lager,
+ wup_id_lager,
+ nb_id_lager,
+ dat_buch,
+ menge_bme,
+ anz_stp,
+ wertstoffturm_nr,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.rueckfuehrung_lt_1;

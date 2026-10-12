@@ -1,0 +1,75 @@
+/*
+====================================================================================================
+Division		|	Lidl
+Solution		|	Operational Logistics (LOGOP)
+DB schema		|	etl_process
+DB table		|	t_sapewm_warehouseorder_temp_1
+Description		|	SAP EWM - source table
+====================================================================================================
+*/
+
+CREATE TABLE ETL_PROCESS.t_sapewm_warehouseorder_temp_1 (
+	client_id 					NUMBER(38,0) 	 NOT NULL 	COMMENT 'Client id - calculated based on the country_1 code', 
+	lidl_country 				VARCHAR(3) 		 NOT NULL 	COMMENT 'Country_1 code. Original field name bic_zmlila', 
+	source_system 				VARCHAR(30) 	 NOT NULL 	COMMENT 'Source system',
+	wh_id						NUMBER(38,0)	 NOT NULL 	COMMENT 'Warehouse ID. Subset of Warehouse Number',
+	lgnum                       VARCHAR(5)       NOT NULL 	COMMENT 'Warehouse Number/Warehouse Complex',
+	who                         NUMBER(38,0)     NOT NULL 	COMMENT 'Warehouse Order Number',
+	wcr                         VARCHAR(4)       NULL 		COMMENT 'Warehouse Order Creation Rule',
+	cat_type                    VARCHAR(1)       NULL 		COMMENT 'Category of Warehouse Order Creation Rule',
+	hdr_procty                  VARCHAR(4)       NULL 		COMMENT 'Document Header Warehouse Process Type',
+	QUEUE                       VARCHAR(10)      NULL 		COMMENT 'Queue',
+	wave                        NUMBER(38,0)     NULL 		COMMENT 'Wave',
+	status_1                      VARCHAR(1)       NULL 		COMMENT 'Warehouse Order Status_1',
+	aarea                       VARCHAR(4)       NULL 		COMMENT 'Warehouse Order Activity Area',
+	created_by                  VARCHAR(12)      NULL 		COMMENT 'Created By',
+	created_date                DATE             NULL 		COMMENT 'Created On',
+	created_time                TIME(0)          NULL 		COMMENT 'Created At',
+	processor                   VARCHAR(12)      NULL 		COMMENT 'Processor',
+	rsrc                        VARCHAR(18)      NULL 		COMMENT 'Resource (Means of Transportation or User)',
+	started_date                DATE             NULL 		COMMENT 'Start Date',
+	started_time                TIME(0)          NULL 		COMMENT 'Start Time',
+	ls_date                     DATE             NULL 		COMMENT 'Latest Start Date',
+	ls_time                     TIME(0)          NULL 		COMMENT 'Latest Start Time',
+	changed_by                  VARCHAR(12)      NULL 		COMMENT 'Changed By',
+	changed_date                DATE             NULL 		COMMENT 'Changed On',
+	changed_time                TIME(0)          NULL 		COMMENT 'Changed At',
+	confirmed_by                VARCHAR(12)      NULL 		COMMENT 'Confirmed by',
+	confirmed_date              DATE             NULL 		COMMENT 'Confirmation Date',
+	confirmed_time              TIME(0)          NULL 		COMMENT 'Confirmation Time',
+	plandura                    NUMBER(38,3)     NULL 		COMMENT 'Planned Execution Time of Warehouse Order',
+	actdura                     NUMBER(38,3)     NULL 		COMMENT 'Actual Execution Time of Warehouse Order',
+	unit_t                      VARCHAR(3)       NULL 		COMMENT 'Warehouse Order: Time Unit_1',
+	topwhoid                    NUMBER(38,0)     NULL 		COMMENT 'Warehouse Order Number of Higher-Level Warehouse Order',
+	refwhoid                    NUMBER(38,0)     NULL 		COMMENT 'Warehouse Order Number of Subsequent Warehouse Order',
+	flginv                      BOOLEAN          NULL 		COMMENT 'WO Contains Physical Inventory Document',
+	flgwho                      BOOLEAN          NULL 		COMMENT 'WO Contains Warehouse Order',
+	flgto                       BOOLEAN          NULL 		COMMENT 'Warehouse Order Contains Warehouse Task',
+	whologno                    VARCHAR(14)      NULL 		COMMENT 'Warehouse Order Log Number',
+	count_to                    NUMBER(38,0)     NULL 		COMMENT 'Number of WTs',
+	sum_weight                  NUMBER(38,3)     NULL 		COMMENT 'Total Weight',
+	unit_w                      VARCHAR(3)       NULL 		COMMENT 'Weight Unit_1',
+	sum_volum                   NUMBER(38,3)     NULL 		COMMENT 'Total Volume',
+	unit_v                      VARCHAR(3)       NULL 		COMMENT 'Volume Unit_1',
+	sum_reachtime               NUMBER(38,3)     NULL 		COMMENT 'Total Processing Time',
+	unit_rt                     VARCHAR(3)       NULL 		COMMENT 'Time Unit_1',
+	pick_comp_date              DATE             NULL 		COMMENT 'Planned Completion Date',
+	pick_comp_time              TIME(0)          NULL 		COMMENT 'Planned Completion Time',
+	wave_type                   VARCHAR(4)       NULL 		COMMENT 'Wave Type',
+	splitwhoid                  NUMBER(38,0)     NULL 		COMMENT 'Warehouse Order Number of WO That Was Split',
+	flgsplit                    BOOLEAN          NULL 		COMMENT 'Warehouse Order Was Split',
+	hazmat                      BOOLEAN          NULL 		COMMENT 'Hazardous Substance Relevant for Storage',
+	start_bin                   VARCHAR(18)      NULL 		COMMENT 'Starting Point for Processing Resource',
+	who_dummy                   VARCHAR(1)       NULL 		COMMENT 'Dummy_1 function in length 1',
+	zz_ship_to                  VARCHAR(10)      NULL 		COMMENT 'Store Number',
+	zz_ship_to_name             VARCHAR(40)      NULL 		COMMENT 'Store Name',
+	zz_stag_delay               VARCHAR(4)       NULL 		COMMENT 'delay status_1 for WO in queue',
+	zz_pshu_ind                 VARCHAR(4)       NULL 		COMMENT 'PSHU Indicator',
+	zz_pshu_whohu               VARCHAR(32)      NULL 		COMMENT 'PSHU Guid from WHOHU',
+	zz_pshu_hdr                 VARCHAR(32)      NULL 		COMMENT 'PSHU Guid from Header',
+	dwh_load_id 				NUMBER(38,0) 	 NOT NULL 	COMMENT 'Load id',
+	dwh_created					TIMESTAMP 		 NOT NULL 	COMMENT 'Record created at',
+	dwh_updated					TIMESTAMP 		 NOT NULL 	COMMENT 'Record updated at',
+	PRIMARY KEY (client_id, lgnum, who)
+) COMMENT = 'SAP EWM - Transfer Order Details for the WM_1 Monitor Output'
+;

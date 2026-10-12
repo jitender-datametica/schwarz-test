@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_mdl_l_befragung_1 (befragung_id) AS SELECT befragung_id
+FROM kfl_production_dbp_data.mdl_l_befragung_1;

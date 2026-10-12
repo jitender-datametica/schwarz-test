@@ -1,0 +1,14 @@
+CREATE OR REPLACE VIEW ldl_p_lew_bil_ac.v_dim_delivery_region_1 (client_id, delivery_region_sid,
+delivery_region_manager_nr, delivery_region_manager_name, lidl_country_cd, lidl_country_name, country_grp_sid,
+country_grp_manager_name, dwh_load_id, dwh_created, dwh_updated) AS SELECT client_id,
+ delivery_region_sid,
+ delivery_region_manager_nr,
+ delivery_region_manager_name,
+ lidl_country_cd,
+ lidl_country_name,
+ country_grp_sid,
+ country_grp_manager_name,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_bil.t_dim_delivery_region_1;

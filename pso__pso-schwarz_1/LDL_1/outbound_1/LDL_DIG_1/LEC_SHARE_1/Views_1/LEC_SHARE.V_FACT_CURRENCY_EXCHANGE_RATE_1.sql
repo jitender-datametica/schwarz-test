@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_lec_share.v_fact_currency_exchange_rate_1 AS SELECT *
+FROM ldl_dig_core.t_fact_currency_exchange_rate_1;

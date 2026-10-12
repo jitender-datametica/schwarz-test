@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_app_session_1 (client_id, app_session_sid, src_ga_session_id, src_app_id,
+src_user_pseudo_id, app_sid, customer_sid, app_session_start_tmsp, country_pol_sid, country_pol_cd, dwh_cal_dt,
+dwh_load_id, dwh_created, dwh_updated) AS SELECT client_id,
+ app_session_sid,
+ src_ga_session_id,
+ src_app_id,
+ src_user_pseudo_id,
+ app_sid,
+ customer_sid,
+ app_session_start_tmsp,
+ country_pol_sid,
+ country_pol_cd,
+ dwh_cal_dt,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_app_session_1;

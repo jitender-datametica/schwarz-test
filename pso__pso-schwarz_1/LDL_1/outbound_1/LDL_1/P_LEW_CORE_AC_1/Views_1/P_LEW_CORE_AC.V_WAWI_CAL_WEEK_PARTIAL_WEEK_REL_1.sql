@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_wawi_cal_week_partial_week_rel_1 (dat_calendar, cy_week_partial_week_id1,
+cy_week_partial_week_id2, cy_week_partial_week_id, cy_day_sequence) AS SELECT dat_calendar,
+ cy_week_partial_week_id1,
+ cy_week_partial_week_id2,
+ cy_week_partial_week_id,
+ cy_day_sequence
+FROM ldl_p_lew_core.t_wawi_cal_week_partial_week_rel_1;

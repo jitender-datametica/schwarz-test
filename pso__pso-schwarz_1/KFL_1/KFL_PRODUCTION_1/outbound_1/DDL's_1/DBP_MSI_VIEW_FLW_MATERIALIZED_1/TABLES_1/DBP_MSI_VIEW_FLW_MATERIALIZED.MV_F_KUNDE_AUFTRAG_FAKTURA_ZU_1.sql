@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_flw_materialized.mv_f_kunde_auftrag_faktura_zu_1 (
+verkaufs_beleg_id INTEGER,
+verkaufs_beleg_pos_id INTEGER,
+lief_beleg_id INTEGER,
+lief_beleg_pos_id INTEGER,
+faktura_beleg_id INTEGER,
+faktura_beleg_pos_id INTEGER,
+mandant_id INTEGER,
+in_art_id INTEGER,
+werk_id INTEGER,
+in_vw_id INTEGER,
+absagegrund_id STRING(2) COLLATE 'und:ci',
+verk_menge_faktura_einh_id STRING(3) COLLATE 'und:ci',
+fakturaart_id STRING(4) COLLATE 'und:ci',
+menge_auftrag_vme_kum NUMERIC(29,3),
+menge_bes_bme_kum NUMERIC(29,3),
+menge_bes_bme_kum_kg NUMERIC(29,6),
+menge_faktura_vkme NUMERIC(29,3),
+menge_faktura_lme NUMERIC(29,3),
+gewicht_netto NUMERIC(29,9)
+);

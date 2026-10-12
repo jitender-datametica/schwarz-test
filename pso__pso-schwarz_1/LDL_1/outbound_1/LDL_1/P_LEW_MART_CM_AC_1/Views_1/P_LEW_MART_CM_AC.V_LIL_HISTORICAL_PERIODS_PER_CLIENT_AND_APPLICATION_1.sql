@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_cm_ac.v_lil_historical_periods_per_client_and_application_1 (client_id, per_id,
+application_id, active_fg, active_fg_py, transaction_tmsp) AS SELECT *
+FROM ldl_p_lew_mart_cm.v_lil_historical_periods_per_client_and_application_1;

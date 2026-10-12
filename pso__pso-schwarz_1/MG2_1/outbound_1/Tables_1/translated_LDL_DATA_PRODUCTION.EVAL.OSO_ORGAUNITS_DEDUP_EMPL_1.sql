@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE ldl_data_production_eval.oso_orgaunits_dedup_empl_1 (
+orgaunitid STRING(16777216),
+countrycode STRING(16777216),
+organumber STRING(16777216),
+type STRING(16777216),
+wh_name STRING(16777216),
+empl_list_value JSON,
+id STRING(16777216),
+parent_id STRING(16777216),
+adname STRING(16777216),
+firstname STRING(16777216),
+lastname STRING(16777216),
+deputyemployeeid STRING(16777216),
+mail STRING(16777216),
+phone STRING(16777216),
+empl_role STRING(16777216),
+workforceid STRING(16777216),
+testemployee STRING(16777216),
+child_empl_list JSON
+);

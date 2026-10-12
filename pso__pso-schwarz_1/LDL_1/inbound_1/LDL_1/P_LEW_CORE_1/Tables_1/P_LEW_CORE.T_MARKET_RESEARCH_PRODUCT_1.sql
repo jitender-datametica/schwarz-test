@@ -1,0 +1,45 @@
+/* --------------------------------------------------------------------------------
+   DDL for table: t_market_research_product_1
+   generated from Powerdesigner on Dienstag, 3. Juni 2025 11:44:22
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE P_LEW_CORE.T_MARKET_RESEARCH_PRODUCT_1 (
+   market_research_prod_sid            NUMBER(38,0)     NOT NULL COMMENT 'The unique identifier (surrogate key) for a product that is defined by a provider of market research data.',
+   market_research_data_provider_name  VARCHAR(100)     COMMENT 'The name by which the market data provider is known.',
+   market_research_data_src_name       VARCHAR(100)     COMMENT 'The name by which the market data source is known.',
+   market_research_country_cd          VARCHAR(2)       COMMENT 'The code which identifies a country_1 (as defined by a provider of market research data)',
+   market_research_data_src_segment_name VARCHAR(100)     COMMENT 'The name by which the segment of a market data report is known.',
+   market_research_prod_nr             VARCHAR(100)     COMMENT 'The number that the market data provider has assigned for this product. Depending on the product it may contain the GTIN or a concatenation of the GTIN with other fields or it may be masked as sensitive information.',
+   market_research_prod_name           VARCHAR(250)     NOT NULL COMMENT 'The name of product, as it has been defined by a provider of market research data.',
+   market_research_prod_type_cd        VARCHAR(100)     NOT NULL COMMENT 'The code identifying the level on which a product is defined by a provider of market data.',
+   src_prod_nr                         VARCHAR(100)     NOT NULL COMMENT 'The number which identifies the product at the market data provider.',
+   gtin                                VARCHAR(14)      COMMENT 'The Global Trade Item_1 Number (GTIN) which identifies this product.',
+   manufacturer_name                   VARCHAR(100)     COMMENT 'The name of the company that produced the product. This attribute is filled for item_1-level products only.',
+   own_brand_fg                        NUMBER(38,0)     COMMENT 'An indicator showing, if the product is market as an own-brand_1 product.',
+   brand_name                          VARCHAR(100)     COMMENT 'The brand_1 under which the product is offered. This attribute is filled for item_1-level products only.',
+   sub_brand_name                      VARCHAR(100)     COMMENT 'A more detailed definition of the brand_1 under which the product is offered. This attribute is filled for item_1-level products only.',
+   unit_content_descr                  VARCHAR(250)     COMMENT 'The content of the product - because of data quality reasons expressed as a free text description and not as a number with a unit_1 of measure. This attribute is filled for item_1-level products only.',
+   item_fam_grp_sid                    NUMBER(38,0)     COMMENT 'The unique identifier for the item_1 family which is related to this market research product. In case the surrogate key cannot be determined - e.g. because of conflicting client_ids - this field remains empty, but the natural key is filled. This attribute is only filled for item_1-level products and for products which represent an item_1 family.',
+   item_fam_grp_cd                     VARCHAR(100)     COMMENT 'The number of the item_1 family that is related to this market research product, as it is known to business. This attribute is only filled for item_1-level products and for products which represent an item_1 family.',
+   item_fam_grp_name_en                VARCHAR(100)     COMMENT 'The name of the item_1 family in english delivered by the market research data source that is related to this market research product. This attribute is only filled for item_1-level products and for products which represent an item_1 family.',
+   item_fam_grp_name_de                VARCHAR(100)     COMMENT 'The name of the item_1 family in german that is related to this market research product. This attribute is only filled for item_1-level products and for products which represent an item_1 family.',
+   sub_item_grp_sid                    NUMBER(38,0)     COMMENT 'The unique identifier for the sub item_1 group which is related to this market research product. In case the surrogate key cannot be determined - e.g. because of conflicting client_ids - this field remains empty, but the natural key is filled. This attribute is only filled for item_1-level products and for products which represent a sub item_1 group.',
+   sub_item_grp_cd                     VARCHAR(100)     COMMENT 'The number of the sub item_1 group that is related to this market research product, as it is known to business. This attribute is only filled for item_1-level products and for products which represent a sub item_1 group.',
+   sub_item_grp_name_en                VARCHAR(100)     COMMENT 'The name of the sub item_1 group in english delivered by the market research data source that is related to this market research product. This attribute is only filled for item_1-level products and for products which represent a sub item_1 group.',
+   sub_item_grp_name_de                VARCHAR(100)     COMMENT 'The name of the sub item_1 group in german that is related to this market research product. This attribute is only filled for item_1-level products and for products which represent a sub item_1 group.',
+   item_grp_int_sid                    NUMBER(38,0)     COMMENT 'The unique identifier for the international item_1 group which is related to this market research product. In case the surrogate key cannot be determined - e.g. because of conflicting client_ids - this field remains empty, but the natural key is filled. This attribute is only filled for item_1-level products and for products which represent an international item_1 group.',
+   item_grp_int_cd                     VARCHAR(100)     COMMENT 'The number of the international item_1 group that is related to this market research product, as it is known to business. This attribute is only filled for item_1-level products and for products which represent an international item_1 group.',
+   item_grp_int_name_en                VARCHAR(100)     COMMENT 'The name of the international item_1 group in english delivered by the market research data source that is related to this market research product. This attribute is only filled for item_1-level products and for products which represent an international item_1 group.',
+   item_grp_int_name_de                VARCHAR(100)     COMMENT 'The name of the international item_1 group in german that is related to this market research product. This attribute is only filled for item_1-level products and for products which represent an international item_1 group.',
+   data_provider_hierarchy_lvl_1_name  VARCHAR(100)     COMMENT 'The name of the first level of the associated standard hierarchy_1 of the market data provider.',
+   data_provider_hierarchy_lvl_2_name  VARCHAR(100)     COMMENT 'The name of the second level of the associated standard hierarchy_1 of the market data provider.',
+   data_provider_hierarchy_lvl_3_name  VARCHAR(100)     COMMENT 'The name of the third level of the associated standard hierarchy_1 of the market data provider.',
+   data_provider_hierarchy_lvl_4_name  VARCHAR(100)     COMMENT 'The name of the forth level of the associated standard hierarchy_1 of the market data provider.',
+   data_provider_hierarchy_lvl_5_name  VARCHAR(100)     COMMENT 'The name of the fifth level of the associated standard hierarchy_1 of the market data provider.',
+   data_provider_hierarchy_lowest_lvl_name VARCHAR(100)     COMMENT 'The name of the lowest level of the associated standard hierarchy_1 of the market data provider.',
+   data_provider_hierarchy_2nd_lowest_lvl_name VARCHAR(100)     COMMENT 'The name of the second lowest level of the associated standard hierarchy_1 of the market data provider.',
+   dwh_load_id                         NUMBER(38,0)     NOT NULL COMMENT 'Identifier of the last run which inserted or updated the record. -1 means manually inserted.',
+   dwh_created                         TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Creation timestamp of the record in the DWH.',
+   dwh_updated                         TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Timestamp of the last update of the record in the DWH. Timestamp of the last business related(!) change.',   
+   CONSTRAINT PK_T_MARKET_RESEARCH_PRODUCT PRIMARY KEY (market_research_prod_sid) NOT ENFORCED 
+)  COMMENT = 'A product, as defined by providers of market research data. This includes various levels of products, GTIN, products, brands, product groups, etc.';

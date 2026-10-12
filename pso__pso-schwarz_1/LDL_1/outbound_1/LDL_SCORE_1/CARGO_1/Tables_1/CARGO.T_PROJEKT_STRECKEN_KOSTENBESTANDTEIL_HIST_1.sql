@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_score_cargo.t_projekt_strecken_kostenbestandteil_hist_1 (
+projekt_strecken_kostenbestandteil_id BIGNUMERIC(38,0),
+projekt_strecken_kostenbestandteil_verhandelbar BIGNUMERIC(38,0),
+projekt_strecken_kostenbestandteil_maxbel_to BIGNUMERIC(38,5),
+projekt_strecken_kostenbestandteil_inkl_paltauschgeb BIGNUMERIC(38,0),
+projekt_strecken_kostenbestandteil_laufzeit_tage BIGNUMERIC(38,5),
+projekt_strecken_kostenbestandteil_gewichtsdisposition BIGNUMERIC(38,0),
+projekt_strecken_kostenbestandteil_betrag BIGNUMERIC(38,5),
+projekt_strecken_kostenbestandteil_rowid STRING(2000),
+projekt_strecken_kostenbestandteil_lastmoddate TIMESTAMP,
+projekt_strecken_kostenbestandteil_fahrzeugart_rowid STRING(2000),
+projekt_strecken_kostenbestandteil_leistungsart_rowid STRING(2000),
+projekt_strecken_kostenbestandteil_waehrung_code STRING(2000),
+projekt_strecken_kostenbestandteil_waehrung_bezeichnung STRING(2000),
+projekt_strecken_kostenbestandteil_abrechnungseinheit_code STRING(2000),
+projekt_strecken_kostenbestandteil_abrechnungseinheit_bezeichnung STRING(2000),
+projekt_strecken_kostenbestandteil_masterrowid STRING(2000),
+source_extraction_tmsp ARRAY < STRING >,
+tech_valid_from TIMESTAMP NOT NULL,
+tech_valid_to TIMESTAMP NOT NULL,
+snflk_insert_tmsp TIMESTAMP NOT NULL,
+snflk_update_tmsp TIMESTAMP NOT NULL
+);

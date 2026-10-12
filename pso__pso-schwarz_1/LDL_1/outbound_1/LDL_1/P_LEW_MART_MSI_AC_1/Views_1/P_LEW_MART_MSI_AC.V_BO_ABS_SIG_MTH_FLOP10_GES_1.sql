@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi_ac.v_bo_abs_sig_mth_flop10_ges_1 (account_manager_id, account_manager_name,
+sales_manager_id, sales_manager_name, city, country_id, country_desc, country_iso_cd, orig_store_nr, store_desc, wh_desc
+, client_id, store_id, wh_id, subitemgroup_id, cy_month, currency_iso_cd, val_rtl_rl_sfo_store, val_rtl_rl_net_sfo_store
+, val_rtl_net_sfo_mhd_break, val_rtl_net_sfo_other_stc_loss, val_rtl_net_sfo_str_deliv_qlty, val_wrtoff_zero_store,
+val_wrtoff_zero_store_net, val_wofz_st_net_mhd_break, val_wofz_st_net_other_stc_loss, val_wofz_st_net_deliv_qlty,
+qty_total_sfo_store, qty_sfo_store_mhd_break, qty_sfo_store_other_stc_loss, qty_sfo_store_str_deliv_qlty,
+qty_disc_piece_weigth_ejr_asis, val_discount_sfo, val_discount_net_sfo, val_rtl_ejr_adj, val_rtl_net_ejr_adj,
+sfo_to_val_retail_pct, sfo_to_val_retail_net_pct) AS SELECT *
+FROM ldl_p_lew_mart_msi.v_bo_abs_sig_mth_flop10_ges_1;

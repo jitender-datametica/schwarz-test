@@ -1,0 +1,14 @@
+CREATE OR REPLACE MATERIALIZED VIEW kfl_production_dbp_msi_view_ims_dt.mv_ims_psp_ele_sysstat_zu_1
+OPTIONS (
+  ENABLE_REFRESH=TRUE,
+  REFRESH_INTERVAL_MINUTES=90
+) AS
+SELECT
+  v01.mandant_id AS mandant_id,
+  v01.psp_id AS psp_id,
+  COALESCE(v02.systemstatus_id, '-1') AS systemstatus_id
+FROM kfl_production_dbp_view.v_in_psp_element_1 AS v01
+LEFT JOIN kfl_production_dbp_view.v_ims_psp_ele_sysstat_zu_1 AS v02
+  ON v01.psp_id = v02.psp_id AND v01.mandant_id = v02.mandant_id
+WHERE
+  v01.statistisch_fg = 1;

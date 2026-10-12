@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_z_ds_mard_2_item_loc_storage_stock_hist_1 (
+client_id BIGNUMERIC(38),
+lidl_country STRING(40),
+z_ds_mard_matnr STRING(36) NOT NULL,
+z_ds_mard_werks STRING(8) NOT NULL,
+z_ds_mard_lgort STRING(8) NOT NULL,
+src_matnr STRING(40),
+src_werks STRING(40),
+storage_loc_cd STRING(20),
+free_qty NUMERIC(18,5),
+mov_qty NUMERIC(18,5),
+qa_check_qty NUMERIC(18,5),
+blocked_qty NUMERIC(18,5),
+blocked_batch_qty NUMERIC(18,5),
+deleted_fg BIGNUMERIC(38),
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

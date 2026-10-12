@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_berichts_pos_invest_spr_zu_1 AS SELECT berichts_position_invest_id,
+ spr_id,
+ berichts_position_invest_bez
+FROM kfl_production_dbp_data.berichts_pos_invest_spr_zu_1;

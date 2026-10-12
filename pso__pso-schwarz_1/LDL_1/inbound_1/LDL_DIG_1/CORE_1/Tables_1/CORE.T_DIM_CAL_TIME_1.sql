@@ -1,0 +1,20 @@
+CREATE TABLE CORE.T_DIM_CAL_TIME_1 (
+	CAL_TM TIME(6) NOT NULL COMMENT 'e.g. \"11:42:03.000000'' time(6) with time zone',
+	SECOND_OF_DAY NUMBER(38,0),
+	SECOND_OF_HOUR NUMBER(38,0),
+	SECOND_OF_MINUTE NUMBER(38,0),
+	MINUTE_OF_DAY NUMBER(38,0),
+	MINUTE_OF_HOUR NUMBER(38,0),
+	HOUR_OF_DAY NUMBER(38,0),
+	HOUR_24 NUMBER(38,0),
+	HOUR_24_DESC VARCHAR(25) COMMENT '00:00 - 00:59',
+	HOUR_12 NUMBER(38,0),
+	HOUR_12_DESC VARCHAR(25) COMMENT '12:00 AM - 12:59 AM',
+	AM_PM_IND VARCHAR(25) COMMENT 'AM-PM_1',
+	DWH_SRC_FILE_NAME VARCHAR(255) NOT NULL,
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',
+	SRC_FILE_TMSP                       TIMESTAMP_LTZ   COMMENT 'The point in time when this record was extracted from the source.',
+   CONSTRAINT PK_T_DIM_CAL_TIME PRIMARY KEY (CAL_TM) NOT ENFORCED
+)COMMENT='A dimension that contain hours and minutes of the day'
+;

@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_msi_data.vis_tag_retouren_wg_1 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+arthiertyp_id BIGNUMERIC(38,0) NOT NULL,
+wg_id BIGNUMERIC(38,0) NOT NULL,
+dat DATE NOT NULL,
+wrg_id STRING(3) COLLATE 'und:ci' NOT NULL,
+reklamationsgrund_id BIGNUMERIC(38,0) NOT NULL,
+abt_id BIGNUMERIC(38,0) NOT NULL,
+gj BIGNUMERIC(38,0) NOT NULL,
+kjmo BIGNUMERIC(38,0) NOT NULL,
+kjwo BIGNUMERIC(38,0) NOT NULL,
+vk_menge_re NUMERIC(18,3) DEFAULT 0 NOT NULL,
+vk_netto_re NUMERIC(18,2) DEFAULT 0 NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+) CLUSTER BY mandant_id, dat;

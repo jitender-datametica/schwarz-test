@@ -1,0 +1,25 @@
+create or replace view IDQ_PRODUCTION.EKS_CALCULATION.SVMARA_EKS_ITEM_MESSURES_DIFF_BETW_ARTICLES020_1(
+	LISTINGOVERVIEWID,
+	CASESIZE,
+	BA_ITEMNO,
+	VOLUME,
+	AVGVOLUME,
+	PERCENTAGEVOLUME
+) as
+  SELECT distinct listingoverviewid,
+                  EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010.SUBCASESIZE                                                                     as casesize,
+                  BA_ITEMNO,
+                  volume,
+                  Round(Sum(VOLUME)
+                          OVER (
+                PARTITION BY LISTINGOVERVIEWID, BA_ITEMNO, SUBCASESIZE) / Count(1)
+                OVER( PARTITION BY LISTINGOVERVIEWID, BA_ITEMNO, SUBCASESIZE), 6) AS avgVolume,
+                  Cast(Round(volume * 100 / ( Round(CASE
+                WHEN Sum(volume)
+                  OVER (PARTITION BY LISTINGOVERVIEWID, BA_ITEMNO, SUBCASESIZE) = 0 THEN 1
+                ELSE Sum(volume)
+                OVER (PARTITION BY LISTINGOVERVIEWID, BA_ITEMNO, SUBCASESIZE)
+                 END / Count(1)
+                OVER (PARTITION BY LISTINGOVERVIEWID, BA_ITEMNO, SUBCASESIZE), 6) ), 6) as decimal(10, 6)) AS percentageVolume
+  FROM   EKS_CALCULATION.svMARA_EKS_ITEM_Messures_Diff_BETW_Articles010_1
+  where  ba_itemno is not null;

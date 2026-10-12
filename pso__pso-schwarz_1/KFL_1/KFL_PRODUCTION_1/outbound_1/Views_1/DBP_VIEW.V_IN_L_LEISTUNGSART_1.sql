@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_in_l_leistungsart_1 AS SELECT co_leistungsart_id,
+ mandant_id
+FROM kfl_production_dbp_data.in_l_leistungsart_1;

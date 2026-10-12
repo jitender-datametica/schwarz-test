@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_pmr_angebot_werbemittel_werbeflaeche_zu_1 AS SELECT angebot_id,
+ mandant_id,
+ werbemittel_art_id,
+ werbemittel_id,
+ werbeflaeche_abschnitt_name,
+ werbeflaeche_thema_id,
+ werbeflaeche_thema_bez
+FROM kfl_production_dbp_data.pmr_angebot_werbemittel_werbeflaeche_zu_1;

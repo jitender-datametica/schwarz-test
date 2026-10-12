@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW ldl_fe_mstr_xsight.v_dim_data_source_1 (data_provider_name, data_src_name, data_src_descr) AS
+SELECT market_research_data_provider_name AS data_provider_name,
+ market_research_data_src_name AS data_src_name,
+ market_research_data_src_descr AS data_src_descr
+FROM ldl_p_lew_core_ac.v_market_research_data_source_1;

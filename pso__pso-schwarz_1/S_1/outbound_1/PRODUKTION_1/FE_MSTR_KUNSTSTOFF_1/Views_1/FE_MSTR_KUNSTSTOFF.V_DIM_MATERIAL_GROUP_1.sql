@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW produktion_fe_mstr_kunststoff.v_dim_material_group_1 (resource_item_group_sid, material_group_nr,
+material_group_name) AS SELECT material_group_nr AS resource_item_group_sid,
+ material_group_nr,
+ material_group_name
+FROM produktion_core.t_dim_material_group_1;

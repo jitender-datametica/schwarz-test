@@ -1,0 +1,34 @@
+INSERT INTO  ${TEMP_DB}.${SRC2TGT_TEMP_TABLE1}_${SRC_CONTEXT_AREA}
+(
+	ID1,
+        ID2,
+	STATUS_CD,
+        SOME_SUM,
+        SOURCE_SYSTEM,
+        EXTRACTION_DT,
+        DWH_MAPPING_TMSP,
+        DWH_ENDING_TMSP,
+        TF_ERROR_FG,
+        DELETED_FG,
+        RECORD_ID,
+        FILENAME,
+        DWH_NODE_CD,
+        DWH_LOAD_ID
+)
+SELECT
+	SRC.ID1,
+        SRC.ID2,
+	SRC.STATUS_CD,
+        SRC.SOME_SUM,
+        'TEST_1' AS SOURCE_SYSTEM,
+        CURRENT_DATE AS EXTRACTION_DT,
+        SRC.VAL_FROM AS DWH_MAPPING_TMSP,
+        SRC.VAL_TO AS DWH_ENDING_TMSP,
+        0 AS TF_ERROR_FG,
+        0 AS DELETED_FG,
+        0 AS RECORD_ID,
+        't_${SRC_INPUT_TABLE}' AS FILENAME,
+        'TEST_1' AS DWH_NODE_CD,
+        '${LOAD_ID}' as DWH_LOAD_ID 
+FROM ${TEMP_DB}.t_${SRC_INPUT_TABLE} SRC
+;

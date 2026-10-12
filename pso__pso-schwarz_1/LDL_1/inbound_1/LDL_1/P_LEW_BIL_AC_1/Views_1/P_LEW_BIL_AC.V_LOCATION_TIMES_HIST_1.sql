@@ -1,0 +1,73 @@
+CREATE OR REPLACE VIEW P_LEW_BIL_AC.V_LOCATION_TIMES_HIST_1
+(
+   client_id
+ , loc_sid
+ , dwh_valid_from
+ , dwh_valid_to
+ , open_time_mo_nrm
+ , open_time_tu_nrm
+ , open_time_we_nrm
+ , open_time_th_nrm
+ , open_time_fr_nrm
+ , open_time_sa_nrm
+ , open_time_su_nrm
+ , open_time_mo_start
+ , open_time_mo_end
+ , open_time_tu_start
+ , open_time_tu_end
+ , open_time_we_start
+ , open_time_we_end
+ , open_time_th_start
+ , open_time_th_end
+ , open_time_fr_start
+ , open_time_fr_end
+ , open_time_sa_start
+ , open_time_sa_end
+ , open_time_su_start
+ , open_time_su_end
+ , open_time_mo
+ , open_time_tu
+ , open_time_we
+ , open_time_th
+ , open_time_fr
+ , open_time_sa
+ , open_time_su
+)
+AS
+SELECT
+client_id,
+loc_sid,
+dwh_valid_from,
+dwh_valid_to,
+open_time_mo_nrm,
+open_time_tu_nrm,
+open_time_we_nrm,
+open_time_th_nrm,
+open_time_fr_nrm,
+open_time_sa_nrm,
+open_time_su_nrm,
+open_time_mo_start,
+open_time_mo_end,
+open_time_tu_start,
+open_time_tu_end,
+open_time_we_start,
+open_time_we_end,
+open_time_th_start,
+open_time_th_end,
+open_time_fr_start,
+open_time_fr_end,
+open_time_sa_start,
+open_time_sa_end,
+open_time_su_start,
+open_time_su_end,
+open_time_mo,
+open_time_tu,
+open_time_we,
+open_time_th,
+open_time_fr,
+open_time_sa,
+open_time_su
+FROM p_lew_bil.v_location_times_hist_1
+;
+
+

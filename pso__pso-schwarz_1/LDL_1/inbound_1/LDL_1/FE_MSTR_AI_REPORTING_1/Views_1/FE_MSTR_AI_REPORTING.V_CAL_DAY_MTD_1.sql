@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW FE_MSTR_AI_REPORTING.V_CAL_DAY_MTD_1(
+	DAT_CALENDAR
+	, MTD_DATE
+) AS
+    /* Version: 1.0
+    ** Author:  Stefan Sockel
+    ** Date:    2022-11-09
+    ** Changes: Initial version
+    */
+  SELECT 
+    A.DAT_CALENDAR
+    , B.DAT_CALENDAR MTD_DATE
+FROM 
+   P_LEW_MART_MSI_AC.V_CAL_CALENDARDAY_1 A
+   ,P_LEW_MART_MSI_AC.V_CAL_CALENDARDAY_1 B
+WHERE 
+    A.DAY_OF_MONTH >= B.DAY_OF_MONTH
+    AND A.CY_MONTH = B.CY_MONTH;

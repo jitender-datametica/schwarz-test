@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_z_ds_zlex_v_bw_eine_2_pinfo_detail_hist_1 (
+record_id INTEGER,
+client_id BIGNUMERIC(38),
+pinfo_sid BIGNUMERIC(38),
+loc_sid BIGNUMERIC(38),
+pur_org_sid BIGNUMERIC(38),
+brand_sid BIGNUMERIC(38),
+pinfo_type_cd STRING(20),
+incoterm_1 STRING(20),
+incoterm_2 STRING(100) COLLATE 'und:ci',
+deleted_fg BIGNUMERIC(38),
+dwh_valid_from DATE,
+dwh_valid_to DATE,
+dwh_load_id BIGNUMERIC(38),
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

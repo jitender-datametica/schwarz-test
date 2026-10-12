@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW P_LEW_MART_MSI.V_REF_INTERNATIONAL_1 as
+   SELECT	
+     1 AS int_id,	
+   'INT' AS int_desc;

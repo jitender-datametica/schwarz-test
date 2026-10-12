@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_time_type_hist_1 (client_id, time_type_sid, time_type_short_descr,
+time_type_descr, presence_fg, performance_relevant_fg, active_from_dt, active_to_dt, deleted_fg, dwh_valid_from,
+dwh_valid_to, dwh_load_id, dwh_created, dwh_updated) AS SELECT client_id,
+ time_type_sid,
+ time_type_short_descr,
+ time_type_descr,
+ presence_fg,
+ performance_relevant_fg,
+ active_from_dt,
+ active_to_dt,
+ deleted_fg,
+ dwh_valid_from,
+ dwh_valid_to,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_time_type_hist_1;

@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process_ac.v_lc_prtcl_calling_rate_last_days_1 (tcache_database, tcache_tablename,
+tcache_recipient_processname, days_before2check, cnt_calls_possible, cnt_calls_real) AS SELECT *
+FROM ldl_p_lew_process.v_lc_prtcl_calling_rate_last_days_1;

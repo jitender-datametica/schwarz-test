@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_kostenrechnung_1 AS SELECT krk_id,
+ kostenart_id,
+ pc_id,
+ plan_fg,
+ planvariante_id,
+ buchungsperiode_id,
+ gj,
+ buchungskreis_id_ker,
+ system_id,
+ wrg_id,
+ mandant_id,
+ kostenrechnung_betrag,
+ kj_ker_mo_id,
+ td_insert,
+ td_update
+FROM kfl_production_dbp_data.kostenrechnung_1;

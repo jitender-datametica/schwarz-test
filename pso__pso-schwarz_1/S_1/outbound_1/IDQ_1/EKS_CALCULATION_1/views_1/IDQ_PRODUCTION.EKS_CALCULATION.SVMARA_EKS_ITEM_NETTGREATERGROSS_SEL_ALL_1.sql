@@ -1,0 +1,50 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.svmara_eks_item_nettgreatergross_sel_all_1 (negotiatingcountry,
+buyershortsign, buyerfirstname, buyerlastname, zmatkl, articlefamily, itemid, itemno, articletype, description,
+total_casenetweight, casegrossweight, decimalcasesize, listingoverviewid, supplierno, supplierdescription,
+receivingcountry, zrelevantmdm, zsource, zactive) AS SELECT DISTINCT znegotiatingcountry AS negotiatingcountry,
+ buyershortsign,
+ buyerfirstname,
+ buyerlastname,
+ zmatkl,
+ articlefamily,
+ itemid,
+ itemno,
+ zarticletype AS articletype,
+ description_int AS description,
+ casenetweight AS total_casenetweight,
+ CAST(casegrossweight AS NUMERIC) AS casegrossweight,
+ decimalcasesize,
+ listingoverviewid,
+ intsupplierno AS supplierno,
+ supplierdescription,
+ receivingcountry,
+ zrelevantmdm,
+ zsource,
+ zactive
+FROM idq_production_eks_calculation.svmara_eks_item_nettgreatergross_010_1
+WHERE casegrossweight <= casenetweight
+ OR casegrossweight IS NULL
+UNION DISTINCT
+SELECT DISTINCT znegotiatingcountry AS negotiatingcountry,
+ buyershortsign,
+ buyerfirstname,
+ buyerlastname,
+ zmatkl,
+ articlefamily,
+ itemid,
+ itemno,
+ zarticletype AS articletype,
+ description_int AS description,
+ total_casenetweight,
+ casegrossweight,
+ decimalcasesize,
+ listingoverviewid,
+ intsupplierno AS supplierno,
+ supplierdescription,
+ receivingcountry,
+ zrelevantmdm,
+ zsource,
+ zactive
+FROM idq_production_eks_calculation.svmara_eks_item_nettgreatergross_020_1
+WHERE casegrossweight <= total_casenetweight
+ OR casegrossweight IS NULL;

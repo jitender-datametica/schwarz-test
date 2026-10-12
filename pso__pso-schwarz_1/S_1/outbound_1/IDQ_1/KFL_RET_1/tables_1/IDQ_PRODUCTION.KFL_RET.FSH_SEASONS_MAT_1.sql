@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE idq_production_kfl_ret.fsh_seasons_mat_1 (
+mandt STRING(3) NOT NULL,
+matnr STRING(40) NOT NULL,
+fsh_sgt STRING(40) NOT NULL,
+fsh_season_year STRING(4) NOT NULL,
+fsh_season STRING(10) NOT NULL,
+fsh_collection STRING(10) NOT NULL,
+fsh_theme STRING(10) NOT NULL,
+season1 STRING(1),
+season2 STRING(1),
+season3 STRING(1),
+destext STRING(80),
+sea_indicator STRING(1),
+satnr STRING(40),
+rfm_keyitem STRING(1),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (mandt, matnr, fsh_sgt, fsh_season_year, fsh_season, fsh_collection, fsh_theme) NOT ENFORCED
+);

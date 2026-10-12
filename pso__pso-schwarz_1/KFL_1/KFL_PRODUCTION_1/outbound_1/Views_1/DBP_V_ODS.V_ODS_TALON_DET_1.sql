@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_v_ods.v_ods_talon_det_1 AS SELECT mandant_id,
+ talon_id,
+ talon_pos_id,
+ wup_id,
+ kl_art_id,
+ umsatz_brutto,
+ menge,
+ mwst,
+ wg_id,
+ turnover_fg,
+ artbew_fg,
+ aktion_id,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_ods.ods_talon_det_1;

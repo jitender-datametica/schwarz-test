@@ -1,0 +1,22 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_wawi_ref_itm_order_area_wh_1 (client_id, wh_loc_sid, order_area,
+order_area_desc, order_area_cd, instant_print, group_change, change_date, output_pdlk, printer_no, used_by_wamas,
+only_del_note, delivery_note, plausibility_check, storeage_pl_check, order_stock, dat_dayend, load_id) AS SELECT
+ client_id,
+ wh_loc_sid,
+ order_area,
+ order_area_desc,
+ order_area_cd,
+ instant_print,
+ group_change,
+ change_date,
+ output_pdlk,
+ printer_no,
+ used_by_wamas,
+ only_del_note,
+ delivery_note,
+ plausibility_check,
+ storeage_pl_check,
+ order_stock,
+ dat_dayend,
+ load_id
+FROM ldl_p_lew_core.t_wawi_ref_itm_order_area_wh_1;

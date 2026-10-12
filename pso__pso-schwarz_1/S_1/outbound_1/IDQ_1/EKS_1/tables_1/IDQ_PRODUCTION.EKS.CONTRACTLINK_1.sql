@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE idq_production_eks.contractlink_1 (
+contractlinkid BIGNUMERIC(38,0),
+lock_contract BIGNUMERIC(38,0),
+no_addendum BIGNUMERIC(38,0),
+no_rv BIGNUMERIC(38,0),
+ekm_contract_type BIGNUMERIC(38,0),
+statusid BIGNUMERIC(38,0),
+ekmversion BIGNUMERIC(38,0),
+version BIGNUMERIC(38,0),
+locationid BIGNUMERIC(38,0),
+listingoverviewid BIGNUMERIC(38,0),
+crdate DATETIME,
+moddate DATETIME,
+cruser STRING(35),
+moduser STRING(35),
+employeeid BIGNUMERIC(38,0),
+contactid BIGNUMERIC(38,0),
+supplierno BIGNUMERIC(38,0),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_dig_etl.t_kssk_1 (
+objek STRING(180) NOT NULL,
+mafid STRING(2) NOT NULL,
+klart STRING(6) NOT NULL,
+clint NUMERIC(20) NOT NULL,
+adzhl NUMERIC(8) NOT NULL,
+zaehl STRING(12) NOT NULL,
+statu STRING(2) NOT NULL,
+stdcl STRING(2) NOT NULL,
+rekri STRING(2) NOT NULL,
+aennr STRING(24) NOT NULL,
+datuv DATE,
+lkenz STRING(2) NOT NULL,
+datub DATE,
+odq_changemode STRING(2) NOT NULL,
+odq_entitycntr BIGNUMERIC(38) NOT NULL,
+sap_sys_name STRING(20) NOT NULL,
+sap_client_id STRING(20) NOT NULL,
+tmsp_insert DATETIME,
+tmsp_update DATETIME
+);

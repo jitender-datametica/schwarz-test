@@ -1,0 +1,21 @@
+/*
+#----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS
+#----------------------------------------------------------------------------
+# Interface: DDL for P_LEW_MART_CS_AC.V_CS_WH_1
+#----------------------------------------------------------------------------
+# History:
+#  1.0  15.03.2021    Gunes, Oguzhan               Transfer to Snowflake.
+#                                                  https://jira.schwarz/browse/DDLE-1783
+#                                                  Create scripts for snowflake standardisation.
+#----------------------------------------------------------------------------
+*/
+
+
+/* #DescStart#
+#$Revision: 13547 $, $LastChangedBy: hwieber $
+#SubjectAreas#: Access Layer
+#DescEnd# */
+CREATE OR REPLACE VIEW ldl_p_lew_mart_cs_ac.v_cs_wh_1 (client_id, wh_id, type_id, loc_name, closing_dt, opening_dt,
+company, street, zip_code, city, country_iso_cd, dwh_valid_from, dwh_valid_to) AS SELECT *
+FROM ldl_p_lew_mart_cs.v_cs_wh_1;

@@ -1,0 +1,7 @@
+CREATE TABLE meta.t_srg_cust_sid_1(
+   cust_sid NUMBER AUTOINCREMENT,
+   cust_nr VARCHAR,
+   cust_type_cd VARCHAR(5),
+   SRC_TABLE_NAME	VARCHAR(250),
+   DWH_CREATED_TMSP	TIMESTAMP_LTZ(9)
+);

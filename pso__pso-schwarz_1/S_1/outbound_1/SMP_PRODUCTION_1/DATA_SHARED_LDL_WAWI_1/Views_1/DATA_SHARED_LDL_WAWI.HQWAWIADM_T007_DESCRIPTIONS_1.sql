@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW smp_production_data_shared_ldl_wawi.hqwawiadm_t007_descriptions_1 (wawi_instanz_kzl, c007_id,
+c007_type, c007_code, c007_desc, c007_readonly, c007_moduser, c007_moddate, c007_eks_link, scn, delete_fg,
+extraction_tmsp) AS SELECT wawi_instanz_kzl,
+ c007_id,
+ c007_type,
+ c007_code,
+ c007_desc,
+ c007_readonly,
+ c007_moduser,
+ c007_moddate,
+ c007_eks_link,
+ scn,
+ delete_fg,
+ extraction_tmsp
+FROM ldl_wawi_production_hqwawiadm.t007_descriptions_1;

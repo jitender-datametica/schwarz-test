@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_predict_competitors_1 AS SELECT google_place_id,
+ mandant_id,
+ competitor_name,
+ wup_name,
+ wup_str,
+ wup_standort,
+ laengengrad,
+ breitengrad
+FROM kfl_production_dbp_data.predict_competitors_1;

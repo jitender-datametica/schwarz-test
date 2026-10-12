@@ -1,0 +1,12 @@
+-- Lookup-View fÃ¼r KL Artikel_1
+ -- 
+ CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm_materialized.mv_kl_art_1 (kl_art_id
+, mandant_id, art_id) AS SELECT CASE
+  WHEN kl_art_id = 0
+  THEN art_id
+  ELSE kl_art_id
+  END AS kl_art_id,
+ mandant_id,
+ art_id
+FROM kfl_production_dbp_view.v_art_1
+WHERE dat_bis = DATE '9999-12-31';

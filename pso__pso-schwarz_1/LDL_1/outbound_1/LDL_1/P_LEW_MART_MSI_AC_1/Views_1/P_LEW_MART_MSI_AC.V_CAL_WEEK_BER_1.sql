@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi_ac.v_cal_week_ber_1 (dat_calendar, prev_cy_dat_calendar_swd_ber,
+prev_prev_cy_dat_calendar_swd_ber, prev_prev_prev_cy_dat_calendar_swd_ber, prev_cy_dat_calendar_swd_ber_cum,
+prev_prev_cy_dat_calendar_swd_ber_cum, prev_prev_prev_cy_dat_calendar_swd_ber_cum) AS SELECT *
+FROM ldl_p_lew_mart_msi.v_cal_week_ber_1;

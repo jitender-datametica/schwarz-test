@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_core.t_wawi_org_salesorg_1 (
+client_id INTEGER NOT NULL,
+st_loc_sid INTEGER NOT NULL,
+dat_rec_start DATE NOT NULL,
+dat_rec_end DATE NOT NULL,
+sales_manager_id INTEGER NOT NULL,
+sales_manager_name STRING(50) COLLATE 'und:ci',
+account_manager_id INTEGER NOT NULL,
+account_manager_name STRING(50) COLLATE 'und:ci',
+store_manager_id INTEGER NOT NULL,
+store_manager_name STRING(50) COLLATE 'und:ci',
+organisation_id INTEGER NOT NULL,
+general_manager_id STRING(9) COLLATE 'und:ci' NOT NULL,
+general_manager_name STRING(32) COLLATE 'und:ci',
+district_id STRING(200) COLLATE 'und:ci' NOT NULL,
+dat_valid_from DATE NOT NULL,
+dat_valid_until DATE,
+wh_loc_sid_exp INTEGER NOT NULL,
+load_id INTEGER NOT NULL
+);

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW ldl_fe_mstr_xsight.v_dim_product_hierarchy_type_1 (hierarchy_type_cd, hierarchy_type_name,
+hierarchy_type_descr) AS SELECT market_research_prod_hierarchy_type_cd AS hierarchy_type_cd,
+ market_research_prod_hierarchy_type_display_name AS hierarchy_type_name,
+ market_research_prod_hierarchy_type_descr AS hierarchy_type_descr
+FROM ldl_p_lew_core_ac.v_market_research_product_hierarchy_type_1;

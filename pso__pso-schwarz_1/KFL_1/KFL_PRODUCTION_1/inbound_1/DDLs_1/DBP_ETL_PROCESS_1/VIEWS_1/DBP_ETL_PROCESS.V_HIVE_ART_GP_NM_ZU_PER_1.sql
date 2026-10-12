@@ -1,0 +1,18 @@
+create or replace view DBP_ETL_PROCESS.V_HIVE_ART_GP_NM_ZU_PER_1(
+	MANDANT_ID,
+	ART_ID,
+	WUP_ID,
+	NB_ID,
+	DAT_VON,
+	GP_ID,
+	EINKAUFSORGANISATION_ID,
+	DAT_BIS,
+	VZ_WUP_ID,
+	BQ_FINDUNG_ID,
+	BEZUGSWEG_ID,
+	TD_UPDATE,
+	TD_INSERT
+) as
+SELECT
+*
+FROM dbp_process.hive_art_gp_nm_zu_per_1;

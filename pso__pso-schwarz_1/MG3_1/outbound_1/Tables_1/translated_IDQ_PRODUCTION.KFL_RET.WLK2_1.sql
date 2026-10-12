@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE idq_production_kfl_ret.wlk2_1 (
+mandt STRING(3),
+matnr STRING(40),
+vkorg STRING(4),
+vtweg STRING(2),
+werks STRING(4),
+datae STRING(24),
+aenam STRING(12),
+kwdht STRING(1),
+prerf STRING(1),
+vkdab STRING(24),
+vkbis STRING(24),
+mstav STRING(2),
+mstdv STRING(24),
+rbzul STRING(1),
+scagr STRING(4),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

@@ -1,0 +1,70 @@
+/*
+====================================================================================================
+Division		|	Lidl
+Solution		|	Operational Logistics (LOGOP)
+DB schema		|	etl_process
+DB table/view	|	t_quintiq_reportedshift_deleted_1
+Description		|	QUINTIQ - Temporary table
+====================================================================================================
+*/
+
+CREATE TABLE ETL_PROCESS.t_quintiq_reportedshift_deleted_1 (
+client_id               	NUMBER(38,0)    NOT NULL,
+lidl_country            	VARCHAR(40)     NOT NULL,
+source_system           	VARCHAR(30)     NOT NULL,
+wh_id                   	VARCHAR(5)      NOT NULL,
+address_id_seq		        VARCHAR(5000)	NULL,
+address_name_seq	        VARCHAR(10000)	NULL,
+calendar_week		        NUMBER(38,0)	NULL,
+delivery_dt		        	DATE			NOT NULL,
+calc_dist		        	NUMBER(38,10)	NULL,
+calc_dur		        	VARCHAR(512)	NULL,
+earliest_start_tmsp	        TIMESTAMP		NULL,
+end_tmsp		        	TIMESTAMP		NULL,
+tour_gid		        	VARCHAR(5000)	NOT NULL,
+haulier_name		        VARCHAR(512)	NULL,
+haulier_cmnt		        VARCHAR(512)	NULL,
+tour_id			        	VARCHAR(512)	NULL,
+license_plate		        VARCHAR(512)	NULL,
+license_plate_trailer	    VARCHAR(512)	NULL,
+loaded_shipments	        NUMBER(38,10)	NULL,
+observations                VARCHAR(512)	NULL,
+resource_id                 VARCHAR(512)	NULL,
+resource_set_id             VARCHAR(512)	NOT NULL,
+resource_tech               VARCHAR(512)	NULL,
+resource_type               VARCHAR(512)	NULL,
+shift                       NUMBER(38,0)	NULL,
+tour_start_tmsp             TIMESTAMP		NULL,
+calc_toll_dist2             NUMBER(38,10)	NULL,
+calc_toll_dist              NUMBER(38,10)	NULL,
+tour_cmnt                   VARCHAR(512)	NULL,
+user_dist                   NUMBER(38,10)	NULL,
+user_dur                    VARCHAR(512)	NULL,
+user_toll_dist2             NUMBER(38,10)	NULL,
+user_toll_dist              NUMBER(38,10)	NULL,       
+indicatorstimetour          VARCHAR(512)    NULL,
+isboxrequired               BOOLEAN         NULL,
+isdeliveredinneededbox      BOOLEAN         NULL,
+isoneway                    BOOLEAN         NULL,
+paidshift                   BOOLEAN         NULL,
+costsperdistanceunit		NUMBER(38,10)	NULL,
+drivingdrivetypeid			VARCHAR(512)	NULL,
+indicatorcost				VARCHAR(512)	NULL,
+licenseplatetrailer2		VARCHAR(512)	NULL,
+tiko						BOOLEAN			NULL,
+tollcost					NUMBER(38,10)	NULL,
+tollcostcalculated			NUMBER(38,10)	NULL,
+tolldistance3calculated		NUMBER(38,10)	NULL,
+toursequenceid				VARCHAR(512)	NULL,
+trailer1drivetypeid			VARCHAR(512)	NULL,
+trailer2drivetypeid			VARCHAR(512)	NULL,
+usertolldistance3			NUMBER(38,10)	NULL,
+deleted_fg              	NUMBER(38,0)    NOT NULL,
+update_mode             	VARCHAR(2)      NULL,
+extraction_dt           	DATE            NOT NULL,
+extraction_ts           	TIMESTAMP       NOT NULL,
+dwh_mapping_dt          	DATE            NOT NULL,
+tf_error_fg             	NUMBER(1,0)     NOT NULL,
+record_id               	NUMBER(10,0)    NOT NULL,
+filename                	VARCHAR(1000)   NOT NULL
+) COMMENT = 'QUINTIQ - Temporary table';

@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.art_bestand_vw_sum_1 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+vw_id BIGNUMERIC(38,0) NOT NULL,
+bezugsweg_id BIGNUMERIC(38,0) NOT NULL,
+lagerbestand_fg BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+art_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+dat DATE NOT NULL,
+gp_id BIGNUMERIC(38,0) NOT NULL,
+relevant_fg BIGNUMERIC(38,0) NOT NULL,
+wrg_id STRING(3) COLLATE 'und:ci' DEFAULT 'EUR' NOT NULL,
+menge_lgbest_erp_frei_bme NUMERIC(18,3) NOT NULL,
+menge_lgbest_erp_qual_bme NUMERIC(18,3) NOT NULL,
+menge_lgbest_erp_gesamt_bme NUMERIC(18,3) NOT NULL,
+betrag_vk_netto_frei_bme NUMERIC(18,4),
+betrag_vk_netto_qual_bme NUMERIC(18,4),
+betrag_vk_netto_gesamt_bme NUMERIC(18,4),
+menge_abgang_bme NUMERIC(18,3),
+betrag_vk_netto_abgang NUMERIC(18,4) DEFAULT 0 NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+) CLUSTER BY mandant_id, dat;

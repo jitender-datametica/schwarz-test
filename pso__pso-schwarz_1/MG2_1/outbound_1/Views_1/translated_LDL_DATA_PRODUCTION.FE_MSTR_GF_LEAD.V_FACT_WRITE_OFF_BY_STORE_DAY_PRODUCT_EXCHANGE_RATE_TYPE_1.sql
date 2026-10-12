@@ -1,0 +1,79 @@
+CREATE OR REPLACE VIEW ldl_data_production_fe_mstr_gf_lead.v_fact_write_off_by_store_day_product_exchange_rate_type_1 (cal_dt
+OPTIONS(description='The business date to which the meASures are related.'), store_sid
+OPTIONS(description='The unique identifier (surrogate key) for the store, which hAS generated the revenue.'),
+int_org_type_cd OPTIONS(description='The code identifying the discriminators for internal organizations.'), prod_sid
+OPTIONS(description='The unique identifier (surrogate key) for the product.'), logistic_variant_sid
+OPTIONS(description='The unique identifier (surrogate key) for the logistic variant of a product.'), country_org_sid
+OPTIONS(description='The unique identifier (surrogate key) for the country_1 organization. This is on the one hand related to the country_1 organization which is responsible for the store which hAS sold the product, and on the other hand to the country_1 organization which hAS defined the local properties of the product.'),
+country_org_cd
+OPTIONS(description='The code of the business country_1 for which the related country_1 organization is responsible. (The business country_1 is not identical to a political country.) This is on the one hand related to the country_1 organization which is responsible for the store which hAS sold the product, and on the other hand to the country_1 organization which hAS defined the local properties of the product.'),
+exchange_rate_type_cd OPTIONS(description='The Exchange Rate Type Code'), exchange_bus_year
+OPTIONS(description='The Exchange Rate of the business year'), write_off_net_val
+OPTIONS(description='The total net amount in the given currency which was written off in this internal organization (i.e. store or warehouse) on that day because of any reason. (In case the internal organization references a warehouse, this is only that portion of the write-offs which happened directly in the warehouse. Write-offs in stores which are managed by this warehouse, are not included.)'),
+write_off_for_breakage_net_val
+OPTIONS(description='The net amount in the given currency which was written off in this internal organization (i.e. store or warehouse) on that day because of breakage. (In case the internal organization references a warehouse, this is only that portion of the write-offs which happened directly in the warehouse. Write-offs in stores which are managed by this warehouse, are not included.)'),
+write_off_for_sell_by_dt_net_val
+OPTIONS(description='The net amount in the given currency which was written off in this internal organization (i.e. store or warehouse) on that day, because the sell-by-date has been exceeded. (In case the internal organization references a warehouse, this is only that portion of the write-offs which happened directly in the warehouse. Write-offs in stores which are managed by this warehouse, are not included.)'),
+write_off_for_deliv_quality_net_val
+OPTIONS(description='The net amount in the given currency which was written off in this internal organization (i.e. store or warehouse) on that day because of quality issues of delivered products. (In case the internal organization references a warehouse, this is only that portion of the write-offs which happened directly in the warehouse. Write-offs in stores which are managed by this warehouse, are not included.)'),
+write_off_for_defective_non_food_net_val
+OPTIONS(description='The net amount in the given currency which was written off in this internal organization (i.e. store or warehouse) on that day because of defective non-food produts. (In case the internal organization references a warehouse, this is only that portion of the write-offs which happened directly in the warehouse. Write-offs in stores which are managed by this warehouse, are not included.)'),
+write_off_for_donations_net_val
+OPTIONS(description='The net amount in the given currency which was written off in this internal organization (i.e. store or warehouse) on that day because of donations to charitable organizations. (In case the internal organization references a warehouse, this is only that portion of the write-offs which happened directly in the warehouse. Write-offs in stores which are managed by this warehouse, are not included.)'),
+write_off_for_taken_prod_net_val
+OPTIONS(description='The net amount in the given currency which was written off in this internal organization (i.e. store or warehouse) on that day, because products were taken, e.g. for the purpose of quality sampling. (In case the internal organization references a warehouse, this is only that portion of the write-offs which happened directly in the warehouse. Write-offs in stores which are managed by this warehouse, are not included.)'),
+write_off_for_force_majeure_net_val
+OPTIONS(description='The net amount in the given currency which was written off in this internal organization (i.e. store or warehouse) on that day, because of force majeure. (In case the internal organization references a warehouse, this is only that portion of the write-offs which happened directly in the warehouse. Write-offs in stores which are managed by this warehouse, are not included.)'),
+write_off_for_discounts_net_val
+OPTIONS(description='The net amount in the given currency which was written off in this internal organization (i.e. store or warehouse) on that day because of discounts. Discounts can be given for perishable products in case the sell-by-date is near. (In case the internal organization references a warehouse, this is only that portion of the write-offs which happened directly in the warehouse. Write-offs in stores which are managed by this warehouse, are not included.)'),
+write_off_for_stock_clearance_net_val
+OPTIONS(description='The net amount in the given currency which was written off in this internal organization (i.e. store or warehouse) on that day because of stock clearance. (In case the internal organization references a warehouse, this is only that portion of the write-offs which happened directly in the warehouse. Write-offs in stores which are managed by this warehouse, are not included.)'),
+write_off_for_other_reasons_net_val
+OPTIONS(description='This is a sum of main.write_off_for_donations_net_val + main.write_off_for taken_prod_net_val + main.write_off_for_force_majeure_net_val '),
+curr_cd OPTIONS(description='The code identifying the currency according to ISO-4217.'), curr_group_fg
+OPTIONS(description='Flag for Group Currency'), curr_local_fg OPTIONS(description='Flag for Local Currency'),
+dwh_created_tmsp OPTIONS(description='The point in time when this record wAS created in the data warehouse.'),
+dwh_updated_tmsp OPTIONS(description='The point in time when this record wAS created or lASt updated.'), dwh_load_id
+OPTIONS(description='The unique identifier of the batch load which hAS done the lASt update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)'),
+dwh_node_cd
+OPTIONS(description='The code for the source system (or slice of source system) from which this record wAS loaded.')) AS
+SELECT main.bus_dt AS cal_dt,
+ main.int_org_sid AS store_sid,
+ main.int_org_type_cd,
+ main.prod_sid,
+ main.logistic_variant_sid,
+ main.country_org_sid,
+ main.country_org_cd,
+ fer.exchange_rate_type_cd,
+ fer.bus_year AS exchange_bus_year,
+  main.write_off_net_val / fer.exchange_rate AS write_off_net_val,
+  main.write_off_for_breakage_net_val / fer.exchange_rate AS write_off_for_breakage_net_val,
+  main.write_off_for_sell_by_dt_net_val / fer.exchange_rate AS write_off_for_sell_by_dt_net_val,
+  main.write_off_for_deliv_quality_net_val / fer.exchange_rate AS write_off_for_deliv_quality_net_val,
+  main.write_off_for_defective_non_food_net_val / fer.exchange_rate AS write_off_for_defective_non_food_net_val,
+  main.write_off_for_donations_net_val / fer.exchange_rate AS write_off_for_donations_net_val,
+  main.write_off_for_taken_prod_net_val / fer.exchange_rate AS write_off_for_taken_prod_net_val,
+  main.write_off_for_force_majeure_net_val / fer.exchange_rate AS write_off_for_force_majeure_net_val,
+  main.write_off_for_discounts_net_val / fer.exchange_rate AS write_off_for_discounts_net_val,
+  main.write_off_for_stock_clearance_net_val / fer.exchange_rate AS write_off_for_stock_clearance_net_val,
+   (COALESCE(main.write_off_for_donations_net_val, 0) + COALESCE(main.write_off_for_taken_prod_net_val, 0) + COALESCE(main
+     .write_off_for_force_majeure_net_val, 0)) / fer.exchange_rate AS write_off_for_other_reasons_net_val,
+ fer.src_curr_cd AS curr_cd,
+  CASE
+  WHEN fer.src_curr_cd = 'EUR'
+  THEN 1
+  ELSE 0
+  END AS curr_group_fg,
+  CASE
+  WHEN fer.src_curr_cd = fer.tgt_curr_cd
+  THEN 1
+  ELSE 0
+  END AS curr_local_fg,
+ main.dwh_created_tmsp,
+ main.dwh_updated_tmsp,
+ main.dwh_load_id,
+ main.dwh_node_cd
+FROM ldl_data_production_core_dim.t_fact_write_off_by_organization_day_product_1 AS main
+ INNER JOIN ldl_data_production_core_dim.t_fact_exchange_rate_1 AS fer ON main.curr_cd = fer.tgt_curr_cd
+WHERE fer.src_curr_cd = 'EUR'
+ OR fer.src_curr_cd = fer.tgt_curr_cd;

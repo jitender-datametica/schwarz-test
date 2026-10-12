@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_wawi_inv_store_item_corr3_1 (
+client_id BIGNUMERIC(38) NOT NULL,
+item_id BIGNUMERIC(38) NOT NULL,
+pos_nr BIGNUMERIC(38) NOT NULL,
+store_id BIGNUMERIC(38) NOT NULL,
+wh_id BIGNUMERIC(38) NOT NULL,
+inv_id BIGNUMERIC(38) NOT NULL,
+dat_dayend DATE,
+order_area_cd STRING(5) COLLATE 'und:ci',
+weight_fg BIGNUMERIC(38),
+price_retail_inv_item_corr NUMERIC(18,4),
+price_rtl_net_inv_item_corr NUMERIC(19,5),
+price_retail_new_inv_item_corr NUMERIC(18,4),
+prc_rtl_new_net_inv_item_corr NUMERIC(19,5),
+qty_case_inv_item_corr NUMERIC(18,4),
+qty_case_new_inv_item_corr NUMERIC(18,4),
+qty_piece_inv_item_corr NUMERIC(18,4),
+qty_piece_new_inv_item_corr NUMERIC(18,4),
+case_size_dec NUMERIC(9,4),
+load_id BIGNUMERIC(38) NOT NULL
+);

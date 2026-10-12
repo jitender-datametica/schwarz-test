@@ -1,0 +1,27 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_WAWI_FUNC_PERSON_C_1
+(
+  ERR_ID                NUMBER(18,0)                  NOT NULL  AUTOINCREMENT START 1 INCREMENT 1 ,
+  ERR_RELEASE           NUMBER(38)                    NULL,
+  RELEASE_USER          VARCHAR(30) COLLATE 'en-ci'   NULL,
+  ERR_DATE              DATE                          NOT NULL,
+  ERR_CD                NUMBER(38)                    NOT NULL,
+  CLIENT_ID             NUMBER(38)                    NOT NULL,
+  COUNTRY_ISO_CD        VARCHAR(3) COLLATE 'en-ci'    NOT NULL,
+  WH_ID                 VARCHAR(3) COLLATE 'en-ci'    NOT NULL,
+  ST_LOC_SID            NUMBER(38)                    NOT NULL,
+  ORIG_STORE_NR         NUMBER(38)                    NOT NULL,
+  SALES_MANAGER_ID      NUMBER(38)                    NOT NULL,
+  SALES_MANAGER_NAME    VARCHAR(50) COLLATE 'en-ci'   NULL,
+  ACCOUNT_MANAGER_ID    NUMBER(38)                    NOT NULL,
+  ACCOUNT_MANAGER_NAME  VARCHAR(50) COLLATE 'en-ci'   NULL,
+  STORE_MANAGER_ID      NUMBER(38)                    NOT NULL,
+  STORE_MANAGER_NAME    VARCHAR(50) COLLATE 'en-ci'   NULL,
+  ORGANISATION_ID       NUMBER(38)                    NOT NULL,
+  GENERAL_MANAGER_ID    VARCHAR(9) COLLATE 'en-ci'    NOT NULL,
+  GENERAL_MANAGER_NAME  VARCHAR(32) COLLATE 'en-ci'   NULL,
+  DISTRICT_ID           VARCHAR(200) COLLATE 'en-ci'  NOT NULL,
+  DAT_VALID_FROM        DATE                          NOT NULL,
+  DAT_VALID_UNTIL       DATE                          NULL,
+  DAT_DAYEND            DATE                          NULL,
+  LOAD_ID               NUMBER(38)                    NOT NULL
+);

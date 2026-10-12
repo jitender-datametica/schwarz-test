@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_flw_art_lief_mpe_plan_per_1 AS SELECT flw_art_id,
+ flw_lief_id,
+ werk_id,
+ dat_von,
+ flw_version_id,
+ mandant_id,
+ dat_bis,
+ bruttopreis,
+ menge,
+ wrg_id,
+ system_id,
+ nettopreis,
+ td_insert,
+ td_update
+FROM kfl_production_dbp_data.flw_art_lief_mpe_plan_per_1;

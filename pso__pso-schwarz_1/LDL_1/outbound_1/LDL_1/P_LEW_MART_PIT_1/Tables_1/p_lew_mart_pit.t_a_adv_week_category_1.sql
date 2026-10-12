@@ -1,0 +1,170 @@
+/*
+#-------------------------------------------------------------------------------
+# Copyright  LIDL Stiftung & Co. KG - PITonCloud Application 2025
+#-------------------------------------------------------------------------------
+# Interface : DDL for T_A_ADV_WEEK_CATEGORY_1
+#-------------------------------------------------------------------------------
+# Description: Create DDL for Aggregation Table on Adv.-Week and Item_1 Category (UWG / WGI)
+# Encoding. UTF8noBom
+#
+# Aggregation Levels:
+# ===================
+# Adv.Week,WGI,COUNTRY_1
+# Adv.Week,WGI,WH
+# Adv.Week,UWG,COUNTRY_1
+# Adv.Week,UWG,WH
+#
+#-------------------------------------------------------------------------------
+# History:
+#  1.0  2021-07-01 Andreas Kurz     Initial version
+#  1.1  2021-08-10 Dirk Hering      Fixes, formatting
+#  1.2  2021-08-27 Mike Davis       FK support (now removed)
+#  1.3  2022-01-24 Andreas Kurz     Reworked the structure after DM review
+#  1.4	2022-06-27 Nikolai Toknov	Drop column PRICE_BUY_NET
+#  1.5	2022-07-05 Nikolai Toknov	Adjusting columns types
+#  2.0  2022-09-27 Nikolai Toknov	Add A_LEVEL_ID to CLUSTER
+#  2.1	2022-12-06 Nikolai Toknov	Drop column WAREHOUSE_NAME
+#  2.2  2022-12-07 Nikolai Toknov	Change dafault values
+#  2.3  2022-12-14 Nikolai Toknov	Add ACTION_TYPE_ID
+#  4.0  2023-11-06 Nikolai Toknov	Task 530802. [Architecture] Exclude using "virtual columns" that are not GA in database. Drop VC.
+#  4.1  2024-11-18 Nikolai Toknov	Add PV-columns 
+#-------------------------------------------------------------------------------
+*/
+
+/*
+VC:
+ADV_WEEK_MSTR_ID
+*/
+
+
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_pit.t_a_adv_week_category_1 (
+client_id INTEGER DEFAULT - 1 NOT NULL OPTIONS(description='Client ID e.g, AT:==1'),
+country_iso_cd STRING(3) OPTIONS(description='Country_1 ISO Code = WAWI Country_1 '),
+country_descr STRING(16777216) OPTIONS(description='Country_1 Name'),
+adv_week_id INTEGER DEFAULT 888853 NOT NULL OPTIONS(description='Advertising Week'),
+warehouse_sid INTEGER DEFAULT - 2000 NOT NULL OPTIONS(description='Warehouse Surrogate ID L2'),
+orig_wh_nr INTEGER OPTIONS(description='Original Wahrehouse Number  / code from Wawi'),
+sub_item_grp_sid INTEGER DEFAULT - 2000 NOT NULL
+OPTIONS(description='Additional Link to UWG Default values in case of missing UWGs'),
+item_grp_int_sid INTEGER DEFAULT - 2000 NOT NULL
+OPTIONS(description='Additional Link to WGI Default values in case of missing WGI'),
+action_type_id INTEGER DEFAULT - 1000 NOT NULL OPTIONS(description='Action Type 1-::NP and 2::NF | 3::FA | 1 ::PV'),
+a_level_id INTEGER DEFAULT - 1 NOT NULL OPTIONS(description='Aggregation Level of the KPI'),
+add_receipt_cnt BIGNUMERIC(38,0)
+OPTIONS(description='Additional number of receipts, caused by the advertised PV item. Calculated by number of receipts of the current week, minus its baseline value from the last 6 weeks. Only for PV.'),
+add_receipt_per_store_cnt BIGNUMERIC(38,0)
+OPTIONS(description='Additional number of receipts, caused by the advertised PV item_1 per store. Calculated by number of receipts of the current week, minus its baseline value from the last 6 weeks. Only for PV.'),
+add_turnover_net_val BIGNUMERIC(38,5)
+OPTIONS(description='Additional TurnOVER, caused by the advertised PV item. Calculated by turnOVER of the current week, minus its baseline value from the last 6 weeks. Only for PV.'),
+add_turnover_net_per_store_val BIGNUMERIC(38,5)
+OPTIONS(description='Additional TurnOVER, caused by the advertised PV item_1, per store (where the PV item_1 was sold). Calculated by turnOVER of the current week, minus its baseline value from the last 6 weeks. Only for PV.'),
+add_turnover_qty BIGNUMERIC(38,0)
+OPTIONS(description='Additional turnover qantity, caused by the advertised PV item. Calculated by number of soled item_1 qty of current week, minus ist baseline value from the last 6 weeks. Only PV.'),
+add_turnover_per_store_qty BIGNUMERIC(38,0)
+OPTIONS(description='Additional turnover qantity, caused by the advertised PV item_1 per store. Calculated by number of soled item_1 qty of current week, minus ist baseline value from the last 6 weeks. Only PV.'),
+add_turnover_revenue_net_val BIGNUMERIC(38,5)
+OPTIONS(description='Additional Revenue, caused by the advertised PV item. Calculated by revenue of the current week, minus its baseline value from the last 6 weeks. Only for PV.'),
+add_turnover_revenue_net_per_store_val BIGNUMERIC(38,5)
+OPTIONS(description='Additional Revenue, caused by the advertised PV item_1 per store. Calculated by revenue of the current week, minus its baseline value from the last 6 weeks. Only for PV.'),
+adv_item_cnt BIGNUMERIC(38,0) DEFAULT 0
+OPTIONS(description='Number of action items that have been sold in any action_type (PV / NF / FA) during an advertising period.'),
+adv_item_fa_cnt BIGNUMERIC(38,0) DEFAULT 0
+OPTIONS(description='Number of FA action items that have been sold during an advertising period.'),
+adv_item_nf_cnt BIGNUMERIC(38,0) DEFAULT 0
+OPTIONS(description='Number of NF action items that have been sold during an advertising period.'),
+adv_item_pv_cnt BIGNUMERIC(38,0) DEFAULT 0
+OPTIONS(description='Number of PV action items that have been sold during an advertising period.'),
+adv_item_pv_lp_cnt BIGNUMERIC(38,0) DEFAULT 0
+OPTIONS(description='Number of action items that have been sold as action_type LP during an advertising period, in the region_1 of a chosen related advertising week.'),
+adv_item_pv_npps_cnt BIGNUMERIC(38,0) DEFAULT 0
+OPTIONS(description='Number of action items that have been sold as action_type PD_1 during an advertising period, in the region_1 of a chosen related advertising week.'),
+adv_item_pv_wawi_cnt BIGNUMERIC(38,0) DEFAULT 0
+OPTIONS(description='Number of action items that have been sold as action_type WAWI during an advertising period, in the region_1 of a chosen related advertising week.'),
+adv_receipt_adv_turnover_net_val BIGNUMERIC(38,5)
+OPTIONS(description='Total action net turnOVER (only the advertised items), of receipts that contain the specific advertised item_1, for the specific timeframe (advertising period / advertising week), in local currency. Return receipts are ignored. For NF/FA items, additional 5 days prior advertising period are considered. This KPI is not additive.'),
+adv_receipt_np_turnover_net_val BIGNUMERIC(38,5)
+OPTIONS(description='Normal price net turnOVER of receipts: Sum of the net turnOVER of all other non-advertised items of receipts containing the advertised item_1, for the specific timeframe (advertising period / advertising week), in local currency. Hence, the turnOVER of all advertised items (including the specific advertised item_1) is excluded. See descriptions of the detailed formula components.'),
+adv_receipt_total_turnover_net_val BIGNUMERIC(38,5)
+OPTIONS(description='Total net turnOVER of receipts (promotion, non-promotion items), that contain the specific advertised item_1, for the specific timeframe (advertising period / advertising week), in local currency. Return receipts are ignored. For NF/FA items, additional 5 days prior advertising period are considered. This KPI is not additive.'),
+base_receipt_cnt BIGNUMERIC(38,0)
+OPTIONS(description='Expected/estimated number of receipts with specific item_1 / items of a specific group within its advertising period, from the last 6 advertising weeks (median OVER the same weekday, when this item_1 was not in PV). Calculated only for PV items.'),
+base_turnover_net_val BIGNUMERIC(38,5)
+OPTIONS(description='Expected/estimated turnOVER of specific item_1 / items of a specific group within its advertising period, from the last 6 advertising weeks (median OVER the same weekday, when this item_1 was not in PV). Calculated only for PV items.'),
+base_turnover_qty BIGNUMERIC(38,5)
+OPTIONS(description='Expected / estimated sold quantity of the action item_1 within its advertising period, from the last 6 advertising weeks (median OVER the same weekday, when this item_1 was not in PV). Calculated only for PV items.'),
+base_turnover_revenue_net_val BIGNUMERIC(38,5)
+OPTIONS(description='Expected / estimated generated revenue of the action item_1 within its advertising period, from the last 6 advertising weeks (median OVER the same weekday, when this item_1 was not in PV). Calculated only for PV items.'),
+cherry_picker_receipt_cnt BIGNUMERIC(38,0) DEFAULT 0
+OPTIONS(description='Number of\"cherry picker\" receipts, that contain the PV item_1 and the net turnOVER sum of all PV items on this receipt is at least 70% of the total receipt turnOVER. Only calculated for PV items. Return receipts are ignored. Not trivially aggregable.'),
+cherry_picker_receipt_cnt_pct BIGNUMERIC(38,5)
+OPTIONS(description='Cherry Picker Quote in %: Number of Cherry Picker Receipts vs. Number of Receipts having this advertised item. See other metrics as part of the formula.'),
+heavy_buyer_receipt_cnt BIGNUMERIC(38,0) DEFAULT 0
+OPTIONS(description='Number of\"heavy buyer\" receipts, which contain the advertised item_1 (any type PV / NF / FA) and whose net turnOVER sum of all advertised items (any type PV / NF / FA) on this receipt is at least 70% of the total receipt\'s turnOVER, and the sales_1 quantity sum of all these advertised items on this receipt is at least 70% of the total receipt\'s sales_1 quantity. Return receipts are ignored. Not trivially aggregable.'),
+heavy_buyer_receipt_cnt_pct BIGNUMERIC(38,5)
+OPTIONS(description='Heavy Buyer Quote in %: Number of Heavy Buyer Receipts vs. Number of Receipts having this advertised item. See other metrics as part of the formula.'),
+pv_effic_revenue_factor BIGNUMERIC(38,5)
+OPTIONS(description='Additional Revenue vs. Additional TurnOVER as a factor, caused by the advertised PV item. Indirectly uses the baseline values for revenue, turnOVER from the last 6 weeks. Only for PV.'),
+pv_effic_turnover_factor BIGNUMERIC(38,5)
+OPTIONS(description='(Additional TurnOVER minus Costs for the Price Reduction) vs. Costs for the Price Reduction, for the advertised PV item.'),
+pv_net_val BIGNUMERIC(38,5)
+OPTIONS(description='Absolute Advertising PV value in local currency. Calculated already on store level per item_1 as (difference of the old retail price minus new retail price) multiplied by the sales_1 quantity during the advertising period / advertising week.'),
+pv_net_val_share_pct BIGNUMERIC(38,5)
+OPTIONS(description='Advertising PV as percentage of absolute advertising PV vs. total turnOVER of all items (promo, non-promo).'),
+pv_lp_net_val BIGNUMERIC(38,5)
+OPTIONS(description='Absolute Advertising PV value in local currency for LP action type. Calculated already on store level per item_1 as (difference of the old retail price minus new retail price) multiplied by the sales_1 quantity during the advertising period / advertising week.'),
+pv_lp_net_val_share_pct BIGNUMERIC(38,5)
+OPTIONS(description='Advertising PV as percentage of absolute advertising PV LP vs. total turnOVER of all items (promo, non-promo).'),
+pv_npps_net_val BIGNUMERIC(38,5)
+OPTIONS(description='Absolute Advertising PV value in local currency for PD_1 action type. Calculated already on store level per item_1 as (difference of the old retail price minus new retail price) multiplied by the sales_1 quantity during the advertising period / advertising week.'),
+pv_npps_net_val_share_pct BIGNUMERIC(38,5)
+OPTIONS(description='Advertising PV as percentage of absolute advertising PV PD_1 vs. total turnOVER of all items (promo, non-promo).'),
+pv_wawi_net_val BIGNUMERIC(38,5)
+OPTIONS(description='Absolute Advertising PV value in local currency for WAWI action type. Calculated already on store level per item_1 as (difference of the old retail price minus new retail price) multiplied by the sales_1 quantity during the advertising period / advertising week.'),
+pv_wawi_net_val_share_pct BIGNUMERIC(38,5)
+OPTIONS(description='Advertising PV as percentage of absolute advertising PV WAWI vs. total turnOVER of all items (promo, non-promo).'),
+receipt_cnt BIGNUMERIC(38,0) DEFAULT 0
+OPTIONS(description='Number of advertised items receipts for the specific timeframe (advertising period / advertising week). These are receipts that contain the specific advertised item_1 and possibly other items. The advertised item_1 can belong to any action type (PV / NF / FA) and advertising period. Return receipts are ignored. For NF/FA items, additional 5 days prior advertising period are considered. This KPI is not additive, because different advertised items can be on the same receipt. This KPI shows, by how many customers the item_1 was bought, independently of the sold quantity.'),
+receipt_cnt_share_pct BIGNUMERIC(38,5)
+OPTIONS(description='Share of All Total Receipts in %: Share of the receipts that contain this advertised item_1, of the total number of receipts (containing promotion and / or non-promotion items), of a country_1 for the specific timeframe (advertising period / advertising week).'),
+receipt_per_store_cnt BIGNUMERIC(38,0) DEFAULT 0
+OPTIONS(description='Number of advertised items receipts per store for the specific timeframe (advertising period / advertising week). These are receipts that contain the specific advertised item_1 and possibly other items. The advertised item_1 can belong to any action type (PV / NF / FA) and advertising period. Return receipts are ignored. For NF/FA items, additional 5 days prior advertising period are considered. This KPI is not additive, because different advertised items can be on the same receipt. This KPI shows, by how many customers the item_1 was bought, independently of the sold quantity.'),
+restbon_np_turnover_net_val BIGNUMERIC(38,5)
+OPTIONS(description='Rest of the receipt having a normal price: Average sum of the net turnOVER of all other non-advertised items of receipts containing the advertised item_1, for the specific timeframe (advertising period / advertising week), in local currency. Hence, the turnOVER of all advertised items (including the specific advertised item_1) is excluded. See descriptions of the detailed formula components.'),
+restbon_turnover_net_val BIGNUMERIC(38,5)
+OPTIONS(description='Rest of the receipt: Average sum of the net turnOVER of all other items (incl. other advertised items) of receipts containing the advertised item_1, for the specific timeframe (advertising period / advertising week), in local currency. Hence, the turnOVER of the advertised item_1 is excluded. See descriptions of the detailed formula components.'),
+restbon_turnover_revenue_net_val BIGNUMERIC(38,5)
+OPTIONS(description='The generated revenue (turnOVER minus buying price volume) of all items (promotion, non-promotion items) of the rest of the receipts (excluding the action item_1), which contain the advertised item. For the specific timeframe (advertising period / advertising week), in local currency.'),
+store_cnt BIGNUMERIC(38,0) DEFAULT 0
+OPTIONS(description='Number of stores that sold the action item_1 in the specific timeframe (advertising period / advertising week), in the region.For NF/FA items, additional 5 days prior advertising period are considered. No trivial aggregation, because each store might have multiple different items advertised.'),
+total_receipt_cnt BIGNUMERIC(38,0) DEFAULT 0
+OPTIONS(description='Total number of all receipts (containing promotion and / or non-promotion items) of a country_1 for the specific timeframe (advertising period / advertising week).'),
+total_turnover_net_val BIGNUMERIC(38,5)
+OPTIONS(description='Total net turnOVER of all items (promotion, non-promotion items) of a country_1 for the specific timeframe (advertising period / advertising week), in local currency. Returns are ignored. Especially on advertising week level: only the 7 days of the advertising week are considered.'),
+turnover_margin_pct BIGNUMERIC(38,5)
+OPTIONS(description='Revenue generated (turnOVER minus buying price volume) with this sold action item_1 vs. TurnOVER in %.'),
+turnover_net_per_store_val BIGNUMERIC(38,5)
+OPTIONS(description='Net turnOVER of the advertised item_1 per store, for the specific timeframe (advertising period / advertising week), returns are considered, in local currency. For NF/FA items, additional 5 days prior advertising period are considered.'),
+turnover_net_val BIGNUMERIC(38,5)
+OPTIONS(description='Net turnOVER of the advertised item_1, for the specific timeframe (advertising period / advertising week), returns are considered, in local currency. For NF/FA items, additional 5 days prior advertising period are considered.'),
+turnover_net_val_share_pct BIGNUMERIC(38,5)
+OPTIONS(description='Total TurnOVER Share in %: TurnOVER of this advertised item_1 vs. the total turnOVER of all items (promo, non-promo) of the country_1, for the specific timeframe (advertising period / advertising week).'),
+turnover_qty BIGNUMERIC(38,5)
+OPTIONS(description='Sold quantity (returns are considered) of advertised items (NF / FA / PV) during their advertising period.For NF/FA items, additional 5 days prior advertising period are considered.'),
+turnover_revenue_net_val BIGNUMERIC(38,5)
+OPTIONS(description='Revenue generated with this sold action item. Absolute value of turnOVER minus buying price volume.'),
+turnover_revenue_net_store_val BIGNUMERIC(38,5) OPTIONS(description='Absolute revenue in local currency per store.'),
+volume_buy_net_val BIGNUMERIC(38,5)
+OPTIONS(description='Buying Volume based on sales_1 in local currency. Calculated as the net buying price, multiplied by the sales_1 quantity of this advertised item_1 during the period.'),
+reject_fg INTEGER DEFAULT 0 NOT NULL
+OPTIONS(description='Flag indicates if record was rejected by DQ Rule, e.g. 1/0 or similar data issues'),
+reject_reason_id INTEGER DEFAULT - 1 NOT NULL OPTIONS(description='Link to DQ Reject Reason Codes'),
+source_system_id INTEGER DEFAULT 0 NOT NULL OPTIONS(description='Source System EJR / WAWI / Delivery'),
+deleted_fg INTEGER DEFAULT 0 NOT NULL
+OPTIONS(description='Logical Deleted Flag; indicates if the record was logically deleted'),
+dwh_created_ts DATETIME DEFAULT CAST(CURRENT_TIMESTAMP() AS DATETIME) NOT NULL
+OPTIONS(description='Timestamp when record was created'),
+dwh_updated_ts DATETIME OPTIONS(description='Technical field timestamp when record was updated'),
+load_id INTEGER DEFAULT 0 NOT NULL OPTIONS(description='Technical Field ELT / ABInitio Process ID'),
+PRIMARY KEY (client_id, adv_week_id, warehouse_sid, sub_item_grp_sid, item_grp_int_sid, deleted_fg) NOT ENFORCED
+) CLUSTER BY client_id, a_level_id
+OPTIONS(description='Aggregation Table on Adv.-Week and Item_1 Category (UWG / WGI)');

@@ -1,0 +1,21 @@
+CREATE OR REPLACE VIEW idq_production_kfl_ret_de.wlk2_1 (mandt, matnr, vkorg, vtweg, werks, datae, aenam, kwdht, prerf,
+vkdab, vkbis, mstav, mstdv, rbzul, scagr, country_code, td_insert, td_update) AS SELECT mandt,
+ matnr,
+ vkorg,
+ vtweg,
+ werks,
+ datae,
+ aenam,
+ kwdht,
+ prerf,
+ vkdab,
+ vkbis,
+ mstav,
+ mstdv,
+ rbzul,
+ scagr,
+ country_code,
+ td_insert,
+ td_update
+FROM idq_production_kfl_ret.wlk2_1
+WHERE country_code IN ('DE', 'de');

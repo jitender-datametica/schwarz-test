@@ -1,0 +1,13 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_lifecycle.v_l_lifecycle_hga_payment_type_1 (payment_type_id,
+payment_type_descr, payment_type_descr_de, payment_type_descr_ch, payment_type_descr_en, payment_type_descr_cz,
+payment_type_descr_lt, payment_type_descr_sk, payment_type_descr_si, payment_type_descr_ro) AS SELECT payment_type_id,
+ payment_type_descr,
+ payment_type_descr_de,
+ payment_type_descr_de AS payment_type_descr_ch,
+ payment_type_descr_en,
+ payment_type_descr_en AS payment_type_descr_cz,
+ payment_type_descr_en AS payment_type_descr_lt,
+ payment_type_descr_en AS payment_type_descr_sk,
+ payment_type_descr_en AS payment_type_descr_si,
+ payment_type_descr_en AS payment_type_descr_ro
+FROM szd_production_core.t_dim_payment_type_1;

@@ -1,0 +1,11 @@
+CREATE OR REPLACE VIEW P_LEW_MART_ANALYTICS_AC.V_ADVERT_MEDIUM_GROUP_1
+AS
+   SELECT
+     client_id,
+   adv_medium_grp_sid,
+   adv_medium_grp_descr,
+   adv_medium_grp_sort_val,
+   adv_medium_grp_ignore_fg,
+   adv_medium_grp_alw_vis_fg,
+   dwh_created
+  FROM p_lew_mart_analytics.t_advert_medium_group_1;

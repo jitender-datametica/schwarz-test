@@ -1,0 +1,5 @@
+CREATE OR REPLACE TABLE dbp_msi_view_geku_materialized.mv_crm_l_ebene_2_1 (
+ebene_2_id INTEGER,
+number_level_2 STRING(15) COLLATE 'und:ci',
+ebene_1_id INTEGER
+);

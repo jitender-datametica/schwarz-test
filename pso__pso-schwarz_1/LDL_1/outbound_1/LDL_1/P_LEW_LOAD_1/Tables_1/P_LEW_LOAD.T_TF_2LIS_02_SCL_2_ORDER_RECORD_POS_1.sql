@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_2lis_02_scl_2_order_record_pos_1 (
+client_id BIGNUMERIC(38),
+lidl_country STRING(40),
+lis_02_scl_ebeln STRING(20),
+lis_02_scl_ebelp INTEGER,
+order_record_id NUMERIC(20,0),
+order_record_pos_id BIGNUMERIC(38),
+src_werks STRING(40),
+src_matnr STRING(40),
+src_msehi STRING(40),
+uom_cd STRING(20),
+return_reason_mark STRING(20),
+return_reason_label STRING(100) COLLATE 'und:ci',
+dwh_cal_dt DATE,
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

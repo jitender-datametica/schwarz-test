@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.pep_planung_1 (
+idpersonal BIGNUMERIC(38,0) NOT NULL,
+idcompany BIGNUMERIC(38,0) NOT NULL,
+dat DATE NOT NULL,
+plan_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+nettozeit NUMERIC(9,2) DEFAULT 0 NOT NULL,
+pzw_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

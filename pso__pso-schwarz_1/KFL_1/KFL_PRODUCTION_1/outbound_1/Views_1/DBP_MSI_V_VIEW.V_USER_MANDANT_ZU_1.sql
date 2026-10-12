@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_v_view.v_user_mandant_zu_1 AS SELECT mandant_id,
+ user_id
+FROM kfl_production_dbp_msi_data.user_mandant_zu_1;

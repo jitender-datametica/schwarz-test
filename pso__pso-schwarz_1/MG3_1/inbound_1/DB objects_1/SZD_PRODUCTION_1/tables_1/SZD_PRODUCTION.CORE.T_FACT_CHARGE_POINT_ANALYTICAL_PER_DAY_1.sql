@@ -1,0 +1,27 @@
+create or replace TABLE SZD_PRODUCTION.CORE.T_FACT_CHARGE_POINT_ANALYTICAL_PER_DAY_1 (
+	REPORT_DT DATE NOT NULL COMMENT 'The day represented as a calendar_1 date of the form YYYY-MM_1-DD. YYYY is the calendar_1 year, MM_1 (between 1 and 12) the calendar_1 month and DD the day of the calendar_1 month (between 1 and 31). ',
+	CHARGER_PROVIDER_SYSTEM_CD VARCHAR(50) NOT NULL COMMENT 'The unique code of the charger provider system.',
+	CHARGE_POINT_RESOURCE_ITEM_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the charge point.',
+	CHARGER_RESOURCE_ITEM_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the charger',
+	CHARGING_STATION_OWNER_PARTY_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the charging station owner.',
+	REAL_ESTATE_RESOURCE_ITEM_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the real estate.',
+	COUNTRY_LOCATION_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) of the political country.',
+	DIVISION_PARTY_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the party as a division. Key generation based on META table for party key space.',
+	AUTHENTICATION_METHOD_CD VARCHAR(50) NOT NULL COMMENT 'The unique code of the authentication method.',
+	CHARGE_POINT_PLUGIN_TYPE_CD VARCHAR(50) NOT NULL COMMENT 'The unique code of the charger plugin type.',
+	CHARGE_POINT_POWER_TYPE_CD VARCHAR(50) NOT NULL COMMENT 'The unique code of the charging power type.',
+	CHARGER_STATION_TYPE_CD VARCHAR(50) NOT NULL COMMENT 'The unique code of the charger station type.',
+	CHARGER_CLASSIFICATION_ID NUMBER(38,0) NOT NULL COMMENT 'Unique identifier of the classification of a charger.',
+	CURR_CD VARCHAR(3) NOT NULL COMMENT 'The EUR currency code.',
+	LOCAL_CURR_CD VARCHAR(3) NOT NULL COMMENT 'The currence code of the local currency.',
+	PROVIDED_POWER_MEAS NUMBER(38,5) NOT NULL COMMENT 'Fact - additive - The sum of the provided/sold power (energy) by the charge point measured in kWh.',
+	CHARGING_PROCESS_CNT NUMBER(38,0) NOT NULL COMMENT 'Fact - additive - The count of charging processes by the charge point.',
+	CHARGING_DURATION_SEC_MEAS NUMBER(38,5) NOT NULL COMMENT 'Fact - additive - The sum of seconds of all charging processes.',
+	CHARGING_PERFORMANCE_MEAS NUMBER(38,5) NOT NULL COMMENT 'Fact - additive - The charging performance of the charging processes  measured in kWh.',
+	TURNOVER_EUR_VAL NUMBER(38,5) NOT NULL COMMENT 'Fact - additive - The sum of the turnover amount of the charge point in EUR.',
+	TURNOVER_LOCAL_VAL NUMBER(38,5) NOT NULL COMMENT 'Fact - additive - The sum of the turnover amount of the charge point in the local currency.',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was inserted into the table.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last modified. (In case the record has not been modified since its creation, dwh_updated is identical to dwh_created.)',
+	constraint PK_FACT_CHARGE_POINT_ANALYTICAL_PER_DAY primary key (REPORT_DT, CHARGER_PROVIDER_SYSTEM_CD, CHARGE_POINT_RESOURCE_ITEM_SID, CHARGER_RESOURCE_ITEM_SID, CHARGING_STATION_OWNER_PARTY_SID, REAL_ESTATE_RESOURCE_ITEM_SID, COUNTRY_LOCATION_SID, DIVISION_PARTY_SID, AUTHENTICATION_METHOD_CD, CHARGE_POINT_PLUGIN_TYPE_CD, CHARGE_POINT_POWER_TYPE_CD, CHARGER_STATION_TYPE_CD, CHARGER_CLASSIFICATION_ID)
+)COMMENT='Fact table - Analytical - Granularity - by day, authentication method, charger station type, plugin type, charge point - Aggregate - Contains analytical facts regarding a charge point. - Source - IOT Charger'
+;

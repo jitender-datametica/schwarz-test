@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_kmr_l_pruefprogramm_kapitel_typ_1 AS SELECT amx_system_id,
+ kapitel_typ_id,
+ kapitel_typ_bez
+FROM kfl_production_dbp_data.kmr_l_pruefprogramm_kapitel_typ_1;

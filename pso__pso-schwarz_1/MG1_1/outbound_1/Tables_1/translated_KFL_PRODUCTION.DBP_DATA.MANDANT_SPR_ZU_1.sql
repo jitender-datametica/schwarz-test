@@ -1,0 +1,6 @@
+CREATE OR REPLACE TABLE KFL_PRODUCTION_DBP_DATA.MANDANT_SPR_ZU_1 (
+MANDANT_ID INTEGER NOT NULL OPTIONS(description='Mandant_1'),
+SPR_ID INTEGER NOT NULL OPTIONS(description='Eindeutige ID für jede Sprache'),
+TD_UPDATE TIMESTAMP,
+TD_INSERT TIMESTAMP
+) OPTIONS(description='VIS - Zuordnung Sprachen der Mandanten ');

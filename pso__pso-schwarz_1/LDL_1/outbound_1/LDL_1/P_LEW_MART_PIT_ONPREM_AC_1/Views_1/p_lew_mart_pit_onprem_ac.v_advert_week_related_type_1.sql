@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_pit_onprem_ac.v_advert_week_related_type_1 AS SELECT adv_week_rltd_type_id,
+ adv_week_rltd_type_descr
+FROM ldl_p_lew_mart_pit_onprem.t_advert_week_related_type_1;

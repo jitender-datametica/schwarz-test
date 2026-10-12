@@ -1,0 +1,35 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead.v_qv_agg_wh_day_miss_itm_1 (client_id, country_group_id, gl_region_id, wh_id,
+aspect_id, currency_iso_cd, curr_tot_id, dat_formdate, miss_item_cnt_cy, miss_item_cnt_fa_cy, miss_item_cnt_py,
+miss_item_cnt_fa_py, store_day_cnt_cy, store_day_cnt_fa_cy, store_day_cnt_py, store_day_cnt_fa_py, miss_item_fg_cy,
+miss_item_fg_fa_cy, miss_item_fg_py, miss_item_fg_fa_py) AS SELECT WGI.client_id,
+ TRC.country_group_id,
+ TWM.gl_region_id,
+ WGI.wh_id,
+ WGI.aspect_id,
+ WGI.currency_iso_cd,
+ WGI.curr_tot_id,
+ WGI.dat_formdate,
+ SUM(WGI.miss_item_cnt_cy) AS miss_item_cnt_cy,
+ SUM(WGI.miss_item_cnt_fa_cy) AS miss_item_cnt_fa_cy,
+ SUM(WGI.miss_item_cnt_py) AS miss_item_cnt_py,
+ SUM(WGI.miss_item_cnt_fa_py) AS miss_item_cnt_fa_py,
+ SUM(WGI.store_day_cnt_cy) AS store_day_cnt_cy,
+ SUM(WGI.store_day_cnt_fa_cy) AS store_day_cnt_fa_cy,
+ SUM(WGI.store_day_cnt_py) AS store_day_cnt_py,
+ SUM(WGI.store_day_cnt_fa_py) AS store_day_cnt_fa_py,
+ MAX(WGI.miss_item_fg_cy) AS miss_item_fg_cy,
+ MAX(WGI.miss_item_fg_fa_cy) AS miss_item_fg_fa_cy,
+ MAX(WGI.miss_item_fg_py) AS miss_item_fg_py,
+ MAX(WGI.miss_item_fg_fa_py) AS miss_item_fg_fa_py
+FROM ldl_p_lew_mart_lead_ac.v_qv_agg_store_day_miss_itm_1 AS WGI
+ LEFT JOIN ldl_p_lew_mart_lead_ac.v_ref_client_lead_1 AS TRC ON WGI.client_id = TRC.client_id
+ LEFT JOIN ldl_p_lew_mart_lead_ac.v_org_wh_merge_1 AS TWM ON WGI.client_id = TWM.client_id AND WGI.aspect_id = TWM.aspect_id
+     AND WGI.wh_id = TWM.wh_id
+GROUP BY WGI.client_id,
+ TRC.country_group_id,
+ TWM.gl_region_id,
+ WGI.wh_id,
+ WGI.aspect_id,
+ WGI.currency_iso_cd,
+ WGI.curr_tot_id,
+ WGI.dat_formdate;

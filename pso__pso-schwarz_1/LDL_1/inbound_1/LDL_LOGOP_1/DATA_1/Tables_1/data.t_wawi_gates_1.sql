@@ -1,0 +1,30 @@
+CREATE TABLE DATA.t_wawi_gates_1 (
+    client_id               NUMBER(38,0)    NOT NULL    COMMENT 'Client id - calculated based on the country_1 code',
+    wawi_instanz_kzl        VARCHAR(3)      NOT NULL    COMMENT 'Country_1 code. Original field name bic_zmlila',
+    wh_nr                   NUMBER(38,0)    NOT NULL    COMMENT 'wh_nr as a digit Source warehouse number (datastore_data:lagernummer)',
+    
+    c1214_gateid            NUMBER(38,0)    NOT NULL    COMMENT 'Primary Key',
+    c1214_label             VARCHAR(200)    NOT NULL    COMMENT 'Label of the gate',
+    c1214_allocationstateid NUMBER(38,0)    NOT NULL    COMMENT 'Status_1 ID from T1211_ALLOCATIONSTATES',
+    c1214_info              VARCHAR(500)    NULL        COMMENT 'Comment that is displayed in the application with the gate block.',
+    c1214_updateuser        VARCHAR(50)     NULL        COMMENT 'Username of the user who changed the gate status_1 last.',
+    c1214_updatedatetime    TIMESTAMP_NTZ(9) NULL       COMMENT 'Time of the last status_1 change.',
+    c1214_taskid            NUMBER(38,0)    NULL        COMMENT 'eGIN task ID if the gate has been blocked during gate calculation.',
+    c1214_tourid            NUMBER(38,0)    NULL        COMMENT 'TPP tour_1 ID if the gate has been blocked automatically by tour_1 status.',
+    c1214_blockedbytour     NUMBER(38,0)    NOT NULL    COMMENT 'Manually unblocking an automatic tour_1 block sets this field to 0 effectively releasing the gate block. Prevents the same tour_1 from re_1-blocking.',
+    scn                     NUMBER(38,0)    NULL,
+    c1214_gateuuid          VARCHAR(16777216) NULL      COMMENT 'Default SYS_GUID. Used by the ALMA webservice',
+    c1214_temperatureid     NUMBER(38,0)    NULL        COMMENT 'Was required for the WAMAS Areas',
+    c1214_next_gate         VARCHAR(16777216) NULL      COMMENT 'Gives the order of the Gates',
+    c1214_gioverlapping     NUMBER(38,0)    NOT NULL    COMMENT 'Decides the direction an overlapping assignment is possible. By default the value is 0.',
+    c1214_groverlapping     NUMBER(38,0)    NOT NULL    COMMENT 'Decides the direction an overlapping assignment is possible. By default the value is 0.',
+    c1214_areaid            NUMBER(38,0)    NULL        COMMENT 'Refers to the Table T1240_AREAS',
+    
+    dwh_load_id             NUMBER(38,0)    NOT NULL    COMMENT 'Load id',
+    dwh_created             TIMESTAMP_NTZ(9) NOT NULL   COMMENT 'Record created at',
+    dwh_updated             TIMESTAMP_NTZ(9) NOT NULL   COMMENT 'Record updated at',
+    dwh_valid_from          DATE            NOT NULL    COMMENT 'Valid from date',
+    dwh_valid_to            DATE            NOT NULL    COMMENT 'Valid to date',
+    deleted_fg              BOOLEAN         NOT NULL    COMMENT 'Flag if record is deleted',
+    PRIMARY KEY (client_id, wh_nr, c1214_gateid, dwh_valid_from)
+) COMMENT='WAWI - WHWAWIADM.T1214_GATES_1';

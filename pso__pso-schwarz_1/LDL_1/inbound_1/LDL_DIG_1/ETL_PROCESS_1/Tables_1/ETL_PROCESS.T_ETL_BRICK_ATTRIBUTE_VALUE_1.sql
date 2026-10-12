@@ -1,0 +1,12 @@
+CREATE TABLE ETL_PROCESS.T_ETL_BRICK_ATTRIBUTE_VALUE_1 (
+	ATTRIBUTE_INTERNAL_CD VARCHAR(20) NOT NULL,
+	ATTRIBUTE_VALUE_POS VARCHAR(6) NOT NULL,
+	ATTRIBUTE_VALUE_CODE VARCHAR(20),
+	ATTRIBUTE_VALUE_DESCRIPTION VARCHAR(60),
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',
+	DWH_SRC_FILE_NAME VARCHAR(255) NOT NULL COMMENT 'The path and the name of the file(s) from which this record was loaded.',
+	SRC_FILE_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was extracted from the source.',
+	CONSTRAINT PK_T_ETL_BRICK_ATTRIBUTE_VALUE PRIMARY KEY (ATTRIBUTE_INTERNAL_CD, ATTRIBUTE_VALUE_POS)
+)COMMENT='This ETL table to support brickcode .'
+;

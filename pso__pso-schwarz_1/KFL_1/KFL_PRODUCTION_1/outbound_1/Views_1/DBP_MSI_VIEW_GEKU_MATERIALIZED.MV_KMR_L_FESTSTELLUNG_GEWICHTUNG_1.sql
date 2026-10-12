@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku_materialized.mv_kmr_l_feststellung_gewichtung_1 (feststellung_gewichtung_id
+, amx_system_id, feststellung_gewichtung_bez) AS SELECT feststellung_gewichtung_id,
+ amx_system_id,
+ feststellung_gewichtung_bez
+FROM kfl_production_dbp_view.v_kmr_l_feststellung_gewichtung_1;

@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_marktmerkmal_wert_1 AS SELECT marktmerkmal_id,
+ marktmerkmal_wert
+FROM kfl_production_dbp_data.l_marktmerkmal_wert_1;

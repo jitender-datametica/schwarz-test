@@ -1,0 +1,26 @@
+Insert into CHECK_TEST_RESULT_CURRENT_1
+        (scope_id
+        ,test_object_id
+        ,rule_id
+        ,is_error_detected
+        ,first_negative_test
+        ,first_negative_test_day_id
+        ,first_positive_test
+        ,first_positive_test_day_id
+        ,error_solved
+        ,due_date
+        ,due_day_id
+        ,flip_count)
+values
+        (:scope_id,
+         :test_object_id,
+         :rule_id,
+         :is_error_detected,
+         :first_negative_test,
+         :first_negative_test_day_id,
+         :first_positive_test,
+         :first_positive_test_day_id,
+         :error_solved,
+         :due_date,
+         :due_day_id,
+         :flip_count);

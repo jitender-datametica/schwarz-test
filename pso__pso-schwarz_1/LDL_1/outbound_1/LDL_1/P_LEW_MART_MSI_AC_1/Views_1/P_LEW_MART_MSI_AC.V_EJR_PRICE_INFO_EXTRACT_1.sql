@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi_ac.v_ejr_price_info_extract_1 (store_id, client_id, pos_terminal_id,
+dat_formdate, time_receipt_ejr, orig_receipt_nr_ejr, timezone_cd, dat_dayend, checker_id, transactiontype_id,
+timestamp_begin_ejr, timestamp_end_ejr, authority_id, item_id, price_retail_ejr, mainitemgroup_id, item_takeover_fg,
+load_id) AS SELECT *
+FROM ldl_p_lew_mart_msi.v_ejr_price_info_extract_1;

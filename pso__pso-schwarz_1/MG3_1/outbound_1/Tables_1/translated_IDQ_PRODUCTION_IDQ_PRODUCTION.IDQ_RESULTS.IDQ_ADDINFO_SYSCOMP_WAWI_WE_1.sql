@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE idq_production_idq_results.idq_addinfo_syscomp_wawi_we_1 (
+id INTEGER NOT NULL,
+test_object_id INTEGER,
+country_id INTEGER,
+branch_id INTEGER,
+source_system_id INTEGER,
+source_system_primary_key STRING(100),
+is_relevant INTEGER,
+we_id INTEGER,
+artikelnr STRING(18),
+gesellschaftsnr INTEGER,
+posnr INTEGER,
+datum STRING(40),
+landkzl STRING(3),
+mengestueck BIGNUMERIC(29,10),
+pallet_factor INTEGER,
+tgstatus INTEGER,
+valid_from STRING(40),
+valid_until STRING(40),
+wedatum STRING(40),
+weposart INTEGER,
+content_hash_code STRING(32)
+);

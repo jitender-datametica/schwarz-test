@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_cal_week_partial_1 (cy_week, cy_week_part, cy_month, cy, busyear, from_cal_dt,
+to_cal_dt, cy_week_part_descr, partialweek_in_mth_seq_asc, partialweek_in_mth_seq_desc, dwh_load_id, dwh_created,
+dwh_updated) AS SELECT cy_week,
+ cy_week_part,
+ cy_month,
+ cy,
+ busyear,
+ from_cal_dt,
+ to_cal_dt,
+ cy_week_part_descr,
+ partialweek_in_mth_seq_asc,
+ partialweek_in_mth_seq_desc,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_cal_week_partial_1;

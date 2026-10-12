@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_vis_l_puk_thema_1 AS SELECT thema_id
+FROM kfl_production_dbp_data.vis_l_puk_thema_1;

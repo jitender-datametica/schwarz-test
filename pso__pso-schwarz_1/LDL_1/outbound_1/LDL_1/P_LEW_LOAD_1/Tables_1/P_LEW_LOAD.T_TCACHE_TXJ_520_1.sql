@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tcache_txj_520_1 (
+client_id BIGNUMERIC(38) NOT NULL,
+loc_sid BIGNUMERIC(38) NOT NULL,
+item_sid BIGNUMERIC(38),
+item_nr STRING(20) COLLATE 'und:ci',
+record_cd STRING(12) COLLATE 'und:ci' NOT NULL,
+version STRING(3),
+context_country STRING(20) COLLATE 'und:ci',
+snapshot_tmsp DATETIME,
+sales_qty NUMERIC(18,5),
+sales_val NUMERIC(18,5),
+returns_qty NUMERIC(18,5),
+returns_val NUMERIC(18,5),
+voids_qty NUMERIC(18,5),
+voids_val NUMERIC(18,5),
+dwh_load_id BIGNUMERIC(38),
+dwh_cal_dt DATE NOT NULL,
+dwh_created DATETIME,
+dwh_updated DATETIME,
+context_load_id BIGNUMERIC(38) NOT NULL
+);

@@ -1,0 +1,17 @@
+create or replace view PRODUCTION_PRODUCTION.FE_MSTR_BGE_PALETTIERER.V_DIM_TIME_HH_MM_SS_1(
+	TM_HH_MM_SS
+) as
+SELECT TO_TIME(CONCAT(SUBSTR(V1.HH+100,2,2),':', SUBSTR(V2.MM_1+100,2,2),':', SUBSTR(V3.SEK+100,2,2)), 'HH24:MI:SS') AS TM_HH_MM_SS
+FROM
+(SELECT seq4() AS HH
+FROM 
+TABLE(generator(rowcount => 24))) AS V1
+CROSS JOIN
+(SELECT seq4() AS MM_1
+FROM 
+TABLE(generator(rowcount => 60))) AS V2
+CROSS JOIN
+(SELECT seq4() AS SEK
+FROM 
+TABLE(generator(rowcount => 60))) AS V3
+;

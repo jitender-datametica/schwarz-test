@@ -1,0 +1,41 @@
+create or replace view KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_MSI_V_VIEW.V_VIS_MONAT_UMSATZ_WG_1(
+	MANDANT_ID COMMENT 'Mandant_1 im DWH',
+	WUP_ID COMMENT 'Nummer des Warenumschlagsplatzes',
+	NB_ID COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer',
+	WRG_ID COMMENT 'Kurzbezeichnung der Währung, z.Bsp. CZK, EUR',
+	KJMO COMMENT 'Kalenderjahremonat, Format JJJJMM',
+	ARTHIERTYP_ID COMMENT 'Artikel_1 - Hierarchie - Typ - ID: kennzeichnet, ob es sich um eine_1 Hierarchie mit zwei- oder dreistelligen Warengruppen  handelt',
+	WG_ID COMMENT 'ID der Warengruppe',
+	ABT_ID COMMENT 'Abteilungs ID negativer Zahlenraum: im DWH generierte IDs, positive Werte: aus Stammdatensystem übernommen',
+	GJ COMMENT 'Geschäftsjahr',
+	UMS_NETTO COMMENT 'Umsatz netto',
+	UMS_NETTO_KVJ COMMENT 'Umsatz netto Kalendertag im Vorjahr',
+	UMS_NETTO_KVVJ COMMENT 'Umsatz netto Kalendertag im Vor-Vorjahr',
+	UMS_NETTO_PLAN COMMENT 'Umsatz netto Planwert',
+	UMS_BRUTTO COMMENT 'Umsatz brutto',
+	UMS_BRUTTO_KVJ COMMENT 'Umsatz brutto Kalendertag im Vorjahr',
+	MENGE_ABSATZ COMMENT 'Menge in Basismengeneinheit. Stück und Gewichtsartikel gemischt',
+	MENGE_ABSATZ_KVJ COMMENT 'Menge Kalendertag im Vorjahr in Basismengeneinheit. Stück und Gewichtsartikel gemischt',
+	MENGE_ABSATZ_KVVJ COMMENT 'Menge Kalendertag im Vor-Vorjahr in Basismengeneinheit. Stück und Gewichtsartikel gemischt'
+) as 
+    SELECT 
+        mandant_id,
+        wup_id,
+        nb_id,
+        wrg_id,
+        kjmo,
+        arthiertyp_id,
+        wg_id,
+        abt_id,
+        gj,
+        ums_netto,
+        ums_netto_kvj,
+        ums_netto_kvvj,
+        ums_netto_plan,
+        ums_brutto,
+        ums_brutto_kvj,
+        menge_absatz,
+        menge_absatz_kvj,
+        menge_absatz_kvvj
+
+FROM DBP_MSI_DATA.VIS_MONAT_UMSATZ_WG_1 ;

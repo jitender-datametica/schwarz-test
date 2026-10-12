@@ -1,0 +1,25 @@
+/* --------------------------------------------------------------------------------
+   DDL for table: t_kfl_major_item_group_main_item_group_1
+   generated from Powerdesigner on Montag, 31. Juli 2023 15:56:31
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE_REL.T_KFL_MAJOR_ITEM_GROUP_MAIN_ITEM_GROUP_1 DATA_RETENTION_TIME_IN_DAYS = 2 (
+   kfl_client_id                       NUMBER(38,0)     NOT NULL COMMENT 'identifier of the KFL client (Mandant_1) in the Kaufland DWH
+            KFL: KFL_PRODUCTION.DBP_DATA.owg_per.MANDANT_ID',
+   kfl_item_hier_type_id               NUMBER(38,0)     NOT NULL COMMENT 'identifier of the item_1 hierarchy_1 type in the Kaufland DWH
+            KFL: KFL_PRODUCTION.DBP_DATA.owg_per.ARTHIERTYP_ID',
+   kfl_major_item_grp_id               NUMBER(38,0)     NOT NULL COMMENT 'identifier of the major item_1 group (Oberwarengruppe) in the Kaufland DWH
+            KFL: KFL_PRODUCTION.DBP_DATA.owg_per.OWG_ID',
+   kfl_main_item_grp_id                NUMBER(38,0)     NOT NULL COMMENT 'identifier of the main item_1 group (Hauptwarengruppe) in the Kaufland DWH
+            KFL: KFL_PRODUCTION.DBP_DATA.owg_per.HWG_ID',
+   active_from_dt                      DATE             NOT NULL COMMENT 'begin date of the validity_1 period of the record
+            KFL: KFL_PRODUCTION.DBP_DATA.owg_per.DAT_VON',
+   active_to_dt                        DATE             COMMENT 'end date of the validity_1 period of the record
+            KFL: KFL_PRODUCTION.DBP_DATA.owg_per.DAT_BIS',
+   dwh_created_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'Zeitstempel der Ersteinfügung des Datensatzes ins DWH.',
+   dwh_updated_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'Zeitstempel der letzten Änderung des Datensatzes im DWH.',
+   dwh_src_tmsp                        TIMESTAMP_LTZ(9) NOT NULL COMMENT 'Timestamp of source extraction.',   
+   CONSTRAINT PK_T_KFL_MAJOR_ITEM_GROUP_MAIN_ITEM_GROUP PRIMARY KEY (kfl_client_id, kfl_item_hier_type_id, kfl_major_item_grp_id, kfl_main_item_grp_id, active_from_dt) NOT ENFORCED 
+)  COMMENT = 'Kaufland relation between major and main item_1 group
+             KFL: DBP_DATA.OWG_PER_1';
+

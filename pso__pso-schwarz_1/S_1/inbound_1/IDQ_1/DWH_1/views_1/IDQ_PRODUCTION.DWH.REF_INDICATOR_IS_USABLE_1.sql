@@ -1,0 +1,8 @@
+create or replace view IDQ_PRODUCTION.DWH.REF_INDICATOR_IS_USABLE_1(
+	IS_USABLE,
+	DESC,
+	DESC_DE,
+	DESC_EN
+) as
+	select ID, DESC_DE, DESC_DE, DESC_EN
+	from idq_results.REF_INDICATOR_1;

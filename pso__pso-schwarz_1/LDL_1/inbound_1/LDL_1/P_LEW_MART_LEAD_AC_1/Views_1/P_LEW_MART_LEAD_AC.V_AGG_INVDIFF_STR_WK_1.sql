@@ -1,0 +1,37 @@
+CREATE OR REPLACE VIEW P_LEW_MART_LEAD_AC.V_AGG_INVDIFF_STR_WK_1
+AS
+   SELECT
+     client_id,
+   loc_sid_store,
+   currency_iso_cd,
+   busyear,
+   month_id,
+   cy_week_partial_week_id,
+   invdiff_wd1_val,
+   invdiff_wd2_val,
+   invdiff_wd3_val,
+   invdiff_wd4_val,
+   invdiff_wd5_val,
+   invdiff_wd6_val,
+   invdiff_wd7_val,
+   invdiff_wktd_val,
+   invdiff_mtd_val,
+   invdiff_bytd_val,
+   invdiff_stc_wd1_val,
+   invdiff_stc_wd2_val,
+   invdiff_stc_wd3_val,
+   invdiff_stc_wd4_val,
+   invdiff_stc_wd5_val,
+   invdiff_stc_wd6_val,
+   invdiff_stc_wd7_val,
+   invdiff_stc_wktd_val,
+   invdiff_stc_mtd_val,
+   invdiff_stc_bytd_val,
+   prev1y_invdiff_wktd_val,
+   prev1y_invdiff_mtd_val,
+   prev1y_invdiff_bytd_val,
+   prev1y_invdiff_stc_wktd_val,
+   prev1y_invdiff_stc_mtd_val,
+   prev1y_invdiff_stc_bytd_val
+
+  FROM p_lew_mart_lead.t_agg_invdiff_str_wk_1;

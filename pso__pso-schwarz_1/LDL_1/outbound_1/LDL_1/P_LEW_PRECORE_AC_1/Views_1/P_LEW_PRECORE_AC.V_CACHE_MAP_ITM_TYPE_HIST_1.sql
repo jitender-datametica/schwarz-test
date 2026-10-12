@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW ldl_p_lew_precore_ac.v_cache_map_itm_type_hist_1 (client_id, bic_zmlila, descr, list_type_cd,
+buying_list_type_id, buying_list_type_desc, deleted_fg, dwh_valid_from, dwh_valid_to, dwh_load_id, dwh_created,
+dwh_updated) AS SELECT client_id,
+ bic_zmlila,
+ descr,
+ list_type_cd,
+ buying_list_type_id,
+ buying_list_type_desc,
+ deleted_fg,
+ dwh_valid_from,
+ dwh_valid_to,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_precore.t_cache_map_itm_type_hist_1;

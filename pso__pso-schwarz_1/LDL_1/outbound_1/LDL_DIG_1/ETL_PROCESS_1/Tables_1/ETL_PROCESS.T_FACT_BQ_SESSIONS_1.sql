@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_dig_etl_process.t_fact_bq_sessions_1 (
+propertyid INTEGER,
+fullvisitorid INTEGER,
+visitid INTEGER,
+visitnumber INTEGER,
+channelgrouping STRING(16777216),
+clientid STRING(16777216),
+date DATE,
+device_browser STRING(16777216),
+city STRING(16777216),
+cityid INTEGER,
+country_cd STRING(10),
+country_1 STRING(16777216),
+web_app_type_name STRING(16777216),
+ga_src_name STRING(16777216),
+utm_source_name STRING(16777216),
+utm_medium_name STRING(16777216),
+src_file_name STRING(16777216),
+dwh_insert_ts TIMESTAMP
+);

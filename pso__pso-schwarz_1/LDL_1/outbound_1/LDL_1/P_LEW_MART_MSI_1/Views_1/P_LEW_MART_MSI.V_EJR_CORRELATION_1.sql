@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi.v_ejr_correlation_1 (store_id, client_id, pos_terminal_id, dat_formdate,
+time_receipt_ejr, orig_receipt_nr_ejr, checker_id, authority_id, scenario_id, auth_type, val_authorised_retail_ejr,
+cnt_authorised_receipt) AS SELECT st_loc_sid AS store_id,
+ client_id,
+ pos_terminal_id,
+ dat_formdate,
+ time_receipt_ejr,
+ orig_receipt_nr_ejr,
+ checker_id,
+ authority_id,
+ scenario_id,
+ auth_type,
+ val_authorised_retail_ejr,
+ cnt_authorised_receipt
+FROM ldl_p_lew_mart_msi.t_msi_ejr_correlation_1;

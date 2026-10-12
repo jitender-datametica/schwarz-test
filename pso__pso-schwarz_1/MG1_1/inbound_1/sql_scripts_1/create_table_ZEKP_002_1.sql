@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE dbp_etl.de_zekp_1 (
+      matnr INTEGER,
+      lifnr INTEGER,
+      werks INTEGER,
+      datab DATE,
+      abrut DECIMAL(18,4),
+      abrna DECIMAL(18,4),
+      abonba DECIMAL(18,4),
+      aknet DECIMAL(18,4),
+      aknb DECIMAL(18,4),
+      aknbs DECIMAL(18,4),
+      aknne DECIMAL(18,4),
+      ekkba DECIMAL(18,4),
+      mepre DECIMAL(18,4),
+      lsein DECIMAL(18,4),
+      lokau DECIMAL(18,4),
+      bnk DECIMAL(18,4),
+      zollba DECIMAL(18,4),
+      konwa VARCHAR(3) COLLATE 'en-ci',
+      kompmeng DECIMAL(18,4),
+      td_update timestamp_ltz(9),
+      td_insert timestamp_ltz(9)
+);

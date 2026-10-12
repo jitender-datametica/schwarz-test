@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_l_dif_typ_1 AS SELECT dif_typ_id
+FROM kfl_production_dbp_view.v_l_dif_typ_1;

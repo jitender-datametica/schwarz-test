@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_vis_tag_fwws_national_1 AS SELECT mandant_id,
+ nb_id,
+ arthiertyp_id,
+ abt_id,
+ wg_id,
+ dat,
+ kjwo,
+ kjmo,
+ gj,
+ akt_tag,
+ anz_bestell_aenderung AS sum_bestell_aenderung,
+ anz_bestell_manuell AS sum_bestell_manuell,
+ anz_bestell_vorschlag AS sum_bestell_vorschlag,
+  anz_bestell_vorschlag - anz_bestell_aenderung AS sum_bestell_ueber,
+  anz_bestell_vorschlag + anz_bestell_manuell AS sum_bestellung
+FROM kfl_production_dbp_msi_v_view.v_vis_tag_fwws_gp_wg_1 AS V01;

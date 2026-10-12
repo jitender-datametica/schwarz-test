@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_ereignistyp_1 AS SELECT ereignistyp_id
+FROM kfl_production_dbp_data.ereignistyp_1;

@@ -1,0 +1,1767 @@
+CREATE OR REPLACE TABLE dbp_etl.kmo_wpuums_dat_1
+(  dat DATE NOT NULL)
+;
+
+/*
+#------------------------------------------------------------------------------
+# x.) Pruefung Eindeutigkeit der Datensaetze
+#
+#     Pruefung am 07.05.2009 herausgenommen nachdem bei der Gegenpruefung der
+#     entsprechenden Bondaten festgestellt wurde, dass die mehrfachen Positionen
+#     auch mehrfach als Bonpositionen auftauchen und abgerechnet wurden. Somit
+#     sind diese Positionen korrekt und werden zukuenftig weiterverarbeitet.
+#     OP: Warum werden diese Positionen nicht auf dem Kassenserver voraggregiert?
+#------------------------------------------------------------------------------
+*/
+
+-- Enfaellt bis auf weiteres, siehe Kommentar
+
+/*
+#------------------------------------------------------------------------------
+# 5.) Pruefung mehrere Idocs fuer einen Markttag geliefert
+#     Die bisherige Ausnahme_1 in MIS fuer HR wg. Leergut wird hier nicht angewendet
+#     weil ueber die Kasse direkt das Leergut zusammen mit den "echten" Umsaetzen
+#     in einer Datei und einem Idoc geliefert wird.
+#     OP: Soll diese Pruefung auch auf SAP Korrekturen Lieferungen angewendet werden?
+#------------------------------------------------------------------------------
+*/
+/*
+INSERT INTO dbp_etl_rfi.kmo_wpuums_1
+(
+   cycle_id
+  ,loop_id
+  ,rfi_id
+  ,rfi_feld
+  ,rfi_freigabe
+  ,rfi_datum
+  ,segnam
+  ,landkz
+  ,filnr
+  ,refnum
+  ,belegdatum
+  ,belegwaers
+  ,qualartnr
+  ,artnr
+  ,aktionsnr
+  ,vorzmenge
+  ,umsmenge
+  ,vorzwert
+  ,umswert
+  ,mwtax
+  ,wgr
+  ,vorzpromotion
+  ,umspromotion
+  ,promotionart
+)
+SELECT
+   $CYCLE_ID
+  ,$LOOP_ID
+  ,40035 AS rfi_id
+  ,'refnum' AS rfi_feld
+  ,'' AS rfi_freigabe
+  ,DATE AS rfi_datum
+  ,l.segnam
+  ,l.landkz
+  ,l.filnr
+  ,l.refnum
+  ,l.belegdatum
+  ,l.belegwaers
+  ,l.qualartnr
+  ,l.artnr
+  ,l.aktionsnr
+  ,l.vorzmenge
+  ,l.umsmenge
+  ,l.vorzwert
+  ,l.umswert
+  ,l.mwtax
+  ,l.wgr
+  ,l.vorzpromotion
+  ,l.umspromotion
+  ,l.promotionart
+FROM dbp_etl.kmo_wpuums_1 l
+
+INNER JOIN
+(
+  SELECT
+     filnr
+    ,belegdatum
+    ,landkz
+  FROM
+  (
+    SELECT
+       filnr
+      ,refnum
+      ,belegdatum
+      ,landkz
+    FROM dbp_etl.kmo_wpuums_1
+    GROUP BY 1, 2, 3, 4
+  ) a
+  GROUP BY 1, 2, 3
+  
+  HAVING COUNT(*) > 1
+) a
+ON l.filnr = a.filnr
+  AND l.belegdatum = a.belegdatum
+  AND l.landkz = a.landkz
+;
+
+
+
+DELETE FROM dbp_etl.kmo_wpuums_1
+WHERE (landkz, filnr, belegdatum, refnum) IN
+  (
+    SELECT
+      landkz, filnr, belegdatum, refnum
+    FROM dbp_etl_rfi.kmo_wpuums_1
+    
+    WHERE cycle_id = $CYCLE_ID
+      AND loop_id = $LOOP_ID
+      AND rfi_id = '40035'
+  )
+;
+*/
+
+/*
+#------------------------------------------------------------------------------
+# 6.) Datentypueberpruefung (erster Fehler wrid als RFI Grund gespeichert)
+#------------------------------------------------------------------------------
+*/
+/*
+INSERT INTO dbp_etl_rfi.kmo_wpuums_1
+(
+   cycle_id
+  ,loop_id
+  ,rfi_id
+  ,rfi_feld
+  ,rfi_freigabe
+  ,rfi_datum
+  ,segnam
+  ,landkz
+  ,filnr
+  ,refnum
+  ,belegdatum
+  ,belegwaers
+  ,qualartnr
+  ,artnr
+  ,aktionsnr
+  ,vorzmenge
+  ,umsmenge
+  ,vorzwert
+  ,umswert
+  ,mwtax
+  ,wgr
+  ,vorzpromotion
+  ,umspromotion
+  ,promotionart
+)
+SELECT
+   $CYCLE_ID
+  ,$LOOP_ID
+  ,rfi_id
+  ,rfi_feld
+  ,'' AS rfi_freigabe
+  ,date AS rfi_datum
+  ,l.segnam
+  ,l.landkz
+  ,l.filnr
+  ,l.refnum
+  ,l.belegdatum
+  ,l.belegwaers
+  ,l.qualartnr
+  ,l.artnr
+  ,l.aktionsnr
+  ,l.vorzmenge
+  ,l.umsmenge
+  ,l.vorzwert
+  ,l.umswert
+  ,l.mwtax
+  ,l.wgr
+  ,vorzpromotion
+  ,umspromotion
+  ,promotionart
+FROM dbp_etl.kmo_wpuums_1 l
+INNER JOIN
+(
+  SELECT
+     landkz
+    ,filnr
+    ,belegdatum
+    ,(CASE WHEN dbp_etl_process.is_integer(filnr) = 0 THEN 'filnr'
+           WHEN NOT (($DATIC(belegdatum, 4))) THEN 'belegdatum'
+           WHEN dbp_etl_process.is_integer(artnr) = 0 THEN 'artnr'
+           WHEN dbp_etl_process.is_num(umsmenge) = 0 THEN 'umsmenge'
+           WHEN dbp_etl_process.is_num(umswert) = 0 THEN 'umswert'
+           WHEN dbp_etl_process.is_num(umspromotion) = 0 THEN 'umspromotion'
+           WHEN CAST(TRIM(artnr) AS DECIMAL(18,0)) > 2100000000 THEN 'artnr' -- Zahl groesser als Integer zulaesst
+           ELSE ''
+      END)  AS rfi_feld
+    ,(CASE WHEN rfi_feld = 'filnr' THEN 30001
+           WHEN rfi_feld = 'belegdatum' THEN 30003
+           WHEN rfi_feld = 'artnr' THEN 30001
+           WHEN rfi_feld = 'umsmenge' THEN 30001
+           WHEN rfi_feld = 'umswert' THEN 30001
+           WHEN rfi_feld = 'umspromotion' THEN 30001
+           ELSE 0
+      END) AS rfi_id
+  FROM dbp_etl.kmo_wpuums_1
+  WHERE rfi_feld <> ''
+
+  QUALIFY ROW_NUMBER() OVER(PARTITION BY landkz, filnr, belegdatum ORDER BY rfi_id desc) = 1
+) rfi
+ON l.landkz = rfi.landkz
+  AND l.filnr = rfi.filnr
+  AND l.belegdatum = rfi.belegdatum
+;
+
+
+
+DELETE FROM dbp_etl.kmo_wpuums_1
+WHERE (landkz, filnr, belegdatum) IN
+  (
+    SELECT
+      landkz, filnr, belegdatum
+    FROM dbp_etl_rfi.kmo_wpuums_1
+    
+    WHERE cycle_id = $CYCLE_ID
+      AND loop_id = $LOOP_ID
+      AND rfi_id IN ('30001', '30003')
+  )
+;
+*/
+
+
+/*
+#------------------------------------------------------------------------------
+# 7.) Pruefung Mindestanzahl Datensaetze pro Markttag
+#     Mindestanzahl Belege wird ueber CFG File im Aufruf mitgegeben.
+#------------------------------------------------------------------------------
+*/
+/*
+INSERT INTO dbp_etl_rfi.kmo_wpuums_1
+(
+   cycle_id
+  ,loop_id
+  ,rfi_id
+  ,rfi_feld
+  ,rfi_freigabe
+  ,rfi_datum
+  ,segnam
+  ,landkz
+  ,filnr
+  ,refnum
+  ,belegdatum
+  ,belegwaers
+  ,qualartnr
+  ,artnr
+  ,aktionsnr
+  ,vorzmenge
+  ,umsmenge
+  ,vorzwert
+  ,umswert
+  ,mwtax
+  ,wgr
+  ,vorzpromotion
+  ,umspromotion
+  ,promotionart
+)
+SELECT
+   $CYCLE_ID
+  ,$LOOP_ID
+  ,40011 AS rfi_id
+  ,'landkz, filnr, belegdatum' AS rfi_feld
+  ,'' AS rfi_freigabe
+  ,date AS rfi_datum
+  ,l.segnam
+  ,l.landkz
+  ,l.filnr
+  ,l.refnum
+  ,l.belegdatum
+  ,l.belegwaers
+  ,l.qualartnr
+  ,l.artnr
+  ,l.aktionsnr
+  ,l.vorzmenge
+  ,l.umsmenge
+  ,l.vorzwert
+  ,l.umswert
+  ,l.mwtax
+  ,l.wgr
+  ,l.vorzpromotion
+  ,l.umspromotion
+  ,l.promotionart
+FROM dbp_etl.kmo_wpuums_1 l
+
+INNER JOIN
+(
+  SELECT
+     landkz
+    ,filnr
+    ,belegdatum
+  FROM dbp_etl.kmo_wpuums_1
+
+  GROUP BY
+     landkz
+    ,filnr
+    ,belegdatum
+
+  HAVING COUNT(*) < $MIND_ANZ_BELEGE
+) rfi
+ON l.landkz = rfi.landkz
+  AND l.filnr = rfi.filnr
+  AND l.belegdatum = rfi.belegdatum
+;
+
+
+
+DELETE FROM dbp_etl.kmo_wpuums_1
+WHERE (landkz, filnr, belegdatum) IN
+  (
+    SELECT
+      landkz, filnr, belegdatum
+    FROM dbp_etl_rfi.kmo_wpuums_1
+    
+    WHERE cycle_id = $CYCLE_ID
+      AND loop_id = $LOOP_ID
+      AND rfi_id IN ('40011')
+  )
+;
+
+*/
+
+/*
+#------------------------------------------------------------------------------
+# 8.) RFI: Summe Umsatz pro Markttag muss groesser als 0 sein.
+#------------------------------------------------------------------------------
+*/
+/*
+INSERT INTO dbp_etl_rfi.kmo_wpuums_1
+(
+   cycle_id
+  ,loop_id
+  ,rfi_id
+  ,rfi_feld
+  ,rfi_freigabe
+  ,rfi_datum
+  ,segnam
+  ,landkz
+  ,filnr
+  ,refnum
+  ,belegdatum
+  ,belegwaers
+  ,qualartnr
+  ,artnr
+  ,aktionsnr
+  ,vorzmenge
+  ,umsmenge
+  ,vorzwert
+  ,umswert
+  ,mwtax
+  ,wgr
+  ,vorzpromotion
+  ,umspromotion
+  ,promotionart
+)
+SELECT
+   $CYCLE_ID
+  ,$LOOP_ID
+  ,40036 AS rfi_id
+  ,'refnum' AS rfi_feld
+  ,'' AS rfi_freigabe
+  ,DATE AS rfi_datum
+  ,segnam
+  ,landkz
+  ,filnr
+  ,refnum
+  ,belegdatum
+  ,belegwaers
+  ,qualartnr
+  ,artnr
+  ,aktionsnr
+  ,vorzmenge
+  ,umsmenge
+  ,vorzwert
+  ,umswert
+  ,mwtax
+  ,wgr
+  ,vorzpromotion
+  ,umspromotion
+  ,promotionart
+FROM dbp_etl.kmo_wpuums_1
+
+WHERE (landkz, filnr, belegdatum) IN 
+  (
+    SELECT
+       landkz
+      ,filnr
+      ,belegdatum
+    FROM dbp_etl.kmo_wpuums_1
+    
+    GROUP BY
+       landkz
+      ,filnr
+      ,belegdatum
+      
+    HAVING SUM
+      (
+        (CAST(SUBSTR(umswert, 24, 12) AS DECIMAL (12,2)) *
+        (CASE WHEN vorzwert = '-' THEN -1 ELSE 1 END)) 
+        +  --Promotionswert abziehen (negatives Vorzeichen deshalb addieren!!!)
+        (CAST(SUBSTR(umspromotion, 24, 12) AS DECIMAL (12,2)) *
+        (CASE WHEN vorzpromotion = '-' THEN -1 ELSE 1 END))
+      ) <= 0
+  ) 
+;
+
+
+
+DELETE FROM dbp_etl.kmo_wpuums_1
+WHERE (landkz, filnr, belegdatum) IN
+  (
+    SELECT
+      landkz, filnr, belegdatum
+    FROM dbp_etl_rfi.kmo_wpuums_1
+    
+    WHERE cycle_id = $CYCLE_ID
+      AND loop_id = $LOOP_ID
+      AND rfi_id = '40036'
+  )
+;
+*/
+
+
+/*
+#------------------------------------------------------------------------------
+# 9.) Anreichern der Ladetabelle mit den Lookupschluesseln
+#     mandant_id, art_id, wup_id, nb_id, zek_id, wg_id
+#------------------------------------------------------------------------------
+*/
+/*
+-- Datentypen sind im vorgehenden Schritt geprueft
+UPDATE dbp_etl.kmo_wpuums_1
+
+SET belegdatum_dat = TO_DATE(belegdatum,'YYYYMMDD')
+  , filnr_integer  = filnr 
+  , artnr_integer  = artnr
+;
+
+
+	
+-- mandant_id
+UPDATE dbp_etl.kmo_wpuums_1
+FROM dbp_etl_process.land_mandant_zu_1 m
+
+SET lkp_mandant_id = m.mandant_id
+
+WHERE dbp_etl.kmo_wpuums.landkz = m.land_id
+;
+
+
+
+-- wup_id, nb_id
+UPDATE dbp_etl.kmo_wpuums_1
+FROM dbp_data.wup_1 w
+
+SET lkp_wup_id = w.wup_id
+  , lkp_nb_id = w.nb_id
+
+WHERE dbp_etl.kmo_wpuums.lkp_mandant_id = w.mandant_id
+  AND dbp_etl.kmo_wpuums.filnr_integer = w.wup_id
+;
+
+*/
+
+-- art_id, zek_id, mwst_id, posten_id
+UPDATE dbp_etl.kmo_wpuums_1
+FROM
+(
+  SELECT
+     mandant_id
+    ,kl_art_id
+    ,art_id
+    ,zek_id
+    ,mwst_id
+    ,posten_id 
+  FROM dbp_data.art_1 a
+  
+ /* GROUP BY
+     mandant_id
+    ,kl_art_id    
+  QUALIFY CSUM(1, art_id DESC) = 1*/
+  QUALIFY ROW_NUMBER() OVER(PARTITION BY mandant_id, kl_art_id ORDER BY art_id desc) = 1
+) dt
+SET 
+/*lkp_art_id = dt.art_id
+  , lkp_zek_id = dt.zek_id
+  , lkp_mwst_id = dt.mwst_id 
+  , */
+lkp_posten_id = dt.posten_id 
+
+WHERE dbp_etl.kmo_wpuums.lkp_mandant_id = dt.mandant_id
+  AND dbp_etl.kmo_wpuums.artnr_integer = dt.kl_art_id
+;
+
+/*
+
+-- wg_id, arthiertyp_id 
+
+UPDATE dbp_etl.kmo_wpuums_1
+FROM dbp_data.art_wg_zu_per_1 w
+
+SET lkp_wg_id = w.wg_id
+  , lkp_arthiertyp_id = w.arthiertyp_id
+
+WHERE dbp_etl.kmo_wpuums.lkp_mandant_id = w.mandant_id
+  AND dbp_etl.kmo_wpuums.lkp_art_id = w.art_id
+  AND w.dat_bis = TO_DATE('99991231','YYYYMMDD')
+  AND w.arthiertyp_id = 2
+;
+
+
+
+-- Umrechnungskurs 
+UPDATE dbp_etl.kmo_wpuums_1
+FROM dbp_data.kurs_1 k
+
+SET lkp_umrechnungskurs = k.umrechnungskurs 
+
+WHERE dbp_etl.kmo_wpuums.belegwaers = k.von_wrg_id 
+  AND dbp_etl.kmo_wpuums.belegdatum_dat BETWEEN k.dat_von ANd k.dat_bis 
+  AND k.kurstyp_id = 9
+  AND k.nach_wrg_id = 'EUR'
+; 
+
+
+
+-- MWST Satz
+UPDATE dbp_etl.kmo_wpuums_1 
+FROM dbp_data.mwst_per_1 m
+
+SET lkp_mwst = m.mwst
+
+WHERE dbp_etl.kmo_wpuums.lkp_mandant_id = m.mandant_id
+  AND dbp_etl.kmo_wpuums.lkp_mwst_id = m.mwst_id
+  AND dbp_etl.kmo_wpuums.belegdatum_dat BETWEEN m.dat_von AND m.dat_bis
+; 
+
+*/
+
+/*
+#------------------------------------------------------------------------------
+# 10.) Pruefung referentielle Integritaet: 
+#      Mandant_1, Artikel_1, Markt, Umrechnungskurs, MWST, WG, ZEK_1
+#------------------------------------------------------------------------------
+*/
+/*
+INSERT INTO dbp_etl_rfi.kmo_wpuums_1
+(
+   cycle_id
+  ,loop_id
+  ,rfi_id
+  ,rfi_feld
+  ,rfi_freigabe
+  ,rfi_datum
+  ,segnam
+  ,landkz
+  ,filnr
+  ,refnum
+  ,belegdatum
+  ,belegwaers
+  ,qualartnr
+  ,artnr
+  ,aktionsnr
+  ,vorzmenge
+  ,umsmenge
+  ,vorzwert
+  ,umswert
+  ,mwtax
+  ,wgr
+  ,vorzpromotion
+  ,umspromotion
+  ,promotionart
+)
+SELECT
+   $CYCLE_ID
+  ,$LOOP_ID
+  ,rfi_id
+  ,rfi_feld
+  ,'' AS rfi_freigabe
+  ,DATE AS rfi_datum
+  ,l.segnam
+  ,l.landkz
+  ,l.filnr
+  ,l.refnum
+  ,l.belegdatum
+  ,l.belegwaers
+  ,l.qualartnr
+  ,l.artnr
+  ,l.aktionsnr
+  ,l.vorzmenge
+  ,l.umsmenge
+  ,l.vorzwert
+  ,l.umswert
+  ,l.mwtax
+  ,l.wgr
+  ,l.vorzpromotion
+  ,l.umspromotion
+  ,l.promotionart
+FROM dbp_etl.kmo_wpuums_1 l
+
+INNER JOIN
+(
+  SELECT
+     l.landkz
+    ,l.filnr
+    ,l.belegdatum
+    ,(CASE WHEN lkp_mandant_id IS NULL THEN 10197
+           WHEN lkp_art_id IS NULL THEN 10001
+           WHEN lkp_wup_id IS NULL THEN 10003
+           WHEN lkp_zek_id IS NULL THEN 10148
+           WHEN lkp_wg_id IS NULL THEN 10016
+           WHEN lkp_mwst IS NULL THEN 10196
+           WHEN lkp_umrechnungskurs IS NULL THEN 10023
+           ELSE 0
+      END)  AS rfi_id
+    ,(CASE WHEN lkp_mandant_id IS NULL THEN 'landkz'
+           WHEN lkp_art_id IS NULL THEN 'artnr'
+           WHEN lkp_wup_id IS NULL THEN 'filnr'
+           WHEN lkp_zek_id IS NULL THEN 'zek_1'
+           WHEN lkp_wg_id IS NULL THEN 'artnr, wg'
+           WHEN lkp_mwst IS NULL THEN 'mwtax'
+           WHEN lkp_umrechnungskurs IS NULL THEN 'belegwaers'
+           ELSE ''
+      END) AS rfi_feld
+  FROM dbp_etl.kmo_wpuums_1 l
+
+  WHERE rfi_id > 0
+  
+  QUALIFY ROW_NUMBER() OVER(PARTITION BY landkz, filnr, belegdatum ORDER BY rfi_id desc) = 1
+) rfi
+ON l.landkz = rfi.landkz
+  AND l.filnr = rfi.filnr
+  AND l.belegdatum = rfi.belegdatum
+;
+
+
+
+DELETE FROM dbp_etl.kmo_wpuums_1
+WHERE (landkz, filnr, belegdatum) IN
+  (
+    SELECT
+      landkz, filnr, belegdatum
+    FROM dbp_etl_rfi.kmo_wpuums_1
+    
+    WHERE cycle_id = $CYCLE_ID
+      AND loop_id = $LOOP_ID
+      AND rfi_id IN ('10197', '10001', '10003', '10196', '10023', '10016', '10148')
+  )
+;
+*/
+
+
+/*
+#------------------------------------------------------------------------------
+# 11.) Markttag ist schon geladen (nuer fuer Kassendaten relevant)
+#      Die temp. Tabelle kmo_wpuums_dat_1 wird im folgenden Beladescript benoetigt.
+#------------------------------------------------------------------------------
+*/
+
+-- Hilfstabelle fuer Join auf artbew_1
+INSERT INTO dbp_etl.kmo_wpuums_dat_1
+(
+  dat
+)
+SELECT
+  belegdatum_dat
+FROM dbp_etl.kmo_wpuums_1
+
+GROUP BY belegdatum_dat
+;
+
+/*
+INSERT INTO dbp_etl_rfi.kmo_wpuums_1
+(
+   cycle_id
+  ,loop_id
+  ,rfi_id
+  ,rfi_feld
+  ,rfi_freigabe
+  ,rfi_datum
+  ,segnam
+  ,landkz
+  ,filnr
+  ,refnum
+  ,belegdatum
+  ,belegwaers
+  ,qualartnr
+  ,artnr
+  ,aktionsnr
+  ,vorzmenge
+  ,umsmenge
+  ,vorzwert
+  ,umswert
+  ,mwtax
+  ,wgr
+  ,vorzpromotion
+  ,umspromotion
+  ,promotionart
+)
+SELECT
+   $CYCLE_ID
+  ,$LOOP_ID
+  ,40033 AS rfi_id
+  ,'landkz, filnr, belegdatum' AS rfi_feld
+  ,'' AS rfi_freigabe
+  ,DATE AS rfi_datum
+  ,l.segnam
+  ,l.landkz
+  ,l.filnr
+  ,l.refnum
+  ,l.belegdatum
+  ,l.belegwaers
+  ,l.qualartnr
+  ,l.artnr
+  ,l.aktionsnr
+  ,l.vorzmenge
+  ,l.umsmenge
+  ,l.vorzwert
+  ,l.umswert
+  ,l.mwtax
+  ,l.wgr
+  ,l.vorzpromotion
+  ,l.umspromotion
+  ,l.promotionart
+FROM dbp_etl.kmo_wpuums_1 l
+
+WHERE (lkp_mandant_id, lkp_wup_id, belegdatum_dat) IN
+  (
+    SELECT 
+       a.mandant_id
+      ,a.wup_id
+      ,a.dat
+    FROM dbp_data.artbew_1 a,
+    dbp_etl.kmo_wpuums_dat_1 t
+
+    WHERE a.dat = t.dat
+      AND a.mandant_id > 1 
+  )
+;
+
+
+
+DELETE FROM dbp_etl.kmo_wpuums_1
+WHERE (landkz, filnr, belegdatum) IN
+  (
+    SELECT
+      landkz, filnr, belegdatum
+    FROM dbp_etl_rfi.kmo_wpuums_1
+    
+    WHERE cycle_id = $CYCLE_ID
+      AND loop_id = $LOOP_ID
+      AND rfi_id = '40033'
+  )
+;
+*/
+
+
+/*
+#------------------------------------------------------------------------------
+# 12.) Markttag aelter als Eroeffnungsdatum des Marktes
+#------------------------------------------------------------------------------
+*/
+/*
+INSERT INTO dbp_etl_rfi.kmo_wpuums_1
+(
+   cycle_id
+  ,loop_id
+  ,rfi_id
+  ,rfi_feld
+  ,rfi_freigabe
+  ,rfi_datum
+  ,segnam
+  ,landkz
+  ,filnr
+  ,refnum
+  ,belegdatum
+  ,belegwaers
+  ,qualartnr
+  ,artnr
+  ,aktionsnr
+  ,vorzmenge
+  ,umsmenge
+  ,vorzwert
+  ,umswert
+  ,mwtax
+  ,wgr
+  ,vorzpromotion
+  ,umspromotion
+  ,promotionart
+)
+SELECT
+   $CYCLE_ID
+  ,$LOOP_ID
+  ,40031 AS rfi_id
+  ,'belegdatum' AS rfi_feld
+  ,'' AS rfi_freigabe
+  ,DATE AS rfi_datum
+  ,l.segnam
+  ,l.landkz
+  ,l.filnr
+  ,l.refnum
+  ,l.belegdatum
+  ,l.belegwaers
+  ,l.qualartnr
+  ,l.artnr
+  ,l.aktionsnr
+  ,l.vorzmenge
+  ,l.umsmenge
+  ,l.vorzwert
+  ,l.umswert
+  ,l.mwtax
+  ,l.wgr
+  ,l.vorzpromotion
+  ,l.umspromotion
+  ,l.promotionart
+FROM dbp_etl.kmo_wpuums_1 l
+
+INNER JOIN dbp_data.wup_1 w
+ON l.lkp_mandant_id = w.mandant_id
+  AND l.lkp_wup_id = w.wup_id
+  AND l.belegdatum_dat < w.dat_von
+;
+
+
+
+DELETE FROM dbp_etl.kmo_wpuums_1
+WHERE (landkz, filnr, belegdatum) IN
+  (
+    SELECT
+      landkz, filnr, belegdatum
+    FROM dbp_etl_rfi.kmo_wpuums_1
+    
+    WHERE cycle_id = $CYCLE_ID
+      AND loop_id = $LOOP_ID
+      AND rfi_id = '40031'
+  )
+;
+*/
+
+
+/*
+#------------------------------------------------------------------------------
+# 13.) Markttag liegt in der Zukunft
+#------------------------------------------------------------------------------
+*/
+/*
+INSERT INTO dbp_etl_rfi.kmo_wpuums_1
+(
+   cycle_id
+  ,loop_id
+  ,rfi_id
+  ,rfi_feld
+  ,rfi_freigabe
+  ,rfi_datum
+  ,segnam
+  ,landkz
+  ,filnr
+  ,refnum
+  ,belegdatum
+  ,belegwaers
+  ,qualartnr
+  ,artnr
+  ,aktionsnr
+  ,vorzmenge
+  ,umsmenge
+  ,vorzwert
+  ,umswert
+  ,mwtax
+  ,wgr
+  ,vorzpromotion
+  ,umspromotion
+  ,promotionart
+)
+SELECT
+   $CYCLE_ID
+  ,$LOOP_ID
+  ,40032 AS rfi_id
+  ,'belegdatum' AS rfi_feld
+  ,'' AS rfi_freigabe
+  ,DATE AS rfi_datum
+  ,segnam
+  ,landkz
+  ,filnr
+  ,refnum
+  ,belegdatum
+  ,belegwaers
+  ,qualartnr
+  ,artnr
+  ,aktionsnr
+  ,vorzmenge
+  ,umsmenge
+  ,vorzwert
+  ,umswert
+  ,mwtax
+  ,wgr
+  ,vorzpromotion
+  ,umspromotion
+  ,promotionart
+FROM dbp_etl.kmo_wpuums_1
+
+WHERE belegdatum_dat > CURRENT_DATE
+;
+
+
+
+DELETE FROM dbp_etl.kmo_wpuums_1
+WHERE (landkz, filnr, belegdatum) IN
+  (
+    SELECT
+      landkz, filnr, belegdatum
+    FROM dbp_etl_rfi.kmo_wpuums_1
+    WHERE cycle_id = $CYCLE_ID
+      AND loop_id = $LOOP_ID
+      AND rfi_id = '40032'
+  )
+;
+*/
+
+
+
+/*
+#------------------------------------------------------------------------------
+# Skriptname   : kmo_wpuums.btq
+# Erstelldatum : 14.10.2008
+#------------------------------------------------------------------------------
+# Projekt   : AIS KMO
+# Kommentar : Uebernahme der Daten der Schnittstelle WPUUMS Kasse fuer die
+#             Teilproejekte AIS und KMO
+# Quelle    : TABLE dbp_etl.kmo_wpuums_1
+# Ziel      : TABLE $DBX_RFI.kmo_wpuums_1
+#------------------------------------------------------------------------------
+# History:
+#   14.10.2008  Michael Ueding    Ersterstellung ...
+#   17.05.2011  Michael Ueding    Erweiterung wg. Promotion
+#   26.09.2011  Michael Ueding    Vorbelegung GLD Attribute mit 0
+#   11.11.2011  Michael Ueding    Verschluesselung GLD Attribute entfernt
+#   03.07.2012  Michael Ueding    Vorzeichen der Promotionsbetraege umgedreht
+#                                 (Analog zur Poslog Verarbeitung)
+#   15.08.2012  Torsten Bachmann  Protokollierung der Mandant_1-Tage fuer Aggregat art_bestand_vw_sum_1
+#   06.03.2014  David Bandeira    COLLECT STATS im Step 10
+#   04.06.2019  Dennis Bayraktar  Anreicherung fuer Aktionen jetzt ueber die neue
+#                                 Tabelle dbp_etl_process.marktabschriften_stamm.
+#------------------------------------------------------------------------------
+# Processing Steps
+#    1.) Logon auf der Datenbank
+#    2.) Erzeugen der temporaeren Tabellen
+#    3.) Befuellen der temporaeren Tabelle dbp_etl.kmo_wpuums_aktion_relevant_1
+#    4.) Befuellen der temporaeren Tabelle dbp_etl.artbew_kmo_tmp_1
+#    5.) Loeschen von bereits bestehenden Markttagen (die neue Version ersetzt die
+#        bestehende Version)
+#    6.) Aggregieren der neuen Datensaetze auf Tag_1, Art_1, Wup_1, GP_1 Ebene
+#    7.) Befuellen der Miniatur-Artbew_1 zur Ablage der Promotionswerte
+#    8.) Befuellen der Steuertabelle Artbew_agg_wt_1 als Aufsetzpunkt zur Bildung
+#        der Aggregate.
+#    9.) Update Wupcal_1 fuer gelieferte und verarbeitete Markttage
+#   10.) Zwischenspeichern der Markttage die gerade geladen wurden zur spteren
+#        Anreicherung mit EK Preisen
+#   11.) Zwischenspeichern der Mandanttage die gerade geladen wurden zur spteren
+#        Aggregation
+#   12.) Protokollierung Anzahl Datensaetze pro Mandant_1
+#   13.) Bereinigung der Load Umgebung_1
+#   14.) Bteq beenden
+#------------------------------------------------------------------------------
+*/
+
+
+
+CREATE OR REPLACE  TABLE dbp_etl.kmo_wpuums_art_gp_wup_zu_1
+(
+  mandant_id         BYTEINT NOT NULL,
+  art_id             INTEGER NOT NULL,
+  wup_id             INTEGER NOT NULL,
+  nb_id              SMALLINT NOT NULL,
+  dat                DATE NOT NULL,
+  bezugsweg_id       BYTEINT,
+  anz_ek_infosatz    SMALLINT,   -- Anzahl Infosaetze (1 wenn nur ungueltige vorhanden sind)
+  anz_ek_orderbuch   SMALLINT,   -- Anzahl Orderbuch gepflegt
+  bq_gp_id           INTEGER,    -- GP_1 nach Bezugsquellenfindung
+  bq_ekorg           SMALLINT,   -- Ekorg nach Bezugsquellenfindung
+  bq_findung_id      BYTEINT,    -- Ausstiegspunkt der Bezugsquellenfindung
+  regel_gp_id        INTEGER,    -- Regel GP_1 aus Einkaufsinfosatz
+  regel_ekorg        SMALLINT,   -- Regel Ekorg aus Einkaufsinfosatz
+  ref_wup_id         INTEGER,    -- VZ aus Kreisprozess fuer Bezugsweg 4 oder wup_id fuer Bezugsweg 1 fuer Zugriff auf EINA_1 und EORD_1
+  ref_nb_id          SMALLINT,   -- VZ aus Kreisprozess fuer Bezugsweg 4 oder wup_id fuer Bezugsweg 1 fuer Zugriff auf EINA_1 und EORD_1
+  kreistyp_gruppe_id CHAR(4) , -- Kreistyp_gruppe aus Marktstamm.
+  wg_id              SMALLINT,   -- Warengruppe fuer Zugriff auf vz_wup_wg_zu_per
+  umrechnungskurs    FLOAT       -- Kurs_1 fuer die Umrechnung von Landeswaehrung in Euro
+)
+;
+
+
+CREATE OR REPLACE TABLE dbp_etl.art_best_vw_sum_artbew_kmo_dat_1 
+(  
+  mandant_id BYTEINT NOT NULL, 
+  dat DATE
+)
+;
+
+
+
+
+/*
+#------------------------------------------------------------------------------
+# 2.) Erzeugen der temporaeren Tabellen
+#------------------------------------------------------------------------------
+*/
+
+
+DROP TABLE IF EXISTS dbp_etl.kmo_wpuums_aktion_relevant_1;
+
+
+DROP TABLE IF EXISTS dbp_etl.artbew_kmo_tmp_1;
+
+
+CREATE  TABLE dbp_etl.kmo_wpuums_aktion_relevant_1
+(
+  mandant_id  BYTEINT NOT NULL,
+  aktion_id   CHAR(10)  NOT NULL,
+  bewart_id   SMALLINT NOT NULL,
+  dat         DATE NOT NULL,
+  art_id      INTEGER NOT NULL,
+  wup_id      INTEGER NOT NULL,
+  nb_id       SMALLINT NOT NULL,
+  anz_aktion  SMALLINT NOT NULL
+)
+;
+
+
+CREATE TABLE dbp_etl.artbew_kmo_tmp_1 like dbp_data.artbew_1 
+;
+
+/*
+#------------------------------------------------------------------------------
+# 4.) Befuellen der temporaeren Tabelle dbp_etl.artbew_kmo_tmp_1
+#------------------------------------------------------------------------------
+*/
+
+-- Bonuskauf Polska
+
+INSERT INTO dbp_etl.artbew_kmo_tmp_1
+(
+   mandant_id
+  ,wup_id
+  ,nb_id
+  ,art_id
+  ,gp_id
+  ,einkaufsorganisation_id
+  ,bewart_id
+  ,dat
+  ,aktion_id
+  ,herst_id
+  ,mwst_id
+  ,wrg_1
+  ,posten_id
+  ,bezugsweg_id
+  ,menge
+  ,umsatz_netto
+  ,diff_umsatz_netto_konz
+  ,umsatz_mwst_betrag
+  ,diff_umsatz_mwst_betrag_konz
+  ,promo_fg
+)
+SELECT
+   mandant_id
+  ,wup_id
+  ,nb_id
+  ,art_id
+  ,gp_id
+  ,einkaufsorganisation_id
+  ,bewart_id
+  ,dat
+  ,aktion_id
+  ,herst_id
+  ,mwst_id
+  ,wrg_1
+  ,posten_id
+  ,bezugsweg_id
+  ,menge
+  ,umsatz_netto
+  ,diff_umsatz_netto_konz
+  ,umsatz_mwst_betrag
+  ,diff_umsatz_mwst_betrag_konz
+  ,promo_fg
+FROM
+(
+  SELECT
+     lkp_mandant_id AS mandant_id
+    ,lkp_wup_id AS wup_id
+    ,lkp_nb_id AS nb_id
+    ,lkp_art_id AS art_id
+    ,-1 AS gp_id
+    ,-1 AS einkaufsorganisation_id
+    ,CASE
+       WHEN lkp_mandant_id = 3 AND
+            l.promotionart = 'RB19'
+       THEN 1002
+       WHEN lkp_mandant_id = 3 AND
+            l.promotionart <> 'RB19' AND
+            s.aktion_typ_id IS NULL AND
+            t.konditionsart_id IS NULL
+       THEN COALESCE(r.bewart_id, 1001)
+       ELSE COALESCE(r.bewart_id, 1001)
+     END AS bewart_id
+    ,belegdatum_dat AS dat
+    ,CASE
+       WHEN lkp_mandant_id = 3 AND
+            l.promotionart = 'RB19'
+       THEN ''
+       WHEN lkp_mandant_id = 3 AND
+            l.promotionart <> 'RB19' AND
+            s.aktion_typ_id IS NULL AND
+            t.konditionsart_id IS NULL
+       THEN COALESCE(r.aktion_id, '')
+       ELSE COALESCE(r.aktion_id, '')
+     END AS aktion_id
+    ,-1 AS herst_id
+    ,lkp_mwst_id AS mwst_id 
+    ,belegwaers AS wrg_1
+    ,COALESCE(lkp_posten_id, ' ') AS posten_id -- Fuer die KMO Laender ist die PostenID im Artikelstamm noch nicht vollstaendig gepflegt
+    ,0 AS bezugsweg_id    -- lt. Hr. Ferber 31.10.2008
+    ,CAST(SUBSTRING(umsmenge, 16, 20) AS DECIMAL(18,4)) * 
+     (CASE WHEN vorzmenge = '-' THEN (-1) ELSE 1 END) * (-1) AS menge
+     -- Mai 2011: Umsatz Brutto = Belegbetrag minus Betrag Promotion (Promo mit negativen Vorzeichen deshalb addieren!!!)
+    ,CASE
+       WHEN vorzmenge = '+' AND
+            vorzpromotion = '-' AND
+            l.promotionart = 'RB19'
+       THEN CAST(SUBSTRING(umspromotion, 16, 20) AS DECIMAL(18,4))
+       ELSE CAST(SUBSTRING(umspromotion, 16, 20) AS DECIMAL(18,4)) * (CASE WHEN vorzpromotion = '-' THEN (-1) ELSE 1 END)
+     END AS umsatz_promotion
+    ,CAST(SUBSTRING(umswert, 16, 20) AS DECIMAL(18,4)) *
+     (CASE WHEN vorzwert = '-' THEN (-1) ELSE 1 END) AS umsatz_brutto_inkl_promo 
+    ,(umsatz_brutto_inkl_promo + umsatz_promotion) AS umsatz_brutto    /*noch ohne Kursumrechnung*/
+    ,CAST(umsatz_brutto / (1+(lkp_mwst/100)) AS DECIMAL(18,4)) AS umsatz_netto
+
+     --  ,CAST(CAST(umsatz_brutto AS DECIMAL (12,2))/ (mwst.mwst /100 + 1) AS DECIMAL(12,2)) AS umsatz_netto
+     --  Diese Umsatz_netto Berechnung wuerde das exakt gleiche Ergebnis liefern wie die "alte" MIS Verarbeitung
+     --  (MIS rechnet nur mit zwei Nachkommastellen -> deshalb ungenauer),
+     --  AIS rechnet mit vier Nachkommastellen und erst beim Insert in die Zeiltabelle artbew_wg_sum_1 wird auf zwei
+     --  Nachkommastellen reduziert (s.o.), damit gibt es eine_1 Abweichung zwischen der bestehenden MIS Verarbeitung
+     --  und der neuen AIS Verarbeitung.
+
+    ,(umsatz_brutto - umsatz_netto) AS umsatz_mwst_betrag
+    ,umsatz_netto * lkp_umrechnungskurs AS diff_umsatz_netto_konz
+    ,umsatz_mwst_betrag * lkp_umrechnungskurs AS diff_umsatz_mwst_betrag_konz
+     -- die folgenden EK Attribute werden bis auf weiteres mit dem Wert 0
+     -- im abschlieenden Insert in die Zieltabelle verschluesselt initialisiert (s.u.)
+    ,CASE WHEN umsatz_promotion <> 0
+          THEN 1
+          ELSE 0 
+     END AS promo_fg /*Kennzeichen ob in der Position ein Promotionsbetrag enthalten ist*/
+  FROM dbp_etl.kmo_wpuums_1 l
+
+  LEFT OUTER JOIN dbp_etl_process.marktabschriften_stamm_1 r
+  ON l.lkp_mandant_id = r.mandant_id
+    AND l.lkp_art_id = r.art_id
+    AND l.lkp_wup_id = r.wup_id
+    AND l.lkp_nb_id = r.nb_id
+    AND l.belegdatum_dat = r.dat
+    
+  LEFT OUTER JOIN dbp_data.aktion_1 s
+    ON l.lkp_mandant_id = s.mandant_id AND
+       r.aktion_id = s.aktion_id AND
+       l.belegdatum_dat BETWEEN s.dat_von AND s.dat_bis
+       
+  LEFT OUTER JOIN (SELECT mandant_id,
+                          aktion_id,
+                          MAX(konditionsart_id) AS konditionsart_id
+                   FROM dbp_data.l_bonuskauf_1
+                   GROUP BY 1,2) t
+    ON l.lkp_mandant_id = t.mandant_id AND
+       r.aktion_id = t.aktion_id
+       
+  WHERE l.lkp_mandant_id = 3
+       
+) a
+;
+
+
+
+-- Bonuskauf normal
+
+INSERT INTO dbp_etl.artbew_kmo_tmp_1
+(
+   mandant_id
+  ,wup_id
+  ,nb_id
+  ,art_id
+  ,gp_id
+  ,einkaufsorganisation_id
+  ,bewart_id
+  ,dat
+  ,aktion_id
+  ,herst_id
+  ,mwst_id
+  ,wrg_1
+  ,posten_id
+  ,bezugsweg_id
+  ,menge
+  ,umsatz_netto
+  ,diff_umsatz_netto_konz
+  ,umsatz_mwst_betrag
+  ,diff_umsatz_mwst_betrag_konz
+  ,promo_fg
+)
+SELECT
+   mandant_id
+  ,wup_id
+  ,nb_id
+  ,art_id
+  ,gp_id
+  ,einkaufsorganisation_id
+  ,bewart_id
+  ,dat
+  ,aktion_id
+  ,herst_id
+  ,mwst_id
+  ,wrg_1
+  ,posten_id
+  ,bezugsweg_id
+  ,menge
+  ,umsatz_netto
+  ,diff_umsatz_netto_konz
+  ,umsatz_mwst_betrag
+  ,diff_umsatz_mwst_betrag_konz
+  ,promo_fg
+FROM
+(
+  SELECT
+     lkp_mandant_id AS mandant_id
+    ,lkp_wup_id AS wup_id
+    ,lkp_nb_id AS nb_id
+    ,lkp_art_id AS art_id
+    ,-1 AS gp_id
+    ,-1 AS einkaufsorganisation_id
+    ,COALESCE(r.bewart_id, 1001) AS bewart_id
+    ,belegdatum_dat AS dat
+    ,COALESCE(r.aktion_id, '') AS aktion_id
+    ,-1 AS herst_id
+    ,lkp_mwst_id AS mwst_id 
+    ,belegwaers AS wrg_1
+    ,COALESCE(lkp_posten_id, ' ') AS posten_id -- Fuer die KMO Laender ist die PostenID im Artikelstamm noch nicht vollstaendig gepflegt
+    ,0 AS bezugsweg_id    -- lt. Hr. Ferber 31.10.2008
+    ,CAST(SUBSTRING(umsmenge , 16 , 20) AS DECIMAL(18,4)) * 
+     (CASE WHEN vorzmenge = '-' THEN (-1) ELSE 1 END) * (-1) AS menge
+     -- Mai 2011: Umsatz Brutto = Belegbetrag minus Betrag Promotion (Promo mit negativen Vorzeichen deshalb addieren!!!)
+    ,CAST(SUBSTRING(umspromotion , 16 , 20) AS DECIMAL(18,4)) *
+     (CASE WHEN vorzpromotion = '-' THEN (-1) ELSE 1 END) AS umsatz_promotion
+    ,CAST(SUBSTRING(umswert , 16 , 20) AS DECIMAL(18,4)) *
+     (CASE WHEN vorzwert = '-' THEN (-1) ELSE 1 END) AS umsatz_brutto_inkl_promo 
+    ,(umsatz_brutto_inkl_promo + umsatz_promotion) AS umsatz_brutto    /*noch ohne Kursumrechnung*/
+    ,CAST(umsatz_brutto / (1+(lkp_mwst/100)) AS DECIMAL(18,4)) AS umsatz_netto
+
+     --  ,CAST(CAST(umsatz_brutto AS DECIMAL (12,2))/ (mwst.mwst /100 + 1) AS DECIMAL(12,2)) AS umsatz_netto
+     --  Diese Umsatz_netto Berechnung wuerde das exakt gleiche Ergebnis liefern wie die "alte" MIS Verarbeitung
+     --  (MIS rechnet nur mit zwei Nachkommastellen -> deshalb ungenauer),
+     --  AIS rechnet mit vier Nachkommastellen und erst beim Insert in die Zeiltabelle artbew_wg_sum_1 wird auf zwei
+     --  Nachkommastellen reduziert (s.o.), damit gibt es eine_1 Abweichung zwischen der bestehenden MIS Verarbeitung
+     --  und der neuen AIS Verarbeitung.
+
+    ,(umsatz_brutto - umsatz_netto) AS umsatz_mwst_betrag
+    ,umsatz_netto * lkp_umrechnungskurs AS diff_umsatz_netto_konz
+    ,umsatz_mwst_betrag * lkp_umrechnungskurs AS diff_umsatz_mwst_betrag_konz
+     -- die folgenden EK Attribute werden bis auf weiteres mit dem Wert 0
+     -- im abschlieenden Insert in die Zieltabelle verschluesselt initialisiert (s.u.)
+    ,CASE WHEN umsatz_promotion <> 0
+          THEN 1
+          ELSE 0 
+     END AS promo_fg /*Kennzeichen ob in der Position ein Promotionsbetrag enthalten ist*/
+  FROM dbp_etl.kmo_wpuums_1 l
+
+  LEFT OUTER JOIN dbp_etl_process.marktabschriften_stamm_1 r
+  ON l.lkp_mandant_id = r.mandant_id
+    AND l.lkp_art_id = r.art_id
+    AND l.lkp_wup_id = r.wup_id
+    AND l.lkp_nb_id = r.nb_id
+    AND l.belegdatum_dat = r.dat
+    
+  WHERE l.lkp_mandant_id <> 3
+) a
+;
+
+
+
+/*
+#------------------------------------------------------------------------------
+# 5.) Loeschen von bereits bestehenden Markttagen (die neue Version ersetzt die
+#     bestehende Version)
+#------------------------------------------------------------------------------
+*/
+
+
+DELETE FROM dbp_data.artbew_1 a USING dbp_etl.kmo_wpuums_dat_1
+WHERE a.dat = dbp_etl.kmo_wpuums_dat.dat
+  AND (a.mandant_id, a.wup_id, a.dat) IN
+  (
+    SELECT
+       mandant_id
+      ,wup_id
+      ,dat
+    FROM dbp_etl.artbew_kmo_tmp_1
+  )
+  AND bewart_id <> 1010
+;
+
+
+	
+DELETE FROM dbp_data.artbew_promotion_zu_1 a USING dbp_etl.kmo_wpuums_dat_1
+WHERE a.dat = dbp_etl.kmo_wpuums_dat.dat
+  AND (a.mandant_id, a.wup_id, a.dat) IN
+  (
+    SELECT
+       mandant_id
+      ,wup_id
+      ,dat
+    FROM dbp_etl.artbew_kmo_tmp_1
+    WHERE promo_fg = 1
+  )
+  -- nur Promotionsbetraege aus Wpuums loeschen
+  AND a.konditionsart_id = 'RB19'
+;
+
+
+
+/*
+#------------------------------------------------------------------------------
+# 6.) Aggregieren der neuen Datensaetze auf Tag_1, Art_1, Wup_1, GP_1 Ebene
+#------------------------------------------------------------------------------
+*/
+
+INSERT INTO dbp_data.artbew_1
+(
+   mandant_id
+  ,wup_id
+  ,nb_id
+  ,art_id
+  ,promo_fg 
+  ,gp_id
+  ,einkaufsorganisation_id
+  ,bewart_id
+  ,dat
+  ,aktion_id
+  ,herst_id
+  ,mwst_id
+  ,wrg_1
+  ,posten_id
+  ,bezugsweg_id
+  ,menge
+  ,umsatz_netto
+  ,diff_umsatz_netto_konz
+  ,umsatz_mwst_betrag
+  ,diff_umsatz_mwst_betrag_konz
+  ,ek_brutto
+  ,diff_ek_brutto_konz
+  ,ek_netto
+  ,diff_ek_netto_konz
+  ,ek_nettonetto
+  ,diff_ek_nettonetto_konz
+  ,ek_kal_basis
+  ,diff_ek_kal_basis_konz
+  ,ek_mep
+  ,diff_ek_mep_konz
+  ,einstandspreis
+  ,diff_einstandspreis_konz
+  ,logkostenzuschlag
+  ,diff_logkostenzuschlag_konz
+  ,ek_netto_bnk
+  ,diff_ek_netto_bnk_konz
+  ,ek_netto_bnk_sachk
+  ,diff_ek_netto_bnk_sachk_konz
+  ,ek_gld
+  ,diff_ek_gld_konz
+  ,td_insert
+  ,td_update
+)
+SELECT
+   mandant_id
+  ,wup_id
+  ,nb_id
+  ,art_id
+  ,promo_fg
+  ,gp_id
+  ,einkaufsorganisation_id
+  ,bewart_id
+  ,dat
+  ,aktion_id
+  ,herst_id
+  ,mwst_id
+  ,wrg_1
+  ,posten_id
+  ,bezugsweg_id
+  ,menge_sum
+  ,umsatz_netto_sum
+  ,diff_umsatz_netto_konz_sum
+  ,umsatz_mwst_betrag_sum
+  ,diff_umsatz_mwst_betrag_konz_s
+  ,zero_enc AS ek_brutto
+  ,zero_enc AS diff_ek_brutto_konz
+  ,zero_enc AS ek_netto
+  ,zero_enc AS diff_ek_netto_konz
+  ,zero_enc AS ek_nettonetto
+  ,zero_enc AS diff_ek_nettonetto_konz
+  ,zero_enc AS ek_kal_basis
+  ,zero_enc AS diff_ek_kal_basis_konz
+  ,zero_enc AS ek_mep
+  ,zero_enc AS diff_ek_mep_konz
+  ,zero_enc AS einstandspreis
+  ,zero_enc AS diff_einstandspreis_konz
+  ,0 AS logkostenzuschlag
+  ,0 AS diff_logkostenzuschlag_konz
+  ,zero_enc AS ek_netto_bnk
+  ,zero_enc AS diff_ek_netto_bnk_konz
+  ,zero_enc AS ek_netto_bnk_sachk
+  ,zero_enc AS diff_ek_netto_bnk_sachk_konz
+  ,0 AS ek_gld
+  ,0 AS diff_ek_gld_konz
+  ,CURRENT_TIMESTAMP as td_insert
+  ,CURRENT_TIMESTAMP as td_update
+FROM
+(
+  SELECT
+     mandant_id
+    ,wup_id
+    ,nb_id
+    ,art_id
+    ,promo_fg
+    ,gp_id
+    ,einkaufsorganisation_id
+    ,bewart_id
+    ,dat
+    ,aktion_id
+    ,herst_id
+    ,mwst_id
+    ,wrg_1
+    ,posten_id
+    ,bezugsweg_id
+    ,SUM(menge                       ) AS menge_sum
+    ,SUM(umsatz_netto                ) AS umsatz_netto_sum
+    ,SUM(diff_umsatz_netto_konz      ) AS diff_umsatz_netto_konz_sum
+    ,SUM(umsatz_mwst_betrag          ) AS umsatz_mwst_betrag_sum
+    ,SUM(diff_umsatz_mwst_betrag_konz) AS diff_umsatz_mwst_betrag_konz_s
+    ,0  AS zero_enc
+  FROM dbp_etl.artbew_kmo_tmp_1
+  GROUP BY
+     mandant_id
+    ,wup_id
+    ,nb_id
+    ,art_id
+    ,promo_fg
+    ,gp_id
+    ,einkaufsorganisation_id
+    ,bewart_id
+    ,dat
+    ,aktion_id
+    ,herst_id
+    ,mwst_id
+    ,wrg_1
+    ,posten_id
+    ,bezugsweg_id
+    ,zero_enc
+) a
+;
+
+
+
+/*
+#------------------------------------------------------------------------------
+# 7.) Befuellen der Miniatur-Artbew_1 zur Ablage der Promotionswerte
+#------------------------------------------------------------------------------
+*/
+
+INSERT INTO dbp_data.artbew_promotion_zu_1
+(
+   mandant_id
+  ,wup_id
+  ,nb_id
+  ,art_id
+  ,dat
+  ,bonuskauf_id
+  ,konditionsart_id
+  ,wrg_id
+  ,betrag_promo_netto
+  ,betrag_mwst
+  ,umrechnungskurs 
+  ,system_id
+)
+SELECT 
+   mandant_id
+  ,wup_id
+  ,nb_id
+  ,art_id
+  ,dat
+  ,bonuskauf_id
+  ,konditionsart_id
+  ,wrg_id
+  ,SUM(betrag_promo_netto) * (-1.0000) /*Positives Vorzeichen*/
+  ,SUM(betrag_mwst)        * (-1.0000) /*Positives Vorzeichen*/
+  ,umrechnungskurs 
+  ,system_id
+FROM 
+(
+  SELECT
+     lkp_mandant_id AS mandant_id
+    ,lkp_wup_id AS wup_id
+    ,lkp_nb_id AS nb_id
+    ,lkp_art_id AS art_id
+    ,belegdatum_dat AS dat
+    ,'' AS bonuskauf_id 
+    ,COALESCE(TRIM(promotionart), '') AS konditionsart_id 
+    ,belegwaers AS wrg_id
+    ,CAST(SUBSTRING(umspromotion , 16 , 20) AS DECIMAL(18,4)) *
+     (CASE WHEN vorzpromotion = '-' THEN (-1) ELSE 1 END) AS promotion_brutto /*noch ohne Kursumrechnung*/
+    ,CAST(promotion_brutto / (1+(lkp_mwst/100)) AS DECIMAL(18,4)) AS betrag_promo_netto
+    ,(promotion_brutto - betrag_promo_netto) AS betrag_mwst
+    ,lkp_umrechnungskurs AS umrechnungskurs 
+    ,COALESCE(k.system_id, 0) AS system_id 
+  FROM dbp_etl.kmo_wpuums_1 l
+    
+  -- eigentlich Inner Join, muss aber nochmal geklaert werden.
+  LEFT OUTER JOIN dbp_data.l_konditionsart_1 k
+  ON l.lkp_mandant_id = k.mandant_id 
+    AND TRIM(promotionart) = k.konditionsart_id 
+      
+  WHERE promotion_brutto <> 0
+) p
+
+GROUP BY 
+   mandant_id
+  ,wup_id
+  ,nb_id
+  ,art_id
+  ,dat
+  ,bonuskauf_id
+  ,konditionsart_id
+  ,wrg_id
+  ,umrechnungskurs 
+  ,system_id
+; 
+
+
+
+/*
+#------------------------------------------------------------------------------
+# 8.) Befuellein der Steuertabelle Artbew_agg_wt_1 als Aufsetzpunkt zur Bildung
+#     der Aggregate.
+#------------------------------------------------------------------------------
+*/
+
+INSERT INTO dbp_data.artbew_agg_wt_1
+(
+   mandant_id
+  ,wup_id
+  ,nb_id
+  ,dat
+)
+SELECT
+   mandant_id
+  ,wup_id
+  ,nb_id
+  ,dat
+FROM dbp_etl.artbew_kmo_tmp_1
+WHERE
+  (
+     mandant_id
+    ,wup_id
+    ,nb_id
+    ,dat
+  )
+  NOT IN
+  (
+    SELECT
+       mandant_id
+      ,wup_id
+      ,nb_id
+      ,dat
+    FROM dbp_data.artbew_agg_wt_1
+  )
+
+GROUP BY 1,2,3,4
+;
+
+
+
+/*
+#------------------------------------------------------------------------------
+# 9.) Update Wupcal_1 fuer gelieferte und verarbeitete Markttage
+#------------------------------------------------------------------------------
+*/
+
+UPDATE  dbp_data.wupcal_1
+   SET  datenlieferung_artbew = 1,
+        dat_extrakt_umsatz = CURRENT_DATE,
+        td_update = CURRENT_TIMESTAMP
+WHERE (mandant_id, wup_id, nb_id, dat) IN
+  (
+    SELECT
+      mandant_id, wup_id, nb_id, dat
+    FROM dbp_etl.artbew_kmo_tmp_1
+  )
+;
+
+
+
+/*
+#------------------------------------------------------------------------------
+# 10.) Zwischenspeichern der Markttage die gerade geladen wurden zur spteren
+#     Anreicherung mit EK Preisen
+#------------------------------------------------------------------------------
+*/
+
+-- nur noch nicht vorhandene Kombinationen speichern
+INSERT INTO dbp_etl.kmo_wpuums_art_gp_wup_zu_1
+(
+   mandant_id
+  ,wup_id
+  ,nb_id
+  ,art_id
+  ,dat
+  ,bezugsweg_id
+  ,anz_ek_infosatz
+  ,anz_ek_orderbuch
+  ,bq_gp_id
+  ,bq_ekorg
+  ,bq_findung_id
+  ,regel_gp_id
+  ,regel_ekorg
+  ,ref_wup_id
+  ,ref_nb_id
+  ,wg_id
+  ,kreistyp_gruppe_id
+  ,umrechnungskurs
+)
+SELECT
+   lkp_mandant_id
+  ,lkp_wup_id
+  ,lkp_nb_id
+  ,lkp_art_id
+  ,belegdatum_dat
+  ,0 AS bezugsweg_id
+  ,0 AS anz_ek_infosatz
+  ,0 AS anz_ek_orderbuch
+  ,0 AS bq_gp_id
+  ,0 AS bq_ekorg
+  ,0 AS bq_findung_id
+  ,0 AS regel_gp_id
+  ,0 AS regel_ekorg
+  ,0 AS ref_wup_id
+  ,0 AS ref_nb_id
+  ,0 AS wg_id
+  ,'' AS kreistyp_gruppe_id 
+  ,lkp_umrechnungskurs
+FROM dbp_etl.kmo_wpuums_1 a
+
+WHERE (lkp_mandant_id, lkp_wup_id, lkp_nb_id, lkp_art_id, belegdatum_dat) NOT IN
+  (
+    SELECT
+       mandant_id
+      ,wup_id
+      ,nb_id
+      ,art_id
+      ,dat
+    FROM dbp_etl.kmo_wpuums_art_gp_wup_zu_1
+  )
+
+GROUP BY
+   lkp_mandant_id
+  ,lkp_wup_id
+  ,lkp_nb_id
+  ,lkp_art_id
+  ,belegdatum_dat
+  ,lkp_umrechnungskurs
+;
+
+
+/*
+#------------------------------------------------------------------------------
+# 11.) Zwischenspeichern der Mandanttage die gerade geladen wurden zur spaeteren
+#      Aggregation
+#------------------------------------------------------------------------------
+*/
+
+-- nur noch nicht vorhandene Kombinationen speichern
+INSERT INTO dbp_etl.art_best_vw_sum_artbew_kmo_dat_1
+(
+   mandant_id
+  ,dat
+)
+SELECT
+   mandant_id
+  ,dat
+FROM dbp_etl.kmo_wpuums_art_gp_wup_zu_1
+WHERE (mandant_id, dat) NOT IN
+  (SELECT mandant_id, dat
+   FROM dbp_etl.art_best_vw_sum_artbew_kmo_dat_1
+  )
+GROUP BY 1,2
+;
+
+
+
+/*
+#------------------------------------------------------------------------------
+# 12.) Protokollierung Anzahl Datensaetze pro Mandant_1
+#------------------------------------------------------------------------------
+*/
+
+---CONTROLL_STEP
+/*INSERT INTO dbp_etl_process.load_chk_figures_1
+(
+   cycle_id
+  ,sql_name
+  ,sql_type
+  ,record_count
+  ,durationsec
+  ,err_count
+  ,job_name
+  ,scr_name
+  ,loop_id
+  ,proc_type
+)
+SELECT
+   $CYCLE_ID
+  ,CASE WHEN mandant_id = 2 THEN 'CONTRL:kmo_wpuumskasse_CZ'
+        WHEN mandant_id = 3 THEN 'CONTRL:kmo_wpuumskasse_PL'
+        WHEN mandant_id = 5 THEN 'CONTRL:kmo_wpuumskasse_SK'
+        WHEN mandant_id = 6 THEN 'CONTRL:kmo_wpuumskasse_HR'
+        WHEN mandant_id = 7 THEN 'CONTRL:kmo_wpuumskasse_RO'
+        WHEN mandant_id = 8 THEN 'CONTRL:kmo_wpuumskasse_BG'
+        ELSE 'N/A' END   AS sql_name
+  ,'CONTRL'  AS sql_type
+  ,COUNT(*)
+  ,0 AS durationsec
+  ,0 AS err_count
+  ,CASE WHEN SUBSTRING('$JOB_NAME' FROM 1 FOR 1) = '$' THEN '' ELSE '$JOB_NAME' END   AS job_name
+  ,CASE WHEN SUBSTRING('$PROC_NAME' FROM 1 FOR 1) = '$' THEN '' ELSE '$PROC_NAME' END AS scr_name
+  ,$LOOP_ID AS loop_id
+  ,CASE WHEN SUBSTRING('$PROC_TYPE' FROM 1 FOR 1) = '$' THEN '' ELSE '$PROC_TYPE' END
+FROM dbp_etl.artbew_kmo_tmp_1
+GROUP BY 1,2,3,5,6,7,8,9,10
+;
+
+*/
+/*
+#------------------------------------------------------------------------------
+# 13.) Bereinigung der Load Umgebung_1
+#------------------------------------------------------------------------------
+*/
+
+DROP TABLE dbp_etl.artbew_kmo_tmp_1;
+
+DROP TABLE dbp_etl.kmo_wpuums_aktion_relevant_1;
+
+
+/*
+#------------------------------------------------------------------------------
+# 14.) Bteq beenden
+#------------------------------------------------------------------------------
+*/
+

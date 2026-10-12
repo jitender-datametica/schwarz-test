@@ -1,0 +1,17 @@
+--==============================================================
+-- Table: kampagne_nachricht_aktion_typ_spr_zu_1
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: kampagne_nachricht_aktion_typ_spr_zu_1
+   generated from Powerdesigner on Samstag, 12. Oktober 2024 16:01:47
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE DBP_DATA.KAMPAGNE_NACHRICHT_AKTION_TYP_SPR_ZU_1 (
+   mandant_id                          NUMBER(38,0)     NOT NULL COMMENT 'Mandant_1 im DWH.',
+   nachricht_aktion_typ_id             NUMBER(38,0)     NOT NULL COMMENT 'ID, die die Art_1 der ausgeführten Aktion_1 angibt.',
+   spr_id                              NUMBER(38,0)     NOT NULL COMMENT 'ID der DWH-Sprache, z.B. 22 = Deutsch, 24 = Englisch, etc.',
+   nachricht_aktion_typ_bez            VARCHAR(200)     NOT NULL COMMENT 'Bezeichnung des Absendungaktionen in unterschiedlichen Sprachen, z. B. Gesendet, Blockiert, Zugestellt, Bounced, Geöffnet, Feedback Loop, Link geklicked, usw.',
+   TD_UPDATE                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   TD_INSERT                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   CONSTRAINT PK_KAMPAGNE_NACHRICHT_AKTION_TYP_SPR_ZU PRIMARY KEY (mandant_id, nachricht_aktion_typ_id, spr_id) NOT ENFORCED
+)  COMMENT = 'Sprachabhängige Bezeichnungen der Aktionstypen für Marketingkampagnen - manuell versorgt.';

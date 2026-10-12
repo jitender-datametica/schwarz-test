@@ -1,0 +1,54 @@
+CREATE OR REPLACE VIEW P_LEW_MART_LEAD_AC.V_AGG_MISS_UWG_STORE_WEEK_1 COMMENT = 'Counts the missing items per store/week/UWG'
+(
+  client_id                     COMMENT 'MIS Client ID'
+, loc_sid_wh                    COMMENT 'S-Key der Gesellschaft'
+, move_to_store_id              COMMENT 'S-Key der Location_1, hier der Filiale'
+, wh_id                         COMMENT 'Gesellschaft ID'
+, orig_store_nr                 COMMENT 'Store ID'
+, aspect_id                     COMMENT 'Gesellschaftsform (1 = Betriebs- 2 = Vertriebsgesellschaft)'
+, currency_iso_cd               COMMENT '3 stelliger Währungs-Code'
+, curr_tot_id                   COMMENT 'Interner Währungs-Code'
+, item_grp_int_sid              COMMENT 'S-Key für Internationale Warengruppe'
+, sub_item_grp_sid              COMMENT 'S-Key für Unterwarengruppe'
+, itemgroup_int_id              COMMENT 'Warengruppe ID'
+, subitemgroup_id               COMMENT 'Unterwarengruppe ID'
+, cy_week                       COMMENT 'Geschäftsjahr - Woche_1 Id - Format "JJJJMM"'
+, busyear                       COMMENT 'Geschäftsjahr'
+, day_cnt                       COMMENT 'Anzahl der Tage in dem den Store auf hat'
+, miss_item_cnt                 COMMENT 'Anzahl der Fehlartikeln für die ganze Woche_1'
+, skipped_cnt                   COMMENT 'Anzahl der Tage die wegen fehlende Bestände aus der Aggrgation (miss_item_cnt) ausgeschlossen wurde.'
+, miss_item_cnt_avg_day         COMMENT 'Fehlartikel Durchschnittswert pro Filiale/Tag_1'
+)
+AS
+/*
+#----------------------------------------------------------------------------
+# Description:
+# This view provides an aggregated list of missing items with the granularity of store/calendar_1 week.
+#
+#----------------------------------------------------------------------------
+# History:
+#  1.0     12.05.2022      Michael Morris             Initial Versiuon
+#  1.1     01.11.2022      Michael Morris             Währungsspalten hinzugefügt
+#
+#----------------------------------------------------------------------------
+*/
+SELECT   client_id
+       , loc_sid_wh
+       , move_to_store_id
+       , wh_id
+       , orig_store_nr
+       , aspect_id
+       , currency_iso_cd
+       , curr_tot_id
+       , item_grp_int_sid
+       , sub_item_grp_sid
+       , itemgroup_int_id
+       , subitemgroup_id
+       , cy_week
+       , busyear
+       , day_cnt
+       , miss_item_cnt
+       , skipped_cnt
+       , miss_item_cnt_avg_day
+  FROM P_LEW_MART_LEAD.v_agg_miss_uwg_store_week_1
+;

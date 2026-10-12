@@ -1,0 +1,27 @@
+CREATE OR REPLACE TABLE ART_WUP_VK_KONDITION_PER_1 (
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant_1 im DWH',
+	VERKAUFSORGANISATION_ID VARCHAR(4) NOT NULL COLLATE 'en-ci' COMMENT 'Verkaufsorganisation aus vkorg',
+	VW_ID NUMBER(38,0) NOT NULL COMMENT 'ID des Vertriebswegs aus vtweg',
+	WUP_ID NUMBER(38,0) NOT NULL COMMENT 'Mutter Wup_1 ID wird verwendet für Beziehung Lager zu Verteilzentrum',
+	NB_ID NUMBER(38,0) NOT NULL COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer',
+	ART_ID NUMBER(38,0) NOT NULL COMMENT 'Input: Artikel_1-ID einschließlich der Generationen-ID (9-stellig); Output: 7-stellige L&S-ID + Counter = 8-stellige Artikel_1-ID. WWNNNNPC (Warengruppe, Nummer, Prüfziffer, Counter) Regel: Neuer Artikel_1 -> Counter +1.',
+	KL_ART_ID NUMBER(38,0) NOT NULL COMMENT '7-stellige Artikelnummer bestehend aus 2 Stellen: Warengruppe 4 Stellen: Artikelnummer 1 Stelle: Prüfziffer.',
+	WG_ID NUMBER(38,0) COMMENT 'Aus matkl.',
+	PREISLISTE_TYP_ID VARCHAR(2) NOT NULL COLLATE 'en-ci' COMMENT 'Preislistentyp, z.Bsp. F0 aus pltyp',
+	QUELLTABELLE_NAME VARCHAR(50) NOT NULL COMMENT 'Aus source.',
+	KONDITIONSART_ID VARCHAR(4) NOT NULL COMMENT 'Konditionsart. Aus kschl.',
+	DATZEIT_ERSTELLUNG_KONDITION TIMESTAMP_LTZ(9) COMMENT 'Zeitpunkt, an dem die Kondition angelegt wurde. Kann nicht nach dem Gültigkeitsbeginn liegen.',
+	DATZEIT_KONDITION_GUELTIG_VON TIMESTAMP_LTZ(9) NOT NULL COMMENT 'Zeitpunkt Gültigkeitsbeginn des Satzes aus datab und timab',
+	DATZEIT_KONDITION_GUELTIG_BIS TIMESTAMP_LTZ(9) COMMENT 'Zeitpunkt Gültigkeitsende des Satzes aus datbi und timbi',
+	VK_BRUTTO NUMBER(38,2) COMMENT 'Aus kbetr',
+	WRG_ID VARCHAR(3) NOT NULL COMMENT 'Kurzbezeichnung der Währung, z.Bsp. CZK, EUR. Aus konwa.',
+	MENGE_KONDITION_GUELTIG_AB NUMBER(38,0) COMMENT 'Aus kpein.',
+	KONDITIONSSATZ_ID NUMBER(38,0) COMMENT 'Nummer der Kondition aus knumh',
+	AKTION_ID VARCHAR(10) COMMENT 'Eindeutige Kennung einer Aktion_1 aus der Quelle waktion',
+	DATZEIT_ERSTELLUNG_QUELLE TIMESTAMP_LTZ(9) COMMENT 'Zeitpunkt, an dem der Datensatz im Quellsystem eingefügt wurde.',
+	DATZEIT_EXTRAKT TIMESTAMP_LTZ(9) COMMENT 'Zeitpunkt der Extraktion aus dem Quellsystem.',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	constraint PK_ART_WUP_VK_KONDITION_PER primary key (MANDANT_ID, VERKAUFSORGANISATION_ID, VW_ID, WUP_ID, NB_ID, ART_ID, KONDITIONSART_ID, QUELLTABELLE_NAME, PREISLISTE_TYP_ID, DATZEIT_KONDITION_GUELTIG_VON)
+)COMMENT='SOURCE: ZEK_SP_STORE_VAL'
+;

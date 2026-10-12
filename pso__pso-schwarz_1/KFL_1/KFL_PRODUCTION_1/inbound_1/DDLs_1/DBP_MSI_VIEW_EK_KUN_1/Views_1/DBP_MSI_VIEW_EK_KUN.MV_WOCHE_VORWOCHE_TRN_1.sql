@@ -1,0 +1,26 @@
+create or replace view KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_MSI_VIEW_EK_KUN.MV_WOCHE_VORWOCHE_TRN_1(
+	KJWO,
+	GJWO,
+	GJWO_VWO,
+	GJWO_VVWO,
+	GJWO_VVVWO,
+	GJWO_VVVVWO,
+	KJWO_VWO,
+	KJWO_VVWO,
+	KJWO_VVVWO,
+	KJWO_VVVVWO
+) as
+   SELECT
+   -- STRY0048932 Umzug aus KMR nach EK_KUNDE / sschuecke 30.03.2026
+    kjwo
+   ,gjwo
+   ,MIN (gjwo) OVER (ORDER BY gjwo ASC ROWS 1 PRECEDING) AS gjwo_vwo
+   ,MIN (gjwo) OVER (ORDER BY gjwo ASC ROWS 2 PRECEDING) AS gjwo_vvwo
+   ,MIN (gjwo) OVER (ORDER BY gjwo ASC ROWS 3 PRECEDING) AS gjwo_vvvwo
+   ,MIN (gjwo) OVER (ORDER BY gjwo ASC ROWS 4 PRECEDING) AS gjwo_vvvvwo
+   ,MIN (kjwo) OVER (ORDER BY kjwo ASC ROWS 1 PRECEDING) AS kjwo_vwo
+   ,MIN (kjwo) OVER (ORDER BY kjwo ASC ROWS 2 PRECEDING) AS kjwo_vvwo
+   ,MIN (kjwo) OVER (ORDER BY kjwo ASC ROWS 3 PRECEDING) AS kjwo_vvvwo
+   ,MIN (kjwo) OVER (ORDER BY kjwo ASC ROWS 4 PRECEDING) AS kjwo_vvvvwo
+   FROM DBP_DATA.WOCHE_1
+   WHERE kjwo > 200152;

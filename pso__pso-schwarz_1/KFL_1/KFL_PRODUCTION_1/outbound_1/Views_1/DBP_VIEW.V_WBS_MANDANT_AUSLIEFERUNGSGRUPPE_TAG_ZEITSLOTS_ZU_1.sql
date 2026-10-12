@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_wbs_mandant_auslieferungsgruppe_tag_zeitslots_zu_1 AS SELECT mandant_id,
+ auslieferungsgruppe_id,
+ wtag_id,
+ zeitslot_id
+FROM kfl_production_dbp_data.wbs_mandant_auslieferungsgruppe_tag_zeitslots_zu_1;

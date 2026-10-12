@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_analytics_ac.v_pit_itemgroup_international_1 AS SELECT client_id,
+ item_grp_int_sid,
+ src_itemgrp_int_cd,
+ item_grp_int_descr_int,
+ item_grp_int_descr_loc
+FROM ldl_p_lew_mart_analytics.v_pit_itemgroup_international_1;

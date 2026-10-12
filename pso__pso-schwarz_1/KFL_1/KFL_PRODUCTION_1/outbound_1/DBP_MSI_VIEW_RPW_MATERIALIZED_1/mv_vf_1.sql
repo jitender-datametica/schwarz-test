@@ -1,0 +1,6 @@
+CREATE OR REPLACE TABLE dbp_msi_view_rpw_materialized.mv_vf_1 (
+vf_id INTEGER,
+vf_name STRING(40) COLLATE 'und:ci',
+mandant_id INTEGER,
+system_id INTEGER
+);

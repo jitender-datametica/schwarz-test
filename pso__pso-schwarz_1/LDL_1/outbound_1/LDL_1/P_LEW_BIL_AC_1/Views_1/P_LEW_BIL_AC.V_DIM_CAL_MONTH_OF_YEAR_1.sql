@@ -1,0 +1,13 @@
+CREATE OR REPLACE VIEW ldl_p_lew_bil_ac.v_dim_cal_month_of_year_1 (month_of_year, month_of_bus_year,
+month_of_year_short_name, month_of_year_short_name_de, month_of_year_short_name_en, month_of_year_short_name_bg,
+month_of_year_short_name_cs, month_of_year_short_name_da, month_of_year_short_name_el, month_of_year_short_name_es,
+month_of_year_short_name_fi, month_of_year_short_name_fr, month_of_year_short_name_hr, month_of_year_short_name_hu,
+month_of_year_short_name_it, month_of_year_short_name_lt, month_of_year_short_name_nl, month_of_year_short_name_pl,
+month_of_year_short_name_pt, month_of_year_short_name_ro, month_of_year_short_name_sh, month_of_year_short_name_sk,
+month_of_year_short_name_sl, month_of_year_short_name_sv, month_of_year_name, month_of_year_name_de,
+month_of_year_name_en, month_of_year_name_bg, month_of_year_name_cs, month_of_year_name_da, month_of_year_name_el,
+month_of_year_name_es, month_of_year_name_fi, month_of_year_name_fr, month_of_year_name_hr, month_of_year_name_hu,
+month_of_year_name_it, month_of_year_name_lt, month_of_year_name_nl, month_of_year_name_pl, month_of_year_name_pt,
+month_of_year_name_ro, month_of_year_name_sh, month_of_year_name_sk, month_of_year_name_sl, month_of_year_name_sv,
+dwh_load_id, dwh_created, dwh_updated) AS SELECT *
+FROM ldl_p_lew_bil.v_dim_cal_month_of_year_1 AS CALMOY;

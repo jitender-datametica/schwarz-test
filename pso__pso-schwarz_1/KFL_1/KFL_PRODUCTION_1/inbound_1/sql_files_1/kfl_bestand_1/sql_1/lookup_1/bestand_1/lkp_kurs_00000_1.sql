@@ -1,0 +1,1 @@
+SELECT kurstyp_id,von_wrg_id, nach_wrg_id, dat_von, dat_bis,umrechnungskurs  FROM DBP_DATA.kurs_1 GROUP BY 1,2,3,4,5,6 order by 1,2,3,4,5;

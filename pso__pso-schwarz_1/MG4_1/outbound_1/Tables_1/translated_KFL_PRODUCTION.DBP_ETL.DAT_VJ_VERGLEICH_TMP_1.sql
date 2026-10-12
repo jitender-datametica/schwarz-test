@@ -1,0 +1,18 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl.dat_vj_vergleich_tmp_1 (
+join_dat DATE NOT NULL,
+dat DATE NOT NULL,
+gj INTEGER NOT NULL,
+kjwo INTEGER NOT NULL,
+kjmo INTEGER NOT NULL,
+mo_kj INTEGER NOT NULL,
+akt_gj INTEGER NOT NULL,
+akt_mo INTEGER NOT NULL,
+akt_wo INTEGER NOT NULL,
+akt_tag INTEGER NOT NULL,
+wtag_id INTEGER NOT NULL,
+akt_gj_fg INTEGER NOT NULL,
+vj_1_fg INTEGER NOT NULL,
+vj_2_fg INTEGER NOT NULL,
+vj_wt_1_fg INTEGER NOT NULL,
+vj_wt_2_fg INTEGER NOT NULL
+);

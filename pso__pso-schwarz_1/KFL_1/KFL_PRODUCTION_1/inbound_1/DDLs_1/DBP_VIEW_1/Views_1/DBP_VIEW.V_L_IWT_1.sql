@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_L_IWT_1
+AS SELECT
+MANDANT_ID  ,
+IWT_ID    ,
+TD_UPDATE               ,
+TD_INSERT   
+FROM
+   DBP_DATA.L_IWT_1                    ;

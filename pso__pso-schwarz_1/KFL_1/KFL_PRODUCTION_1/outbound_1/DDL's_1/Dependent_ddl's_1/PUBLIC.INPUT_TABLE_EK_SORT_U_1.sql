@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE kfl_production_public.input_table_ek_sort_u_1 (
+user STRING(16777216),
+matching_id STRING(255),
+art_id STRING(255),
+gtin STRING(255),
+stk_re_pflege STRING(255),
+vorschlag STRING(255),
+produktwissen_pflege STRING(255),
+lieferantenwissen_pflege STRING(255),
+listung_sst_pflege STRING(255),
+ost_basis_pflege STRING(255),
+ost_gross_pflege STRING(255),
+sued_ost_pflege STRING(255),
+sued_west_pflege STRING(255),
+west_pflege STRING(255),
+nord_pflege STRING(255),
+kjmo STRING(255),
+n_k_artikel STRING(255),
+nl_art_bez STRING(255),
+kjwo_update STRING(255)
+);

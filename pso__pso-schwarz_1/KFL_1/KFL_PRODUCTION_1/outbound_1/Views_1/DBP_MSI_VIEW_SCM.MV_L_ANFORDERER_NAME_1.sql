@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_l_anforderer_name_1 (mandant_id, anforderer_name) AS SELECT *
+FROM kfl_production_dbp_msi_view_scm.mv_dt_l_anforderer_name_1;

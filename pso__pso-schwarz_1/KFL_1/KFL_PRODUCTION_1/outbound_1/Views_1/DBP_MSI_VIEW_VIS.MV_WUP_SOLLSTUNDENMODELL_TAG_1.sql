@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_wup_sollstundenmodell_tag_1 AS SELECT *
+FROM kfl_production_dbp_data.wup_sollstundenmodell_tag_1;

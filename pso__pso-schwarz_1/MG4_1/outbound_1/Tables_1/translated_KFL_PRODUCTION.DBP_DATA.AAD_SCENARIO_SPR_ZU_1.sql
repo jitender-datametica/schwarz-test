@@ -1,0 +1,11 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_data.aad_scenario_spr_zu_1 (
+scenario_id INTEGER NOT NULL OPTIONS(description='Unique Identifier of the Scenario'),
+spr_id INTEGER NOT NULL OPTIONS(description='ID der Sprache'),
+mandant_id INTEGER NOT NULL OPTIONS(description='Mandant_1 im DWH - ein Mandant_1 pro Land.'),
+scenario_descr STRING(255) OPTIONS(description='Scenario´s name in the corresponding language'),
+td_update TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+td_insert TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+PRIMARY KEY (scenario_id, spr_id, mandant_id) NOT ENFORCED
+) OPTIONS(description=' Contains the description of the scenario in the corresponding languages');

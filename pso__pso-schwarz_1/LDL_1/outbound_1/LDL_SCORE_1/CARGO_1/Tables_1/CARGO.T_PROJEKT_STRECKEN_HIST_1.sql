@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_score_cargo.t_projekt_strecken_hist_1 (
+projekt_strecken_id BIGNUMERIC(38,0),
+projekt_strecken_kombinationstour BIGNUMERIC(38,0),
+projekt_strecken_rowid STRING(2000),
+projekt_strecken_lastmoddate TIMESTAMP,
+projekt_strecken_empfangsland_eingabe_rowid STRING(2000),
+projekt_strecken_empfangsland STRING(2000),
+projekt_strecken_abgangsorte_rowids STRING(2000),
+projekt_strecken_empfangsorte_rowids STRING(2000),
+projekt_strecken_logistiktypkontrakt_rowid STRING(2000),
+projekt_strecken_masterrowid STRING(2000),
+projekt_strecken_typ_strecke STRING(2000),
+projekt_strecken_entfernung_km BIGNUMERIC(38,5),
+projekt_strecken_retoure BIGNUMERIC(38,0),
+projekt_strecken_kombitournummer BIGNUMERIC(38,5),
+source_extraction_tmsp ARRAY < STRING >,
+tech_valid_from TIMESTAMP NOT NULL,
+tech_valid_to TIMESTAMP NOT NULL,
+snflk_insert_tmsp TIMESTAMP NOT NULL,
+snflk_update_tmsp TIMESTAMP NOT NULL
+);

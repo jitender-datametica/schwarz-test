@@ -1,0 +1,12 @@
+create or replace view KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_VIEW.V_KMR_L_FESTSTELLUNG_GEWICHTUNG_1(
+	AMX_SYSTEM_ID,
+	FESTSTELLUNG_GEWICHTUNG_ID,
+	FESTSTELLUNG_GEWICHTUNG_BEZ
+) as 
+    SELECT 
+        amx_system_id
+        ,feststellung_gewichtung_id
+        ,feststellung_gewichtung_bez
+
+
+FROM DBP_DATA.KMR_L_FESTSTELLUNG_GEWICHTUNG_1 ;

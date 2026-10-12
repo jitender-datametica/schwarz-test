@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW biaid_tools_projects_production_fe_mstr_timesheets.v_timesheet_entry_1 (dwh_timesheet_entry_uuid,
+timesheet_sid, psp_element_cd, project_task_cd, task_subject, bs_its_cd, leer1, leer2, timesheet_entry_dt,
+work_duration_hours, work_location_cd, external_employee_comment_txt, department_name, team_name, quota_order_nr,
+external_employee_full_name, external_supplier_name, timesheet_entry_status, intended_approver_name,
+actual_approver_name, actual_approver_comment_txt, dwh_created_tmsp, dwh_updated_tmsp, dwh_src_file_name, src_file_tmsp
+) AS SELECT *
+FROM biaid_tools_projects_production_fe_mstr_timesheets.t_timesheet_entry_1;

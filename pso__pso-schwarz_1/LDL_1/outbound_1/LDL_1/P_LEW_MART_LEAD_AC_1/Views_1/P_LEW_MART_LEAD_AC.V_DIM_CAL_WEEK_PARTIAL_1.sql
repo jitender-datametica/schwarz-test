@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead_ac.v_dim_cal_week_partial_1 (cy_week_part, cy, bus_year, cy_month, cy_week,
+week_of_year, week_part_seq, cy_week_part_begin_dt, cy_week_part_end_dt, cy_week_part_begin_day_of_week,
+cy_week_part_end_day_of_week, cy_week_part_full_week_fg, cy_week_part_day_cnt, cy_week_part_prev_1y,
+cy_week_part_prev_2y, cy_week_part_prev_3y, cy_week_part_prev_4y, cy_week_part_prev_5y, period_swday_prev_1y_begin_dt,
+period_swday_prev_1y_end_dt, period_swday_prev_2y_begin_dt, period_swday_prev_2y_end_dt, period_swday_prev_3y_begin_dt,
+period_swday_prev_3y_end_dt, period_swday_prev_4y_begin_dt, period_swday_prev_4y_end_dt, period_swday_prev_5y_begin_dt,
+period_swday_prev_5y_end_dt, cy_week_part_offset, cy_week_offset, cy_month_offset, cy_offset, bus_year_offset,
+cy_week_part_short_name, cy_week_part_name, cy_week_part_descr, dwh_load_id, dwh_created, dwh_updated) AS SELECT *
+FROM ldl_p_lew_mart_lead.v_dim_cal_week_partial_1 AS CALPWK;

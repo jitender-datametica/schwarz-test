@@ -1,0 +1,47 @@
+create or replace view IDQ_PRODUCTION.EKS_CALCULATION.SVMARA_EKS_ITEM_DQ_EKS_DIFFERENTNETTWEIGHT_SEL_1(
+	NEGOTIATINGCOUNTRY,
+	BUYERSHORTSIGN,
+	BUYERFIRSTNAME,
+	BUYERLASTNAME,
+	ZMATKL,
+	ARTICLEFAMILY,
+	ITEMID,
+	ITEMNO,
+	ARTICLETYPE,
+	DESCRIPTION,
+	GEBINDE_ANZAHL,
+	GEBINDE_INHALT,
+	GEBINDE_EINHEIT,
+	GEBINDE_VERPAKUNG,
+	NETWEIGHT,
+	ZUSATZ_GEW_ART_INT,
+	ZUSATZ_GEW_ART_NAT,
+	ZRELEVANTMDM,
+	ZSOURCE,
+	ZACTIVE
+) as
+  SELECT EKS_CALCULATION.svMARA_EKS_ITEM_DQ_EKS_DifferentNettWeight_Sel_ALL.NegotiatingCountry,
+         BuyerSHORTSIGN,
+         BuyerFirstName,
+         BuyerLastName,
+         zMATKL,
+         ArticleFamily,
+         svMARA_EKS_ITEM_DQ_EKS_DifferentNettWeight_Sel_ALL.ITEMID,
+         svMARA_EKS_ITEM_DQ_EKS_DifferentNettWeight_Sel_ALL.ITEMNO,
+         svMARA_EKS_ITEM_DQ_EKS_DifferentNettWeight_Sel_ALL.ArticleType,
+         Description,
+         GEBINDE_ANZAHL,
+         GEBINDE_INHALT,
+         GEBINDE_EINHEIT,
+         GEBINDE_VERPAKUNG,
+         NETWEIGHT,
+         ZUSATZ_GEW_ART_INT,
+         ZUSATZ_GEW_ART_NAT,
+         svMARA_EKS_ITEM_DQ_EKS_DifferentNettWeight_Sel_ALL.zRelevantMDM,
+         svMARA_EKS_ITEM_DQ_EKS_DifferentNettWeight_Sel_ALL.zSource,
+         zActive
+  FROM   EKS_CALCULATION.svMARA_EKS_ITEM_DQ_EKS_DifferentNettWeight_Sel_ALL_1
+         LEFT OUTER JOIN EKS_CALCULATION.EKS_ZSM_ExcludeList_1
+                      ON EKS_CALCULATION.svMARA_EKS_ITEM_DQ_EKS_DifferentNettWeight_Sel_ALL.ITEMNO = EKS_CALCULATION.EKS_ZSM_ExcludeList.ITEMNO
+                         AND EKS_CALCULATION.EKS_ZSM_ExcludeList.REPORTNO = '037'
+  WHERE  ( EKS_CALCULATION.EKS_ZSM_ExcludeList.ITEMNO IS NULL );

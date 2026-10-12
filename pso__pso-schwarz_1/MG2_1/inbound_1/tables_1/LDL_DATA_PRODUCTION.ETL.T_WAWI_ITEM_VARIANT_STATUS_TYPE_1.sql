@@ -1,0 +1,7 @@
+create or replace TABLE LDL_DATA_PRODUCTION.ETL.T_WAWI_ITEM_VARIANT_STATUS_TYPE_1 (
+	WAWI_ITEM_VARIANT_STATUS_TYPE_ID VARCHAR(20) NOT NULL COMMENT 'The identifier for the lifecycle status_1 for Wawi item_1 variants.',
+	LANG_CD VARCHAR(2) NOT NULL COMMENT 'The code identifying the language.',
+	WAWI_ITEM_VARIANT_STATUS_TYPE_NAME VARCHAR(250) NOT NULL COMMENT 'The name for the lifecycle status_1 for Wawi item_1 variants.',
+	WAWI_ITEM_VARIANT_STATUS_TYPE_DESCR VARCHAR(250) NOT NULL COMMENT 'A textual description for the lifecycle status_1 for Wawi item_1 variants.',
+	constraint PK_T_PRODUCT_VARIANT_STATUS_TYPE primary key (WAWI_ITEM_VARIANT_STATUS_TYPE_ID, LANG_CD)
+);

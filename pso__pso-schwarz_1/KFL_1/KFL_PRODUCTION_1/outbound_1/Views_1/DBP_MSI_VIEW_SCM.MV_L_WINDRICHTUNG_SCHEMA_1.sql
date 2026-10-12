@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_l_windrichtung_schema_1 AS SELECT windrichtung_schema_id,
+ windrichtung_schema_bez
+FROM kfl_production_dbp_view.v_l_windrichtung_schema_1 AS V01;

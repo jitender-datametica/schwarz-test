@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_crm_l_themenbaum_lv1_1 AS SELECT crm_themenbaum_lv1_id,
+ name
+FROM kfl_production_dbp_data.crm_l_themenbaum_lv1_1;

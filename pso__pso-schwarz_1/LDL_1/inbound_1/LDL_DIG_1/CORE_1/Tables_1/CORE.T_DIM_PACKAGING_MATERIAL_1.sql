@@ -1,0 +1,45 @@
+/* --------------------------------------------------------------------------------
+   DDL FOR TABLE: T_DIM_PACKAGING_MATERIAL_1
+   GENERATED FROM POWERDESIGNER ON Freitag, 7. Oktober 2022 10:26:47
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE.T_DIM_PACKAGING_MATERIAL_1 (
+   PACK_MATERIAL_NR                    VARCHAR(20)     NOT NULL COMMENT 'The packaging material number (e..g 420000026,  420000028)',
+   DWH_VALID_FROM_TMSP                 TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record became valid.',
+   DWH_VALID_TO_TMSP                   TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was no longer valid.',
+   DWH_VALID_FG                        BOOLEAN         NOT NULL COMMENT 'An indicator showing the current record in history.',
+   PACK_MATERIAL_NAME                  VARCHAR(100)    COMMENT 'The name for  for the packaging material ',
+   PACK_MATERIAL_DESCR                 VARCHAR(250)    COMMENT 'The textual description for the packaging material ',
+   VOLUME_MEAS                         NUMBER(38, 5)   COMMENT 'Space that the material occupies per unit_1 of volume. The volume refers to the unit_1 specified in the volume unit_1 field',
+   WEIGHT_UOM_SID                      NUMBER          COMMENT 'Unit_1 of measurement for weight',
+   WEIGHT_MEAS                         NUMBER(38, 5)   COMMENT 'Weight of the material',
+   GIRTH_UOM_SID                       NUMBER          COMMENT 'Unit_1 of dimension for girth',
+   GIRTH_EAST_MEAS                     NUMBER(38, 5)   COMMENT 'Girth size of the material based on east european calculation standard',
+   GIRTH_WEST_MEAS                     NUMBER(38, 5)   COMMENT 'Girth size of the material based on west european calculation standard',
+   LENGTH_UOM_SID                      NUMBER          COMMENT 'Unit_1 of dimension for length',
+   LENGTH_MEAS                         NUMBER(38, 5)   COMMENT 'Length of the material',
+   MEAN_LENGTH_MEAS                    NUMBER(38, 5)   COMMENT 'Mean_1 size of the material',
+   SHORTEST_LENGTH_MEAS                NUMBER(38, 5)   COMMENT 'Shortest size of the material',
+   LONGEST_LENGTH_MEAS                 NUMBER(38, 5)   COMMENT 'Longest size of the material',
+   WIDTH_UOM_SID                       NUMBER          COMMENT 'Unit_1 of dimension for width',
+   WIDTH_MEAS                          NUMBER(38, 5)   COMMENT 'Width of the material',
+   HEIGHT_UOM_SID                      NUMBER          COMMENT 'Unit_1 of dimension for height',
+   HEIGHT_MEAS                         NUMBER(38, 5)   COMMENT 'Height of the material',
+   MAIN_SUPPLIER_SID                   NUMBER          COMMENT 'Account_1 number of the main supplier_1 identified for the packaging material ',
+   PROD_ADD_NR_TYPE_CD                 VARCHAR(5)      COMMENT 'The type of of industry and lidl product numbers assigned (gtin, ean_1, producer numbers etc )',
+   MAIN_EAN_NR                         VARCHAR(20)     COMMENT 'Lidl Internal international product number',
+   VOLUME_UOM_SID                      NUMBER          COMMENT 'Unit_1 of measurement for volume',
+   PALETTE_CAPACITY_CNT                NUMBER          COMMENT 'Maximum quantity of items per palette.',
+   PACKAGE_CAPACITY_CNT                NUMBER          COMMENT 'Maximum quantity of items per package.',
+   CONTAINER_CAPACITY_CNT              NUMBER          COMMENT 'Maximum quantity of items per container.',
+   PROD_BRICK_CD                       VARCHAR(40)     COMMENT 'The Brickcode is a unique standardized code of all categories in the GS1 article categorization system on level 4 and is maintained for every article in SAP. ',
+   PROD_CATALOG_INSERT_DT              DATE            COMMENT 'Date when packaging material was inserted in product catalog',
+   PROD_CATALOG_UPDATE_DT              DATE            COMMENT 'Date of the last update of packaging material  in product catalog',
+   DWH_CREATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   DWH_UPDATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',
+   DWH_SRC_FILE_NAME                   VARCHAR(255)    NOT NULL COMMENT 'The path and the name of the file(s) from which this record was loaded.',
+   SRC_FILE_TMSP                       TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was extracted from the source.',
+   SRC_TABLE_NAME                      VARCHAR(100)    COMMENT 'The name of the source table',
+   MATERIAL_POS_TYPE_CD                VARCHAR(5)      COMMENT 'The code for the process type a product can be assigned to (e.g NORM, BANS).',
+   CONSTRAINT PK_T_DIM_PACKAGING_MATERIAL PRIMARY KEY (PACK_MATERIAL_NR, DWH_VALID_FROM_TMSP) NOT ENFORCED
+ )  COMMENT= 'This dimension defines the packaging material information (sourced from the product master data starting with 400..)';

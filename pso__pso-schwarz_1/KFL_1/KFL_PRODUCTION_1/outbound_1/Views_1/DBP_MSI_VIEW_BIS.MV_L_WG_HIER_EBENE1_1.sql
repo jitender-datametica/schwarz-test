@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_bis.mv_l_wg_hier_ebene1_1 AS SELECT in_wg_ebene1_id
+FROM kfl_production_dbp_msi_view_bis.mv_wg_hier_denorm_1
+GROUP BY in_wg_ebene1_id;

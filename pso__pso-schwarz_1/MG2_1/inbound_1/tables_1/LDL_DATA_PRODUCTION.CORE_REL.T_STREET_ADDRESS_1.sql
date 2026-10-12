@@ -1,0 +1,27 @@
+create or replace TABLE LDL_DATA_PRODUCTION.CORE_REL.T_STREET_ADDRESS_1 (
+	STREET_ADDR_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the postal address.',
+	DWH_VALID_FROM_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record became valid.',
+	DWH_VALID_TO_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was no longer valid.',
+	DWH_VALID_FG BOOLEAN NOT NULL COMMENT 'An indicator showing the current record, i.e. where the current date is between dwh_valid_from and dwh_valid_to.',
+	COUNTRY_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the country_1, in which this address_1 is located.',
+	ISO_COUNTRY_CD VARCHAR(2) NOT NULL COMMENT 'The code identifying the country_1 according to ISO 3166.',
+	COUNTRY_NAME VARCHAR(100) NOT NULL COMMENT 'The name by which the country_1 is known,',
+	CITY_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the city, in which this address_1 is located.',
+	CITY_NAME VARCHAR(100) NOT NULL COMMENT 'The name by which the city is known,',
+	DISTRICT_SID NUMBER(38,0) COMMENT 'The unique identifier (surrogate key) for the district, in which this address_1 is located.',
+	DISTRICT_NAME VARCHAR(100) COMMENT 'The name by which the district is known,',
+	POSTAL_CD_AREA_SID NUMBER(38,0) COMMENT 'The unique identifier (surrogate key) for postal code area, in which this address_1 is located.',
+	ZIP VARCHAR(15) COMMENT 'A code used by the postal service to identify a geographical area. E.g. 74072 for Heilbronn in Germany',
+	STREET_NAME VARCHAR(100) COMMENT 'The name of the street, in which this address_1 is located. (This includes names of squares and similar locations.)',
+	HOUSE_NR VARCHAR(100) COMMENT 'The number of a house in a street.',
+	REPORTING_COUNTRY_SID NUMBER(38,0) COMMENT 'The unique identifier (surrogate key) for the reporting country. (i.e. a country_1 definition which is different from a geographical country_1)',
+	REPORTING_COUNTRY_CD VARCHAR(20) COMMENT 'The code which identifies the reporting country_1',
+	LON NUMBER(9,6) COMMENT 'The longitude component of the geographical coordinates of this address.',
+	LAT NUMBER(9,6) COMMENT 'The latitude component of the geographical coordinates of this address.',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.',
+	constraint PK_T_STREET_ADDRESS primary key (STREET_ADDR_SID, DWH_VALID_FROM_TMSP)
+)COMMENT='A physical mailing address_1, typically consisting of a street name, a house number, a city or village with a zip code and (optionally) a country.'
+;

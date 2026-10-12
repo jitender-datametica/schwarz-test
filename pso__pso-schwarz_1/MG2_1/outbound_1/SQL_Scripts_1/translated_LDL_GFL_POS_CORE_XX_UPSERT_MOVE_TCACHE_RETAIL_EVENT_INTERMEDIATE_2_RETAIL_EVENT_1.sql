@@ -1,0 +1,56 @@
+
+
+
+
+
+INSERT INTO ${temp_db}.${src2tgt_temp_table1}_${src_context_area} (dwh_node_cd, tf_error_fg, dwh_load_id,
+ source_system, extraction_dt, deleted_fg, record_id, dwh_mapping_tmsp, filename, real_estate_sid, cash_register_sid,
+ event_start_tmsp, event_end_tmsp, bus_dt, cashier_nr, auth_by_nr, turnover_relevant_fg, cash_register_type_cd,
+ cash_register_usg_type_cd, cust_sid, country_org_sid, store_sid, retail_event_sid, country_org_cd, curr_cd,
+ retail_event_type_cd, cash_register_event_nr, training_fg, cont_retail_event_sid, txn_vat_val, cust_ident_type_cd,
+ paym_tm_sec_meas, suspend_fg, cancel_fg, txn_net_val, service_tm_sec_meas, keyed_lines_cnt, offline_fg, txn_gross_val,
+ scanned_lines_cnt, retail_event_scenario_id)
+(SELECT 'EJR' AS dwh_node_cd,
+  0 AS tf_error_fg,
+  '${LOAD_ID}' AS dwh_load_id,
+  'EJR' AS source_system,
+  CURRENT_DATE AS extraction_dt,
+  CAST(0 AS BOOL) AS deleted_fg,
+  CAST(0 AS STRING) AS record_id,
+  CURRENT_TIMESTAMP() AS dwh_mapping_tmsp,
+  '${t_SRC_INPUT_TABLE}' AS filename,
+  src.real_estate_sid,
+  src.cash_register_sid,
+  src.event_start_tmsp,
+  src.event_end_tmsp,
+  src.bus_dt,
+  src.cashier_nr,
+  src.auth_by_nr,
+  src.turnover_relevant_fg,
+  src.cash_register_type_cd,
+  src.cash_register_usg_type_cd,
+  src.cust_sid,
+  src.country_org_sid,
+  src.store_sid,
+  src.retail_event_sid,
+  org.country_org_cd,
+  org.curr_cd,
+  src.retail_event_type_cd,
+  src.cash_register_event_nr,
+  src.training_fg,
+  src.cont_retail_event_sid,
+  src.txn_vat_val,
+  src.cust_ident_type_cd,
+  src.paym_tm_sec_meas,
+  src.suspend_fg,
+  src.cancel_fg,
+  src.txn_net_val,
+  src.service_tm_sec_meas,
+  src.keyed_lines_cnt,
+  src.offline_fg,
+  src.txn_gross_val,
+  src.scanned_lines_cnt,
+  src.retail_event_scenario_id
+ FROM ${temp_db}.${t_src_input_table} AS src
+  LEFT JOIN ${target_db}.t_internal_organization_1 AS org ON src.country_org_sid = org.int_org_sid AND src.bus_dt BETWEEN CAST(org.dwh_valid_from_tmsp AS DATE)
+    AND (CAST(org.dwh_valid_to_tmsp AS DATE)));

@@ -1,0 +1,21 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process_mstr_ac.v_wfm_export_config_1 (interface_name, move_type_cd, move_reason_cd,
+order_type_cd, mis_sfo_type_id, complaint_area_mark, complaint_reason_mark, move_type_descr, mis_sfo_type_descr,
+move_reason_descr, order_type_descr, writeoff_zero_fg, item_status_cd, active_fg, row_id, dwh_created, dwh_updated) AS
+SELECT interface_name,
+ move_type_cd,
+ move_reason_cd,
+ order_type_cd,
+ mis_sfo_type_id,
+ complaint_area_mark,
+ complaint_reason_mark,
+ move_type_descr,
+ mis_sfo_type_descr,
+ move_reason_descr,
+ order_type_descr,
+ writeoff_zero_fg,
+ item_status_cd,
+ active_fg,
+ row_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_process_mstr.t_wfm_export_config_1 AS V;

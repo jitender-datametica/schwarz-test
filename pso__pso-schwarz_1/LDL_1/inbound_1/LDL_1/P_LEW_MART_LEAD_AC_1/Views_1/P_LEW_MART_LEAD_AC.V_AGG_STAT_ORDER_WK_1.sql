@@ -1,0 +1,32 @@
+CREATE OR REPLACE VIEW P_LEW_MART_LEAD_AC.V_AGG_STAT_ORDER_WK_1
+(
+ client_id
+,cy_week
+,py_week
+,currency_iso_cd
+,curr_tot_id
+,order_cnt_stationary_wk
+,order_lin_cnt_stationary_wk
+,turnover_net_val_stationary_wk
+,plan_turnover_net_val_stationary_wk
+,order_cnt_stationary_pyw
+,order_lin_cnt_stationary_pyw
+,turnover_net_val_stationary_pyw
+)
+AS
+SELECT
+client_id,
+cy_week,
+py_week,
+currency_iso_cd,
+curr_tot_id,
+order_cnt_stationary_wk,
+order_lin_cnt_stationary_wk,
+turnover_net_val_stationary_wk,
+plan_turnover_net_val_stationary_wk,
+order_cnt_stationary_pyw,
+order_lin_cnt_stationary_pyw,
+turnover_net_val_stationary_pyw
+FROM p_lew_mart_lead.t_agg_stat_order_wk_1;
+
+

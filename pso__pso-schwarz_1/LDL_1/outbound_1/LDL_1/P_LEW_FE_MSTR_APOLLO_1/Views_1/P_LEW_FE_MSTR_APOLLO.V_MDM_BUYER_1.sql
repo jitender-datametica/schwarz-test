@@ -1,0 +1,17 @@
+/*
+#----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS
+#----------------------------------------------------------------------------
+# Interface: DDL for P_LEW_FE_MSTR_APOLLO.V_MDM_BUYER_1
+#----------------------------------------------------------------------------
+# History:
+#  1.0  18.01.2022    Malinowski Michal           Initial Version
+#  1.1  24.01.2023    Aparna Rayanki              Added Buyer Manager and sso name
+#----------------------------------------------------------------------------
+*/
+
+
+CREATE OR REPLACE VIEW ldl_p_lew_fe_mstr_apollo.v_mdm_buyer_1 (client_id, buyer_sid, src_user_doc_ref, cbx_user_version_nr
+, buyer_cd, buyer_forename, buyer_surname, buyer_email, buyer_notes, buyer_manager_abbr_name, sso_name, dwh_load_id,
+dwh_created, dwh_updated) AS SELECT *
+FROM ldl_p_lew_core_ac.v_mdm_buyer_1;

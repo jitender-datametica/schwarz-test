@@ -1,0 +1,18 @@
+-- 11.12.2018 twie: SPEC0044926 Zuordnung User - Mandant_1 für Pflegebericht (alle Kombinationen)
+
+-- 29.01.2024 twie: NSR4267530 user_id ist in MSI zukünftig nur noch in Kleinbuchstaben
+
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ims_materialized.mv_user_mandant_zu_cross_1 (mandant_id, user_id,
+sec_fg) AS SELECT V01.mandant_id,
+ LOWER(v02.user_id) AS user_id,
+  CASE
+  WHEN V03.user_id IS NULL
+  THEN 0
+  ELSE 1
+  END AS sec_fg
+FROM kfl_production_dbp_view.v_mandant_1 AS V01
+ INNER JOIN (SELECT user_id
+  FROM kfl_production_dbp_security.l_msi_user_1
+  WHERE msi_produkt_bez = 'IMS') AS v02 ON TRUE
+ LEFT JOIN kfl_production_dbp_security.user_mandant_msiprodukt_zu_1 AS V03 ON V01.mandant_id = V03.mandant_id AND v02.user_id
+     = V03.user_id AND V03.msi_produkt_bez = 'IMS';

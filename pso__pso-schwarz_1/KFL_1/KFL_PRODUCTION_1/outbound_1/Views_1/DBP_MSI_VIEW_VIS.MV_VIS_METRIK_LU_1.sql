@@ -1,0 +1,161 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_vis_metrik_lu_1 (metrik_id, metrik_grp, metrik_bez,
+metrik_bez_de, metrik_bez_cz, metrik_bez_sk, metrik_bez_hr, metrik_bez_pl, metrik_bez_ro, metrik_bez_bg) AS SELECT CAST(a1 AS BIGNUMERIC)
+ AS metrik_id,
+ CAST(a2 AS BIGNUMERIC) AS metrik_grp,
+ CAST(a3 AS STRING) AS metrik_bez,
+ CAST(a3 AS STRING) AS metrik_bez_de,
+ CAST(a4 AS STRING) AS metrik_bez_cz,
+ CAST(a5 AS STRING) AS metrik_bez_sk,
+ CAST(a6 AS STRING) AS metrik_bez_hr,
+ CAST(a7 AS STRING) AS metrik_bez_pl,
+ CAST(a8 AS STRING) AS metrik_bez_ro,
+ CAST(a9 AS STRING) AS metrik_bez_bg
+FROM (SELECT 1 AS a1,
+    1 AS a2,
+    'Leistung' AS a3,
+    'V\u00fdkon' AS a4,
+    'V\u00fdkon' AS a5,
+    'Produktivnost' AS a6,
+    'Produktywność' AS a7,
+    'Eficienţă' AS a8,
+    'продуктивност' AS a9
+   UNION ALL
+   SELECT 100,
+    1,
+    'Umsatz netto',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 110,
+    1,
+    'IST',
+    'IST',
+    'Hodiny',
+    'IST',
+    'Jest',
+    'IST',
+    'IST'
+   UNION ALL
+   SELECT 140,
+    1,
+    'Hochrechnung',
+    'Prognozy',
+    'Odhad',
+    'Procjena',
+    'Prognoza',
+    'Forecast',
+    'Прогноза'
+   UNION ALL
+   SELECT 130,
+    1,
+    'Plan',
+    'Plán',
+    'Plán',
+    'Plan',
+    'Plan',
+    'Plan',
+    'План'
+   UNION ALL
+   SELECT 140,
+    1,
+    'VJ',
+    'VJ',
+    'VJ',
+    'PrG',
+    'PR',
+    'AA',
+    'ПГ'
+   UNION ALL
+   SELECT 200,
+    1,
+    'Nettostunden',
+    'Hodiny netto',
+    'Čisté hodiny',
+    'Neto sati',
+    'Godziny netto',
+    'Ore nete',
+    'Нето часове'
+   UNION ALL
+   SELECT 250,
+    1,
+    'Nettoleistung',
+    'Hodinov\u00fd v\u00fdkon',
+    'Čistý výkon',
+    'Neto produkt.',
+    'Produktyw. netto',
+    'Eficiență netă',
+    'Нето продукт.'
+   UNION ALL
+   SELECT 300,
+    1,
+    'Stunden_1',
+    'Hodiny',
+    'Hodiny',
+    'Sati',
+    'Godziny',
+    'Ore',
+    'Часове'
+   UNION ALL
+   SELECT 310,
+    1,
+    'Stunden_1 IST',
+    'Hodiny IST',
+    'Hodiny IST',
+    'Sati IST',
+    'Godziny Jest',
+    'Ore IST',
+    'Часове IST'
+   UNION ALL
+   SELECT 320,
+    1,
+    'Stunden_1 Hochrechnung',
+    'Hodiny Prognozy',
+    'Hodiny Odhad',
+    'Sati Procjena',
+    'Godziny Prognoza',
+    'Ore Forecast',
+    'Часове Прогноза'
+   UNION ALL
+   SELECT 330,
+    1,
+    'Stunden_1 Plan',
+    'Hodiny Plán',
+    'Hodiny Plán',
+    'Sati Plan',
+    'Godziny Plan',
+    'Ore Plan',
+    'Часове План'
+   UNION ALL
+   SELECT 340,
+    1,
+    'Stunden_1 VJ',
+    'Hodiny VJ',
+    'Hodiny VJ',
+    'Sati PrG',
+    'Godziny PR',
+    'Ore AA',
+    'Часове ПГ'
+   UNION ALL
+   SELECT 400,
+    1,
+    'Absatz',
+    'Množství',
+    'Množstvo',
+    'Količina',
+    'Liczba sztuk',
+    'Cantitate',
+    'Количество'
+   UNION ALL
+   SELECT 450,
+    1,
+    'Nettostückleistung',
+    'Čistý výkon na kus',
+    'Čistý kusový výkon',
+    'Neto produkt. po komadu',
+    'Produktyw. w szt.',
+    'Eficiență cantitativă',
+    'Нето прод. на бр. а-ли') AS t29;

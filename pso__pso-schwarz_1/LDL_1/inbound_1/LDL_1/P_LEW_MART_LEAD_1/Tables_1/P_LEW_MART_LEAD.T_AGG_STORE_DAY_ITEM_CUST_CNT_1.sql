@@ -1,0 +1,28 @@
+create or replace TABLE LDL_PRODUCTION_CLONE_GOOGLE_20260608_1030.P_LEW_MART_LEAD.T_AGG_STORE_DAY_ITEM_CUST_CNT_1 cluster by (CLIENT_ID, DWH_CAL_DT)(
+	CLIENT_ID NUMBER(38,0) NOT NULL COMMENT 'Client identifier',
+	LOC_SID_STORE NUMBER(38,0) NOT NULL COMMENT 'Store identifier',
+	DWH_CAL_DT DATE NOT NULL COMMENT 'Record date',
+	CY_MONTH NUMBER(38,0) NOT NULL COMMENT 'Month',
+	ITEM_SID NUMBER(38,0) NOT NULL COMMENT 'Item_1 identifier',
+	SRC_ORIG_ITEM_NR NUMBER(38,0) COMMENT 'Item_1 number',
+	ITEM_GRP_INT_SID NUMBER(38,0) COMMENT 'Item_1 group identifier',
+	ITEMGROUP_INT_ID NUMBER(38,0) COMMENT 'Item_1 group number',
+	SUB_ITEM_GRP_SID NUMBER(38,0) COMMENT 'Sub item_1 group identifier',
+	SUBITEMGROUP_ID NUMBER(38,0) COMMENT 'Sub item_1 group number',
+	ITEM_FAM_GRP_SID NUMBER(38,0) COMMENT 'Item_1 family group identifier',
+	ITEM_FAMILYGROUP_ID VARCHAR(15) COMMENT 'Item_1 family group number',
+	BUYING_LIST_TYPE_ID_CURR NUMBER(38,0) NOT NULL COMMENT 'Buying list type current identifier',
+	BUYING_LIST_TYPE_ID_HIST NUMBER(38,0) NOT NULL COMMENT 'Buying list type historic identifier',
+	LISTING_TYPE_ID_HIST NUMBER(38,0) NOT NULL COMMENT 'Listing type historic identifier',
+	WGI_CNT_CUSTOMER NUMBER(38,0) NOT NULL COMMENT 'Number of customers on WGI level',
+	UWG_CNT_CUSTOMER NUMBER(38,0) NOT NULL COMMENT 'Number of customers on UWG level',
+	FAM_CNT_CUSTOMER NUMBER(38,0) NOT NULL COMMENT 'Number of customers on Article Family level',
+	ITM_CNT_CUSTOMER NUMBER(38,0) NOT NULL COMMENT 'Number of customers on item_1 level',
+	BUY_LIST_CNT_CUSTOMER NUMBER(38,0) NOT NULL COMMENT 'Number of customers on buying list type current level',
+	BUY_LIST_HIST_CNT_CUSTOMER NUMBER(38,0) NOT NULL COMMENT 'Number of customers on buying list type historic level',
+	LIST_TYPE_HIST_CNT_CUSTOMER NUMBER(38,0) NOT NULL COMMENT 'Number of customers on listing type historic level',
+	STORE_DAY_CNT_CUSTOMER NUMBER(38,0) NOT NULL COMMENT 'Number of customers on store day level',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'DWH load identifier',
+	DWH_CREATED TIMESTAMP_NTZ(6) NOT NULL COMMENT 'Timestamp record created'
+)COMMENT='Customer count on store day item_1 level.'
+;

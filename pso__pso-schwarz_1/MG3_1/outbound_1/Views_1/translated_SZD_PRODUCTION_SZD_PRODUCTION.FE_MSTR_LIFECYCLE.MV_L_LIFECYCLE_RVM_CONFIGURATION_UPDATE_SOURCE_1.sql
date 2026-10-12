@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_lifecycle.mv_l_lifecycle_rvm_configuration_update_source_1 (rvm_config_source_cd
+, rvm_config_source_descr_en, rvm_config_source_descr_de, rvm_config_source_descr) AS SELECT rvm_config_source_cd,
+ rvm_config_source_descr_en,
+ rvm_config_source_descr_de,
+ rvm_config_source_descr
+FROM szd_production_core.t_dim_rvm_configuration_update_source_1;

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ios.mv_l_ginfo_konz_typ_1 (ginfo_konz_typ_kz, ginfo_konz_typ_bez) AS
+SELECT ginfo_konz_typ_kz,
+ ginfo_konz_typ_bez
+FROM kfl_production_dbp_view.v_l_ginfo_konz_typ_1;

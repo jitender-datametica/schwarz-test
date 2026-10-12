@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_fe_mstr_xsight.v_dim_involvement_type_1 (channel_involvement_type_cd,
+channel_involvement_type_descr) AS SELECT channel_involvement_type_cd,
+ channel_involvement_type_descr
+FROM ldl_p_lew_core_ac.v_channel_involvement_type_1;

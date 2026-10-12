@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE ldl_wawi_production_hqwawiadm.arteancodes_1 (
+wawi_instanz_kzl STRING(3) COLLATE 'und:ci' NOT NULL,
+artikelnr STRING(18) NOT NULL,
+eancode STRING(13) NOT NULL,
+datum DATETIME,
+bediener STRING(8),
+eancodebeschr STRING(30),
+based_on_eks INTEGER,
+cust_tar_no STRING(20),
+cust_key STRING(10),
+online_desc STRING(80),
+scn BIGNUMERIC(38,0) DEFAULT 0,
+pcc STRING(6),
+ebt_flag INTEGER,
+plu_gtin INTEGER NOT NULL,
+no_gtin_check INTEGER NOT NULL,
+sales_limit INTEGER,
+self_scanning_flag INTEGER,
+delete_fg STRING(1),
+extraction_tmsp DATETIME,
+PRIMARY KEY (artikelnr, eancode) NOT ENFORCED
+);

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_ts_werbeflaechenthema_avq_1 (mandant_id,
+werbeflaechenthema_avq_prio, werbeflaechenthema_avq_bez) AS SELECT mandant_id,
+ werbeflaechenthema_avq_prio_nr AS werbeflaechenthema_avq_prio,
+ werbeflaechenthema_avq_prio_bez AS werbeflaechenthema_avq_bez
+FROM kfl_production_dbp_view.v_l_werbeflaechenthema_avq_prio_1;

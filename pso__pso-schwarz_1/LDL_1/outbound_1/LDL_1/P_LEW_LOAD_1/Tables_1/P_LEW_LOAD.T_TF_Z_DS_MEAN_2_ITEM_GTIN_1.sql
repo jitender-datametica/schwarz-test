@@ -1,0 +1,19 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_z_ds_mean_2_item_gtin_1 (
+client_id BIGNUMERIC(38),
+lidl_country STRING(40),
+z_ds_mean_matnr STRING(36),
+z_ds_mean_meinh STRING(6),
+z_ds_mean_lfnum STRING(10),
+src_matnr STRING(40),
+src_msehi STRING(40),
+src_lfnum STRING(20),
+uom_cd STRING(20),
+gtin STRING(20),
+gtin_type_cd STRING(20),
+main_gtin_fg BIGNUMERIC(38),
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

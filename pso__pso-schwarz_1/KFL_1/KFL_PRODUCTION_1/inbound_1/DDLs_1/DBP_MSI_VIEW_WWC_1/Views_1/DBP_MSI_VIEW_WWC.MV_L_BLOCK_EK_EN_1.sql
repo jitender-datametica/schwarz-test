@@ -1,0 +1,34 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_WWC.MV_L_BLOCK_EK_EN_1
+(
+mandant_id
+,muki_block_ek_kl_id
+,muki_block_ek_id
+,muki_block_ek_bez
+,muki_block_kz_ek_id
+)
+AS
+   SELECT V01.MANDANT_ID ,
+       V03.KL_ART_ID AS MUKI_BLOCK_EK_KL_ID ,
+       V01.ART_ID AS MUKI_BLOCK_EK_ID ,
+       COALESCE(MAX(CASE
+                        WHEN V02.SPR_ID = 24 THEN V02.ART_BEZ
+                    END), MAX(CASE
+                                  WHEN V02.SPR_ID = 22 THEN V02.ART_BEZ
+                              END)) AS MUKI_BLOCK_EK_BEZ ,
+       CASE WHEN(V01.MUTTER_EK_ID IS NULL) THEN 'W'
+           ELSE 'M'
+       END AS MUKI_BLOCK_KZ_EK_ID
+FROM DBP_VIEW.V_ART_GP_ZU_PER_1 V01
+INNER JOIN DBP_VIEW.V_ART_SPR_ZU_1 V02 ON V01.ART_ID=V02.ART_ID
+AND V01.MANDANT_ID=V02.MANDANT_ID
+INNER JOIN DBP_VIEW.V_ART_1 V03 ON V02.ART_ID = V03.ART_ID
+AND V02.MANDANT_ID = V03.MANDANT_ID
+WHERE V02.SPR_ID IN (22 ,
+                     24)
+  AND COALESCE(V01.MUTTER_EK_ID, V01.ART_ID) = V01.ART_ID
+  AND V01.DAT_BIS = to_date('9999-12-31','YYYY-MM_1-DD')
+  AND V03.DAT_BIS = to_date('9999-12-31','YYYY-MM_1-DD') 
+GROUP BY V01.MANDANT_ID ,
+         V03.KL_ART_ID ,
+         V01.ART_ID ,
+         MUKI_BLOCK_KZ_EK_ID;

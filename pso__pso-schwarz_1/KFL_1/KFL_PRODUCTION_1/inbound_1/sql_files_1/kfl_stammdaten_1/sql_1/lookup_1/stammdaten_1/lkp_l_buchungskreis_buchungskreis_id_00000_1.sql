@@ -1,0 +1,1 @@
+SELECT mandant_id, buchungskreis_id, wrg_id FROM DBP_DATA.l_buchungskreis_1 GROUP BY 1,2,3 ORDER BY mandant_id, buchungskreis_id

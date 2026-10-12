@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_lp_custmap_content_lookup_history_1 (
+client_id STRING(100),
+country_code STRING(10),
+loyalty_cards_loyalty_id STRING(100),
+loyalty_cards_type STRING(50),
+contactnewloyalty_min_date DATETIME,
+contactnewloyalty_max_date DATETIME,
+ssoclientlegaltermsaccepted_ssoclientappid_min_date DATETIME,
+ssoclientlegaltermsaccepted_ssoclientappid_min_country STRING(10),
+ssoclientlegaltermsaccepted_ssoclientappid_max_date DATETIME,
+ssoclientlegaltermsaccepted_ssoclientappid_max_country STRING(10),
+ssoclientlegaltermsdeclined_ssoclientappid_min_date DATETIME,
+ssoclientlegaltermsdeclined_ssoclientappid_min_country STRING(10),
+ssoclientlegaltermsdeclined_ssoclientappid_max_date DATETIME,
+ssoclientlegaltermsdeclined_ssoclientappid_max_country STRING(10)
+);

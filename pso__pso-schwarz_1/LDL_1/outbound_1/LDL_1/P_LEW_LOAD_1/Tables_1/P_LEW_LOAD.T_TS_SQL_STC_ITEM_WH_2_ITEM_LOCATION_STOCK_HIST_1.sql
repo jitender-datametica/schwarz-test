@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_sql_stc_item_wh_2_item_location_stock_hist_1 (
+record_id INTEGER,
+client_id BIGNUMERIC(38),
+item_sid BIGNUMERIC(38),
+loc_sid BIGNUMERIC(38),
+src_space_switch BIGNUMERIC(38),
+price NUMERIC(18,5),
+price_net NUMERIC(18,5),
+calc_qty NUMERIC(18,5),
+inv_qty NUMERIC(18,5),
+diff_qty_inv_calc NUMERIC(18,5),
+deleted_fg BIGNUMERIC(38),
+dwh_valid_from DATE,
+dwh_valid_to DATE,
+dwh_load_id BIGNUMERIC(38),
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

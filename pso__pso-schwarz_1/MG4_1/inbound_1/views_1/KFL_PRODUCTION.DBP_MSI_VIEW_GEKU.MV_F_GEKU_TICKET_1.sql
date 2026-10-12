@@ -1,0 +1,64 @@
+create or replace view KFL_PRODUCTION.DBP_MSI_VIEW_GEKU.MV_F_GEKU_TICKET_1(
+	GEKU_TICKET_ID,
+	GEKU_ARTIKEL_UID,
+	BESCHWERDE_ANTWORT_ID,
+	ABSCHLUSSGRUND_ID,
+	WMD_AUSTRAEGER_GEBIET_UID,
+	GEKU_EINGANGSKANAL_ID,
+	GEKU_EMOTION_ID,
+	DAT_START,
+	DAT_ENDE,
+	WUP_ID,
+	NB_ID,
+	MANDANT_ID,
+	DAT_ZUFRIEDENHEIT_ABFRAGE,
+	GEKU_ANTWORTKANAL_ID,
+	GEKU_PRIORITAET_ID,
+	GEKU_STATUS_ID,
+	HAT_GUTSCHEIN_FG
+) as
+-- 16.08.2013 twie: Dummyfiliale 0 hinzugefügt
+-- 12.02.2016 twie: Flag, ob Gutscheine am Ticket hängen
+-- 31.08.2017 twie: SPEC0025359 es gibt nur noch ein Landattr. in KMR, wenn vorhanden den Mandant_1 des WUPs, sonst den Mandant_1 des Tickets nehmen
+
+   SELECT
+   v01.geku_ticket_id
+   , geku_artikel_uid
+   , beschwerde_antwort_id
+   , abschlussgrund_id
+   , wmd_austraeger_gebiet_uid
+   , geku_eingangskanal_id
+   , geku_emotion_id
+   , dat_start
+   , dat_ende
+   , COALESCE(wup_id, 0) AS wup_id
+   , CASE
+      WHEN wup_id IS NULL THEN -1
+      ELSE nb_id
+      END AS nb_id
+   , CASE
+      WHEN wup_id IS NULL THEN v01.mandant_id
+      ELSE mandant_id_wup
+      END AS mandant_id
+   , dat_zufriedenheit_abfrage
+   , geku_antwortkanal_id
+   , geku_prioritaet_id
+   , geku_status_id
+   , CASE
+       WHEN v02.geku_ticket_id IS NULL THEN 0 
+       ELSE 1 
+       END AS hat_gutschein_fg
+   
+   FROM dbp_view.v_geku_ticket_1 v01
+   
+   LEFT OUTER JOIN
+   (
+   SELECT
+   DISTINCT geku_ticket_id
+   FROM dbp_view.v_gutschein_1
+   WHERE transaktion_id = 4 --aktivierte Gutscheine
+   --nur GEKU Gutscheine
+   AND ausgeber_id = 'KDM004'
+   OR ausgeber_id = 'KDM005'
+   ) v02
+   ON v01.geku_ticket_id = v02.geku_ticket_id;

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ims.mv_geschaeftsbereich_spr_zu_cz_1 AS SELECT mandant_id,
+ geschaeftsbereich_id,
+ geschaeftsbereich_bez
+FROM kfl_production_dbp_view.v_geschaeftsbereich_spr_zu_1
+WHERE spr_id = 124;

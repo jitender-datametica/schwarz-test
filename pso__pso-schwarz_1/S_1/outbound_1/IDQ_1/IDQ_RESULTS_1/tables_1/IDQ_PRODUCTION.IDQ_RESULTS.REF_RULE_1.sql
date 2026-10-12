@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE idq_production_idq_results.ref_rule_1 (
+id BIGNUMERIC(38,0) NOT NULL,
+rule_type_id BIGNUMERIC(38,0),
+catalog_id STRING(20),
+field_id BIGNUMERIC(38,0),
+name STRING(1000),
+short_description_de STRING(200),
+short_description_en STRING(200),
+description_de STRING(1000),
+description_en STRING(1000),
+criticality_id BIGNUMERIC(38,0),
+dimension_id BIGNUMERIC(38,0),
+error_text_de STRING(1000),
+error_text_en STRING(1000),
+version STRING(1000),
+status_id BIGNUMERIC(38,0),
+first_idq_release STRING(200),
+sdc_object_id STRING(200),
+solution STRING(250),
+PRIMARY KEY (id) NOT ENFORCED
+);

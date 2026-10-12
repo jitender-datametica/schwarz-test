@@ -1,0 +1,38 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital.v_agg_goods_loss_price_change_1 AS SELECT business_event_type_cd,
+ wshop_cd,
+ event_date,
+ 'EUR' AS curr_cd,
+ prod_variant_sid,
+ delivery_src_type_cd,
+ profit_loss_reason_cd,
+ national_account_sid,
+ national_account_nr,
+ prod_qty,
+ tgt_price_net_eur_val AS tgt_price_net_val,
+ actual_price_net_eur_val AS actual_price_net_val,
+ ivp_price_net_eur_val AS ivp_price_net_val,
+ pc_losses_net_eur_val AS pc_losses_net_val,
+ transfer_margin_net_eur_val AS transfer_margin_net_val,
+ correction_cogs_net_eur_val AS correction_cogs_net_val,
+ 'GC' AS gc_lc_cd
+FROM ldl_dig_fe_mstr_lidldigital.v_agg_goods_loss_price_change_no_gc_lc_1
+UNION ALL
+SELECT business_event_type_cd,
+ wshop_cd,
+ event_date,
+ curr_cd,
+ prod_variant_sid,
+ delivery_src_type_cd,
+ profit_loss_reason_cd,
+ national_account_sid,
+ national_account_nr,
+ prod_qty,
+ tgt_price_net_local_val AS tgt_price_net_val,
+ actual_price_net_local_val AS actual_price_net_val,
+ ivp_price_net_local_val AS ivp_price_net_val,
+ pc_losses_net_local_val AS pc_losses_net_val,
+ transfer_margin_net_local_val AS transfer_margin_net_val,
+ correction_cogs_net_local_val AS correction_cogs_net_val,
+ 'LC' AS gc_lc_cd
+FROM ldl_dig_fe_mstr_lidldigital.v_agg_goods_loss_price_change_no_gc_lc_1
+WHERE curr_cd <> 'EUR';

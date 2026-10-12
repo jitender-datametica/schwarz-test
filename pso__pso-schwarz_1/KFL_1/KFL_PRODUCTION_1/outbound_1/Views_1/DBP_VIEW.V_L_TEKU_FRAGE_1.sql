@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_teku_frage_1 AS SELECT teku_frage_id,
+ teku_frage_zyklus
+FROM kfl_production_dbp_data.l_teku_frage_1;

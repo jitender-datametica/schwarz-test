@@ -1,0 +1,11 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_filiale_bereich_l2_objekt_zu_1 AS SELECT DISTINCT OEB.hr_objekt_bereich_id
+ ,
+ OEB.hr_objekt_bereich_level2_id AS filiale_bereich_l2_id
+FROM kfl_production_dbp_view.v_l_org_einheit_bereich_1 AS OEB
+ INNER JOIN kfl_production_dbp_view.v_l_org_einheit_bereich_level2_1 AS LVL2 ON OEB.hr_objekt_bereich_level2_id = LVL2.hr_objekt_bereich_level2_id
+  
+UNION ALL
+SELECT CAST(hr_objekt_bereich_level2_id AS BIGNUMERIC) AS hr_objekt_bereich_id,
+ hr_objekt_bereich_level1_id AS hr_objekt_bereich_level2_id
+FROM kfl_production_dbp_view.v_l_org_einheit_bereich_level2_1
+WHERE hr_objekt_bereich_level2_id = 31;

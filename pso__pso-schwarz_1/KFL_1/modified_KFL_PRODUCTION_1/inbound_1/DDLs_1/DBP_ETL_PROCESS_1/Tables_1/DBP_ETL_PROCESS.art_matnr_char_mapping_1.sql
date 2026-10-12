@@ -1,0 +1,7 @@
+CREATE OR REPLACE TABLE ART_MATNR_CHAR_MAPPING_1 (
+	MANDANT_ID INTEGER NOT NULL COMMENT 'Mandant_1 im DWH',
+	KL_ART_ID INTEGER NOT NULL COMMENT '7-stellige Artikelnummer bestehend aus 2 Stellen: Warengruppe 4 Stellen: Artikelnummer 1 Stelle: Prüfziffer',
+	MATNR_CHAR VARCHAR(20) NOT NULL COLLATE 'en-ci' COMMENT 'Alphanummerisch Artikelnummer aus dem Quellsystem (matnr)',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration'
+);

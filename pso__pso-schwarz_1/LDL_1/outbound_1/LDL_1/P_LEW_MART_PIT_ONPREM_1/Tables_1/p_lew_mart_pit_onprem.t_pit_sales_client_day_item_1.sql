@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_pit_onprem.t_pit_sales_client_day_item_1 (
+client_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+dwh_cal_dt DATE NOT NULL,
+item_sid BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+sales_net_val BIGNUMERIC(38,5),
+return_net_val BIGNUMERIC(38,5),
+discount_net_val BIGNUMERIC(38,5),
+till_discount_net_val BIGNUMERIC(38,5),
+sales_qty BIGNUMERIC(38,5),
+return_qty BIGNUMERIC(38,5),
+discount_qty BIGNUMERIC(38,5),
+distinct_receipt_count BIGNUMERIC(38,5),
+sales_price_net BIGNUMERIC(38,5),
+comparison_price_net BIGNUMERIC(38,5),
+median_distinct_receipt_count BIGNUMERIC(38,5),
+median_sales_price_net BIGNUMERIC(38,5),
+median_comparison_price_net BIGNUMERIC(38,5),
+price_integrity_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+pv_relevant_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+PRIMARY KEY (client_id, dwh_cal_dt, item_sid) NOT ENFORCED
+);

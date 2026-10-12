@@ -1,0 +1,12 @@
+create or replace view KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_VIEW.V_COS_BONUSKAUF_STATUS_SPR_ZU_1(
+	MANDANT_ID,
+	BONUSKAUF_STATUS_ID,
+	SPR_ID,
+	BONUSKAUF_STATUS_BEZ
+) as
+SELECT
+    mandant_id, 
+    bonuskauf_status_id,
+    spr_id,
+    bonuskauf_status_bez
+FROM DBP_DATA.COS_BONUSKAUF_STATUS_SPR_ZU_1;

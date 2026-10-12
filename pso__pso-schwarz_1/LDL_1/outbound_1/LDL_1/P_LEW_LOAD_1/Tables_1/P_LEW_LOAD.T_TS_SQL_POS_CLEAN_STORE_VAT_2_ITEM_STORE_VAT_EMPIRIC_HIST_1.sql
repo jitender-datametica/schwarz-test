@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_sql_pos_clean_store_vat_2_item_store_vat_empiric_hist_1 (
+record_id STRING(1000) COLLATE 'und:ci',
+client_id BIGNUMERIC(38),
+loc_sid_store BIGNUMERIC(38),
+item_sid BIGNUMERIC(38),
+vat_pct_calc_type_id BIGNUMERIC(38),
+vat_pct NUMERIC(9,5),
+deleted_fg BIGNUMERIC(38),
+dwh_valid_from DATE,
+dwh_valid_to DATE,
+dwh_last_confirm_dt DATE,
+dwh_load_id BIGNUMERIC(38),
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

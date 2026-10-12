@@ -1,0 +1,13 @@
+CREATE TABLE DBP_DATA.MA_ABWESENH_ZU_PER_1 (
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant_1 im DWH',
+	ABWESENHEIT_ID VARCHAR(4) NOT NULL COLLATE 'en-ci' COMMENT 'ID der Abwesenheit, z.Bsp, OKA2',
+	MITARBEITER_ID VARCHAR(20) NOT NULL COMMENT 'Eindeutige anonymisierte ID des Mitarbeiters',
+	KJMO NUMBER(38,0) NOT NULL COMMENT 'Kalenderjahresmonaz, z.Bsp 200908',
+	DAT_VON DATE NOT NULL COMMENT 'Beginn der Gueltigkeit',
+	DAT_BIS DATE NOT NULL COMMENT 'Ende der Gueltigkeit',
+	ABWESENHEIT_STUNDEN NUMBER(9,2) NOT NULL DEFAULT 0 COMMENT 'Abwesenheitsstunden Mitarbeiter auf Ebene Abwesenheitsart aus SAP HCM Infotyp 2001 - Feld stdaz',
+	ABRECHNUNG_TAGE NUMBER(9,2) NOT NULL DEFAULT 0 COMMENT 'Anzahl Abrechnungstage ; Feld: ABRTG ; Quelle: IT2001-abrtage',
+	ABRECHNUNG_STUNDEN NUMBER(9,2) NOT NULL DEFAULT 0 COMMENT 'Anzahl Abrechnungsstunden ; Feld: ABRST ; Quelle: IT2001-abrstdn',
+	TD_INSERT TIMESTAMP_LTZ(9),
+	TD_UPDATE TIMESTAMP_LTZ(9)
+);

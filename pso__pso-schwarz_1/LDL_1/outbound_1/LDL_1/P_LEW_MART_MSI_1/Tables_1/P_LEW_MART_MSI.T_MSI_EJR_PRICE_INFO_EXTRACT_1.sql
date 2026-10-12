@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_msi.t_msi_ejr_price_info_extract_1 (
+st_loc_sid BIGNUMERIC(38,0) NOT NULL,
+client_id BIGNUMERIC(38,0) NOT NULL,
+pos_terminal_id BIGNUMERIC(38,0) NOT NULL,
+dat_formdate DATE NOT NULL,
+time_receipt_ejr TIME NOT NULL,
+orig_receipt_nr_ejr BIGNUMERIC(38,0) NOT NULL,
+timezone_cd BIGNUMERIC(38,0) NOT NULL,
+dat_dayend DATE NOT NULL,
+checker_id BIGNUMERIC(38,0),
+transactiontype_id STRING(3) COLLATE 'und:ci' NOT NULL,
+timestamp_begin_ejr DATETIME,
+timestamp_end_ejr DATETIME,
+authority_id STRING(40) COLLATE 'und:ci',
+item_sid BIGNUMERIC(38,0) NOT NULL,
+price_retail_ejr NUMERIC(18,4),
+mainitemgroup_id BIGNUMERIC(38,0),
+item_takeover_fg BIGNUMERIC(38,0),
+load_id BIGNUMERIC(38,0) NOT NULL
+) CLUSTER BY st_loc_sid;

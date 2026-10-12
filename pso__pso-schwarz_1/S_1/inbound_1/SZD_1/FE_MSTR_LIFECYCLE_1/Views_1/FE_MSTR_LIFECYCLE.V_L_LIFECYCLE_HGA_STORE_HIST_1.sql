@@ -1,0 +1,44 @@
+ /*
+#----------------------------------------------------------------------------------------------------------------
+# Interface: DDL for FE_MSTR_LIFECYCLE.V_L_LIFECYCLE_HGA_STORE_HIST_1
+#----------------------------------------------------------------------------------------------------------------
+# History:
+#  1.0  06.12.2024	SIMEON NIKOLAEV	INITIAL SETUP
+
+#
+#----------------------------------------------------------------------------------------------------------------
+*/
+
+CREATE OR REPLACE VIEW FE_MSTR_LIFECYCLE.V_L_LIFECYCLE_HGA_STORE_HIST_1(
+  STORE_SID
+, LOB_CD
+, LOB_NAME
+, COMPANY_NAME
+, COMPANY_ID
+, STORE_NR
+, STORE_NAME
+, STORE_ACTIVE_FG
+, STREET_NAME
+, HOUSE_NR
+, CITY_NAME
+, ZIP
+, COUNTRY_POL_CD
+, COUNTRY_POL_NAME
+) AS SELECT
+   CORE.T_DIM_STORE_HIST.STORE_SID
+ , CORE.T_DIM_STORE_HIST.LOB_CD
+ , CORE.T_DIM_STORE_HIST.LOB_NAME
+ , CORE.T_DIM_STORE_HIST.COMPANY_NAME
+ , CORE.T_DIM_STORE_HIST.COMPANY_ID
+ , CORE.T_DIM_STORE_HIST.STORE_NR
+ , CORE.T_DIM_STORE_HIST.STORE_NAME
+ , CORE.T_DIM_STORE_HIST.STORE_ACTIVE_FG
+ , CORE.T_DIM_STORE_HIST.STREET_NAME
+ , CORE.T_DIM_STORE_HIST.HOUSE_NR
+ , CORE.T_DIM_STORE_HIST.CITY_NAME
+ , CORE.T_DIM_STORE_HIST.ZIP
+ , CORE.T_DIM_STORE_HIST.COUNTRY_POL_CD
+ , CORE.T_DIM_STORE_HIST.COUNTRY_POL_NAME
+FROM CORE.T_DIM_STORE_HIST_1
+WHERE DWH_VALID_FG = TRUE
+;

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_mcx_invers_antwort_bereich_zu_1 AS SELECT antwort_id,
+ umfrage_id,
+ invers_ber_id
+FROM kfl_production_dbp_data.mcx_invers_antwort_bereich_zu_1;

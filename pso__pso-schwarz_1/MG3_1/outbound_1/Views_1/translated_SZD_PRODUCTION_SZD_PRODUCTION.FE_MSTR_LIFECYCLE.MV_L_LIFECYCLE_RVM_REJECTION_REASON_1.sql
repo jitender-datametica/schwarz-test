@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_lifecycle.mv_l_lifecycle_rvm_rejection_reason_1 (reject_reason_id,
+reject_reason_group_id, reject_reason_descr_en, reject_reason_descr_de, reject_reason_descr, deposit_item_cat_cd) AS
+SELECT DISTINCT reject_reason_id,
+ reject_reason_group_id,
+ reject_reason_descr_en,
+ reject_reason_descr_de,
+ reject_reason_descr,
+ deposit_item_cat_cd
+FROM szd_production_core.t_dim_rvm_rejection_reason_1;

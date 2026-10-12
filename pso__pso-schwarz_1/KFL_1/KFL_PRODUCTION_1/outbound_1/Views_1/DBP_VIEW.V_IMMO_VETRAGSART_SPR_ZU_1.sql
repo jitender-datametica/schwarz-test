@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_immo_vetragsart_spr_zu_1 AS SELECT mandant_id,
+ vertragsart_id,
+ vertragsart_bez
+FROM kfl_production_dbp_data.immo_vetragsart_spr_zu_1;

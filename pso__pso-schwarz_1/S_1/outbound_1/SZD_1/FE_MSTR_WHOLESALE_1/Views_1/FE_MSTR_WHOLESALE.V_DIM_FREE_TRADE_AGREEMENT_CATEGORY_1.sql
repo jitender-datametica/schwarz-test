@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_wholesale.v_dim_free_trade_agreement_category_1 (free_trade_agreement_category_cd,
+free_trade_agreement_category_name, free_trade_agreement_category_descr) AS SELECT free_trade_agreement_category_cd,
+ free_trade_agreement_category_name,
+ free_trade_agreement_category_descr
+FROM szd_core.t_dim_free_trade_agreement_category_1;

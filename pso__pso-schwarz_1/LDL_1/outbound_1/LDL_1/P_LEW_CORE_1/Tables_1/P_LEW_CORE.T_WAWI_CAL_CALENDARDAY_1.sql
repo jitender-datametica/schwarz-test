@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_core.t_wawi_cal_calendarday_1 (
+dat_calendar DATE NOT NULL,
+prev_dat_calendar DATE NOT NULL,
+prev_cy_dat_calendar DATE,
+preprev_cy_dat_calendar DATE,
+day_of_week BIGNUMERIC(38,0) NOT NULL,
+day_of_month BIGNUMERIC(38,0) NOT NULL,
+day_of_cy BIGNUMERIC(38,0) NOT NULL,
+cy_week BIGNUMERIC(38,0) NOT NULL,
+cy_partial_week BIGNUMERIC(38,0) NOT NULL,
+cy_month BIGNUMERIC(38,0) NOT NULL,
+cy BIGNUMERIC(38,0) NOT NULL,
+busyear BIGNUMERIC(38,0) NOT NULL,
+cy_day_sequence BIGNUMERIC(38,0) NOT NULL,
+prev_cy_dat_calendar_samewday DATE,
+prev_cy_prev_week_samewday DATE,
+cy_month_sequence BIGNUMERIC(38,0) NOT NULL,
+cy_week_sequence BIGNUMERIC(38,0) NOT NULL,
+pwd_dat_calendar DATE,
+pmd_dat_calendar DATE,
+pyd_dat_calendar DATE,
+ppy_dat_calendar DATE
+);

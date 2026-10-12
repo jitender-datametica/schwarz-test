@@ -1,0 +1,28 @@
+/*
+#----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS
+#----------------------------------------------------------------------------
+# Interface: DDL for P_LEW_BIL_AC.V_AGG_RECEIVE_WH_ITEM_DAY_1
+#----------------------------------------------------------------------------
+# History:
+#  1.0  22.10.2024    Aparna Rayanki           Initial Version
+#                                              https://dev.azure.com/schwarzit/schwarzit.bikid-lidl/_workitems/edit/688269/
+#----------------------------------------------------------------------------
+*/
+
+
+CREATE OR REPLACE VIEW ldl_p_lew_bil_ac.v_agg_receive_wh_item_day_1 (client_id, wh_loc_sid, src_wh_id, orig_item_nr,
+dwh_cal_dt, curr_sid, currency_iso_cd, current_rcv_qty, current_rcv_buying_val, current_buying_price, last_buying_price
+, dwh_created) AS SELECT client_id,
+ wh_loc_sid,
+ src_wh_id,
+ orig_item_nr,
+ dwh_cal_dt,
+ curr_sid,
+ currency_iso_cd,
+ current_rcv_qty,
+ current_rcv_buying_val,
+ current_buying_price,
+ last_buying_price,
+ dwh_created
+FROM ldl_p_lew_bil.t_agg_receive_wh_item_day_1;

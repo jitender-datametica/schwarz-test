@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t_ts_tcache_saphana_cv_cube_ker_stat_cdwh_snap_2_plan_by_month___1 (
+int_org_sid INTEGER,
+int_org_type_cd STRING(20),
+real_estate_sid INTEGER,
+cal_month INTEGER,
+planned_val_type_sid INTEGER,
+plan_pos_nr STRING(20),
+dwh_valid_from_tmsp TIMESTAMP,
+dwh_valid_to_tmsp TIMESTAMP,
+dwh_valid_fg BOOL,
+planned_kpi_meas NUMERIC(29,5),
+dwh_load_id INTEGER,
+dwh_node_cd STRING(20),
+record_id STRING(1000),
+deleted_fg BOOL,
+error_descr STRING(1000),
+filename STRING(1000),
+hist_row_no STRING(1000),
+dwh_mapping_tmsp TIMESTAMP,
+error_fg INTEGER
+);

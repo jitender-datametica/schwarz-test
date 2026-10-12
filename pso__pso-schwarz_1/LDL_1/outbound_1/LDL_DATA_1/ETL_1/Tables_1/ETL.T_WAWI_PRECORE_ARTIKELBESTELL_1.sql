@@ -1,0 +1,42 @@
+CREATE TABLE IF NOT EXISTS ldl_data_etl.t_wawi_precore_artikelbestell_1 (
+ctrcode STRING(3) COLLATE 'und:ci' NOT NULL,
+artikelnr STRING(18) NOT NULL,
+disponr INTEGER,
+palettenschein INTEGER,
+mhdpruefung INTEGER NOT NULL,
+autobestell INTEGER,
+best_fuehr INTEGER,
+gewicht NUMERIC(12,3),
+zusatz STRING(18),
+dispoknz STRING(7),
+commoditycode STRING(10),
+dispo_period INTEGER NOT NULL,
+lieferzeit INTEGER,
+mindbestwoche INTEGER,
+datum DATETIME,
+bediener STRING(8),
+dispogrupnr INTEGER,
+gewichtsartikel INTEGER,
+order_only INTEGER,
+itemstatus_1 INTEGER,
+direct_delivery INTEGER,
+dispobkp STRING(6),
+avg_forced INTEGER,
+filling_qty NUMERIC(12,3),
+artikel_info STRING(400),
+promo_menge INTEGER,
+promo_ende DATETIME,
+manueller_abgang INTEGER,
+sollrwg INTEGER,
+scn BIGNUMERIC(38,0) DEFAULT 0,
+extraction_tmsp DATETIME,
+extraction_dt DATE,
+dwh_created_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was created in the data warehouse.'),
+dwh_updated_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was last updated.'),
+dwh_load_id BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)'),
+dwh_node_cd STRING(20) NOT NULL
+OPTIONS(description='The code for the source system (or slice of source system) from which this record was loaded.')
+);

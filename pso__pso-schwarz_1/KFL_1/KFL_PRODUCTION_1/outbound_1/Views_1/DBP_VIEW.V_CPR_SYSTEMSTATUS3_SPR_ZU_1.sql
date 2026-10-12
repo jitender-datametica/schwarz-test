@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_cpr_systemstatus3_spr_zu_1 AS SELECT cpr_systemstatus3_id,
+ spr_id,
+ cpr_systemstatus3_bez
+FROM kfl_production_dbp_data.cpr_systemstatus3_spr_zu_1;

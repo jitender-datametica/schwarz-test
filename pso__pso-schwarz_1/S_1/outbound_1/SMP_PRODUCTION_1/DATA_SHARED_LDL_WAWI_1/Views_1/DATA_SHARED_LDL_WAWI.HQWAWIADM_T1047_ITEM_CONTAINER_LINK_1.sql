@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW smp_production_data_shared_ldl_wawi.hqwawiadm_t1047_item_container_link_1 (wawi_instanz_kzl,
+c1047_id, c1047_item_short, c1047_warehouse, c1047_container_id, c1047_listtype, c1047_valid_from, c1047_valid_until,
+c1047_moduser, c1047_moddate, scn, delete_fg, extraction_tmsp) AS SELECT wawi_instanz_kzl,
+ c1047_id,
+ c1047_item_short,
+ c1047_warehouse,
+ c1047_container_id,
+ c1047_listtype,
+ c1047_valid_from,
+ c1047_valid_until,
+ c1047_moduser,
+ c1047_moddate,
+ scn,
+ delete_fg,
+ extraction_tmsp
+FROM ldl_wawi_production_hqwawiadm.t1047_item_container_link_1;

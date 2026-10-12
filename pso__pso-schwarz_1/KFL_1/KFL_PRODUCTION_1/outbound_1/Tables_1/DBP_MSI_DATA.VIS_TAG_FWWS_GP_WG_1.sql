@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_msi_data.vis_tag_fwws_gp_wg_1 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+gp_id BIGNUMERIC(38,0) NOT NULL,
+dat DATE NOT NULL,
+wg_id BIGNUMERIC(38,0) NOT NULL,
+arthiertyp_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+abt_id BIGNUMERIC(38,0) NOT NULL,
+gj BIGNUMERIC(38,0) NOT NULL,
+kjmo BIGNUMERIC(38,0) NOT NULL,
+kjwo BIGNUMERIC(38,0) NOT NULL,
+akt_tag BIGNUMERIC(38,0) NOT NULL,
+anz_bestell_aenderung BIGNUMERIC(38,0) NOT NULL,
+anz_bestell_manuell BIGNUMERIC(38,0) NOT NULL,
+anz_bestell_vorschlag BIGNUMERIC(38,0) NOT NULL,
+sum_bestell_aenderung BIGNUMERIC(38,0) NOT NULL,
+sum_bestell_manuell BIGNUMERIC(38,0) NOT NULL,
+sum_bestell_vorschlag BIGNUMERIC(38,0) NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+) CLUSTER BY mandant_id, dat;

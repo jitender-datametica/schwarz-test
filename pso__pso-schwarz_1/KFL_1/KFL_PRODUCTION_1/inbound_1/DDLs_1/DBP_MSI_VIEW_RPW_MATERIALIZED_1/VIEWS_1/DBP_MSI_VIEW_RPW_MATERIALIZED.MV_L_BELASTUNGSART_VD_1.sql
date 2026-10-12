@@ -1,0 +1,11 @@
+create or replace view DBP_MSI_VIEW_RPW_MATERIALIZED.MV_L_BELASTUNGSART_VD_1(
+	BELASTUNGSART_VD_ID,
+	BELASTUNGSART_VD_BEZ
+) as
+--19.07.2023 twie: SPEC0064436 Select * ersetzt
+
+SELECT 
+	BELASTUNGSART_VD_ID,
+	BELASTUNGSART_VD_BEZ
+	
+FROM dbp_view.v_rpw_l_belastungsart_vd_1;

@@ -1,0 +1,12 @@
+CREATE OR REPLACE VIEW P_LEW_MART_PIT_ONPREM_AC.V_PIT_MSI_DRILL_THEME_1
+AS
+SELECT
+client_id
+,adv_week_id
+,adv_week_sid
+,adv_theme_sid
+,adv_theme_mstr_sid
+,rowcnt
+,drill_to_theme_item_link_html
+,drill_to_theme_h_link_html
+FROM p_lew_mart_pit_onprem.v_pit_msi_drill_theme_1;

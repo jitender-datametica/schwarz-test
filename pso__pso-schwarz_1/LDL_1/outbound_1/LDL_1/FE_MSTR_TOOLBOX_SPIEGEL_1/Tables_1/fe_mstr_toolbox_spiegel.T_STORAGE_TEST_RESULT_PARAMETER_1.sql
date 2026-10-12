@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_fe_mstr_toolbox_spiegel.t_storage_test_result_parameter_1 (
+storage_test_exec_sid BIGNUMERIC(38,0),
+orig_store_nr BIGNUMERIC(38,0),
+store_desc STRING(100) COLLATE 'und:ci',
+end_week BIGNUMERIC(38,0),
+end_week_display STRING(16777216),
+analysis_start_week STRING(16777216),
+analysis_start_week_display STRING(16777216),
+analysis_end_week STRING(16777216),
+analysis_end_week_display STRING(16777216),
+sales_area STRING(16777216),
+top_measure_1 STRING(16777216),
+top_measure_2 STRING(16777216),
+top_measure_3 STRING(16777216),
+top_measure_4 STRING(16777216),
+top_measure_5 STRING(16777216),
+reconstruction_week BIGNUMERIC(38,0),
+excluded_week BIGNUMERIC(38,0),
+excluded_week_header STRING(16777216),
+test_week_cnt STRING(16777216),
+reconstruction_week_status STRING(16777216),
+kw_aggregate_until STRING(16777216)
+);

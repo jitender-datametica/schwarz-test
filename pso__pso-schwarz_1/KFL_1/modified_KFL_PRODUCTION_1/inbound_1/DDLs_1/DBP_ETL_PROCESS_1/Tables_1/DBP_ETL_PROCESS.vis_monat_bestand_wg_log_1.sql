@@ -1,0 +1,14 @@
+CREATE OR REPLACE TABLE VIS_MONAT_BESTAND_WG_LOG_1 (
+	MANDANT_ID INTEGER NOT NULL COMMENT 'Mandant_1 im DWH',
+	WUP_ID INTEGER NOT NULL COMMENT 'Nummer des Warenumschlagsplatzes',
+	NB_ID INTEGER NOT NULL COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer',
+	GJMO INTEGER NOT NULL COMMENT 'Geschäftsjahresmonat, beginnend bei 1 im März, Format JJJJMM
+            ',
+	ART_ID INTEGER NOT NULL COMMENT 'Input: Artikel_1 - Id einschliesslich der Generationen - ID (9-stellig);
+            Output: 7stellige L&S-ID + Counter = 8stellige ArtikelID. WWNNNNPC (Warengruppe, Nummer, Prüfziffer, Counter)
+            Regel: Neuer Artikel_1 -> Counter +1',
+	LOG_TIME_STAMP TIMESTAMP_LTZ(9) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration'
+)COMMENT='VIS Ladehilfstabelle - dient zur Beladung der Tabelle vis_monat_bestand_wg_1'
+;

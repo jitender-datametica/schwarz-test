@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_lagerbew_det_wwc_monat_1 AS SELECT art_id,
+ mandant_id,
+ wup_id,
+ nb_id,
+ lager_bewart_id,
+ gp_id,
+ kjmo,
+ exvkw_gleich_vkwrt_fg,
+ betrag_lagerbew,
+ betrag_verkauf,
+ menge_lagerbew_bme,
+ betrag_vk_netto,
+ betrag_verkauf_ist,
+ betrag_exbwr,
+ betrag_verkauf_ist_netto,
+ wrg_id
+FROM kfl_production_dbp_data.lagerbew_det_wwc_monat_1;

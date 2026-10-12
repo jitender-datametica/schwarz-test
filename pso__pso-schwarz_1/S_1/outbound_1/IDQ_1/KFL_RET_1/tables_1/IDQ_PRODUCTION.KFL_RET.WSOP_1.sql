@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE idq_production_kfl_ret.wsop_1 (
+mandt STRING(3) NOT NULL,
+skopf STRING(18) NOT NULL,
+sposi STRING(40) NOT NULL,
+datub STRING(24) NOT NULL,
+datuv DATE,
+lvorm STRING(1),
+ersda DATE,
+ernam STRING(12),
+negat STRING(1),
+pflkn STRING(1),
+ursac STRING(1),
+satnr STRING(40),
+lstfl STRING(2),
+atfsa STRING(1),
+kzfsa STRING(1),
+sstuf STRING(2),
+lstvz STRING(2),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (mandt, skopf, sposi, datub) NOT ENFORCED
+);

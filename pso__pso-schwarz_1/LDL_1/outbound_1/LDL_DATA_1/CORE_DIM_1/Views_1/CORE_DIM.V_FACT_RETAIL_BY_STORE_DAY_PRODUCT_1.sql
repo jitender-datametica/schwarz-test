@@ -1,0 +1,642 @@
+/* The data aggregation level for this view is on level store (organization hierarchy_1), product sales_1 variant (item_1 hierarchy_1) and day (time hierarchy_1). */
+
+
+CREATE OR REPLACE VIEW ldl_data_core_dim.v_fact_retail_by_store_day_product_1 (country_org_sid
+OPTIONS(description='The unique identifier (surrogate key) for the country_1 organization. This is on the one hand related to the country_1 organization which is responsible for the store which has sold the product, and on the other hand to the country_1 organization which has defined the local properties of the product.'),
+country_org_cd
+OPTIONS(description='The code of the business country_1 for which the related country_1 organization is responsible. (The business country_1 is not identical to a political country.) This is on the one hand related to the country_1 organization which is responsible for the store which has sold the product, and on the other hand to the country_1 organization which has defined the local properties of the product.'),
+store_sid OPTIONS(description='The unique identifier (surrogate key) for the store, which has generated the revenue.'),
+prod_sid OPTIONS(description='The unique identifier (surrogate key) for the product.'), sales_variant_sid
+OPTIONS(description='The unique identifier (surrogate key) for the sales_1 variant of a product.'), bus_year
+OPTIONS(description='Business year to which the measures are related.'), bus_dt
+OPTIONS(description='The business date to which the measures are related.'), uom_cd
+OPTIONS(description='The code identifying the unit_1 of measure for weight based products. (kg, ...)'), curr_cd
+OPTIONS(description='The code identifying the currency according to ISO-4217.'), sales_cnt
+OPTIONS(description='The number of this sales_1 variant which have been sold in the given store on the given day. (This attribute is empty for weight-based products.)'),
+sales_qty
+OPTIONS(description='In case of weight-based products, this is the quantity of the sales_1 variant which have been sold in the given store on the given day.'),
+return_cnt
+OPTIONS(description='The number of this sales_1 variant which have been returned in the given store on the given day. (This attribute is empty for weight-based products.)'),
+return_qty
+OPTIONS(description='In case of weight-based products, this is the quantity of the sales_1 variant which have been returned in the given store on the given day.'),
+total_cnt OPTIONS(description='Total number of sales_1 and returns'), total_qty
+OPTIONS(description='Total quantity of sales_1 and returns'), sales_net_val
+OPTIONS(description='The sales_1 portion of the net turnover which was generated for this sales_1 variant of the product in the given store on the given day. (This is the amount according to the cash register.)'),
+return_net_val
+OPTIONS(description='The return portion of the net turnover which was generated for this sales_1 variant of the product in the given store on the given day. (This is the amount according to the cash register.)'),
+sales_gross_val
+OPTIONS(description='The sales_1 portion of the gross turnover which was generated for this sales_1 variant of the product in the given store on the given day. (This is the amount according to the cash register.)'),
+return_gross_val
+OPTIONS(description='The return portion of the gross turnover which was generated for this sales_1 variant of the product in the given store on the given day. (This is the amount according to the cash register.)'),
+turnover_net_val
+OPTIONS(description='The net turnover which was generated for this sales_1 variant of the product in the given store on the given day. (This is the amount according to the cash register.)'),
+turnover_gross_val
+OPTIONS(description='The gross turnover which was generated for this sales_1 variant of the product in the given store on the given day. (This is the amount according to the cash register.)'),
+perf_adj_sales_cnt
+OPTIONS(description='The number of this sales_1 variant which have been sold in the given store on the given day. Only variants of products with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (This attribute is empty for weight-based products.)'),
+perf_adj_sales_qty
+OPTIONS(description='In case of weight-based products, this is the quantity of the sales_1 variant which have been sold in the given store on the given day. Only variants of products with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered.'),
+perf_adj_sales_net_val
+OPTIONS(description='The sales_1 portion of the net turnover which was generated for this sales_1 variant in the given store on the given day. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (This is the amount according to the cash register.)'),
+perf_adj_return_cnt
+OPTIONS(description='The number of this sales_1 variant which have been returned in the given store on the given day. Only variants of products with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (This attribute is empty for weight-based products.)'),
+perf_adj_return_qty
+OPTIONS(description='In case of weight-based products, this is the quantity of the sales_1 variant which have been returned in the given store on the given day. Only variants of products with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered.'),
+perf_adj_return_net_val
+OPTIONS(description='The return portion of the net turnover which was generated for this sales_1 variant in the given store on the given day. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (This is the amount according to the cash register.)'),
+perf_adj_total_cnt OPTIONS(description='Total number of sales_1 and returns without specific price range'),
+perf_adj_total_qty OPTIONS(description='Total quantity of sales_1 and returns without specific price range'),
+perf_adj_turnover_net_val OPTIONS(description='Total of sales_1 and return portion without specific price range'),
+sales_bytd_cnt
+OPTIONS(description='The number of this sales_1 variant which have been sold in the given store on the given day. This is for business year-to-date.'),
+sales_bytd_qty
+OPTIONS(description='In case of weight-based products, this is the quantity of the sales_1 variant which have been sold in the given store on the given day. This is for business year-to-date.'),
+return_bytd_cnt
+OPTIONS(description='The number of this sales_1 variant which have been returned in the given store on the given day. This is for business year-to-date.'),
+return_bytd_qty
+OPTIONS(description='In case of weight-based products, this is the quantity of the sales_1 variant which have been returned in the given store on the given day. This is for business year-to-date.'),
+sales_bytd_net_val
+OPTIONS(description='The sales_1 portion of the net turnover which was generated for this sales_1 variant of the product in the given store on the given day. This is for business year-to-date.'),
+return_bytd_net_val
+OPTIONS(description='The return portion of the net turnover which was generated for this sales_1 variant of the product in the given store on the given day. This is for business year-to-date.'),
+turnover_bytd_net_val
+OPTIONS(description='The net turnover which was generated for this sales_1 variant of the product in the given store on the given day. This is for business year-to-date.'),
+perf_adj_sales_bytd_cnt
+OPTIONS(description='The business-year-to-date sum of the number of sales_1 variants which have been sold in that store up to the given day. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Weight-based products are not included.)'),
+perf_adj_sales_bytd_qty
+OPTIONS(description='The business-year-to-date sum of the quantity of weight-based products which have been sold in that store up to the given day. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Quantity in the unit_1 defined by the unit_1 of measure code)'),
+perf_adj_return_bytd_cnt
+OPTIONS(description='The business-year-to-date sum of the number of sales_1 variants which have been returned in that store up to the given day. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Weight-based products are not included.)'),
+perf_adj_return_bytd_qty
+OPTIONS(description='The business-year-to-date sum of the quantity of weight-based products which have been returned in that store up to the given day. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Quantity in the unit_1 defined by the unit_1 of measure code)'),
+perf_adj_total_bytd_cnt
+OPTIONS(description='Total number of sales_1 and returns without specific price range. This is for business year-to-date.'),
+perf_adj_total_bytd_qty
+OPTIONS(description='Total quantity of sales_1 and returns without specific price range. This is for business year-to-date.'),
+perf_adj_turnover_bytd_net_val
+OPTIONS(description='The net turnover which was generated for this sales_1 variant of the product in the given store on the given day. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. This is for business year-to-date.'),
+sales_py_cnt
+OPTIONS(description='The number of this sales_1 variant which have been sold in the given store on the given day. This is for previous year.'),
+sales_py_qty
+OPTIONS(description='In case of weight-based products, this is the quantity of the sales_1 variant which have been sold in the given store on the given day. This is for previous year.'),
+return_py_cnt
+OPTIONS(description='The number of this sales_1 variant which have been returned in the given store on the given day. This is for previous year.'),
+return_py_qty
+OPTIONS(description='In case of weight-based products, this is the quantity of the sales_1 variant which have been returned in the given store on the given day. This is for previous year.'),
+sales_py_net_val
+OPTIONS(description='The sales_1 portion of the net turnover which was generated for this sales_1 variant of the product in the given store on the given day. This is for previous year.'),
+return_py_net_val
+OPTIONS(description='The reurn portion of the net turnover which was generated for this sales_1 variant of the product in the given store on the given day. This is for previous year.'),
+turnover_py_net_val
+OPTIONS(description='The net turnover which was generated for this sales_1 variant of the product in the given store on the given day. This is for previous year.'),
+perf_adj_sales_py_cnt
+OPTIONS(description='The number of sales_1 variants which were sold in that store on the same calendar_1 date one year ago. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Weight-based products are not included.)'),
+perf_adj_sales_py_qty
+OPTIONS(description='The total quantity of weight-based products which were sold in that store on the same calendar_1 date one year ago. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Quantity in the unit_1 defined by the unit_1 of measure code)'),
+perf_adj_return_py_cnt
+OPTIONS(description='The number of sales_1 variants which were returned in that store on the same calendar_1 date one year ago. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Weight-based products are not included.)'),
+perf_adj_return_py_qty
+OPTIONS(description='The total quantity of weight-based products which were returned in that store on the same calendar_1 date one year ago. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Quantity in the unit_1 defined by the unit_1 of measure code)'),
+perf_adj_total_py_cnt
+OPTIONS(description='Total number of sales_1 and returns without specific price range. This is for previous year.'),
+perf_adj_total_py_qty
+OPTIONS(description='Total quantity of sales_1 and returns without specific price range. This is for previous year.'),
+perf_adj_turnover_py_net_val
+OPTIONS(description='The net turnover which was generated for this sales_1 variant of the product in the given store on the given day. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. This is for previous year.'),
+sales_py_bytd_cnt
+OPTIONS(description='The number of this sales_1 variant which have been sold in the given store on the given day. This is for previous business year-to-date.'),
+sales_py_bytd_qty
+OPTIONS(description='In case of weight-based products, this is the quantity of the sales_1 variant which have been sold in the given store on the given day. This is for previous business year-to-date.'),
+return_py_bytd_cnt
+OPTIONS(description='The number of this sales_1 variant which have been returned in the given store on the given day. This is for previous business year-to-date.'),
+return_py_bytd_qty
+OPTIONS(description='In case of weight-based products, this is the quantity of the sales_1 variant which have been returned in the given store on the given day. This is for previous business year-to-date.'),
+sales_py_bytd_net_val
+OPTIONS(description='The sales_1 portion of the net turnover which was generated for this sales_1 variant of the product in the given store on the given day. This is for previous business year-to-date.'),
+return_py_bytd_net_val
+OPTIONS(description='The return portion of the net turnover which was generated for this sales_1 variant of the product in the given store on the given day. This is for previous business year-to-date.'),
+turnover_py_bytd_net_val
+OPTIONS(description='The net turnover which was generated for this sales_1 variant of the product in the given store on the given day. This is for previous business year-to-date.'),
+perf_adj_sales_py_bytd_cnt
+OPTIONS(description='The business-year-to-date sum of the number of sales_1 variants which have been sold in that store up to the same calendar_1 date one year ago. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Weight-based products are not included.)'),
+perf_adj_sales_py_bytd_qty
+OPTIONS(description='The business-year-to-date sum of the quantity of weight-based products which have been sold in that store up to the same calendar_1 date one year ago. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Quantity in the unit_1 defined by the unit_1 of measure code)'),
+perf_adj_return_py_bytd_cnt
+OPTIONS(description='The business-year-to-date sum of the number of sales_1 variants which have been returned in that store up to the same calendar_1 date one year ago. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Weight-based products are not included.)'),
+perf_adj_return_py_bytd_qty
+OPTIONS(description='The business-year-to-date sum of the quantity of weight-based products which have been returned in that store up to the same calendar_1 date one year ago. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Quantity in the unit_1 defined by the unit_1 of measure code)'),
+perf_adj_total_py_bytd_cnt
+OPTIONS(description='Total number of sales_1 and returns without specific price range. This is for previous business year-to-date.'),
+perf_adj_total_py_bytd_qty
+OPTIONS(description='Total quantity of sales_1 and returns without specific price range. This is for previous business year-to-date.'),
+perf_adj_turnover_py_bytd_net_val
+OPTIONS(description='The net turnover which was generated for this sales_1 variant of the product in the given store on the given day. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. This is for previous business year-to-date.'),
+sales_py_swday_cnt
+OPTIONS(description='The number of this sales_1 variant which have been sold in the given store on the given day. This is for same weekday of previous year.'),
+sales_py_swday_qty
+OPTIONS(description='In case of weight-based products, this is the quantity of the sales_1 variant which have been sold in the given store on the given day. This is for same weekday of previous year.'),
+return_py_swday_cnt
+OPTIONS(description='The number of this sales_1 variant which have been returned in the given store on the given day. This is for same weekday of previous year.'),
+return_py_swday_qty
+OPTIONS(description='In case of weight-based products, this is the quantity of the sales_1 variant which have been returned in the given store on the given day. This is for same weekday of previous year.'),
+sales_py_swday_net_val
+OPTIONS(description='The sales_1 portion of the net turnover which was generated for this sales_1 variant of the product in the given store on the given day. This is for same weekday of previous year.'),
+return_py_swday_net_val
+OPTIONS(description='The return portion of the net turnover which was generated for this sales_1 variant of the product in the given store on the given day. This is for same weekday of previous year.'),
+turnover_py_swday_net_val
+OPTIONS(description='The net turnover which was generated for this sales_1 variant of the product in the given store on the given day. This is for same weekday of previous year.'),
+perf_adj_sales_py_swday_cnt
+OPTIONS(description='The number of sales_1 variants which were sold in that store on the same weekday one year ago. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Weight-based products are not included.)'),
+perf_adj_sales_py_swday_qty
+OPTIONS(description='The total quantity of weight-based products which were sold in that store on the same weekday date one year ago. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Quantity in the unit_1 defined by the unit_1 of measure code)'),
+perf_adj_return_py_swday_cnt
+OPTIONS(description='The number of sales_1 variants which were returned in that store on the same weekday one year ago. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Weight-based products are not included.)'),
+perf_adj_return_py_swday_qty
+OPTIONS(description='The total quantity of weight-based products which were returned in that store on the same weekday date one year ago. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Quantity in the unit_1 defined by the unit_1 of measure code)'),
+perf_adj_total_py_swday_cnt
+OPTIONS(description='Total number of sales_1 and returns without specific price range. This is for same weekday of previous year.'),
+perf_adj_total_py_swday_qty
+OPTIONS(description='Total quantity of sales_1 and returns without specific price range. This is for same weekday of previous year.'),
+perf_adj_turnover_py_swday_net_val
+OPTIONS(description='The net turnover which was generated for this sales_1 variant of the product in the given store on the given day. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. This is for same weekday of previous year.'),
+sales_py_swday_bytd_cnt
+OPTIONS(description='The number of this sales_1 variant which have been sold in the given store on the given day. This is for same weekday of previous year-to-date.'),
+sales_py_swday_bytd_qty
+OPTIONS(description='In case of weight-based products, this is the quantity of the sales_1 variant which have been sold in the given store on the given day. This is for same weekday of previous year-to-date.'),
+return_py_swday_bytd_cnt
+OPTIONS(description='The number of this sales_1 variant which have been returned in the given store on the given day. This is for same weekday of previous year-to-date.'),
+return_py_swday_bytd_qty
+OPTIONS(description='In case of weight-based products, this is the quantity of the sales_1 variant which have been returned in the given store on the given day. This is for same weekday of previous year-to-date.'),
+sales_py_swday_bytd_net_val
+OPTIONS(description='The sales_1 portion of the net turnover which was generated for this sales_1 variant of the product in the given store on the given day. This is for same weekday of previous year-to-date.'),
+return_py_swday_bytd_net_val
+OPTIONS(description='The return portion of the net turnover which was generated for this sales_1 variant of the product in the given store on the given day. This is for same weekday of previous year-to-date.'),
+turnover_py_swday_bytd_net_val
+OPTIONS(description='The net turnover which was generated for this sales_1 variant of the product in the given store on the given day. This is for same weekday of previous year-to-date.'),
+perf_adj_sales_py_swday_bytd_cnt
+OPTIONS(description='The business-year-to-date sum of the number of sales_1 variants which have been sold in that store up to the same weekday one year ago. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Weight-based products are not included.)'),
+perf_adj_sales_py_swday_bytd_qty
+OPTIONS(description='The business-year-to-date sum of the quantity of weight-based products  which have been sold in that store up to the same weekday one year ago. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Quantity in the unit_1 defined by the unit_1 of measure code)'),
+perf_adj_return_py_swday_bytd_cnt
+OPTIONS(description='The business-year-to-date sum of the number of sales_1 variants which have been returned in that store up to the same weekday one year ago. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Weight-based products are not included.)'),
+perf_adj_return_py_swday_bytd_qty
+OPTIONS(description='The business-year-to-date sum of the quantity of weight-based products  which have been returned in that store up to the same weekday one year ago. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. (Quantity in the unit_1 defined by the unit_1 of measure code)'),
+perf_adj_total_py_swday_bytd_cnt
+OPTIONS(description='Total number of sales_1 and returns without specific price range. This is for same weekday of previous year-to-date.'),
+perf_adj_total_py_swday_bytd_qty
+OPTIONS(description='Total quantity of sales_1 and returns without specific price range. This is for same weekday of previous year-to-date.'),
+perf_adj_turnover_py_swday_bytd_net_val
+OPTIONS(description='The net turnover which was generated for this sales_1 variant of the product in the given store on the given day. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. This is for same weekday of previous year-to-date.'),
+perf_adj_turnover_ppy_net_val
+OPTIONS(description='The net turnover which was generated for this sales_1 variant of the product in the given store on the given day. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. This is for second to last year.'),
+perf_adj_turnover_ppy_bytd_net_val
+OPTIONS(description='The net turnover which was generated for this sales_1 variant of the product in the given store on the given day. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. This is for second to last business year-to-date.'),
+perf_adj_turnover_ppy_swday_net_val
+OPTIONS(description='The net turnover which was generated for this sales_1 variant of the product in the given store on the given day. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. This is for same weekday of second to last year.'),
+perf_adj_turnover_ppy_swday_bytd_net_val
+OPTIONS(description='The net turnover which was generated for this sales_1 variant of the product in the given store on the given day. Only product variants with an international item_1 group or commission products with an absolute unit_1 price not between 0.0001 and 0.0315 EUR are considered. This is for same weekday of second to last year-to-date.'),
+dwh_created_tmsp OPTIONS(description='The point in time when this record was created in the data warehouse.'),
+dwh_updated_tmsp OPTIONS(description='The point in time when this record was created or last updated.'), dwh_load_id
+OPTIONS(description='The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)'),
+dwh_node_cd
+OPTIONS(description='The code for the source system (or slice of source system) from which this record was loaded.'))
+OPTIONS(DESCRIPTION = `AN AGGREGATE FACT HOLDING BASIC RETAIL MEASURES PER DAY, PRODUCT AND STORE. THIS INCLUDES SALES_1 AND RETURN VOLUME AND THE GROSS AND NET TURNOVER. TURNOVER AMOUNTS ARE TAKEN FROM THE CASH REGISTER.`)
+AS WITH LIMITATION_TIME_PERIOD AS (SELECT cal_dt,
+   bus_year,
+   bus_year_offset
+  FROM ldl_data_core_dim.t_dim_calendar_date_1
+  WHERE bus_year_offset BETWEEN - 5 AND 0), FACTS_RETAIL AS (SELECT R.country_org_sid,
+   R.country_org_cd,
+   R.store_sid,
+   R.prod_sid,
+   R.sales_variant_sid,
+   t.bus_year,
+   R.bus_dt,
+   R.uom_cd,
+   R.curr_cd,
+   R.sales_cnt,
+   R.sales_qty,
+   R.return_cnt,
+   R.return_qty,
+   R.cash_register_sales_net_val AS sales_net_val,
+   R.cash_register_return_net_val AS return_net_val,
+   R.cash_register_sales_gross_val AS sales_gross_val,
+   R.cash_register_return_gross_val AS return_gross_val,
+   R.perf_adj_sales_cnt,
+   R.perf_adj_sales_qty,
+   R.perf_adj_sales_net_val,
+   R.perf_adj_return_cnt,
+   R.perf_adj_return_qty,
+   R.perf_adj_return_net_val,
+   R.dwh_created_tmsp,
+   R.dwh_updated_tmsp,
+   R.dwh_load_id,
+   R.dwh_node_cd
+  FROM ldl_data_core_dim.t_fact_retail_by_store_day_product_1 AS R
+   INNER JOIN LIMITATION_TIME_PERIOD AS t ON R.bus_dt = t.cal_dt), FACT_CUMULATIONS AS (SELECT country_org_sid,
+   country_org_cd,
+   store_sid,
+   prod_sid,
+   sales_variant_sid,
+   bus_year,
+   bus_dt,
+   uom_cd,
+   curr_cd,
+   sales_cnt,
+   sales_qty,
+   return_cnt,
+   return_qty,
+    IFNULL(sales_cnt, 0) + IFNULL(return_cnt, 0) AS total_cnt,
+    IFNULL(sales_qty, 0) + IFNULL(return_qty, 0) AS total_qty,
+   sales_net_val,
+   return_net_val,
+   sales_gross_val,
+   return_gross_val,
+    IFNULL(sales_net_val, 0) + IFNULL(return_net_val, 0) AS turnover_net_val,
+    IFNULL(sales_gross_val, 0) + IFNULL(return_gross_val, 0) AS turnover_gross_val,
+   perf_adj_sales_cnt,
+   perf_adj_sales_qty,
+   perf_adj_sales_net_val,
+   perf_adj_return_cnt,
+   perf_adj_return_qty,
+   perf_adj_return_net_val,
+    IFNULL(perf_adj_sales_cnt, 0) + IFNULL(perf_adj_return_cnt, 0) AS perf_adj_total_cnt,
+    IFNULL(perf_adj_sales_qty, 0) + IFNULL(perf_adj_return_qty, 0) AS perf_adj_total_qty,
+    IFNULL(perf_adj_sales_net_val, 0) + IFNULL(perf_adj_return_net_val, 0) AS perf_adj_turnover_net_val,
+   SUM(sales_cnt) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING), CAST(prod_sid AS STRING)
+      , CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN
+    UNBOUNDED PRECEDING AND CURRENT ROW) AS sales_bytd_cnt,
+   SUM(sales_qty) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING), CAST(prod_sid AS STRING)
+      , CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN
+    UNBOUNDED PRECEDING AND CURRENT ROW) AS sales_bytd_qty,
+   SUM(return_cnt) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING), CAST(prod_sid AS STRING)
+      , CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN
+    UNBOUNDED PRECEDING AND CURRENT ROW) AS return_bytd_cnt,
+   SUM(return_qty) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING), CAST(prod_sid AS STRING)
+      , CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN
+    UNBOUNDED PRECEDING AND CURRENT ROW) AS return_bytd_qty,
+   SUM(sales_net_val) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING), CAST(prod_sid AS STRING)
+      , CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN
+    UNBOUNDED PRECEDING AND CURRENT ROW) AS sales_bytd_net_val,
+   SUM(return_net_val) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING), CAST(prod_sid AS STRING)
+      , CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN
+    UNBOUNDED PRECEDING AND CURRENT ROW) AS return_bytd_net_val,
+   SUM(IFNULL(sales_net_val, 0) + IFNULL(return_net_val, 0)) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING)
+      , CAST(prod_sid AS STRING), CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL,
+      bus_dt ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS turnover_bytd_net_val,
+   SUM(perf_adj_sales_cnt) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING), CAST(prod_sid AS STRING)
+      , CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN
+    UNBOUNDED PRECEDING AND CURRENT ROW) AS perf_adj_sales_bytd_cnt,
+   SUM(perf_adj_sales_qty) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING), CAST(prod_sid AS STRING)
+      , CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN
+    UNBOUNDED PRECEDING AND CURRENT ROW) AS perf_adj_sales_bytd_qty,
+   SUM(perf_adj_return_cnt) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING), CAST(prod_sid AS STRING)
+      , CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN
+    UNBOUNDED PRECEDING AND CURRENT ROW) AS perf_adj_return_bytd_cnt,
+   SUM(perf_adj_return_qty) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING), CAST(prod_sid AS STRING)
+      , CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN
+    UNBOUNDED PRECEDING AND CURRENT ROW) AS perf_adj_return_bytd_qty,
+   SUM(IFNULL(perf_adj_sales_cnt, 0) + IFNULL(perf_adj_return_cnt, 0)) OVER (PARTITION BY CAST(country_org_sid AS STRING)
+      , CAST(store_sid AS STRING), CAST(prod_sid AS STRING), CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING)
+      ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS perf_adj_total_bytd_cnt,
+   SUM(IFNULL(perf_adj_sales_qty, 0) + IFNULL(perf_adj_return_qty, 0)) OVER (PARTITION BY CAST(country_org_sid AS STRING)
+      , CAST(store_sid AS STRING), CAST(prod_sid AS STRING), CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING)
+      ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS perf_adj_total_bytd_qty,
+   SUM(IFNULL(perf_adj_sales_net_val, 0) + IFNULL(perf_adj_return_net_val, 0)) OVER (PARTITION BY CAST(country_org_sid AS STRING)
+      , CAST(store_sid AS STRING), CAST(prod_sid AS STRING), CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING)
+      ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS
+   perf_adj_turnover_bytd_net_val,
+   dwh_created_tmsp,
+   dwh_updated_tmsp,
+   dwh_load_id,
+   dwh_node_cd
+  FROM FACTS_RETAIL), LIMITATION_ADJUSTED_DAYS AS (SELECT t_cal_date_adjusted_relationship.cal_dt,
+   t_cal_date_adjusted_relationship.cal_dt_adjust_type_cd,
+   t_cal_date_adjusted_relationship.bus_year_diff,
+   t_cal_date_adjusted_relationship.rel_cal_dt
+  FROM ldl_data_core_rel.t_cal_date_adjusted_relationship_1
+   INNER JOIN LIMITATION_TIME_PERIOD AS t13 USING (cal_dt)), FACTS_PAST_PC AS (SELECT c.country_org_sid,
+   c.country_org_cd,
+   c.store_sid,
+   c.prod_sid,
+   c.sales_variant_sid,
+   d.cal_dt,
+   d.rel_cal_dt,
+   c.sales_cnt AS sales_py_cnt,
+   c.sales_qty AS sales_py_qty,
+   c.return_cnt AS return_py_cnt,
+   c.return_qty AS return_py_qty,
+   c.sales_net_val AS sales_py_net_val,
+   c.return_net_val AS return_py_net_val,
+   c.turnover_net_val AS turnover_py_net_val,
+   c.perf_adj_sales_cnt AS perf_adj_sales_py_cnt,
+   c.perf_adj_sales_qty AS perf_adj_sales_py_qty,
+   c.perf_adj_return_cnt AS perf_adj_return_py_cnt,
+   c.perf_adj_return_qty AS perf_adj_return_py_qty,
+   c.perf_adj_total_cnt AS perf_adj_total_py_cnt,
+   c.perf_adj_total_qty AS perf_adj_total_py_qty,
+   c.perf_adj_turnover_net_val AS perf_adj_turnover_py_net_val,
+   c.sales_bytd_cnt AS sales_py_bytd_cnt,
+   c.sales_bytd_qty AS sales_py_bytd_qty,
+   c.return_bytd_cnt AS return_py_bytd_cnt,
+   c.return_bytd_qty AS return_py_bytd_qty,
+   c.sales_bytd_net_val AS sales_py_bytd_net_val,
+   c.return_bytd_net_val AS return_py_bytd_net_val,
+   c.turnover_bytd_net_val AS turnover_py_bytd_net_val,
+   c.perf_adj_sales_bytd_cnt AS perf_adj_sales_py_bytd_cnt,
+   c.perf_adj_sales_bytd_qty AS perf_adj_sales_py_bytd_qty,
+   c.perf_adj_return_bytd_cnt AS perf_adj_return_py_bytd_cnt,
+   c.perf_adj_return_bytd_qty AS perf_adj_return_py_bytd_qty,
+   c.perf_adj_total_bytd_cnt AS perf_adj_total_py_bytd_cnt,
+   c.perf_adj_total_bytd_qty AS perf_adj_total_py_bytd_qty,
+   c.perf_adj_turnover_bytd_net_val AS perf_adj_turnover_py_bytd_net_val
+  FROM FACT_CUMULATIONS AS c
+   INNER JOIN LIMITATION_ADJUSTED_DAYS AS d ON c.bus_dt = d.rel_cal_dt AND d.cal_dt_adjust_type_cd = 'M' AND d.bus_year_diff
+      = 1), FACTS_PAST_PW AS (SELECT c.country_org_sid,
+   c.country_org_cd,
+   c.store_sid,
+   c.prod_sid,
+   c.sales_variant_sid,
+   d.cal_dt,
+   d.rel_cal_dt,
+   c.sales_cnt AS sales_py_swday_cnt,
+   c.sales_qty AS sales_py_swday_qty,
+   c.return_cnt AS return_py_swday_cnt,
+   c.return_qty AS return_py_swday_qty,
+   c.sales_net_val AS sales_py_swday_net_val,
+   c.return_net_val AS return_py_swday_net_val,
+   c.turnover_net_val AS turnover_py_swday_net_val,
+   c.perf_adj_sales_cnt AS perf_adj_sales_py_swday_cnt,
+   c.perf_adj_sales_qty AS perf_adj_sales_py_swday_qty,
+   c.perf_adj_return_cnt AS perf_adj_return_py_swday_cnt,
+   c.perf_adj_return_qty AS perf_adj_return_py_swday_qty,
+   c.perf_adj_total_cnt AS perf_adj_total_py_swday_cnt,
+   c.perf_adj_total_qty AS perf_adj_total_py_swday_qty,
+   c.perf_adj_turnover_net_val AS perf_adj_turnover_py_swday_net_val,
+   c.sales_bytd_cnt AS sales_py_swday_bytd_cnt,
+   c.sales_bytd_qty AS sales_py_swday_bytd_qty,
+   c.return_bytd_cnt AS return_py_swday_bytd_cnt,
+   c.return_bytd_qty AS return_py_swday_bytd_qty,
+   c.sales_bytd_net_val AS sales_py_swday_bytd_net_val,
+   c.return_bytd_net_val AS return_py_swday_bytd_net_val,
+   c.turnover_bytd_net_val AS turnover_py_swday_bytd_net_val,
+   c.perf_adj_sales_bytd_cnt AS perf_adj_sales_py_swday_bytd_cnt,
+   c.perf_adj_sales_bytd_qty AS perf_adj_sales_py_swday_bytd_qty,
+   c.perf_adj_return_bytd_cnt AS perf_adj_return_py_swday_bytd_cnt,
+   c.perf_adj_return_bytd_qty AS perf_adj_return_py_swday_bytd_qty,
+   c.perf_adj_total_bytd_cnt AS perf_adj_total_py_swday_bytd_cnt,
+   c.perf_adj_total_bytd_qty AS perf_adj_total_py_swday_bytd_qty,
+   c.perf_adj_turnover_bytd_net_val AS perf_adj_turnover_py_swday_bytd_net_val
+  FROM FACT_CUMULATIONS AS c
+   INNER JOIN LIMITATION_ADJUSTED_DAYS AS d ON c.bus_dt = d.rel_cal_dt AND d.cal_dt_adjust_type_cd = 'W' AND d.bus_year_diff
+      = 1), FACTS_PAST_PPC AS (SELECT c.country_org_sid,
+   c.country_org_cd,
+   c.store_sid,
+   c.prod_sid,
+   c.sales_variant_sid,
+   d.cal_dt,
+   d.rel_cal_dt,
+   c.perf_adj_turnover_net_val AS perf_adj_turnover_ppy_net_val,
+   c.perf_adj_turnover_bytd_net_val AS perf_adj_turnover_ppy_bytd_net_val
+  FROM FACT_CUMULATIONS AS c
+   INNER JOIN LIMITATION_ADJUSTED_DAYS AS d ON c.bus_dt = d.rel_cal_dt AND d.cal_dt_adjust_type_cd = 'M' AND d.bus_year_diff
+      = 2), FACTS_PAST_PPW AS (SELECT c.country_org_sid,
+   c.country_org_cd,
+   c.store_sid,
+   c.prod_sid,
+   c.sales_variant_sid,
+   d.cal_dt,
+   d.rel_cal_dt,
+   c.perf_adj_turnover_net_val AS perf_adj_turnover_ppy_swday_net_val,
+   c.perf_adj_turnover_bytd_net_val AS perf_adj_turnover_ppy_swday_bytd_net_val
+  FROM FACT_CUMULATIONS AS c
+   INNER JOIN LIMITATION_ADJUSTED_DAYS AS d ON c.bus_dt = d.rel_cal_dt AND d.cal_dt_adjust_type_cd = 'W' AND d.bus_year_diff
+      = 2), FACT_CONSOLIDATION AS (SELECT c.country_org_sid,
+   c.country_org_cd,
+   c.store_sid,
+   c.prod_sid,
+   c.sales_variant_sid,
+   c.bus_year,
+   c.bus_dt,
+   c.uom_cd,
+   c.curr_cd,
+   c.sales_cnt,
+   c.sales_qty,
+   c.return_cnt,
+   c.return_qty,
+   c.total_cnt,
+   c.total_qty,
+   c.sales_net_val,
+   c.return_net_val,
+   c.sales_gross_val,
+   c.return_gross_val,
+   c.turnover_net_val,
+   c.turnover_gross_val,
+   c.perf_adj_sales_cnt,
+   c.perf_adj_sales_qty,
+   c.perf_adj_sales_net_val,
+   c.perf_adj_return_cnt,
+   c.perf_adj_return_qty,
+   c.perf_adj_return_net_val,
+   c.perf_adj_total_cnt,
+   c.perf_adj_total_qty,
+   c.perf_adj_turnover_net_val,
+   c.sales_bytd_cnt,
+   c.sales_bytd_qty,
+   c.return_bytd_cnt,
+   c.return_bytd_qty,
+   c.sales_bytd_net_val,
+   c.return_bytd_net_val,
+   c.turnover_bytd_net_val,
+   c.perf_adj_sales_bytd_cnt,
+   c.perf_adj_sales_bytd_qty,
+   c.perf_adj_return_bytd_cnt,
+   c.perf_adj_return_bytd_qty,
+   c.perf_adj_total_bytd_cnt,
+   c.perf_adj_total_bytd_qty,
+   c.perf_adj_turnover_bytd_net_val,
+   pc.rel_cal_dt AS rel_cal_dt_pc,
+   pc.sales_py_cnt,
+   pc.sales_py_qty,
+   pc.return_py_cnt,
+   pc.return_py_qty,
+   pc.sales_py_net_val,
+   pc.return_py_net_val,
+   pc.turnover_py_net_val,
+   pc.perf_adj_sales_py_cnt,
+   pc.perf_adj_sales_py_qty,
+   pc.perf_adj_return_py_cnt,
+   pc.perf_adj_return_py_qty,
+   pc.perf_adj_total_py_cnt,
+   pc.perf_adj_total_py_qty,
+   pc.perf_adj_turnover_py_net_val,
+   pc.sales_py_bytd_cnt,
+   pc.sales_py_bytd_qty,
+   pc.return_py_bytd_cnt,
+   pc.return_py_bytd_qty,
+   pc.sales_py_bytd_net_val,
+   pc.return_py_bytd_net_val,
+   pc.turnover_py_bytd_net_val,
+   pc.perf_adj_sales_py_bytd_cnt,
+   pc.perf_adj_sales_py_bytd_qty,
+   pc.perf_adj_return_py_bytd_cnt,
+   pc.perf_adj_return_py_bytd_qty,
+   pc.perf_adj_total_py_bytd_cnt,
+   pc.perf_adj_total_py_bytd_qty,
+   pc.perf_adj_turnover_py_bytd_net_val,
+   pw.rel_cal_dt AS rel_cal_dt_pw,
+   pw.sales_py_swday_cnt,
+   pw.sales_py_swday_qty,
+   pw.return_py_swday_cnt,
+   pw.return_py_swday_qty,
+   pw.sales_py_swday_net_val,
+   pw.return_py_swday_net_val,
+   pw.turnover_py_swday_net_val,
+   pw.perf_adj_sales_py_swday_cnt,
+   pw.perf_adj_sales_py_swday_qty,
+   pw.perf_adj_return_py_swday_cnt,
+   pw.perf_adj_return_py_swday_qty,
+   pw.perf_adj_total_py_swday_cnt,
+   pw.perf_adj_total_py_swday_qty,
+   pw.perf_adj_turnover_py_swday_net_val,
+   pw.sales_py_swday_bytd_cnt,
+   pw.sales_py_swday_bytd_qty,
+   pw.return_py_swday_bytd_cnt,
+   pw.return_py_swday_bytd_qty,
+   pw.sales_py_swday_bytd_net_val,
+   pw.return_py_swday_bytd_net_val,
+   pw.turnover_py_swday_bytd_net_val,
+   pw.perf_adj_sales_py_swday_bytd_cnt,
+   pw.perf_adj_sales_py_swday_bytd_qty,
+   pw.perf_adj_return_py_swday_bytd_cnt,
+   pw.perf_adj_return_py_swday_bytd_qty,
+   pw.perf_adj_total_py_swday_bytd_cnt,
+   pw.perf_adj_total_py_swday_bytd_qty,
+   pw.perf_adj_turnover_py_swday_bytd_net_val,
+   ppc.rel_cal_dt AS rel_cal_dt_ppc,
+   ppc.perf_adj_turnover_ppy_net_val,
+   ppc.perf_adj_turnover_ppy_bytd_net_val,
+   ppw.rel_cal_dt AS rel_cal_dt_ppw,
+   ppw.perf_adj_turnover_ppy_swday_net_val,
+   ppw.perf_adj_turnover_ppy_swday_bytd_net_val,
+   c.dwh_created_tmsp,
+   c.dwh_updated_tmsp,
+   c.dwh_load_id,
+   c.dwh_node_cd
+  FROM FACT_CUMULATIONS AS c
+   LEFT JOIN FACTS_PAST_PC AS pc ON c.store_sid = pc.store_sid AND c.sales_variant_sid = pc.sales_variant_sid AND c.bus_dt
+      = pc.cal_dt
+   LEFT JOIN FACTS_PAST_PW AS pw ON c.store_sid = pw.store_sid AND c.sales_variant_sid = pw.sales_variant_sid AND c.bus_dt
+      = pw.cal_dt
+   LEFT JOIN FACTS_PAST_PPC AS ppc ON c.store_sid = ppc.store_sid AND c.sales_variant_sid = ppc.sales_variant_sid AND c
+     .bus_dt = ppc.cal_dt
+   LEFT JOIN FACTS_PAST_PPW AS ppw ON c.store_sid = ppw.store_sid AND c.sales_variant_sid = ppw.sales_variant_sid AND c
+     .bus_dt = ppw.cal_dt) (SELECT country_org_sid,
+   country_org_cd,
+   store_sid,
+   prod_sid,
+   sales_variant_sid,
+   bus_year,
+   bus_dt,
+   uom_cd,
+   curr_cd,
+   sales_cnt,
+   sales_qty,
+   return_cnt,
+   return_qty,
+   total_cnt,
+   total_qty,
+   sales_net_val,
+   return_net_val,
+   sales_gross_val,
+   return_gross_val,
+   turnover_net_val,
+   turnover_gross_val,
+   perf_adj_sales_cnt,
+   perf_adj_sales_qty,
+   perf_adj_sales_net_val,
+   perf_adj_return_cnt,
+   perf_adj_return_qty,
+   perf_adj_return_net_val,
+   perf_adj_total_cnt,
+   perf_adj_total_qty,
+   perf_adj_turnover_net_val,
+   sales_bytd_cnt,
+   sales_bytd_qty,
+   return_bytd_cnt,
+   return_bytd_qty,
+   sales_bytd_net_val,
+   return_bytd_net_val,
+   turnover_bytd_net_val,
+   perf_adj_sales_bytd_cnt,
+   perf_adj_sales_bytd_qty,
+   perf_adj_return_bytd_cnt,
+   perf_adj_return_bytd_qty,
+   perf_adj_total_bytd_cnt,
+   perf_adj_total_bytd_qty,
+   perf_adj_turnover_bytd_net_val,
+   sales_py_cnt,
+   sales_py_qty,
+   return_py_cnt,
+   return_py_qty,
+   sales_py_net_val,
+   return_py_net_val,
+   turnover_py_net_val,
+   perf_adj_sales_py_cnt,
+   perf_adj_sales_py_qty,
+   perf_adj_return_py_cnt,
+   perf_adj_return_py_qty,
+   perf_adj_total_py_cnt,
+   perf_adj_total_py_qty,
+   perf_adj_turnover_py_net_val,
+   sales_py_bytd_cnt,
+   sales_py_bytd_qty,
+   return_py_bytd_cnt,
+   return_py_bytd_qty,
+   sales_py_bytd_net_val,
+   return_py_bytd_net_val,
+   turnover_py_bytd_net_val,
+   perf_adj_sales_py_bytd_cnt,
+   perf_adj_sales_py_bytd_qty,
+   perf_adj_return_py_bytd_cnt,
+   perf_adj_return_py_bytd_qty,
+   perf_adj_total_py_bytd_cnt,
+   perf_adj_total_py_bytd_qty,
+   perf_adj_turnover_py_bytd_net_val,
+   sales_py_swday_cnt,
+   sales_py_swday_qty,
+   return_py_swday_cnt,
+   return_py_swday_qty,
+   sales_py_swday_net_val,
+   return_py_swday_net_val,
+   turnover_py_swday_net_val,
+   perf_adj_sales_py_swday_cnt,
+   perf_adj_sales_py_swday_qty,
+   perf_adj_return_py_swday_cnt,
+   perf_adj_return_py_swday_qty,
+   perf_adj_total_py_swday_cnt,
+   perf_adj_total_py_swday_qty,
+   perf_adj_turnover_py_swday_net_val,
+   sales_py_swday_bytd_cnt,
+   sales_py_swday_bytd_qty,
+   return_py_swday_bytd_cnt,
+   return_py_swday_bytd_qty,
+   sales_py_swday_bytd_net_val,
+   return_py_swday_bytd_net_val,
+   turnover_py_swday_bytd_net_val,
+   perf_adj_sales_py_swday_bytd_cnt,
+   perf_adj_sales_py_swday_bytd_qty,
+   perf_adj_return_py_swday_bytd_cnt,
+   perf_adj_return_py_swday_bytd_qty,
+   perf_adj_total_py_swday_bytd_cnt,
+   perf_adj_total_py_swday_bytd_qty,
+   perf_adj_turnover_py_swday_bytd_net_val,
+   perf_adj_turnover_ppy_net_val,
+   perf_adj_turnover_ppy_bytd_net_val,
+   perf_adj_turnover_ppy_swday_net_val,
+   perf_adj_turnover_ppy_swday_bytd_net_val,
+   dwh_created_tmsp,
+   dwh_updated_tmsp,
+   dwh_load_id,
+   dwh_node_cd
+  FROM FACT_CONSOLIDATION);

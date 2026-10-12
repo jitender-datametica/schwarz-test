@@ -1,0 +1,27 @@
+  CREATE TABLE CORE_REL.T_DEMAND_CANNEDFOOD_1
+  (
+    HS1 VARCHAR(100) COMMENT 'HS1',
+    WG VARCHAR(100) COMMENT 'Warengruppennummer',
+    AF VARCHAR(100) COMMENT 'Produktfamiliengruppe',
+    EKS_KATEGORIE VARCHAR(100) COMMENT 'EKS-Kategorie',
+    LAND_1 VARCHAR(100) COMMENT 'Ländercode',
+    WWT_IAN VARCHAR(100) COMMENT 'WWT IAN',
+    STAMM_IAN NUMBER(38,0) COMMENT 'Stamm-IAN',
+    ARTIKELBEZEICHNUNG VARCHAR(100) COMMENT 'Artikelbeschreibung',
+    REF_KI NUMBER(38,0) COMMENT 'Referenz-KI',
+    REF_PF NUMBER(38,0) COMMENT 'Referenz-PF',
+    PEH VARCHAR(100) COMMENT 'PEH',
+    START_CW NUMBER(2,0) COMMENT 'Start-Kalenderwoche',
+    START_CW_YEAR NUMBER(4,0) COMMENT 'Start-Kalenderjahr',
+    END_CW NUMBER(2,0) COMMENT 'End-Kalenderwoche',
+    END_CW_YEAR NUMBER(4,0) COMMENT 'End-Kalenderjahr',
+    START_MONTH NUMBER(2,0) COMMENT 'Startmonat',
+    START_YEAR NUMBER(4,0) COMMENT 'Startjahr',
+    END_MONTH NUMBER(2,0) COMMENT 'Endmonat',
+    END_YEAR NUMBER(4,0) COMMENT 'Endjahr',
+    PLANMENGE_BEDARF_IN_KRT NUMBER(38,0) COMMENT 'Geplante Bedarfsmenge in Kartons',
+    PLANMENGE_BEDARF_IN_STK NUMBER(38,0) COMMENT 'Geplante Bedarfsmenge in Stück',
+    PLANMENGE_BEDARF_IN_PAL NUMBER(38,0) COMMENT 'Geplante Bedarfsmenge in Paletten',
+    DWH_UPDATED_TMSP TIMESTAMP_NTZ(6) COMMENT 'Erstellungszeitpunkt des Datensatzes im DWH',
+    DWH_CREATED_TMSP TIMESTAMP_NTZ(6) COMMENT 'Zeitstempel der letzten Aktualisierung des Datensatzes im DWH'
+  );

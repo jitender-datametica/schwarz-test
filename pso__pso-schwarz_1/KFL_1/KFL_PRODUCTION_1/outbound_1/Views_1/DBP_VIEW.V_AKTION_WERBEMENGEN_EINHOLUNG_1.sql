@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_aktion_werbemengen_einholung_1 AS SELECT mandant_id,
+ wup_id,
+ nb_id,
+ aktion_id,
+ wg_id,
+ arthiertyp_id,
+ schlagwort,
+ dat_von,
+ dat_bis,
+ status_einholung_id,
+ status_einholung_markt_kz,
+ dat_rueckmeldung,
+ dat_bis_rueckmeldung,
+ dat_aktionsbekanntmachung,
+ anzahl_artikel_offen,
+ anzahl_artikel_gesamt,
+ aktion_typ_id
+FROM kfl_production_dbp_data.aktion_werbemengen_einholung_1;

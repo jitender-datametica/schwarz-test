@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE szd_production_etl.t_ts_cache_ceva_2_broker_int_1 (
+party_sid INTEGER,
+dwh_valid_from_tmsp TIMESTAMP,
+dwh_valid_to_tmsp TIMESTAMP,
+dwh_valid_fg BOOL,
+broker_number STRING(250),
+broker_name STRING(100),
+broker_postcode STRING(50),
+broker_authorized_fg BOOL,
+dwh_src_file_name STRING(500),
+dwh_src_1_tmsp TIMESTAMP,
+record_id STRING(1000),
+deleted_fg BOOL,
+error_descr STRING(1000),
+filename STRING(1000),
+hist_row_no STRING(1000),
+dwh_mapping_tmsp TIMESTAMP,
+dwh_ending_tmsp TIMESTAMP,
+error_fg INTEGER,
+dwh_load_id INTEGER
+);

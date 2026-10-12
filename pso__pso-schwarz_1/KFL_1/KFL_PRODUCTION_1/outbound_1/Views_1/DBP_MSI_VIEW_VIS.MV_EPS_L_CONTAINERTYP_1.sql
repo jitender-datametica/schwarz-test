@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_eps_l_containertyp_1 AS SELECT DISTINCT containertyp_id
+FROM kfl_production_dbp_view.v_l_eps_containertyp_1;

@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_tcache_gps_workingtimes_2_time_tracking_record_1 (
+record_id STRING(1000) COLLATE 'und:ci',
+client_id BIGNUMERIC(38),
+loc_sid BIGNUMERIC(38),
+time_record_id BIGNUMERIC(38),
+time_record_change_dt DATE,
+employee_hash STRING(100) COLLATE 'und:ci',
+time_type_sid BIGNUMERIC(38),
+event_type_cd STRING(3) COLLATE 'und:ci',
+event_tmsp DATETIME,
+event_booking_type_cd STRING(1) COLLATE 'und:ci',
+cancel_fg BIGNUMERIC(38),
+dwh_cal_dt DATE,
+dwh_load_id BIGNUMERIC(38),
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

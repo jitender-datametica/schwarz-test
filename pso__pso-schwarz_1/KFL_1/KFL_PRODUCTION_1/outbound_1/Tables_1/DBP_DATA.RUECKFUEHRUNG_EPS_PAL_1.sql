@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.rueckfuehrung_eps_pal_1 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+handling_unit_id_ext STRING(20) COLLATE 'und:ci' NOT NULL,
+tour_id INTEGER,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+kunde_id STRING(20) COLLATE 'und:ci',
+dat_erfassung DATE,
+best_beleg_id_eps INTEGER,
+dat_verladung DATE,
+dat_mengenrueckmeldung DATE,
+lagerbew_beleg_id_vz INTEGER,
+lagerbew_kj_vz BIGNUMERIC(38,0),
+lagerbew_beleg_id_kunde INTEGER,
+lagerbew_kj_kunde BIGNUMERIC(38,0),
+manuelle_erf_fg BIGNUMERIC(38,0),
+keine_filialentlastung_fg BIGNUMERIC(38,0),
+td_update TIMESTAMP,
+td_insert TIMESTAMP
+);

@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital_fraud.v_cal_cum_business_year_to_date_1 AS SELECT *
+FROM ldl_dig_fe_mstr_lidldigital.v_cal_cum_business_year_to_date_1;

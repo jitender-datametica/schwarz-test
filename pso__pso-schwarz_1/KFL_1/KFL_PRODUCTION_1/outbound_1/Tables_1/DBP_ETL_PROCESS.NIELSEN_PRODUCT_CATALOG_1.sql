@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl_process.nielsen_product_catalog_1 (
+country_1 BIGNUMERIC(38,0),
+product_id BIGNUMERIC(38,0),
+product_description STRING(200) COLLATE 'und:ci',
+section_id BIGNUMERIC(38,0),
+section_description STRING(400) COLLATE 'und:ci',
+subcategory_id BIGNUMERIC(38,0),
+subcategory_description STRING(400) COLLATE 'und:ci',
+category_id BIGNUMERIC(38,0),
+category_description STRING(400) COLLATE 'und:ci',
+department_id BIGNUMERIC(38,0),
+department_description STRING(400) COLLATE 'und:ci',
+cpg_supplier_id BIGNUMERIC(38,0),
+cpg_supplier_description STRING(40) COLLATE 'und:ci',
+status_1 STRING(2) COLLATE 'und:ci',
+upc NUMERIC(26,0),
+private_label_fg STRING(2) COLLATE 'und:ci',
+uom STRING(3) COLLATE 'und:ci',
+uom_product_size NUMERIC(18,3)
+);

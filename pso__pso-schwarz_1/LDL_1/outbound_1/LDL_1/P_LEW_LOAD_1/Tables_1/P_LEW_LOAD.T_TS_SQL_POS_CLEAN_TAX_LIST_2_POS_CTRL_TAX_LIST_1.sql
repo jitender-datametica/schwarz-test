@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_sql_pos_clean_tax_list_2_pos_ctrl_tax_list_1 (
+record_id STRING(1000) COLLATE 'und:ci',
+client_id BIGNUMERIC(38),
+loc_sid BIGNUMERIC(38),
+register_id BIGNUMERIC(38),
+cashier_id BIGNUMERIC(38),
+cashier_status_id BIGNUMERIC(38),
+audit_nr BIGNUMERIC(38),
+tax_class_cd STRING(20),
+tax_class_char_cd STRING(20),
+tax_class_rate NUMERIC(18,5),
+tax_val NUMERIC(18,5),
+tax_total_val NUMERIC(18,5),
+dwh_cal_dt DATE,
+dwh_load_id BIGNUMERIC(38),
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

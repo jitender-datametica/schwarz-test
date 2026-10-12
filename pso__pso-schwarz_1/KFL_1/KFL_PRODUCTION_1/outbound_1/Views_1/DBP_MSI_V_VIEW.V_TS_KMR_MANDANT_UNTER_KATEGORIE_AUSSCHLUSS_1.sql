@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_v_view.v_ts_kmr_mandant_unter_kategorie_ausschluss_1 AS SELECT mandant_id,
+ kmr_unter_kategorie_id
+FROM kfl_production_dbp_msi_data.ts_kmr_mandant_unter_kategorie_ausschluss_1;

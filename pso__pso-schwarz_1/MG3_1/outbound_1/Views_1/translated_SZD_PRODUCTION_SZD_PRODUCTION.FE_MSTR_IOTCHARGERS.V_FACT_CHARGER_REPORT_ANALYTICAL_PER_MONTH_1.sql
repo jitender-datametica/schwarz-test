@@ -1,0 +1,31 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_iotchargers.v_fact_charger_report_analytical_per_month_1 (report_month,
+charger_provider_system_cd, charging_station_owner_name, real_estate_nr, iso_country_cd, eu_member_fg, division_cd,
+charger_station_type_cd, authentication_method_cd, charger_classification_id, turnover_local_curr_cd, turnover_local_val
+, turnover_eur_val, provided_power_meas, charging_process_cnt, charging_duration_sec_meas, charging_performance_meas,
+customer_cnt) AS SELECT tf1.report_month,
+ tf1.charger_provider_system_cd,
+ td3.charging_station_owner_name,
+ td4.real_estate_nr,
+ td5.iso_country_cd,
+ td5.eu_member_fg,
+ td6.division_cd,
+ tf1.charger_station_type_cd,
+ tf1.authentication_method_cd,
+ tf1.charger_classification_id,
+ tf1.local_curr_cd AS turnover_local_curr_cd,
+ tf1.turnover_local_val,
+ tf1.turnover_eur_val,
+ tf1.provided_power_meas,
+ tf1.charging_process_cnt,
+ tf1.charging_duration_sec_meas,
+ tf1.charging_performance_meas,
+ tf1.customer_cnt
+FROM szd_production_core.t_fact_charger_report_analytical_per_month_1 AS tf1
+ INNER JOIN szd_production_core.t_dim_charging_station_owner_1 AS td3 ON tf1.charging_station_owner_party_sid = td3.party_sid
+    AND td3.dwh_valid_fg
+ INNER JOIN szd_production_core.t_dim_real_estate_1 AS td4 ON tf1.real_estate_resource_item_sid = td4.resource_item_sid
+  AND td4.dwh_valid_fg
+ INNER JOIN szd_production_core.t_dim_country_political_1 AS td5 ON tf1.country_location_sid = td5.location_sid AND td5.dwh_valid_fg
+  
+ INNER JOIN szd_production_core.t_dim_division_1 AS td6 ON tf1.division_party_sid = td6.party_sid AND td6.dwh_valid_to_tmsp
+    >= CAST('9999-12-31' AS TIMESTAMP);

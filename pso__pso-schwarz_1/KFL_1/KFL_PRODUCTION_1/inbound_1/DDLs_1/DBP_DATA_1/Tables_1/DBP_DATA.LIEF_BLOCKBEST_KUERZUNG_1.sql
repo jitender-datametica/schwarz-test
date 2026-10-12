@@ -1,0 +1,12 @@
+CREATE TABLE DBP_DATA.LIEF_BLOCKBEST_KUERZUNG_1 (
+   MANDANT_ID                          NUMBER(38,0)    NOT NULL COMMENT 'Mandant_1 im DWH',
+   VERSANDSTELLE_ID                    VARCHAR(4)      NOT NULL COLLATE 'en-ci'  COMMENT 'Versandstelle/Warenannahmestelle',
+   DAT_LIEF_WUNSCH                     DATE            NOT NULL COMMENT 'Lieferdatum der Position',
+   LIEF_BELEG_ID                       NUMBER(18,0)    NOT NULL COMMENT 'Vertriebsbelegnummer',
+   LIEF_BELEG_POS_ID                   NUMBER(18,0)    NOT NULL COMMENT 'Positionsnummer des Vertriebsbeleges',
+   ART_ID                              NUMBER(38,0)    COMMENT 'Artikelnummer',
+   MENGE_BEST_KOLLI                    NUMBER(18,3)    COMMENT 'Bestellmenge',
+   MENGE_LIEF_IST_KOLLI                NUMBER(18,3)    COMMENT 'Tatsächlich gelieferte Menge in Lagermengeneinheiten'
+   ,TD_UPDATE 	TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration'
+   ,TD_INSERT 	TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration'
+)COMMENT = 'Enthält Kürzungen aus ZBLOCKBEST_SHORT';

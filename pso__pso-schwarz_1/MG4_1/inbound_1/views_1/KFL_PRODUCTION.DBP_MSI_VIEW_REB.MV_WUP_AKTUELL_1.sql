@@ -1,0 +1,30 @@
+create or replace view KFL_PRODUCTION.DBP_MSI_VIEW_REB.MV_WUP_AKTUELL_1(
+	AKTUELL_WUP_ID,
+	NB_ID,
+	MANDANT_ID,
+	WUP_STANDORT,
+	MARKT
+) as
+
+
+SELECT 
+
+aktuell_wup_id,
+nb_id,
+mandant_id,
+MAX(wup_standort) AS wup_standort,
+MAX(TRIM(aktuell_wup_id || ' ' || wup_standort))  AS Markt,
+
+FROM dbp_view.v_wup_1
+
+WHERE mandant_id = 1
+  AND (((dat_eroeffnung < CURRENT_DATE OR dat_eroeffnung< CURRENT_DATE +45)  AND dat_von IS NOT NULL) OR nb_id <> 0 OR wup_id = 9203)
+  
+  AND NOT wup_id BETWEEN 1 AND 999
+  
+  AND nb_id <> 99
+
+GROUP BY
+aktuell_wup_id,
+nb_id,
+mandant_id;

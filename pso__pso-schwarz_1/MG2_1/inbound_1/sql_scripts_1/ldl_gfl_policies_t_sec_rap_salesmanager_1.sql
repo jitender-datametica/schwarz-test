@@ -1,0 +1,42 @@
+DELETE FROM POLICIES.T_SEC_RAP_SALESMANAGER_1;
+
+INSERT INTO POLICIES.T_SEC_RAP_SALESMANAGER_1 (
+	SALES_MGR_DISTRICT_SID,
+	SALES_MGR_DISTRICT_NR,
+	SALES_MGR_DISTRICT_NAME,
+	SALES_COMPANY_NR,
+	ACCT_MGR_DISTRICT_SID,
+	ISO_COUNTRY_CD,
+	BENCHMARK_TYPE_ID,
+	LOGIN_NAME_EMAIL
+)
+SELECT 
+        int_org.SALES_MGR_DISTRICT_SID
+        ,int_org.SALES_MGR_DISTRICT_NR
+        ,int_org.SALES_MGR_DISTRICT_NAME
+        ,int_org.SALES_COMPANY_NR      
+        ,int_org.ACCT_MGR_DISTRICT_SID
+        ,int_org.ISO_COUNTRY_CD AS ISO_COUNTRY_CD
+        ,bench_type.benchmarking_type_id AS BENCHMARK_TYPE_ID
+        ,u.USER_NAME AS LOGIN_NAME_EMAIL
+FROM (
+        SELECT 
+            SALES_MGR_DISTRICT_SID,
+            SALES_MGR_DISTRICT_NR,
+            SALES_MGR_DISTRICT_NAME,
+            SALES_MGR_EMP_SID,
+            ACCT_MGR_DISTRICT_SID,
+            SALES_COMPANY_NR,    
+            ISO_COUNTRY_CD,
+            INT_ORG_TYPE_CD,
+            INT_ORG_SID
+        FROM CORE_DIM.T_DIM_INTERNAL_ORGANIZATION_1 
+        WHERE   DWH_VALID_FG = 1
+            AND INT_ORG_TYPE_CD = 'SALES_MANAGER'
+            AND SALES_MGR_EMP_SID <> -1   -- additional filter
+) int_org
+LEFT OUTER JOIN  CORE_DIM.T_DIM_BENCHMARKING_TYPE_1 bench_type
+           ON benchmarking_type_id = 4 -- Sales_1 Manager Level
+LEFT OUTER JOIN META.T_USER_1 u
+            ON  int_org.SALES_MGR_EMP_SID = u.EMP_SID
+;

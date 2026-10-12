@@ -1,0 +1,35 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW2.MV_BESCH_BEST_DET_1
+(
+mandant_id,
+best_beleg_id,
+best_beleg_pos_id,
+art_id,
+wup_id,
+nb_id,
+lagerort_id,
+loesch_fg,
+endlief_fg,
+dat_aenderung,
+kunde_id,
+dat_best_beleg,
+wrg_id,
+betrag_best,
+anforderer_name)
+AS
+   SELECT
+   v01.mandant_id,
+   v01.best_beleg_id,
+   v01.best_beleg_pos_id,
+   v01.art_id,
+   v01.wup_id,
+   v01.nb_id,
+   v01.lagerort_id,
+   v01.loesch_fg,
+   v01.endlief_fg,
+   v01.dat_aenderung,
+   v01.kunde_id,
+   v01.dat_best_beleg,
+   v01.wrg_id,
+   v01.betrag_best,
+   v01.anforderer_name
+   FROM dbp_view.v_besch_best_det_1 v01;

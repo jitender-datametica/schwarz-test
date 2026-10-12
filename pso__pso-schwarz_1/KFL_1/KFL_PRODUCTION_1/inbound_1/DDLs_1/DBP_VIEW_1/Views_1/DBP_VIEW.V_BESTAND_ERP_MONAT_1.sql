@@ -1,0 +1,22 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_BESTAND_ERP_MONAT_1 AS 
+    SELECT 
+        art_id
+        ,mandant_id
+        ,wup_id
+        ,nb_id
+        ,gjmo
+        ,lagerort_id
+        ,menge_lgbest_erp_frei_bme
+        ,menge_lgbest_erp_umlag_bme
+        ,menge_lgbest_erp_qual_bme
+        ,menge_lgbest_erp_nf_charge_bme
+        ,menge_lgbest_erp_gesp_bme
+        ,menge_lgbest_erp_ret_gesp_bme
+        ,gjmo_bis
+        ,mard_fg
+        ,datzeit_daten_abzug
+        ,vk_brutto
+        ,wrg_id
+
+
+FROM DBP_DATA.bestand_erp_monat_1 ;

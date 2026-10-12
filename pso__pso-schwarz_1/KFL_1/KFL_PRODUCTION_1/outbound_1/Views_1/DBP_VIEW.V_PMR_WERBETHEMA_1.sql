@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_pmr_werbethema_1 AS SELECT pmr_werbethema_id,
+ pmr_werbethema_bez
+FROM kfl_production_dbp_data.pmr_werbethema_1;

@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_process_mstr.t_lil_measure_1 (
+meas_id BIGNUMERIC(38,0) NOT NULL,
+meas_desc STRING(800) NOT NULL,
+meas_base_desc STRING(800) NOT NULL,
+meas_tp_id BIGNUMERIC(38,0) NOT NULL,
+meas_cd STRING(800) NOT NULL,
+liam1_srt_cd BIGNUMERIC(38,0),
+liam2_srt_cd BIGNUMERIC(38,0),
+liam3_srt_cd BIGNUMERIC(38,0),
+liam4_srt_cd BIGNUMERIC(38,0),
+lift1_srt_cd BIGNUMERIC(38,0),
+lcsd_srt_cd BIGNUMERIC(38,0),
+liam4_meas_grp_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+format_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+frac_lgth BIGNUMERIC(38,0),
+monetary_fg BIGNUMERIC(38,0) NOT NULL,
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created TIMESTAMP NOT NULL,
+dwh_updated TIMESTAMP NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

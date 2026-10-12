@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view3.mv_belos_adresse_1 (mandant_id, belos_adresse_id, belos_adresse_num_id
+, land_id, adress_name, adress_name_zusatz, strasse, be_entlade_stelle, plz, ansprechpartner, ort, spedition_fg,
+belos_standort_typ_id) AS SELECT mandant_id,
+ belos_adresse_id,
+ belos_adresse_num_id,
+ land_id,
+ adress_name,
+ adress_name_zusatz,
+ strasse,
+ be_entlade_stelle,
+ plz,
+ ansprechpartner,
+ ort,
+ spedition_fg,
+ belos_standort_typ_id
+FROM kfl_production_dbp_view.v_belos_adresse_1 AS V1;

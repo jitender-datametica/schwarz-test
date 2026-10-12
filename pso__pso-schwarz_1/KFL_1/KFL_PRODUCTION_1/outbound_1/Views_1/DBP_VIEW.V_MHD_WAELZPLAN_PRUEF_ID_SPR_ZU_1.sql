@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_mhd_waelzplan_pruef_id_spr_zu_1 AS SELECT mandant_id,
+ waelzplan_pruef_id,
+ spr_id,
+ waelzplan_pruef_bez
+FROM kfl_production_dbp_data.mhd_waelzplan_pruef_id_spr_zu_1;

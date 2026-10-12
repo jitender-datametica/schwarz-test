@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku_materialized.mv_geku_verteilgebiet_1 (verteilgebiet_uid,
+gebietsleiter_uid, verteilgebiet_bez) AS SELECT verteilgebiet_uid,
+ gebietsleiter_uid,
+ verteilgebiet_bez
+FROM kfl_production_dbp_view.v_geku_verteilgebiet_1;

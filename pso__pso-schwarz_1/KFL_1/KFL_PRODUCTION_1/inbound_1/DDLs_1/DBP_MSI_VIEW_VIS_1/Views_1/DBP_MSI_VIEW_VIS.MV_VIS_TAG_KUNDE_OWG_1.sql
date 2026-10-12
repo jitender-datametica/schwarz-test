@@ -1,0 +1,87 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_VIS.MV_VIS_TAG_KUNDE_OWG_1(
+    MANDANT_ID,
+	NB_ID,
+	WUP_ID,
+	OWG_ID,
+	DAT,
+	ANZ_KUNDE_OWG,
+	ANZ_KUNDE_OWG_WVJ,
+	ANZ_KUNDE_OWG_KVJ,
+    ANZ_KUNDE_SUG_OWG,
+	ANZ_KUNDE_SUG_OWG_WVJ,
+	ANZ_KUNDE_SUG_OWG_KVJ
+)
+AS
+    -- FAKT BONS (KUNDEN) PRO OWG/TAG_1
+    -- INCLUDING VJ/TRANSFORMATIONS
+    -- 2020-11-18 SNIK1809 : INIT, REMOVED PREPACK, REPLACES MV_WUP_DAT_OWG_SUM
+    -- 2024-06-20 muellerpatri : Filialumgliederung + Review [P1760-DWH]
+    -- 2024-11-26 muellerpatri : Erweiterung um Bonanzahl_sug
+
+SELECT
+    SUB0.MANDANT_ID
+    , SUB0.NB_ID
+    , wup.AKTUELL_WUP_ID        AS wup_id
+    , SUB0.OWG_ID
+    , SUB0.DAT
+    , SUM(SUB0.IST)             AS ANZ_KUNDE_OWG
+    , SUM(SUB0.WVJ)             AS ANZ_KUNDE_OWG_WVJ
+    , SUM(SUB0.KVJ)             AS ANZ_KUNDE_OWG_KVJ
+    , SUM(sub0.sug_ist)         AS ANZ_KUNDE_SUG_OWG
+    , SUM(sub0.sug_wvj)         AS ANZ_KUNDE_SUG_OWG_WVJ
+    , SUM(sub0.sug_kvj)         AS ANZ_KUNDE_SUG_OWG_KVJ
+FROM (SELECT
+OWG1.MANDANT_ID,
+OWG1.NB_ID,
+OWG1.WUP_ID,
+OWG1.OWG_ID,
+OWG1.DAT,
+OWG1.BONANZAHL              AS IST,
+0::INTEGER                  AS WVJ,
+0::INTEGER                  AS KVJ,
+OWG1.BONANZAHL_SUG          AS SUG_IST,
+0::INTEGER                  AS SUG_WVJ,
+0::INTEGER                  AS SUG_KVJ
+FROM DBP_VIEW.V_WUP_DAT_OWG_SUM_1 OWG1
+
+UNION ALL
+SELECT
+OWG2.MANDANT_ID,
+OWG2.NB_ID,
+OWG2.WUP_ID,
+OWG2.OWG_ID,
+(OWG2.DAT + 364)            AS DAT,
+0::INTEGER                  AS IST,
+OWG2.BONANZAHL              AS WVJ,
+0::INTEGER                  AS KVJ,
+0::INTEGER                  AS SUG_IST,
+OWG2.BONANZAHL_SUG          AS SUG_WVJ,
+0::INTEGER                  AS SUG_KVJ
+FROM DBP_VIEW.V_WUP_DAT_OWG_SUM_1 OWG2
+
+UNION ALL
+SELECT
+OWG3.MANDANT_ID,
+OWG3.NB_ID,
+OWG3.WUP_ID,
+OWG3.OWG_ID,
+ADD_MONTHS(OWG3.DAT, 12)    AS DAT,
+0::INTEGER                  AS IST,
+0::INTEGER                  AS WVJ,
+OWG3.BONANZAHL              AS KVJ,
+0::INTEGER                  AS SUG_IST,
+0::INTEGER                  AS SUG_WVJ,
+OWG3.BONANZAHL_SUG          AS SUG_KVJ
+FROM DBP_VIEW.V_WUP_DAT_OWG_SUM_1 OWG3
+) SUB0
+
+INNER JOIN dbp_view.v_wup_1 wup_1
+ON sub0.mandant_id = wup.mandant_id AND sub0.wup_id = wup.wup_id
+
+GROUP BY 
+    SUB0.MANDANT_ID
+    , SUB0.NB_ID
+    , wup.AKTUELL_WUP_ID
+    , SUB0.DAT
+    , SUB0.OWG_ID
+;

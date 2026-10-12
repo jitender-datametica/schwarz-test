@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.halbjahr_gj_1 (
+gjhj BIGNUMERIC(38,0) NOT NULL,
+akt_gjhj BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+akt_gjhj_komplett BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+gj BIGNUMERIC(38,0) NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

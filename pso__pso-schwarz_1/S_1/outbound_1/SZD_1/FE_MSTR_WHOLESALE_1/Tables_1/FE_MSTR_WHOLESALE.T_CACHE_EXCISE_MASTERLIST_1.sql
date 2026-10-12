@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS szd_fe_mstr_wholesale.t_cache_excise_masterlist_1 (
+item_no_short STRING(2000),
+single_article_no STRING(2000),
+dwh_valid_from_tmsp TIMESTAMP,
+dwh_valid_to_tmsp TIMESTAMP,
+dwh_valid_fg BOOL,
+item_shortdesc STRING(2000),
+wg STRING(2000),
+volume__in_l_ BIGNUMERIC(38,2),
+abv_ BIGNUMERIC(38,1),
+adjusted_abv__wine_only_ BIGNUMERIC(38,1),
+unit_of_measure__formula_ FLOAT64,
+tax_code_ STRING(2000),
+duty_per_lpa BIGNUMERIC(38,1),
+duty_per_unit FLOAT64,
+dwh_created_tmsp TIMESTAMP,
+dwh_updated_tmsp TIMESTAMP,
+dwh_src_file_name STRING(2000),
+dwh_src_1_tmsp TIMESTAMP,
+updated_at TIMESTAMP,
+previous_dwh_valid_from DATE
+);

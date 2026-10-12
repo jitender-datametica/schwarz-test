@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_geku_berechtigt_1 AS SELECT berechtigt_fg
+FROM kfl_production_dbp_data.l_geku_berechtigt_1;

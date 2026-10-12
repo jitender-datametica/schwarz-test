@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku.mv_kmr_l_pruefung_standort_typ_1 (standort_typ_id, amx_system_id,
+standort_typ_bez) AS SELECT standort_typ_id,
+ amx_system_id,
+ standort_typ_bez
+FROM kfl_production_dbp_view.v_kmr_l_pruefung_standort_typ_1 AS V01;

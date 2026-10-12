@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW ldl_fe_mstr_toolbox_spiegel.v_storage_test_result_parameter_graph_1 (storage_test_exec_sid,
+orig_store_nr, reconstructin_week_list_graph, excluded_week_list_graph, test_week_comp) AS SELECT storage_test_exec_sid
+ ,
+ orig_store_nr,
+ reconstructin_week_list_graph,
+ excluded_week_list_graph,
+ test_week_comp
+FROM ldl_fe_mstr_toolbox_spiegel.t_storage_test_result_parameter_graph_1;

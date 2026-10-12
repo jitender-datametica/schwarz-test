@@ -1,0 +1,9 @@
+CREATE OR REPLACE TABLE ldl_p_lew_mart_cm.t_lil_historical_periods_per_client_and_application_1 (
+client_id INTEGER NOT NULL,
+per_id INTEGER NOT NULL,
+application_id INTEGER NOT NULL,
+active_fg INTEGER NOT NULL,
+transaction_tmsp TIMESTAMP NOT NULL,
+PRIMARY KEY (client_id, per_id, application_id) NOT ENFORCED
+)
+OPTIONS(description='TRANSACTIONAL TABLE FOR HISTORICAL PERIODS - ACTIVE_FG USED TO EITHER DEACTIVATE (0) OR ACTIVATE (1) HISTORICAL PERIODS FOR DIFFERENT CATEGORY MANAGEMENT APPLICATIONS');

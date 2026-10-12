@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_score_cargo.t_landeszentrale_hist_1 (
+landeszentrale_id BIGNUMERIC(38,0),
+landeszentrale_nummer BIGNUMERIC(38,5),
+landeszentrale_kuerzel STRING(250),
+landeszentrale_kurzbezeichnung STRING(250),
+landeszentrale_ustid STRING(250),
+landeszentrale_name STRING(250),
+landeszentrale_id_typ BIGNUMERIC(38,5),
+landeszentrale_typ_beschreibung STRING(250),
+landeszentrale_letzte_aenderung TIMESTAMP,
+landeszentrale_anzeigename STRING(250),
+landeszentrale_key STRING(250),
+landeszentrale_sap_nr STRING(250),
+landeszentrale_rowid STRING(250),
+landeszentrale_rolle STRING(250),
+landeszentrale_rolle_bezeichnung STRING(250),
+landeszentrale_lastmoddate TIMESTAMP,
+source_extraction_tmsp ARRAY < STRING >,
+tech_valid_from TIMESTAMP NOT NULL,
+tech_valid_to TIMESTAMP NOT NULL,
+snflk_insert_tmsp TIMESTAMP NOT NULL,
+snflk_update_tmsp TIMESTAMP NOT NULL
+);

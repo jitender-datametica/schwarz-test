@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_wg_art_auslieferungsgruppe_per_1 (mandant_id,
+auslieferungsgruppe_id) AS SELECT DISTINCT mandant_id,
+ auslieferungsgruppe_id
+FROM kfl_production_dbp_view.v_art_auslieferungsgruppe_per_1 AS V01
+UNION DISTINCT
+SELECT DISTINCT mandant_id,
+ auslieferungsgruppe_id
+FROM kfl_production_dbp_view.v_wg_auslieferungsgruppe_per_1 AS V01;

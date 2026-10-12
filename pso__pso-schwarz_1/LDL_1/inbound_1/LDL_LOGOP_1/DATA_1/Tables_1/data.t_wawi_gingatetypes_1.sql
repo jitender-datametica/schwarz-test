@@ -1,0 +1,21 @@
+CREATE TABLE DATA.t_wawi_gingatetypes_1 (
+client_id 			NUMBER(38,0) 	NOT NULL 	COMMENT 'Client id - calculated based on the country_1 code', 
+wawi_instanz_kzl 	VARCHAR(3)		NOT NULL 	COMMENT 'Country_1 code',
+wh_nr 				NUMBER(38,0)  	NOT NULL 	COMMENT 'Warehouse number',
+gatetypeid 			NUMBER(38,0) 	NOT NULL 	COMMENT '',
+gatetype 			VARCHAR(33) 	NULL 		COMMENT '',
+show_pallets 		NUMBER(38,0)	NULL 		COMMENT '',
+check_temp 			NUMBER(38,0)	NULL 		COMMENT '',
+mult_bb_date 		NUMBER(38,0)	NULL 		COMMENT '',
+mult_pal_fact 		NUMBER(38,0)	NULL 		COMMENT '',
+def_task_type 		NUMBER(38,0)	NULL 		COMMENT '',
+rcv_lane 			NUMBER(38,0) 	NULL 		COMMENT '',
+scn 				NUMBER(38,0) 	NULL 		COMMENT '',
+dwh_load_id    		NUMBER(38,0) 	NOT NULL 	COMMENT 'Load id',
+dwh_created    		TIMESTAMP 		NOT NULL 	COMMENT 'Record created at',
+dwh_updated    		TIMESTAMP 		NOT NULL 	COMMENT 'Record updated at',
+dwh_valid_from 		DATE 			NOT NULL 	COMMENT 'Valid from date',
+dwh_valid_to   		DATE 			NOT NULL 	COMMENT 'Valid to date',
+deleted_fg     		BOOLEAN 		NOT NULL 	COMMENT 'Flag if record is deleted',
+PRIMARY KEY (client_id, wh_nr, gatetypeid, dwh_valid_from)
+) COMMENT = 'WAWI - WHWAWIADM.T170_GINGATETYPES_1 table.';

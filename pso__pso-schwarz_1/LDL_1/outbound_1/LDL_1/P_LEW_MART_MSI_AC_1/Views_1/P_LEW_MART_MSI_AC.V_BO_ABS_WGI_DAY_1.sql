@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi_ac.v_bo_abs_wgi_day_1 (client_id, country_desc, country_id, country_iso_cd,
+store_id, orig_store_nr, store_desc, city, wh_id, wh_desc, sales_manager_id, sales_manager_name, account_manager_id,
+account_manager_name, item_wgi_id, dat_formdate, week_page_by, currency_iso_cd, val_rtl_rl_sfo_store_asis,
+val_rtl_rl_net_sfo_store_asis, val_rtl_net_sfo_mhd_break, val_rtl_net_sfo_other_stc_loss, val_rtl_net_sfo_str_deliv_qlty
+, val_wrtoff_zero_asis, val_wrtoff_zero_net_asis, val_wofz_st_net_mhd_break, val_wofz_st_net_other_stc_loss,
+val_wofz_st_net_deliv_qlty, val_discount_sfo_asis, val_discount_net_sfo_asis, val_rtl_ejr_adj_asis,
+val_rtl_net_ejr_adj_asis, sfo_to_val_retail_pct, sfo_to_val_retail_net_pct) AS SELECT *
+FROM ldl_p_lew_mart_msi.v_bo_abs_wgi_day_1;

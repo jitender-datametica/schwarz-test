@@ -1,0 +1,58 @@
+/* --------------------------------------------------------------------------------
+   DDL for table: t_pos_receiptheader_live_1
+   generated from Powerdesigner on Wednesday, February 28, 2024 11:38:16 AM
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE P_LEW_CORE.T_POS_RECEIPTHEADER_LIVE_1 CLUSTER BY (DWH_CAL_DT) (
+   client_id                           NUMBER(38,0)     NOT NULL COMMENT 'DWH-Mandant_1; FK auf CLIENT',
+   loc_sid                             NUMBER(38,0)     NOT NULL COMMENT 'Filiale; FK auf LOCATION_1; SAP-CAR: z_ds_zpdx_tlogf.plant; WAWI-DWH: t_ejr_receiptheader.store_id',
+   curr_sid                            NUMBER(38,0)     COMMENT 'Waehrung; FK auf CURRENCY; SAP-CAR: z_ds_zpdx_tlogf.transcurrency; WAWI-DWH: -',
+   register_id                         NUMBER(38,0)     NOT NULL COMMENT 'Kassennummer; WAWI-DWH: t_ejr_receiptheader.pos_terminal_id',
+   receipt_id                          NUMBER(38,0)     NOT NULL COMMENT 'Bon-Nummer; WAWI-DWH: t_ejr_receiptheader.orig_receipt_nr_ejr',
+   receipt_dt                          DATE             NOT NULL COMMENT 'Bon-Datum; WAWI-DWH: t_ejr_receiptheader.dat_formdate',
+   orig_store_nr                       NUMBER(38,0)     NOT NULL,
+   receipt_tmsp                        TIMESTAMP_NTZ(9) COMMENT 'Bon-Zeitstempel; WAWI-DWH: t_ejr_receiptheader.dat_formdate + time_receipt_ejr',
+   transaction_type_cd                 VARCHAR(20)      COMMENT 'WAWI-DWH: t_ejr_receiptheader.transactiontype_id',
+   transaction_begin_tmsp              TIMESTAMP_NTZ(9) COMMENT 'Beginnzeitpunkt Bon-Bearbeitung; WAWI-DWH: t_ejr_receiptheader.timestamp_begin_ejr',
+   transaction_end_tmsp                TIMESTAMP_NTZ(9) COMMENT 'Endzeitpunkt Bon-Bearbeitung; WAWI-DWH: t_ejr_receiptheader.timestamp_end_ejr',
+   timezone_id                         NUMBER(38,0)     COMMENT 'Zeitzone; WAWI-DWH: t_ejr_receiptheader.timezone_cd',
+   cashier_id                          NUMBER(38,0)     COMMENT 'Kassierer(in); WAWI-DWH: t_ejr_receiptheader.checker_id',
+   authority_cd                        VARCHAR(100)     COLLATE 'en-ci' COMMENT 'Autorisierung - Code; WAWI-DWH: t_ejr_receiptheader.authority_id',
+   turnover_relevant_fg                NUMBER(38,0)     COMMENT 'Umsatzrelevante Position; ',
+   lidlplus_customer_cd                VARCHAR(100)     COLLATE 'en-ci' COMMENT 'LidlPlus-Kundennummer; used to infer customer_sid',
+   lidlplus_ident_type_cd              VARCHAR(20)      COLLATE 'en-ci' COMMENT 'LidlPlus Kundenidentifizierungsmethode',
+   cnt_receiptlines_total              NUMBER(38,0)     COMMENT 'Anzahl Bon-Positionen; WAWI-DWH: t_ejr_receiptheader.cnt_receiptline_ejr',
+   cnt_receiptlines_sales              NUMBER(38,0)     COMMENT 'Anzahl Verkaufs-Bon-Positionen; WAWI-DWH: t_ejr_receiptheader.cnt_selling_position_ejr',
+   cnt_receiptlines_discounts          NUMBER(38,0)     COMMENT 'Anzahl Rabatt-Bon-Positionen; WAWI-DWH: t_ejr_receiptheader.cnt_discount_ejr',
+   cnt_receiptlines_deposits           NUMBER(38,0)     COMMENT 'Anzahl Pfand-Bon-Positionen; WAWI-DWH: t_ejr_receiptheader.cnt_deposit_ejr',
+   cnt_receiptlines_returns            NUMBER(38,0)     COMMENT 'Anzahl Retouren-Bon-Positionen; WAWI-DWH: t_ejr_receiptheader.cnt_return_ejr',
+   cnt_receiptlines_voids              NUMBER(38,0)     COMMENT 'Anzahl Storno-Bon-Positionen; WAWI-DWH: t_ejr_receiptheader.cnt_void_ejr',
+   cnt_receiptlines_turnover_relevant  NUMBER(38,0)     COMMENT 'Anzahl Umsatzrelevante Bon-Positionen;',
+   cnt_distinct_eans                   NUMBER(38,0)     COMMENT 'Anzahl unterschiedlicher EAN_1-Nummern; WAWI-DWH: t_ejr_receiptheader.cnt_ean_ejr',
+   cnt_distinct_items                  NUMBER(38,0)     COMMENT 'Anzahl unterschiedlicher Artikel_1-Nummern; WAWI-DWH: t_ejr_receiptheader.cnt_item_ejr',
+   cnt_distinct_item_grp_ints          NUMBER(38,0)     COMMENT 'Anzahl unterschiedlicher IGI; WAWI-DWH: t_ejr_receiptheader.cnt_mainitemgroup_ejr',
+   cnt_distinct_weight_items           NUMBER(38,0)     COMMENT 'Anzahl unterschiedlicher Gewichtsartikel (gemessen an EAN_1); WAWI-DWH: t_ejr_receiptheader.cnt_item_weight_ejr',
+   cnt_piece_qty                       NUMBER(18,5)     COMMENT 'Abverkaufsmenge der Gewichtsartikel in Stueck (=Summe ueber gesamt sales_weight_qty); WAWI-DWH: t_ejr_receiptheader.qty_piece_ejr',
+   total_gross_val                     NUMBER(18,5)     COMMENT 'Bon-Endsumme (brutto); WAWI-DWH: t_ejr_receiptheader.val_retail_ejr',
+   total_net_val                       NUMBER(18,5)     COMMENT 'Bon-Endsumme (netto); WAWI-DWH: t_ejr_receiptheader.val_retail_net_ejr',
+   sales_gross_val                     NUMBER(18,5)     COMMENT 'Bon-Umsatz (brutto) addiert; WAWI-DWH: t_ejr_receiptheader.val_retail_pos_ejr',
+   sales_net_val                       NUMBER(18,5)     COMMENT 'Bon-Umsatz (netto) addiert; WAWI-DWH: t_ejr_receiptheader.val_retail_net_pos_ejr',
+   deposit_gross_val                   NUMBER(18,5)     COMMENT 'Pfandumsatz (brutto) addiert; WAWI-DWH: t_ejr_receiptheader.val_deposit_ejr''',
+   deposit_net_val                     NUMBER(18,5)     COMMENT 'Pfandumsatz (netto) addiert; WAWI-DWH: t_ejr_receiptheader.val_deposit_net_ejr',
+   discount_gross_val                  NUMBER(18,5)     COMMENT 'Rabattbetrag (brutto) addiert; WAWI-DWH: t_ejr_receiptheader.val_discount_ejr',
+   discount_net_val                    NUMBER(18,5)     COMMENT 'Rabattbetrag (netto) addiert; WAWI-DWH: t_ejr_receiptheader.val_discount_net_ejr',
+   dur_item_scan                       NUMBER(38,0)     COMMENT 'Dauer Artikelscan; WAWI-DWH: t_ejr_receiptheader.dur_service_time_ejr',
+   dur_payment                         NUMBER(38,0)     COMMENT 'Dauer Bezahlvorgang; WAWI-DWH: t_ejr_receiptheader.dur_pay_change_time_ejr',
+   resumed_receipt_store_id            NUMBER(38,0)     COMMENT 'Filiale des Ursprungsbelegs; WAWI-DWH: t_ejr_receiptheader.resumed_trans_store_id_ejr',
+   resumed_receipt_register_id         NUMBER(38,0)     COMMENT 'Kassennummer des Ursprungsbelegs; WAWI-DWH: t_ejr_receiptheader.resumed_trans_terminal_id_ejr',
+   resumed_receipt_id                  NUMBER(38,0)     COMMENT 'Bon-Nummer des Ursprungsbelegs; WAWI-DWH: t_ejr_receiptheader.resumed_trans_receipt_nr_ejr',
+   resumed_receipt_dt                  DATE             COMMENT 'Datum des Ursprungsbelegs; WAWI-DWH: t_ejr_receiptheader.resumed_trans_date_ejr',
+   dwh_cal_dt                          DATE             NOT NULL COMMENT 'businessdaydate; WAWI-DWH: t_ejr_receiptheader.dat_dayend',
+   dwh_load_id                         NUMBER(38,0)     NOT NULL COMMENT 'Identifier of the last run which inserted or updated the record. -1 means manually inserted.',
+   dwh_created                         TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Creation timestamp of the record in the DWH.',
+   dwh_updated                         TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Timestamp of the last update of the record in the DWH.',   
+   CONSTRAINT PK_T_POS_RECEIPTHEADER_LIVE PRIMARY KEY (loc_sid, register_id, receipt_id, dwh_cal_dt) NOT ENFORCED 
+)  COMMENT = '$Revision: 0000 $. SAP-CAR: /POSDW/TLOGF
+             z_ds_zpdx_tlogf;
+             WAWI: t_ejr_receiptheader';
+

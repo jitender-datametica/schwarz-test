@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE szd_production_etl.t_ts_container_milestone_2_container_shipment_milestone_int_1 (
+container_resource_item_sid INTEGER,
+container_milestone_cd STRING(50),
+event_tmsp TIMESTAMP,
+event_dt DATE,
+milestone_dt DATE,
+due_dt DATE,
+done_dt DATE,
+container_milestone_result_evaluation_dt DATE,
+container_milestone_result_evaluation_txt STRING(1000),
+container_milestone_result_cd STRING(50),
+dwh_src_file_name STRING(500),
+dwh_src_1_tmsp TIMESTAMP,
+record_id STRING(1000),
+deleted_fg BOOL,
+error_descr STRING(1000),
+filename STRING(1000),
+hist_row_no STRING(1000),
+dwh_mapping_tmsp TIMESTAMP,
+dwh_ending_tmsp TIMESTAMP,
+error_fg INTEGER,
+dwh_load_id INTEGER
+);

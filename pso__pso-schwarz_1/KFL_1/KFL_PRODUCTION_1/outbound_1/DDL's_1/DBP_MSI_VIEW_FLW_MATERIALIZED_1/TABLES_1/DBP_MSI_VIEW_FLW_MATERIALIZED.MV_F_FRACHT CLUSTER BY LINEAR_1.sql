@@ -1,0 +1,28 @@
+DROP TABLE IF EXISTS kfl_production_dbp_msi_view_flw_materialized.mv_f_fracht_1;
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_flw_materialized.mv_f_fracht_1 (
+mandant_id INTEGER,
+in_art_id INTEGER,
+in_art_nr STRING(20) COLLATE 'und:ci',
+werk_id INTEGER,
+dat_lief DATE,
+dat_mat_bereitstllg DATE,
+zeit_mat_bereitstllg TIME,
+flw_tourart_id STRING(4) COLLATE 'und:ci',
+in_kunde_id INTEGER,
+verk_menge_einh_id STRING(3) COLLATE 'und:ci',
+datenpool_satzart_id STRING(2) COLLATE 'und:ci',
+anz_kolli_produzier NUMERIC(29,3),
+komm_auftrag_status_id STRING(1) COLLATE 'und:ci',
+handling_unit_id_ext STRING(20) COLLATE 'und:ci',
+menge_produziert NUMERIC(29,3),
+lagernummer_id STRING(3) COLLATE 'und:ci',
+menge_produziert_kg NUMERIC(29,6),
+vol_einh_id STRING(3) COLLATE 'und:ci',
+nettogew NUMERIC(29,3),
+gew_einh_id STRING(3) COLLATE 'und:ci',
+vol NUMERIC(29,3),
+kolli_vol INTEGER,
+vol_pal NUMERIC(29,9),
+lief_beleg_id INTEGER,
+dat_leist_erstellung DATE
+) CLUSTER BY mandant_id, werk_id;

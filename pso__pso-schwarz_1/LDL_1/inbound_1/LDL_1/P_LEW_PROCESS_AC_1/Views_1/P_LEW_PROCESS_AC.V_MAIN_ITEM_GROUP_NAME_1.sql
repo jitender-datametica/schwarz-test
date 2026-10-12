@@ -1,0 +1,27 @@
+CREATE OR REPLACE VIEW P_LEW_PROCESS_AC.V_MAIN_ITEM_GROUP_NAME_1
+AS
+   SELECT
+          mainitemgroup_id,
+   mainitemgroup_name,
+   mainitemgroup_name_bg,
+   mainitemgroup_name_cs,
+   mainitemgroup_name_da,
+   mainitemgroup_name_de,
+   mainitemgroup_name_el,
+   mainitemgroup_name_en,
+   mainitemgroup_name_es,
+   mainitemgroup_name_fi,
+   mainitemgroup_name_fr,
+   mainitemgroup_name_hr,
+   mainitemgroup_name_hu,
+   mainitemgroup_name_it,
+   mainitemgroup_name_lt,
+   mainitemgroup_name_nl,
+   mainitemgroup_name_pl,
+   mainitemgroup_name_pt,
+   mainitemgroup_name_ro,
+   mainitemgroup_name_sh,
+   mainitemgroup_name_sk,
+   mainitemgroup_name_sl,
+   mainitemgroup_name_sv
+   FROM p_lew_process.v_main_item_group_name_1;

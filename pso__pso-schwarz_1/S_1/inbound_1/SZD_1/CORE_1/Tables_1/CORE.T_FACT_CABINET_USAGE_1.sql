@@ -1,0 +1,11 @@
+CREATE TABLE CORE.T_FACT_CABINET_USAGE_1 (
+	RVM_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the despotie machine which is located in a store',
+	CAL_DT DATE NOT NULL COMMENT 'The day represented as a calendar_1 date of the form YYYY-MM_1-DD. YYYY is the calendar_1 year, MM_1 (between 1 and 12) the calendar_1 month and DD the day of the calendar_1 month (between 1 and 31). ',
+	COMPACTOR_ID VARCHAR(20) NOT NULL COMMENT 'The identifier for the amount of Compactors under a cabinet.',
+	CABINET_ID NUMBER(38,0) NOT NULL COMMENT 'The identifier for the amount of Cabinets in a RVM',
+	COMPACTED_BOTTLES_CNT NUMBER(38,0) NOT NULL COMMENT 'The transactional facts for the amount of compacted bottles',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was inserted into the table.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last modified. (In case the record has not been modified since its creation, dwh_updated is identical to dwh_created.)',
+	CONSTRAINT PK_T_FACT_CABINET_USAGE PRIMARY KEY (RVM_SID, CAL_DT, CABINET_ID)
+)COMMENT='Transactional facts capturing the cabinets of deposit machines'
+;

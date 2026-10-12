@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_pep_abt_hr_objekt_bereich_zu_1 AS SELECT idabteilungen,
+ mandant_id,
+ hr_objekt_bereich_id
+FROM kfl_production_dbp_data.pep_abt_hr_objekt_bereich_zu_1;

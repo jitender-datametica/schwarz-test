@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_data.mcx_feedback_1 (
+feedback_id INTEGER NOT NULL,
+umfrage_id INTEGER DEFAULT - 1 NOT NULL,
+befragter_id INTEGER NOT NULL,
+frage_id INTEGER NOT NULL,
+scale_id INTEGER NOT NULL,
+antwort_id INTEGER NOT NULL,
+datzeit_abschluss DATETIME NOT NULL,
+dat_feedback DATE NOT NULL,
+abschluss_id INTEGER NOT NULL,
+mandant_id INTEGER NOT NULL,
+gf_id INTEGER NOT NULL,
+wup_id INTEGER NOT NULL,
+nb_id INTEGER DEFAULT 0 NOT NULL,
+dat DATE NOT NULL,
+zeitspanne STRING(40) COLLATE 'und:ci',
+zeitspanne_id INTEGER DEFAULT - 1 NOT NULL,
+bonwertspanne STRING(50) COLLATE 'und:ci' NOT NULL,
+td_update TIMESTAMP,
+td_insert TIMESTAMP
+);

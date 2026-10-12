@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_sb_beurteil_bereich_spr_zu_1 AS SELECT beurteilung_bereich_id,
+ mandant_id,
+ spr_id,
+ beurteilung_bereich_bez
+FROM kfl_production_dbp_data.sb_beurteil_bereich_spr_zu_1;

@@ -1,0 +1,23 @@
+/* --------------------------------------------------------------------------------
+   DDL for table: t_dim_kfl_business_year_1
+   generated from Powerdesigner on Montag, 31. Juli 2023 15:56:32
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE.T_DIM_KFL_BUSINESS_YEAR_1 DATA_RETENTION_TIME_IN_DAYS = 2 (
+   kfl_bus_year                        NUMBER(38,0)     NOT NULL COMMENT 'identifier of the Kaufland business year in the Kaufland DWH
+            KFL: KFL_PRODUCTION.DBP_DATA.JAHR_GJ.GJ
+            CORE_REL: t_kfl_business_year.kfl_bus_year',
+   kfl_bus_year_offset                 NUMBER(38,0)     COMMENT 'offset of the Kaufland business year in the Kaufland DWH in relation to the current Kaufland business year. If the Kaufland business year is the current Kaufland business year, then the offset is 0, if the Kaufland business year is one year after the current Kaufland business year, then the offset is 1
+            KFL: KFL_PRODUCTION.DBP_DATA.JAHR_GJ.AKT_GJ
+            CORE_REL: t_kfl_business_year.kfl_bus_year_offset',
+   kfl_completed_bus_year_offset       NUMBER(38,0)     COMMENT 'offset of the Kaufland business year in the Kaufland DWH in relation to the latest completed Kaufland business year. If the Kaufland business year is the latest completed Kaufland business year, then the offset is 0, if the Kaufland business year is one year after the latest completed Kaufland business year, then the offset is 1
+            KFL: KFL_PRODUCTION.DBP_DATA.JAHR_GJ.AKT_GJ_KOMPLETT
+            CORE_REL: t_kfl_business_year.kfl_completed_bus_year_offset',
+   dwh_created_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'Creation timestamp of the record in the DWH.',
+   dwh_updated_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'Timestamp of the last update of the record in the DWH.',
+   dwh_src_tmsp                        TIMESTAMP_LTZ(9) NOT NULL COMMENT 'Timestamp of source extraction.',   
+   CONSTRAINT PK_T_DIM_KFL_BUSINESS_YEAR PRIMARY KEY (kfl_bus_year) NOT ENFORCED 
+)  COMMENT = 'Kaufland business year
+             KFL: KFL_PRODUCTION.DBP_DATA.JAHR_GJ_1
+             CORE_REL: T_KFL_BUSINESS_YEAR_1';
+

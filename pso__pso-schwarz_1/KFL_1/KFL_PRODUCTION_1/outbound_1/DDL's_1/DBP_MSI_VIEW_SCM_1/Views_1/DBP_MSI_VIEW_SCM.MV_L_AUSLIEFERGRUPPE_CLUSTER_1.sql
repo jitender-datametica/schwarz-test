@@ -1,0 +1,81 @@
+-- 2026-02-26, dknop, initial
+ CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_l_ausliefergruppe_cluster_1 (ausliefergruppe_cluster_id
+, ausliefergruppe_cluster_bez, ausliefergruppe_cluster_bez_de, ausliefergruppe_cluster_bez_cz,
+ausliefergruppe_cluster_bez_sk, ausliefergruppe_cluster_bez_hr, ausliefergruppe_cluster_bez_pl,
+ausliefergruppe_cluster_bez_ro, ausliefergruppe_cluster_bez_bg, sort_id) AS SELECT 'Food' AS ausliefergruppe_cluster_id
+ ,
+ 'Food' AS ausliefergruppe_cluster_bez,
+ 'Food' AS ausliefergruppe_cluster_bez_de,
+ 'Food' AS ausliefergruppe_cluster_bez_cz,
+ 'Food' AS ausliefergruppe_cluster_bez_sk,
+ 'Food' AS ausliefergruppe_cluster_bez_hr,
+ 'Food' AS ausliefergruppe_cluster_bez_pl,
+ 'Food' AS ausliefergruppe_cluster_bez_ro,
+ 'Food' AS ausliefergruppe_cluster_bez_bg,
+ 1 AS sort_id
+UNION ALL
+SELECT 'Frische' AS ausliefergruppe_cluster_id,
+ 'Frische' AS ausliefergruppe_cluster_bez,
+ 'Frische' AS ausliefergruppe_cluster_bez_de,
+ 'Frische' AS ausliefergruppe_cluster_bez_cz,
+ 'Frische' AS ausliefergruppe_cluster_bez_sk,
+ 'Frische' AS ausliefergruppe_cluster_bez_hr,
+ 'Frische' AS ausliefergruppe_cluster_bez_pl,
+ 'Frische' AS ausliefergruppe_cluster_bez_ro,
+ 'Frische' AS ausliefergruppe_cluster_bez_bg,
+ 2 AS sort_id
+UNION ALL
+SELECT 'NonFood' AS ausliefergruppe_cluster_id,
+ 'NonFood' AS ausliefergruppe_cluster_bez,
+ 'NonFood' AS ausliefergruppe_cluster_bez_de,
+ 'NonFood' AS ausliefergruppe_cluster_bez_cz,
+ 'NonFood' AS ausliefergruppe_cluster_bez_sk,
+ 'NonFood' AS ausliefergruppe_cluster_bez_hr,
+ 'NonFood' AS ausliefergruppe_cluster_bez_pl,
+ 'NonFood' AS ausliefergruppe_cluster_bez_ro,
+ 'NonFood' AS ausliefergruppe_cluster_bez_bg,
+ 3 AS sort_id
+UNION ALL
+SELECT 'UltraFrische' AS ausliefergruppe_cluster_id,
+ 'UltraFrische' AS ausliefergruppe_cluster_bez,
+ 'UltraFrische' AS ausliefergruppe_cluster_bez_de,
+ 'UltraFrische' AS ausliefergruppe_cluster_bez_cz,
+ 'UltraFrische' AS ausliefergruppe_cluster_bez_sk,
+ 'UltraFrische' AS ausliefergruppe_cluster_bez_hr,
+ 'UltraFrische' AS ausliefergruppe_cluster_bez_pl,
+ 'UltraFrische' AS ausliefergruppe_cluster_bez_ro,
+ 'UltraFrische' AS ausliefergruppe_cluster_bez_bg,
+ 4 AS sort_id
+UNION ALL
+SELECT 'Tiko' AS ausliefergruppe_cluster_id,
+ 'Tiko' AS ausliefergruppe_cluster_bez,
+ 'Tiko' AS ausliefergruppe_cluster_bez_de,
+ 'Tiko' AS ausliefergruppe_cluster_bez_cz,
+ 'Tiko' AS ausliefergruppe_cluster_bez_sk,
+ 'Tiko' AS ausliefergruppe_cluster_bez_hr,
+ 'Tiko' AS ausliefergruppe_cluster_bez_pl,
+ 'Tiko' AS ausliefergruppe_cluster_bez_ro,
+ 'Tiko' AS ausliefergruppe_cluster_bez_bg,
+ 5 AS sort_id
+UNION ALL
+SELECT 'Sonstiges' AS ausliefergruppe_cluster_id,
+ 'Sonstiges' AS ausliefergruppe_cluster_bez,
+ 'Sonstiges' AS ausliefergruppe_cluster_bez_de,
+ 'Jiné' AS ausliefergruppe_cluster_bez_cz,
+ 'Iné' AS ausliefergruppe_cluster_bez_sk,
+ 'Drugo' AS ausliefergruppe_cluster_bez_hr,
+ 'Różny asortyment' AS ausliefergruppe_cluster_bez_pl,
+ 'Altele' AS ausliefergruppe_cluster_bez_ro,
+ 'Други' AS ausliefergruppe_cluster_bez_bg,
+ 6 AS sort_id
+UNION ALL
+SELECT '' AS ausliefergruppe_cluster_id,
+ '' AS ausliefergruppe_cluster_bez,
+ '' AS ausliefergruppe_cluster_bez_de,
+ '' AS ausliefergruppe_cluster_bez_cz,
+ '' AS ausliefergruppe_cluster_bez_sk,
+ '' AS ausliefergruppe_cluster_bez_hr,
+ '' AS ausliefergruppe_cluster_bez_pl,
+ '' AS ausliefergruppe_cluster_bez_ro,
+ '' AS ausliefergruppe_cluster_bez_bg,
+ 0 AS sort_id;

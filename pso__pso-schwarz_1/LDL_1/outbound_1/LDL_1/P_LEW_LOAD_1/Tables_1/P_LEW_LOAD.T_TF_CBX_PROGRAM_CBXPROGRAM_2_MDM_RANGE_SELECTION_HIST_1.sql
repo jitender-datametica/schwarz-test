@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_cbx_program_cbxprogram_2_mdm_range_selection_hist_1 (
+client_id BIGNUMERIC(38),
+lidl_country STRING(40),
+cbx_program_cbxprogram_cbxprogram_documentref STRING(250) COLLATE 'und:ci',
+src_prog_doc_ref STRING(40),
+cbx_prog_version_nr BIGNUMERIC(38),
+cbx_prog_doc_status STRING(100) COLLATE 'und:ci',
+cbx_prog_change_tmsp DATETIME,
+range_selection_active_fg BIGNUMERIC(38),
+cy_month_range_selection BIGNUMERIC(38),
+range_selection_end_dt DATE,
+cy_week_range_deliver_from BIGNUMERIC(38),
+cy_week_range_deliver_to BIGNUMERIC(38),
+cy_week_range_advertise_from BIGNUMERIC(38),
+cy_week_range_advertise_to BIGNUMERIC(38),
+deleted_fg BIGNUMERIC(38),
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

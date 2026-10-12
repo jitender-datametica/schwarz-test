@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_lifecycle.mv_l_lifecycle_rvm_deposit_outpayment_type_1 AS SELECT
+ deposit_outpayment_type_cd,
+ deposit_outpayment_type_descr_en,
+ deposit_outpayment_type_descr_de,
+ deposit_outpayment_type_descr
+FROM szd_core.t_dim_deposit_outpayment_type_1;

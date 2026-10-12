@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_cm_ac.v_lil_liam_clnt_cat_lvl2_1 (liam_clnt_cat_id, client_id, liam_parnt_cat_desc,
+liam_parnt_cat_desc_en, liam_short_parnt_cat_desc, liam_short_parnt_cat_desc_en, liam_chld_cat_desc,
+liam_chld_cat_desc_en, clnt_cat_lvl) AS SELECT *
+FROM ldl_p_lew_mart_cm.v_lil_liam_clnt_cat_lvl2_1;

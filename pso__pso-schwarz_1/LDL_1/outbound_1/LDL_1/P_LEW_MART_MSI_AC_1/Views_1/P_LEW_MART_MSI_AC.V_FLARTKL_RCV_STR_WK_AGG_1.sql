@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi_ac.v_flartkl_rcv_str_wk_agg_1 (cy_week_partial_week_id, client_id, store_id,
+wh_id, aspect_id, currency_iso_cd, business_yr, month_id, week_id, asis_val_rcv_day1, asis_val_rcv_day2,
+asis_val_rcv_day3, asis_val_rcv_day4, asis_val_rcv_day5, asis_val_rcv_day6, asis_val_rcv_day7, asis_val_cnt_day1,
+asis_val_cnt_day2, asis_val_cnt_day3, asis_val_cnt_day4, asis_val_cnt_day5, asis_val_cnt_day6, asis_val_cnt_day7,
+asis_val_rcv_wk, asis_val_rcv_mth, asis_val_rcv_yr, asis_val_cnt_wk, asis_val_cnt_mth, asis_val_cnt_yr,
+p1ycwd_val_rcv_wk, p1ycmd_val_rcv_mth, p1ycyd_val_rcv_yr, p1ycwd_val_cnt_wk, p1ycmd_val_cnt_mth, p1ycyd_val_cnt_yr) AS
+SELECT *
+FROM ldl_p_lew_mart_msi.v_flartkl_rcv_str_wk_agg_1;

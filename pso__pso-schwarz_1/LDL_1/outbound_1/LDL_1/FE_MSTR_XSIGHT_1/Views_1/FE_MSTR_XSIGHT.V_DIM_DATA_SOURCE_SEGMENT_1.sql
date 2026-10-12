@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW ldl_fe_mstr_xsight.v_dim_data_source_segment_1 (data_provider_name, data_src_name, country_cd,
+data_src_segment_name, data_src_segment_descr, data_src_segment_display_name) AS SELECT
+ market_research_data_provider_name AS data_provider_name,
+ market_research_data_src_name AS data_src_name,
+ market_research_country_cd AS country_cd,
+ market_research_data_src_segment_name AS data_src_segment_name,
+ market_research_data_src_segment_descr AS data_src_segment_descr,
+ market_research_data_src_segment_display_name AS data_src_segment_display_name
+FROM ldl_p_lew_core_ac.v_market_research_data_source_segment_1;

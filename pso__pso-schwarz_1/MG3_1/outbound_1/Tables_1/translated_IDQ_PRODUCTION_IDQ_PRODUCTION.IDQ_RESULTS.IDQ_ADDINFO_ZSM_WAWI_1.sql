@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE idq_production_idq_results.idq_addinfo_zsm_wawi_1 (
+id INTEGER NOT NULL,
+sync_report_execution_id INTEGER,
+leading_primary_key STRING(1000),
+dependent_primary_key STRING(1000),
+leading_system_id INTEGER,
+dependent_system_id INTEGER,
+country_id INTEGER,
+lifnr INTEGER,
+name STRING(160),
+ekorg STRING(4),
+krednr STRING(7),
+sap_krednr INTEGER,
+zz_gr_food STRING(1),
+zz_gr_nfood STRING(1),
+zz_gr_fruit STRING(1),
+zz_gr_plant STRING(1),
+zz_gr_brand STRING(1),
+branch_id INTEGER
+);

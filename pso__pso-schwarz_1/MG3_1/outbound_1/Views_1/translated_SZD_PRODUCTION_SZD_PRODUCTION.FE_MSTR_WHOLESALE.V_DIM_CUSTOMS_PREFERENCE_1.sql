@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_wholesale.v_dim_customs_preference_1 (customs_preference_cd,
+customs_preference_descr) AS SELECT customs_preference_cd,
+ customs_preference_descr
+FROM szd_production_core.t_dim_customs_preference_1;

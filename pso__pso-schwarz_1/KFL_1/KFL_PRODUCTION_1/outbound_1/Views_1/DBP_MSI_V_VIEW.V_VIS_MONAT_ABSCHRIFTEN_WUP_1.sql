@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_v_view.v_vis_monat_abschriften_wup_1 AS SELECT mandant_id,
+ nb_id,
+ wup_id,
+ wrg_id,
+ kjmo,
+ abschriftgruppe_id,
+ gj,
+ abschrift_brutto,
+ abschrift_brutto_kum,
+ abschrift_brutto_kvj,
+ abschrift_brutto_kvj_kum,
+ ums_brutto,
+ ums_brutto_kum,
+ ums_brutto_kvj,
+ ums_brutto_kvj_kum
+FROM kfl_production_dbp_msi_data.vis_monat_abschriften_wup_1;

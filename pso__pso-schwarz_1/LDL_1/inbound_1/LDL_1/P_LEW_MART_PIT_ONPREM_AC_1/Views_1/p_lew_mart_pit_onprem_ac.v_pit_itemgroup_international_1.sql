@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW P_LEW_MART_PIT_ONPREM_AC.V_PIT_ITEMGROUP_INTERNATIONAL_1
+AS
+SELECT
+client_id
+,item_grp_int_sid
+,item_grp_int_mstr_sid
+,src_itemgrp_int_cd
+,item_grp_int_descr_int
+,item_grp_int_descr_loc
+FROM p_lew_mart_pit_onprem.v_pit_itemgroup_international_1;

@@ -1,0 +1,28 @@
+create or replace TABLE KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_DATA.TRANSPORTATION_UNIT_HU_LIEF_ZU_1 (
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant_1 im DWH',
+	TRANSPORTATION_UNIT_ID NUMBER(38,0) NOT NULL COMMENT 'Transporteinheit (intern)',
+	KJ_TRANSPORTATION_UNIT NUMBER(38,0) NOT NULL COMMENT 'Anlagejahr der Transporteinheit',
+	TRANSPORTATION_UNIT_SR_ACT_ID NUMBER(38,0) NOT NULL COMMENT 'transportation_unit_sr_act_id',
+	TRANSPORTATION_UNIT_SEQ_ID NUMBER(38,0) NOT NULL COMMENT 'Reihenfolgenummer',
+	COMPARTMENT_HU_GUID VARCHAR(32) COMMENT 'GUID Handling Unit_1 (Fach)',
+	LADEPOSITION NUMBER(38,0) COMMENT 'Postion am Fahrzeug / Transporteinheit',
+	LAGERNUMMER_ID VARCHAR(4) COLLATE 'en-ci' COMMENT 'ID der Lagernummer - höchste Ebene der Lagerhierarchie',
+	BELEG_GUID VARCHAR(32) COMMENT 'Beleg-ID',
+	BELEG_POS_GUID VARCHAR(32) COMMENT 'Positions-ID',
+	BELEGTYP_ID VARCHAR(3) COLLATE 'en-ci' COMMENT 'Belegtyp',
+	BELEG_ID NUMBER(35,0) COMMENT 'Belegnummer',
+	BELEG_POS_ID NUMBER(38,0) COMMENT 'Positionsnummer',
+	ZUORDNUNGSART_ID VARCHAR(1) COLLATE 'en-ci' COMMENT 'Zuordnungsart',
+	TOP_HU_GUID VARCHAR(32) COLLATE 'en-ci' COMMENT 'GUID Handling Unit_1 (Top)',
+	TOP_HU_ID VARCHAR(32) COMMENT 'HUIDENT Handling Unit_1 (Top)',
+	CROSS_HU_FG VARCHAR(1) COLLATE 'en-ci' COMMENT 'Flag: Lieferübergreifende HU',
+	CHANGE_FG VARCHAR(1) COLLATE 'en-ci' COMMENT 'Flag: Änderungsindikator',
+	STATUS_FG VARCHAR(1) COLLATE 'en-ci' COMMENT 'Flag: Status_1',
+	DATZEIT_ERSTELLUNG TIMESTAMP_NTZ(9) COMMENT 'Erstellungszeitpunkt',
+	DATZEIT_AENDERUNG TIMESTAMP_NTZ(9) COMMENT 'Änderungszeitpunkt',
+	AUSLIEFERUNG_EXIST_FG VARCHAR(1) COLLATE 'en-ci' COMMENT 'Flag: Status_1 \""Auslieferung existiert\""',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	constraint PK_TRANSPORTATION_UNIT_HU_LIEF_ZU primary key (MANDANT_ID, TRANSPORTATION_UNIT_ID, KJ_TRANSPORTATION_UNIT, TRANSPORTATION_UNIT_SR_ACT_ID, TRANSPORTATION_UNIT_SEQ_ID)
+)COMMENT='Transportation Unit_1, HU, Delivery'
+;

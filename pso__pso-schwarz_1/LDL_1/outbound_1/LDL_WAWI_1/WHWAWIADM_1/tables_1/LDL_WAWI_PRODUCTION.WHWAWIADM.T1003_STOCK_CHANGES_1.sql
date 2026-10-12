@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE ldl_wawi_production_whwawiadm.t1003_stock_changes_1 (
+wawi_instanz_kzl STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_nr INTEGER NOT NULL,
+c1003_id INTEGER NOT NULL,
+c1003_sscc INTEGER,
+c1003_stock_area INTEGER NOT NULL,
+c1003_rcv_stock_area INTEGER,
+c1003_corrid INTEGER,
+c1003_formdate DATETIME NOT NULL,
+c1003_itemnr STRING(18) NOT NULL,
+c1003_pieceqty NUMERIC(12,3) NOT NULL,
+c1003_formno STRING(20) NOT NULL,
+c1003_formtype INTEGER NOT NULL,
+c1003_dayend_status INTEGER NOT NULL,
+c1003_dayend_date DATETIME,
+c1003_moduser STRING(30) NOT NULL,
+c1003_moddate DATETIME NOT NULL,
+scn BIGNUMERIC(38,0) DEFAULT 0,
+delete_fg STRING(1),
+extraction_tmsp DATETIME,
+PRIMARY KEY (c1003_id, wh_nr) NOT ENFORCED
+);

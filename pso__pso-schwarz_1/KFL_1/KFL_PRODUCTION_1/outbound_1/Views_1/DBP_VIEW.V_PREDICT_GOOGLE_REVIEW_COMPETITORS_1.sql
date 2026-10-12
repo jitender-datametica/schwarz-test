@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_predict_google_review_competitors_1 AS SELECT google_place_id,
+ kjmo,
+ predict_review_count,
+ predict_rating_avg
+FROM kfl_production_dbp_data.predict_google_review_competitors_1;

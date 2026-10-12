@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_process_mstr.t_lil_lift_dm_chart15_1 (
+client_id BIGNUMERIC(38,0) NOT NULL,
+per_id BIGNUMERIC(38,0) NOT NULL,
+rtl_tp_id BIGNUMERIC(38,0) NOT NULL,
+lift_cat_id BIGNUMERIC(38,0) NOT NULL,
+rtl_id BIGNUMERIC(38,0) NOT NULL,
+currency_iso_cd STRING(24) NOT NULL,
+valuelidlcattototalshare BIGNUMERIC(38,18),
+valuelidl BIGNUMERIC(38,18),
+valuepotlidlcattototalshare BIGNUMERIC(38,18),
+valuepotentiallidl BIGNUMERIC(38,18),
+valuepotentialexploitationlidl BIGNUMERIC(38,18),
+valuepotentialexploitation BIGNUMERIC(38,18),
+vpegappp BIGNUMERIC(38,18),
+avplidlsharebar BIGNUMERIC(38,18),
+addedvaluepotentiallidl BIGNUMERIC(38,18),
+maxrawbuyer BIGNUMERIC(38,0),
+maxrawbuyerlidl BIGNUMERIC(38,0),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+) CLUSTER BY client_id, lift_cat_id;

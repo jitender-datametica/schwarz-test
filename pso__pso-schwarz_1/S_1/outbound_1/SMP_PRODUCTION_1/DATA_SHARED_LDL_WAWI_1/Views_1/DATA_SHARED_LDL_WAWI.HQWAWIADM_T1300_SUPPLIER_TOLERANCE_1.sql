@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW smp_production_data_shared_ldl_wawi.hqwawiadm_t1300_supplier_tolerance_1 (wawi_instanz_kzl,
+c1300_groupid, c1300_group, c1300_group_desc, c1300_currency_sign, c1300_tolerance_std, c1300_tolerance_min,
+c1300_tolerance_max, c1300_moduser, c1300_moddate, scn, delete_fg, extraction_tmsp) AS SELECT wawi_instanz_kzl,
+ c1300_groupid,
+ c1300_group,
+ c1300_group_desc,
+ c1300_currency_sign,
+ c1300_tolerance_std,
+ c1300_tolerance_min,
+ c1300_tolerance_max,
+ c1300_moduser,
+ c1300_moddate,
+ scn,
+ delete_fg,
+ extraction_tmsp
+FROM ldl_wawi_production_hqwawiadm.t1300_supplier_tolerance_1;

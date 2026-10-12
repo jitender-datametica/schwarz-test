@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE idq_production_kfl_ret.zvkp_1 (
+mandt STRING(3) NOT NULL,
+vkorg STRING(4) NOT NULL,
+vtweg STRING(16) NOT NULL,
+histo STRING(1) NOT NULL,
+matnr STRING(40) NOT NULL,
+werks STRING(4) NOT NULL,
+datbi STRING(24) NOT NULL,
+datab STRING(24) NOT NULL,
+maktl STRING(9),
+pltyp STRING(2),
+kbetr NUMERIC(11,2),
+konwa STRING(5),
+trmed STRING(1),
+aedat STRING(24),
+aezeit STRING(24),
+darkx STRING(1),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (mandt, vkorg, vtweg, histo, matnr, werks, datbi, datab) NOT ENFORCED
+);

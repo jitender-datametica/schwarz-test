@@ -1,0 +1,17 @@
+create or replace dynamic table MV_ART_SPR_ZU_1(
+	SPR_ID,
+	ART_ID,
+	MANDANT_ID,
+	ART_BEZ,
+	ART_ID_BEZ
+) target_lag = '1 hour, 30 minutes' refresh_mode = FULL initialize = ON_CREATE warehouse = WH_KFL_P_DYNAMIC_TABLE_AIS_DE
+ as
+SELECT
+SPR_ID,
+ART_ID,
+MANDANT_ID,
+CASE WHEN SUBSTR(ART_BEZ, 1, 11) = 'Wertartikel' AND ART_ID < 0 THEN 'Sachkonto WG ' || TRIM(ART_ID/-1000) ELSE ART_BEZ END ART_BEZ,
+CAST(CAST(ART_ID AS CHAR(10)) || '   ' || ART_BEZ AS CHAR(100)) AS ART_ID_BEZ
+FROM DBP_VIEW.V_ART_SPR_ZU_1
+WHERE SPR_ID = 22
+AND MANDANT_ID = 1;

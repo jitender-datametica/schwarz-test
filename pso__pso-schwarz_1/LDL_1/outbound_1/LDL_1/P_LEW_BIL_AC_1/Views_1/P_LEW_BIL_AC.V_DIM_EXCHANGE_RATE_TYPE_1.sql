@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW ldl_p_lew_bil_ac.v_dim_exchange_rate_type_1 (exchange_rate_type_cd, exchange_rate_type_descr,
+exchange_rate_type_descr_de, exchange_rate_type_descr_en, exchange_rate_type_descr_bg, exchange_rate_type_descr_cs,
+exchange_rate_type_descr_da, exchange_rate_type_descr_el, exchange_rate_type_descr_es, exchange_rate_type_descr_fi,
+exchange_rate_type_descr_fr, exchange_rate_type_descr_hr, exchange_rate_type_descr_hu, exchange_rate_type_descr_it,
+exchange_rate_type_descr_lt, exchange_rate_type_descr_nl, exchange_rate_type_descr_pl, exchange_rate_type_descr_pt,
+exchange_rate_type_descr_ro, exchange_rate_type_descr_sh, exchange_rate_type_descr_sk, exchange_rate_type_descr_sl,
+exchange_rate_type_descr_sv, active_for_bus_year_fg, dwh_load_id, dwh_created, dwh_updated) AS SELECT *
+FROM ldl_p_lew_bil.v_dim_exchange_rate_type_1 AS EXCH;

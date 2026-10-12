@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_iotchargers.v_dim_charger_station_type_1 (charger_station_type_cd,
+charger_station_type_name) AS SELECT charger_station_type_cd,
+ charger_station_type_name
+FROM szd_core.t_dim_charger_station_type_1;

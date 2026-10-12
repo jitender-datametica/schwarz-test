@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_fe_mstr_ai_reporting.v_ref_optimization_goal_type_1 (opt_goal_type_cd, opt_goal_type_descr) AS
+SELECT opt_goal_type_cd,
+ opt_goal_type_descr
+FROM ldl_p_lew_core.t_ref_optimization_goal_type_1;

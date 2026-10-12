@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.srmara_eks_item_wawirelevancy_listingoverviewmax_inssel_1 (listingoverviewid
+, location_1, supplierno, cr_locationid, receivingcountry, itemid, casesize, zactive) AS SELECT
+ srmara_eks_item_wawirelevancy_listingoverviewmax_010.listingoverviewid,
+ srmara_eks_item_wawirelevancy_listingoverviewmax_010.location_1,
+ srmara_eks_item_wawirelevancy_listingoverviewmax_010.supplierno,
+ srmara_eks_item_wawirelevancy_listingoverviewmax_010.cr_locationid,
+ srmara_eks_item_wawirelevancy_listingoverviewmax_010.receivingcountry,
+ srmara_eks_item_wawirelevancy_listingoverviewmax_010.itemid,
+ srmara_eks_item_wawirelevancy_listingoverviewmax_010.casesize,
+ 1 AS zactive
+FROM idq_production_eks_calculation.srmara_eks_item_wawirelevancy_listingoverviewmax_010_1
+ LEFT JOIN idq_production_eks_calculation.steks_listingoverviewmax_1 ON
+     srmara_eks_item_wawirelevancy_listingoverviewmax_010.supplierno = steks_listingoverviewmax.supplierno AND
+     srmara_eks_item_wawirelevancy_listingoverviewmax_010.receivingcountry = steks_listingoverviewmax.receivingcountry
+   AND srmara_eks_item_wawirelevancy_listingoverviewmax_010.itemid = steks_listingoverviewmax.itemid AND
+   srmara_eks_item_wawirelevancy_listingoverviewmax_010.casesize = steks_listingoverviewmax.casesize
+WHERE steks_listingoverviewmax.itemid IS NULL;

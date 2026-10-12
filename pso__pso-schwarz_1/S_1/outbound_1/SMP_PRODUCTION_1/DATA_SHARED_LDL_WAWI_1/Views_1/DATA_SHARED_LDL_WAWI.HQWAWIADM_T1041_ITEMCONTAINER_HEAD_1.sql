@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW smp_production_data_shared_ldl_wawi.hqwawiadm_t1041_itemcontainer_head_1 (wawi_instanz_kzl,
+c1041_container_id, c1041_desc_int, c1041_status, c1041_information, c1041_moduser, c1041_moddate, scn, c1041_desc_nat,
+c1041_cont_id_local, c1041_country, delete_fg, extraction_tmsp) AS SELECT wawi_instanz_kzl,
+ c1041_container_id,
+ c1041_desc_int,
+ c1041_status,
+ c1041_information,
+ c1041_moduser,
+ c1041_moddate,
+ scn,
+ c1041_desc_nat,
+ c1041_cont_id_local,
+ c1041_country,
+ delete_fg,
+ extraction_tmsp
+FROM ldl_wawi_production_hqwawiadm.t1041_itemcontainer_head_1;

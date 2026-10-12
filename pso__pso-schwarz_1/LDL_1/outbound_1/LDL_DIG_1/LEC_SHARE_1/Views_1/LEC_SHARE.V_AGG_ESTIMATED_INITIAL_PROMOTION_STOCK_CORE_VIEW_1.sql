@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_lec_share.v_agg_estimated_initial_promotion_stock_core_view_1 AS SELECT *
+FROM ldl_dig_core.v_agg_estimated_initial_promotion_stock_1;

@@ -1,0 +1,27 @@
+CREATE OR REPLACE VIEW DBP_V_ODS.V_ODS_BON_TRANSACTION_1 AS 
+    SELECT 
+        bon_id,
+        mandant_id,
+        wup_id,
+        bon_dat,
+        kasse_nr,
+        bon_beginn,
+        datei_name,
+        kassierer_nr,
+        cancel_fg,
+        transaction_name,
+        bon_nr,
+        bon_ende,
+        bon_booking,
+        suspended_fg,
+        training_fg,
+        kasse_typ_id,
+        kpos_kasse_typ,
+        kassensystem_name,
+        kpos_transaction_name,
+        kpos_transaction_status,
+        dat_booking,
+        bon_nr_fiscal,
+        bon_status_cd,
+        bon_abbruch_grund_txt
+FROM DBP_ODS.ODS_BON_TRANSACTION_1;

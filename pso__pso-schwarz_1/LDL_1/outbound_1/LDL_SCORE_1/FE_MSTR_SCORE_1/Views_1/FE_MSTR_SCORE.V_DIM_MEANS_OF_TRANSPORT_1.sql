@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_score_fe_mstr_score.v_dim_means_of_transport_1 AS SELECT means_of_transport_cd,
+ means_of_transport_descr
+FROM ldl_score_core.t_dim_means_of_transport_1;

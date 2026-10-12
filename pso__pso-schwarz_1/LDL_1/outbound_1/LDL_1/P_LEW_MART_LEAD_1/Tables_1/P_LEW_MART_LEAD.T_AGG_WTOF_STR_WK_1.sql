@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_lead.t_agg_wtof_str_wk_1 (
+client_id BIGNUMERIC(38,0) NOT NULL,
+loc_sid_store_move_to BIGNUMERIC(38,0) NOT NULL,
+currency_iso_cd STRING(3) COLLATE 'und:ci' NOT NULL,
+busyear BIGNUMERIC(38,0) NOT NULL,
+cy_month BIGNUMERIC(38,0) NOT NULL,
+cy_week_partial_week_id BIGNUMERIC(38,0) NOT NULL,
+wtof_wd1_val BIGNUMERIC(38,8),
+wtof_wd2_val BIGNUMERIC(38,8),
+wtof_wd3_val BIGNUMERIC(38,8),
+wtof_wd4_val BIGNUMERIC(38,8),
+wtof_wd5_val BIGNUMERIC(38,8),
+wtof_wd6_val BIGNUMERIC(38,8),
+wtof_wd7_val BIGNUMERIC(38,8),
+wtof_wktd_val BIGNUMERIC(38,8),
+wtof_mtd_val BIGNUMERIC(38,8),
+wtof_bytd_val BIGNUMERIC(38,8),
+wtof_p1y_sum_str_wktd BIGNUMERIC(38,8),
+wtof_p1y_sum_str_mtd BIGNUMERIC(38,8),
+wtof_p1y_sum_str_bytd BIGNUMERIC(38,8)
+) CLUSTER BY client_id, cy_month;

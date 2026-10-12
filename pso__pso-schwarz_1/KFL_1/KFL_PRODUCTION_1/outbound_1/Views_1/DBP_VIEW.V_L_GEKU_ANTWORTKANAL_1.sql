@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_geku_antwortkanal_1 AS SELECT geku_antwortkanal_id
+FROM kfl_production_dbp_data.l_geku_antwortkanal_1;

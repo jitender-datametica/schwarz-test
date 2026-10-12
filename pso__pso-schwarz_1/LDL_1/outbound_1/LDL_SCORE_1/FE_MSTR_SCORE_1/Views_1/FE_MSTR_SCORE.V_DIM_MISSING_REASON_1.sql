@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_score_fe_mstr_score.v_dim_missing_reason_1 AS SELECT missing_reason_cd,
+ missing_reason_descr
+FROM ldl_score_core.t_dim_missing_reason_1;

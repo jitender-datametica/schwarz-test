@@ -1,0 +1,95 @@
+CREATE OR REPLACE VIEW ldl_data_fe_mstr_gf_lead.v_fact_real_estate_status_by_day_curr_1 (real_estate_sid
+OPTIONS(description='THE UNIQUE IDENTIFIER (SURROGATE KEY) FOR THE REAL ESTATE OBJECT.'), store_sid
+OPTIONS(description='THE UNIQUE IDENTIFIER (SURROGATE KEY) FOR A STORE.'), country_org_sid
+OPTIONS(description='THE UNIQUE IDENTIFIER (SURROGATE KEY) FOR THE RELATED COUNTRY_1 ORGANIZATION.'), country_org_cd
+OPTIONS(description='THE CODE OF THE BUSINESS COUNTRY_1 FOR WHICH THIS COUNTRY_1 ORGANIZATION IS RESPONSIBLE. (THE BUSINESS COUNTRY_1 IS NOT IDENTICAL TO A POLITICAL COUNTRY.)'),
+reporting_country_cd
+OPTIONS(description='THE CODE WHICH IDENTIFIES THE REPORTING COUNTRY_1 IN WHICH THE INTERNAL ORGANIZATION IS LOCATED.'),
+cal_dt
+OPTIONS(description='THE DAY REPRESENTED AS A CALENDAR_1 DATE OF THE FORM YYYY-MM_1-DD. YYYY IS THE CALENDAR_1 YEAR, MM_1 (BETWEEN 1 AND 12) THE CALENDAR_1 MONTH AND DD THE DAY OF THE CALENDAR_1 MONTH (BETWEEN 1 AND 31). '),
+real_estate_status_cd
+OPTIONS(description='THE CODE IDENTIFYING THE LIFECYCLE STATUS_1 FOR REAL ESTATE OBJECTS. (THIS IS THE BUSINESS LIFECYCLE, SO IT MIGHT DIFFER FROM THE STATUS_1 CODE SHOWN IN THE SOURCE SYSTEM.)'),
+curr_cd OPTIONS(description='The code identifying the currency, according to ISO 4217.'), curr_group_fg
+OPTIONS(description='Flag for Group Currency'), curr_local_fg OPTIONS(description='Flag for Local Currency'),
+open_store_cnt OPTIONS(description='VALUE 1 IF STORE/BUIDLING IS OPEN, OTHERWISE VALUE 0.'), open_store_py_cnt
+OPTIONS(description='VALUE 1 IF STORE/BUIDLING WAS OPEN ONE YEAR AGO, OTHERWISE VALUE 0.'), open_store_ppy_cnt
+OPTIONS(description='VALUE 1 IF STORE/BUIDLING WAS OPEN TWO YEARS AGO, OTHERWISE VALUE 0.'), closed_store_cnt
+OPTIONS(description='VALUE 1 IF STORE/BUIDLING IS CLOSED, OTHERWISE VALUE 0.'), closed_store_py_cnt
+OPTIONS(description='VALUE 1 IF STORE/BUIDLING WAS CLOSED ONE YEAR AGO, OTHERWISE VALUE 0.'), closed_store_ppy_cnt
+OPTIONS(description='VALUE 1 IF STORE/BUIDLING WAS CLOSED TWO YEARS AGO, OTHERWISE VALUE 0.'), store_under_contract_cnt
+OPTIONS(description='VALUE 1 IF STORE/BUIDLING IS UNDER CONTRACT, REGARDLESS IF THERE IS INTENTION TO COMPLETE IT, OTHERWISE VALUE 0.'),
+store_under_contract_py_cnt
+OPTIONS(description='VALUE 1 IF STORE/BUIDLING WAS UNDER CONTRACT ONE YEAR AGO, REGARDLESS IF THERE WAS INTENTION TO COMPLETE IT, OTHERWISE VALUE 0.'),
+store_under_contract_ppy_cnt
+OPTIONS(description='VALUE 1 IF STORE/BUIDLING WAS UNDER CONTRACT TWO YEARS AGO, REGARDLESS IF THERE WAS INTENTION TO COMPLETE IT, OTHERWISE VALUE 0.'),
+store_to_be_built_cnt
+OPTIONS(description='VALUE 1 IF THE STORE/BUIDLING IS UNDER CONTRACT AND THERE IS INTENTION TO COMPLETE IT, OTHERWISE VALUE 0.'),
+store_to_be_built_py_cnt
+OPTIONS(description='VALUE 1 IF THE STORE/BUIDLING WAS UNDER CONTRACT ONE YEAR AGO AND THERE WAS INTENTION TO COMPLETE IT, OTHERWISE VALUE 0.'),
+store_to_be_built_ppy_cnt
+OPTIONS(description='VALUE 1 IF THE STORE/BUIDLING WAS UNDER CONTRACT TWO YEARS AGO AND THERE WAS INTENTION TO COMPLETE IT, OTHERWISE VALUE 0.'),
+cancel_term_store_cnt
+OPTIONS(description='VALUE 1 IF THE STORE/BUIDLING IS FINALLY SETTLED (TERMINATED) OR THERE IS NO INTENTION TO COMPLETE IT, OTHERWISE VALUE 0.'),
+own_store_to_be_built_cnt
+OPTIONS(description='VALUE 1 IF THE STORE/BUIDLING IS UNDER CONTRACT, PRIVATELY OWNED AND THERE IS INTENTION TO COMPLETE IT, OTHERWISE VALUE 0.'),
+own_open_store_cnt OPTIONS(description='VALUE 1 IF THE STORE/BUIDLING IS OPEN AND PRIVATELY OWNED, OTHERWISE VALUE 0.'),
+ownership_type_cd
+OPTIONS(description='THE CODE IDENTIFYING THE OWNERSHIP OF A REAL ESTATE OBJECT, I.E. IF IT HAS BEEN BOUGHT OR IF IT IS RENTED.'),
+open_dt
+OPTIONS(description='THE DATE WHEN THE INTERNAL ORGANIZATION HAS STARTED ITS REGULAR OPERATION. (THIS DATE MAY BE DIFFERENT FROM THE PLANNED OPENING DATE.)'),
+close_dt OPTIONS(description='THE DATE WHEN THIS REAL ESTATE OBJECT WAS CLOSED.'), days_since_opening
+OPTIONS(description='THE COUNT OF DAYS SINCE STORE OPENING.'), days_since_closure
+OPTIONS(description='THE COUNT OF DAYS SINCE STORE CLOSURE.'), sales_area_meas
+OPTIONS(description='THE SPACE WHICH CAN BE USED FOR SALES_1, IN THE UNIT_1 INDICATED BY THE UNIT_1 OF MEASURE CODE (E.G. M2).'),
+total_sublet_area_meas
+OPTIONS(description='THE TOTAL SPACE WHICH CAN BE SUBLET, IN THE UNIT_1 INDICATED BY THE UNIT_1 OF MEASURE CODE (E.G. M2).'),
+rented_sublet_area_meas
+OPTIONS(description='THE SPACE WHICH IS CURRENTLY RENTED OUT, IN THE UNIT_1 INDICATED BY THE UNIT_1 OF MEASURE CODE.')) AS
+SELECT MAIN.real_estate_sid,
+ MAIN.store_sid,
+ MAIN.country_org_sid,
+ MAIN.country_org_cd,
+ MAIN.reporting_country_cd,
+ MAIN.cal_dt,
+ MAIN.real_estate_status_cd,
+ FER.src_curr_cd AS curr_cd,
+  CASE
+  WHEN FER.src_curr_cd = 'EUR'
+  THEN 1
+  ELSE 0
+  END AS curr_group_fg,
+  CASE
+  WHEN FER.src_curr_cd = FER.tgt_curr_cd
+  THEN 1
+  ELSE 0
+  END AS curr_local_fg,
+ MAIN.open_store_cnt,
+ MAIN.open_store_py_cnt,
+ MAIN.open_store_ppy_cnt,
+ MAIN.closed_store_cnt,
+ MAIN.closed_store_py_cnt,
+ MAIN.closed_store_ppy_cnt,
+ MAIN.store_under_contract_cnt,
+ MAIN.store_under_contract_py_cnt,
+ MAIN.store_under_contract_ppy_cnt,
+ MAIN.store_to_be_built_cnt,
+ MAIN.store_to_be_built_py_cnt,
+ MAIN.store_to_be_built_ppy_cnt,
+ MAIN.cancel_term_store_cnt,
+ MAIN.own_store_to_be_built_cnt,
+ MAIN.own_open_store_cnt,
+ MAIN.ownership_type_cd,
+ MAIN.open_dt,
+ MAIN.close_dt,
+ MAIN.days_since_opening,
+ MAIN.days_since_closure,
+ MAIN.sales_area_meas,
+ MAIN.total_sublet_area_meas,
+ MAIN.rented_sublet_area_meas
+FROM ldl_data_core_dim.v_fact_real_estate_status_by_day_1 AS MAIN
+ INNER JOIN ldl_data_core_dim.t_dim_internal_organization_1 AS CO ON MAIN.country_org_sid = CO.int_org_sid
+ INNER JOIN ldl_data_core_dim.t_fact_exchange_rate_1 AS FER ON CO.curr_cd = FER.tgt_curr_cd
+WHERE FER.exchange_rate_type_cd = 'BEW_ISK'
+ AND (FER.src_curr_cd = 'EUR' OR FER.src_curr_cd = FER.tgt_curr_cd)
+ AND FER.active_fg
+ AND CO.dwh_valid_fg;

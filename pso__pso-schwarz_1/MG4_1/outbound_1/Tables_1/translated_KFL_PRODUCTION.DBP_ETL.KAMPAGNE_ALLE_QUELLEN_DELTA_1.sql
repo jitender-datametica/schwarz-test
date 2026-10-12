@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl.kampagne_alle_quellen_delta_1 (
+quelle STRING(200),
+mandant_id INTEGER,
+businessunitid STRING(200),
+customerjourneyid STRING(200),
+profileid STRING(200),
+messageid STRING(200),
+journeyrunid STRING(200),
+timestamp TIMESTAMP,
+linktext STRING(2000),
+targeturl STRING(2000),
+linkname STRING(2000),
+messagevariationindexes STRING(200),
+emailaddressused STRING(200),
+category STRING(200),
+platform STRING(200),
+blockedreason STRING(200),
+bouncetype STRING(200),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+deliveredcount INTEGER
+);

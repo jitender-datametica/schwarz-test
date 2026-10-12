@@ -1,0 +1,144 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm_materialized.mv_wbs_art_wup_aktion_initial_1 (mandant_id, art_id,
+wup_id, nb_id, mandant_id_vz, wup_id_vz, nb_id_vz, aktion_id, ausliefergruppe_id, dat_von, dat_bis, dat_beladung,
+offer_id, angebot_id, wbs_phase_id, best_generiert_fg, bestellung_lieferant_fg, stille_aktion_fg, tv_fg, gk_fg,
+werbeaenderung_artikelneuanlage_fg, werbeaenderung_artikelentfernung_fg, anteil_wup_artikel_perc, anz_tage_werbung,
+bedarf_bme, bedarf_ame, bestellung_lieferant_menge, uebertragungs_fg, bestellmenge_final_ame,
+bestellmenge_ohne_bestand_ame, menge_mindestplatzierung_bme, prognose_werbezeitraum_bme,
+projizierter_bestand_vor_werbung_bme, werbung_in_x_tagen, zielbestand_bme, init_belieferung_fg, dat_bestandsperiode_rel
+, dat_lief_split, dat_lief_wunsch, dat_bestandsperiode_bis, dat_letzte_nachversorgung, we_bearbeitungszeit,
+menge_gesamt_bme, menge_min_bme, menge_initial_bme, menge_initial_ame, menge_initial_pal, split_fg, kjwo, fair_share_fg
+, order_type, init_lief_modus_kz) AS WITH TOP_DAT_BERECHNUNG AS (SELECT DISTINCT dat_beladung
+  FROM kfl_production_dbp_view.v_wbs_werbeaenderungen_1
+  ORDER BY dat_beladung DESC NULLS FIRST
+  LIMIT 5) (SELECT V00.mandant_id,
+   V00.art_id,
+   V05.aktuell_wup_id AS wup_id,
+   V00.nb_id,
+    CASE
+    WHEN V00.wup_id_vz = 6140
+    THEN 4
+    ELSE V00.mandant_id_vz
+    END AS mandant_id_vz,
+   V00.wup_id_vz,
+   V00.nb_id_vz,
+   V00.aktion_id,
+   V00.ausliefergruppe_id,
+   V00.dat_ab AS dat_von,
+   V00.dat_bis,
+   V00.dat_beladung,
+   V00.offer_id,
+   V03.angebot_id,
+   V00.wbs_phase_id,
+   V00.best_generiert_fg,
+   V00.bestellung_lieferant_fg,
+   V00.stille_aktion_fg,
+   V00.tv_fg,
+   V00.gk_fg,
+   V00.werbeaenderung_artikelneuanlage_fg,
+   V00.werbeaenderung_artikelentfernung_fg,
+   V00.anteil_wup_artikel_perc,
+    CASE
+    WHEN V03.angebot_id = V00.offer_id
+    THEN V00.anz_tage_werbung
+    ELSE 0
+    END AS anz_tage_werbung,
+    CASE
+    WHEN V03.angebot_id = V00.offer_id
+    THEN V00.bedarf_bme
+    ELSE 0
+    END AS bedarf_bme,
+    CASE
+    WHEN V03.angebot_id = V00.offer_id
+    THEN V00.bedarf_ame
+    ELSE 0
+    END AS bedarf_ame,
+    CASE
+    WHEN V03.angebot_id = V00.offer_id
+    THEN V00.bestellung_lieferant_menge
+    ELSE 0
+    END AS bestellung_lieferant_menge,
+    CASE
+    WHEN V00.bestellung_lieferant_menge IS NULL OR V00.bestellung_lieferant_menge = 0
+    THEN 0
+    ELSE 1
+    END AS uebertragungs_fg,
+   0 AS bestellmenge_final_ame,
+    CASE
+    WHEN V03.angebot_id = V00.offer_id
+    THEN V00.bestellmenge_ohne_bestand_ame
+    ELSE 0
+    END AS bestellmenge_ohne_bestand_ame,
+    CASE
+    WHEN V03.angebot_id = V00.offer_id
+    THEN V00.menge_mindestplatzierung_bme
+    ELSE 0
+    END AS menge_mindestplatzierung_bme,
+    CASE
+    WHEN V03.angebot_id = V00.offer_id
+    THEN V00.prognose_werbezeitraum_bme
+    ELSE 0
+    END AS prognose_werbezeitraum_bme,
+    CASE
+    WHEN V03.angebot_id = V00.offer_id
+    THEN V00.projizierter_bestand_vor_werbung_bme
+    ELSE 0
+    END AS projizierter_bestand_vor_werbung_bme,
+   DATE_DIFF(V00.dat_beladung, V00.dat_ab, DAY) AS werbung_in_x_tagen,
+    CASE
+    WHEN V03.angebot_id = V00.offer_id
+    THEN V00.zielbestand_bme
+    ELSE 0
+    END AS zielbestand_bme,
+    CASE
+    WHEN V01.art_id IS NOT NULL
+    THEN 1
+    ELSE 0
+    END AS init_belieferung_fg,
+   V01.dat_bestandsperiode_rel,
+   V01.dat_lief_split,
+   V01.dat_lief_wunsch,
+   V01.dat_bestandsperiode_bis,
+   V01.dat_letzte_nachversorgung,
+   V01.we_bearbeitungszeit,
+    CASE
+    WHEN V03.angebot_id = V00.offer_id
+    THEN V01.menge_gesamt_bme
+    ELSE 0
+    END AS menge_gesamt_bme,
+    CASE
+    WHEN V03.angebot_id = V00.offer_id
+    THEN V01.menge_min_bme
+    ELSE 0
+    END AS menge_min_bme,
+    CASE
+    WHEN V03.angebot_id = V00.offer_id
+    THEN V01.menge_initial_bme
+    ELSE 0
+    END AS menge_initial_bme,
+    CASE
+    WHEN V03.angebot_id = V00.offer_id
+    THEN V01.menge_initial_ame
+    ELSE 0
+    END AS menge_initial_ame,
+    CASE
+    WHEN V03.angebot_id = V00.offer_id
+    THEN V01.menge_initial_pal
+    ELSE 0
+    END AS menge_initial_pal,
+   V01.split_fg,
+   V02.kjwo,
+   V01.fair_share_fg,
+   V01.order_type,
+   COALESCE(V01.init_lief_modus_kz, 'S')
+  FROM kfl_production_dbp_view.v_wbs_werbeaenderungen_1 AS V00
+   INNER JOIN kfl_production_dbp_view.v_wup_1 AS V05 ON V00.mandant_id = V05.mandant_id AND V00.wup_id = V05.wup_id AND (V05
+        .nb_id IN (2, 0, -111) AND V05.wup_id > 0 OR V05.nb_id = -1 AND V05.wup_id = 0)
+   INNER JOIN kfl_production_dbp_view.v_pmr_angebot_art_wup_zu_1 AS V03 ON V00.mandant_id = V03.mandant_id AND V00.art_id
+         = V03.art_id AND V00.wup_id = V03.wup_id AND V00.nb_id = V03.nb_id AND V00.dat_ab = V03.dat_von AND V00.dat_bis
+      = V03.dat_bis
+   INNER JOIN TOP_DAT_BERECHNUNG AS v99 ON V00.dat_beladung = v99.dat_beladung
+   LEFT JOIN kfl_production_dbp_view.v_wbs_art_wup_aktion_initial_1 AS V01 ON V00.mandant_id = V01.mandant_id AND V00.art_id
+               = V01.art_id AND V00.wup_id = V01.wup_id AND V00.nb_id = V01.nb_id AND V00.wup_id_vz = V01.wup_id_vz AND
+          V00.nb_id_vz = V01.nb_id_vz AND V00.aktion_id = V01.aktion_id AND V00.ausliefergruppe_id = V01.ausliefergruppe_id
+         AND V00.dat_ab = V01.dat_von AND V00.dat_bis = V01.dat_bis AND V00.dat_beladung = V01.dat_beladung
+   INNER JOIN kfl_production_dbp_view.v_tag_1 AS V02 ON V00.dat_ab = V02.dat);

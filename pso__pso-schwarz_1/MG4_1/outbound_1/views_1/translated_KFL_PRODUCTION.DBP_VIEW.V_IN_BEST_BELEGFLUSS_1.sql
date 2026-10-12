@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_in_best_belegfluss_1 (best_beleg_id, mandant_id, best_beleg_pos_id,
+folge_beleg_id, kj, folge_beleg_pos_id, kontierung_pos_id, vorgart_best_entw_id, dat_buch, betrag_wrbtr,
+best_entw_typ_id, soll_haben_kz, wrg_id_beleg, td_update, td_insert) AS SELECT best_beleg_id,
+ mandant_id,
+ best_beleg_pos_id,
+ folge_beleg_id,
+ kj,
+ folge_beleg_pos_id,
+ kontierung_pos_id,
+ vorgart_best_entw_id,
+ dat_buch,
+ betrag_wrbtr,
+ best_entw_typ_id,
+ soll_haben_kz,
+ wrg_id_beleg,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.in_best_belegfluss_1;

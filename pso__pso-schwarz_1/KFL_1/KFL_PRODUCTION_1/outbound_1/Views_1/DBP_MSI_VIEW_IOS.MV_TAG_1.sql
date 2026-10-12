@@ -1,0 +1,32 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ios.mv_tag_1 (dat, kjmo, kjmo_vj, gjmo, gjmo_vj, kj, gj, dat_vj,
+akt_tag, akt_mo, akt_gj, akt_kj, mo_gj, mo_kj) AS SELECT dat,
+ kjmo,
+ kjmo_vj,
+ gjmo,
+ gjmo_vj,
+ kj,
+ gj,
+ dat_vj,
+ akt_tag,
+ akt_mo,
+ akt_gj,
+ akt_kj,
+ mo_gj,
+ mo_kj
+FROM kfl_production_dbp_view.v_tag_1
+UNION ALL
+SELECT DISTINCT DATE('2099-12-31') AS dat,
+ 209912 AS kjmo,
+ 209812 AS kjmo_vj,
+ 209910 AS gjmo,
+ 209810 AS gjmo_vj,
+ 2099 AS kj,
+ 2099 AS gj,
+ DATE('2098-12-31') AS dat_vj,
+ 9999 AS akt_tag,
+ 999 AS akt_mo,
+ 999 AS akt_gj,
+ 999 AS akt_kj,
+ 10 AS mo_gj,
+ 12 AS mo_kj
+FROM kfl_production_dbp_view.v_tag_1;

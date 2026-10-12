@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW ldl_score_fe_mstr_score.v_dim_warehouse_1 AS SELECT wh_sid,
+ regional_org_sid,
+ country_cd,
+ wh_nr,
+ wh_abbr_name,
+ wh_name,
+ external_wh_fg,
+ longitude,
+ latitude,
+ city_name,
+ zip,
+ street_name,
+ gln_nr,
+ country_descr
+FROM ldl_score_core.t_dim_warehouse_1;

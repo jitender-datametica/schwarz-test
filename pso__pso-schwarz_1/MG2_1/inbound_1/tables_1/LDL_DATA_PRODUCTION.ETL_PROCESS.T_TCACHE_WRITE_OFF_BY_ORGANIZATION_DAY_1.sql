@@ -1,0 +1,21 @@
+create or replace TABLE LDL_DATA_PRODUCTION.ETL_PROCESS.T_TCACHE_WRITE_OFF_BY_ORGANIZATION_DAY_1 (
+	INT_ORG_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the internal organization where the write-off happened. This can be either a store or a delivery company. The type of internal organization is defined by the int_org_type_cd.',
+	INT_ORG_TYPE_CD VARCHAR(20) NOT NULL COMMENT 'The code identifying the discriminators for internal organizations.',
+	COUNTRY_ORG_CD VARCHAR(2) NOT NULL COMMENT 'The code of the related business country. (The business country_1 is not identical to a political country.)',
+	BUS_DT DATE NOT NULL COMMENT 'The day to which the write-off is accrued.',
+	CURR_CD VARCHAR(3) NOT NULL COMMENT 'The code identifying the currency according to ISO-4217.',
+	WRITE_OFF_NET_VAL NUMBER(38,5) NOT NULL,
+	WRITE_OFF_FOR_BREAKAGE_NET_VAL NUMBER(38,5) NOT NULL,
+	WRITE_OFF_FOR_SELL_BY_DT_NET_VAL NUMBER(38,5) NOT NULL,
+	WRITE_OFF_FOR_DELIV_QUALITY_NET_VAL NUMBER(38,5) NOT NULL,
+	WRITE_OFF_FOR_DEFECTIVE_NON_FOOD_NET_VAL NUMBER(38,5) NOT NULL,
+	WRITE_OFF_FOR_DONATIONS_NET_VAL NUMBER(38,5) NOT NULL,
+	WRITE_OFF_FOR_DISCOUNTS_NET_VAL NUMBER(38,5) NOT NULL,
+	WRITE_OFF_FOR_TAKEN_PROD_NET_VAL NUMBER(38,5) NOT NULL,
+	WRITE_OFF_FOR_FORCE_MAJEURE_NET_VAL NUMBER(38,5) NOT NULL,
+	WRITE_OFF_FOR_STOCK_CLEARANCE_NET_VAL NUMBER(38,5) NOT NULL,
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.'
+);

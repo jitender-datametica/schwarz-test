@@ -1,0 +1,37 @@
+create or replace TABLE KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_DATA.WUP_STUNDEN_TAG_PL_1 cluster by (
+     MANDANT_ID,
+     WUP_ID
+)(
+	WUP_ID NUMBER(38,0) NOT NULL COMMENT 'Mutter Wup_1 ID wird verwendet für Beziehung Lager zu Verteilzentrum',
+	NB_ID NUMBER(38,0) NOT NULL COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer',
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant_1 im DWH',
+	DAT DATE NOT NULL COMMENT 'Datum',
+	STUNDEN_MARKT NUMBER(9,2) COMMENT 'Nettostunden IST : geleistete Stunden_1 in der Filiale - DE: Aggregation aus PEP - Ausland: Eingabe (Transaction) durch Filiale',
+	STUNDEN_SONSTIGE NUMBER(9,2) COMMENT 'Nettostunden IST : zusätzliche Stunden_1, Umlage Stunden_1 andere Filialen - INT : Eingabe (Transaction) durch Filiale',
+	STUNDEN_PLAN NUMBER(9,2) COMMENT 'Nettostunden Plan : geplante Stunden_1 in der Filiale - INT : Eingabe (Transaction) durch Filiale',
+	STUNDEN_CO5_SONSTIGE NUMBER(9,2) NOT NULL DEFAULT 0 COMMENT 'Spalte entfällt',
+	UMS_NETTO_PLAN NUMBER(18,2) NOT NULL DEFAULT 0 COMMENT 'Umsatz netto Plan : Tagesumsatzplanwert von CO (wup_plan_tag_1/vis_tag_umsatz_kunde_wup_1)',
+	UMS_NETTO_PLAN_MAN NUMBER(18,2) COMMENT 'Umsatz netto Plan HL_1 : dient zur Berechnung der Nettoleistung HL_1  - INT : Eingabe (Transaction) durch Filiale',
+	WRG_ID VARCHAR(3) NOT NULL COLLATE 'en-ci' DEFAULT '   ' COMMENT 'Kurzbezeichnung der Währung, z.Bsp. CZK, EUR',
+	STUNDEN_SONSTIGE_PLAN NUMBER(9,2) COMMENT 'Nettostunden Plan : geplante Stunden_1 für Sondersachverhalte - INT : Eingabe (Transaction) durch Filiale',
+	STUNDEN_CO1_IKS NUMBER(9,2) NOT NULL DEFAULT 0 COMMENT 'Nettostunden IST : Korrekturposition z.B. Stundenkorrektur bei Falschpflege durch Markt (IKS) - Excelupload durch CO',
+	STUNDEN_CO2_EA NUMBER(9,2) NOT NULL DEFAULT 0 COMMENT 'Nettostunden IST : Korrekturposition z.B. Entlastung Einarbeitung - Excelupload durch CO',
+	STUNDEN_CO3_ANUE NUMBER(9,2) NOT NULL DEFAULT 0 COMMENT 'Nettostunden IST : Korrekturposition z.B. Entlastung Preiseinholung - Excelupload durch CO',
+	STUNDEN_CO4_REINIGUNG NUMBER(9,2) NOT NULL DEFAULT 0 COMMENT 'Nettostunden IST / Nettostunden Plan : Korrekturposition z.B. Pauschalansatz Reinigung - Excelupload durch CO',
+	STUNDEN_PLAN_PEP NUMBER(9,2) NOT NULL DEFAULT 0 COMMENT 'Nettostunden Plan : geplante Stunden_1 Filiale - DE : Aggregation aus PEP - Ausland: nicht verfügbar',
+	STUNDEN_PLAN_MELDESCHLUSS_PLUS1 NUMBER(9,2) COMMENT 'Nettostunden Plan zum Zeitpunkt des Meldeschluss  (Zahlen müssen zum 18. des Vormonats für den kompletten Monat_1 gemeldet sein) - wird im ETL am 18. des Vormonats aus Spalte stunden_plan kopiert',
+	UMS_NETTO_PLAN_MAN_MELDESCHLUSS_PLUS2 NUMBER(18,2) COMMENT 'Umsatz netto Plan HL_1 zum Zeitpunkt des Meldeschluss  (Zahlen müssen zum 26. des Vor-Vormonats für den kompletten Monat_1 gemeldet sein) - wird im ETL am 26. des Vor-Vormonats aus Spalte ums_netto_plan_man kopiert',
+	STUNDEN_CO_IST NUMBER(9,2) COMMENT 'Summe der Bereiche aus Excelbeladung - Excelpflege durch Controlling. Externe IST Stunden_1 (z.B. Reinigung durch ext. Firma)',
+	STUNDEN_CO_PLAN NUMBER(9,2) COMMENT 'Summe der Bereiche aus Excelbeladung - Excelpflege durch Controlling. Externe PLAN Stunden_1 (z.B. Reinigung durch ext. Firma)',
+	STUNDEN_PLAN_MELDESCHLUSS_PLUS2 NUMBER(9,2) COMMENT '26. Folge-Folge. Wird im ETL am 26. des Vor-Vormonats aus Spalte stunden_plan kopiert',
+	UMS_NETTO_PLAN_MAN_MELDESCHLUSS_PLUS1 NUMBER(18,2) COMMENT '18. Folge. Wird im ETL am 18. des Vormonats aus Spalte ums_netto_plan_man kopiert',
+	STUNDEN_CO_PLAN_PLUS1 NUMBER(9,2) COMMENT '18. Folge Monat. Wird im ETL am 18. des Vormonats aus Spalte stunden_co_plan kopiert',
+	STUNDEN_CO_PLAN_PLUS2 NUMBER(9,2) COMMENT '26. Folge-Folge Monat. Wird im ETL am 18. des Vor-Vormonats aus Spalte stunden_co_plan kopiert.',
+	STUNDEN_SONSTIGE_PLAN_PLUS1 NUMBER(9,2) COMMENT '18. Folge Monat. Wird im ETL am 18. des Vormonats aus Spalte stunden_sonstige_plan kopiert.',
+	STUNDEN_SONSTIGE_PLAN_PLUS2 NUMBER(9,2) COMMENT '26. Folge-Folge Monat. Wird im ETL am 26. des Vor-Vormonats aus Spalte stunden_sonstige_plan kopiert.',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	STUNDEN_VERSETZUNG NUMBER(9,2) NOT NULL DEFAULT 0 COMMENT 'Nettostunden IST : Stunden_1 fuer untertaegige Versetzungen - INT : Eingabe (Transaction) durch Filiale',
+	constraint PK_WUP_STUNDEN_TAG_PL primary key (WUP_ID, NB_ID, MANDANT_ID, DAT)
+)COMMENT='VIS - geleistete Stunden_1 pro Tag_1 und Markt fuer Polen. Quellen sind PEP-Daten oder per Transaction Service im DWH erfasste Daten'
+;

@@ -1,0 +1,9 @@
+CREATE OR REPLACE TABLE dbp_msi_view_rpw_materialized.mv_ersteller_rpw_gruppe_zu_per_1 (
+mandant_id INTEGER,
+rpw_ersteller_id INTEGER,
+gruppe_id STRING(20),
+abteilung_id STRING(20),
+dat_von DATE,
+dat_bis DATE,
+system_id INTEGER
+);

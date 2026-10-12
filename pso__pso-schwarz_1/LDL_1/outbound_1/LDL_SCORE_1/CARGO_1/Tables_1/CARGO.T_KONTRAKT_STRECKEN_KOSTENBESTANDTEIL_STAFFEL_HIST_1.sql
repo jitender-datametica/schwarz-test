@@ -1,0 +1,19 @@
+CREATE TABLE IF NOT EXISTS ldl_score_cargo.t_kontrakt_strecken_kostenbestandteil_staffel_hist_1 (
+kontrakt_strecken_kostenbestandteil_staffel_id BIGNUMERIC(38,0),
+kontrakt_strecken_kostenbestandteil_staffel_rowid STRING(2000),
+kontrakt_strecken_kostenbestandteil_staffel_lastmoddate TIMESTAMP,
+kontrakt_strecken_kostenbestandteil_staffel_abrechnungseinheit_code STRING(2000),
+kontrakt_strecken_kostenbestandteil_staffel_abrechnungseinheit_bezeichnung STRING(2000),
+kontrakt_strecken_kostenbestandteil_staffel_waehrung_code STRING(2000),
+kontrakt_strecken_kostenbestandteil_staffel_waehrung_bezeichnung STRING(2000),
+kontrakt_strecken_kostenbestandteil_staffel_staffeleinheit_code STRING(2000),
+kontrakt_strecken_kostenbestandteil_staffel_staffeleinheit_bezeichnung STRING(2000),
+kontrakt_strecken_kostenbestandteil_staffel_masterrowid STRING(2000),
+kontrakt_strecken_kostenbestandteil_staffel_bis BIGNUMERIC(38,5),
+kontrakt_strecken_kostenbestandteil_staffel_betrag BIGNUMERIC(38,5),
+source_extraction_tmsp ARRAY < STRING >,
+tech_valid_from TIMESTAMP NOT NULL,
+tech_valid_to TIMESTAMP NOT NULL,
+snflk_insert_tmsp TIMESTAMP NOT NULL,
+snflk_update_tmsp TIMESTAMP NOT NULL
+);

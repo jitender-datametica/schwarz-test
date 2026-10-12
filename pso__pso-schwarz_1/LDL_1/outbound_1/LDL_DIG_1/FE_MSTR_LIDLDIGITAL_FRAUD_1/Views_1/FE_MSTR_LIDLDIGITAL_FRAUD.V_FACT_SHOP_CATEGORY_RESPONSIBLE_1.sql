@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital_fraud.v_fact_shop_category_responsible_1 (prod_brick_cd, resp_team_name
+, cat_manager_name) AS SELECT *
+FROM ldl_dig_fe_mstr_lidldigital.v_fact_shop_category_responsible_1;

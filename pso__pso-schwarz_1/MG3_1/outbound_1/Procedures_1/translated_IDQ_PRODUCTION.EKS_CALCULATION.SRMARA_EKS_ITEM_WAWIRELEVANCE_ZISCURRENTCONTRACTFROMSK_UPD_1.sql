@@ -1,0 +1,6 @@
+CREATE OR REPLACE PROCEDURE idq_production_eks_calculation.srmara_eks_item_wawirelevance_ziscurrentcontractfromsk_upd()
+BEGIN
+UPDATE idq_production_eks_calculation.stmara_eks_item_1 SET
+    ziscurrentcontractfromsk = sr.ziscurrentcontractfromsknew FROM idq_production_eks_calculation.srmara_eks_item_wawirelevance_ziscurrentcontractfromsk_updsel_1 AS sr
+WHERE stmara_eks_item.itemid = sr.itemid;
+END;

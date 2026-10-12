@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_core.t_building_closing_plan_hist_1 (
+client_id BIGNUMERIC(38,0) NOT NULL,
+building_sid BIGNUMERIC(38,0) NOT NULL,
+src_temporary_closing_id STRING(100) NOT NULL,
+planned_closing_from_dt DATE,
+planned_closing_to_dt DATE,
+temporary_closing_reason_id BIGNUMERIC(38,0),
+act_closing_from_dt DATE,
+act_closing_to_dt DATE,
+planned_reopening_dt DATE,
+act_reopening_dt DATE,
+planned_affected_turnover_days NUMERIC(18,5),
+act_affected_turnover_days_cnt NUMERIC(18,5),
+deleted_fg BIGNUMERIC(38,0) NOT NULL,
+dwh_valid_from DATE NOT NULL,
+dwh_valid_to DATE NOT NULL,
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL,
+PRIMARY KEY (building_sid, src_temporary_closing_id, dwh_valid_from) NOT ENFORCED
+) CLUSTER BY client_id;

@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE idq_production_eks.itemdetail_1 (
+itemid BIGNUMERIC(38,0),
+packageid BIGNUMERIC(38,0),
+unitid BIGNUMERIC(38,0),
+bundlefact BIGNUMERIC(38,0),
+volume STRING(255),
+crdate DATETIME,
+moddate DATETIME,
+cruser STRING(35),
+moduser STRING(35),
+mountunitid BIGNUMERIC(38,0),
+netweight_unitid BIGNUMERIC(38,0),
+mount BIGNUMERIC(38,0),
+subpackageid BIGNUMERIC(38,0),
+netweight STRING(255),
+text_int STRING(80),
+text_nat STRING(80),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

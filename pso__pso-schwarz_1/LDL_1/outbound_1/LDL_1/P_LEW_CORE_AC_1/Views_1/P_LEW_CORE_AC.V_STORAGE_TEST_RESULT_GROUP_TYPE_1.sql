@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_storage_test_result_group_type_1 AS SELECT storage_test_result_grp_type_cd,
+ storage_test_result_grp_type_descr,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_storage_test_result_group_type_1;

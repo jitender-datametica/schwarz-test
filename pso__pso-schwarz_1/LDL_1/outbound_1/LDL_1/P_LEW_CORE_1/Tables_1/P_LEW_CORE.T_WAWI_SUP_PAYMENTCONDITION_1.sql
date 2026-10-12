@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_core.t_wawi_sup_paymentcondition_1 (
+client_id BIGNUMERIC(38,0) NOT NULL,
+sup_sid BIGNUMERIC(38,0) NOT NULL,
+dat_rec_start DATE NOT NULL,
+dat_rec_end DATE NOT NULL,
+dat_valid_from DATE NOT NULL,
+dat_valid_from_cond DATE NOT NULL,
+dat_valid_until DATE,
+dat_inv_end_fg BIGNUMERIC(38,0),
+std_fg BIGNUMERIC(38,0),
+days_cd BIGNUMERIC(38,0),
+days_after_cd BIGNUMERIC(38,0),
+pos_nr BIGNUMERIC(38,0) NOT NULL,
+start_type_cd BIGNUMERIC(38,0),
+paymenttype_cd BIGNUMERIC(38,0),
+payment_term_entry_fg BIGNUMERIC(38,0),
+extra_sup_sid STRING(7) COLLATE 'und:ci',
+val_discount NUMERIC(18,4),
+val_rebate NUMERIC(18,4),
+load_id BIGNUMERIC(38,0) NOT NULL
+);

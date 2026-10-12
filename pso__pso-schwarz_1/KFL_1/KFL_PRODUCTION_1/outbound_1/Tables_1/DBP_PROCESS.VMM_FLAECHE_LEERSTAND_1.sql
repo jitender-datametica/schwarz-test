@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_process.vmm_flaeche_leerstand_1 (
+filiale_id BIGNUMERIC(38,0) NOT NULL,
+bez STRING(40) COLLATE 'und:ci',
+flaeche_id STRING(50) COLLATE 'und:ci',
+flaeche_groesse NUMERIC(15,4),
+flaeche_art STRING(2) COLLATE 'und:ci',
+branche_id STRING(3),
+branche_bez STRING(40) COLLATE 'und:ci',
+miete_pro_m2_betrag NUMERIC(18,4),
+umsatzmiete_prozent NUMERIC(18,4),
+geplante_miete NUMERIC(18,4),
+leerstand_seit_datum DATE NOT NULL,
+akt_typ STRING(2) COLLATE 'und:ci',
+akt_dat STRING(8) COLLATE 'und:ci',
+akt_status STRING(2) COLLATE 'und:ci',
+aktivitaet STRING(255) COLLATE 'und:ci',
+bemerkung STRING(1023) COLLATE 'und:ci',
+flaeche_art_id STRING(1) COLLATE 'und:ci',
+bezugsdatum DATE NOT NULL,
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+td_update TIMESTAMP,
+td_insert TIMESTAMP
+);

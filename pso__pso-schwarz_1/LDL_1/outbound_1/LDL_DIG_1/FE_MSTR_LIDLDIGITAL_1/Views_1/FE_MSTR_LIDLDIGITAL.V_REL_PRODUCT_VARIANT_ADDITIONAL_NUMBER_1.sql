@@ -1,0 +1,11 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital.v_rel_product_variant_additional_number_1 (prod_variant_sid,
+prod_add_nr_type_cd, prod_add_nr, is_main_fg) AS SELECT prod_variant_sid,
+  CASE
+  WHEN prod_add_nr_type_cd = ''
+  THEN '-1'
+  ELSE IFNULL(prod_add_nr_type_cd, '-1')
+  END AS prod_add_nr_type_cd,
+ prod_add_nr,
+ is_main_fg
+FROM ldl_dig_lec_share.v_rel_product_variant_additional_number_1
+WHERE dwh_valid_fg;

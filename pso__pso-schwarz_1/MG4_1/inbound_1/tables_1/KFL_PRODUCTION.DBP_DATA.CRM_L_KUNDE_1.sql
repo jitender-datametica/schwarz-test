@@ -1,0 +1,28 @@
+create or replace TABLE KFL_PRODUCTION.DBP_DATA.CRM_L_KUNDE_1 (
+	CRM_KUNDE_ID VARCHAR(144) NOT NULL COMMENT 'CRM-interne ID des Kunden',
+	ZEIT_REGISTRIERUNG TIMESTAMP_NTZ(9) COMMENT 'Registrierungsdatum des Kunden',
+	ZEIT_ABMELDUNG TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Abmeldedatum des Kunden - ist immer gefüllt',
+	KUNDENTYP_ID VARCHAR(50) NOT NULL DEFAULT '-1' COMMENT 'ID des Kundentypes',
+	KUNDENHERKUNFT_ID NUMBER(38,0) NOT NULL DEFAULT 0 COMMENT 'ID der Kundenherkunft ( example values: 1,2,3,)',
+	GENDER_ID NUMBER(38,0) NOT NULL DEFAULT -1 COMMENT 'ID für das Geschlecht des Kunden',
+	GEBURTSJAHR NUMBER(38,0) NOT NULL DEFAULT 0 COMMENT 'Geburtsjahr des Kunden ',
+	KUNDE_STATUSGRUND_ID NUMBER(38,0) NOT NULL DEFAULT -9999 COMMENT 'Statusgrund-ID des Kunden (liefert Information darüber, wieso der Kunde aktiv oder inaktiv ist (aktiv_fg))',
+	STRASSE VARCHAR(240) NOT NULL DEFAULT '0' COMMENT 'Straße in welcher der Kunde wohnt',
+	WOHNORT VARCHAR(240) NOT NULL DEFAULT '0' COMMENT 'Ort in welchem der Kunde wohnt',
+	PLZ VARCHAR(80) NOT NULL DEFAULT '0' COMMENT 'Postleitzahl (PLZ) des Ortes in welchem der Kunde wohnt',
+	KUNDE_MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Land_1 des Kundenwohnorts',
+	VORZUGSFILIALE_WUP_ID NUMBER(38,0) NOT NULL COMMENT 'ID der präferierten Filiale',
+	VORZUGSFILIALE_MANDANT_ID NUMBER(38,0) COMMENT 'Land_1 der präferierten Filiale',
+	NB_ID NUMBER(38,0) NOT NULL COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer',
+	MERGE_FG NUMBER(38,0) NOT NULL DEFAULT -1 COMMENT 'Flag, das anzeigt ob dieser Kontakt mit einem anderen Kontakt gemerged/zusammengeführt wurde',
+	REGISTRIERUNGSFILIALE_WUP_ID NUMBER(38,0) NOT NULL DEFAULT 0 COMMENT 'Filiale in der sich der Kunde registriert hat. Bei physischen Kunden (Anmeldung in der Filiale) kommt diese Information aus dem \"mauellen\" Registrierungsprozess. Bei digitalen Kunden (Anmeldung über App) kommt diese Information aus der App.',
+	REGISTRIERUNGSFILIALE_MANDANT_ID NUMBER(38,0) NOT NULL DEFAULT -1 COMMENT 'Mandant_1 ID zur Registrierungsfiliale',
+	REGISTRIERUNGSFILIALE_NB_ID NUMBER(38,0) NOT NULL DEFAULT -1 COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer. Gehört zur registrierten Registrierungsfiliale.',
+	AKTIV_FG NUMBER(38,0) NOT NULL DEFAULT 0 COMMENT 'Flag das anzeigt, ob der Kunde aktiv oder inaktiv ist',
+	HAUSHALTSGROESSE VARCHAR(20) COMMENT 'Haushaltsgröße',
+	BESCHAEFTIGUNG_STATUS_ID NUMBER(38,0) DEFAULT -1 COMMENT 'Beschäftigungsstatus, sagt aus ob Kunde bspw. Schüler/in, Hausmann/frau, Angestellte/r,... ist',
+	CRM_CIDAAS_ID VARCHAR(120) NOT NULL DEFAULT '-9999' COMMENT 'MS Dynamics - contact.kl_keycloakid -\n    Meldet sich  Person unter Verwendung derselben Mailadresse/Mobilnummer an zwei verschiedenen K Card Programmen an, bekommt sie zwei separate Kontakte (crm_kunde_id), Konten (crm_konto_id) und separate Karten (kundenkarte_id). Beide Kontakte werden jedoch mit derselben Cidaas ID versehen.  ',
+	TD_INSERT TIMESTAMP_LTZ(9),
+	TD_UPDATE TIMESTAMP_LTZ(9)
+)COMMENT='EK_KUN - MSDynamicsCRM - CRM - Entität \"Customer\" (Kundenstamm) '
+;

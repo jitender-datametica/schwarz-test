@@ -1,0 +1,37 @@
+--==============================================================
+-- Table: t_agreement_graduated_scale_unit_cost_1
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: t_agreement_graduated_scale_unit_cost_1
+   generated from Powerdesigner on Montag, 25. März 2024 15:58:54
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE_REL.T_AGREEMENT_GRADUATED_SCALE_UNIT_COST_1 (
+   route_segment_agmt_elem_sid         NUMBER           NOT NULL COMMENT 'Surrogate identifier for Agreement element',
+   charge_type_cd                      VARCHAR(20)      NOT NULL COMMENT 'This is a code, which defines the services for which, a fee is charged.',
+   pallet_type_cd                      VARCHAR(20)      NOT NULL COMMENT 'A code for the pallet that indicates the storage occupation for transportation.',
+   pallet_exchange_fg                  BOOLEAN          NOT NULL COMMENT 'A pallet exchange program is a collective agreement between pallet shippers and receivers that tries to ensure that each party maintains the same number of pallets. When loaded pallets are brought to a warehouse or another receiver, they are exchanged for an equal number of empty pallets.',
+   unit_from_cnt                       NUMBER           NOT NULL COMMENT 'Start of the range for number of pallets or pallet spaces etc. for this graduated scale unit_1 record',
+   unit_to_cnt                         NUMBER           NOT NULL COMMENT 'End of the range for  number of pallets or pallet spaces etc for this graduated scale unit_1 record',
+   graduated_scale_billing_unit_cd     VARCHAR(20)      NOT NULL COMMENT 'This is the Units in which cost component is charged and can be Pallets or Pallet Spaces etc.',
+   validity_period_from_tmsp           TIMESTAMP_TZ(9)  NOT NULL COMMENT 'Validity_1 start',
+   validity_period_to_tmsp             TIMESTAMP_TZ(9)  NOT NULL COMMENT 'Validity_1 end',
+   dwh_valid_from_tmsp                 TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record became valid.',
+   dwh_valid_to_tmsp                   TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was no longer valid.',
+   dwh_valid_fg                        BOOLEAN          NOT NULL COMMENT 'An indicator showing the current record, i.e. where the current date is between dwh_valid_from and dwh_valid_to.',
+   graduated_scale_unit_price          NUMBER(38, 5)    NOT NULL COMMENT 'Agreed price by billing unit_1 type',
+   curr_cd                             VARCHAR(3)       COMMENT 'A three-character code for a currency according to ISO 4217. E.g.: ''EUR'', ''USD'', ''GBP'',…',
+   price_billing_unit_cd               VARCHAR(20)      COMMENT 'This is the Unit_1 in which Billing component are charged. For Example: Pallets or Pallet Spaces etc.',
+   equipment_type_cd                   VARCHAR(20)      COMMENT 'The type discriminator for this equipment, i.e. vehicle(truck)',
+   graduated_scale_unit_cost_nr        VARCHAR(20)      NOT NULL COMMENT 'Number, which identifies for business the graduated scale unit_1 cost.',
+   term_day_cnt                        NUMBER           COMMENT 'Term days',
+   max_tons_meas                       NUMBER(38, 5)    COMMENT 'The maximum allowance for charging a truck in tons',
+   min_pallet_cnt                      NUMBER           COMMENT 'Minimum permitted load in Euro Pallets',
+   weight_dispo_fg                     BOOLEAN          COMMENT 'There can be a weight disposition in the groupage load as well as in the full load. In groupage, for example, the wine logistics are ordered truck-specifically, 
+   since there are many heavy items in the order and the truck does not necessarily have to be ordered with a minimum purchase of 33 pallets,but the weight restriction (e.g. 22.5 t) can also be reached first .',
+   negot_fg                            BOOLEAN          COMMENT 'Is this a negotiable term?',
+   dwh_created_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   dwh_updated_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',   
+   CONSTRAINT PK_T_AGREEMENT_GRADUATED_SCALE_UNIT_COST  PRIMARY KEY (graduated_scale_billing_unit_cd, pallet_type_cd, route_segment_agmt_elem_sid, pallet_exchange_fg, unit_from_cnt, dwh_valid_from_tmsp, charge_type_cd, validity_period_from_tmsp, validity_period_to_tmsp, unit_to_cnt) NOT ENFORCED 
+)  COMMENT = 'Depending on the quantity, a different price is used for the graduated price';
+

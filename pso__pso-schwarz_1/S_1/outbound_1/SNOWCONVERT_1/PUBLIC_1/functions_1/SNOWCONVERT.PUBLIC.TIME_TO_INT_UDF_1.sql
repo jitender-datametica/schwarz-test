@@ -1,0 +1,3 @@
+CREATE OR REPLACE FUNCTION snowconvert_public.time_to_int_udf(INPUT_1 TIME) RETURNS INT64 AS (
+CAST(FORMAT_TIME('%H%M%S', INPUT_1) AS INT64)
+);

@@ -1,0 +1,54 @@
+
+-- 18.10.2016, AP0002373, srom, separater Ausweis der Material und Lohnkosten
+
+-- 20220804; richternic, AP0132142, SPEC0154921, akt_msi_user_wrg_typ_zu_1 ersetzen durch neue View (Projektspezifische Waehrungsauswahl)
+
+-- 02.02.2016, INC0638955, srom, Waehrungsumrechnung eingebaut
+
+CREATE OR REPLACE TABLE FUNCTION kfl_production_dbp_msi_view3_materialized.mv_ist_kosten_det_1 (USERID STRING) AS SELECT V01.mandant_id,
+ V01.psp_id,
+ V01.gj,
+ V01.buchungsperiode_id,
+ V01.krk_id,
+ V01.soll_haben_kz,
+ V01.kostenart_id,
+ V01.dat_beleg,
+ V01.beleg_id,
+ V01.beleg_pos_id,
+ V01.betrag,
+ V01.wrg_id,
+ V01.wrg_typ_id,
+ V01.geschaeftsbereich_id,
+ V01.beleg_bez,
+ V01.in_lief_id,
+ V01.nebenkontierung_id,
+ V01.nebenkontierungsart_id,
+ V01.berichts_position_it_id,
+ V01.berichts_position_invest_id,
+ V01.sparte_id,
+ V01.auftrag_id,
+ V01.in_art_id,
+ V01.buchungskreis_id,
+ V01.anlage_id,
+ V01.anlage_sub_id,
+ V01.dat_buch,
+ V01.menge,
+ V01.menge_einh_id,
+ V01.kostenstelle_id,
+ V01.gegenkonto_id,
+ V01.gegenkontoart_id,
+ V01.ref_beleg_id,
+ V01.ref_fi_beleg_id,
+ V01.in_fi_belegkopftext,
+ V01.best_beleg_id,
+ V01.best_beleg_pos_id,
+ V01.partner_objektart_id,
+ V01.partner_objekt_id,
+ V01.bestell_text,
+ V01.ref_buchungskreis_id,
+ V01.belegart_id,
+ V01.belastungs_kz,
+ V01.ref_vorgang_id,
+ V01.co_leistungsart_id
+FROM kfl_production_dbp_msi_view3_materialized.tbl_mv_ist_kosten_det_1 AS V01
+ INNER JOIN kfl_production_dbp_msi_view3_materialized.mv_akt_msi_user_prj_wrg_typ_zu_1(USERID) AS V04 ON V01.wrg_typ_id = V04.wrg_typ_id;

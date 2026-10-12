@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_vis_monat_inventur_diff_1 AS SELECT kjmo,
+ mandant_id,
+ wup_id,
+ wg_id,
+ arthiertyp_id,
+ custom_1_id,
+ custom_2_id,
+ custom_3_id,
+ custom_4_id,
+ ums_brutto_ist_hfm,
+ betrag_inv_diff_brutto_hfm,
+ ums_brutto_plan_hfm,
+ betrag_inv_diff_plan_hfm,
+ menge_end_bestand_hfm,
+ bestand_berechnet_fg,
+ betrag_abschr_brutto_hfm
+FROM kfl_production_dbp_data.vis_monat_inventur_diff_1;

@@ -1,0 +1,21 @@
+create or replace TABLE LDL_DATA_PRODUCTION.ETL.T_TCACHE_CBX_LDL_ITEM_PACK_ASSORT_SIZE_1 (
+	ID VARCHAR(32) NOT NULL,
+	REVISION NUMBER(20,0),
+	ENTITY_VERSION NUMBER(20,0),
+	DOMAIN_ID VARCHAR(400),
+	HUB_DOMAIN_ID VARCHAR(400),
+	IS_FOR_REFERENCE NUMBER(1,0),
+	INTERNAL_SEQ_NO NUMBER(20,0),
+	ITEM_ID VARCHAR(32),
+	LDL_ITEM_SIZE_ID VARCHAR(32),
+	LDL_ITEM_PACKING_ASSORTMENT_ID VARCHAR(32),
+	LDL_QUANTITY NUMBER(20,0),
+	LDL_ITEM_SIZE_REF VARCHAR(1000),
+	LDL_ITEM_PACKING_ASSORTMENT_0 VARCHAR(1000),
+	DUID VARCHAR(100),
+	EXTRACTION_DT DATE,
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.'
+);

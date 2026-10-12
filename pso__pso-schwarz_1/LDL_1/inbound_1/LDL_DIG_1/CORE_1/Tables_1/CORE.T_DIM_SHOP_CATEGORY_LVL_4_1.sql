@@ -1,0 +1,22 @@
+CREATE TABLE CORE.t_dim_shop_category_lvl_4_1 (
+   shop_cat_lvl4_sid                   NUMBER          NOT NULL COMMENT 'The unique identifier (surrogate key) for shop category level 4',
+   dwh_valid_from_tmsp                 TIMESTAMP_LTZ   NOT NULL COMMENT 'The point in time when this record became valid.',
+   dwh_valid_to_tmsp                   TIMESTAMP_LTZ   NOT NULL COMMENT 'The point in time when this record was no longer valid.',
+   dwh_valid_fg                        BOOLEAN         NOT NULL COMMENT 'An indicator showing the current record in history.',
+   shop_cat_lvl4_cd                    NUMBER          COMMENT 'The code by which the shop category level 4 is known.',
+   shop_cat_lvl4_name                  VARCHAR(100)    COMMENT 'The name by which the shop category level 4 is known.',
+   shop_cat_lvl3_sid                   NUMBER          COMMENT 'The unique identifier (surrogate key) for shop category level 3',
+   shop_cat_lvl3_cd                    NUMBER          COMMENT 'The code by which the shop category level 3 is known.',
+   shop_cat_lvl3_name                  VARCHAR(100)    COMMENT 'The name by which the shop category level 3 is known.',
+   shop_cat_lvl2_sid                   NUMBER          COMMENT 'The unique identifier (surrogate key) for shop category level 2',
+   shop_cat_lvl2_cd                    NUMBER          COMMENT 'The code by which the shop category level 2 is known.',
+   shop_cat_lvl2_name                  VARCHAR(100)    COMMENT 'The name by which the shop category level 2 is known.',
+   shop_cat_lvl1_sid                   NUMBER          COMMENT 'The unique identifier (surrogate key) for shop category level 1',
+   shop_cat_lvl1_cd                    NUMBER          COMMENT 'The code by which the shop category level 1 is known.',
+   shop_cat_lvl1_name                  VARCHAR(100)    COMMENT 'The name by which the shop category level 1 is known.',
+   dwh_created_tmsp                    TIMESTAMP_LTZ   NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   dwh_updated_tmsp                    TIMESTAMP_LTZ   NOT NULL COMMENT 'The point in time when this record was last updated.',
+   DWH_SRC_FILE_NAME                   VARCHAR(255)    NOT NULL COMMENT 'The path and the name of the file(s) from which this record was loaded.',
+   src_file_tmsp                       TIMESTAMP_LTZ   NOT NULL COMMENT 'The point in time when this record was extracted from the source.',
+   SRC_TABLE_NAME  VARCHAR(100) COMMENT 'The name of the source tables'
+)COMMENT = 'Global shop category - lowest level of product hierarchy_1 ';

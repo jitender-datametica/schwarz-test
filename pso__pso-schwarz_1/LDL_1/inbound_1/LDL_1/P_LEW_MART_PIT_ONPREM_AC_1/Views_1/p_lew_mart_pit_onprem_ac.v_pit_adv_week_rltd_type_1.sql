@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW P_LEW_MART_PIT_ONPREM_AC.V_PIT_ADV_WEEK_RLTD_TYPE_1
+AS
+SELECT
+adv_week_rltd_type_id
+,adv_week_rltd_type_descr
+FROM p_lew_mart_pit_onprem.v_pit_adv_week_rltd_type_1;

@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE idq_production_idq_results.idq_addinfo_cbx_item_1 (
+id INTEGER NOT NULL,
+test_object_id INTEGER,
+source_system_primary_key STRING(1000),
+source_system_id INTEGER,
+country_id INTEGER,
+branch_id INTEGER,
+is_relevant INTEGER,
+item_no STRING(400),
+ldl_lot_no INTEGER,
+ldl_buyer_short_code STRING(400),
+product_category_value STRING(1000),
+ldl_early_delivery_date STRING(400),
+lieferant STRING(1500),
+ldl_completion_type STRING(400),
+ldl_brand_name STRING(400),
+ldl_brand_type STRING(400),
+ldl_cat_indicator INTEGER,
+PRIMARY KEY (id) NOT ENFORCED
+);

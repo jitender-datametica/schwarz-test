@@ -1,0 +1,29 @@
+/*
+====================================================================================================
+Division:           Lidl
+Solution:           Operational Logistics (LOGOP)
+DB schema:          data
+DB table/view:      t_ref_client_1
+====================================================================================================
+Change history:     version, date, developer, comment
+    1.0     2021-09-24      Fikri Tekin             Initial version
+====================================================================================================
+*/
+
+
+/*
+----------------------------------------------------------------------------------------------------
+    Table t_ref_client_1 for client list
+----------------------------------------------------------------------------------------------------
+*/
+CREATE TABLE DATA.t_ref_client_1 (
+    client_id NUMBER(2,0) NOT NULL COMMENT 'Client ID',
+    country_iso_cd VARCHAR(3) COMMENT 'Country_1 ISO code',
+    country_desc VARCHAR(35) COMMENT 'Country_1 name',
+    country_desc_gb VARCHAR(35) COMMENT 'Country_1 name in English',
+    aspect_id NUMBER(1,0) COMMENT 'Aspect ID (1 = BGES, 2 = VGES)',
+    dwh_created TIMESTAMP COMMENT 'DWH creation timestamp',
+    dwh_src VARCHAR(50) COMMENT 'DWH source',
+    PRIMARY KEY (client_id)
+) COMMENT = 'Client master data'
+;

@@ -1,0 +1,51 @@
+MERGE INTO meta.t_wawi_item_variant_key_type_1 AS target USING (
+  SELECT 
+    wawi_item_variant_key_type_cd, 
+    wawi_item_variant_key_type_name, 
+    wawi_item_variant_key_type_descr, 
+    CURRENT_TIMESTAMP AS dwh_created_tmsp, 
+    CURRENT_TIMESTAMP AS dwh_updated_tmsp, 
+    ${LOAD_ID} AS dwh_load_id, 
+    'MANUAL' AS dwh_node_cd 
+  FROM 
+    etl.t_wawi_item_variant_key_type_1 
+  MINUS 
+  SELECT 
+    wawi_item_variant_key_type_cd, 
+    wawi_item_variant_key_type_name, 
+    wawi_item_variant_key_type_descr, 
+    CURRENT_TIMESTAMP AS dwh_created_tmsp, 
+    CURRENT_TIMESTAMP AS dwh_updated_tmsp, 
+    ${LOAD_ID} AS dwh_load_id, 
+    'MANUAL' AS dwh_node_cd 
+  FROM 
+    meta.t_wawi_item_variant_key_type_1
+) AS source 
+ON target.wawi_item_variant_key_type_cd = source.wawi_item_variant_key_type_cd 
+WHEN matched THEN 
+UPDATE 
+SET 
+  target.wawi_item_variant_key_type_name  = source.wawi_item_variant_key_type_name, 
+  target.wawi_item_variant_key_type_descr = source.wawi_item_variant_key_type_descr,
+  dwh_updated_tmsp = CURRENT_TIMESTAMP, 
+  dwh_load_id = ${LOAD_ID}, 
+  dwh_node_cd = 'MANUAL' 
+WHEN NOT matched THEN INSERT (
+    wawi_item_variant_key_type_cd, 
+    wawi_item_variant_key_type_name, 
+    wawi_item_variant_key_type_descr, 
+    dwh_created_tmsp, 
+    dwh_updated_tmsp, 
+    dwh_load_id, 
+    dwh_node_cd
+  ) 
+VALUES 
+  (
+    source.wawi_item_variant_key_type_cd, 
+    source.wawi_item_variant_key_type_name, 
+    source.wawi_item_variant_key_type_descr, 
+    CURRENT_TIMESTAMP, 
+    CURRENT_TIMESTAMP, 
+    ${LOAD_ID},
+    'MANUAL'
+  );

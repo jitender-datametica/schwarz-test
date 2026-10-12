@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead_ac.v_agg_str_wk_adv_1 (client_id, loc_sid_store_move_to, flg_itm_grp,
+cy_week_partial_week_id, qty_sales_1_day, qty_sales_3_day, qty_sales_7_day, qty_stc_real_1_day, qty_stc_real_3_day,
+qty_stc_real_7_day, qty_delivery_1_day, qty_delivery_3_day, qty_delivery_7_day, qty_sales_1_day_py_wk,
+qty_sales_3_day_py_wk, qty_sales_7_day_py_wk, qty_stc_real_1_day_py_wk, qty_stc_real_3_day_py_wk,
+qty_stc_real_7_day_py_wk, qty_delivery_1_day_py_wk, qty_delivery_3_day_py_wk, qty_delivery_7_day_py_wk,
+qty_sales_1_day_mtd, qty_sales_3_day_mtd, qty_sales_7_day_mtd, qty_stc_real_1_day_mtd, qty_stc_real_3_day_mtd,
+qty_stc_real_7_day_mtd, qty_delivery_1_day_mtd, qty_delivery_3_day_mtd, qty_delivery_7_day_mtd, qty_sales_1_day_byd,
+qty_sales_3_day_byd, qty_sales_7_day_byd, qty_stc_real_1_day_byd, qty_stc_real_3_day_byd, qty_stc_real_7_day_byd,
+qty_delivery_1_day_byd, qty_delivery_3_day_byd, qty_delivery_7_day_byd, qty_sales_1_day_mtd_py, qty_sales_3_day_mtd_py,
+qty_sales_7_day_mtd_py, qty_stc_real_1_day_mtd_py, qty_stc_real_3_day_mtd_py, qty_stc_real_7_day_mtd_py,
+qty_delivery_1_day_mtd_py, qty_delivery_3_day_mtd_py, qty_delivery_7_day_mtd_py, qty_sales_1_day_byd_py,
+qty_sales_3_day_byd_py, qty_sales_7_day_byd_py, qty_stc_real_1_day_byd_py, qty_stc_real_3_day_byd_py,
+qty_stc_real_7_day_byd_py, qty_delivery_1_day_byd_py, qty_delivery_3_day_byd_py, qty_delivery_7_day_byd_py,
+timestamp_mod) AS SELECT *
+FROM ldl_p_lew_mart_lead.v_agg_str_wk_adv_1;

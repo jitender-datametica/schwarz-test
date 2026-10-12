@@ -1,0 +1,16 @@
+--==============================================================
+-- Table: werbemittel_art_spr_zu_1
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: werbemittel_art_spr_zu_1
+   generated from Powerdesigner on Freitag, 18. Februar 2022 09:44:52
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE DBP_DATA.WERBEMITTEL_ART_SPR_ZU_1 (
+   spr_id                              NUMBER(38,0)    NOT NULL COMMENT 'Sprachschlüssel',
+   werbemittel_art_id                  VARCHAR(4)      NOT NULL COMMENT 'Werbemittelart',
+   werbemittel_art_bez                 VARCHAR(30)     COMMENT 'Bezeichnung Werbemittelart',
+   TD_UPDATE 	TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   TD_INSERT 	TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration'
+)COMMENT = 'means where a promotion is shown (name to werbemittel art_1 ID)  - Werbemittelart
+          Example: Print (Leaflet), Radio, TV';

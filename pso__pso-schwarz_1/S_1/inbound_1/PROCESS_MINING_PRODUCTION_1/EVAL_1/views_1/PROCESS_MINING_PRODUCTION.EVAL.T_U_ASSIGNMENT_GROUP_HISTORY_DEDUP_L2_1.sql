@@ -1,0 +1,18 @@
+create or replace view PROCESS_MINING_PRODUCTION.EVAL.T_U_ASSIGNMENT_GROUP_HISTORY_DEDUP_L2_1(
+	SYS_CREATED_ON,
+	SYS_MOD_COUNT,
+	U_ASSIGNED_AT,
+	U_ASSIGNMENT_GROUP,
+	U_ASSIGNMENT_REVOKED_AT,
+	U_FINAL_ASSIGNMENT,
+	U_ORDER,
+	U_SYS_CLASS_NAME,
+	U_TASK,
+	SYS_ID,
+	SYS_UPDATED_ON,
+	SEQNUM
+) as
+select *
+from ( select *, row_number() over (partition by sys_id order by sys_updated_on desc) as seqnum
+from PROCESS_MINING_PRODUCTION.ETL.T_U_ASSIGNMENT_GROUP_HISTORY_L2_1)
+where seqnum = 1;

@@ -1,0 +1,9 @@
+create or replace TABLE KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_DATA.KMR_L_MASSNAHME_STATUS_1 (
+	AMX_SYSTEM_ID NUMBER(38,0) NOT NULL COMMENT 'AMX-System-ID (Core vs. Unternehmenssicherheit). Quellfeld amx_system.',
+	MASSNAHME_STATUS_ID NUMBER(38,0) NOT NULL COMMENT 'Status_1-ID der Massnahme. The working status_1 of the improvement suggestion (Massnahme) (improvement suggestions regarding issues found during auditing (Feststellungen bei einer Pruefung)). Example: offen, erledigt, nicht umgesetzt, etc., Some states can appear that should not, because of technical necessity or user errors that are made possible because the choices are not filtered. Quellfeld suggestion_state.',
+	MASSNAHME_STATUS_BEZ VARCHAR(255) NOT NULL DEFAULT ' ' COMMENT 'Beschreibungstext des Massnahmenstatus. The working status_1 name of the improvement suggestion (Massnahme) (improvement suggestions regarding issues found during auditing (Feststellungen bei einer Pruefung)). Example: offen, erledigt, nicht umgesetzt, etc., Quellfeld suggestion_state_name.',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	constraint PK_KMR_L_MASSNAHME_STATUS primary key (AMX_SYSTEM_ID, MASSNAHME_STATUS_ID)
+)COMMENT='KMR - Lookup table for the working status_1 of the improvement suggestion (Massnahme) (improvement suggestions regarding issues found during auditing (Feststellungen bei einer Pruefung)). Example: offen, erledigt, nicht umgesetzt, etc., Some states can appear that should not, because of technical necessity or user errors that are made possible because the choices are not filtered. Does not contain \""Kurzchecks\"". Source view v_dwh_kl_data_suggestion.'
+;

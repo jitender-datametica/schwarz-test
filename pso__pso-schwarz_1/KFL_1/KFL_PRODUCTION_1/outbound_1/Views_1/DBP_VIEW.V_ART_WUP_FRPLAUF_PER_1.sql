@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_art_wup_frplauf_per_1 AS SELECT mandant_id,
+ wup_id,
+ nb_id,
+ art_id,
+ dat_von,
+ dat_bis,
+ standardabweichung,
+ klassifikationsmittelwert,
+ servicelevel,
+ mindestbestand,
+ bestand,
+ frp_mindestbestand,
+ zielbestand,
+ maximalbestand
+FROM kfl_production_dbp_data.art_wup_frplauf_per_1;

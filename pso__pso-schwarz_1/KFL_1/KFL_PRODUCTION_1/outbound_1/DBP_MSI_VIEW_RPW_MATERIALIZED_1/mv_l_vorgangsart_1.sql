@@ -1,0 +1,5 @@
+CREATE OR REPLACE TABLE dbp_msi_view_rpw_materialized.mv_l_vorgangsart_1 (
+mandant_id INTEGER,
+vorgangsart_id STRING(2),
+system_id INTEGER
+);

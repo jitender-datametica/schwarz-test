@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_lec_share.v_dim_cal_calendar_year_1 AS SELECT *
+FROM ldl_dig_core.t_dim_cal_calendar_year_1;

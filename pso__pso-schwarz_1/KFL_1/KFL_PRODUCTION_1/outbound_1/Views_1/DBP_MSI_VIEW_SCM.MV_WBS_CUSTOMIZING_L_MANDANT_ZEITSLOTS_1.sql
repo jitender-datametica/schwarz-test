@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_wbs_customizing_l_mandant_zeitslots_1 AS SELECT mandant_id,
+ zeitslot_id,
+ zeitslot_bez
+FROM kfl_production_dbp_view.v_wbs_l_mandant_zeitslots_1;

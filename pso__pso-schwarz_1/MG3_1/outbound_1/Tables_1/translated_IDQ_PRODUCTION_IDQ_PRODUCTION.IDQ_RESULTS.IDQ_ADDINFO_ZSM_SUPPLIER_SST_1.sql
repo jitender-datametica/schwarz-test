@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE idq_production_idq_results.idq_addinfo_zsm_supplier_sst_1 (
+id INTEGER NOT NULL,
+test_object_id INTEGER,
+statuslieferant STRING(2),
+kontengruppe STRING(4),
+source_system_primary_key STRING(1000),
+source_system_id INTEGER,
+country_id INTEGER,
+branch_id INTEGER,
+is_relevant INTEGER,
+eks_nummer STRING(1000),
+land_1 STRING(3),
+m STRING(1),
+nf STRING(1),
+em STRING(1),
+o_g STRING(1),
+b_p STRING(1),
+imp STRING(1),
+verhandelndesland STRING(3),
+umsatzsteuer_idnr STRING(20),
+weitereustid STRING(1000),
+PRIMARY KEY (id) NOT ENFORCED
+);

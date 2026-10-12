@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_log.mv_l_tourart_subtyp_1 (tourart_subtyp_id) AS SELECT
+ tourart_subtyp_id
+FROM kfl_production_dbp_view.v_l_tourart_subtyp_1
+GROUP BY tourart_subtyp_id;

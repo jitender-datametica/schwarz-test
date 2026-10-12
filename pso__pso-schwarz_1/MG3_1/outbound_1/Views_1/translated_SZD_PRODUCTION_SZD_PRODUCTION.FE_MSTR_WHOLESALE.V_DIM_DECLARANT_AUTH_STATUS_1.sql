@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_wholesale.v_dim_declarant_auth_status_1 (declarant_auth_status_cd,
+declarant_auth_status_name, declarant_authorized_fg) AS SELECT declarant_auth_status_cd,
+ declarant_auth_status_name,
+ declarant_authorized_fg
+FROM szd_production_core.t_dim_declarant_auth_status_1;

@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_wawi_wgi_hq_c_1 (
+err_id INTEGER NOT NULL,
+err_release BIGNUMERIC(38) DEFAULT 0,
+release_user STRING(30) COLLATE 'und:ci',
+err_date DATE DEFAULT CURRENT_DATE NOT NULL,
+err_cd BIGNUMERIC(38),
+country_iso_cd STRING(3) COLLATE 'und:ci',
+wh_id_hq INTEGER,
+itemgroup_int_id BIGNUMERIC(38) NOT NULL,
+itemgroup_int_nat_id BIGNUMERIC(38) NOT NULL,
+dat_valid_from DATE,
+dat_valid_until DATE,
+version BIGNUMERIC(38) NOT NULL,
+itemgroup_int_desc_country STRING(35) COLLATE 'und:ci' NOT NULL,
+itemgroup_int_desc_german STRING(35) COLLATE 'und:ci',
+itemgroup_int_remark STRING(60) COLLATE 'und:ci',
+mod_date DATE,
+dat_dayend DATE,
+load_id BIGNUMERIC(38)
+);

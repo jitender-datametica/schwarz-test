@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_lifecycle.mv_f_lifecycle_rvm_cleaning_quote_1 AS SELECT rvm_sid,
+ cy_week,
+ cleaning_completed_weekly_pct
+FROM szd_core.t_fact_rvm_cleaning_per_week_1;

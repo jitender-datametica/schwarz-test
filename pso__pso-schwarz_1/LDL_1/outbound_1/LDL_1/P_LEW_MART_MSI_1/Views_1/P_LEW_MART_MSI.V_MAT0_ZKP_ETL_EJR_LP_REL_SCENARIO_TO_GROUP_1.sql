@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi.v_mat0_zkp_etl_ejr_lp_rel_scenario_to_group_1 AS SELECT scenario_group_id,
+ scenario_id
+FROM ldl_p_lew_mart_msi.t_msi_ejr_lp_rel_scenario_to_group_1;

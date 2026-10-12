@@ -1,0 +1,11 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_aad_scenario_metric_threshold_1 (scenario_id, scenario_metric_id,
+mandant_id, region_id, scenario_metric_threshold_min_val, scenario_metric_threshold_max_val,
+scenario_metric_threshold_init_val, scenario_metric_unit_id) AS SELECT scenario_id,
+ scenario_metric_id,
+ mandant_id,
+ region_id,
+ scenario_metric_threshold_min_val,
+ scenario_metric_threshold_max_val,
+ scenario_metric_threshold_init_val,
+ scenario_metric_unit_id
+FROM kfl_production_dbp_data.aad_scenario_metric_threshold_1;

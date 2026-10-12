@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_coi_l_ump_referenz_1 AS SELECT referenzgrund_id,
+ referenzgrund_bez
+FROM kfl_production_dbp_data.coi_l_ump_referenz_1;

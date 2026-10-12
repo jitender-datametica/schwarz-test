@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.ivs_mietvertrag_sicher_1 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+mietvertrag_id STRING(20) COLLATE 'und:ci' NOT NULL,
+sicherheit_lfd_nr BIGNUMERIC(38,0) NOT NULL,
+betrag_sicherheit_ist NUMERIC(18,4) DEFAULT 0 NOT NULL,
+dat_eingang DATE,
+wrg_id STRING(3) COLLATE 'und:ci' NOT NULL,
+betrag_sicherheit_soll NUMERIC(18,4) DEFAULT 0 NOT NULL,
+dat_bis DATE,
+dat_einloesung DATE,
+dat_rueckgabe DATE,
+dat_uebergabe DATE,
+dat_ausstellung DATE,
+debitor_id INTEGER,
+buchungskreis_id BIGNUMERIC(38,0),
+buergschaft_typ_id BIGNUMERIC(38,0) NOT NULL,
+buergschaft_id STRING(60) COLLATE 'und:ci',
+kaution_bez STRING(80) COLLATE 'und:ci',
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

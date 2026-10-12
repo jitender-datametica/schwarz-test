@@ -1,0 +1,51 @@
+create or replace view KFL_PRODUCTION.DBP_MSI_VIEW_EK_INT.MV_MONAT_1(
+	KJMO,
+	KJMO_VJ,
+	KJ,
+	MO_KJ,
+	GJ,
+	MO_GJ,
+	AKT_MO,
+	AKT_MO_KOMPLETT,
+	AKT_GJ,
+	AKT_GJ_KOMPLETT,
+	AKT_KJ,
+	AKT_KJ_KOMPLETT,
+	GJMO,
+	GJMO_VJ,
+	KJQU,
+	AKT_KJQU,
+	AKT_KJQU_KOMPLETT,
+	GJQU,
+	AKT_GJQU,
+	AKT_GJQU_KOMPLETT,
+	MO_DAT_VON,
+	MO_DAT_BIS
+) as
+   SELECT
+   v01.kjmo, 
+   v01.kjmo_vj, 
+   v01.kj, 
+   v01.mo_kj, 
+   v01.gj, 
+   v01.mo_gj, 
+   v01.akt_mo, 
+   v01.akt_mo_komplett, 
+   v01.akt_gj, 
+   v01.akt_gj_komplett, 
+   v01.akt_kj, 
+   v01.akt_kj_komplett, 
+   v01.gjmo, 
+   v01.gjmo_vj, 
+   v01.kjqu, 
+   v01.akt_kjqu, 
+   v01.akt_kjqu_komplett, 
+   v01.gjqu, 
+   v01.akt_gjqu, 
+   v01.akt_gjqu_komplett, 
+   v01.min_dat AS mo_dat_von, 
+   v01.max_dat AS mo_dat_bis
+/* SPEC0249727 Umstellung auf VTA (vorher mv_monat_vvt_1) / sschuecke 23.05.2024 */
+   FROM dbp_view.v_monat_1 v01
+
+   WHERE v01.akt_gj BETWEEN -10 AND 1;

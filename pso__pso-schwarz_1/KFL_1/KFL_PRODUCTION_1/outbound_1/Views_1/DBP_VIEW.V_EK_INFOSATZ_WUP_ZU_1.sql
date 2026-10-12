@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_ek_infosatz_wup_zu_1 AS SELECT mandant_id,
+ ek_infosatz_id,
+ wup_id,
+ nb_id,
+ prozent_akzeptanz_unterlief,
+ loesch_fg,
+ mind_bestellmenge,
+ planlieferzeit,
+ rundungsprofil,
+ normal_bestellmenge,
+ ueberlieferung_toleranzgrenze,
+ ueberlieferung_unbegrenzt_fg,
+ unterlieferung_toleranzgrenze,
+ nettopreis,
+ bmpe,
+ bestaet_steuerschluessel,
+ wrg_id
+FROM kfl_production_dbp_data.ek_infosatz_wup_zu_1;

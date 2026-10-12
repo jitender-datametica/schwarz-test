@@ -1,0 +1,28 @@
+CREATE OR REPLACE DYNAMIC TABLE DBP_MSI_VIEW_IMS_DT.MV_BESITZSTATUS_SPR_ZU_SK_1
+(
+	EIGENTUM_KZ,
+	EIGENTUM_BEZ,
+	EIGENTUM_KBEZ
+)
+TARGET_LAG = '1 hour, 30 minutes' 
+REFRESH_MODE = FULL 
+INITIALIZE = ON_CREATE 
+WAREHOUSE = WH_KFL_%%environmentAbbreviation%%_DYNAMIC_TABLE_IMS
+
+AS
+-- 02.07.2013 twie: Erstellung Lookup Besitzstatus
+
+   SELECT
+   CASE WHEN dat = CURRENT_DATE -1 THEN 1
+   WHEN dat = CURRENT_DATE -2 THEN 0
+   ELSE -1 END AS eigentum_kz,
+   CASE WHEN dat = CURRENT_DATE -1 THEN 'Eigentum'
+   WHEN dat = CURRENT_DATE -2 THEN 'Miete'
+   ELSE '' END AS eigentum_bez,
+   CASE WHEN dat = CURRENT_DATE -1 THEN 'E'
+   WHEN dat = CURRENT_DATE -2 THEN 'M'
+   ELSE '' END AS eigentum_kbez
+
+   FROM dbp_view.v_tag_1
+   WHERE dat BETWEEN CURRENT_DATE -2 AND CURRENT_DATE
+   ;

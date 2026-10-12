@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_amx_hauptbereich_mcx_invers_bereich_zu_1 AS SELECT hauptbereich_id,
+ invers_ber_id,
+ amx_system_id,
+ td_insert,
+ td_update
+FROM kfl_production_dbp_data.amx_hauptbereich_mcx_invers_bereich_zu_1;

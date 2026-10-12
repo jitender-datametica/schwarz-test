@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE ldl_data_production_meta.t_dv_rwi_gf_vs_mis_ejr_product_retail_line_1 (
+table_name STRING(21),
+country_cd STRING(160),
+busdt_yyyymm INTEGER,
+gf_row_cnt INTEGER,
+gf_val NUMERIC(29,5),
+mis_row_cnt INTEGER,
+mis_val NUMERIC(29,5),
+diff_row_cnt INTEGER,
+diff_val NUMERIC(29,5),
+diff_row_cnt_pct NUMERIC(28,6),
+diff_val_pct BIGNUMERIC(29,11),
+failed_cnt INTEGER,
+failed_val INTEGER,
+total INTEGER,
+rule_code STRING(255),
+rule_description STRING(255),
+metric STRING(255),
+dataelem STRING(255),
+dataelem_value BIGNUMERIC(29,11),
+collection_time TIMESTAMP
+);

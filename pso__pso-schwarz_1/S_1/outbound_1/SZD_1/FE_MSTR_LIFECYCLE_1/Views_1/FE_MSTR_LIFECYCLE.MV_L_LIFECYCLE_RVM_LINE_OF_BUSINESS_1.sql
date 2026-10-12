@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_lifecycle.mv_l_lifecycle_rvm_line_of_business_1 AS SELECT lob_cd,
+ lob_name
+FROM szd_core.t_dim_line_of_business_1;

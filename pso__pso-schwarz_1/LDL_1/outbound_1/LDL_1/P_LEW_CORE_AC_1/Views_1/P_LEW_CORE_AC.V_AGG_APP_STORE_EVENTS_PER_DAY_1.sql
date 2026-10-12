@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_agg_app_store_events_per_day_1 (client_id, app_sid, app_store_sid, cal_dt,
+country_pol_sid, country_pol_cd, download_cnt, redownload_cnt, update_cnt, uninstall_cnt, return_cnt, dwh_load_id,
+dwh_created, dwh_updated) AS SELECT client_id,
+ app_sid,
+ app_store_sid,
+ cal_dt,
+ country_pol_sid,
+ country_pol_cd,
+ download_cnt,
+ redownload_cnt,
+ update_cnt,
+ uninstall_cnt,
+ return_cnt,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_agg_app_store_events_per_day_1;

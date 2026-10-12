@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_art_bewertungskreis_periode_1 AS SELECT gjmo,
+ art_id,
+ mandant_id,
+ bewertungskreis_id,
+ wrg_id,
+ dat_aenderung,
+ menge_bestand_bme,
+ wert_bestand,
+ vk_wert,
+ mbew_fg,
+ gjmo_bis,
+ bewertung_klasse_id,
+ preis_steuer_kz,
+ gld,
+ standard_preis,
+ dat_letzte_preisaenderung,
+ vk_wert_netto
+FROM kfl_production_dbp_data.art_bewertungskreis_periode_1;

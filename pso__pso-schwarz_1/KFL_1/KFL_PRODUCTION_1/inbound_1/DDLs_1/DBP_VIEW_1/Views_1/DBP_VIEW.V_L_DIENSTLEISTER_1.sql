@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_L_DIENSTLEISTER_1 AS 
+    SELECT 
+        mandant_id,
+        dienstleister_id
+FROM DBP_DATA.L_DIENSTLEISTER_1 ;

@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_ma_tarifgebiet_1 (mandant_id, tarifgebiet_id) AS SELECT mandant_id,
+ tarifgebiet_id
+FROM kfl_production_dbp_data.l_ma_tarifgebiet_1;

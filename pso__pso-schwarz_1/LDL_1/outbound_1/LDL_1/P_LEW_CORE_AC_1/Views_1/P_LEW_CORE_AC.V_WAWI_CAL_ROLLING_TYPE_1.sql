@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_wawi_cal_rolling_type_1 (rolling_year_type_id, rolling_year_type_rep_desc,
+rolling_year_type_prompt_desc) AS SELECT rolling_year_type_id,
+ rolling_year_type_rep_desc,
+ rolling_year_type_prompt_desc
+FROM ldl_p_lew_core.t_wawi_cal_rolling_type_1;

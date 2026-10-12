@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead.v_agg_retail_store_item_day_1 (client_id, store_sid, main_store_sid,
+item_variant_sid, main_item_sid, cust_sid, cal_dt, curr_cd, turnover_ejr_gross_val, turnover_ejr_py_gross_val,
+turnover_ejr_py_swday_gross_val, turnover_ejr_net_val, turnover_ejr_py_net_val, turnover_ejr_py_swday_net_val,
+sales_ejr_gross_val, sales_ejr_py_gross_val, sales_ejr_py_swday_gross_val, sales_ejr_net_val, sales_ejr_py_net_val,
+sales_ejr_py_swday_net_val, return_ejr_gross_val, return_ejr_py_gross_val, return_ejr_py_swday_gross_val,
+return_ejr_net_val, return_ejr_py_net_val, return_ejr_py_swday_net_val, dwh_load_id, dwh_created, dwh_updated) AS SELECT
+ *
+FROM ldl_p_lew_bil_ac.v_agg_retail_store_item_day_1;

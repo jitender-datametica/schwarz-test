@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_qs.mv_check_blackberry_1 (dat, mandant_id, lieferquote_real,
+lieferquote_def, datenquote_real, datenquote_def, bb_fg, check_fg, umsatz_ist, umsatz_vj, umsatz_plan, umsatz_vortag,
+umsatz_vorwoche, kunden_ist, kunden_vj) AS SELECT dat,
+ mandant_id,
+ lieferquote_real,
+ lieferquote_def,
+ datenquote_real,
+ datenquote_def,
+ bb_fg,
+ check_fg,
+ umsatz_ist,
+ umsatz_vj,
+ umsatz_plan,
+ umsatz_vortag,
+ umsatz_vorwoche,
+ kunden_ist,
+ kunden_vj
+FROM kfl_production_dbp_msi_v_view.v_check_blackberry_1 AS V01;

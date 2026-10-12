@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_score_fe_mstr_score.v_dim_calendar_month_of_year_1 AS SELECT month_of_year,
+ month_of_year_descr,
+ month_of_year_short_descr
+FROM ldl_score_core.t_dim_calendar_month_of_year_1;

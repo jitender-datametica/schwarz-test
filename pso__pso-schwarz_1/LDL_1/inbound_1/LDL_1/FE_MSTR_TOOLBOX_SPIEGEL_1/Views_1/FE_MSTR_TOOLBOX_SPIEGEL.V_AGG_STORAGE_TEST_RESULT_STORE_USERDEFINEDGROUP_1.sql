@@ -1,0 +1,103 @@
+/*
+#----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS
+#----------------------------------------------------------------------------
+# Interface: DDL for FE_MSTR_TOOLBOX_SPIEGEL.V_AGG_STORAGE_TEST_RESULT_STORE_USERDEFINEDGROUP_1
+#----------------------------------------------------------------------------
+# History:
+#  1.0  28.09.2023    Aparna Rayanki           Initial Version
+#----------------------------------------------------------------------------
+*/
+CREATE OR REPLACE VIEW FE_MSTR_TOOLBOX_SPIEGEL.V_AGG_STORAGE_TEST_RESULT_STORE_USERDEFINEDGROUP_1
+(
+ storage_test_exec_sid 
+ ,storage_test_result_grp_sid
+ ,storage_test_result_grp_type_cd 
+ ,orig_store_nr
+ ,test_week
+ ,user_defined_grp_name
+ 
+ ,receipt_avg
+ ,work_time_hr
+ ,sales_net_val
+ ,sales_qty_work_time
+ ,receipt_cnt
+ ,sales_net_val_pv
+ ,sales_qty_work_time_hr
+ ,writeoff_net_val
+ ,writeoff_net_pct
+ ,receipt_avg_contr
+ ,work_time_hr_contr
+ ,sales_net_val_contr
+ ,sales_qty_work_time_contr
+ ,receipt_cnt_contr
+ ,sales_net_val_pv_contr
+ ,sales_qty_work_time_hr_contr
+ ,writeoff_net_val_contr
+ ,writeoff_net_pct_contr
+ ,receipt_avg_spread
+ ,work_time_hr_spread
+ ,sales_net_val_spread
+ ,sales_qty_work_time_spread
+ ,receipt_cnt_spread
+ ,sales_net_val_pv_spread
+ ,sales_qty_work_time_hr_spread
+ ,writeoff_net_val_spread
+ ,writeoff_net_pct_spread
+ ,receipt_avg_effect
+ ,work_time_hr_effect
+ ,sales_net_val_effect
+ ,sales_qty_work_time_effect
+ ,receipt_cnt_effect
+ ,sales_net_val_pv_effect
+ ,sales_qty_work_time_hr_effect
+ ,writeoff_net_val_effect
+ ,writeoff_net_pct_effect
+)
+AS
+SELECT 
+storage_test_exec_sid 
+ ,storage_test_result_grp_sid
+ ,storage_test_result_grp_type_cd 
+ ,orig_store_nr
+ ,test_week
+ ,user_defined_grp_name
+ 
+ ,receipt_avg
+ ,work_time_hr
+ ,sales_net_val
+ ,sales_qty_work_time
+ ,receipt_cnt
+ ,sales_net_val_pv
+ ,sales_qty_work_time_hr
+ ,writeoff_net_val
+ ,writeoff_net_pct
+ ,receipt_avg_contr
+ ,work_time_hr_contr
+ ,sales_net_val_contr
+ ,sales_qty_work_time_contr
+ ,receipt_cnt_contr
+ ,sales_net_val_pv_contr
+ ,sales_qty_work_time_hr_contr
+ ,writeoff_net_val_contr
+ ,writeoff_net_pct_contr
+ ,receipt_avg_spread
+ ,work_time_hr_spread
+ ,sales_net_val_spread
+ ,sales_qty_work_time_spread
+ ,receipt_cnt_spread
+ ,sales_net_val_pv_spread
+ ,sales_qty_work_time_hr_spread
+ ,writeoff_net_val_spread
+ ,writeoff_net_pct_spread
+ ,receipt_avg_effect
+ ,work_time_hr_effect
+ ,sales_net_val_effect
+ ,sales_qty_work_time_effect
+ ,receipt_cnt_effect
+ ,sales_net_val_pv_effect
+ ,sales_qty_work_time_hr_effect
+ ,writeoff_net_val_effect
+ ,writeoff_net_pct_effect
+ FROM 
+ FE_MSTR_TOOLBOX_SPIEGEL.T_AGG_STORAGE_TEST_RESULT_STORE_USERDEFINEDGROUP_1;

@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_kmr_l_teilbereich_frage_1 AS SELECT kmr_teilbereich_frage_id
+FROM kfl_production_dbp_data.kmr_l_teilbereich_frage_1;

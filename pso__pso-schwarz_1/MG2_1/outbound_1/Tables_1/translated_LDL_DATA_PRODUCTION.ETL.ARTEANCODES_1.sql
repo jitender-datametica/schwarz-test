@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.arteancodes_1 (
+ctrcode STRING(3) COLLATE 'und:ci' NOT NULL,
+artikelnr STRING(18) NOT NULL,
+eancode STRING(13) NOT NULL,
+datum DATETIME,
+bediener STRING(8),
+eancodebeschr STRING(30),
+based_on_eks INTEGER,
+cust_tar_no STRING(20),
+cust_key STRING(10),
+online_desc STRING(80),
+scn INTEGER DEFAULT 0,
+ebt_flag INTEGER,
+pcc STRING(6),
+plu_gtin INTEGER,
+no_gtin_check INTEGER,
+sales_limit INTEGER,
+self_scanning_flag INTEGER,
+extraction_tmsp DATETIME,
+PRIMARY KEY (artikelnr, eancode) NOT ENFORCED
+);

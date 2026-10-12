@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_v_ods.v_kundenkarte_typ_spr_zu_1 AS SELECT kundenkarte_typ_id,
+ spr_id,
+ kundenkarte_typ_bez
+FROM kfl_production_dbp_ods.kundenkarte_typ_spr_zu_1;

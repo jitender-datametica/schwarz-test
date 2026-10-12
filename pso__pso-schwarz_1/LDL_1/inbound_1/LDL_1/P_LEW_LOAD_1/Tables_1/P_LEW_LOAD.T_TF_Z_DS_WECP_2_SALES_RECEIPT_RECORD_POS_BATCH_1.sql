@@ -1,0 +1,25 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TF_Z_DS_WECP_2_SALES_RECEIPT_RECORD_POS_BATCH_1
+(
+  CLIENT_ID                   NUMBER(38)                    NULL,
+  LIDL_COUNTRY                VARCHAR(40)                   NULL,
+  Z_DS_WECP_DELIV             VARCHAR(20)                   NULL,
+  Z_DS_WECP_DELIVP            NUMBER(6,0)                   NULL,
+  Z_DS_WECP_HU_ID             VARCHAR(20)                   NULL,
+  SALES_RECEIPT_RECORD_CD     VARCHAR(20)                   NULL,
+  SALES_RECEIPT_RECORD_POS_ID NUMBER(38)                    NULL,
+  BATCH_CD                    VARCHAR(20) COLLATE 'en-ci'   NULL,
+  SRC_MATNR                   VARCHAR(40)                   NULL,
+  SRC_WERKS                   VARCHAR(40)                   NULL,
+  SRC_MSEHI                   VARCHAR(40)                   NULL,
+  UOM_CD                      VARCHAR(20)                   NULL,
+  DELIVERY_ACT_QTY            NUMBER(18,5)                  NULL,
+  DELIVERY_BATCH_QTY          NUMBER(18,5)                  NULL,
+  DELIVERY_DT                 DATE                          NULL,
+  BEST_BEFORE_DT              DATE                          NULL,
+  DWH_CAL_DT                  DATE                          NULL,
+  EXTRACTION_DT               DATE                          NULL,
+  DWH_MAPPING_DT              DATE                          NULL,
+  TF_ERROR_FG                 NUMBER(1,0)                   NULL,
+  RECORD_ID                   NUMBER(10,0)                  NULL,
+  FILENAME                    VARCHAR(1000)                 NULL
+);

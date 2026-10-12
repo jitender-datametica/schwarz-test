@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.wup_kunde_wg_disporhythmus_lft_zu_per_1 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+kunde_id BIGNUMERIC(38,0) NOT NULL,
+wg_id BIGNUMERIC(38,0) NOT NULL,
+arthiertyp_id BIGNUMERIC(38,0) NOT NULL,
+sortimentslistenart_id STRING(1) COLLATE 'und:ci' NOT NULL,
+terminierungsgruppe_1_id STRING(3) COLLATE 'und:ci' DEFAULT '-1 ' NOT NULL,
+terminierungsgruppe_2_id STRING(2) COLLATE 'und:ci' DEFAULT '-1' NOT NULL,
+terminierungsgruppe_3_id STRING(2) COLLATE 'und:ci' DEFAULT '-1' NOT NULL,
+dat_von DATE NOT NULL,
+dat_bis DATE DEFAULT CAST('9999-12-31' AS DATE) NOT NULL,
+auslieferungsgruppe_id STRING(4) COLLATE 'und:ci' DEFAULT '-1  ' NOT NULL,
+disposition_rhythmus_ltf_id STRING(3) COLLATE 'und:ci',
+we_bearbeitungszeit BIGNUMERIC(38,0),
+planlieferzeit BIGNUMERIC(38,0),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

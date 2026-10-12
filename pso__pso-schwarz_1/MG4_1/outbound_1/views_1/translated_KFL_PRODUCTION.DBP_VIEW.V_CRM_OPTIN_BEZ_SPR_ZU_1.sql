@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_crm_optin_bez_spr_zu_1 (crm_optin_bez_id, spr_id, crm_optin_bez,
+td_insert, td_update) AS SELECT crm_optin_bez_id,
+ spr_id,
+ crm_optin_bez,
+ td_insert,
+ td_update
+FROM kfl_production_dbp_data.crm_optin_bez_spr_zu_1;

@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_address_1 (client_id, addr_sid, src_addrnumber, src_object_no,
+src_orig_store_nr, src_orig_wh_nr, src_vendor_doc_ref, longitude, latitude, country_pol_sid, country_pol_cd,
+city_group_name, city_group_sid, city_name, district_name, zip, street_name, street_add1_name, house_nr, postbox_nr,
+phone_nr, fax_nr, lang_sid, lang_cd, name, name1, name2, name3, sort1, street, house_number1, house_number2, city,
+postbox, zip_code, phone_number, fax_number, sales_zip, sales_city, sales_street, sales_street2, sales_house_number,
+phone_number2, fax_number2, dwh_load_id, dwh_created, dwh_updated) AS SELECT *
+FROM ldl_p_lew_core.t_address_1 AS V;

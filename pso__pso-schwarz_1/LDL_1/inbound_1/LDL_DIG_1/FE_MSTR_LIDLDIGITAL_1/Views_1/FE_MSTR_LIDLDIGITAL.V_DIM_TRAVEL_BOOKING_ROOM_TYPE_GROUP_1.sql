@@ -1,0 +1,15 @@
+/*
+    A real dimension table for TRAV_BOOKING_ROOM_TYPE_GROUP is not provided.
+    This view can be used in MSTR to filter for a TRAV_BOOKING_ROOM_TYPE_GROUP.
+*/
+CREATE OR REPLACE VIEW FE_MSTR_LIDLDIGITAL.V_DIM_TRAVEL_BOOKING_ROOM_TYPE_GROUP_1 (
+     TRAV_BOOKING_ROOM_TYPE_GROUP_CD
+    ,TRAV_BOOKING_ROOM_TYPE_GROUP_DESCR
+) AS SELECT
+    DISTINCT
+         TRAV_BOOKING_ROOM_TYPE_GROUP_CD
+        ,TRAV_BOOKING_ROOM_TYPE_GROUP_CD
+FROM lec_share.v_dim_travel_booking_room_type_1
+UNION ALL
+    SELECT '-1', ''
+;

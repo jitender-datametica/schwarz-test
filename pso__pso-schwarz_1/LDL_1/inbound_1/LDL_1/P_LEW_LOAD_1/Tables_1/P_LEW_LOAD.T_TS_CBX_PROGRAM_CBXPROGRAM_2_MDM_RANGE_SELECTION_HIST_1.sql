@@ -1,0 +1,27 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TS_CBX_PROGRAM_CBXPROGRAM_2_MDM_RANGE_SELECTION_HIST_1
+(
+  RECORD_ID                     NUMBER(10,0)                  NULL,
+  CLIENT_ID                     NUMBER(38)                    NULL,
+  MDM_RANGE_SEL_SID             NUMBER(38)                    NULL,
+  CBX_PROG_VERSION_NR           NUMBER(38)                    NULL,
+  CBX_PROG_DOC_STATUS           VARCHAR(100) COLLATE 'en-ci'  NULL,
+  CBX_PROG_CHANGE_TMSP          TIMESTAMP_NTZ(6)              NULL,
+  RANGE_SELECTION_ACTIVE_FG     NUMBER(38)                    NULL,
+  CY_MONTH_RANGE_SELECTION      NUMBER(38)                    NULL,
+  RANGE_SELECTION_END_DT        DATE                          NULL,
+  CY_WEEK_RANGE_DELIVER_FROM    NUMBER(38)                    NULL,
+  CY_WEEK_RANGE_DELIVER_TO      NUMBER(38)                    NULL,
+  CY_WEEK_RANGE_ADVERTISE_FROM  NUMBER(38)                    NULL,
+  CY_WEEK_RANGE_ADVERTISE_TO    NUMBER(38)                    NULL,
+  DELETED_FG                    NUMBER(38)                    NULL,
+  DWH_VALID_FROM                DATE                          NULL,
+  DWH_VALID_TO                  DATE                          NULL,
+  DWH_LOAD_ID                   NUMBER(38)                    NULL,
+  DWH_CREATED                   TIMESTAMP_NTZ(6)              NULL,
+  DWH_UPDATED                   TIMESTAMP_NTZ(6)              NULL,
+  DWH_MAPPING_DT                DATE                          NULL,
+  ERROR_FG                      NUMBER(38)                    NULL,
+  ERROR_DESCR                   VARCHAR(1000) COLLATE 'en-ci' NULL,
+  FILENAME                      VARCHAR(1000) COLLATE 'en-ci' NULL,
+  HIST_ROW_NO                   NUMBER(38)                    NULL
+);

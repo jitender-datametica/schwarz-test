@@ -1,0 +1,26 @@
+create or replace TABLE SZD_PRODUCTION.CORE.T_DIM_LOT_DESTINATION_1 (
+	LOT_PRODUCT_INSTANCE_GROUP_SID NUMBER(38,0) NOT NULL COMMENT 'Natural Key/Business Key - The unique identifier (surrogate key) for the lot.',
+	SHIPPING_DESTINATION_CD VARCHAR(50) NOT NULL COMMENT 'Natural Key/Business Key - The code identifying a the shipping destination.',
+	DWH_VALID_FROM_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record became valid.',
+	DWH_VALID_TO_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was no longer valid.',
+	DWH_VALID_FG BOOLEAN NOT NULL COMMENT 'An indicator showing the current record, i.e. where the current date is between dwh_valid_from and dwh_valid_to.',
+	LOB_CD VARCHAR(50) NOT NULL COMMENT 'The code for the line of business within the Schwarz Group, i.e.Lidl or Kaufland\n            lob=line os business',
+	DELIVERY_WEEK_START_DT DATE COMMENT 'Delivery week of country_1 (ODW)',
+	SHIFTED_DELIVERY_WEEK_START_DT DATE COMMENT 'ODW (official delivery week) plus x weeks (\"shifted\" ODW)',
+	SHIPPING_MARK_TXT VARCHAR(1000) COMMENT 'Descriptive Attribute - Logistics info code sent from SAP',
+	NOMINATED_TOTAL_CARTON_QTY NUMBER(38,5) COMMENT 'Fact - additive -Ordered amount of cartons as stated in the contract',
+	BOOKED_TOTAL_CARTON_QTY NUMBER(38,5) COMMENT 'Fact - additive - Amount of cartons that were actually produced are be considered in booking',
+	NOMINATED_PIECE_PER_CARTON_QTY NUMBER(38,5) COMMENT 'Fact - additive - Ordered Units / pieces per carton. For example there can be 20 T-Shirts in a box -> PCS/Carton = 20',
+	BOOKED_PIECE_PER_CARTON_QTY NUMBER(38,5) COMMENT 'Fact - additive - Actual Units / pieces per carton. For example there can be 20 T-Shirts in a box -> PCS/Carton = 20',
+	LENGTH_M_MEAS NUMBER(38,5) COMMENT 'Measure - Length dimensions of a shipped carton ',
+	WIDTH_M_MEAS NUMBER(38,5) COMMENT 'Measure - Width dimensions of a shipped carton ',
+	HEIGHT_M_MEAS NUMBER(38,5) COMMENT 'Measure - Height dimensions of a shipped carton ',
+	NET_WEIGHT_KG_QTY NUMBER(38,5) COMMENT 'Fact - additive - Cartons are measured and weightened in the warehouse. Net weight is the goods without the carton',
+	GROSS_WEIGHT_KG_QTY NUMBER(38,5) COMMENT 'Fact - additive - Weight of a complete carton as it will be put in a container',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+	DWH_SRC_FILE_NAME VARCHAR(500) COMMENT 'The path and the name of the file(s) from which this record was loaded.',
+	DWH_SRC_1_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was extracted from the source.',
+	constraint PK_DIM_LOT_DESTINATION primary key (LOT_PRODUCT_INSTANCE_GROUP_SID, DWH_VALID_FROM_TMSP, SHIPPING_DESTINATION_CD)
+)COMMENT='Major Dimension - A shipment of particular product to a particular destination. - Source - VMT'
+;

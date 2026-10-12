@@ -1,0 +1,23 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_RPW.MV_WUG_SPR_ZU_1
+       (
+       mandant_id
+       , arthiertyp_id
+       , wg_id
+       , spr_id
+       , wug_id
+       , wug_bez
+       , system_id
+       )
+       AS
+          SELECT
+          mandant_id,
+          arthiertyp_id,
+          wg_id,
+          spr_id,
+          wug_id,
+          wug_bez,
+          7 AS system_id
+FROM dbp_view.v_wug_spr_zu_1
+WHERE mandant_id = 1
+AND   spr_id = 22
+AND   arthiertyp_id = 2;

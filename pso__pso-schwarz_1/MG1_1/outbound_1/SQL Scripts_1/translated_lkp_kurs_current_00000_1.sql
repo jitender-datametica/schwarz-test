@@ -1,0 +1,15 @@
+--[OK] statement is translated correctly (syntax and type checks are fine)
+
+
+
+SELECT KURSTYP_ID,
+ VON_WRG_ID,
+ NACH_WRG_ID,
+ DAT_VON,
+ UMRECHNUNGSKURS
+FROM KFL_PRODUCTION_DBP_DATA.KURS_1
+WHERE DAT_BIS = PARSE_DATE('%F', '9999-12-31')
+ORDER BY 1 NULLS LAST,
+ 2 NULLS LAST,
+ 3 NULLS LAST,
+ 4 NULLS LAST;

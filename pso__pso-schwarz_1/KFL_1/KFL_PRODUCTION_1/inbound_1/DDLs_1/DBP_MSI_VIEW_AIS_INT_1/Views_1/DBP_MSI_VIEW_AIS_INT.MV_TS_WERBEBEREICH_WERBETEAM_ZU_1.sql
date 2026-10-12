@@ -1,0 +1,28 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_AIS_INT.MV_TS_WERBEBEREICH_WERBETEAM_ZU_1(
+	MANDANT_ID,
+	MANDANT_BEZ,
+	WG_ID,
+	WG_BEZ,
+	WERBETEAM,
+	WERBETEAMBEREICH,
+	WERBEBEREICH
+) AS
+--23.10.2024 SPEC0259141, Neuanlage
+SELECT 
+v01.mandant_id AS MANDANT_ID,
+'DE' AS MANDANT_BEZ,
+v01.wg_id AS WG_ID,
+V03.wg_bez AS WG_BEZ,
+CASE WHEN (v02.werbeteam_cd) IS NULL THEN 'nicht vorhanden' ELSE v02.werbeteam_cd END AS WERBETEAM,
+CASE WHEN (v02.werbeteam_bez) IS NULL THEN 'nicht vorhanden' ELSE v02.werbeteam_bez END AS WERBETEAMBEREICH,
+CASE WHEN (v02.werbebereich_cd) IS NULL THEN 'nicht vorhanden' ELSE v02.werbebereich_cd END AS WERBEBEREICH
+FROM DBP_VIEW.V_WG_PER_1 v01
+JOIN DBP_VIEW.V_WG_SPR_ZU_1 v03
+ON v01.mandant_id=v03.mandant_id
+AND v01.wg_id=v03.wg_id
+AND v03.spr_id=22
+AND v01.mandant_id=1
+AND v01.dat_bis ='9999-12-31'
+LEFT JOIN DBP_MSI_DATA.TS_WERBEBEREICH_WERBETEAM_ZU_1 v02
+ON v01.mandant_id=v02.mandant_id
+AND v01.wg_id=v02.wg_id;

@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_in_l_einkaeufer_bis_int_1 AS SELECT einkaeufer_bis_int_id,
+ einkaeufer_bis_int_name
+FROM kfl_production_dbp_data.in_l_einkaeufer_bis_int_1;

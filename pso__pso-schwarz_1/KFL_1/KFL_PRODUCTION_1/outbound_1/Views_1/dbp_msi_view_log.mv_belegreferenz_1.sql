@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_log.mv_belegreferenz_1 AS SELECT mandant_id,
+ beleg_guid,
+ beleg_pos_guid,
+ referenz_belegtyp_id,
+ referenzbeleg_guid,
+ referenzbeleg_pos_guid,
+ referenzbeleg_id,
+ belegtyp_id,
+ referenz_bs_id,
+ partner_guid,
+ referenzbeleg_pos_id,
+ zeitzone,
+ datzeit_termin_beginn,
+ datzeit_termin_ende
+FROM kfl_production_dbp_view.v_belegreferenz_1 AS V01;

@@ -1,0 +1,25 @@
+CREATE OR REPLACE DYNAMIC TABLE DBP_MSI_VIEW_IMS_DT.MV_KONZEPT_FISCH_SPR_ZU_1
+(
+	BED_FISCH_ID,
+	BED_FISCH_BEZ
+)
+TARGET_LAG = '1 hour, 30 minutes' 
+REFRESH_MODE = FULL 
+INITIALIZE = ON_CREATE 
+WAREHOUSE = WH_KFL_%%environmentAbbreviation%%_DYNAMIC_TABLE_IMS
+
+AS
+-- 17.06.2013 twie: Kopie aus VIS
+
+   SELECT  t01.rpm_feld_auspr_id AS bed_fisch_id,
+   CASE WHEN t01.rpm_feld_auspr_id = 1 THEN ''
+   ELSE  t01. rpm_feld_auspr_bez
+   END AS bed_fisch_bez
+   FROM dbp_view.v_rpm_feld_auspr_spr_zu_1 t01
+   INNER JOIN dbp_view.v_l_rpm_feld_1     t02
+   ON t01.rpm_feld_id = t02.rpm_feld_id
+
+   WHERE rpm_feld_bez='ZPPM_FISCH'
+   AND rpm_tab_id=1
+   AND spr_id=22
+;

@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_unit_of_measurement_descr_1 (client_id, uom_sid, lang_sid, uom_cd, lang_cd,
+uom_descr_short, uom_descr_long, uom_descr_ext_3ch, uom_descr_ext_6ch, dwh_load_id, dwh_created, dwh_updated) AS SELECT
+ client_id,
+ uom_sid,
+ lang_sid,
+ uom_cd,
+ lang_cd,
+ uom_descr_short,
+ uom_descr_long,
+ uom_descr_ext_3ch,
+ uom_descr_ext_6ch,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_unit_of_measurement_descr_1;

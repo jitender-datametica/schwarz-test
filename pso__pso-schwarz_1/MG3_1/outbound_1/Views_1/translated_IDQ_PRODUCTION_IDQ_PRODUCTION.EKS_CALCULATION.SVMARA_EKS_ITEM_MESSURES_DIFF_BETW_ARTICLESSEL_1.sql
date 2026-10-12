@@ -1,0 +1,43 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.svmara_eks_item_messures_diff_betw_articlessel_1 (negotiatingcountry
+, buyershortsign, buyerfirstname, buyerlastname, zmatkl, articlefamily, ba_itemno, itemid, itemno, articletype,
+description, listingoverviewid, casesize, caseheight, casewidth, casedepth, kollivolumen, avgvolume, volumen_einheit,
+percentagevolume, supplierno, supplierdescription, receivingcountry, zrelevantmdm, zsource, zactive) AS SELECT
+ svmara_eks_item_messures_diff_betw_articlessel_all.negotiatingcountry,
+ svmara_eks_item_messures_diff_betw_articlessel_all.buyershortsign,
+ svmara_eks_item_messures_diff_betw_articlessel_all.buyerfirstname,
+ svmara_eks_item_messures_diff_betw_articlessel_all.buyerlastname,
+ svmara_eks_item_messures_diff_betw_articlessel_all.zmatkl,
+ svmara_eks_item_messures_diff_betw_articlessel_all.articlefamily,
+ svmara_eks_item_messures_diff_betw_articlessel_all.ba_itemno,
+ svmara_eks_item_messures_diff_betw_articlessel_all.itemid,
+ svmara_eks_item_messures_diff_betw_articlessel_all.itemno,
+ svmara_eks_item_messures_diff_betw_articlessel_all.articletype,
+ svmara_eks_item_messures_diff_betw_articlessel_all.description,
+ svmara_eks_item_messures_diff_betw_articlessel_all.listingoverviewid,
+ svmara_eks_item_messures_diff_betw_articlessel_all.casesize,
+ svmara_eks_item_messures_diff_betw_articlessel_all.caseheight,
+ svmara_eks_item_messures_diff_betw_articlessel_all.casewidth,
+ svmara_eks_item_messures_diff_betw_articlessel_all.casedepth,
+ svmara_eks_item_messures_diff_betw_articlessel_all.kollivolumen,
+ svmara_eks_item_messures_diff_betw_articlessel_all.avgvolume,
+ svmara_eks_item_messures_diff_betw_articlessel_all.volumen_einheit,
+ svmara_eks_item_messures_diff_betw_articlessel_all.percentagevolume,
+ svmara_eks_item_messures_diff_betw_articlessel_all.supplierno,
+ svmara_eks_item_messures_diff_betw_articlessel_all.supplierdescription,
+ svmara_eks_item_messures_diff_betw_articlessel_all.receivingcountry,
+ svmara_eks_item_messures_diff_betw_articlessel_all.zrelevantmdm,
+ svmara_eks_item_messures_diff_betw_articlessel_all.zsource,
+ svmara_eks_item_messures_diff_betw_articlessel_all.zactive
+FROM idq_production_eks_calculation.svmara_eks_item_messures_diff_betw_articlessel_all_1
+ INNER JOIN idq_production_eks_calculation.svmara_eks_item_messures_diff_betw_articlessel_counts_1 ON
+  svmara_eks_item_messures_diff_betw_articlessel_all.listingoverviewid =
+  svmara_eks_item_messures_diff_betw_articlessel_counts.listingoverviewid
+ LEFT JOIN idq_production_eks_calculation.eks_zsm_excludelist_1 ON svmara_eks_item_messures_diff_betw_articlessel_all.itemno
+     = eks_zsm_excludelist.itemno AND (svmara_eks_item_messures_diff_betw_articlessel_all.supplierno =
+         eks_zsm_excludelist.supplierno AND eks_zsm_excludelist.listingoverviewid IS NULL OR
+         svmara_eks_item_messures_diff_betw_articlessel_all.listingoverviewid = eks_zsm_excludelist.listingoverviewid
+        AND eks_zsm_excludelist.supplierno IS NULL OR svmara_eks_item_messures_diff_betw_articlessel_all.supplierno =
+        eks_zsm_excludelist.supplierno AND svmara_eks_item_messures_diff_betw_articlessel_all.listingoverviewid =
+        eks_zsm_excludelist.listingoverviewid OR eks_zsm_excludelist.supplierno IS NULL AND eks_zsm_excludelist.listingoverviewid
+      IS NULL) AND eks_zsm_excludelist.reportno = '028'
+WHERE eks_zsm_excludelist.itemno IS NULL;

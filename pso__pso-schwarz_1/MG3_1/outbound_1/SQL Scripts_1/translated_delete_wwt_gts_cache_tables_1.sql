@@ -1,0 +1,1 @@
+TRUNCATE TABLE szd_production_etl.t_cache_zgts_brimport_1;

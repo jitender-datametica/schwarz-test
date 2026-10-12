@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku.mv_l_geku_eingangskanal_1 (geku_eingangskanal_id) AS SELECT
+ geku_eingangskanal_id
+FROM kfl_production_dbp_view.v_l_geku_eingangskanal_1;

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_l_bedienkonzept_auspr_1 (bedienkonzept_id,
+bedienkonzept_auspr_id) AS SELECT bedienkonzept_id,
+ bedienkonzept_auspr_id
+FROM kfl_production_dbp_view.v_l_bedienkonzept_auspr_1;

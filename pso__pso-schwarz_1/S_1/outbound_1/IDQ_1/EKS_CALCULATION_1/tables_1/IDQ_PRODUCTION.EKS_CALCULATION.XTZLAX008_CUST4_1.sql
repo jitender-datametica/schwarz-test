@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE idq_production_eks_calculation.xtzlax008_cust4_1 (
+checktable STRING(16777216),
+legacyvalue STRING(16777216),
+targetvalue STRING(16777216),
+notrelevant BIGNUMERIC(38,0),
+legacydescription STRING(16777216),
+legacyvalue1 STRING(16777216),
+legacyvalue2 STRING(16777216),
+legacyvalue3 STRING(16777216),
+legacyvalue4 STRING(16777216),
+legacyvalue5 STRING(16777216),
+addedby STRING(16777216),
+addedon DATETIME,
+addedvia STRING(16777216),
+occurrencecount BIGNUMERIC(38,0),
+proposedvalue STRING(16777216),
+targetvalue1 STRING(16777216),
+targetvalue2 STRING(16777216),
+targetvalue3 STRING(16777216),
+targetvalue4 STRING(16777216),
+targetvalue5 STRING(16777216),
+description STRING(16777216)
+);

@@ -1,0 +1,47 @@
+/* --------------------------------------------------------------------------------
+   DDL for table: T_FACT_LOT_CONTAINER_MILESTONE_PROGRESS_1
+   generated from Powerdesigner on Donnerstag, 6. Juni 2024 11:20:06
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE.T_FACT_LOT_CONTAINER_MILESTONE_PROGRESS_1 (
+   LOT_PRODUCT_INSTANCE_GROUP_SID      NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the lot.',
+   CONTAINER_RESOURCE_ITEM_SID         NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the container.',
+   PROGRESS_CHANGED_TMSP               TIMESTAMP_TZ(9) NOT NULL COMMENT 'Event Timestamp of the last milestone date value that changed',
+   CONTAINER_MILESTONE_PROGRESS_DETAIL_CD VARCHAR(50)     COMMENT 'Code for a more detailed status_1 of progress of a lot/container',
+   CONTAINER_LPOD_PICKUP_DT            DATE            COMMENT 'Latest pick-up date of container from LPOD Terminal for container_milestone_cd = "eu_container_pickup_pod"',
+   CONTAINER_LPOD_PICKUP_RESULT_CD     VARCHAR(50)     COMMENT 'Status_1 of Container Pickup from LPOD (e.g. green = picked-up) for container_milestone_cd = "eu_container_pickup_pod" associated with container_lpod_pickup_dt',
+   CONTAINER_LPOD_PICKUP_FG            BOOLEAN         DEFAULT FALSE NOT NULL COMMENT 'Derrived attribute - set to true if milestone for container with container_milestone_cd = "eu_container_pickup_pod" exists and has a date associated with it',
+   CONTAINER_DOMESTIC_TERMINAL_ARRIVAL_DT DATE            COMMENT 'Latest arrival date of container at the domestic terminal in Europe for container_milestone_cd = "eu_container_arrival_domestic_terminal"',
+   CONTAINER_DOMESTIC_TERMINAL_ARRIVAL_RESULT_CD VARCHAR(50)     COMMENT 'Status_1 of ContainerArrival at the domestic terminal in Europe (e.g. green = arrived) for container_milestone_cd = "eu_container_arrival_domestic_terminal"',
+   CONTAINER_DOMESTIC_TERMINAL_ARRIVAL_FG BOOLEAN         DEFAULT FALSE NOT NULL COMMENT 'Derrived attribute - set to true if milestone for container with container_milestone_cd = "eu_container_arrival_domestic_terminal" exists and has a date associated with it',
+   CONTAINER_GAS_MEASUREMENT_DT        DATE            COMMENT 'Latest date when the gas measurement of a container has taken place for container_milestone_cd = "eu_container_gas_measurement"',
+   CONTAINER_GAS_MEASUREMENT_RESULT_CD VARCHAR(50)     COMMENT 'Status_1 of gas measurement (e.g. completed = freely measured) for container_milestone_cd = "eu_container_gas_measurement"',
+   CONTAINER_GAS_MEASUREMENT_RESULT_EVALUATION_TXT VARCHAR(1000)   NOT NULL COMMENT 'Derrived attribute - result of the gas measurement process on latest date',
+   CONTAINER_GAS_MEASUREMENT_FG        BOOLEAN         DEFAULT FALSE NOT NULL COMMENT 'Derrived fact - set to true if milestone for container with container_milestone_cd = "eu_container_gas_measurement" exists and has a date associated with it and related result_evaluation_txt is not "Open"',
+   CONTAINER_DESTINATION_CUSTOMS_CLEARANCE_DT DATE            COMMENT 'Latest date of customs clearance by customs agent  for contanier_milestone_cd = "eu_container_destination_customs_clearance"',
+   CONTAINER_DESTINATION_CUSTOMS_CLEARANCE_RESULT_CD VARCHAR(50)     COMMENT 'Status_1 of customs clearance (e.g. green =customs cleared) for contanier_milestone_cd = "eu_container_destination_customs_clearance"',
+   CONTAINER_DESTINATION_CUSTOMS_CLEARANCE_FG BOOLEAN         DEFAULT FALSE NOT NULL COMMENT 'Derrived fact - set to true if milestone for container with container_milestone_cd = "eu_container_destination_customs_clearance" exists and has a date associated with it',
+   CONTAINER_GOODS_IN_WAREHOUSE_DT     DATE            COMMENT 'Date when the goods have been unloaded at the OWIM warehouse for container_milestone_cd = "eu_container_goods_in_warehouse"',
+   CONTAINER_GOODS_IN_WAREHOUSE_RESULT_CD VARCHAR(50)     COMMENT 'Indication whether a container has been already unloaded at the import warehouse for container_milestone_cd = "eu_container_goods_in_warehouse"',
+   CONTAINER_GOODS_IN_WAREHOUSE_FG     BOOLEAN         DEFAULT FALSE NOT NULL COMMENT 'Derrived fact - set to true if milestone for container with container_milestone_cd = "eu_container_goods_in_warehouse" exists and has a date associated with it',
+   CONTAINER_RETURN_DEPOT_RESULT_DT    DATE            COMMENT 'Date of empty container returned for container_milestone_cd = "eu_container_return_depot"',
+   CONTAINER_RETURN_DEPOT_RESULT_CD    VARCHAR(50)     COMMENT 'Indication whether a container has been already empty returned for container_milestone_cd = "eu_container_return_depot"',
+   CONTAINER_RETURN_DEPOT_FG           BOOLEAN         DEFAULT FALSE NOT NULL COMMENT 'Derrived fact - set to true if milestone for container with container_milestone_cd = "eu_container_return_depot" exists and has a date associated with it',
+   LOT_ACTUAL_DEPARTURE_DT             DATE            COMMENT 'Date of actual time of departure from port of Loading for atd',
+   LOT_TRANS_ATD_FG                    BOOLEAN         DEFAULT FALSE NOT NULL COMMENT 'Derrived fact - set to true if milestone for lot with lot_milestone_cd = "''trans_atd" exists and has a date associated with it',
+   LOT_LATEST_ACTUAL_ARRIVAL_DT        DATE            COMMENT 'Date of actual time of arrival at port of discharge for ata',
+   LOT_TRANS_ATA_FG                    BOOLEAN         DEFAULT FALSE NOT NULL COMMENT 'Derrived fact - set to true if milestone for lot with lot_milestone_cd = "''trans_ata" exists and has a date associated with it',
+   LOT_LATEST_ESTIMATED_ARRIVAL_DT     DATE            COMMENT 'Date of estimated time of arrival at port of discharge for eta',
+   LOT_ETA_IN_LOT_FG                   BOOLEAN         DEFAULT FALSE NOT NULL COMMENT 'Derrived fact - set to true if milestone for lot with lot_milestone_cd = "eta_in_lot" exists and has a date associated with it',
+   LOT_LATEST_ESTIMATED_DEPARTURE_DT   DATE            COMMENT 'Date of estimated time of departure from port of Loading for etd',
+   LOT_ETD_IN_LOT_FG                   BOOLEAN         DEFAULT FALSE NOT NULL COMMENT 'Derrived fact - set to true if milestone for lot with lot_milestone_cd = "etd_in_lot" exists and has a date associated with it',
+   LOT_LATEST_OFFICIAL_DELIVERY_WEEK_START_DT DATE            COMMENT 'Date that describes the earliest official delivery week of a country_1 within a container',
+   LOT_LATEST_OWIM_OFFICAL_DELIVERY_WEEK_DT DATE            COMMENT 'Date that describes the earliest official delivery week of owim to a country_1 within a container',
+   LOT_LATEST_CARGO_READY_BY_SUPPLIER_DT DATE            COMMENT 'Latest date for lot milestone with lot_milestone_cd = "cargo_ready_by_supplier"',
+   LOT_LATEST_SHIPMENT_RELEASE_DT      DATE            COMMENT 'Latest date for lot milestone with lot_milestone_cd = "shipment_release"',
+   DWH_CREATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   DWH_UPDATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+   DWH_SRC_FILE_NAME                   VARCHAR(500)    COMMENT 'The path and the name of the file(s) from which this record was loaded.',
+   DWH_SRC_1_TMSP                      TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was extracted from the source.',   
+   CONSTRAINT PK_FACT_LOT_CONTAINER_MILESTONE_PROGRESS PRIMARY KEY (LOT_PRODUCT_INSTANCE_GROUP_SID, CONTAINER_RESOURCE_ITEM_SID, PROGRESS_CHANGED_TMSP) NOT ENFORCED 
+)  COMMENT = 'Fact table - Transactional Snapshot_1 - Granularity - container, lot - Aggregate - aggregates milestones over time of lot and container to track progress of lot and container through their milestones ni pivoted form resulting in a certain status_1 of the combination of them in the system - Source - VMT';

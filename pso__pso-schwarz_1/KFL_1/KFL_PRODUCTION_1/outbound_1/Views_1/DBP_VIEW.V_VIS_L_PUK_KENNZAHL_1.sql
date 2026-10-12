@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_vis_l_puk_kennzahl_1 AS SELECT kennzahl_id,
+ thema_id
+FROM kfl_production_dbp_data.vis_l_puk_kennzahl_1;

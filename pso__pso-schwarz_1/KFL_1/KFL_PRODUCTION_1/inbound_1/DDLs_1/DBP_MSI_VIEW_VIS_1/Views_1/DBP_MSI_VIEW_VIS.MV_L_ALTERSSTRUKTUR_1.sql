@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_VIS.MV_L_ALTERSSTRUKTUR_1 as
+   SELECT * FROM dbp_view.v_l_altersstruktur_1;

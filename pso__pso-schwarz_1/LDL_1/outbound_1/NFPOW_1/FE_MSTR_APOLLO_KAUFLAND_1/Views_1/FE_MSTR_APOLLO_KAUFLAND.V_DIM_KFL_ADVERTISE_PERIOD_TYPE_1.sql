@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW nfpow_fe_mstr_apollo_kaufland.v_dim_kfl_advertise_period_type_1 (kfl_client_id,
+kfl_adv_period_type_id, kfl_adv_period_type_name) AS SELECT kfl_client_id,
+ kfl_adv_period_type_id,
+ kfl_adv_period_type_name
+FROM nfpow_core.t_dim_kfl_advertise_period_type_1;

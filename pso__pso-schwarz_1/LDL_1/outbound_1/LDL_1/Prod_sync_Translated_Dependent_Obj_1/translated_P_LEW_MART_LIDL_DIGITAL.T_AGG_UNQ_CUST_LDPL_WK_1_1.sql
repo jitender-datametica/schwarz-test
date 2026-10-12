@@ -1,0 +1,109 @@
+/*
+#----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS
+#----------------------------------------------------------------------------
+# Interface: 20180801_1778_LidlPlus_KPIs
+#            DDL for t_agg_unq_cust_ldpl_wk_1
+#----------------------------------------------------------------------------
+
+#----------------------------------------------------------------------------
+
+
+
+
+
+#----------------------------------------------------------------------------
+
+#----------------------------------------------------------------------------
+# History:
+#
+#  Vrs Date       Developer               Task
+#  --- ---------- ----------------------- --------------------------------
+#  1.0 2018-08-19 LEAD Reporting team 2   Initial version
+#                                         20180801_1778_LidlPlus_KPIs
+#  1.1 2019-01-03 LEAD Reporting team 2   Add store open flags
+#                                         20181203_1895_Update_Fixes_LidlPlus
+#  1.2 2019-04-12 Tris Bayliff            Add data mover columns
+#                                         20190405_2026_KPI_PPM_LidlPlus_Mgmt_Rep
+#  1.3 2020-04-09 Barbara Seneta          Added column customer_segment_cd
+#                                         20200408_2447_Customer_Segment_Fact
+#  1.4 2020-05-06 Barbara Seneta          Added column wh_id (it does not change granularity of the table)
+#                                         20200408_2447_Customer_Segment_Facts
+#  1.5 2020-05-07 Barbara Seneta          Changed Primary Index - from Unique UNIQUE   Non Unique Primary Index
+#                                         20200408_2447_Customer_Segment_Facts
+#  1.6 2020-05-22 Barbara Seneta          Changed data type of customer_segment_cd - from STRING  to INTEGER
+#                                         20200408_2447_Customer_Segment_Facts
+#
+#  1.7 2020-05-26 Barbara Seneta          Changed data type of customer_segment_cd - from INTEGER to INTEGER 
+#                                         Added compression (MVC) on customer_segment_cd and on lidlplus_cust_fg
+#                                         20200408_2447_Customer_Segment_Facts
+#
+#  1.8 2020-05-27 Barbara Seneta          Compression (MVC) moved from main DDL to ALTER statements
+#                                         20200408_2447_Customer_Segment_Facts
+#  1.9 2020-11-24 Pawel Wieczork          20201117_2664_harmo_cal SD-1544
+#                                         Add column
+#                                                   harmo_cal_week_no
+#                                         Drop columns
+#                                                   cw_tot_gros_val
+#                                                   cw_tot_net_gros_val
+#                                                   cw_trans_time_in_mins
+#                                                   cw_items_scanned_cnt
+#                                                   pw_tot_gros_val
+#                                                   pw_tot_net_gros_val
+#                                                   pw_trans_time_in_mins
+#                                                   pw_items_scanned_cnt
+#                                                   pyw_tot_gros_val
+#                                                   pyw_tot_net_gros_val
+#                                                   pyw_trans_time_in_mins
+#                                                   pyw_items_scanned_cnt
+#                                                   adjust_growth_fg
+#  2.0 2021-05-06 Pawel Wieczorek         [SF] Remove cluster the same way as it is in P_LEW_MART_LIDL_DIGITAL_AC_MATERIALIZED
+#
+#  2.1 2021-05-13 Pawel Wieczorek         [SF] change to TIMESTAMP_NTZ(9)
+#  2.2 2021-06-24 Patrick Mittler         [SF] remove COLLATE to improve performance
+#  2.3 2022-08-08 Pawel Wieczorek         AP0092849 changing names, setting WH_ID not null
+#                                         We dont need segment_sid in the PK, case for customer_sid == -999999999 we have the default segment
+#                                         For the Lidlplus customere_sid and move_to_store_id are unique, even for BE and LU
+#----------------------------------------------------------------------------
+*/
+
+
+
+
+/* ==============================================================================
+   Table DDL
+   ============================================================================== */
+
+
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_lidl_digital.t_agg_unq_cust_ldpl_wk_1 (
+aspect_id INTEGER NOT NULL OPTIONS(description='Gesellschaftsform (1 = Betriebs- 2 = Vertriebsgesellschaft)'),
+client_id INTEGER NOT NULL OPTIONS(description='DWH-Mandant_1; FK auf CLIENT'),
+cy_week INTEGER NOT NULL OPTIONS(description='Lidl+ : Week value (-1 means data is not at month level)'),
+harmo_cal_week_no INTEGER NOT NULL OPTIONS(description='Harmonized week no per country_1 - week since rollout'),
+move_to_store_id INTEGER NOT NULL OPTIONS(description='Lidl Store Id'),
+wh_id INTEGER NOT NULL OPTIONS(description='Warehouse ID'),
+customer_sid INTEGER NOT NULL OPTIONS(description='Surrogate Key CUSTOMER'),
+lidlplus_cust_fg STRING(1) NOT NULL OPTIONS(description='Lidl Plus Customer Flag'),
+adjust_growth_fg INTEGER NOT NULL OPTIONS(description='Adjust growth flag - berenigte steigerung'),
+wk_rf_segment_sid INTEGER NOT NULL
+OPTIONS(description='Recency-frequency segments id - used (client_id + loc_sid(LU), customer_sid, cy_month) to select t_cust_rfm_segment_mth.mth_rf_segment_sid'),
+wk_m_segment_sid INTEGER NOT NULL
+OPTIONS(description='Monetary segments id - used (client_id + loc_sid(LU), customer_sid, cy_month) to select t_cust_rfm_segment_mth.mth_m_segment_sid'),
+currency_iso_cd STRING(3) NOT NULL OPTIONS(description='iso code for the clients (countrys) currency'),
+curr_tot_id INTEGER NOT NULL OPTIONS(description='Fixe Werte fur EUR=0, GBP=40 sonst Client_Id'),
+cw_cust_act INTEGER OPTIONS(description='Current Week Customer Active flag 1 for active 0 for not active'),
+pw_cust_act INTEGER OPTIONS(description='Previous Week Customer Active flag 1 for active 0 for not active'),
+pyw_cust_act INTEGER OPTIONS(description='Previous Year Week Customer Active flag 1 for active 0 for not active'),
+cw_wk_str_open_fg INTEGER OPTIONS(description='Store open flag : Current week'),
+cw_rcpts_cnt INTEGER OPTIONS(description='Receipts count : Current week'),
+pw_wk_str_open_fg INTEGER OPTIONS(description='Store open flag : Previous week'),
+pw_rcpts_cnt INTEGER OPTIONS(description='Receipts count : Previous week'),
+pyw_wk_str_open_fg INTEGER OPTIONS(description='Store open flag : Previous year week'),
+pyw_rcpts_cnt INTEGER OPTIONS(description='Receipts count : Previous year week'),
+load_id INTEGER NOT NULL OPTIONS(description='Load identifier'),
+dwh_created DATETIME NOT NULL OPTIONS(description='Row create time'),
+dwh_updated DATETIME NOT NULL OPTIONS(description='Row update time'),
+PRIMARY KEY (aspect_id, client_id, cy_week, move_to_store_id, customer_sid, adjust_growth_fg, currency_iso_cd)
+NOT ENFORCED
+) CLUSTER BY client_id
+OPTIONS(description='Table for Unique customer every Week');

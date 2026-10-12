@@ -1,0 +1,24 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_immo_mietvertrag_sicherheit_1 (mandant_id, mv_intreno, sicherheit_lfd_nr
+, beschreibung, sicherheit_typ, dat_bis, betrag_soll, soll_wrg_id, betrag_ist, ist_wrg_id, dat_eingeloest_am,
+dat_rueckgabe_am, dat_eingang_am, dat_uebergabe_am, buergschaft_nr, buergschaft_grund, rueckgabe_voraussetzung, bank_id
+, kaution_bez, dat_ausstellung_am) AS SELECT mandant_id,
+ mv_intreno,
+ sicherheit_lfd_nr,
+ beschreibung,
+ sicherheit_typ,
+ dat_bis,
+ betrag_soll,
+ soll_wrg_id,
+ betrag_ist,
+ ist_wrg_id,
+ dat_eingeloest_am,
+ dat_rueckgabe_am,
+ dat_eingang_am,
+ dat_uebergabe_am,
+ buergschaft_nr,
+ buergschaft_grund,
+ rueckgabe_voraussetzung,
+ bank_id,
+ kaution_bez,
+ dat_ausstellung_am
+FROM kfl_production_dbp_data.immo_mietvertrag_sicherheit_1;

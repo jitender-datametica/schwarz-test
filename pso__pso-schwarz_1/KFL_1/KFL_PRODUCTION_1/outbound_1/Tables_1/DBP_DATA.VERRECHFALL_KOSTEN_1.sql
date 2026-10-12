@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.verrechfall_kosten_1 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+verrechfall_kosten_id BIGNUMERIC(38,0) NOT NULL,
+mwst_id BIGNUMERIC(38,0) NOT NULL,
+storno_fg BIGNUMERIC(38,0) NOT NULL,
+soll_ist_fg BIGNUMERIC(38,0) NOT NULL,
+manuelle_erfassung_fg BIGNUMERIC(38,0) NOT NULL,
+wrg_id STRING(3) COLLATE 'und:ci',
+verrechfall_id BIGNUMERIC(38,0) NOT NULL,
+dat_verrechnung_intern DATE,
+dat_verrechnung_extern DATE,
+verrechfall_kostenart_id STRING(10) COLLATE 'und:ci' NOT NULL,
+verrechfall_status_id STRING(10) COLLATE 'und:ci' NOT NULL,
+betrag_kosten NUMERIC(18,2) NOT NULL,
+bemerkung STRING(40) COLLATE 'und:ci',
+belosart_fg BIGNUMERIC(38,0) NOT NULL,
+zeit_verrechnung_intern TIME,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

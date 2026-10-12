@@ -1,0 +1,25 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t_ts_tcache_pos_receipt_load_utcc_2_tcache_pos_cash_register_load_keyed_utcc___1
+(
+src_country_cd STRING(20),
+src_orig_store_nr BIGNUMERIC(38,0),
+src_cash_register_nr BIGNUMERIC(38,0),
+src_pos_type STRING(3),
+cash_register_type_cd STRING(3),
+country_org_cd STRING(2),
+curr_cd STRING(3),
+cash_register_sid BIGNUMERIC(38,0),
+country_org_sid BIGNUMERIC(38,0),
+real_estate_sid BIGNUMERIC(38,0),
+store_sid BIGNUMERIC(38,0),
+extraction_ts TIMESTAMP,
+dwh_load_id BIGNUMERIC(38,0),
+dwh_node_cd STRING(20),
+record_id STRING(1000),
+deleted_fg BOOL,
+error_descr STRING(1000),
+filename STRING(1000),
+hist_row_no STRING(1000),
+dwh_mapping_tmsp TIMESTAMP,
+dwh_ending_tmsp TIMESTAMP,
+error_fg BIGNUMERIC(38,0)
+);

@@ -1,0 +1,11 @@
+create or replace view LDL_DATA_PRODUCTION.META.V_DV_NUMBER_REPLACEMENT_OLD_STORES_1(
+	PART_WEEK,
+	PART_WEEK_BEGIN_DT,
+	PART_WEEK_END_DT,
+	CLOSED_RE_CNT,
+	OPEN_RE_CNT,
+	DIFFERENCE,
+	FAILED,
+	TOTAL
+) COMMENT='Number of new openings of replacement stores = number of closures of old stores within the same partial week\ninput datasets:\ncore_dim.t_dim_calendar_partial_week_1\ncore_dim.t_dim_real_estate_1\ncore_dim.t_fact_real_estate_lifecycle_1'
+ as WITH wk as ( SELECT part_week, part_week_begin_dt, part_week_end_dt FROM core_dim.t_dim_calendar_partial_week_1 WHERE part_week_offset = -1 ) SELECT wk.part_week, wk.part_week_begin_dt, wk.part_week_end_dt, closed.closed_re_cnt, open.open_re_cnt, (closed_re_cnt - open_re_cnt) as difference, CASE WHEN difference != 0 THEN 1 ELSE 0 END AS FAILED, 1 AS TOTAL FROM wk, ( SELECT 1 as key, count(1) as closed_re_cnt FROM core_dim.t_dim_real_estate_1 AS re_1 join core_dim.t_fact_real_estate_lifecycle_1 AS rel on re.real_estate_sid = rel.real_estate_sid, wk WHERE re.real_estate_type_cd in ('STORE', 'SPEC') AND rel.close_dt BETWEEN wk.part_week_begin_dt AND wk.part_week_end_dt AND rel.close_dt BETWEEN re.dwh_valid_from_tmsp AND re.dwh_valid_to_tmsp AND re.replacement_real_estate_nr > '' ) AS closed JOIN ( SELECT 1 as key, count(1) as open_re_cnt FROM core_dim.t_dim_real_estate_1 AS re_1 JOIN core_dim.t_fact_real_estate_lifecycle_1 AS rel ON re.real_estate_sid = rel.real_estate_sid, wk WHERE re.real_estate_type_cd in ('STORE', 'SPEC') AND rel.open_dt BETWEEN wk.part_week_begin_dt AND wk.part_week_end_dt AND rel.open_dt BETWEEN re.dwh_valid_from_tmsp AND re.dwh_valid_to_tmsp AND re.real_estate_sid in ( SELECT distinct replacement_real_estate_sid FROM core_dim.t_dim_real_estate_1 AS re_1 join core_dim.t_fact_real_estate_lifecycle_1 AS rel on re.real_estate_sid = rel.real_estate_sid, wk WHERE re.real_estate_type_cd in ('STORE', 'SPEC') AND rel.close_dt BETWEEN wk.part_week_begin_dt AND wk.part_week_end_dt AND rel.close_dt BETWEEN re.dwh_valid_from_tmsp AND re.dwh_valid_to_tmsp AND re.replacement_real_estate_nr > '' ) ) open on open.key = closed.key;

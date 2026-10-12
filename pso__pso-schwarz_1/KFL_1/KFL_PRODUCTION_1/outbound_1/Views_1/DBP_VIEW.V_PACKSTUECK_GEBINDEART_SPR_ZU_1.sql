@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_packstueck_gebindeart_spr_zu_1 AS SELECT mandant_id,
+ packstueck_gebindeart_id,
+ spr_id,
+ packstueck_gebindeart_bez
+FROM kfl_production_dbp_data.packstueck_gebindeart_spr_zu_1;

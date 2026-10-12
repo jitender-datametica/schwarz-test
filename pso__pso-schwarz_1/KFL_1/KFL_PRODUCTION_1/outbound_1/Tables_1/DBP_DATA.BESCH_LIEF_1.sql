@@ -1,0 +1,72 @@
+--==============================================================
+-- Table: besch_lief_1
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: besch_lief_1
+   generated from Powerdesigner on Freitag, 11. November 2022 15:57:44
+*/ --------------------------------------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.besch_lief_1 (
+mandant_id BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='Der Mandant_1 1 steht im DWH für Deutschland (der Wert 222 aus dem SAP System für Deutschland wird in Wert 1 umgewandelt).'),
+lief_beleg_id BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='Das Feld enthält die Beleg ID des Lieferscheins und dient der eindeutigen Identifikation der Lieferscheinbelege.'),
+kj BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Kalenderjahr, Format JJJJ.'),
+wup_id BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='Mutter Wup_1 ID, wird verwendet für Beziehung Lager zu Verteilzentrum.'),
+nb_id BIGNUMERIC(38,0)
+OPTIONS(description='Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer'),
+versandstelle_id STRING(4) COLLATE 'und:ci' NOT NULL
+OPTIONS(description='Ort, an dem Lieferungen bearbeitet werden. Es kann sich dabei um einen physischen Ort (z.B. ein Lager oder eine_1 Gruppe_1 von Laderampen) oder um eine_1 logische Gruppierung (z.B. eine_1 Gruppe_1 von Personen, die für die Versandaktivitäten zuständig ist) handeln.'),
+verkaufsorganisation_id STRING(4) COLLATE 'und:ci' NOT NULL
+OPTIONS(description='Organisatorische Einheit, die für den Vertrieb bestimmter Produkte oder Dienstleistungen verantwortlich ist, z. B. KL = Kaufland.'),
+lief_typ_id STRING(4) COLLATE 'und:ci' NOT NULL
+OPTIONS(description='Klassifikation, mit der zwischen verschiedenen Arten der Lieferung unterschieden wird. Die Lieferart bestimmt, wie das System eine_1 Lieferung bearbeitet.'),
+dat_lief_soll DATE NOT NULL
+OPTIONS(description='Datum, bei dem die Lieferung beim Kunden eingehen soll. Das System kann für den Warenausgang das Lieferdatum aufgrund vordefinierter Zeitschätzungen errechnen.'),
+vertr_beleg_typ_id STRING(4) COLLATE 'und:ci' NOT NULL
+OPTIONS(description='Dieses Kennzeichen liefert die Information aus welchem Vorgang dieser Vertriebsbeleg generiert wurde, z. B. ob der Lieferschein aufgrund eines Wareneingangs generiert wurde.'),
+lief_pal_typ_id STRING(1) NOT NULL
+OPTIONS(description='Der Palettentyp einer Lieferung kennzeichnet, ob es sich um eine_1 Ganzpalettenlieferung, Mischpalettenlieferung, Lieferung je Markt etc. handelt.'),
+kunde_id STRING(10) COLLATE 'und:ci' NOT NULL
+OPTIONS(description='Nummer des Warenempfängers der Lieferung. Diese Nummer referenziert die DWH Tabelle wup. COMPRESS mit CAMSET_L.'),
+auftraggeber_id STRING(10) COLLATE 'und:ci' NOT NULL
+OPTIONS(description='Kunde, der die Waren oder Dienstleistungen bestellt. Der Auftraggeber übernimmt die vertragliche Haftung für den Kundenauftrag. COMPRESS mit CAMSET_L.'),
+anzahl_packstueck BIGNUMERIC(38,0)
+OPTIONS(description='Gesamte Anzahl der Packstücke für alle Positionen der Lieferung.'),
+werbeware_id STRING(1) COLLATE 'und:ci'
+OPTIONS(description='Wird gefüllt, wenn die Bestellart eine_1 Werbebestellart ist. Wertevorrat: W = Werbung, N = Normalware, B-W und N-S = Schnellschuss.'),
+dat_lagerbew_ist DATE OPTIONS(description='Warenbewegungsdatum im Lieferschein.'),
+system_id BIGNUMERIC(38,0) DEFAULT 7 NOT NULL
+OPTIONS(description='Die System ID kennzeichnet das Quellsystem der Daten (z. B. SAP PR1).'),
+mandant_id_kunde BIGNUMERIC(38,0) DEFAULT 1 NOT NULL
+OPTIONS(description='Der Kunde kann zu einem anderen Mandanten als dem des WUP_1 gehören, z.B. Lager aus CZ beliefert Markt in SK.'),
+cd_kz STRING(2) COLLATE 'und:ci' NOT NULL
+OPTIONS(description='Kennzeichen für Cross Docking aus zlvcd.  Referenz zur Lookuptabelle l_cd_typ.'),
+wup_id_cd BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Nummer des Verteilzentrums bei CD-Verkehren.'),
+lagernummer_id STRING(4) COLLATE 'und:ci' NOT NULL
+OPTIONS(description='ID der Lagernummer - höchste Ebene der Lagerhierarchie.'),
+stellplatz_faktor BIGNUMERIC(38,2) DEFAULT 1 NOT NULL
+OPTIONS(description='Korrekturwert zur Berechnung der Anzahl der Stellplätze.'),
+belos_vorgang_id BIGNUMERIC(38,0) DEFAULT 0 NOT NULL
+OPTIONS(description='Referenz zum Belos-Vorgang. Nicht in jedem Fall vorhanden. Defaultwert ist 0.'),
+handling_unit_id_ext STRING(20) COLLATE 'und:ci' DEFAULT '-1' NOT NULL
+OPTIONS(description='Die 18-stellige Nummer der Versandeinheit (NVE) aus dem Feld zzlvcdnve. Aus Konsistenzgründen als STRING(20) mit zwei führenden Nullen abgespeichert. COMPRESS mit CAMSET_L.'),
+wg_verkett_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL
+OPTIONS(description='Flag. Zeigt an, ob eine_1 Warengruppenverkettung existiert. Aus dem Feld zzlvwgrvkhier_kz.'),
+wg_verkett_lief BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL
+OPTIONS(description='Die Warengruppenverkettung ist artikelbezogen. Wird in SAP auf die Kopftabelle hochgezogen, die erste Position als Quelle. Stimmt also bei Mischpaletten nicht für alle Positionen. Referenziert auf die Tabelle l_wg_verkettung. Das SAP-Feld ist zzlwgrv.'),
+gp_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL
+OPTIONS(description='Geschäftspartner - ID (Lieferanten - ID). Entspricht elifn aus der Quelle.'),
+we_status_id STRING(1) COLLATE 'und:ci' DEFAULT '-' NOT NULL
+OPTIONS(description='Wareneingangsstatus-ID, aus zlvwestatus.'),
+dat_aktion DATE OPTIONS(description='Werbedatum.'),
+dat_erstellung DATE OPTIONS(description='Erstellungsdatum des Lieferbeleges - Quelle: LIKP.ERDAT.'),
+td_update TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+td_insert TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+PRIMARY KEY (mandant_id, lief_beleg_id, kj) NOT ENFORCED
+)
+OPTIONS(description='TP408_LVS - In dieser Tabelle sind die Kopfdaten der Lieferscheine aus der SAP Tabelle LIPK enthalten.');

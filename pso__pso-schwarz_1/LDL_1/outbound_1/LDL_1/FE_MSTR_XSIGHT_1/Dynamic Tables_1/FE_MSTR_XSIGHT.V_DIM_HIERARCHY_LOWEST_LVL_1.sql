@@ -1,0 +1,5 @@
+CREATE OR REPLACE MATERIALIZED VIEW ldl_fe_mstr_xsight.v_dim_hierarchy_lowest_lvl_1
+OPTIONS(ENABLE_REFRESH = TRUE, REFRESH_INTERVAL_MINUTES = 90) AS
+SELECT DISTINCT data_provider_hierarchy_lowest_lvl_name AS hierarchy_lowest_lvl,
+ market_research_country_cd AS country_cd
+FROM ldl_p_lew_core_ac.v_market_research_product_1;

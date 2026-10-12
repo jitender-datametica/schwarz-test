@@ -1,0 +1,30 @@
+INSERT INTO ${TEMP_DB}.${SRC2TGT_TEMP_TABLE1}_${SRC_CONTEXT_AREA}
+(
+        CASHIER_HASH,
+        BUS_DT,
+        STORE_NR,
+        COUNTRY_ORG_CD,
+        CASHIER_NR,
+        DWH_MAPPING_TMSP,
+        TF_ERROR_FG,
+        DELETED_FG,
+        RECORD_ID,
+        FILENAME,
+        DWH_NODE_CD,
+        DWH_LOAD_ID
+)
+SELECT
+        SRC.CASHIER_HASH AS CASHIER_HASH,
+        SRC.BUS_DT AS BUS_DT,
+        SRC.STORE_NR AS STORE_NR,
+        SRC.COUNTRY_ORG_CD AS COUNTRY_ORG_CD,
+        SRC.CASHIER_NR AS CASHIER_NR,
+        CURRENT_TIMESTAMP AS DWH_MAPPING_TMSP,
+        0 AS TF_ERROR_FG,
+        0 AS DELETED_FG,
+        0 AS RECORD_ID,
+        'V_${SRC_INPUT_TABLE}' AS FILENAME,
+        'EJR' AS DWH_NODE_CD,
+        '${LOAD_ID}' as DWH_LOAD_ID 
+FROM core_app_fraud_detection.t_cashier_encryption_1 SRC limit 1000
+;

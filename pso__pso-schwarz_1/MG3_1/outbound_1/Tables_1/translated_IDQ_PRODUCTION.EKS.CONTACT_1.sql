@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE idq_production_eks.contact_1 (
+contactid INTEGER,
+addressformid INTEGER,
+languageid INTEGER,
+is_sap INTEGER,
+crdate STRING(40),
+moddate STRING(40),
+cruser STRING(35),
+moduser STRING(35),
+lastname STRING(40),
+contactwawiflag INTEGER,
+webpasswordflag INTEGER,
+signatureid INTEGER,
+shortsign STRING(5),
+sap_id STRING(15),
+sap_indicator STRING(3),
+firstname STRING(40),
+webuser STRING(40),
+webpassword STRING(20),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_p_lew_fe_mstr_salesforce_crm.v_ref_customer_complaint_category_1 (client_id,
+cust_complaint_cat_sid, cust_complaint_srv_center_cd, src_cust_complaint_cat_nr, cust_complaint_cat_nr,
+cust_complaint_cat_name, src_name, dwh_load_id, dwh_created, dwh_updated) AS SELECT *
+FROM ldl_p_lew_core_ac.v_ref_customer_complaint_category_1;

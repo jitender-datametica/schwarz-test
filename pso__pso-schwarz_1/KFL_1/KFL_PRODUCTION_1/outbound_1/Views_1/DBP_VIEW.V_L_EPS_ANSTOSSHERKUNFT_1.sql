@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_eps_anstossherkunft_1 AS SELECT mandant_id,
+ anstossherkunft_kz
+FROM kfl_production_dbp_data.l_eps_anstossherkunft_1;

@@ -1,0 +1,25 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TF_TCACHE_GPS_MISSINGTIMES_2_TIME_TRACKING_DAY_1
+(
+  CLIENT_ID                                     NUMBER(38)                    NOT NULL,
+  LIDL_COUNTRY                                  VARCHAR(40)                   NOT NULL,
+  TCACHE_GPS_MISSINGTIMES_BIC_ZMLILA            VARCHAR(60)                   NOT NULL,
+  TCACHE_GPS_MISSINGTIMES_ORIG_STORE_NR         NUMBER(10,0)                  NOT NULL,
+  TCACHE_GPS_MISSINGTIMES_TIME_RECORD_ID        NUMBER(38,0)                  NOT NULL,
+  TCACHE_GPS_MISSINGTIMES_TIME_RECORD_CHANGE_DT DATE                          NOT NULL,
+  TCACHE_GPS_MISSINGTIMES_CANCEL_FG             NUMBER(38,0)                  NOT NULL,
+  TCACHE_GPS_MISSINGTIMES_DWH_CAL_DT            DATE                          NOT NULL,
+  ORIG_STORE_NR                                 NUMBER(10,0)                  NOT NULL,
+  TIME_RECORD_ID                                NUMBER(38)                    NOT NULL,
+  TIME_RECORD_CHANGE_DT                         DATE                          NOT NULL,
+  EMPLOYEE_HASH                                 VARCHAR(100) COLLATE 'en-ci'  NULL,
+  WH_ID                                         NUMBER(10,0)                  NULL,
+  MISSINGTYPE_ID                                VARCHAR(40)                   NULL,
+  HOURS_CNT                                     NUMBER(9,5)                   NULL,
+  CANCEL_FG                                     NUMBER(38)                    NOT NULL,
+  DWH_CAL_DT                                    DATE                          NOT NULL,
+  EXTRACTION_DT                                 DATE                          NULL,
+  DWH_MAPPING_DT                                DATE                          NOT NULL,
+  TF_ERROR_FG                                   NUMBER(1,0)                   NULL,
+  RECORD_ID                                     VARCHAR(300)                  NOT NULL,
+  FILENAME                                      VARCHAR(1000)                 NOT NULL
+);

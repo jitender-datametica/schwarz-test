@@ -1,0 +1,27 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_art_nielsen_1 AS 
+    SELECT 
+        mandant_id,
+        art_nielsen_id,
+        dat_von,
+        dat_bis,
+        art_nielsen_tag,
+        art_nielsen_bez,
+        hersteller_bez,
+        gtin_id,
+        gtin_ref_id,
+        inhalt_menge,
+        inhalt_einheit,
+        nielsen_abteilung_bez,
+        nielsen_wg_bez,
+        nielsen_uwg1_bez,
+        nielsen_uwg2_bez,
+        marke_bez,
+        bio_organic_kz,
+        veggy_split_kz,
+        laktosefrei_kz,
+        glutenfrei_kz,
+        duft_geschmack_bez,
+        nielsen_vorschl_wg_id,
+        nielsen_vorschl_wug_id,
+        datzeit_letzte_eintragung_nielsen_vorschl
+FROM DBP_DATA.art_nielsen_1 ;

@@ -1,0 +1,205 @@
+CREATE OR REPLACE VIEW FE_MSTR_LOGOP.V_WAWI_BESTANDARTIKEL_1(
+	CLIENT_ID
+	,WH_ID
+	,ARTIKELNR
+	,MENGE
+	,RETAIL_PRICE
+	,STATUS_1
+	,DATUM
+	,MISSING_UNTIL
+	,WAMAS_REASON
+	,DWH_VALID_FROM
+	,DWH_VALID_TO
+	,DWH_UPDATED
+	,DELETED_FG
+	,MISSING_FG
+) AS 
+WITH LatestBestandartikel AS (
+    SELECT
+        CLIENT_ID
+        ,WH_NR AS WH_ID
+        ,ARTIKELNR
+        ,MENGE
+		,RETAIL_PRICE
+		,DATUM
+        ,DWH_VALID_FROM
+        ,DWH_VALID_TO
+        ,DWH_UPDATED
+        ,DELETED_FG
+        ,CASE
+            WHEN MENGE > 0 THEN 1
+            WHEN MENGE < 0 THEN 2
+            ELSE 3
+        END AS MENGE_TYPE
+    FROM
+        FE_MSTR_LOGOP.V_WAWI_BESTANDARTIKEL_ACT_1
+        WHERE MENGE <> 0
+
+)
+,LatestBestandartikel_SearchFunction AS (
+    SELECT
+        CLIENT_ID
+        ,WH_NR AS WH_ID
+        ,ARTIKELNR
+        ,MENGE
+        ,RETAIL_PRICE
+		,DATUM
+        ,DWH_VALID_FROM
+        ,DWH_VALID_TO
+        ,DWH_UPDATED
+        ,DELETED_FG
+    FROM
+        FE_MSTR_LOGOP.V_WAWI_BESTANDARTIKEL_ACT_1
+)
+,MissingItems AS (
+    SELECT
+        CLIENT_ID
+        ,CASE 
+            WHEN CLIENT_ID=13 AND WH_NR = 600 THEN 60
+            WHEN CLIENT_ID=18 AND WH_NR = 20 THEN 4
+            WHEN CLIENT_ID=21 AND WH_NR = 20 THEN 22 ELSE WH_NR
+            END AS WH_ID
+        ,ITEMNR
+        ,STATUS_1
+        ,MISSING_UNTIL
+        ,WAMAS_REASON
+        ,SCN
+        ,DWH_VALID_FROM
+        ,DWH_VALID_TO
+        ,DELETED_FG
+    FROM
+        DATA.T_WAWI_MISSING_ITEMS_1
+    WHERE
+        CURRENT_DATE BETWEEN DWH_VALID_FROM AND DWH_VALID_TO
+        AND DELETED_FG = 'FALSE'
+        AND MISSING_UNTIL IS NULL
+        AND STATUS_1 < 40
+        AND TRY_CAST(CAST(WAMAS_REASON AS STRING) AS INTEGER) IS NOT NULL
+)
+,ItemStatusBegrenzt AS (
+    SELECT
+        CLIENT_ID
+        ,CASE 
+            WHEN CLIENT_ID=13 AND WAREHOUSENO = 600 THEN 60
+            WHEN CLIENT_ID=18 AND WAREHOUSENO= 20 THEN 4
+            WHEN CLIENT_ID=21 AND WAREHOUSENO = 20 THEN 22 ELSE WAREHOUSENO
+            END AS WH_ID
+        ,ITEMNO
+        ,STATUS_1
+        ,REASON
+        ,SCN
+        ,DWH_VALID_FROM
+        ,DWH_VALID_TO
+        ,DELETED_FG
+    FROM
+        DATA.T_WAWI_ITEMSTATUS_1
+    WHERE
+        CURRENT_DATE BETWEEN DWH_VALID_FROM AND DWH_VALID_TO
+        AND DELETED_FG = 'FALSE'
+        AND STATUS_1 IN (1,2,3,4,13,14)
+)
+,ItemStatusFull AS (
+    SELECT
+        CLIENT_ID
+        ,CASE 
+            WHEN CLIENT_ID=13 AND WAREHOUSENO = 600 THEN 60
+            WHEN CLIENT_ID=18 AND WAREHOUSENO= 20 THEN 4
+            WHEN CLIENT_ID=21 AND WAREHOUSENO = 20 THEN 22 ELSE WAREHOUSENO
+            END AS WH_ID
+        ,ITEMNO
+        ,STATUS_1
+        ,REASON
+        ,SCN
+        ,DWH_VALID_FROM
+        ,DWH_VALID_TO
+        ,DELETED_FG
+    FROM
+        DATA.T_WAWI_ITEMSTATUS_1
+    WHERE
+        CURRENT_DATE BETWEEN DWH_VALID_FROM AND DWH_VALID_TO AND 
+		DELETED_FG = 'FALSE'
+)
+SELECT
+    CLIENT_ID
+    ,WH_ID
+    ,ARTIKELNR
+    ,MENGE
+	,RETAIL_PRICE
+    ,CAST (999 AS INTEGER) AS STATUS_1
+	,DATUM
+    ,NULL AS MISSING_UNTIL
+    ,CAST (999 AS INTEGER) AS WAMAS_REASON
+    ,DWH_VALID_FROM
+    ,DWH_VALID_TO
+    ,DWH_UPDATED
+    ,DELETED_FG
+    ,CAST (1 AS INTEGER) AS MISSING_FG
+FROM LatestBestandartikel
+WHERE Menge_Type = 2
+UNION
+
+SELECT
+    a.CLIENT_ID
+    ,a.WH_ID
+    ,a.ARTIKELNR
+    ,a.MENGE
+	,a.RETAIL_PRICE
+    ,b.STATUS_1
+	,a.DATUM
+    ,b.MISSING_UNTIL
+    ,b.WAMAS_REASON
+    ,a.DWH_VALID_FROM
+    ,a.DWH_VALID_TO
+    ,a.DWH_UPDATED
+    ,a.DELETED_FG
+    ,CAST (2 AS INTEGER) AS MISSING_FG
+FROM LatestBestandartikel a
+JOIN MissingItems b ON 
+    a.CLIENT_ID = b.CLIENT_ID
+    AND a.WH_ID = b.WH_ID
+    AND a.ARTIKELNR = b.ITEMNR
+WHERE a.Menge_Type = 1
+UNION
+
+SELECT
+    e.CLIENT_ID
+    ,e.WH_ID
+    ,e.ARTIKELNR
+    ,e.MENGE
+	,e.RETAIL_PRICE
+    ,f.STATUS_1
+	,e.DATUM
+    ,NULL AS MISSING_UNTIL
+    ,TRY_TO_NUMBER(f.REASON) AS WAMAS_REASON
+    ,e.DWH_VALID_FROM
+    ,e.DWH_VALID_TO
+    ,e.DWH_UPDATED
+    ,e.DELETED_FG
+    ,CAST (3 AS INTEGER) AS MISSING_FG
+FROM LatestBestandartikel e
+JOIN ItemStatusBegrenzt f ON 
+    e.CLIENT_ID = f.CLIENT_ID
+    AND e.WH_ID = f.WH_ID
+    AND e.ARTIKELNR = f.ITEMNO
+UNION
+
+SELECT 
+    lbf.CLIENT_ID
+    ,lbf.WH_ID
+    ,lbf.ARTIKELNR
+    ,lbf.MENGE
+    ,lbf.RETAIL_PRICE
+    ,isf.STATUS_1
+	,lbf.DATUM
+    ,NULL AS MISSING_UNTIL
+    ,CAST (996 AS INTEGER) AS WAMAS_REASON
+    ,lbf.DWH_VALID_FROM
+    ,lbf.DWH_VALID_TO
+    ,lbf.DWH_UPDATED
+    ,lbf.DELETED_FG
+	,CAST (4 AS INTEGER) AS MISSING_FG
+FROM LatestBestandartikel_SearchFunction lbf
+LEFT JOIN ItemStatusFull isf ON lbf.client_id = isf.client_id
+AND lbf.wh_id = isf.wh_id
+AND lbf.artikelnr = isf.itemno
+;

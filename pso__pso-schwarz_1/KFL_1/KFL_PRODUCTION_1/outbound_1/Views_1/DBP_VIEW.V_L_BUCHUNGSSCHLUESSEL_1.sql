@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_buchungsschluessel_1 AS SELECT buchungsschluessel_id
+FROM kfl_production_dbp_ods.l_buchungsschluessel_1;

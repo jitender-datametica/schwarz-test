@@ -1,0 +1,20 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_sb_beurteilung_1 AS SELECT beurteilung_id,
+ beurteiler_id,
+ mandant_id,
+ wup_id,
+ note_gesamt,
+ eindruck_gesamt,
+ dat_beurteilung,
+  (SAFE.PARSE_TIME('%H%M%S', CAST(MOD(CAST(zeit_beurteilung AS BIGNUMERIC), CAST('240000' AS NUMERIC)) AS STRING FORMAT '000000')
+   )) AS zeit_beurteilung,
+ hl_anwesend_fg,
+ chef_tag_fg,
+ hotday_fg,
+ frueh_kz,
+ tf_fg,
+ dat_erfassung,
+ loesch_fg,
+ pep_fg,
+ kennzahl_fg,
+ sb_checkliste_typ_id
+FROM kfl_production_dbp_data.sb_beurteilung_1;

@@ -1,0 +1,24 @@
+/*
+#----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS
+#----------------------------------------------------------------------------
+# Interface: DDL for #X_LEW_MART_CS_AC#.V_BW_LP_ORGA_OHNE_COUPON_1
+#----------------------------------------------------------------------------
+# History:
+#  1.0  26.08.2024    Ulrich Ross               Init
+#     
+#                                                                                
+#----------------------------------------------------------------------------
+*/
+
+
+CREATE OR REPLACE VIEW ldl_p_lew_mart_cs_ac.v_bw_lp_orga_ohne_coupon_1 (client_id, country_desc, country_iso_cd, cy_month
+, cy_month_name, non_lp_werbe_pv, lp_werbe_pv, gesamt_werbe_pv, non_lp_werbe_pv_prozent, lp_werbe_pv_prozent,
+gesamt_werbe_pv_prozent, lp_preisveraenderung, non_lp_preisveraenderung, gesamt_preisveraenderung, non_lp_abschriften,
+lp_abschriften, gesamt_abschriften, non_lp_abschriften_prozent, lp_abschriften_prozent, gesamt_abschriften_prozent,
+lp_kunden_anz, dv_anteil_lp_kunden_prozent, gesamt_preisveraenderung_prozent, lp_preisveraenderung_prozent,
+non_lp_preisveraenderung_prozent, lp_deregistrierung_anz, gesamt_bon_anz, non_lp_count_receipt, lp_umsatz_ejr,
+lp_bon_durchschn, gesamt_bon_durchschn, non_lp_bon_durchschn, lp_bon_identifizierungsrate, lp_einkaufsfrequenz,
+lp_umsatzanteil_prozent, lp_bon_anz, all_receipt_count, gesamt_umsatz_ejr, lp_registrierte_nutzer_anz, non_lp_umsatz_ejr
+, filialen_anz, lp_neuregistrierungen_anz) AS SELECT *
+FROM ldl_p_lew_mart_cs.v_bw_lp_orga_ohne_coupon_1;

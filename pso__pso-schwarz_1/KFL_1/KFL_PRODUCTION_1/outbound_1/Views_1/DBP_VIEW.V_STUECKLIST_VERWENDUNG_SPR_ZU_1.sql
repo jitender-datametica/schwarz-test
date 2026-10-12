@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_stuecklist_verwendung_spr_zu_1 AS SELECT mandant_id,
+ stueckliste_verwendung_id,
+ spr_id,
+ stueckliste_verwendung_bez
+FROM kfl_production_dbp_data.stuecklist_verwendung_spr_zu_1;

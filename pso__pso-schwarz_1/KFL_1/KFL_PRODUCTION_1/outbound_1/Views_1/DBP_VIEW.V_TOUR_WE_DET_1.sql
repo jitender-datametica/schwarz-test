@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_tour_we_det_1 AS SELECT mandant_id,
+ wup_id,
+ nb_id,
+ lagernummer_id,
+ tour_id,
+ wgvgrp_id,
+ lief_beleg_id,
+ seq_nummer,
+ art_id,
+ kj_lief_beleg,
+ gruppenzone_id,
+ ausschluss_manuell_fg,
+ ausschluss_regel_fg,
+ blockartikel_fg,
+ lagerplatz_id,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.tour_we_det_1;

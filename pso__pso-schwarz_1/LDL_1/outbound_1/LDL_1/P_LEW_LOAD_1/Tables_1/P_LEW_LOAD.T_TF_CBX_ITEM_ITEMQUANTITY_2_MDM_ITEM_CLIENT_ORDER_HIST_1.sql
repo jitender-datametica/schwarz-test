@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_cbx_item_itemquantity_2_mdm_item_client_order_hist_1 (
+client_id BIGNUMERIC(38),
+lidl_country STRING(40),
+cbx_item_itemquantity_cbxitem_documentref STRING(250),
+cbx_item_itemquantity_cbxitem_itemquantity_countrycode STRING(250),
+src_item_doc_ref STRING(40),
+client_id_order BIGNUMERIC(38),
+cbx_order_version BIGNUMERIC(38),
+cy_week_advertise BIGNUMERIC(38),
+cy_week_import BIGNUMERIC(38),
+client_sell_from_dt DATE,
+client_sale_price NUMERIC(18,5),
+client_order_carton_weight NUMERIC(18,5),
+client_order_total_qty BIGNUMERIC(38),
+client_order_total_carton_qty BIGNUMERIC(38),
+client_order_notes STRING(300) COLLATE 'und:ci',
+deleted_fg BIGNUMERIC(38),
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

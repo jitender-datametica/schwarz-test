@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process_mstr_ac.v_lil_region_1 (client_id, region_sid, region_id, src_region_cd,
+region_name_en, region_name_de, region_short_desc, region_long_desc, region_srt_cd, qr_srt_cd, region_lvl,
+sd_chld_below_12, sd_chld_over_12, active_fg, dwh_load_id, dwh_created, dwh_updated) AS SELECT *
+FROM ldl_p_lew_process_mstr.t_lil_region_1;

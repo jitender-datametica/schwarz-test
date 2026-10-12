@@ -1,0 +1,9 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_WAWI_MAX_TRANS_DAYEND_INT_1
+(
+  COUNTRY_ISO_CD  VARCHAR(3) COLLATE 'en-ci'    NULL,
+  DATA_TYPE       VARCHAR(20) COLLATE 'en-ci'   NULL,
+  INTERFACE       VARCHAR(30) COLLATE 'en-ci'   NULL,
+  DAT_DAYEND      DATE                          NULL,
+  WH_ID           NUMBER(38)                    NULL,
+  TIME_TRANS      TIMESTAMP_NTZ(0)              NULL
+);

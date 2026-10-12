@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_wawi_sup_supplier_contact_999_1 (
+client_id BIGNUMERIC(38) NOT NULL,
+sup_sid BIGNUMERIC(38) NOT NULL,
+supplier_contact_name STRING(35) COLLATE 'und:ci',
+dat_rec_start DATE NOT NULL,
+dat_rec_end DATE NOT NULL,
+street STRING(70) COLLATE 'und:ci',
+street2 STRING(150) COLLATE 'und:ci',
+zipcode STRING(15) COLLATE 'und:ci',
+city STRING(70) COLLATE 'und:ci',
+county STRING(50) COLLATE 'und:ci',
+post_office_box STRING(35) COLLATE 'und:ci',
+post_office_box_zip STRING(15) COLLATE 'und:ci',
+country_cd STRING(3) COLLATE 'und:ci',
+postbox_town STRING(50) COLLATE 'und:ci',
+phone STRING(50) COLLATE 'und:ci',
+fax STRING(50) COLLATE 'und:ci',
+mde_record_fg BIGNUMERIC(38),
+mde_phone STRING(35) COLLATE 'und:ci',
+load_id BIGNUMERIC(38) NOT NULL
+);

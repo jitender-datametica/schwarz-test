@@ -1,0 +1,13 @@
+create or replace view IDQ_PRODUCTION.KFL_RET_DE.wyt1_1(
+	MANDT,
+	LIFNR,
+	LTSNR,
+	ERNAM,
+	ERDAT,
+	COUNTRY_CODE,
+	TD_INSERT,
+	TD_UPDATE
+) as 
+SELECT *
+    FROM KFL_RET.WYT1_1
+WHERE COUNTRY_CODE in ('DE','de');

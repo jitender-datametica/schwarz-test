@@ -1,0 +1,14 @@
+CREATE OR REPLACE PROCEDURE dbp_macro.m_ts_best_vorschlag_wbs(IN MANDANT_ID FLOAT64, IN WUP_ID FLOAT64, IN NB_ID FLOAT64, IN ART_ID FLOAT64, IN DAT_AUSFUEHRUNG STRING, IN MENGE_WBS_FINAL FLOAT64, IN CHECK_VZ_FG FLOAT64, IN CHECK_WUP_FG FLOAT64, IN STATUS_VERARBEITUNG FLOAT64)
+BEGIN
+DECLARE sql_stmt STRING;
+DECLARE sql_commit STRING;
+BEGIN TRANSACTION;
+SET sql_stmt  =  '''MERGE INTO dbp_data.ts_best_vorschlag_wbs_1 AS TARGET USING (SELECT @MANDANT_ID AS mandant_id,   @WUP_ID AS wup_id,   @NB_ID AS nb_id,   @ART_ID AS art_id,   @DAT_AUSFUEHRUNG AS dat_ausfuehrung,   @MENGE_WBS_FINAL AS menge_wbs_final,   @CHECK_VZ_FG AS check_vz_fg,   @CHECK_WUP_FG AS check_wup_fg,   @STATUS_VERARBEITUNG AS status_verarbeitung) AS source ON TARGET.mandant_id = source.mandant_id AND TARGET.wup_id = source.wup_id AND TARGET.nb_id = source.nb_id AND TARGET.art_id     = source.art_id AND TARGET.dat_ausfuehrung = CAST(source.dat_ausfuehrung AS DATE) WHEN MATCHED THEN UPDATE SET  menge_wbs_final = CAST(source.menge_wbs_final AS NUMERIC),  check_vz_fg = CAST(source.check_vz_fg AS INTEGER),  check_wup_fg = CAST(source.check_wup_fg AS INTEGER) WHEN NOT MATCHED THEN INSERT (mandant_id, wup_id, nb_id, art_id, dat_ausfuehrung, menge_wbs_final, check_vz_fg,  check_wup_fg, status_verarbeitung) VALUES(CAST(source.mandant_id AS INTEGER), CAST(source.wup_id AS INTEGER), CAST(source.nb_id AS INTEGER)  , CAST(source.art_id AS INTEGER), CAST(source.dat_ausfuehrung AS DATE), CAST(source.menge_wbs_final AS NUMERIC), CAST(source.check_vz_fg AS INTEGER), CAST(source.check_wup_fg AS INTEGER), CAST(source.status_verarbeitung AS INTEGER)  ) ''';
+
+EXECUTE IMMEDIATE (sql_stmt) USING IF(MANDANT_ID = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), MANDANT_ID) AS MANDANT_ID,  IF(WUP_ID = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), WUP_ID) AS WUP_ID,  IF(NB_ID = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), NB_ID) AS NB_ID,  IF(ART_ID = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), ART_ID) AS ART_ID,  IF(DAT_AUSFUEHRUNG = CAST(NULL AS STRING), CAST(NULL AS STRING), DAT_AUSFUEHRUNG) AS DAT_AUSFUEHRUNG,  IF(MENGE_WBS_FINAL = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), MENGE_WBS_FINAL) AS MENGE_WBS_FINAL,  IF(CHECK_VZ_FG = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), CHECK_VZ_FG) AS CHECK_VZ_FG,  IF(CHECK_WUP_FG = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), CHECK_WUP_FG) AS CHECK_WUP_FG,  IF(STATUS_VERARBEITUNG = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), STATUS_VERARBEITUNG) AS STATUS_VERARBEITUNG;
+
+SET sql_commit  =  'COMMIT TRANSACTION';
+
+EXECUTE IMMEDIATE (sql_commit);
+END;
+

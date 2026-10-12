@@ -1,0 +1,3 @@
+create or replace TABLE KFL_PRODUCTION.DBP_ETL.AGGR_COUPONS_DAT_1 (
+	DAT DATE
+);

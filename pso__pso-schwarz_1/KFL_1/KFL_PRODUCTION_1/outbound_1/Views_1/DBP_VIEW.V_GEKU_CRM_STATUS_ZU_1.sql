@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_geku_crm_status_zu_1 AS SELECT geku_crm_status_id,
+ geku_status_id,
+ crm_status_id
+FROM kfl_production_dbp_data.geku_crm_status_zu_1;

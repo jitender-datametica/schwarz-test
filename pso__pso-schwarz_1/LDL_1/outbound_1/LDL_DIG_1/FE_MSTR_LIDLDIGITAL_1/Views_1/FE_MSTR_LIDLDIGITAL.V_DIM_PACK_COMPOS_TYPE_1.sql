@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital.v_dim_pack_compos_type_1 AS SELECT DISTINCT pack_compos_type_name
+FROM ldl_dig_fe_mstr_lidldigital.v_dim_packaging_material_component_1;

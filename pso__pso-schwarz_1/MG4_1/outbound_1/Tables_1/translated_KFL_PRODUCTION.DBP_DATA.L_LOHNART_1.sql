@@ -1,0 +1,6 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_data.l_lohnart_1 (
+mandant_id INTEGER NOT NULL,
+lohnart_id STRING(5) COLLATE 'und:ci' NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

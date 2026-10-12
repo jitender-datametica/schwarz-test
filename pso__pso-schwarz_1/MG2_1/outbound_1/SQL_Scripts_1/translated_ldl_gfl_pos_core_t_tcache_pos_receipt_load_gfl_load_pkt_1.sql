@@ -1,0 +1,68 @@
+-- COPY INTO ETL.t_tcache_pos_receipt_load_gfl_2_tcache_pos_receipt_load_pkt FROM
+
+-- (SELECT 
+-- $1:datastore_data.record_id AS record_id
+-- ,LEFT(TRIM($1:datastore_data.source_system),20) AS source_system
+-- ,dateadd(days, $1:datastore_data.extraction_date, '1970-01-01') AS extraction_date
+-- ,dateadd(microseconds, $1:datastore_data.extraction_ts,'1970-01-01') AS extraction_ts
+-- ,LEFT(TRIM($1:datastore_data.bic_zmlila),20) AS bic_zmlila
+-- ,$1:datastore_data.load_id AS load_id
+-- ,LEFT(TRIM($1:datastore_data.receipt_transactiontype_id),3) AS receipt_transactiontype_id
+-- ,$1:datastore_data.context_load_id AS context_load_id
+-- ,LEFT(TRIM($1:datastore_data.context_country),20) AS context_country
+-- ,$1:datastore_data.orig_wh_nr AS orig_wh_nr
+-- ,$1:datastore_data.orig_store_nr AS orig_store_nr
+-- ,$1:datastore_data.pos_terminal_id AS pos_terminal_id
+-- ,$1:datastore_data.orig_receipt_nr AS orig_receipt_nr
+-- ,$1:datastore_data.val_retail AS val_retail
+-- ,$1:datastore_data.orig_cnt_scanpos AS orig_cnt_scanpos
+-- ,$1:datastore_data.orig_cnt_dirpos AS orig_cnt_dirpos
+-- ,$1:datastore_data.dur_receipt AS dur_receipt
+-- ,$1:datastore_data.resumed_trans_store_nr AS resumed_trans_store_nr
+-- ,$1:datastore_data.resumed_trans_terminal_id AS resumed_trans_terminal_id
+-- ,dateadd(days, $1:datastore_data.resumed_trans_date, '1970-01-01') AS resumed_trans_date
+-- ,$1:datastore_data.resumed_trans_receipt_nr AS resumed_trans_receipt_nr
+-- ,dateadd(days, $1:datastore_data.receipt_business_date, '1970-01-01') AS receipt_business_date
+-- ,$1:datastore_data.offline_fg AS offline_fg
+-- ,$1:datastore_data.training_fg AS training_fg
+-- ,$1:datastore_data.dur_service_time AS dur_service_time
+-- ,$1:datastore_data.dur_pay_change_time AS dur_pay_change_time
+-- ,$1:datastore_data.val_retail_net AS val_retail_net
+-- ,LEFT(TRIM($1:datastore_data.receiptline_timestamp_begin),30) AS receiptline_timestamp_begin
+-- ,LEFT(TRIM($1:datastore_data.receiptline_timestamp_end),30) AS receiptline_timestamp_end
+-- ,LEFT(TRIM($1:datastore_data.receipt_timestamp_begin),30) AS receipt_timestamp_begin
+-- ,LEFT(TRIM($1:datastore_data.receipt_timestamp_end),30) AS receipt_timestamp_end
+-- ,LEFT(TRIM($1:datastore_data.item_desc),40) AS item_desc
+-- ,LEFT(TRIM($1:datastore_data.lidlplus_customer_cd),100) AS lidlplus_customer_cd
+-- ,LEFT(TRIM($1:datastore_data.lidlplus_ident_type_cd),20) AS lidlplus_ident_type_cd
+-- ,$1:datastore_data.posnr AS posnr
+-- ,LEFT(TRIM($1:datastore_data.item_entry_method_cd),2) AS item_entry_method_cd
+-- ,LEFT(TRIM($1:datastore_data.barcode),50) AS barcode
+-- ,$1:datastore_data.price_retail AS price_retail
+-- ,$1:datastore_data.qty_sold AS qty_sold
+-- ,LEFT(TRIM($1:datastore_data.fg_weight),1) AS fg_weight
+-- ,$1:datastore_data.price_sum_retail AS price_sum_retail
+-- ,$1:datastore_data.val_discount AS val_discount
+-- ,LEFT(TRIM($1:datastore_data.receiptline_transactiontype_id),3) AS receiptline_transactiontype_id
+-- ,$1:datastore_data.val_vat AS val_vat
+-- ,LEFT(TRIM($1:datastore_data.price_entry_method_cd),2) AS price_entry_method_cd
+-- ,$1:datastore_data.parent_line_nr AS parent_line_nr
+-- ,$1:datastore_data.pct_vat AS pct_vat
+-- ,LEFT(TRIM($1:datastore_data.return_reason_cd),2) AS return_reason_cd
+-- ,LEFT(TRIM($1:datastore_data.return_text),40) AS return_text
+-- ,$1:datastore_data.voided_by_line_nr AS voided_by_line_nr
+-- ,$1:datastore_data.val_retail_orig AS val_retail_orig
+-- ,LEFT(TRIM($1:datastore_data.type_vat),3) AS type_vat
+-- ,LEFT(TRIM($1:datastore_data.original_orig_receipt_nr),100) AS original_orig_receipt_nr
+-- ,LEFT(TRIM($1:datastore_data.original_pos_terminal_id),100) AS original_pos_terminal_id
+-- ,LEFT(TRIM($1:datastore_data.original_orig_store_nr),100) AS original_orig_store_nr
+-- ,dateadd(days, $1:datastore_data.original_dat_formdate, '1970-01-01') AS original_dat_formdate
+-- ,$1:datastore_data.dwh_load_id AS dwh_load_id
+-- ,dateadd(days, $1:datastore_data.extraction_dt, '1970-01-01') AS extraction_dt
+-- ,dateadd(days, $1:datastore_data.dwh_mapping_dt, '1970-01-01') AS dwh_mapping_dt FROM 
+
+-- '@DATASTORE.STG_DLSSDSPRLDLL201_POS_SYSTEMS/')
+-- FILES = replace_with_input_file_names 
+-- FILE_FORMAT = (TYPE = AVRO)
+-- ON_ERROR = ABORT_STATEMENT
+-- FORCE = TRUE;

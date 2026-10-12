@@ -1,0 +1,26 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_WAWI_INV_ITEM_WH_1
+(
+  CLIENT_ID               NUMBER(38)                    NOT NULL,
+  WH_ID                   NUMBER(38)                    NOT NULL,
+  ITEM_ID                 NUMBER(38)                    NOT NULL,
+  DAT_FORMDATE            DATE                          NOT NULL,
+  INV_ID                  NUMBER(38)                    NOT NULL,
+  SLOT_NR                 NUMBER(38)                    NOT NULL,
+  DAT_DAYEND              DATE                          NOT NULL,
+  INV_TYPE                VARCHAR(5) COLLATE 'en-ci'    NULL,
+  INV_DESC                VARCHAR(35) COLLATE 'en-ci'   NULL,
+  BUSYEAR                 NUMBER(38)                    NULL,
+  INV_EVAL_FG             NUMBER(38)                    NULL,
+  STORE_PLACE             NUMBER(38)                    NULL,
+  AISLE_DESC              VARCHAR(35) COLLATE 'en-ci'   NULL,
+  DIFF_QTY_INV_WH         NUMBER(18,4)                  NULL,
+  PRICE_RETAIL_INV_WH     NUMBER(18,4)                  NULL,
+  PRICE_RETAIL_NET_INV_WH NUMBER(19,5)                  NULL,
+  QTY_CASE_INV_WH         NUMBER(18,4)                  NULL,
+  QTY_PIECE_INV_WH        NUMBER(18,4)                  NULL,
+  QTY_EXPECTED_INV_WH     NUMBER(18,4)                  NULL,
+  QTY_TOTAL_INV_WH        NUMBER(18,4)                  NULL,
+  QTY_RAMP_INV_WH         NUMBER(18,4)                  NULL,
+  CASE_SIZE_DEC           NUMBER(9,4)                   NULL,
+  LOAD_ID                 NUMBER(38)                    NOT NULL
+);

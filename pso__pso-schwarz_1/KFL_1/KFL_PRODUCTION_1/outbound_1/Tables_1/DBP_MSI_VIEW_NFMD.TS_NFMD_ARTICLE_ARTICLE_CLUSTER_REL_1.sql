@@ -1,0 +1,25 @@
+--==============================================================
+-- Table: ts_nfmd_article_article_cluster_rel_1
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: ts_nfmd_article_article_cluster_rel_1
+   generated from Powerdesigner on Donnerstag, 24. März 2022 15:33:41
+*/ --------------------------------------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_msi_view_nfmd.ts_nfmd_article_article_cluster_rel_1 (
+mandant_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Mandant_1 im DWH'),
+aktion_id STRING(10) NOT NULL OPTIONS(description='Unique identifier of the NFMD campaign'),
+art_id BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='Input: Artikel_1 - Id einschliesslich der Generationen - ID (9-stellig); Output: 7stellige L&S-ID + Counter = 8stellige ArtikelID. WWNNNNPC (Warengruppe, Nummer, Prüfziffer, Counter) Regel: Neuer Artikel_1 -> Counter +1'),
+article_cluster_id BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='ausgewaehltes Artikelcluster ID - Pflege uebers Frontend'),
+kjwo_ww BIGNUMERIC(38,0) OPTIONS(description='Calendar_1 year-week when the promotion campaign started. Format JJJJWW'),
+dwh_created_tmsp DATETIME OPTIONS(description='timestamp when the record was created'),
+user_id STRING(255) OPTIONS(description='AD name of the user who created the comment'),
+td_update TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+td_insert TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+PRIMARY KEY (mandant_id, aktion_id, art_id, article_cluster_id) NOT ENFORCED
+) OPTIONS(description='Relattionship between articles and article clusters and promotion campaigns');

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_lifecycle.v_l_lifecycle_manufacturer_1 (manufacturer_name, manufacturer_sid
+, manufacturer_group_cd) AS SELECT manufacturer_name,
+ manufacturer_sid,
+ manufacturer_group_cd
+FROM szd_production_core.t_dim_manufacturer_1;

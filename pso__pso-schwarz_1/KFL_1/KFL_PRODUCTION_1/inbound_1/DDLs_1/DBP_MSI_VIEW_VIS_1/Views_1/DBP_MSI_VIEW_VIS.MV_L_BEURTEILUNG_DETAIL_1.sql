@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_VIS.MV_L_BEURTEILUNG_DETAIL_1 as
+   SELECT * FROM dbp_view.v_l_beurteilung_detail_1;

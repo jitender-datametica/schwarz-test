@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_cbx_item_buyer_2_mdm_buyer_1 (
+record_id INTEGER,
+client_id BIGNUMERIC(38),
+buyer_sid BIGNUMERIC(38),
+src_user_doc_ref STRING(100) COLLATE 'und:ci',
+cbx_user_version_nr BIGNUMERIC(38),
+buyer_cd STRING(20),
+buyer_forename STRING(100) COLLATE 'und:ci',
+buyer_surname STRING(100) COLLATE 'und:ci',
+buyer_email STRING(100) COLLATE 'und:ci',
+buyer_notes STRING(100) COLLATE 'und:ci',
+dwh_load_id BIGNUMERIC(38),
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

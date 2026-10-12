@@ -1,0 +1,41 @@
+create or replace view KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_VIEW.V_IN_AUFTRAG_1(
+	AUFTRAG_ID COMMENT 'Auftragsnummer aus aufnr',
+	MANDANT_ID COMMENT 'Mandant_1 im DWH. In der Regel länderbezogen',
+	AUFTRAGSART_ID COMMENT 'ID der Auftragsart aus auart',
+	GESCHAEFTSBEREICH_ID COMMENT 'Der Geschaeftsbereich ist eine_1 interne Organisationseinheit, fuer den eine_1 interne Bilanz sowie Gewinn- und Verlustrechnung erstellt werden kann. Aus gsber',
+	IN_BUDGET_TYP_ID COMMENT 'Eindeutige ID eines Budgettyps',
+	IN_MASSNAHME_TYP_ID COMMENT 'Eindeutige ID eins Massnahmetyps',
+	AUFTRAG_TYP_ID COMMENT 'ID des Auftragstyps',
+	PSP_ID COMMENT 'eindeutiger numerischer Schlüssel eines PSP-Elements. Im DWH generierte PSP-Elemente haben ein negatives Vorzeichen',
+	TECHN_PLATZ_ID COMMENT 'Fachlicher Schlüssel des technischen Platzes aus tplnr. Referenz zur Tabelle techn_platz_per_1 (im Modell keine Darstellung der Beziehung) Wird compressed',
+	WERK_ID COMMENT 'Numerischer Surrogate key für das Werk werks',
+	PHAS_TECHN_ABSCHLUSS_FG COMMENT 'Flag = 1 bei technischem Abschluss. Quelle ist phas2',
+	REF_OBJEKTART_ID COMMENT 'Teilstring aus dem Quellfeld objnr. Das Feld setzt sich aus Teil 1 (char(2)) und Teil 2 (Auftragsnummer) zusammen. Hier wird nur der alpha-Teil gespeichert.',
+	AUFTRAG_KURZTEXT COMMENT 'Kurzbeschreibung des Auftrags',
+	REFERENZ_AUFTRAG_ID COMMENT 'Referenzauftragsnummer. If this order is derived from a previous order, then this is the ID of the previous order.',
+	STANDORT_ID COMMENT 'ID eines Standortes. Zuordnung Markt bei Pooling-Geräten (oder alphanumerischer Wert / \""POOL\"").',
+	STANDORT_WERK_ID COMMENT 'Numerischer Surrogate key für das Werk werks - Plan where order should have been executed. Most of the times it is identical to WERK_ID.',
+	KOSTENSTELLE_ID COMMENT 'Eindeutiger sprechender Schlüssel der Kostenstelle, aus kostl.',
+	VERANTW_ARBEITSPLATZ_NAME COMMENT 'Verantwortlicher Arbeitsplatz -  Main work center (SAP term)  for maintenance tasks. \nA work center is an organizational unit_1 that defines where or by whom a maintenance activity is performed. Work centers can be machines, people, or production lines, for example.\nIn this column we have the work center that is assigned to a maintenance order at the HEADER level (on position a.k.a. \""order operation\"" level there can be other work centers).\nThe \""Name\"" is the identifier of the work place, there is no code or ID. The source system supports additional descriptions of these names, but they are not maintained by the business so as of May 2024, there is no lookup table with name-description combo'
+) as 
+    SELECT 
+        auftrag_id,
+        mandant_id,
+        auftragsart_id,
+        geschaeftsbereich_id,
+        in_budget_typ_id,
+        in_massnahme_typ_id,
+        auftrag_typ_id,
+        psp_id,
+        techn_platz_id,
+        werk_id,
+        phas_techn_abschluss_fg,
+        ref_objektart_id,
+        auftrag_kurztext,
+        referenz_auftrag_id,
+        standort_id,
+        standort_werk_id,
+        kostenstelle_id,
+        verantw_arbeitsplatz_name
+
+FROM DBP_DATA.IN_AUFTRAG_1 ;

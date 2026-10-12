@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t_tf_tcache_oso_employees_2_job_role___1 (
+job_role_nat_key_nr STRING(90),
+job_role_key_type_cd STRING(30),
+job_role_type_cd STRING(20) NOT NULL,
+job_role_name STRING(100) NOT NULL,
+int_org_nat_key STRING(90),
+int_org_key_type_cd STRING(30),
+reports_to_job_role_nat_key_nr STRING(90),
+reports_to_job_role_key_type_cd STRING(30),
+source_system STRING(20),
+extraction_dt DATE,
+dwh_mapping_tmsp TIMESTAMP,
+tf_error_fg INTEGER,
+deleted_fg INTEGER,
+record_id STRING(300),
+filename STRING(1000) NOT NULL,
+dwh_node_cd STRING(20) NOT NULL,
+dwh_load_id INTEGER NOT NULL,
+error_descr STRING(1000)
+);

@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE ldl_wawi_production_hqwawiadm.t250_event_1 (
+wawi_instanz_kzl STRING(3) COLLATE 'und:ci' NOT NULL,
+c250_int_eventnr INTEGER NOT NULL,
+c250_eventnr INTEGER NOT NULL,
+c250_busyear INTEGER NOT NULL,
+c250_keycode STRING(18),
+c250_areacode INTEGER NOT NULL,
+c250_type STRING(3),
+c250_mod_user STRING(8),
+c250_mod_date DATETIME,
+c250_desc STRING(100),
+c250_starttime DATETIME,
+c250_endtime DATETIME,
+c250_eventprtd INTEGER,
+c250_dayendprotnr INTEGER,
+c250_comment STRING(50),
+scn BIGNUMERIC(38,0) DEFAULT 0,
+delete_fg STRING(1),
+extraction_tmsp DATETIME,
+PRIMARY KEY (c250_int_eventnr) NOT ENFORCED
+);

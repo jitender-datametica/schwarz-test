@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW ldl_p_lew_bil_ac.v_agg_wh_org_day_item_sfo_asis_1 (client_id, loc_sid_wh, aspect_id, booking_dat,
+sfotype_id, item_sid, pcwo_reason_id, sfo_total_qty_asis, sfo_wrtoff_zero_qty_asis, sfo_total_rtl_rl_val_asis,
+sfo_total_rtl_rl_net_val_asis, sfo_wrtoff_zero_rtl_rl_val_asis, sfo_wrtoff_zero_rtl_rl_net_val_asis,
+val_pr_diff_sfo_asis, val_pr_diff_net_sfo_asis, sfo_total_fa_qty_asis, sfo_wrtoff_zero_fa_qty_asis,
+sfo_total_rtl_rl_fa_val_asis, sfo_total_rtl_rl_net_fa_val_asis, sfo_wrtoff_zero_rtl_rl_fa_val_asis,
+sfo_wrtoff_zero_rtl_rl_net_fa_val_asis, val_pr_diff_fa_sfo_asis, val_pr_diff_net_fa_sfo_asis, curr_cd_from) AS SELECT *
+FROM ldl_p_lew_bil.v_agg_wh_org_day_item_sfo_asis_1;

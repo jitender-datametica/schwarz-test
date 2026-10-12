@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process_ac.v_lc_prtcl_context_tasks_1 AS SELECT *
+FROM ldl_p_lew_process.t_lc_prtcl_context_tasks_1;

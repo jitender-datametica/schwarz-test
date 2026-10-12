@@ -1,0 +1,22 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_map_key_location_1 (client_id, loc_sid, dwh_loc_id, dwh_wh_id,
+dwh_orig_store_nr, elwis_dwh_ec_cd, elwis_dwh_loc_sid, elwis_dwh_loc_id, wawi_dwh_client_id, wawi_dwh_store_id,
+wawi_dwh_orig_store_nr, wawi_dwh_wh_id, loc_cd, active_fg, source_system, dwh_load_id, dwh_created, dwh_updated) AS
+SELECT client_id,
+ loc_sid,
+ dwh_loc_id,
+ dwh_wh_id,
+ dwh_orig_store_nr,
+ elwis_dwh_ec_cd,
+ elwis_dwh_loc_sid,
+ elwis_dwh_loc_id,
+ wawi_dwh_client_id,
+ wawi_dwh_store_id,
+ wawi_dwh_orig_store_nr,
+ wawi_dwh_wh_id,
+ loc_cd,
+ active_fg,
+ source_system,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_map_key_location_1;

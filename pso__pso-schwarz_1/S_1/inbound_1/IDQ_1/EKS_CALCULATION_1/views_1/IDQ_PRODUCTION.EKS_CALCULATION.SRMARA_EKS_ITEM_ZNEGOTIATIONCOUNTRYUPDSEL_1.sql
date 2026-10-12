@@ -1,0 +1,12 @@
+create or replace view IDQ_PRODUCTION.EKS_CALCULATION.SRMARA_EKS_ITEM_ZNEGOTIATIONCOUNTRYUPDSEL_1(
+	ITEMID,
+	ZNEGOTIATINGCOUNTRY,
+	ZNEGOTIATINGCOUNTRYNEW
+) as
+select distinct  t1.ITEMID, t1.znegotiatingcountry, t4.COUNTRYCODE AS znegotiatingcountrynew
+from EKS_CALCULATION.STMARA_EKS_ITEM_1 t1_1
+INNER JOIN EKS.ITEMBUYEREL_1 t2 ON t1.itemid = t2.itemid
+INNER JOIN EKS.EMPLOYEE_1 t3 ON t2.employeeid = t3.employeeid
+INNER JOIN EKS.COUNTRY_1 t4 ON t3.countryid = t4.countryid
+WHERE CURRENT_TIMESTAMP BETWEEN t2.datefrom AND t2.dateuntil
+;

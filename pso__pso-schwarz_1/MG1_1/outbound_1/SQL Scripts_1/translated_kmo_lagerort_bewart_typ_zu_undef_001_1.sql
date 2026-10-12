@@ -1,0 +1,197 @@
+--[not OK] statement is not translated correctly-----------------------------------------------------------------
+--original statement
+--INSERT INTO ${DWH_COMMON_DBX_DATA}.lagerort_bewart_typ_zu
+--SELECT t01.mandant_id
+--, t01.lagerort_id
+--, t01.lagernummer_id
+--, t01.wup_id
+--, t01.nb_id
+--, t02.grund_id
+--, t01.lager_bewart_id
+--, t01.lager_bewart_typ_id
+--, t01.system_id
+--FROM (
+--SELECT t1.mandant_id, t1.lagerort_id, t1.lagernummer_id, t1.wup_id, t1.nb_id, t1.lager_bewart_id, t1.lager_bewart_typ_id, t1.system_id
+--FROM ${DWH_COMMON_DBX_DATA}.lagerort_bewart_typ_zu t1_1
+--WHERE t1.nb_id IN (99,-111)
+--GROUP BY t1.mandant_id, t1.lagerort_id, t1.lagernummer_id, t1.wup_id, t1.nb_id, t1.lager_bewart_id, t1.lager_bewart_typ_id, t1.system_id
+--) t01
+--JOIN ${DWH_COMMON_DBX_DATA}.l_lager_bewgrund_1 t02
+--ON t01.mandant_id = t02.mandant_id
+--AND t01.lager_bewart_id = t02.lager_bewart_id
+---- AND t01.grund_id <> t02.grund_id
+--LEFT OUTER JOIN ${DWH_COMMON_DBX_DATA}.lagerort_bewart_typ_zu t03
+--ON t01.mandant_id = t03.mandant_id
+--AND t01.lagerort_id = t03.lagerort_id
+--AND COALESCE(t01.lagernummer_id, '') = COALESCE(t03.lagernummer_id, '')
+--AND t01.wup_id = t03.wup_id
+--AND t01.nb_id = t03.nb_id
+--AND t01.lager_bewart_id = t03.lager_bewart_id
+--AND t02.grund_id = t03.grund_id
+--JOIN
+--( -- Finde hier die Saetze, deren bewart_1 eindeutig einem Verursacher zuzuordnen ist.
+--SELECT
+--wup_id
+--,nb_id
+--,lagerort_id
+--,mandant_id
+--,lagernummer_id
+--,lager_bewart_id
+--FROM ( -- Reduziere um den Bewegungsgrund
+--SELECT
+--mandant_id
+--,lagerort_id
+--,lagernummer_id
+--,wup_id
+--,nb_id
+--,lager_bewart_id
+--,lager_bewart_typ_id
+--FROM ${DWH_COMMON_DBX_DATA}.lagerort_bewart_typ_zu t01
+--GROUP BY
+--mandant_id
+--,lagerort_id
+--,lagernummer_id
+--,wup_id
+--,nb_id
+--,lager_bewart_id
+--,lager_bewart_typ_id
+--) x
+--GROUP BY
+--mandant_id
+--,lagerort_id
+--,lagernummer_id
+--,wup_id
+--,nb_id
+--,lager_bewart_id
+--HAVING COUNT(*) = 1
+--) t04
+--ON t01.mandant_id = t04.mandant_id
+--AND t01.lagerort_id = t04.lagerort_id
+--AND COALESCE(t01.lagernummer_id, '') = COALESCE(t04.lagernummer_id, '')
+--AND t01.wup_id = t04.wup_id
+--AND t01.nb_id = t04.nb_id
+--AND t01.lager_bewart_id = t04.lager_bewart_id
+--WHERE t03.mandant_id is null
+--GROUP BY 1,2,3,4,5,6,7,8,9;
+--
+--Comment from validation checker
+--MESSAGE: [unixODBC]User temporarily locked. Try again later, or contact_1 your local system administrator.
+--translated statement
+
+
+
+--table_not_found--
+
+-- INSERT INTO KFL_PRODUCTION_DBP_DATA.LAGERORT_BEWART_TYP_ZU (MANDANT_ID, LAGERORT_ID, LAGERNUMMER_ID, WUP_ID, NB_ID, LAGER_BEWART_ID, LAGER_BEWART_TYP_ID, SYSTEM_ID, GRUND_ID)
+--   SELECT
+--       T01.MANDANT_ID,
+--       T01.LAGERORT_ID,
+--       T01.LAGERNUMMER_ID,
+--       T01.WUP_ID,
+--       T01.NB_ID,
+--       T02.GRUND_ID,
+--       T01.LAGER_BEWART_ID,
+--       T01.LAGER_BEWART_TYP_ID,
+--       T01.SYSTEM_ID
+--     FROM
+--       (
+--         SELECT
+--             T1.MANDANT_ID,
+--             T1.LAGERORT_ID,
+--             T1.LAGERNUMMER_ID,
+--             T1.WUP_ID,
+--             T1.NB_ID,
+--             T1.LAGER_BEWART_ID,
+--             T1.LAGER_BEWART_TYP_ID,
+--             T1.SYSTEM_ID
+--           FROM
+--             KFL_PRODUCTION_DBP_DATA.LAGERORT_BEWART_TYP_ZU AS T1_1
+--           WHERE T1.NB_ID IN(
+--             NUMERIC '99', -NUMERIC '111'
+--           )
+--           GROUP BY 1, 2, 3, 4, 5, 6, 7, 8
+--       ) AS T01
+--       INNER JOIN KFL_PRODUCTION_DBP_DATA.L_LAGER_BEWGRUND_1 AS T02 ON T01.MANDANT_ID = T02.MANDANT_ID
+--        AND T01.LAGER_BEWART_ID = T02.LAGER_BEWART_ID
+--       -- AND t01.grund_id <> t02.grund_id
+--       LEFT OUTER JOIN KFL_PRODUCTION_DBP_DATA.LAGERORT_BEWART_TYP_ZU AS T03 ON T01.MANDANT_ID = T03.MANDANT_ID
+--        AND T01.LAGERORT_ID = T03.LAGERORT_ID
+--        AND coalesce(T01.LAGERNUMMER_ID, '') = coalesce(T03.LAGERNUMMER_ID, '')
+--        AND T01.WUP_ID = T03.WUP_ID
+--        AND T01.NB_ID = T03.NB_ID
+--        AND T01.LAGER_BEWART_ID = T03.LAGER_BEWART_ID
+--        AND T02.GRUND_ID = T03.GRUND_ID
+--       INNER JOIN (
+--         SELECT
+--             -- Finde hier die Saetze, deren bewart_1 eindeutig einem Verursacher zuzuordnen ist.
+--             X.WUP_ID,
+--             X.NB_ID,
+--             X.LAGERORT_ID,
+--             X.MANDANT_ID,
+--             X.LAGERNUMMER_ID,
+--             X.LAGER_BEWART_ID
+--             -- Reduziere um den Bewegungsgrund
+--           FROM
+--             (
+--               SELECT
+--                   T01_0.MANDANT_ID,
+--                   T01_0.LAGERORT_ID,
+--                   T01_0.LAGERNUMMER_ID,
+--                   T01_0.WUP_ID,
+--                   T01_0.NB_ID,
+--                   T01_0.LAGER_BEWART_ID,
+--                   T01_0.LAGER_BEWART_TYP_ID
+--                 FROM
+--                   KFL_PRODUCTION_DBP_DATA.LAGERORT_BEWART_TYP_ZU AS T01_0
+--                 GROUP BY 1, 2, 3, 4, 5, 6, 7
+--             ) AS X
+--           GROUP BY 4, 3, 5, 1, 2, 6
+--           HAVING count(*) = NUMERIC '1'
+--       ) AS T04 ON T01.MANDANT_ID = T04.MANDANT_ID
+--        AND T01.LAGERORT_ID = T04.LAGERORT_ID
+--        AND coalesce(T01.LAGERNUMMER_ID, '') = coalesce(T04.LAGERNUMMER_ID, '')
+--        AND T01.WUP_ID = T04.WUP_ID
+--        AND T01.NB_ID = T04.NB_ID
+--        AND T01.LAGER_BEWART_ID = T04.LAGER_BEWART_ID
+--     WHERE T03.MANDANT_ID IS NULL
+--     GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9
+-- ;
+
+
+
+-- INSERT INTO KFL_PRODUCTION_DBP_DATA.LAGERORT_BEWART_TYP_ZU (MANDANT_ID, LAGERORT_ID, LAGERNUMMER_ID, WUP_ID, NB_ID, GRUND_ID, LAGER_BEWART_ID, LAGER_BEWART_TYP_ID, SYSTEM_ID)
+--   SELECT
+--       T02.MANDANT_ID,
+--       T02.LAGERORT_ID,
+--       coalesce(T02.LAGERNUMMER_ID, ''),
+--       T02.WUP_ID,
+--       T02.NB_ID,
+--       T04.GRUND_ID,
+--       T03.LAGER_BEWART_ID,
+--       -NUMERIC '1' AS LAGER_BEWART_TYP_ID,
+--       T03.SYSTEM_ID
+--     FROM
+--       KFL_PRODUCTION_DBP_DATA.L_LAGERORT_1 AS T02
+--       INNER JOIN KFL_PRODUCTION_DBP_DATA.L_LAGER_BEWART_1 AS T03 ON T02.MANDANT_ID = T03.MANDANT_ID
+--       INNER JOIN KFL_PRODUCTION_DBP_DATA.L_LAGER_BEWGRUND_1 AS T04 ON T03.MANDANT_ID = T04.MANDANT_ID
+--        AND T03.LAGER_BEWART_ID = T04.LAGER_BEWART_ID
+--       LEFT OUTER JOIN KFL_PRODUCTION_DBP_DATA.LAGERORT_BEWART_TYP_ZU AS T05 ON T02.MANDANT_ID = T05.MANDANT_ID
+--       -- AND COALESCE(t02.lagernummer_id, '') = COALESCE(t05.lagernummer_id, '')
+--        AND T02.WUP_ID = T05.WUP_ID
+--        AND T02.NB_ID = T05.NB_ID
+--        AND T02.LAGERORT_ID = T05.LAGERORT_ID
+--        AND T03.LAGER_BEWART_ID = T05.LAGER_BEWART_ID
+--        AND T04.GRUND_ID = T05.GRUND_ID
+--     WHERE T05.MANDANT_ID IS NULL
+--      AND T02.NB_ID IN(
+--       NUMERIC '99', -NUMERIC '111'
+--     )
+-- ;
+
+
+-- UPDATE LBT SET LAGERNUMMER_ID = LO.LAGERNUMMER_ID FROM KFL_PRODUCTION_DBP_DATA.LAGERORT_BEWART_TYP_ZU AS LBT_0
+-- CROSS JOIN DBP_DATA.L_LAGERORT_1 AS LO WHERE LBT_0.MANDANT_ID = LO.MANDANT_ID
+--  AND LBT_0.LAGERORT_ID = LO.LAGERORT_ID
+--  AND LBT_0.WUP_ID = LO.WUP_ID
+--  AND LBT_0.LAGERNUMMER_ID <> LO.LAGERNUMMER_ID
+--  AND LO.LAGERNUMMER_ID IS NOT NULL;

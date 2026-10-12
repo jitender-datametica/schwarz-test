@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_lifecycle.mv_l_lifecycle_rvm_deposit_item_category_1 (deposit_item_cat_cd,
+deposit_item_cat_descr_de, deposit_item_cat_descr_en, deposit_item_cat_descr) AS SELECT deposit_item_cat_cd,
+ deposit_item_cat_descr_de,
+ deposit_item_cat_descr_en,
+ deposit_item_cat_descr
+FROM szd_production_core.t_dim_deposit_item_category_1;

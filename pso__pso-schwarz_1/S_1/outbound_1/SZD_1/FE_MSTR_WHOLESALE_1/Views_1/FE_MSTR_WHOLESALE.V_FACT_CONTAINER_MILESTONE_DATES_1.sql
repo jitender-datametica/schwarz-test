@@ -1,0 +1,33 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_wholesale.v_fact_container_milestone_dates_1 (container_resource_sid, pickup_pod_dt,
+pickup_pod_result_name, pickup_pod_fg, arrival_domestic_terminal_dt, arrival_domestic_terminal_result_name,
+arrival_domestic_terminal_fg, gas_msmt_dt, gas_msmt_result_name, gas_msmt_result_eval_txt, gas_msmt_result_fg,
+dest_customs_clearance_dt, dest_customs_clearance_result_name, dest_customs_clearance_fg, goods_in_wh_dt,
+goods_in_wh_year, goods_in_wh_month, goods_in_wh_week, goods_in_warehouse_year_week, goods_in_wh_result_name,
+goods_in_wh_result_fg, return_depot_dt, return_depot_result_name, return_depot_fg) AS SELECT DISTINCT
+ container_resource_item_sid AS container_resource_sid,
+ container_lpod_pickup_dt AS pickup_pod_dt,
+ container_lpod_pickup_result_cd AS pickup_pod_result_name,
+ container_lpod_pickup_fg AS pickup_pod_fg,
+ container_domestic_terminal_arrival_dt AS arrival_domestic_terminal_dt,
+ container_domestic_terminal_arrival_result_cd AS arrival_domestic_terminal_result_name,
+ container_domestic_terminal_arrival_fg AS arrival_domestic_terminal_fg,
+ container_gas_measurement_dt AS gas_msmt_dt,
+ container_gas_measurement_result_cd AS gas_msmt_result_name,
+ container_gas_measurement_result_evaluation_txt AS gas_msmt_result_eval_txt,
+ container_gas_measurement_fg AS gas_msmt_result_fg,
+ container_destination_customs_clearance_dt AS dest_customs_clearance_dt,
+ container_destination_customs_clearance_result_cd AS dest_customs_clearance_result_name,
+ container_destination_customs_clearance_fg AS dest_customs_clearance_fg,
+ container_goods_in_warehouse_dt AS goods_in_wh_dt,
+ EXTRACT(YEAR FROM container_goods_in_warehouse_dt) AS goods_in_wh_year,
+ EXTRACT(MONTH FROM container_goods_in_warehouse_dt) AS goods_in_wh_month,
+ LPAD(SUBSTR(CAST(EXTRACT(ISOWEEK FROM container_goods_in_warehouse_dt) AS STRING), 1, 19), 2, '0') AS goods_in_wh_week
+ ,
+  CAST(EXTRACT(YEAR FROM container_goods_in_warehouse_dt) AS STRING) || LPAD(SUBSTR(CAST(EXTRACT(ISOWEEK FROM container_goods_in_warehouse_dt) AS STRING)
+    , 1, 19), 2, '0') AS goods_in_warehouse_year_week,
+ container_goods_in_warehouse_result_cd AS goods_in_wh_result_name,
+ container_goods_in_warehouse_fg AS goods_in_wh_result_fg,
+ container_return_depot_result_dt AS return_depot_dt,
+ container_return_depot_result_cd AS return_depot_result_name,
+ container_return_depot_fg AS return_depot_fg
+FROM szd_core.t_fact_lot_container_milestone_progress_1;

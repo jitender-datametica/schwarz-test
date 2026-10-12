@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_mcx_l_kategorie_1 (kat_id, teilbereich_id) AS SELECT kat_id,
+ teilbereich_id
+FROM kfl_production_dbp_view.v_mcx_l_kategorie_1;

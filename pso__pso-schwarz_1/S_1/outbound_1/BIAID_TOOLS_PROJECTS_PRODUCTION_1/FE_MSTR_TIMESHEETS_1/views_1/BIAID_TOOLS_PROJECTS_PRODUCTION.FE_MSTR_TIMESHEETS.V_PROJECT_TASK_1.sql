@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW biaid_tools_projects_production_fe_mstr_timesheets.v_project_task_1 (psp_element_cd,
+project_task_cd, task_subject) AS SELECT DISTINCT psp_element_cd,
+ project_task_cd,
+ task_subject
+FROM biaid_tools_projects_production_fe_mstr_timesheets.t_timesheet_entry_1;

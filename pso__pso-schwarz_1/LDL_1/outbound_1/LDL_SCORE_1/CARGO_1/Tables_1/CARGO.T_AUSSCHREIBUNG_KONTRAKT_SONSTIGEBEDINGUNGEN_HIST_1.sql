@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS ldl_score_cargo.t_ausschreibung_kontrakt_sonstigebedingungen_hist_1 (
+ausschreibung_kontrakt_sonstigebedingungen_id BIGNUMERIC(38,0),
+ausschreibung_kontrakt_sonstigebedingungen_rowid STRING(2000),
+ausschreibung_kontrakt_sonstigebedingungen_lastmoddate TIMESTAMP,
+ausschreibung_kontrakt_sonstigebedingungen_masterrowid STRING(2000),
+ausschreibung_kontrakt_sonstigebedingungen_textbaustein_rowid STRING(2000),
+ausschreibung_kontrakt_sonstigebedingungen_transporttyp_rowid STRING(2000),
+ausschreibung_kontrakt_sonstigebedingungen_sortierung STRING(2000),
+ausschreibung_kontrakt_sonstigebedingungen_abgangsort_rowid STRING(2000),
+ausschreibung_kontrakt_sonstigebedingungen_empfangsland_rowid STRING(2000),
+source_extraction_tmsp ARRAY < STRING >,
+tech_valid_from TIMESTAMP NOT NULL,
+tech_valid_to TIMESTAMP NOT NULL,
+snflk_insert_tmsp TIMESTAMP NOT NULL,
+snflk_update_tmsp TIMESTAMP NOT NULL
+);

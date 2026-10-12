@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_mcx_umfrage_bereich_zu_1 AS SELECT ber_id,
+ umfrage_id
+FROM kfl_production_dbp_data.mcx_umfrage_bereich_zu_1;

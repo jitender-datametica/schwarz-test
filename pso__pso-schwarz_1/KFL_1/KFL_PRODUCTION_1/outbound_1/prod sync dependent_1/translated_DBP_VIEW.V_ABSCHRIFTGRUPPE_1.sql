@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_abschriftgruppe_1 (mandant_id, abschriftgruppe_id,
+abschriftgruppe_ebene_kz) AS SELECT mandant_id,
+ abschriftgruppe_id,
+ abschriftgruppe_ebene_kz
+FROM kfl_production_dbp_data.abschriftgruppe_1;

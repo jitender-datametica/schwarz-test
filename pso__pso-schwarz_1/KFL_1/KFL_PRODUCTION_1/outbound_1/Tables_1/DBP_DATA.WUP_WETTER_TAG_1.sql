@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.wup_wetter_tag_1 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+dat DATE NOT NULL,
+datzeit_letztes_update DATETIME NOT NULL,
+temperatur_min BIGNUMERIC(38,0),
+temperatur_max BIGNUMERIC(38,0),
+sonne_aufgang TIME,
+sonne_untergang TIME,
+dauer_sonnenschein BIGNUMERIC(38,0),
+mond_aufgang TIME,
+mond_untergang TIME,
+daemmerung_start TIME,
+daemmerung_ende TIME,
+mondphase_id BIGNUMERIC(38,0),
+windrichtung_id BIGNUMERIC(38,0),
+windrichtung_schema_id BIGNUMERIC(38,0),
+windgeschwindigkeit_max BIGNUMERIC(38,0),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

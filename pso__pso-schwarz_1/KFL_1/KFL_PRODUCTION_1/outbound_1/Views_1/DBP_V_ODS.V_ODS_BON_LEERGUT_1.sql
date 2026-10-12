@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_v_ods.v_ods_bon_leergut_1 AS SELECT bon_id,
+ bon_zeile,
+ mandant_id,
+ wup_id,
+ bon_dat,
+ ean_kasse,
+ umsatz_brutto,
+ start_bon_zeile,
+ bon_nr_extern,
+ kpos_erfassung_id,
+ menge,
+ kl_art_id,
+ einh_id,
+ mwst_id,
+ barcode_leergut
+FROM kfl_production_dbp_ods.ods_bon_leergut_1;

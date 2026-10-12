@@ -1,0 +1,14 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_pcon_abwesenh_logik_fg_zu_1 AS SELECT mandant_id,
+ abwesenheit_id,
+ kjmo_bis,
+ kjmo_von,
+ logik_kz,
+ langzeit_abwesend_fg,
+ pflege_fg,
+ beschaeftigungs_verbot_fg,
+ krankheit_unfall_fg,
+ sonstige_abwesenheit_fg,
+ freigestellt_fg,
+ mutterschutz_fg,
+ elternzeit_fg
+FROM kfl_production_dbp_data.pcon_abwesenh_logik_fg_zu_1;

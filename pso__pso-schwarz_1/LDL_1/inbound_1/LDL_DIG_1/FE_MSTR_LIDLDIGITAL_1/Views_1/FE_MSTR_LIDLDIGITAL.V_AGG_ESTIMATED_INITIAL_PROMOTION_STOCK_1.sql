@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIDLDIGITAL.V_AGG_ESTIMATED_INITIAL_PROMOTION_STOCK_1
+AS SELECT
+     CASE WHEN WSHOP_CD = '' THEN '-1' ELSE IFNULL(WSHOP_CD, '-1') END AS WSHOP_CD
+    ,IFNULL(PROD_SID, '-1') AS PROD_SID
+    ,PROMO_START_DT AS PROMO_START_DT
+    ,PROMO_SALE_START_DT AS PROMO_SALE_START_DT
+    ,IFNULL(PROMO_ID, '-1') AS PROMO_ID
+    ,IFNULL(PROD_VARIANT_SID, '-1') AS PROD_VARIANT_SID
+    ,ESTIMATED_INIT_PROMO_STOCK AS ESTIMATED_INIT_PROMO_STOCK
+    ,STOCK_DISTRIBUTION_PCT AS STOCK_DISTRIBUTION_PCT 
+FROM
+    lec_share.v_agg_estimated_initial_promotion_stock_core_view_1
+WHERE
+    PROMO_ID IN (
+        SELECT PROMO_ID FROM FE_MSTR_LIDLDIGITAL.V_AGG_SALES_PROMOTION_1 -- TODO: faulty(?) data forces us to remove entries from this view. we might want to remove this once the data issue is resolved (updated promotions get new PROMO_IDs instead of updating existing PROMO_IDs)
+    )
+;

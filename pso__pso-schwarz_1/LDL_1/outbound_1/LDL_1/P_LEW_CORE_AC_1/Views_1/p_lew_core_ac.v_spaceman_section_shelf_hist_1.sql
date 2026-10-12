@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_spaceman_section_shelf_hist_1 AS SELECT shelf_sid,
+ shelf_width_meas,
+ shelf_depth_meas,
+ shelf_thickness_meas,
+ shelf_start_high_meas,
+ shelf_start_width_meas,
+ uom_cd_size,
+ uom_sid_size,
+ deleted_fg,
+ dwh_valid_from,
+ dwh_valid_to,
+ client_id,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_spaceman_section_shelf_hist_1;

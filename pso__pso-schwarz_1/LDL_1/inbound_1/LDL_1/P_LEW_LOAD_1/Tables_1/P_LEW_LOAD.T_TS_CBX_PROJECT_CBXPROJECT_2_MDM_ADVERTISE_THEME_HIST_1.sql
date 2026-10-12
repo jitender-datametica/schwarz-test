@@ -1,0 +1,27 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TS_CBX_PROJECT_CBXPROJECT_2_MDM_ADVERTISE_THEME_HIST_1
+(
+  RECORD_ID                 NUMBER(10,0)                  NULL,
+  CLIENT_ID                 NUMBER(38)                    NULL,
+  MDM_AD_THEME_SID          NUMBER(38)                    NULL,
+  CBX_PROJ_VERSION_NR       NUMBER(38)                    NULL,
+  CBX_PROJ_DOC_STATUS       VARCHAR(100) COLLATE 'en-ci'  NULL,
+  CBX_PROJ_CHANGE_TMSP      TIMESTAMP_NTZ(6)              NULL,
+  MDM_RANGE_SEL_SID         NUMBER(38)                    NULL,
+  AD_THEME_APPROVAL_STATUS  VARCHAR(100) COLLATE 'en-ci'  NULL,
+  AD_THEME_WORKFLOW_STATUS  VARCHAR(100) COLLATE 'en-ci'  NULL,
+  CY_WEEK_THEME_DELIVER     NUMBER(38)                    NULL,
+  CY_WEEK_THEME_ADVERTISE   NUMBER(38)                    NULL,
+  AD_THEME_SELL_FROM_DAY    NUMBER(38)                    NULL,
+  AD_THEME_SELL_FROM_DT     DATE                          NULL,
+  DELETED_FG                NUMBER(38)                    NULL,
+  DWH_VALID_FROM            DATE                          NULL,
+  DWH_VALID_TO              DATE                          NULL,
+  DWH_LOAD_ID               NUMBER(38)                    NULL,
+  DWH_CREATED               TIMESTAMP_NTZ(6)              NULL,
+  DWH_UPDATED               TIMESTAMP_NTZ(6)              NULL,
+  DWH_MAPPING_DT            DATE                          NULL,
+  ERROR_FG                  NUMBER(38)                    NULL,
+  ERROR_DESCR               VARCHAR(1000) COLLATE 'en-ci' NULL,
+  FILENAME                  VARCHAR(1000) COLLATE 'en-ci' NULL,
+  HIST_ROW_NO               NUMBER(38)                    NULL
+);

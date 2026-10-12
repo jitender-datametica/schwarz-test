@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_s_conl.v_cal_week_partial_week_rel_1 AS SELECT *
+FROM ldl_p_lew_core_ac.v_wawi_cal_week_partial_week_rel_1;

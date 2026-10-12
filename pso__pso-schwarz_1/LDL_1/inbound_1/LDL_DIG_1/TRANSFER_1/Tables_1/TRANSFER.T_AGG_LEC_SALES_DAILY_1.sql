@@ -1,0 +1,20 @@
+CREATE TABLE TRANSFER.T_AGG_LEC_SALES_DAILY_1 (
+	CAL_DT 					        DATE               NOT NULL    COMMENT 'The calendar_1 date',
+	WEEKDAY 				        VARCHAR(100)                   COMMENT 'The day of the week',
+	BUS_YEAR 				        NUMBER(38,0)       NOT NULL    COMMENT 'The business year (starting in March, ending in February of the following calendar_1 year)',
+	MONTH_OF_BUS_YEAR 	        	NUMBER(38,0)       NOT NULL    COMMENT 'The month of business year, indicated by a number (1 = March, 2 = April, ... 12 = February)',
+	WSHOP_CD 				        VARCHAR(5)         NOT NULL    COMMENT 'The unique code for the Lidl webshop',
+	GMV_GROSS_EUR_VAL 	        	NUMBER(38,5)                   COMMENT 'Gross Merchandise Value = gross order revenue (including shipping fees and additional services) before cancellations and returns',
+	APP_GMV_GROSS_EUR_VAL			NUMBER(38,5)                   COMMENT 'Gross Merchandise Value generated from the mobile apps (iOS & Android ; old app versions & new OneApp)',
+    ORDER_REVENUE_GROSS_EUR_VAL   	NUMBER(38,5)                   COMMENT 'Gross Sales_1 Revenue before cancellations and before returns',
+    ORDER_CNT                     	NUMBER(38,5)                   COMMENT 'Number of customer orders',
+	AVG_BASKET_GROSS_EUR_VAL		NUMBER(38,5)				   COMMENT 'Average order basket gross euro value, before cancellations and before returns',
+	CUST_CNT						NUMBER(38,5)				   COMMENT 'Number of unique customers who ordered on the online shop',
+	GMV_PER_CUSTOMER_GROSS_EUR_VAL  NUMBER(38,5)				   COMMENT 'The Gross Merchandise Value generated per unique customer',
+	GMV_PER_ORDER_GROSS_EUR_VAL  	NUMBER(38,5)				   COMMENT 'The Gross Merchandise Value generated per customer order',
+	DWH_CREATED_TMSP 		        TIMESTAMP_LTZ(9)   NOT NULL    COMMENT 'The point in time when this record was created in the data warehouse',
+	DWH_UPDATED_TMSP 		        TIMESTAMP_LTZ(9)   NOT NULL    COMMENT 'The point in time when this record was last updated',
+	DWH_SRC_FILE_NAME 	        	VARCHAR(255)       NOT NULL    COMMENT 'The path and the name of the file(s) from which this record was loaded',
+	CONSTRAINT PK_T_AGG_LEC_SALES_DAILY PRIMARY KEY ( CAL_DT, WSHOP_CD )
+) COMMENT = 'This table is used for the daily reporting of aggregated sales_1 KPIs (before cancellations and before returns) from LEC business operations'
+;

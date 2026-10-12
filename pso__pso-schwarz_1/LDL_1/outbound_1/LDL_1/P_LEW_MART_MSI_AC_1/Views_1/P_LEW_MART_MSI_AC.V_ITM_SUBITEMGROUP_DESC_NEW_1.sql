@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi_ac.v_itm_subitemgroup_desc_new_1 (subitemgroup_id, subitemgroup_desc,
+subitemgroup_short_desc) AS SELECT *
+FROM ldl_p_lew_mart_msi.v_itm_subitemgroup_desc_new_1;

@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_besch_faktura_werbecluster_1 (mandant_id, wup_id, nb_id, kjwo, wg_id,
+art_id, faktura_menge_af_1fw, faktura_menge_af_2fw, faktura_menge_af_3fw, faktura_menge_af_6vw, faktura_menge_sa_1vw,
+faktura_menge_sa_ww) AS SELECT mandant_id,
+ wup_id,
+ nb_id,
+ kjwo,
+ wg_id,
+ art_id,
+ faktura_menge_af_1fw,
+ faktura_menge_af_2fw,
+ faktura_menge_af_3fw,
+ faktura_menge_af_6vw,
+ faktura_menge_sa_1vw,
+ faktura_menge_sa_ww
+FROM kfl_production_dbp_data.besch_faktura_werbecluster_1;

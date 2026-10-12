@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE dbp_msi_view_geku_materialized.mv_f_geku_kundenbarometer_1 (
+geku_ticket_id_kundenbarometer INTEGER,
+dat DATE,
+wup_id INTEGER,
+nb_id INTEGER,
+mandant_id INTEGER,
+kdc_fg INTEGER,
+mzk_fg INTEGER,
+wmd_fg INTEGER,
+sec_kz INTEGER,
+note_auswahl INTEGER,
+note_frische INTEGER,
+note_qualitaet INTEGER,
+note_beratung INTEGER,
+note_freundlichkeit_allg INTEGER,
+note_freundlichkeit_theke INTEGER,
+note_freundlichkeit_kasse INTEGER,
+note_schnelligkeit_kasse INTEGER,
+note_schnelligkeit_theke INTEGER,
+note_preis INTEGER
+);

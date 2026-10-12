@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_ovenlogs_error_2_bakeoff_oven_error_1 (
+client_id BIGNUMERIC(38),
+lidl_country STRING(40),
+ovenlogs_error_country_iso_cd STRING(250),
+ovenlogs_error_orig_store_nr BIGNUMERIC(38,0),
+ovenlogs_error_oven_number BIGNUMERIC(38,0),
+ovenlogs_error_error_datetime DATETIME,
+ovenlogs_error_error_id STRING(250) COLLATE 'und:ci',
+src_wh_id INTEGER,
+src_orig_store_nr INTEGER,
+oven_id BIGNUMERIC(38),
+oven_ip STRING(20),
+oven_brand STRING(20) COLLATE 'und:ci',
+oven_error_tmsp DATETIME,
+oven_error_id BIGNUMERIC(38),
+oven_error_descr STRING(100) COLLATE 'und:ci',
+dwh_cal_dt DATE,
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

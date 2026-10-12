@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE dbp_msi_view_immo_materialized.mv_l_mietvertrag_umsatz_konz_hilf_1 (
+mandant_id INTEGER,
+mv_intreno STRING(20) COLLATE 'und:ci',
+branche_id INTEGER,
+man_vermietungsauftrag_id INTEGER,
+anlass_zwvermietung_id INTEGER,
+vertragsart_id INTEGER,
+mietvertrag_nr STRING(20) COLLATE 'und:ci',
+mv_objekt_nr STRING(30) COLLATE 'und:ci',
+partner_id STRING(10) COLLATE 'und:ci',
+anschluss_mietvertrag STRING(1) COLLATE 'und:ci',
+mv_option STRING(60) COLLATE 'und:ci',
+dat_kuend_eingang_bis DATE,
+dat_kuend_berechnet_zum DATE,
+kuend_partei STRING(1) COLLATE 'und:ci',
+kuend_frist STRING(20) COLLATE 'und:ci',
+dat_miet_beginn DATE,
+dat_miet_ende DATE,
+restlaufzeit_monate NUMERIC(29,1),
+mv_akt_gueltig_fg INTEGER,
+unbefristet_fg INTEGER,
+mietvertrag_nr_alt STRING(20) COLLATE 'und:ci'
+);

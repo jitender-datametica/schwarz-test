@@ -1,0 +1,9 @@
+-- KFL_PRODUCTION_CLONE_DEMO.DBP_MSI_VIEW_DEMO.MV_ABT_1 source
+
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_DEMO.MV_ABT_1
+AS
+SELECT DISTINCT
+ v01.abt_id
+,v01.arthiertyp_id
+FROM dbp_view.v_abt_1 v01
+WHERE v01.arthiertyp_id = 2;

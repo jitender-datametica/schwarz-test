@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.srmara_eks_item_wawirelevance_zrelevantmdm_updsel_1 (itemid,
+zrelevantmdm, zrelevantmdmnew, zactive) AS SELECT stmara_eks_item.itemid,
+ stmara_eks_item.zrelevantmdm,
+ 0 AS zrelevantmdmnew,
+ srmara_eks_item_wawirelevancy_zactive_updsel.zactivenew AS zactive
+FROM idq_production_eks_calculation.srmara_eks_item_wawirelevancy_zactive_updsel_1
+ INNER JOIN idq_production_eks_calculation.stmara_eks_item_1 ON srmara_eks_item_wawirelevancy_zactive_updsel.itemid =
+  stmara_eks_item.itemid
+WHERE stmara_eks_item.zrelevantmdm = 1;

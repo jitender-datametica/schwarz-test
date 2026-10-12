@@ -1,0 +1,25 @@
+create or replace TABLE LDL_DATA_PRODUCTION.META.T_BUSINESS_TERM_1 (
+	BUS_TERM_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the business term.',
+	DWH_VALID_FROM_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record became valid.',
+	DWH_VALID_TO_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was no longer valid.',
+	DWH_VALID_FG BOOLEAN NOT NULL COMMENT 'An indicator showing the current record, i.e. where the current date is between dwh_valid_from and dwh_valid_to.',
+	BUS_TERM_NAME VARCHAR(100) NOT NULL COMMENT 'The name by which the term is known to business.',
+	BUS_TERM_DESCR VARCHAR(250) NOT NULL COMMENT 'The definition of the business term.',
+	BUS_TERM_TYPE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the subtype discriminator for business terms. It distinguishes between domain terms, object terms, attribute terms, value terms and KPI terms.',
+	OBJ_TERM_TYPE_CD VARCHAR(20) COMMENT 'The code identifying the subtype discriminator for object terms.',
+	ATTR_TERM_TYPE_CD VARCHAR(20) COMMENT 'The code identifying the subtype discriminator for attribute terms.',
+	PARENT_TERM_SID NUMBER(38,0) COMMENT 'The unique identifier (surrogate key) for the upper level term in the hierarchy_1 of business terms.',
+	DOMAIN_TERM_NAME VARCHAR(100) COMMENT 'If this term is a domain term, this column contains the name of the domain term. Otherwise, it is empty.',
+	OBJ_TERM_NAME VARCHAR(100) COMMENT 'If this term is an object term, this column contains the name of the object term. If this term is an attribute term or a value term, this column contains the name of the related object term. Otherwise, it is empty.',
+	ATTR_TERM_NAME VARCHAR(100) COMMENT 'If this term is an attribute term, this column contains the name of the attribute term. If this term is a value term, this column contains the name of the related attribute term. Otherwise, it is empty.',
+	VAL_TERM_NAME VARCHAR(100) COMMENT 'If this term is a value term, this column contains the name of the value term. Otherwise, it is empty.',
+	DATA_PROT_LVL_CD VARCHAR(20) COMMENT 'The code identifying the way, how the data objects which represent this business term, need to be protected from unauthorized access. E.g. it labels personally identifiable information (PII) and data that needs to be protected for competitive reasons.',
+	APPROVAL_STATUS_CD VARCHAR(20) NOT NULL COMMENT 'The code identifying the approval status_1 for a business term.',
+	DATA_STEWARD_SID NUMBER(38,0) COMMENT 'The unique identifier (surrogate key) for the data steward, who is responsible for this business term.',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.',
+	constraint PK_T_BUSINESS_TERM primary key (BUS_TERM_SID, DWH_VALID_FROM_TMSP)
+)COMMENT='A business term is a word or phrase that describes a concept that is used in one or several areas of the enterprise. E.g. customer, product, buying price, …  The conceptual data model (CDM) is a graphical representation of business terms. Business terms do not (necessarily) reflect the terminology that is used in operational systems, nor are they tailored towards any reporting requirements. Business terms may form a hierarchy_1 of the following form: Domain Term -> (multiple levels of) Object Terms -> Attribute Term -> Value Term'
+;

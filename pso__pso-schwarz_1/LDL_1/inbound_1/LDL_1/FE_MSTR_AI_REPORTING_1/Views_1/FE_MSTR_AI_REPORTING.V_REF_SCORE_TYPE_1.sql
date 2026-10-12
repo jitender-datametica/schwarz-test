@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW FE_MSTR_AI_REPORTING.V_REF_SCORE_TYPE_1(
+	SCORE_TYPE_SID
+	, SCORE_TYPE_NAME
+	, SCORE_TYPE_DESCR
+) AS
+    /* Version: 1.0
+    ** Author:  Stefan Sockel
+    ** Date:    2022-11-09
+    ** Changes: Initial version
+    */
+SELECT
+    SCORE_TYPE_SID
+    ,SCORE_TYPE_NAME
+    ,SCORE_TYPE_DESCR
+FROM "P_LEW_CORE"."T_REF_SCORE_TYPE_1" ;

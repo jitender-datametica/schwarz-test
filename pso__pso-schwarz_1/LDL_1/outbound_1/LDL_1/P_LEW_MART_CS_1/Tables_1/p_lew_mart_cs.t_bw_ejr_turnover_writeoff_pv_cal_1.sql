@@ -1,0 +1,18 @@
+/*
+#----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS
+#----------------------------------------------------------------------------
+# Interface: DDL for p_lew_mart_cs.t_bw_ejr_turnover_writeoff_pv_cal_1
+#----------------------------------------------------------------------------
+# History:
+#   1.0            05.10.2022        Ulrich Ross              Init
+#                                                             User Story 391252
+#                                                             SAP BW Performance Issue - SF
+#----------------------------------------------------------------------------
+*/
+
+
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_cs.t_bw_ejr_turnover_writeoff_pv_cal_1 (
+cy_month BIGNUMERIC(38) NOT NULL,
+dat_calendar DATE NOT NULL
+);

@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_lec_share.v_dim_material_document_movement_type_1 AS SELECT *
+FROM ldl_dig_core.t_dim_material_document_movement_type_1;

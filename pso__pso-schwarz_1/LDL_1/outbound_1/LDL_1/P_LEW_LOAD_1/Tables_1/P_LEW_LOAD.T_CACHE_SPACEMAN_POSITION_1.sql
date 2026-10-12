@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_cache_spaceman_position_1 (
+client_id BIGNUMERIC(38,0),
+src_section_nr STRING(20),
+int_org_nr STRING(20),
+int_org_sid BIGNUMERIC(38,0),
+src_shelf_nr BIGNUMERIC(38,0),
+src_position_nr BIGNUMERIC(38,0),
+spaceman_item_nr STRING(20),
+item_merchandising_type_cd STRING(100),
+case_orientation_cd STRING(100),
+x_case_cnt BIGNUMERIC(38,0),
+z_case_cnt BIGNUMERIC(38,0),
+total_piece_qty BIGNUMERIC(38,5),
+total_case_qty BIGNUMERIC(38,5),
+position_width_meas BIGNUMERIC(38,5),
+uom_cd_width STRING(20),
+extraction_dt DATETIME,
+deleted_fg BIGNUMERIC(38,0),
+dwh_load_id BIGNUMERIC(38,0),
+dwh_created DATETIME,
+dwh_updated DATETIME
+);

@@ -1,0 +1,73 @@
+create or replace view SMP_PRODUCTION.FE_PORTAL_SMP.V_CAMPAIGN_SHOPPER_DESCR_AUDIENCE_AGE_GENDER_1(
+	DIVISION_ID,
+	COUNTRY_ID,
+	CAMPAIGN_ID,
+	CAMPAIGN_NAME,
+	ADVERTISER_ID_SMP,
+	ADVERTISER_ID_PIQ,
+	CAMPAIGN_TYPE_ID,
+	SHOPPER_ID,
+	AGE,
+	AGE_ID,
+	AGE_NAME,
+	GENDER,
+	GENDER_ID,
+	GENDER_NAME
+) as 
+SELECT 
+   c.division_id
+  ,c.country_id
+  ,c.campaign_id
+  ,c.campaign_name
+  ,c.advertiser_id_smp
+  ,c.advertiser_id_piq
+  ,c.campaign_type_id
+  ,s.shopper_id 
+  ,MAX(CASE WHEN a.descr_audience_type_id = 'AGE' THEN a.descr_audience_type_id ELSE NULL END) AS age
+  ,MAX(CASE WHEN a.descr_audience_type_id = 'AGE' THEN a.descr_audience_id ELSE NULL END) AS age_id
+  ,MAX(CASE WHEN a.descr_audience_type_id = 'AGE' THEN a.descr_audience_name ELSE NULL END) AS age_name
+  ,MAX(CASE WHEN a.descr_audience_type_id = 'GENDER' THEN a.descr_audience_type_id ELSE NULL END) AS gender
+  ,MAX(CASE WHEN a.descr_audience_type_id = 'GENDER' THEN a.descr_audience_id ELSE NULL END) AS gender_id
+  ,MAX(CASE WHEN a.descr_audience_type_id = 'GENDER' THEN a.descr_audience_name ELSE NULL END) AS gender_name
+FROM core.t_dim_campaign_1 c 
+
+
+INNER JOIN fe_portal_smp.v_campaign_portal_permission_1 p
+ON c.division_id = p.division_id
+  AND c.country_id = p.country_id
+  AND c.campaign_id = p.campaign_id
+
+ INNER JOIN 
+(
+  SELECT 
+     s.division_id
+    ,s.country_id
+    ,s.campaign_id
+    ,s.shopper_id
+  FROM core_rel.t_smp_attributed_sales_1 s
+
+  GROUP BY 1,2,3,4
+) s
+ON s.division_id = c.division_id 
+  AND s.country_id = c.country_id
+  AND s.campaign_id = c.campaign_id 
+
+INNER JOIN core_rel.t_map_shopper_descr_audience_1 m
+ON s.division_id = m.division_id
+  AND s.country_id = m.country_id 
+  AND s.shopper_id = m.shopper_id 
+  
+INNER JOIN core_rel.t_descr_audience_1 a
+ON m.division_id = a.division_id
+  AND m.country_id = a.country_id 
+  AND m.descr_audience_id = a.descr_audience_id 
+  AND a.descr_audience_type_id IN ('AGE', 'GENDER')
+  
+INNER JOIN core_rel.t_descr_audience_type_1 T
+ON a.division_id = t.division_id
+  AND a.country_id = t.country_id 
+  AND a.descr_audience_type_id = t.descr_audience_type_id 
+  AND T.active_fg = 1
+   
+GROUP BY 1,2,3,4,5,6,7,8
+;

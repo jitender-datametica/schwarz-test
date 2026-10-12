@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE idq_production_idq_results.idq_addinfo_kaufland_retail_pim_missings_1 (
+id BIGNUMERIC(38,0) NOT NULL,
+test_object_id BIGNUMERIC(38,0),
+branch_id BIGNUMERIC(38,0),
+source_system_primary_key STRING(1000),
+source_system_id BIGNUMERIC(38,0),
+country_id BIGNUMERIC(38,0),
+is_relevant BIGNUMERIC(38,0),
+mara_matnr STRING(40),
+maw1_zzek_zsm_matnr STRING(40),
+mara_mstae STRING(2),
+mara_attyp STRING(2),
+mara_matkl STRING(4),
+mara_mtart STRING(4),
+zek_matkl_mtart_matkl STRING(9),
+zek_matkl_mtart_mtart STRING(4),
+wlk2_vkbis STRING(24),
+reason_for_missing STRING(1000),
+idq_date DATETIME,
+PRIMARY KEY (id) NOT ENFORCED
+);

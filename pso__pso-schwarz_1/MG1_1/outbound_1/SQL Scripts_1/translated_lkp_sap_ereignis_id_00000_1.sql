@@ -1,0 +1,11 @@
+--[OK] statement is translated correctly (syntax and type checks are fine)
+
+
+
+SELECT MANDANT_ID,
+ EREIGNIS_ID,
+ SAP_EREIGNIS_ID,
+ EREIGNISTYP_ID,
+ DEFAULT_OFFEN
+FROM KFL_PRODUCTION_DBP_DATA.EREIGNIS_1
+WHERE SAP_EREIGNIS_ID IS NOT NULL;

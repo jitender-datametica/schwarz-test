@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_shr_ma_funktion_gruppe_spr_zu_1 AS SELECT shr_ma_funktion_gruppe_id,
+ spr_id,
+ shr_ma_funktion_gruppe_bez
+FROM kfl_production_dbp_data.shr_ma_funktion_gruppe_spr_zu_1;

@@ -1,0 +1,37 @@
+create or replace view LDL_DATA_PRODUCTION.POLICIES.V_SEC_RAP_BENCHMARK_PARENT_1(
+	NAME,
+	PARENT
+) COMMENT='Security view for the benchmarking use case or the organizational hierarchy_1 table for a scenario where the COUNTRY_ORG_CD and the INT_ORG_SID columns need to be combined'
+ as
+    // all countries
+    SELECT DISTINCT 
+         ROLE_NAME AS NAME
+        ,'INT' AS PARENT
+    FROM POLICIES.T_SEC_RAP_CORE_ISO_COUNTRY_CD_1
+    
+    UNION ALL
+
+    // all companies
+    SELECT DISTINCT
+         ROLE_NAME AS NAME
+        ,HIERARCHY.COUNTRY_ORG_CD AS PARENT
+    FROM POLICIES.T_SEC_RAP_CORE_SALES_COMPANY_NR_1 COMP
+    LEFT OUTER JOIN POLICIES.T_SEC_RAP_ORG_HIERARCHY_1 HIERARCHY_1 ON COMP.SALES_COMPANY_NR = HIERARCHY.SALES_COMPANY_NR
+   
+    UNION ALL
+    
+    // all stores of accountmanagers belonging to the same company
+    SELECT DISTINCT 
+         LOGIN_NAME_EMAIL AS NAME
+        ,SALES_COMPANY_NR AS PARENT
+    FROM POLICIES.T_SEC_RAP_ACCOUNTMANAGER_1
+   
+    UNION ALL
+
+    // all stores of salesmanagers belonging to the same accountmanager
+    SELECT DISTINCT
+         SLSMGR.LOGIN_NAME_EMAIL AS NAME
+        ,ACCTMGR.ACCT_MGR_DISTRICT_NAME::VARCHAR AS PARENT
+    FROM POLICIES.T_SEC_RAP_SALESMANAGER_1 SLSMGR
+    LEFT OUTER JOIN POLICIES.T_SEC_RAP_ACCOUNTMANAGER_1 ACCTMGR ON SLSMGR.ACCT_MGR_DISTRICT_SID = ACCTMGR.ACCT_MGR_DISTRICT_SID
+;

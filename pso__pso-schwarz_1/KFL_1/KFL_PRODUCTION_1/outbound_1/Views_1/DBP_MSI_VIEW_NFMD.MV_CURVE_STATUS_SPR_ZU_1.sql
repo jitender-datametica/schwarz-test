@@ -1,0 +1,32 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_nfmd.mv_curve_status_spr_zu_1 AS SELECT 1 AS curve_status,
+ 'laufend' AS curve_status_beschreibung,
+ 'laufend' AS curve_status_beschreibung_de,
+ 'ongoing' AS curve_status_beschreibung_cz,
+ 'ongoing' AS curve_status_beschreibung_pl,
+ 'ongoing' AS curve_status_beschreibung_sk,
+ 'ongoing' AS curve_status_beschreibung_hr,
+ 'ongoing' AS curve_status_beschreibung_ro,
+ 'ongoing' AS curve_status_beschreibung_bg,
+ 'ongoing' AS curve_status_beschreibung_en
+UNION ALL
+SELECT 2 AS curve_status,
+ 'abgebrochen' AS curve_status_beschreibung,
+ 'abgebrochen' AS curve_status_beschreibung_de,
+ 'canceled' AS curve_status_beschreibung_cz,
+ 'canceled' AS curve_status_beschreibung_pl,
+ 'canceled' AS curve_status_beschreibung_sk,
+ 'canceled' AS curve_status_beschreibung_hr,
+ 'canceled' AS curve_status_beschreibung_ro,
+ 'canceled' AS curve_status_beschreibung_bg,
+ 'canceled' AS curve_status_beschreibung_en
+UNION ALL
+SELECT 3 AS curve_status,
+ 'abgeschlossen' AS curve_status_beschreibung,
+ 'abgeschlossen' AS curve_status_beschreibung_de,
+ 'finished' AS curve_status_beschreibung_cz,
+ 'finished' AS curve_status_beschreibung_pl,
+ 'finished' AS curve_status_beschreibung_sk,
+ 'finished' AS curve_status_beschreibung_hr,
+ 'finished' AS curve_status_beschreibung_ro,
+ 'finished' AS curve_status_beschreibung_bg,
+ 'finished' AS curve_status_beschreibung_en;

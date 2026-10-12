@@ -1,0 +1,33 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_log.mv_fg_spr_zu_incl_na_1 (fg_id, fg_kbez, fg_bez, fg_bez_de,
+fg_bez_cz, fg_bez_sk, fg_bez_hr, fg_bez_pl, fg_bez_ro, fg_bez_bg) AS SELECT 0 AS fg_id,
+ ' ' AS fg_kbez,
+ 'nein' AS fg_bez,
+ 'nein' AS fg_bez_de,
+ 'žádný' AS fg_bez_cz,
+ 'žiadny' AS fg_bez_sk,
+ 'ne' AS fg_bez_hr,
+ 'nie' AS fg_bez_pl,
+ 'nu' AS fg_bez_ro,
+ 'не' AS fg_bez_bg
+UNION ALL
+SELECT 1 AS fg_id,
+ 'X' AS fg_kbez,
+ 'ja' AS fg_bez,
+ 'ja' AS fg_bez_de,
+ 'ano' AS fg_bez_cz,
+ 'áno' AS fg_bez_sk,
+ 'da' AS fg_bez_hr,
+ 'tak' AS fg_bez_pl,
+ 'da' AS fg_bez_ro,
+ 'да' AS fg_bez_bg
+UNION ALL
+SELECT - 1 AS fg_id,
+ 'n/a' AS fg_kbez,
+ 'n/a' AS fg_bez,
+ 'n/a' AS fg_bez_de,
+ 'n/a' AS fg_bez_cz,
+ 'n/a' AS fg_bez_sk,
+ 'n/a' AS fg_bez_hr,
+ 'n/a' AS fg_bez_pl,
+ 'n/a' AS fg_bez_ro,
+ 'n/a' AS fg_bez_bg;

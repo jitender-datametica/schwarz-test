@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_ssm_wup_prozess_werbeverteilung_1 AS SELECT mandant_id,
+ wup_id,
+ nb_id,
+ ssm_prozess_id,
+ dat,
+ wert
+FROM kfl_production_dbp_data.ssm_wup_prozess_werbeverteilung_1;

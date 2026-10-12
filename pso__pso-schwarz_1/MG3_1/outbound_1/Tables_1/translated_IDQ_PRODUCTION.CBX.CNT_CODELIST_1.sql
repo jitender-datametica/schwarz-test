@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS idq_production_cbx.cnt_codelist_1 (
+id STRING(32) NOT NULL,
+revision NUMERIC(20,0),
+entity_version NUMERIC(20,0),
+domain_id STRING(400),
+hub_domain_id STRING(400),
+is_for_reference BIGNUMERIC(38,0),
+internal_seq_no NUMERIC(20,0),
+parent_id STRING(32),
+seq_no NUMERIC(20,0),
+code STRING(400),
+name STRING(400),
+disabled BIGNUMERIC(38,0),
+ref_no STRING(1000),
+business_ref_no STRING(1000),
+duid STRING(100),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (id) NOT ENFORCED
+);

@@ -1,0 +1,33 @@
+CREATE OR REPLACE VIEW P_LEW_PROCESS.V_AGC_RUN_LOG_LOCATION_1
+(
+ run_log_sid
+,aggregate_name
+,client_id
+,dwh_cal_dt
+,loc_sid
+,recalc_fg
+,status_1
+,run_id
+,run_cluster_cd
+,create_timestamp
+,update_timestamp
+,start_processing
+,end_processing
+)
+AS
+   SELECT
+    run_log_sid,
+   aggregate_name,
+   client_id,
+   dwh_cal_dt,
+   loc_sid,
+   recalc_fg,
+   status_1,
+   run_id,
+   run_cluster_cd,
+   create_timestamp,
+   update_timestamp,
+   start_processing,
+   end_processing
+   FROM p_lew_process.t_agc_run_log_location_1
+;

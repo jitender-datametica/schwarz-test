@@ -1,0 +1,33 @@
+CREATE TABLE DATA.T_WAWI_DISPOSITIONSKOPF_1 (
+client_id 					NUMBER(38,0) 		NOT NULL 	COMMENT 'Client id - calculated based on the country_1 code', 
+wawi_instanz_kzl 			VARCHAR(3)			NOT NULL 	COMMENT 'Country_1 code',
+wh_nr 						NUMBER(38,0)  		NOT NULL 	COMMENT 'Warehouse number',
+
+po_nr 						VARCHAR(12) 		NOT NULL	COMMENT 'Order number (primary key)',
+krednr 						VARCHAR(7)			NULL		COMMENT 'Supplier_1 no.',
+datum 						TIMESTAMP			NULL		COMMENT 'Delivery date',
+lfdnr 						VARCHAR(2)			NULL		COMMENT '',
+textkreditor 				VARCHAR(16777216)	NULL		COMMENT 'Supplier_1 info text from WAW',
+status_1 						NUMBER(38,0)		NULL		COMMENT '',
+anlage_datum 				TIMESTAMP			NULL		COMMENT 'Creation date of the order',
+anlage_bediener 			VARCHAR(8)			NULL		COMMENT 'User who created the order (DIS -> Module User, LIA -> Web Service User)',
+modify_datum 				TIMESTAMP			NULL		COMMENT 'Change date of the last order change',
+modify_bediener 			VARCHAR(8)			NULL		COMMENT 'User who made the last order change',
+batch_id 					NUMBER(38,0)		NULL		COMMENT 'ID used to summarize all orders for an order dispatch',
+c125_order_reference 		VARCHAR(30)			NULL		COMMENT 'ELM / LIA reference number for logistics orders (LIA)',
+c125_locked_by 				VARCHAR(20)			NULL		COMMENT 'Blocking flag for shipping notifications that are currently being processed (difference clarification or GR) (DIS and eGIN)',
+c125_lock_time 				TIMESTAMP			NULL		COMMENT 'Time on the above Lock has been set',
+c125_dirty_flag 			NUMBER(38,0)		NULL		COMMENT '',
+c125_wms_flag 				NUMBER(38,0)		NULL		COMMENT '',
+c125_correction_status 		NUMBER(38,0)		NULL		COMMENT '',
+c125_supp_ewl_nr 			NUMBER(38,0)		NULL		COMMENT '',
+scn 						NUMBER(38,0)		NULL		COMMENT '',
+
+dwh_load_id    				NUMBER(38,0) 		NOT NULL 	COMMENT 'Load id',
+dwh_created    				TIMESTAMP 			NOT NULL 	COMMENT 'Record created at',
+dwh_updated    				TIMESTAMP 			NOT NULL 	COMMENT 'Record updated at',
+dwh_valid_from 				DATE 				NOT NULL 	COMMENT 'Valid from date',
+dwh_valid_to   				DATE 				NOT NULL 	COMMENT 'Valid to date',
+deleted_fg     				BOOLEAN 			NOT NULL 	COMMENT 'Flag if record is deleted',
+PRIMARY KEY (client_id, wh_nr, po_nr, dwh_valid_from)
+) COMMENT = 'WAWI - WHWAWIADM.DISPOSITIONSKOPF. Header table for orders in the regional distribution center.';

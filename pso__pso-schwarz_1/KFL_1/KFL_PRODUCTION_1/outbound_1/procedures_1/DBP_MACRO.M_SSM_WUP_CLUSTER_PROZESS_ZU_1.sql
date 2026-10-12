@@ -1,0 +1,11 @@
+CREATE OR REPLACE PROCEDURE dbp_macro.m_ssm_wup_cluster_prozess_zu(IN P_MANDANT_ID BIGNUMERIC, IN P_WUP_ID BIGNUMERIC, IN P_NB_ID BIGNUMERIC, IN P_SSM_CLUSTER_ID BIGNUMERIC, IN P_SSM_PROZESS_ID BIGNUMERIC, OUT out_param STRING)
+BEGIN
+BEGIN TRANSACTION;
+UPDATE dbp_data.ssm_wup_cluster_prozess_zu_1 SET
+    ssm_cluster_id = CAST(P_SSM_CLUSTER_ID AS INTEGER)
+WHERE mandant_id = P_MANDANT_ID AND wup_id = P_WUP_ID AND nb_id = P_NB_ID AND ssm_prozess_id = P_SSM_PROZESS_ID;
+COMMIT TRANSACTION;
+SET out_param  =  'SSM_CLUSTER_ID_is_updated';
+SELECT out_param;
+RETURN;
+END;

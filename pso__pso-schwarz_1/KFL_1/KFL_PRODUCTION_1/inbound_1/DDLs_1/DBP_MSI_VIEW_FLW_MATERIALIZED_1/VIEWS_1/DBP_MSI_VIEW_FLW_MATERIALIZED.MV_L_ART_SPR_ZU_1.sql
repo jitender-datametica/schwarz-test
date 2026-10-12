@@ -1,0 +1,26 @@
+create or replace view DBP_MSI_VIEW_FLW_MATERIALIZED.MV_L_ART_SPR_ZU_1(
+	ART_ID,
+	MANDANT_ID,
+	ART_BEZ
+) as
+   SELECT
+
+   v01.art_id, v01.mandant_id, v01.art_bez
+
+   FROM dbp_view.v_art_spr_zu_1 v01
+   INNER JOIN dbp_view.v_art_wg_zu_per_1 v02
+   ON  v01.art_id = v02.art_id
+   AND  v01.mandant_id = v02.mandant_id
+
+   JOIN dbp_msi.akt_msi_user_spr_zu_1 v03
+   ON v01.spr_id = v03.spr_id
+
+   WHERE v01.mandant_id IN (1,2)
+
+   
+   AND v02.dat_bis='9999-12-31'
+   AND v02.arthiertyp_id = 2
+
+   
+   
+   AND v02.wg_id IN (003,122,128,134,135,136,137,138,139,141,142,144,145,146,147,158,159,184,186,232,233,234,235,236,237,238,239,331,242,243,244,245,246);

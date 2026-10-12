@@ -1,0 +1,56 @@
+INSERT INTO  ETL.${SRC2TGT_TEMP_TABLE1}_${SRC_CONTEXT_AREA}
+(
+        PARTY_SID,
+	PARTY_KEY_TYPE_CD,
+        PARTY_NAT_KEY_NR,
+        SOURCE_SYSTEM,
+        EXTRACTION_DT,
+        DWH_MAPPING_TMSP,
+        TF_ERROR_FG,
+        DELETED_FG,
+        RECORD_ID,
+        FILENAME,
+        DWH_NODE_CD,
+        DWH_LOAD_ID
+)
+
+WITH COMPANY_COUNTRIES AS (
+    SELECT       
+        SUBSTR(IGL_ASSOCIATIONNUMBER, 1,2)||'|'||TO_NUMBER(REGEXP_REPLACE(IGL_ASSOCIATIONNUMBER, '[^0-9]', '')) COMP_NAT_KEY_NR
+        ,MAX(SINKMODIFIEDON) AS MAPPING_TMSP
+        
+        ,MAX(DECODE(IGL_COMPANYTYPECODE, '285540001', IGL_ISOCODE2, NULL)) AS COUNTRY_NAT_KEY_NR
+        -- flags are True if we have a record with this role for the company and its state is active 
+        ,(COUNT(DECODE(IGL_COMPANYTYPECODE, '285540001', 1, NULL)) > 0
+			AND COUNT(DECODE(STATECODE, 0, 1, NULL)) > 0) AS IS_COUNTRY_ORG_FG
+      
+    FROM etl_process.t_tcache_lisy_cds_company_snap_1 
+    WHERE COMP_NAT_KEY_NR NOT IN (
+             'FR|2'
+            ,'FR|1'
+            ,'SI|5'
+            ,'CZ|2', 'DE|10', 'DE|79'
+        )
+	-- reduce the dataset to 1 rec per Company
+    GROUP BY COMP_NAT_KEY_NR
+)
+SELECT  
+        KEYS.PARTY_SID AS PARTY_SID,
+        'COUNTRY_1' AS PARTY_KEY_TYPE_CD,
+        COUNTRY_NAT_KEY_NR AS PARTY_NAT_KEY_NR,
+        'LISY' AS SOURCE_SYSTEM,
+        CURRENT_DATE AS EXTRACTION_DT,
+        SRC.MAPPING_TMSP AS DWH_MAPPING_TMSP,
+        0 AS TF_ERROR_FG,
+        0 AS DELETED_FG,
+        0 AS RECORD_ID,
+        't_${SRC_INPUT_TABLE}' AS FILENAME,
+        'LISY' AS DWH_NODE_CD,
+        '${LOAD_ID}' AS DWH_LOAD_ID 
+FROM COMPANY_COUNTRIES SRC
+INNER JOIN META.T_PARTY_KEY_1 KEYS
+ON KEYS.PARTY_NAT_KEY_NR= UPPER(SRC.COMP_NAT_KEY_NR)
+WHERE KEYS.PARTY_KEY_TYPE_CD='COMPANY'
+and KEYS.DWH_VALID_FG = TRUE
+AND SRC.IS_COUNTRY_ORG_FG = TRUE
+;

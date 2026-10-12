@@ -1,0 +1,38 @@
+--==============================================================
+-- Table: kmr_pruefprogramm_kapitel_1
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: kmr_pruefprogramm_kapitel_1
+   generated from Powerdesigner on Freitag, 17. Februar 2023 15:34:52
+*/ --------------------------------------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.kmr_pruefprogramm_kapitel_1 (
+amx_system_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL
+OPTIONS(description='AMX-System-ID (Core vs. Unternehmenssicherheit). Quellfeld amx_system.'),
+kapitel_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL
+OPTIONS(description='Kapitel-ID. Quellfeld activity_id. Innerhalb eines AMX-Systems die eindeutige ID eines Bereichs. Pruefprogramm, Hauptbereich, Teilbereich, oder Unterbereich.'),
+kapitel_bez STRING(255) DEFAULT ' ' OPTIONS(description='Kapitel-Bezeichnung, Quellfeld activity_name.'),
+kapitel_typ_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL
+OPTIONS(description='Kapiteltyp-ID. Quellfeld audit_universe_audited_process_id_current_level. Zusammen mit dem AMX-System ist es die eindeutige ID des Pruefprogrammtyps: Pruefprogramm, Hauptbereich, Teilbereich, oder Unterbereich.'),
+pruefung_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL
+OPTIONS(description='Prüfungs-ID. Verweist auf kmr_pruefung. Quellfeld auditing_id.'),
+kapitel_nr STRING(255) DEFAULT ' ' OPTIONS(description='Kapitelnummer. Quellfeld activity_sort_order.'),
+sort_nr BIGNUMERIC(38,0)
+OPTIONS(description='Sortiernummer des Kapiteleintrags im Prüfprogramm. Quellfeld program_sort_order.'),
+fehlerverdacht_fg BIGNUMERIC(38,0)
+OPTIONS(description='Flag: Identifizierung fehlerhafter Prüfkapitel  in der Quelle; "Errechnetes" Hierarchielevel = 1 -> Bei späteren INCs soll sich Prüfprogramm anschauen, ob fachliche Vorgaben erfüllt sind. Quellfeld has_flawed_audit_program.'),
+gepr_prozess_id BIGNUMERIC(38,0) DEFAULT - 1
+OPTIONS(description='Geprüfter Prozess-ID. Quellfeld audit_universe_audited_process_id_current_level.'),
+ergebnis BIGNUMERIC(38,0) OPTIONS(description='Endergebnis, Quellfeld numeric_result_current_level.'),
+ergebnis_berechnet BIGNUMERIC(38,0)
+OPTIONS(description='Ergebnis berechnet. Quellfeld contains_pu_computed_numeric_result_current_level.'),
+ergebnis_manuell BIGNUMERIC(38,0)
+OPTIONS(description='Ergebnis manuell. Quellfeld contains_pu_manual_numeric_result_current_level.'),
+td_update TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+td_insert TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+PRIMARY KEY (kapitel_id, amx_system_id) NOT ENFORCED
+)
+OPTIONS(description='KMR - Table for all audit activities (Kapitel der Prüfungen). It contains all "Prüfprogramme" (Feld pruefprogramm_id in Tabelle kmr_pruefprogramm_pruefprogramm_1), "Hauptbereiche" (Feld hauptbereich_id in Tabelle kmr_pruefprogramm_hauptbereich_1), "Teilbereiche" (Feld teilbereich_id in Tabelle kmr_pruefprogramm_teilbereich_1) and "Unterbereiche" (Feld unterbereich_id in Tabelle kmr_pruefprogramm_unterbereich_1). Does not contain "Kurzchecks". Source view v_dwh_kl_data_audit_program.');

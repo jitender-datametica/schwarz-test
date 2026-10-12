@@ -1,0 +1,48 @@
+--==============================================================
+-- Table: t_fact_transport_cost_vehicle_1
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: t_fact_transport_cost_vehicle_1
+   generated from Powerdesigner on Freitag, 11. Oktober 2024 10:31:11
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE.T_FACT_TRANSPORT_COST_VEHICLE_1 (
+   inbound_dispo_order_sid             NUMBER          NOT NULL COMMENT 'The unique identifier (surrogate key) for the disposition.',
+   cal_dt                              DATE            NOT NULL COMMENT 'Assigned date, in this case the last date where the good has to be delivered at the receiving warehouse',
+   departure_site_sid                  NUMBER          NOT NULL COMMENT 'The unique identifier (surrogate key) for the site.',
+   destination_site_sid                NUMBER          NOT NULL COMMENT 'The unique identifier (surrogate key) for the site.',
+   executing_hauler_sid                NUMBER          NOT NULL COMMENT 'The hauler who runs the crossdock.',
+   pallet_exchange_fg                  BOOLEAN         NOT NULL COMMENT 'A pallet exchange program is a collective agreement between pallet shippers and receivers that tries to ensure that each party maintains the same number of pallets. When loaded pallets are brought to a warehouse or another receiver, they are exchanged for an equal number of empty pallets.',
+   logistic_temp_cd                    VARCHAR(20)     NOT NULL COMMENT 'The code for the type of the temperature zone, e.g. TK, TL.',
+   logistic_type_cd                    VARCHAR(20)     NOT NULL COMMENT 'The code for the type of the logistic, e.g. SaL (Sammelladung / Sammellogistik) and KoL (Komplettladung / Direktlogistik)',
+   logistics_tariff_sid                NUMBER          COMMENT 'Surrogate identifier for Logistics Tariff',
+   segment_agmt_elem_sid               NUMBER          COMMENT 'Surrogate identifier for Agreement element',
+   transport_service_type_cd           VARCHAR(20)     NOT NULL COMMENT 'The code for the type of the transport service, e.g. "Vorlauf" or "Zwischenlauf"',
+   equipment_type_cd                   VARCHAR(20)     COMMENT 'The type discriminator for this equipment, i.e. vehicle(truck)',
+   transport_capacity_qty              NUMBER(38, 5)   COMMENT 'The capacity of the transport vehicle, e.g. 1EP --> 1 transport capacity / 1DD --> 0.5 transport capacity',
+   std_pallet_qty                      NUMBER(38, 5)   COMMENT 'Quantity of pallets, standardised as Euro pallet. For Example one DD pallet  is 0,5. Double deck factor does not have an impact.',
+   storage_space_qty                   NUMBER(38, 5)   COMMENT 'Needed storage space.',
+   vehicle_cnt                         NUMBER          COMMENT 'Amount of vehicles which are used to deliver the goods',
+   supplier_curr_cd                    VARCHAR(3)      COMMENT 'A three-character code for a currency according to ISO 4217. E.g.: ''EUR'', ''USD'', ''GBP'', …',
+   supplier_price_per_pallet_val       NUMBER(38, 5)   COMMENT 'Price asked by Supplier_1 for a transport  Calculated Amout per EP Pallet',
+   supplier_price_per_vehicle_val      NUMBER(38, 5)   COMMENT 'Price asked by Supplier_1 for a transport . Calculated Amout for a full vehicle',
+   supplier_cost_pallet_val            NUMBER(38, 5)   COMMENT 'Amount of money, which is paid from Supplier_1 to Hauler for transport. Calculated Amout  for total EP Pallet transported',
+   supplier_cost_vehicle_val           NUMBER(38, 5)   COMMENT 'Amount of money, which is paid from Supplier_1 to Hauler for transport. Calculated Amout for a full vehicle',
+   hauler_curr_cd                      VARCHAR(3)      COMMENT 'A three-character code for a currency according to ISO 4217. E.g.: ''EUR'', ''USD'', ''GBP'', …',
+   hauler_price_per_pallet_val         NUMBER(38, 5)   COMMENT 'Price asked by Hauler for a transport  Calculated Amout for EP Pallet',
+   hauler_price_per_vehicle_val        NUMBER(38, 5)   COMMENT 'Price asked by Hauler for a transport . Calculated Amout for a full vehicle',
+   hauler_cost_pallet_val              NUMBER(38, 5)   COMMENT 'Amount of money, which is paid from Hauler to a transport company for transport. Calculated Amout for total EP Pallet transported',
+   hauler_cost_vehicle_val             NUMBER(38, 5)   COMMENT 'Amount of money, which is paid from Hauler to a transport company for transport. Calculated Amout for a full vehicle',
+   commission_cost_pallet_val          NUMBER(38, 5)   COMMENT 'Difference between supplier_1 transport cost value and hauler transport cost value.. Calculated Amout for total EP Pallet transported',
+   commission_cost_vehicle_val         NUMBER(38, 5)   COMMENT 'Difference between supplier_1 transport price value and hauler transport cost value.. Calculated Amout for a full vehicle',
+   ep_pallet_double_deck_cnt           NUMBER          COMMENT 'Number of Double Deck EP Pallets.',
+   ep_pallet_no_double_deck_cnt        NUMBER          COMMENT 'Number of No Double Deck EP Pallets.',
+   dd_pallet_double_deck_cnt           NUMBER          COMMENT 'Number of Double Deck DD Pallets.',
+   dd_pallet_no_double_deck_cnt        NUMBER          COMMENT 'Number of No Double Deck DD Pallets.',
+   weight_ton_meas                     NUMBER(38, 5)   COMMENT 'Which weight does total amout of pallets have',
+   distance_km_meas                    NUMBER(38, 5)   COMMENT 'Distance of route segment in km',
+   case_cnt                            NUMBER          NOT NULL COMMENT 'The total number of cases in this position.',
+   dwh_created_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   dwh_updated_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',   
+   CONSTRAINT PK_T_FACT_TRANSPORT_COST_VEHICLE PRIMARY KEY (inbound_dispo_order_sid, cal_dt, departure_site_sid, destination_site_sid) NOT ENFORCED 
+)  COMMENT = 'This table decribes actual costs that were charged per vehicle';

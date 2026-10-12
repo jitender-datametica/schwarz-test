@@ -1,0 +1,5 @@
+create or replace TABLE IDQ_PRODUCTION.IDQ_RESULTS.REF_BRANCH_1 (
+	ID NUMBER(38,0) NOT NULL,
+	NAME VARCHAR(1000),
+	constraint PK_REF_BRANCH primary key (ID)
+);

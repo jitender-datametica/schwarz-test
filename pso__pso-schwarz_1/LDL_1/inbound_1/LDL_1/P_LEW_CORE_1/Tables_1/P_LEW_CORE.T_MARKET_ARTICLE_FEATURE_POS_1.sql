@@ -1,0 +1,81 @@
+CREATE TABLE P_LEW_CORE.T_MARKET_ARTICLE_FEATURE_POS_1 CLUSTER BY (CLIENT_ID) (
+   client_id                           NUMBER(38,0)     NOT NULL COMMENT 'DWH-Mandant_1; FK auf CLIENT',
+   region_sid                          NUMBER(38,0)     NOT NULL COMMENT 'Region_1; FK auf REGION_1',
+   period_sid                          NUMBER(38,0)     NOT NULL COMMENT 'Periode; FK auf PERIOD',
+   assort_cat_sid                      NUMBER(38,0)     NOT NULL COMMENT 'Kategorie; FK auf ASSORT_CATEGORY',
+   assort_cat_family_sid               NUMBER(38,0)     COMMENT 'Category Family; FK to ASSORT_CATEGORY.',
+   assort_cat_subfamily_sid            NUMBER(38,0)     COMMENT 'Category SubFamily; FK to ASSORT_CATEGORY.',
+   curr_cd                             VARCHAR(160)      NOT NULL COMMENT 'Basiswaehrung fuer Waehrungsumrechnung; FK auf CURRENCY',
+   rank_pos                            NUMBER(38,0)     NOT NULL COMMENT 'Ranking des Produkts',
+   product_name                        VARCHAR(2400)     COLLATE 'en-ci' COMMENT 'Bezeichnung des Produktnamens',
+   manufacturer                        VARCHAR(2400)     COLLATE 'en-ci' COMMENT 'Hersteller des Produkts',
+   brand_1                               VARCHAR(800)     COLLATE 'en-ci' COMMENT 'Produktmarke',
+   brand_type_txt                      VARCHAR(1000)    COMMENT 'Text description in local language of the Item_1 / Article Brand_1 with regards to its market positioning.
+            - Marke i.e. normal overall retail market brand_1 
+            - Eigenmarke/Handelsmarke (brand_1 created and distributed by specific retailer, i.e. Lidl, ALDI or DM)
+            - Rest - other brands or Unknown
+            In other languages values may differ.',
+   pack_size                           VARCHAR(800)     COLLATE 'en-ci' COMMENT 'Packungsgroesse des referenzierten Produkts',
+   ean_1                                 VARCHAR(32000)    COLLATE 'en-ci' COMMENT 'EAN_1 (europaeische Artikelnummer) des Produkts',
+   category_family                     VARCHAR(2400)     COLLATE 'en-ci' COMMENT 'Family-Kategorie (FAM)',
+   category_subfamily_name             VARCHAR(100)     COMMENT 'Assortment Category Subfamily Name - most detailed level of Assortment Category Hierarchy.
+            i.e.:
+            - Category UWG 81 Cosmetics
+            - Category Family 50 Oralcare
+            - Category Subfamily 53 Toothpaste',
+   feature1_content                    VARCHAR(2400)     COLLATE 'en-ci' COMMENT 'Zusaetzliche Produktmerkmale',
+   feature2_content                    VARCHAR(2400)     COLLATE 'en-ci' COMMENT 'Zusaetzliche Produktmerkmale',
+   feature3_content                    VARCHAR(2400)     COLLATE 'en-ci' COMMENT 'Zusaetzliche Produktmerkmale',
+   feature4_content                    VARCHAR(2400)     COLLATE 'en-ci' COMMENT 'Zusaetzliche Produktmerkmale',
+   feature5_content                    VARCHAR(2400)     COLLATE 'en-ci' COMMENT 'Zusaetzliche Produktmerkmale',
+   feature6_content                    VARCHAR(2400)     COLLATE 'en-ci' COMMENT 'Zusaetzliche Produktmerkmale',
+   feature7_content                    VARCHAR(2400)     COLLATE 'en-ci' COMMENT 'Zusaetzliche Produktmerkmale',
+   feature8_content                    VARCHAR(2400)     COLLATE 'en-ci' COMMENT 'Zusaetzliche Produktmerkmale',
+   feature9_content                    VARCHAR(2400)     COLLATE 'en-ci' COMMENT 'Zusaetzliche Produktmerkmale',
+   feature10_content                   VARCHAR(2400)     COLLATE 'en-ci' COMMENT 'Zusaetzliche Produktmerkmale',
+   feature11_content                   VARCHAR(2400)     COLLATE 'en-ci' COMMENT 'Zusaetzliche Produktmerkmale',
+   feature12_content                   VARCHAR(2400)     COLLATE 'en-ci' COMMENT 'Zusaetzliche Produktmerkmale',
+   feature13_content                   VARCHAR(2400)     COLLATE 'en-ci' COMMENT 'Zusaetzliche Produktmerkmale',
+   feature14_content                   VARCHAR(2400)     COLLATE 'en-ci' COMMENT 'Zusaetzliche Produktmerkmale',
+   turnover_val                        NUMBER(18,5)     COMMENT 'Hochgerechneter Umsatz',
+   turnover_prom_val                   NUMBER(18,5)     COMMENT 'Werbevermarktung des jeweiligen Produkts',
+   promotion_share_pct                 NUMBER(18,5)     COMMENT 'Anteil der Promotion an dem Gesamtumsatzl',
+   trip_cnt                            NUMBER(18,5)     COMMENT 'Die Anzahl aller Kassenbons (Besuche), die waehrend eines Zeitraums durch den Kauf der Warengruppe/des Produkts durch die Shopper_1 entstanden sind',
+   buyer_cnt                           NUMBER(18,5)     COMMENT 'Die Person, die die Produkte tatsaechlich im Geschaeft kauft. Ein Kaeufer ist nicht unbedingt der Verbraucher, d.h. der Kaeufer kauft Tiernahrung, konsumiert sie aber nicht',
+   extrapol_package_cnt                NUMBER(18,5)     COMMENT 'Extrapoliertes Volumen in Packungen',
+   avg_price_per_pack_val              NUMBER(18,5)     COMMENT 'Durchschnittspreis, der pro Packung erzielt wird',
+   packs_per_trip_cnt                  NUMBER(18,5)     COMMENT 'Verkaufte Anzahl Packungen pro Besuch',
+   penetrate_cum_abs_pct               NUMBER(18,5)     COMMENT 'Prozentsatz der Lidl-Kunden, die mit diesem Produkt und allen Produkten vorher erreicht werden konne (Produktranking => siehe seq)',
+   penetrate_cum_rel_pct               NUMBER(18,5)     COMMENT 'Prozentsatz der Kaeufer, die dieses Produkt oder eines der oben genannten Produkte kaufen (Produktranking => siehe seq)',
+   penetrate_diff_cum_rel_pct          NUMBER(18,5)     COMMENT 'Prozentsatz der Kaeufer, die dieses Produkt kaufen. Differenz zwischen der "kumulierten Kaeuferdurchdringung" dieser Zeile und der Zeile davor (Produktranking => siehe seq)',
+   penetrate_single_rel_pct            NUMBER(18,5)     COMMENT 'Prozentsatz der Kaeufer (von Anzahl der Kaeufer im Sortiment), die dieses Produkt mindestens einmal gekauft haben',
+   penetrate_exclusive_rel_pct         NUMBER(18,5)     COMMENT 'Prozentsatz der Kaeufer (von Anzahl der Kaeufer im Sortiment), die dieses Produkt ausschliesslich gekauft haben',
+   exclusive_buyer_assortment_pct      NUMBER(18,5)     COMMENT 'Prozentsatz der Kaeufer, die dieses Produkt gekauft haben, und kein Produkt des Rankings vorher',
+   assortment_depth_per_buyer_cnt      NUMBER(18,5)     COMMENT 'Anzahl der Produkte, die im Durchschnitt von den oben genannten Produkten gekauft wurden, von Kaeufern, die dieses Produkt gekauft haben',
+   turnover_cum_all_pct                NUMBER(18,5)     COMMENT 'Kumulierter Wert aller Produkte, die von Kaeufern gekauft wurden, die dieses Produkt oder eines der oben genannten Produkte gekauft haben (Produktranking => siehe seq), im Verhaeltnis zum Gesamtwert der gesamten Kategorie',
+   turnover_cum_product_pct            NUMBER(18,5)     COMMENT 'Kumulierter Wert des Produkts oder eines der oben genannten Produkte (Produktranking => siehe seq) im Verhaeltnis zum Gesamtwert der gesamten Kategorie',
+   total_market_turnover_val           NUMBER(18,5),
+   total_market_promotion_share_pct    NUMBER(18,5),
+   total_market_extrapol_package_cnt   NUMBER(18,5),
+   lidl_turnover_val                   NUMBER(18,5),
+   lidl_promotion_share_pct            NUMBER(18,5),
+   lidl_extrapol_package_cnt           NUMBER(18,5),
+   competitor1_turnover_val            NUMBER(18,5),
+   competitor1_promotion_share_pct     NUMBER(18,5),
+   competitor1_extrapol_package_cnt    NUMBER(18,5),
+   competitor2_turnover_val            NUMBER(18,5),
+   competitor2_promotion_share_pct     NUMBER(18,5),
+   competitor2_extrapol_package_cnt    NUMBER(18,5),
+   retailer_sid_comp1                  NUMBER(38,0)     COMMENT 'Einzelhaendler; FK auf RETAILER',
+   retailer_sid_comp2                  NUMBER(38,0)     COMMENT 'Einzelhaendler; FK auf RETAILER',
+   weight_type_txt                     VARCHAR(1000)    COMMENT 'Text in local language defines whether specific article / item_1 being sold in the retail store as a piece or a custom weight quantity.
+            i.e.
+            - Packs 
+            - Kilogram/Gram
+            ',
+   deleted_fg                          NUMBER(38,0)     COMMENT '0/1-Flag; 1 = Satz ist nicht korrekt; 0 = Satz ist korrekt',
+   dwh_load_id                         NUMBER(38,0)     NOT NULL COMMENT 'Identifier des letzten Ladelaufs, der den Datensatz eingefuegt oder veraendert hat',
+   dwh_created                         TIMESTAMP_LTZ(9) NOT NULL COMMENT 'Zeitstempel der Ersteinfuegung',
+   dwh_updated                         TIMESTAMP_LTZ(9) NOT NULL COMMENT 'Zeitstempel der letzten fachlichen(!) Aenderung',   
+   CONSTRAINT PK_T_MARKET_ARTICLE_FEATURE_POS PRIMARY KEY (client_id, region_sid, period_sid, assort_cat_sid, rank_pos) NOT ENFORCED 
+)  COMMENT = '$Revision: 0000 $ Marktforschungsanalyse auf Artikelbasis';

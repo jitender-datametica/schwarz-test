@@ -1,0 +1,41 @@
+create or replace table dbp_etl.bon_agg_artbew_tmp_1 (
+  wup_id integer not null,
+  mandant_id byteint not null,
+  bon_dat date not null,
+  xml_name varchar(255)
+);
+
+create or replace table dbp_etl.bon_artbew_tgl_delta_1 (
+  wup_id integer not null,
+  mandant_id byteint not null,
+  dat date not null
+);
+
+insert into dbp_etl.bon_agg_artbew_tmp_1 (mandant_id
+                                       ,wup_id
+                                       ,bon_dat
+                                       ,xml_name)
+select t2.mandant_id
+      ,t2.wup_id
+      ,t2.bon_dat
+      ,t2.datei_name
+from dbp_ods.ods_bon_transaction_1 t2
+where t2.mandant_id = 1
+  and t2.bon_dat between '2024-07-01' and '2024-09-30'
+;
+
+insert into dbp_etl.bon_artbew_tgl_delta_1 (mandant_id
+                                         ,wup_id
+                                         ,dat)
+select mandant_id
+      ,wup_id
+      ,bon_dat
+from dbp_etl.bon_agg_artbew_tmp_1
+where (mandant_id, wup_id, bon_dat) not in (select mandant_id,wup_id,dat from dbp_etl.bon_artbew_tgl_delta_1)
+group by 1,2,3
+;
+
+update dbp_ods.bon_load_status_1
+set artbew_fg = 1
+where xml_name in (select xml_name from dbp_etl.bon_agg_artbew_tmp_1)
+;

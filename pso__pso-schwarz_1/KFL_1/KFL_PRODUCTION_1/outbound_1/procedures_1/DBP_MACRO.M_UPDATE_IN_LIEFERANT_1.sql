@@ -1,0 +1,18 @@
+CREATE OR REPLACE PROCEDURE dbp_macro.m_update_in_lieferant(IN MANDANT_ID FLOAT64, IN IN_LIEF_ID FLOAT64, IN IN_LIEF_ID_INT FLOAT64, IN LOESCH_FG FLOAT64)
+BEGIN
+DECLARE sql_stmt STRING;
+DECLARE sql_commit STRING;
+
+BEGIN TRANSACTION;
+SET sql_stmt  =  '''UPDATE dbp_data.in_lieferant_1 SET  in_lief_id_int = CAST(@IN_LIEF_ID_INT AS INT64) WHERE mandant_id = @MANDANT_ID AND in_lief_id = @IN_LIEF_ID AND 0 = loesch_fg  ''';
+
+EXECUTE IMMEDIATE (sql_stmt) USING IN_LIEF_ID_INT AS IN_LIEF_ID_INT,  MANDANT_ID AS MANDANT_ID,  IN_LIEF_ID AS IN_LIEF_ID,  LOESCH_FG AS LOESCH_FG;
+
+SET sql_stmt  =  '''UPDATE dbp_data.in_lieferant_1 SET  in_lief_id_int = -1 WHERE 1 = loesch_fg AND mandant_id = @MANDANT_ID AND in_lief_id = @IN_LIEF_ID ''';
+
+EXECUTE IMMEDIATE (sql_stmt) USING MANDANT_ID AS MANDANT_ID,  IN_LIEF_ID AS IN_LIEF_ID,  LOESCH_FG AS LOESCH_FG;
+
+SET sql_commit  =  'COMMIT TRANSACTION';
+
+EXECUTE IMMEDIATE (sql_commit);
+END;

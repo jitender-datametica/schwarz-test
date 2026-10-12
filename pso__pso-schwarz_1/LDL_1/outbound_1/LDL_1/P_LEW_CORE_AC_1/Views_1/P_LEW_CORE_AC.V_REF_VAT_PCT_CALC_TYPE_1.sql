@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_ref_vat_pct_calc_type_1 (vat_pct_calc_type_id, vat_pct_calc_type_descr) AS
+SELECT vat_pct_calc_type_id,
+ vat_pct_calc_type_descr
+FROM ldl_p_lew_core.t_ref_vat_pct_calc_type_1;

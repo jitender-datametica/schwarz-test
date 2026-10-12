@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_lec_share.v_fact_stock_warehouse_daily_1 AS SELECT *
+FROM ldl_dig_core.t_fact_stock_warehouse_daily_1;

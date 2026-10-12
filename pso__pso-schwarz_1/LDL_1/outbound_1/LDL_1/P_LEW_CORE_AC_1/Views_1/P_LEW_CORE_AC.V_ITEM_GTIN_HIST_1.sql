@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_item_gtin_hist_1 (client_id, item_sid, uom_sid, seq_nr, uom_cd, gtin,
+gtin_type_mark, gtin_type_label, main_gtin_fg, deleted_fg, dwh_valid_from, dwh_valid_to, dwh_load_id, dwh_created,
+dwh_updated) AS SELECT client_id,
+ item_sid,
+ uom_sid,
+ seq_nr,
+ uom_cd,
+ gtin,
+ gtin_type_mark,
+ gtin_type_label,
+ main_gtin_fg,
+ deleted_fg,
+ dwh_valid_from,
+ dwh_valid_to,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_item_gtin_hist_1;

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_org_einheit_sparte_1 AS SELECT mandant_id,
+ hr_objekt_ebene11_id,
+ sparte_id
+FROM kfl_production_dbp_data.l_org_einheit_sparte_1;

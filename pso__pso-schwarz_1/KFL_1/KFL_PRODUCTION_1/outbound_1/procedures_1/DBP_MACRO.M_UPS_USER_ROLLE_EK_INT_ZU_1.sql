@@ -1,0 +1,30 @@
+CREATE OR REPLACE PROCEDURE dbp_macro.m_ups_user_rolle_ek_int_zu(IN MANDANT_ID FLOAT64, IN USER_ID STRING, IN ROLLE_ID FLOAT64, IN ZEK_ID STRING, IN WBL_ID FLOAT64, IN GF_ID FLOAT64)
+BEGIN
+DECLARE sql_stmt STRING;
+DECLARE sql_commit STRING;
+BEGIN TRANSACTION;
+
+SET sql_stmt  =  '''MERGE INTO dbp_security.user_rolle_ek_int_zu_1 AS TARGET USING (SELECT @MANDANT_ID AS mandant_id, CASE WHEN @USER_ID = "adminkis" THEN @USER_ID_1 ELSE UPPER(LEFT(@USER_ID_1_2, 2)) || LOWER(SUBSTR(@USER_ID_1_2_3, 3, LENGTH(@USER_ID_1_2_3_4) - 2)) END AS user_id,   
+@ROLLE_ID AS rolle_id,   
+@ZEK_ID AS zek_id,   
+@WBL_ID AS wbl_id,   
+@GF_ID AS gf_id) AS source 
+ON TARGET.mandant_id = source.mandant_id AND TARGET.user_id = source.user_id AND TARGET.rolle_id = source.rolle_id 
+AND (TARGET.zek_id = source.zek_id OR source.zek_id IS NULL) AND (TARGET.wbl_id = source.wbl_id OR source.wbl_id IS NULL) AND (TARGET.gf_id = source.gf_id OR source.gf_id IS NULL) 
+WHEN MATCHED THEN UPDATE 
+SET  rolle_bez = NULL 
+WHEN NOT MATCHED THEN INSERT (mandant_id, user_id, rolle_id, rolle_bez, zek_id, wbl_id, gf_id) 
+VALUES(CAST(source.mandant_id AS INTEGER), 
+  source.user_id, 
+  CAST(source.rolle_id AS INTEGER), 
+  CAST(NULL AS STRING), 
+  CASE   WHEN source.rolle_id = 1   THEN source.zek_id   ELSE NULL   END, 
+  CAST(CASE    WHEN source.rolle_id = 2    THEN source.wbl_id    ELSE NULL    END AS INTEGER), 
+  CAST(CASE    WHEN source.rolle_id = 3    THEN source.gf_id    ELSE NULL    END AS INTEGER)) ''';
+
+EXECUTE IMMEDIATE (sql_stmt) USING IF(MANDANT_ID = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), MANDANT_ID) AS MANDANT_ID,  IF(USER_ID = CAST(NULL AS STRING), CAST(NULL AS STRING), USER_ID) AS USER_ID,  IF(USER_ID = CAST(NULL AS STRING), CAST(NULL AS STRING), USER_ID) AS USER_ID_1,  IF(USER_ID = CAST(NULL AS STRING), CAST(NULL AS STRING), USER_ID) AS USER_ID_1_2,  IF(USER_ID = CAST(NULL AS STRING), CAST(NULL AS STRING), USER_ID) AS USER_ID_1_2_3,  IF(USER_ID = CAST(NULL AS STRING), CAST(NULL AS STRING), USER_ID) AS USER_ID_1_2_3_4,  IF(ROLLE_ID = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), ROLLE_ID) AS ROLLE_ID,  IF(ZEK_ID = CAST(NULL AS STRING), CAST(NULL AS STRING), ZEK_ID) AS ZEK_ID,  IF(WBL_ID = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), WBL_ID) AS WBL_ID,  IF(GF_ID = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), GF_ID) AS GF_ID;
+
+SET sql_commit  =  'COMMIT TRANSACTION';
+
+EXECUTE IMMEDIATE (sql_commit);
+END;

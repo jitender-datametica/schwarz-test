@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS kfl_nfmd_core.src_hdp_frontend_screen_jf_1 (
+art_id BIGNUMERIC(38,0),
+aktion_id STRING(16777216),
+calendar_year STRING(16777216),
+calendar_week STRING(16777216),
+aktion_dat_von DATE,
+promo_stores BIGNUMERIC(38,0),
+vk_aktion_brutto NUMERIC(9,3),
+art_name STRING(16777216),
+wg_bez STRING(16777216),
+wg_id BIGNUMERIC(38,0),
+wug_bez STRING(16777216),
+sales_total BIGNUMERIC(38,3),
+stock_initial FLOAT64,
+sales_promo_week BIGNUMERIC(38,3),
+werbemutter_id BIGNUMERIC(38,0),
+sell_ratio_promo_week FLOAT64,
+current_sell_ratio FLOAT64,
+remaining_stock FLOAT64,
+model_date STRING(16777216),
+model_id STRING(16777216),
+mandant_id BIGNUMERIC(38,0)
+) CLUSTER BY mandant_id, calendar_year, calendar_week;

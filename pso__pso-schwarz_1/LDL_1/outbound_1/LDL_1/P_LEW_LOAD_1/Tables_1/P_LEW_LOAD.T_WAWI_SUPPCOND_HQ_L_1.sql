@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_wawi_suppcond_hq_l_1 (
+country_iso_cd STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_id_hq STRING(3) COLLATE 'und:ci' NOT NULL,
+orig_supplier_nr STRING(7) COLLATE 'und:ci' NOT NULL,
+dat_valid_from DATE NOT NULL,
+dat_valid_until DATE,
+paymenttype_cd BIGNUMERIC(38),
+extra_supplier_id STRING(7) COLLATE 'und:ci',
+dat_inv_end_fg BIGNUMERIC(38),
+dat_valid_from_cond DATE NOT NULL,
+pos_nr BIGNUMERIC(38) NOT NULL,
+std_fg BIGNUMERIC(38),
+payment_term_entry_fg BIGNUMERIC(38),
+days_cd BIGNUMERIC(38),
+start_type_cd BIGNUMERIC(38) NOT NULL,
+days_after_cd BIGNUMERIC(38),
+val_discount NUMERIC(18,4),
+val_rebate NUMERIC(18,4),
+start_type_desc STRING(25) COLLATE 'und:ci' NOT NULL,
+dat_dayend DATE,
+load_id BIGNUMERIC(38) NOT NULL
+);

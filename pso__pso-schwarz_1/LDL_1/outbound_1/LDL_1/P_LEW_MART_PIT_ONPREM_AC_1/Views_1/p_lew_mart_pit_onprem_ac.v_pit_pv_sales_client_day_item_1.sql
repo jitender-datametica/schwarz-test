@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_pit_onprem_ac.v_pit_pv_sales_client_day_item_1 (client_id, dwh_cal_dt, item_sid,
+sales_net_val, return_net_val, discount_net_val, till_discount_net_val, sales_qty, return_qty, discount_qty,
+distinct_receipt_count, sales_price_net, median_distinct_receipt_count, median_sales_price_net) AS SELECT client_id,
+ dwh_cal_dt,
+ item_sid,
+ sales_net_val,
+ return_net_val,
+ discount_net_val,
+ till_discount_net_val,
+ sales_qty,
+ return_qty,
+ discount_qty,
+ distinct_receipt_count,
+ sales_price_net,
+ median_distinct_receipt_count,
+ median_sales_price_net
+FROM ldl_p_lew_mart_pit_onprem.t_pit_pv_sales_client_day_item_1 AS SALES_1;

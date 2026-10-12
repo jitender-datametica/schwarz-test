@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_kmr_l_pruefung_klasse_1 AS SELECT amx_system_id,
+ pruefung_klasse_id,
+ pruefung_klasse_bez
+FROM kfl_production_dbp_data.kmr_l_pruefung_klasse_1;

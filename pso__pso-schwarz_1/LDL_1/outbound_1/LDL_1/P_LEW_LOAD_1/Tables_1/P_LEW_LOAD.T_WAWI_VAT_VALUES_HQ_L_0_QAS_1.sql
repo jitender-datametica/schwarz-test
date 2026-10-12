@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_wawi_vat_values_hq_l_0_qas_1 (
+country_iso_cd STRING(2) COLLATE 'und:ci' NOT NULL,
+wh_id_hq BIGNUMERIC(38,0) NOT NULL,
+vat_id BIGNUMERIC(38,0) NOT NULL,
+country_cd STRING(3) COLLATE 'und:ci' NOT NULL,
+dat_valid_from DATE NOT NULL,
+vat_cat_id BIGNUMERIC(38,0),
+dat_valid_until DATE NOT NULL,
+pct_vat NUMERIC(4,2) NOT NULL,
+vat_desc STRING(60) COLLATE 'und:ci',
+fin_account_no BIGNUMERIC(38,0),
+fin_account_remarks BIGNUMERIC(38,0),
+suppl_fin_cd_nat STRING(5) COLLATE 'und:ci',
+suppl_fin_cd_eu STRING(5) COLLATE 'und:ci',
+suppl_fin_cd_non_eu STRING(5) COLLATE 'und:ci',
+dat_dayend DATE NOT NULL,
+load_id BIGNUMERIC(38,0) NOT NULL,
+dc_server_id BIGNUMERIC(38,0) NOT NULL,
+bic_zmlila STRING(20),
+extraction_ts DATETIME,
+record_id INTEGER,
+source_system STRING(20) COLLATE 'und:ci'
+);

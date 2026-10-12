@@ -1,0 +1,32 @@
+create or replace view KFL_PRODUCTION.DBP_MSI_VIEW_REB.MV_HWG_WG_ZU_PER_1(
+	HWG_ID,
+	OWG_ID,
+	WG_ID,
+	MANDANT_ID,
+	DAT_VON,
+	DAT_BIS,
+	ARTHIERTYP_ID
+) as
+   SELECT
+   v01.hwg_id,
+   v02.owg_id,
+   v03.wg_id,
+   v01.mandant_id,
+   v01.dat_von,
+   v01.dat_bis,
+   v01.arthiertyp_id
+
+   
+   FROM
+   dbp_view.v_hwg_per_1 v01
+   INNER JOIN dbp_view.v_owg_per_1 v02
+   ON v02.mandant_id = v01.mandant_id
+   AND v02.hwg_id = v01.hwg_id
+   AND CURRENT_DATE BETWEEN v02.dat_von AND v02.dat_bis
+   INNER JOIN dbp_view.v_wg_per_1 v03
+   ON v03.mandant_id = v02.mandant_id
+   AND v03.owg_id = v02.owg_id
+   AND CURRENT_DATE BETWEEN v03.dat_von AND v03.dat_bis
+
+   WHERE v01.mandant_id = 1
+   AND CURRENT_DATE BETWEEN v01.dat_von AND v01.dat_bis;

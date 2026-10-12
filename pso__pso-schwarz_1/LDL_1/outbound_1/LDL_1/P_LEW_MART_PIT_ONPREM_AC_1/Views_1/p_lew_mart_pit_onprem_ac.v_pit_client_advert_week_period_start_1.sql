@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_pit_onprem_ac.v_pit_client_advert_week_period_start_1 (client_id,
+adv_week_period_start_dt, adv_week_period_end_dt, adv_week_id) AS SELECT client_id,
+ adv_week_period_start_dt,
+ adv_week_period_end_dt,
+ adv_week_id
+FROM ldl_p_lew_mart_pit_onprem.t_pit_client_advert_week_period_start_1 AS AWPS;

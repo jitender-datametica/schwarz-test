@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE idq_production_eks.supplier_dq_bck_to_be_deleted_1 (
+supplierno BIGNUMERIC(38,0) NOT NULL,
+corporateflag BIGNUMERIC(38,0),
+is_sap BIGNUMERIC(38,0),
+visibleflag BIGNUMERIC(38,0),
+suppliercatid BIGNUMERIC(38,0),
+parentno BIGNUMERIC(38,0),
+crdate DATETIME,
+moddate DATETIME,
+shortdesc STRING(25),
+cruser STRING(35),
+moduser STRING(35),
+description STRING(80),
+in_use BIGNUMERIC(38,0),
+intsupplierno BIGNUMERIC(38,0),
+sap_id STRING(15),
+sap_indicator STRING(3),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (supplierno) NOT ENFORCED
+);

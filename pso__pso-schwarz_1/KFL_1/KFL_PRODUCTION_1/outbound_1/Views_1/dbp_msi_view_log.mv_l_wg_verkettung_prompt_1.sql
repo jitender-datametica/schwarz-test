@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_log.mv_l_wg_verkettung_prompt_1 AS SELECT wg_verkett_id
+FROM kfl_production_dbp_view.v_l_wg_verkettung_1 AS V01;

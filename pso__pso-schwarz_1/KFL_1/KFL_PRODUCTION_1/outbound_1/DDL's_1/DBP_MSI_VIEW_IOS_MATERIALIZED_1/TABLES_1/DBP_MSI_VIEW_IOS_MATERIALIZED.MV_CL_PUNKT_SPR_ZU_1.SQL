@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_ios_materialized.mv_cl_punkt_spr_zu_1 (
+checkliste_punkt_id STRING(32) COLLATE 'und:ci',
+cpr_suchfeld_id STRING(40) COLLATE 'und:ci',
+mandant_id INTEGER,
+cl_punkt_bez STRING(16777216) COLLATE 'und:ci',
+cl_punkt_bez_cz STRING(16777216) COLLATE 'und:ci',
+cl_punkt_bez_sk STRING(16777216) COLLATE 'und:ci',
+cl_punkt_bez_hr STRING(16777216) COLLATE 'und:ci',
+cl_punkt_bez_pl STRING(16777216) COLLATE 'und:ci',
+cl_punkt_bez_ro STRING(16777216) COLLATE 'und:ci',
+cl_punkt_bez_en STRING(16777216) COLLATE 'und:ci',
+cl_punkt_bez_bg STRING(16777216) COLLATE 'und:ci',
+cl_punkt_langtext STRING(16777216) COLLATE 'und:ci',
+cl_punkt_langtext_cz STRING(16777216) COLLATE 'und:ci',
+cl_punkt_langtext_sk STRING(16777216) COLLATE 'und:ci',
+cl_punkt_langtext_hr STRING(16777216) COLLATE 'und:ci',
+cl_punkt_langtext_pl STRING(16777216) COLLATE 'und:ci',
+cl_punkt_langtext_ro STRING(16777216) COLLATE 'und:ci',
+cl_punkt_langtext_en STRING(16777216) COLLATE 'und:ci',
+cl_punkt_langtext_bg STRING(16777216) COLLATE 'und:ci'
+);

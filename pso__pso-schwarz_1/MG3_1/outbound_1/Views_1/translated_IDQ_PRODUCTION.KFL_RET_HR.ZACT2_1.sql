@@ -1,0 +1,23 @@
+CREATE OR REPLACE VIEW idq_production_kfl_ret_hr.zact2_1 (mandt, actnr, matnr, werks, xused, price, waers, kunnr, lifnr,
+price_o, waers_o, xauto, price_bb, waers_bb, vkgst, padat, loevm, country_code, td_insert, td_update) AS SELECT mandt,
+ actnr,
+ matnr,
+ werks,
+ xused,
+ price,
+ waers,
+ kunnr,
+ lifnr,
+ price_o,
+ waers_o,
+ xauto,
+ price_bb,
+ waers_bb,
+ vkgst,
+ padat,
+ loevm,
+ country_code,
+ td_insert,
+ td_update
+FROM idq_production_kfl_ret.zact2_1
+WHERE country_code IN ('HR', 'hr');

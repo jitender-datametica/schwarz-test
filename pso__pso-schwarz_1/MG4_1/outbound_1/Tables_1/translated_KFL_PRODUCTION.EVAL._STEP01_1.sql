@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE kfl_production_eval.`_step01_1` (
+mandant_id INTEGER,
+wup_id INTEGER,
+nb_id INTEGER,
+art_id INTEGER,
+bewart_id INTEGER,
+bewart_det_id INTEGER,
+promo_fg INTEGER,
+dat DATE,
+wrg_1 STRING(3),
+ean_kasse INTEGER,
+menge FLOAT64,
+umsatz_netto_alt NUMERIC(18,4),
+umsatz_mwst_betrag_alt NUMERIC(18,4),
+umsatz_bto NUMERIC(18,4),
+umrechnungskurs FLOAT64,
+kopf_art_id INTEGER,
+komponentenmengen_faktor NUMERIC(18,4),
+stueckliste_id INTEGER,
+komponentenmengen_faktor_jdn NUMERIC(18,4)
+);

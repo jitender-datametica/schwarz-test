@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_zb.v_gp_1 (mandant_id, gp_id, einkaufsorganisation_id, dat_von, dat_bis
+, anlieferung_id, gp_name, gp_strasse, gp_plz, gp_ort, land_id, hgp_id, zek_id, lieferzeit, zahlungsziel_id, agb_id,
+iso_id, eigenverpackung_id, eigenmarke_id, audit_id, audit_dat, herst_fg, zahlart_id, retour_sperr_fg, system_id,
+gp_branche_id, wewa_fg, loesch_fg, region_id, min_pal_faktor_lkw, gln_bbnr, gln_bsnr, gln_bubkz, breitengrad,
+laengengrad, gp_name_lat, ivn, isd_fg, markant_id, td_update, td_insert) AS SELECT *
+FROM kfl_production_dbp_data.gp_1;

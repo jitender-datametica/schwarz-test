@@ -1,0 +1,71 @@
+/*
+====================================================================================================
+Division		|	Lidl
+Solution		|	Operational Logistics (LOGOP)
+DB schema		|	data
+DB table		|	t_quintiq_reportedshiftindicator_1
+Description		|	QUINTIQ table for raw data
+====================================================================================================
+*/
+
+CREATE TABLE DATA.t_quintiq_reportedshiftindicator_1 (
+client_id 	   				NUMBER(38,0) 	NOT NULL 	COMMENT 'Client id - calculated based on the country_1 code',
+lidl_country   				VARCHAR(3)   	NOT NULL 	COMMENT 'Country_1 code. Original field name bic_zmlila',
+source_system  				VARCHAR(30)  	NOT NULL 	COMMENT 'Source system',
+wh_id 		   				VARCHAR(5)   	NOT NULL 	COMMENT 'Warehouse ID',
+address_id_seq				VARCHAR(5000)	NULL		COMMENT 'Contains the IDs of all the non rdc addresses this tour_1 visits in the order the are visited',
+address_name_seq        	VARCHAR(5000)   NULL        COMMENT 'Contains the long names of all the non rdc addresses this tour_1 visits in the order the are visited (excluding country_1 code)',
+calendar_week           	NUMBER(38,0)    NULL        COMMENT 'Calenderweek of GlobalParameters.DeliveryDateEnd',
+costs_per_dist          	NUMBER(38,10)   NULL        COMMENT 'The cost incurred per distance unit_1 traveled',
+delivery_dt             	DATE            NULL	    COMMENT 'End of the delivery day to optimize for (max 24hrs after start).',
+calc_dist               	NUMBER(38,10)   NULL        COMMENT 'Distance traveled during the tour_1 as calculated by the program',
+calc_dur                	VARCHAR(512)    NULL        COMMENT 'Duration of the tour_1',
+earliest_start_tmsp     	TIMESTAMP       NULL        COMMENT 'Earliest Start Time for the tour_1',
+end_tmsp                	TIMESTAMP       NULL        COMMENT 'End of a tour_1',
+factor                  	NUMBER(38,10)   NULL        COMMENT 'Indication how important/costly this indicator is',
+tour_gid                	VARCHAR(5000)   NOT NULL    COMMENT 'GID is to have a unique identifier of a tour_1 across different delivery days for the same RDC.',
+haulier                 	VARCHAR(512)    NULL        COMMENT 'Stores the value of the Haulier of the lowest resources (ID) within this tour_1 with IsMotorVehicle = TRUE Attribute HaulierName on Tour_1',
+haulier_cmnt            	VARCHAR(512)    NULL        COMMENT 'User entered comment on the haulier for this route',
+shift_ind_id            	VARCHAR(512)    NOT NULL    COMMENT 'The uniquely identifier of shift indicator',
+time_ind_concat         	VARCHAR(512)    NULL        COMMENT 'Concatenation of all unique time indicators on tours related to this Shift',
+box_needed_fg           	BOOLEAN         NULL        COMMENT 'True if a box is needed on tour_1 level',
+box_dlv_needed_fg       	BOOLEAN         NULL        COMMENT 'True if one of the shipment legs needs a box delivery',
+oneway_fg               	BOOLEAN         NULL        COMMENT 'True if the tour_1 is used for one way, dismount resources at the end address_1(not RDC)',
+license_plate           	VARCHAR(512)    NULL        COMMENT 'User entered license plate number of the vehicle used for the tour. Or its based on route Attribute LicensePlateCalc on Tour_1',
+license_plate_trailer   	VARCHAR(512)    NULL        COMMENT 'License plate of the trailer used for this tour_1',
+loaded_shipments        	NUMBER(38,10)   NULL        COMMENT 'Pallet positions at the start of the tour_1 Attribute LoadedQuantity1 on Tour_1',
+ind_name                	VARCHAR(512)    NULL        COMMENT 'Name of the indicator',
+observations            	VARCHAR(512)    NULL        COMMENT 'The last change/reason which was reported when editing tour_1 information',
+paid_shift_fg           	BOOLEAN         NULL        COMMENT 'True if the first tour_1 in the shift is billable',
+resource_id             	VARCHAR(512)    NULL        COMMENT 'ID of the truck driven in this shift (trailer excluded)',
+resource_set_id         	VARCHAR(512)    NULL        COMMENT 'The ID of resource set used in a route',
+resource_tech           	VARCHAR(512)    NULL        COMMENT 'Resource.ResourceTechnique.ID (if multiple Resources are used for the tour_1, show all resource techniques comma separated)',
+resource_type           	VARCHAR(512)    NULL        COMMENT 'Resource.ResourceType.ID (if multiple Resources are used for the tour_1, show all resource types comma separated)',
+tour_start_tmsp         	TIMESTAMP       NULL        COMMENT 'Start of a tour_1',
+frozen_fg               	BOOLEAN         NULL        COMMENT 'True if there is at least one compartment in this tour_1 that is frozen',
+toll_costs              	NUMBER(38,10)   NULL        COMMENT 'Costs spend on toll ways',
+calc_toll_costs         	NUMBER(38,10)   NULL        COMMENT 'Costs spend on toll ways calculated by the system',
+calc_toll_dist2         	NUMBER(38,10)   NULL        COMMENT 'Toll distance of type 2 traveled during the tour_1 as calculated by the program',
+calc_toll_dist          	NUMBER(38,10)   NULL        COMMENT 'Toll distance traveled during the tour_1 as calculated by the program',
+tour_cmnt               	VARCHAR(512)    NULL        COMMENT 'User entered comment for the tour_1',
+tour_id                 	VARCHAR(512)    NULL        COMMENT 'Quintiq generated Tour_1 ID',
+tour_seq_nr             	VARCHAR(512)    NULL        COMMENT 'The SeqNr of the tour_1',
+user_dist               	NUMBER(38,10)   NULL        COMMENT 'User entered distance for the tour_1',
+user_dur                	VARCHAR(512)    NULL        COMMENT 'User entered duration for the tour_1',
+user_toll_dist2         	NUMBER(38,10)   NULL        COMMENT 'User entered toll distance of type 2 for the tour.',
+user_toll_dist          	NUMBER(38,10)   NULL        COMMENT 'User entered toll distance for the tour.',
+drivingdrivetypeid          VARCHAR(512)    NULL        COMMENT 'ID of driving drive type',
+indicatorcost               VARCHAR(512)    NULL        COMMENT 'Concatenation of all unique cost indicators on tours related to this Shift',
+licenseplatetrailer2        VARCHAR(512)    NULL        COMMENT 'License plate of the second trailer used for this tour_1',
+tolldistance3calculated     NUMBER(38,10)   NULL        COMMENT 'Toll distance of type 3 traveled during the tour_1 as calculated by the program',
+trailer1drivetypeid         VARCHAR(512)    NULL        COMMENT 'ID of trailer 1 drive type',
+trailer2drivetypeid         VARCHAR(512)    NULL        COMMENT 'ID of trailer 2 drive type',
+usertolldistance3           NUMBER(38,10)   NULL        COMMENT 'User entered toll distance of type 3 for the tour_1',
+dwh_load_id    				NUMBER(38,0) 	NOT NULL 	COMMENT 'Load id',
+dwh_created    				TIMESTAMP 		NOT NULL 	COMMENT 'Record created at',
+dwh_updated    				TIMESTAMP 		NOT NULL 	COMMENT 'Record updated at',
+dwh_valid_from 				DATE 			NOT NULL 	COMMENT 'Valid from date',
+dwh_valid_to   				DATE 			NOT NULL 	COMMENT 'Valid to date',
+deleted_fg     				BOOLEAN 		NOT NULL 	COMMENT 'Flag if record is deleted',
+PRIMARY KEY (client_id,wh_id,tour_gid,shift_ind_id,dwh_valid_from)
+) COMMENT = 'Object type in quintiq is ReportedShiftIndicator Shift indicator groups reported Tours together within same route';

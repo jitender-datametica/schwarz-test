@@ -1,0 +1,20 @@
+CREATE OR REPLACE VIEW nfpow_fe_mstr_ekpsnf.v_fact_nfpo_item_organization_packing_list_1 (nfpo_item_pack_list_sid
+OPTIONS(description='''Surrogate Key NFPO PACKING LIST.
+CBX: CNT_ITEM_1,
+LDL_ITEM_PACKING_METHOD.CNT_ITEM.REF_NO, 
+LDL_ITEM_PACKING_METHOD.LDL_CODE
+LDL: P_LEW_CORE.T_MDM_ITEM_PACKING_LIST.MDM_PACK_LIST_SID'''),
+nfpo_org_sid
+OPTIONS(description='''Surrogate Key INTERNAL ORGANIZATION.
+LDL: P_LEW_CORE.T_INTERNAL_ORGANISATION.INT_ORG_SID'''),
+nfpo_total_item_org_order_case_qty
+OPTIONS(description='''Total order case quantity.
+CBX: LDL_ITEM_QUANTITY.LDL_CTRY_TOTAL_NUM_OF_CTN
+LDL: P_LEW_CORE.T_MDM_ITEM_CLIENT_ORDER_HIST.CLIENT_ORDER_TOTAL_CASE_QTY'''),
+dwh_created_tmsp OPTIONS(description='Timestamp of the initial insertion of the data record into the DWH.'),
+dwh_updated_tmsp OPTIONS(description='Timestamp of the last change to the data record in the DWH.'), dwh_src_tmsp
+OPTIONS(description='Timestamp of source extraction.'))
+OPTIONS(DESCRIPTION = '''This table contains facts about the pack lists of items used by organizations.
+CORE_REL: T_NFPO_ITEM_PACKING_LIST_1, T_NFPO_ITEM_PACKING_LIST_ORGANIZATION_HIST_1, T_NFPO_ITEM_ORGANIZATION_ORDER_HIST_1''')
+AS SELECT *
+FROM nfpow_core.t_fact_nfpo_item_organization_packing_list_1;

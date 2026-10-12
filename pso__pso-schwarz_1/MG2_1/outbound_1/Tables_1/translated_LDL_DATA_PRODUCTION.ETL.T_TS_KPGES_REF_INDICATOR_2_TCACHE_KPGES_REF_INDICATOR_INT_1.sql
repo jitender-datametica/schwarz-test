@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t_ts_kpges_ref_indicator_2_tcache_kpges_ref_indicator_int_1 (
+indicator_id BIGNUMERIC(38,0),
+indicator_desc STRING(200) COLLATE 'und:ci',
+indicator_valuetype STRING(15) COLLATE 'und:ci',
+dat_dayend DATE,
+load_id BIGNUMERIC(38,0),
+bic_zmlila STRING(20),
+extraction_ts DATETIME,
+extraction_date DATE,
+src_record_id INTEGER,
+source_system STRING(20) COLLATE 'und:ci',
+timestamp_fn DATETIME,
+dc_server_id BIGNUMERIC(38,0),
+dwh_node_cd STRING(20),
+record_id STRING(1000),
+deleted_fg BOOL,
+error_descr STRING(1000),
+filename STRING(1000),
+hist_row_no STRING(1000),
+dwh_mapping_tmsp TIMESTAMP,
+error_fg BIGNUMERIC(38,0),
+dwh_load_id BIGNUMERIC(38,0)
+);

@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_art_auslieferungsgruppe_per_1 AS SELECT mandant_id,
+ art_id,
+ auslieferungsgruppe_id,
+ dat_von,
+ dat_bis
+FROM kfl_production_dbp_data.art_auslieferungsgruppe_per_1;

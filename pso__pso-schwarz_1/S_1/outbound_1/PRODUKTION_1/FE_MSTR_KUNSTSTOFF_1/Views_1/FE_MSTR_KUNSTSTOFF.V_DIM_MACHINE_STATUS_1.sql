@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW produktion_fe_mstr_kunststoff.v_dim_machine_status_1 (machine_status_cd, machine_status_descr) AS
+SELECT machine_status_cd,
+ machine_status_descr
+FROM produktion_core.t_dim_machine_status_1;

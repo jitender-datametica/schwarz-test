@@ -1,0 +1,11 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_EK_KUN.MV_CRM_GENDER_SPR_ZU_1
+(
+GENDER_ID,
+GENDER_BEZ
+)
+AS
+SELECT
+-- Mehrsprachigkeit wurde entfernt, da notwendige Tabelle gelöscht wurde / sschuecke 02.12.2025
+GENDER_ID,
+GENDER_BEZ
+FROM DBP_DATA.L_CRM_GENDER_1;

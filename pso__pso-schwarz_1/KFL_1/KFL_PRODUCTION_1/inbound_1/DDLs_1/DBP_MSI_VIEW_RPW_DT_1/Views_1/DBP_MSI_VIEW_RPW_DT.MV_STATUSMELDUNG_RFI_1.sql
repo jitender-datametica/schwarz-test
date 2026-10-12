@@ -1,0 +1,61 @@
+create or replace view KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_MSI_VIEW_RPW_DT.MV_STATUSMELDUNG_RFI_1(
+	NR,
+	STATUSID,
+	WMWST,
+	WAERS,
+	STATUS_1,
+	STATMSGTST,
+	SRCPOS,
+	SRCDOC,
+	SRCDGJ,
+	SRCDEST,
+	RMWWR,
+	RFI_DATE,
+	LIFNR,
+	KREDITOR_1,
+	IMPNR,
+	GJAHR,
+	FREIGABE,
+	FNPM_SEQ_ID,
+	EDINUM,
+	ECMPROC,
+	DQ_ISSUE_ISSUE_CODE,
+	DQ_ISSUE_FIELD_NAME,
+	DOCCLASS,
+	CRUSER,
+	BELNR,
+	AUTOFLAG
+) as
+          SELECT
+
+          ROW_NUMBER() OVER (ORDER BY statusid DESC NULLS LAST) AS nr --fortlaufende Nummerierung
+          ,
+          statusid,
+          wmwst,
+          waers,
+          status_1,
+          statmsgtst,
+          srcpos,
+          srcdoc,
+          srcdgj,
+          srcdest,
+          rmwwr,
+          rfi_date,
+          lifnr,
+          kreditor_1,
+          impnr,
+          gjahr,
+          freigabe,
+          fnpm_seq_id,
+          edinum,
+          ecmproc,
+          dq_issue_issue_code,
+          dq_issue_field_name,
+          docclass,
+          cruser,
+          belnr,
+          autoflag
+
+
+          FROM dbp_msi_v_view.v_statusmeldung_rfi_1
+ ;

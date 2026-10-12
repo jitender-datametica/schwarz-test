@@ -1,0 +1,18 @@
+CREATE OR REPLACE PROCEDURE FE_MSTR_KUNSTSTOFF.P_UPDATE_PRODUCTION_LINE_TEXT_MESSAGE("PRODUCTION_LINE_ID" NUMBER(38,0), "TEXT_MESSAGE" VARCHAR(100))
+RETURNS VARCHAR(100)
+LANGUAGE SQL
+EXECUTE AS CALLER
+AS '
+BEGIN
+    BEGIN TRANSACTION;
+        /* Update the text message title and body. Assign the current timestamp to the entry. */
+        UPDATE FE_MSTR_KUNSTSTOFF.T_TRS_PRODUCTION_LINE_TEXT_MESSAGE_1
+		   SET TEXT_MESSAGE = :TEXT_MESSAGE, TEXT_TIMESTAMP = CURRENT_TIMESTAMP
+		   WHERE PRODUCTION_LINE_ID = :PRODUCTION_LINE_ID;
+    /* Commit transaction. */
+    COMMIT;
+    /* Return the number of changed rows and the query ID. */
+	RETURN ''Updated ''  || SQLROWCOUNT || '' rows. Query ID: ''||LAST_QUERY_ID(-2);
+END;
+'
+;

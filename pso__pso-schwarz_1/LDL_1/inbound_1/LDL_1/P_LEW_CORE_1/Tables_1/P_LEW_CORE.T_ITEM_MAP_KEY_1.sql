@@ -1,0 +1,26 @@
+CREATE TABLE p_lew_core.t_item_map_key_1 (
+client_id INTEGER NOT NULL,
+item_sid INTEGER NOT NULL,
+item_sid_map INTEGER,
+dwh_item_id VARCHAR(20) COLLATE 'en-ci',
+dwh_log_var_id VARCHAR(20) COLLATE 'en-ci',
+dwh_orig_item_nr DECIMAL(20,0),
+dwh_case_size INTEGER,
+elwis_dwh_ec_cd INTEGER,
+elwis_dwh_itm_sid INTEGER,
+elwis_dwh_item_id VARCHAR(20) COLLATE 'en-ci',
+wawi_dwh_client_id INTEGER,
+wawi_dwh_item_id INTEGER,
+wawi_dwh_orig_item_nr INTEGER,
+wawi_dwh_case_size INTEGER,
+wawi_dwh_dat_valid_from DATE,
+active_fg BYTEINT,
+dummy_fg BYTEINT DEFAULT 0,
+source_cd VARCHAR(100) COLLATE 'en-ci',
+DWH_CREATE TIMESTAMP_NTZ(9),
+DWH_UPD TIMESTAMP_NTZ(9),
+dwh_load_id INTEGER NOT NULL,
+CONSTRAINT PK_n_item_map_key PRIMARY KEY ( item_sid ),
+UNIQUE ( client_id ,item_sid)
+);
+

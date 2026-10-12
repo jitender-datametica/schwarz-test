@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_z_ds_mis_items_2_item_missing_progress_1 (
+record_id INTEGER,
+client_id BIGNUMERIC(38),
+item_missing_id NUMERIC(20,0),
+item_missing_progress_id BIGNUMERIC(38),
+missing_activity_cd STRING(20),
+missing_state_cd STRING(20),
+missing_state_prev_cd STRING(20),
+missing_reason_cd STRING(20),
+missing_reason_prev_cd STRING(20),
+creation_dttm DATETIME,
+change_dttm DATETIME,
+dwh_cal_dt DATE,
+dwh_load_id BIGNUMERIC(38),
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

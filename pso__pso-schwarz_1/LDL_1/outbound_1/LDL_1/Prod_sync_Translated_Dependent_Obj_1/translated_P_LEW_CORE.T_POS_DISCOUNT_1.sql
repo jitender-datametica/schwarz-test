@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS ldl_p_lew_core.t_pos_discount_1;
+CREATE OR REPLACE TABLE ldl_p_lew_core.t_pos_discount_1 (
+client_id INTEGER NOT NULL,
+discount_sid INTEGER NOT NULL,
+src_discount_nr STRING(100) COLLATE 'und:ci' NOT NULL,
+src_posart STRING(1) COLLATE 'und:ci' NOT NULL,
+src_discount_pct NUMERIC(29,5) NOT NULL,
+discount_descr STRING(100) COLLATE 'und:ci',
+first_appearance_dt DATE NOT NULL,
+lidlplus_coupon_pattern_fg BOOL DEFAULT FALSE NOT NULL,
+dwh_load_id INTEGER NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL,
+PRIMARY KEY (discount_sid) NOT ENFORCED
+) CLUSTER BY client_id;

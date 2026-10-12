@@ -1,0 +1,26 @@
+create or replace TABLE KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_DATA.AVQ_WERBUNG_TAG_1 (
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant_1 im DWH',
+	WUP_ID NUMBER(38,0) NOT NULL COMMENT 'Mutter Wup_1 ID wird verwendet für Beziehung Lager zu Verteilzentrum.',
+	NB_ID NUMBER(38,0) NOT NULL COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer.',
+	ART_ID NUMBER(38,0) NOT NULL COMMENT 'Input: Artikel_1 - Id einschliesslich der Generationen - ID (9-stellig); Output: 7stellige L&S-ID + Counter = 8stellige ArtikelID. WWNNNNPC (Warengruppe, Nummer, Pruefziffer, Counter) Regel: Neuer Artikel_1 -> Counter +1.',
+	DAT_AKTION_VON DATE NOT NULL COMMENT 'Werbung/Aktion_1 gültig ab',
+	DAT_AKTION_BIS DATE NOT NULL COMMENT 'Werbung/Aktion_1 gültig bis',
+	TAG_INDEX NUMBER(38,0) NOT NULL COMMENT 'Index, der den wievielten Tag_1 der Aktion_1 anzeigt. Gegebenenfalls negativ für WE(Wareneingang) vor Aktion.',
+	DAT DATE COMMENT 'Einzelner Kalendertag des Gültigkeitszeitraums der Werbung/Aktion.',
+	MENGE_BESTAND NUMBER(38,3) COMMENT 'Bestand in Basis-ME',
+	MENGE_ABVERKAUF NUMBER(38,3) COMMENT 'Abverkaufsmenge  in Basis-ME am betreffenden Datum der Werbung',
+	MENGE_ABVERKAUF_AF NUMBER(38,3) COMMENT 'Abverkauf Aktionsfrei (AF) in Basis-ME',
+	MENGE_ABVERKAUF_SA NUMBER(38,3) COMMENT 'Abverkauf Sonderaktion (SA) in Basis-ME',
+	MENGE_WE NUMBER(38,3) COMMENT 'Menge Wareneingang in Basis-ME',
+	WRG_ID VARCHAR(3) COMMENT 'Kurzbezeichnung der Währung, z.Bsp. CZK, EUR',
+	BETRAG_UMSATZ_NETTO NUMBER(38,3) COMMENT 'Umsatz Netto',
+	EXC209_FG NUMBER(38,0) COMMENT 'Flag gibt an, ob ein Nullbestand gemäß der Exception 209 in F&R vorliegt. Exception 209 bedeutet einen Nullbestand. Quelle im DWH: dbp_data.ausnahme_1, aus SAP F&R.',
+	NULLBESTAND_FG NUMBER(38,3) COMMENT 'Flag gibt an, ob ein Nullbestand für den Artikel_1 am Lagerort ausgewiesen wird. Quelle: SAP Retail (Tabelle MARD_1).',
+	EXC214_FG NUMBER(38,0) COMMENT 'Flag gibt an, ob ein Minusbestand gemäß der Exception 214 in F&R vorliegt. Exception 214 bedeutet Minusbestand. Quelle im DWH: dbp_data.ausnahme_1, aus SAP F&R.',
+	MINUSBESTAND_FG NUMBER(38,3) COMMENT 'Flag gibt an, ob ein Minusbestand für den Artikel_1 am Lagerort ausgewiesen wird. Quelle: SAP Retail (Tabelle MARD_1).',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	LISTUNG_FG NUMBER(38,0) COMMENT 'Flag gibt an, ob für die Artikel_1-Markt-Kombination an dem jeweiligen Aktionstag eine_1 gültige Listung vorliegt. (aus SAP WLK1_1). 1 = Listung vorhanden / Artikel_1 darf verkauft werden, 0 = keine Listung.',
+	constraint PK_AVQ_WERBUNG_TAG primary key (MANDANT_ID, WUP_ID, NB_ID, ART_ID, DAT_AKTION_VON, DAT_AKTION_BIS, TAG_INDEX)
+)COMMENT='AVQ(Abverkaufsquote) Kennzahlen aus Tages Ebene - Zusatzebene, enthält einen Datensatz pro Tag_1 der Aktion_1 (Datum+Index) sowie Datensätze für WE vor Aktion_1 (negativer Index)'
+;

@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_flw_l_input_material_typ_1 AS SELECT input_material_typ_id,
+ input_material_typ_bez
+FROM kfl_production_dbp_data.flw_l_input_material_typ_1;

@@ -1,0 +1,14 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIDLDIGITAL.V_DIM_CUSTOMER_LOYALTY_CLASSIFICATION_1(
+	CUST_LOYALTY_CLASSIFICATION_CD
+	, CUST_LOYALTY_CLASSIFICATION_DESCR
+) AS SELECT
+    cust_loyalty_classification_cd      AS CUST_LOYALTY_CLASSIFICATION_CD
+    ,cust_loyalty_classification_descr  AS CUST_LOYALTY_CLASSIFICATION_DESCR
+FROM
+    lec_share.v_dim_customer_loyalty_classification_1
+WHERE cust_loyalty_classification_cd NOT IN ('0','1','2','3')
+UNION
+    SELECT
+         '-1' -- CUST_LOYALTY_CLASSIFICATION_CD
+        ,''   -- CUST_LOYALTY_CLASSIFICATION_DESCR
+;

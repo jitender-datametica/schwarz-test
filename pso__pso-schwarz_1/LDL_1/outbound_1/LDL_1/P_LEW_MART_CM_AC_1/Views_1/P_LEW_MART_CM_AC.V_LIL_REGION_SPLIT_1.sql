@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_cm_ac.v_lil_region_split_1 (country_iso_cd, region_split_id, region_split_desc,
+region_split_desc_en, region_split_desc_with_country_iso_cd, region_split_desc_with_country_iso_cd_en, region_lvl) AS
+SELECT *
+FROM ldl_p_lew_mart_cm.v_lil_region_split_1;

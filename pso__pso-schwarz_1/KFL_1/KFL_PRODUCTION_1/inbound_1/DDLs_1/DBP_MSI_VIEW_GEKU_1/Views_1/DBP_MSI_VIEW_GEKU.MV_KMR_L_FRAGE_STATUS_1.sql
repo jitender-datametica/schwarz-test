@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_GEKU.MV_KMR_L_FRAGE_STATUS_1
+(
+	FRAGE_STATUS_ID,
+	AMX_SYSTEM_ID,
+	FRAGE_STATUS_BEZ
+) AS
+-- 20221116 twie: SPEC0166860 neue audimex View für Fragestatus
+
+SELECT 
+
+frage_status_id
+,amx_system_id
+,frage_status_bez
+
+FROM dbp_view.V_KMR_L_FRAGE_STATUS_1;

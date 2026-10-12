@@ -1,0 +1,12 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead_ac.v_dim_cal_day_of_week_1 (day_of_week, day_of_week_short_name,
+day_of_week_short_name_de, day_of_week_short_name_en, day_of_week_short_name_bg, day_of_week_short_name_cs,
+day_of_week_short_name_da, day_of_week_short_name_el, day_of_week_short_name_es, day_of_week_short_name_fi,
+day_of_week_short_name_fr, day_of_week_short_name_hr, day_of_week_short_name_hu, day_of_week_short_name_it,
+day_of_week_short_name_lt, day_of_week_short_name_nl, day_of_week_short_name_pl, day_of_week_short_name_pt,
+day_of_week_short_name_ro, day_of_week_short_name_sh, day_of_week_short_name_sk, day_of_week_short_name_sl,
+day_of_week_short_name_sv, day_of_week_name, day_of_week_name_de, day_of_week_name_en, day_of_week_name_bg,
+day_of_week_name_cs, day_of_week_name_da, day_of_week_name_el, day_of_week_name_es, day_of_week_name_fi,
+day_of_week_name_fr, day_of_week_name_hr, day_of_week_name_hu, day_of_week_name_it, day_of_week_name_lt,
+day_of_week_name_nl, day_of_week_name_pl, day_of_week_name_pt, day_of_week_name_ro, day_of_week_name_sh,
+day_of_week_name_sk, day_of_week_name_sl, day_of_week_name_sv, dwh_load_id, dwh_created, dwh_updated) AS SELECT *
+FROM ldl_p_lew_mart_lead.v_dim_cal_day_of_week_1 AS CALDOW;

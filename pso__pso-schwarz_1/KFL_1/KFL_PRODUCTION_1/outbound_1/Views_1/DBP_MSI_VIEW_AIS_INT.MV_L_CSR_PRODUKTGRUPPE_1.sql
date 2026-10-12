@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ais_int.mv_l_csr_produktgruppe_1 (csr_produktgruppe_id,
+csr_produktgruppe_bez) AS SELECT csr_produktgruppe_id,
+ csr_produktgruppe_bez
+FROM kfl_production_dbp_view.v_l_csr_produktgruppe_1;

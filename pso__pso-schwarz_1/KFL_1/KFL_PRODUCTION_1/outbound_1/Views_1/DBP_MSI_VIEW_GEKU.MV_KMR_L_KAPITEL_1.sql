@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku.mv_kmr_l_kapitel_1 (amx_system_id, pruefung_id, kapitel_id,
+kapitel_nr, kapitel_typ_id, sort_nr, fehlerverdacht_fg, kapitel_bez, gepr_prozess_id, ergebnis, ergebnis_berechnet,
+ergebnis_manuell) AS SELECT amx_system_id,
+ pruefung_id,
+ kapitel_id,
+ kapitel_nr,
+ kapitel_typ_id,
+ sort_nr,
+ fehlerverdacht_fg,
+ kapitel_bez,
+ gepr_prozess_id,
+ ergebnis,
+ ergebnis_berechnet,
+ ergebnis_manuell
+FROM kfl_production_dbp_view.v_kmr_pruefprogramm_kapitel_1 AS V01;

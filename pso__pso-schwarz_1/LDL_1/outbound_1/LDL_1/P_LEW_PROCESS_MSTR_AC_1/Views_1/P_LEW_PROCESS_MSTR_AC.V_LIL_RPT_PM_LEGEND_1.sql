@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process_mstr_ac.v_lil_rpt_pm_legend_1 (legend_id, rate_coverage, desc_coverage,
+rate_trend, desc_trend, rate_direction, desc_direction, rate_trend_dev, desc_trend_dev, dwh_load_id, dwh_created,
+dwh_updated) AS SELECT legend_id,
+ rate_coverage,
+ desc_coverage,
+ rate_trend,
+ desc_trend,
+ rate_direction,
+ desc_direction,
+ rate_trend_dev,
+ desc_trend_dev,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_process_mstr.t_lil_rpt_pm_legend_1;

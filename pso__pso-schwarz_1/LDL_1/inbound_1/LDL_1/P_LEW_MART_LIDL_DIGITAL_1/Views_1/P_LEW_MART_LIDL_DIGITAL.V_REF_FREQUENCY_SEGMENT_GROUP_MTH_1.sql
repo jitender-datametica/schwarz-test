@@ -1,0 +1,23 @@
+create or replace view LDL_PRODUCTION_CLONE_GOOGLE_20260608_1030.P_LEW_MART_LIDL_DIGITAL.V_REF_FREQUENCY_SEGMENT_GROUP_MTH_1(
+	MTH_FR_SEGMENT_GROUP_SID COMMENT 'ids of frequency segments group',
+	MTH_FR_SEGMENT_GROUP_NAME COMMENT 'frequency segments group',
+	MTH_FR_SEGMENT_GROUP_ACTIVE_FG COMMENT 'Description for segment activation, 0 - inactive, 1 - active',
+	MTH_FR_SEGMENT_GROUP_ACTIVE_FG_NAME COMMENT 'Description for Segment Activation',
+	MTH_FR_SEGMENT_SID COMMENT 'ids of frequency segments from rfm model',
+	LOAD_ID COMMENT 'Load identifier',
+	DWH_CREATED COMMENT 'Row create time',
+	DWH_UPDATED COMMENT 'Row update time'
+) COMMENT='Lidlplus : frequency segments group - reference'
+ as
+SELECT
+ MTH_FR_SEGMENT_GROUP_SID
+,MTH_FR_SEGMENT_GROUP_NAME
+,MTH_FR_SEGMENT_GROUP_ACTIVE_FG
+,MTH_FR_SEGMENT_GROUP_ACTIVE_FG_NAME
+,MTH_FR_SEGMENT_SID
+,LOAD_ID
+,DWH_CREATED
+,DWH_UPDATED
+FROM P_LEW_MART_LIDL_DIGITAL.T_REF_FREQUENCY_SEGMENT_GROUP_MTH_1
+
+;

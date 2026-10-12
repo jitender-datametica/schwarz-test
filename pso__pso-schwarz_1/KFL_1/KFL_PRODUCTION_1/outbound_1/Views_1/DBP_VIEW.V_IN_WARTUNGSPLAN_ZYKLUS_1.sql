@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_in_wartungsplan_zyklus_1 AS SELECT mandant_id,
+ wart_plan_id,
+ wart_plan_zaehler,
+ zyklus_wert_sek,
+ zyklus_einh_id,
+ zyklus_wert
+FROM kfl_production_dbp_data.in_wartungsplan_zyklus_1;

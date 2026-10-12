@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_msi.v_plan_month_client_itemgroup_1 AS
+SELECT PM.plan_id,
+ PM.indicator_id,
+ PM.client_id,
+ PM.itemgroup_int_id,
+ PM.cy_month,
+  CASE
+  WHEN PM.indicator_id IN (200, 201, 202, 607, 700, 900)
+  THEN PM.val_plan_month
+  ELSE PM.val_plan_month / CRY.rate_currency_exchange
+  END AS val_plan,
+ PM.pct_plan_month AS pct_plan,
+ PM.dat_dayend,
+ CRY.currency_iso_cd -- ,cry.rate_currency_exchange
+
+FROM ldl_p_lew_core_ac.v_wawi_plan_month_1 AS PM_1
+ INNER JOIN ldl_p_lew_core_ac.v_wawi_ref_client_currency_rate_1 AS CRY ON PM.client_id = CRY.client_id AND CURRENT_DATE
+   BETWEEN CRY.dat_rec_start AND CRY.dat_rec_end
+WHERE PM.wh_loc_sid IS NULL
+ AND PM.orig_store_nr IS NULL
+ AND PM.itemgroup_int_id IS NOT NULL;

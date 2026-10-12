@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_geku_crm_emotion_zu_1 AS SELECT geku_crm_emotion_id,
+ geku_emotion_id,
+ crm_emotion_id
+FROM kfl_production_dbp_data.geku_crm_emotion_zu_1;

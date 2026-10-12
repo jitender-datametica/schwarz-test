@@ -1,0 +1,13 @@
+create or replace view SZD_PRODUCTION.FE_MSTR_LIFECYCLE.MV_L_LIFECYCLE_RVM_DEPOSIT_ITEM_CATEGORY_1(
+	DEPOSIT_ITEM_CAT_CD,
+	DEPOSIT_ITEM_CAT_DESCR_DE,
+	DEPOSIT_ITEM_CAT_DESCR_EN,
+	DEPOSIT_ITEM_CAT_DESCR
+) as SELECT 
+ core.t_dim_deposit_item_category.deposit_item_cat_cd
+,core.t_dim_deposit_item_category.deposit_item_cat_descr_de
+,core.t_dim_deposit_item_category.deposit_item_cat_descr_en
+,core.t_dim_deposit_item_category.deposit_item_cat_descr
+FROM 
+core.t_dim_deposit_item_category_1
+;

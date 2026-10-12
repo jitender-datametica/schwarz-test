@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_fipo_bericht_verteiler_1 AS SELECT fipo_bericht_id,
+ fipo_bericht_verteiler_id
+FROM kfl_production_dbp_view.v_fipo_bericht_verteiler_1;

@@ -1,0 +1,23 @@
+--==============================================================
+-- Table: ivs_plan_1
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: ivs_plan_1
+   generated from Powerdesigner on Freitag, 21. Oktober 2022 08:38:06
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE DBP_DATA.IVS_PLAN_1 (
+   plandetail_id                       NUMBER(38,0)    NOT NULL COMMENT 'Eindeutige ID fuer ein Plandetail',
+   mandant_id                          NUMBER(38,0)    NOT NULL COMMENT 'Mandant_1',
+   plantyp_id                          NUMBER(38,0)    NOT NULL COMMENT 'Eindeutige ID des Plantyps',
+   plan_objekt_id                      VARCHAR(50)     NOT NULL COMMENT 'ID, auf der geplant wird. Kann zb. eine_1 Kostenstelle aus TP4 oder Flaeche aus TP5 sein.',
+   kjmo                                NUMBER(38,0)    NOT NULL COMMENT 'Kalenderjahr und Monat_1',
+   plan_wert                           NUMBER(18,2)    COMMENT 'Geplanter Wert in Landeswährung',
+   plan_wert_konz                      NUMBER(18,2)    COMMENT 'Geplanter Wert in Konzernwährung',
+   kostenstelle_id                     VARCHAR(20)     NOT NULL COMMENT 'Eindeutige ID der Kostenstelle (aus SAP, Paisy-Kostenstellen werden auf SAP-Kostenstellen gemappt, bzw. fuer einige Faelle die Hyperion-Kostenstelle)',
+   dat_extrakt                         DATE            NOT NULL COMMENT 'Extraktions- bzw. Erstellungsdatum des Datensatzes',
+   wrg_id                              VARCHAR(3)      COLLATE 'en-ci' COMMENT 'Kurzbezeichnung der Währung, z.B. CZK, EUR',
+   TD_UPDATE 	TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   TD_INSERT 	TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   CONSTRAINT PK_IVS_PLAN PRIMARY KEY (plantyp_id, plandetail_id, mandant_id, plan_objekt_id) NOT ENFORCED
+)  COMMENT = 'IVS - Plandaten Köpfe, Kosten, Stunden_1';

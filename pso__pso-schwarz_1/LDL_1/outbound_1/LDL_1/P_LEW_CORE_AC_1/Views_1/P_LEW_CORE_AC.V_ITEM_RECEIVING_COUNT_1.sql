@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_item_receiving_count_1 (client_id, loc_sid_wh, item_cnt_id, item_sid, sup_sid,
+despatch_advice_id, task_create_dt, rcv_cnt_status_id, rcv_receipt_id, item_rcv_dt, total_case_qty, dwh_load_id,
+dwh_created, dwh_updated) AS SELECT client_id,
+ loc_sid_wh,
+ item_cnt_id,
+ item_sid,
+ sup_sid,
+ despatch_advice_id,
+ task_create_dt,
+ rcv_cnt_status_id,
+ rcv_receipt_id,
+ item_rcv_dt,
+ total_case_qty,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_item_receiving_count_1;

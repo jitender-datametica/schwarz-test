@@ -1,0 +1,82 @@
+CREATE OR REPLACE VIEW P_LEW_CORE_AC.V_PICK_LIST_1
+
+(
+    client_id
+    , loc_sid
+    , pick_list_id
+    , pick_area_id
+    , pick_order_cd
+    , loc_sid_store
+    , store_order_tmsp
+    , plan_method_cd
+    , plan_status_cd
+    , plan_host_status_cd
+    , merged_fg
+    , performance_statistic_avail_cd
+    , pick_priority_id
+    , tour_client_cd
+    , tour_cd
+    , destination_field_cd
+    , chain_cd
+    , chain_seq
+    , chain_logic_id
+    , delivery_tmsp
+    , supply_tmsp
+    , pick_target_start_tmsp
+    , pick_start_dt
+    , pick_start_tmsp
+    , pick_end_tmsp
+    , target_pick_time_cnt
+    , act_pick_time_cnt
+    , position_cnt
+    , position_processed_cnt
+    , target_pick_case_qty
+    , act_pick_case_qty
+    , target_pick_te_qty
+    , act_pick_te_qty
+    , dwh_cal_dt
+    , dwh_load_id
+    , dwh_created
+    , dwh_updated
+)
+AS
+   SELECT
+       client_id,
+   loc_sid,
+   pick_list_id,
+   pick_area_id,
+   pick_order_cd,
+   loc_sid_store,
+   store_order_tmsp,
+   plan_method_cd,
+   plan_status_cd,
+   plan_host_status_cd,
+   merged_fg,
+   performance_statistic_avail_cd,
+   pick_priority_id,
+   tour_client_cd,
+   tour_cd,
+   destination_field_cd,
+   chain_cd,
+   chain_seq,
+   chain_logic_id,
+   delivery_tmsp,
+   supply_tmsp,
+   pick_target_start_tmsp,
+   pick_start_dt,
+   pick_start_tmsp,
+   pick_end_tmsp,
+   target_pick_time_cnt,
+   act_pick_time_cnt,
+   position_cnt,
+   position_processed_cnt,
+   target_pick_case_qty,
+   act_pick_case_qty,
+   target_pick_te_qty,
+   act_pick_te_qty,
+   dwh_cal_dt,
+   dwh_load_id,
+   dwh_created,
+   dwh_updated
+  FROM p_lew_core.t_pick_list_1
+;

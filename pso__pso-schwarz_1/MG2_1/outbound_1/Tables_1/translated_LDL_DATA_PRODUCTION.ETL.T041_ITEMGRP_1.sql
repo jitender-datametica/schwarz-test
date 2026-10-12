@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t041_itemgrp_1 (
+ctrcode STRING(3) COLLATE 'und:ci' NOT NULL,
+c041_itemgrpnr INTEGER NOT NULL,
+c041_staffnr INTEGER NOT NULL,
+c041_prodgrpnr INTEGER NOT NULL,
+c041_descshort STRING(15) NOT NULL,
+c041_desc STRING(35),
+c041_sortingterm INTEGER NOT NULL,
+c041_diffrcv INTEGER,
+c041_moduser STRING(8),
+c041_moddate DATETIME,
+c041_group_id INTEGER,
+c041_temp_min INTEGER,
+c041_temp_max INTEGER,
+c041_rcv_count INTEGER,
+c041_rcv_days INTEGER,
+c041_mmo_delivery_time NUMERIC(5,1) NOT NULL,
+c041_traceability_level INTEGER,
+scn INTEGER DEFAULT 0,
+extraction_tmsp DATETIME,
+PRIMARY KEY (c041_itemgrpnr, c041_prodgrpnr) NOT ENFORCED
+);

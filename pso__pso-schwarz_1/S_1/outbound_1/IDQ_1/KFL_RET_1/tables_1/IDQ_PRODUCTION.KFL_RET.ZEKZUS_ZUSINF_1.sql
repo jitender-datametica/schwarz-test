@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE idq_production_kfl_ret.zekzus_zusinf_1 (
+mandt STRING(3) NOT NULL,
+matnr STRING(40) NOT NULL,
+komptext STRING(40),
+anteil NUMERIC(3,0),
+hname STRING(35),
+pstlz STRING(10),
+ort STRING(35),
+stras STRING(35),
+zusanm1 NUMERIC(3,0),
+zusanm2 NUMERIC(3,0),
+zusanm3 NUMERIC(3,0),
+lbed NUMERIC(3,0),
+aedat DATE,
+erdat DATE,
+uname STRING(12),
+uzeit TIME,
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (mandt, matnr) NOT ENFORCED
+);

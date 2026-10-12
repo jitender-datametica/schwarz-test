@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_mcx_l_zeitspanne_1 AS SELECT zeitspanne_id,
+ zeitspanne_sort_key
+FROM kfl_production_dbp_data.mcx_l_zeitspanne_1;

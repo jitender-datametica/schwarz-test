@@ -1,0 +1,35 @@
+create or replace view SMP_PRODUCTION.FE_MSTR_SMP.V_TEST_PERIOD_BKP_1(
+	DOOH_CAMPAIGN_NAME,
+	DATE_UPDATED,
+	DATE_START,
+	DATE_END,
+	DURATION,
+	DATE_START_PRE_PERIOD,
+	WEEK_START,
+	WEEK_END,
+	BASELINE_START,
+	BASELINE_END,
+	ANALYSIS_END,
+	DATE_START_PRE_CONVERSION_PERIOD,
+	DATE_END_PRE_CONVERSION_PERIOD,
+	BASELINE_COUNT_DAYS
+) as 
+SELECT
+DOOH_CAMPAIGN_NAME,
+DATE_UPDATED,
+DATE_START,
+DATE_END,
+DATE_END-DATE_START+1 AS DURATION,
+date_start - greatest(28, ((DATE_END-DATE_START+1) * 2))  AS DATE_START_PRE_PERIOD,
+--greatest(28, (duration * 2)),
+  --      to_number(DATE_END-DATE_START) * 2,
+    time_slice(DATE_START, 1, 'WEEK', 'START') as week_start,
+    dateadd(day, -1, time_slice(DATE_END, 1, 'WEEK', 'END')) as week_end,
+    dateadd(day, -6*7, week_start) as baseline_start, 
+    dateadd(day, -2*7-1, week_start) as baseline_end,
+    dateadd(day, 6*7, week_end) as analysis_end,
+    DATE_START_PRE_PERIOD-42 AS DATE_START_PRE_CONVERSION_PERIOD, --nur für Kampagnen aus 2023, aus 2024 -42
+    DATE_START_PRE_PERIOD AS DATE_END_PRE_CONVERSION_PERIOD,
+    DATE_END_PRE_CONVERSION_PERIOD    - DATE_START_PRE_CONVERSION_PERIOD AS BASELINE_COUNT_DAYS
+FROM
+FE_MSTR_TEMP.T_TEST_PERIOD_1;

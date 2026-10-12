@@ -1,0 +1,46 @@
+create or replace view LDL_PRODUCTION.P_LEW_CORE_AC.V_NON_PERSONALIZED_DISCOUNT_ACTION_1(
+	CLIENT_ID COMMENT 'unique identifier of the DWH client / slice',
+	NP_DISCOUNT_SID COMMENT 'Surrogate Key of the non personalized discount.',
+	NP_DISCOUNT_ACTION_NR COMMENT 'Unique Identifier of the action for a non-personalized discount.',
+	NP_DISCOUNT_ACTION_TYPE_CD COMMENT 'Code of the action type for the non personalized discount.',
+	NP_DISCOUNT_BENEFIT_TYPE_CD COMMENT 'Code of the benefit type for the non personalized discount.',
+	NP_DISCOUNT_ACTION_ORDER_SEQ COMMENT 'It determines the non personalized discount action application order (in ascending order starting from 0).',
+	NP_DISCOUNT_ACTION_PRIO_SEQ COMMENT 'It determines the priority of non personalized discount action with identical sequences.',
+	RECEIPT_CALC_METHOD_CD COMMENT 'Code of receipt calculation method for a non personalized discount.',
+	ITEM_TO_BE_PAID_CNT COMMENT 'The minimun quantity of  item_1 or item_1 group  to buy to get the discount. e.g: For an action 10+2 gratis, then the quantity of item_1 to buy is 10.( For action_type_cd = ''TO_BE_PAID_QUANTITY'').',
+	MAX_ITEM_TO_BE_DISCOUNTED_CNT COMMENT 'It is the maximum number of items from the assigned product list ( MatchingItems) that are eligible to receive the discount, once the non personalized discount conditions are met..( For action_type_cd = ''MIX_AND_MATCH'').',
+	NP_DISCOUNT_TRIGGER_LOGICAL_OPERATOR_CD COMMENT 'Code of  item_1/itemgroup_1 combination type for a non personalized discount.( For action_type_cd = ''MIX_AND_MATCH'').',
+	NP_DISCOUNT_METHOD_CD COMMENT 'Code of the calculation method of a non personalized discount for the new price.(For action_type_cd = ''SIMPLE''),',
+	DISCOUNT_PCT COMMENT 'The percentage discount is deducted from the valid retail price of the item.(For action_type_cd = ''SIMPLE'' and discount_method_cd = ''RP'').',
+	DISCOUNT_VAL COMMENT 'Depending on the discount method type, the value is either deducted from the item_1''s current retail price (RS_1) or distributed pro-rata across all line items, ensuring a proportional discount for every position on the receipt(RT).(For action_type_cd = ''SIMPLE'').',
+	DISCOUNT_PRICE COMMENT 'The promotional price, which varies by action type. For SET actions, it is the bundle price. For SIMPLE actions, it represents depending on the discount method type either the new unit_1 price (PS) or the total price of an interval (PT) defined by the minimum quantity.',
+	CURR_SID COMMENT 'Surrogate Key CURRENCY',
+	CURR_CD COMMENT 'Iso-Code Wahrung; SAP-Retail: tcurc.isocd; SAP-BW: t_bw_z_ds_tcurc.isocd',
+	DWH_LOAD_ID COMMENT 'Identifier of the last run which inserted or updated the record. -1 means manually inserted.',
+	DWH_CREATED COMMENT 'Creation timestamp of the record in the DWH.',
+	DWH_UPDATED COMMENT 'Timestamp of the last update of the record in the DWH.'
+) COMMENT='This table is about the price adjustment mechanisms associated with a non-personalized discount, which is applied when the trigger condition in a specified defined time period are met.'
+ as 
+    SELECT 
+        client_id,
+        np_discount_sid,
+        np_discount_action_nr,
+        np_discount_action_type_cd,
+        np_discount_benefit_type_cd,
+        np_discount_action_order_seq,
+        np_discount_action_prio_seq,
+        receipt_calc_method_cd,
+        item_to_be_paid_cnt,
+        max_item_to_be_discounted_cnt,
+        np_discount_trigger_logical_operator_cd,
+        np_discount_method_cd,
+        discount_pct,
+        discount_val,
+        discount_price,
+        curr_sid,
+        curr_cd,
+        dwh_load_id,
+        dwh_created,
+        dwh_updated
+
+FROM P_LEW_CORE.T_NON_PERSONALIZED_DISCOUNT_ACTION_1 ;

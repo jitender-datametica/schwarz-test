@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.lagerbew_1 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+lagerbew_beleg_id INTEGER NOT NULL,
+kj BIGNUMERIC(38,0) NOT NULL,
+vorgangsart_id STRING(2) COLLATE 'und:ci' NOT NULL,
+dat_buch DATE NOT NULL,
+beleg_user_name STRING(20) COLLATE 'und:ci' NOT NULL,
+ref_lagerbew_beleg_id STRING(20) COLLATE 'und:ci',
+dat_beleg DATE NOT NULL,
+dat_erfasst DATE,
+belegart_id STRING(2) COLLATE 'und:ci',
+belegkopftext STRING(30) COLLATE 'und:ci',
+waren_begl_schein_id STRING(10) COLLATE 'und:ci',
+system_id BIGNUMERIC(38,0) DEFAULT 7 NOT NULL,
+ref_lagerbew_beleg_id_num INTEGER DEFAULT - 1 NOT NULL,
+lief_gp_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+zeit_erfasst BIGNUMERIC(38,0) NOT NULL,
+transaktion_code STRING(10) COLLATE 'und:ci',
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+) CLUSTER BY mandant_id, dat_buch;

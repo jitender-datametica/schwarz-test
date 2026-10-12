@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_gfk_hhp_wg_account_12_kjmo_rol_zu_1 AS SELECT kjmo_bis,
+ umsatz_tsd_eur,
+ anz_einkauf_tsd,
+ durchschnitt_einkauf,
+ durchschnitt_preis_artikel,
+ anz_kaeufer_tsd,
+ einkauf_frequenz,
+ kjmo_von,
+ bewart_id,
+ gfk_account_id,
+ mandant_id,
+ anz_artikel_einkauf,
+ wrg_id,
+ eigenmarke_frische_kz,
+ gfk_wg_id,
+ td_insert,
+ td_update
+FROM kfl_production_dbp_data.gfk_hhp_wg_account_12_kjmo_rol_zu_1;

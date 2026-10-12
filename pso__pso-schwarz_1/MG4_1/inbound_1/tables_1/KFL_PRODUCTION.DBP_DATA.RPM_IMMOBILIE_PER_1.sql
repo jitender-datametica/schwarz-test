@@ -1,0 +1,25 @@
+create or replace TABLE KFL_PRODUCTION.DBP_DATA.RPM_IMMOBILIE_PER_1 (
+	RPM_HIERARCHIE_ID VARCHAR(32) NOT NULL COLLATE 'en-ci' COMMENT 'Eindeutige ID der Immobilie',
+	DAT_VON DATE NOT NULL COMMENT 'Datum, ab dem der Datensatz gueltig ist',
+	TECHN_PLATZ_ID VARCHAR(30) NOT NULL COLLATE 'en-ci' COMMENT 'Der technische Platz ist eine_1 von Kaufland Facility Management verwaltete Einheit',
+	VS_ID NUMBER(38,0) NOT NULL COMMENT 'Referenz zur Vertriebsschiene aus zppm_konzept',
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant_1 im DWH',
+	WRG_ID VARCHAR(3) NOT NULL COLLATE 'en-ci' COMMENT 'Kurzbezeichnung der Waehrung, z.Bsp. CZK, EUR',
+	GESAMTBEW_NOTE NUMBER(9,2) COMMENT 'Gesamtbewertung Durchschnittsnote aus zppm_gesamtbew',
+	BEWERTUNGSZAHL_A NUMBER(9,2) COMMENT 'Bewertungszahl aus zppm_bew_zahl_a',
+	BEWERTUNGSZAHL_B NUMBER(9,2) COMMENT 'Bewertungszahl aus zppm_bew_zahl_b',
+	BEWERTUNGSZAHL_C NUMBER(9,2) COMMENT 'Bewertungszahl aus zppm_bew_zahl_c',
+	DAT_BIS DATE NOT NULL COMMENT 'Datum, bis zu dem der Datensatz gueltig ist. Ist dieses Datum nicht bekannt, wird der 31.12.9999 eingestellt.',
+	GJ_UMBVORSCHL NUMBER(38,0) COMMENT 'Umbauvorschlag - Geschaeftsjahr aus zppm_umbvorschl',
+	WUP_ID NUMBER(38,0) COMMENT 'Mutter Wup_1 ID wird verwendet fuer Beziehung Lager zu Verteilzentrum',
+	NB_ID NUMBER(38,0) COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer',
+	WUP_STANDORT VARCHAR(40) COLLATE 'en-ci' COMMENT 'Standort aus zppm_standort',
+	STRASSE VARCHAR(80) COLLATE 'en-ci' COMMENT 'Strasse des Objekts aus zppm_strasse',
+	PLZ VARCHAR(10) COLLATE 'en-ci' COMMENT 'Postleitzahl aus zppm_plz',
+	ZIELUMSATZ_3GJ NUMBER(18,4) NOT NULL DEFAULT 0 COMMENT 'Zielumsatz im dritten GJ aus zppm_zielumsatz',
+	DAT_EROEFFN_FB_IMM DATE NOT NULL DEFAULT CAST('1900-01-01' AS DATE) COMMENT 'Datum Eroeffnung Festbau Immobilie aus zppm_er_fbau_imm',
+	UEBERNAHME_VON VARCHAR(40) COLLATE 'en-ci' COMMENT 'uebernahmefirma aus zppm_uebernfirm',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration'
+)COMMENT='RPM - Informationen zu einer Immobilie (IST) aus inm_initiative'
+;

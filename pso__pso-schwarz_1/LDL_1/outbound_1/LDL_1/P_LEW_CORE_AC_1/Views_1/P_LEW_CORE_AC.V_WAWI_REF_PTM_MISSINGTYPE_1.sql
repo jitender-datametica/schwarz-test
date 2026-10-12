@@ -1,0 +1,27 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_wawi_ref_ptm_missingtype_1 (client_id, wh_loc_sid, missingtype_id,
+missingtype_short_desc, missingtype_desc, missingtype_unit, missingtype_half_day, missingtype_default, sap_cd,
+export_to_sap_fg, missingtype_decimals, val_min_missingtype, val_max_missingtype, parallel_work_fg, parallel_missingtype
+, missingtype_step, absent_basic_hour_fg, presence_fg, missingtype_perf_rel_fg, abinitio_src_fg, dat_dayend, load_id) AS
+SELECT client_id,
+ wh_loc_sid,
+ missingtype_id,
+ missingtype_short_desc,
+ missingtype_desc,
+ missingtype_unit,
+ missingtype_half_day,
+ missingtype_default,
+ sap_cd,
+ export_to_sap_fg,
+ missingtype_decimals,
+ val_min_missingtype,
+ val_max_missingtype,
+ parallel_work_fg,
+ parallel_missingtype,
+ missingtype_step,
+ absent_basic_hour_fg,
+ presence_fg,
+ missingtype_perf_rel_fg,
+ abinitio_src_fg,
+ dat_dayend,
+ load_id
+FROM ldl_p_lew_core.t_wawi_ref_ptm_missingtype_1;

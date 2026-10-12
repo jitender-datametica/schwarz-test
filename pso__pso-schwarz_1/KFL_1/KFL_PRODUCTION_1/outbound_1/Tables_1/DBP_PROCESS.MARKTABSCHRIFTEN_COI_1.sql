@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_process.marktabschriften_coi_1 (
+wup_id BIGNUMERIC(38,0) NOT NULL,
+wup_abschrift_id INTEGER NOT NULL,
+positionsnummer_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+dat DATE NOT NULL,
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+lastupd_dat DATE NOT NULL,
+woche_id BIGNUMERIC(38,0) NOT NULL,
+menge_abschrift BIGNUMERIC(38,0) NOT NULL,
+abschriftart_id BIGNUMERIC(38,0) NOT NULL,
+art_id BIGNUMERIC(38,0) NOT NULL,
+abschriftbetrag_netto NUMERIC(18,2) DEFAULT 0 NOT NULL,
+abschriftbetrag_brutto NUMERIC(18,2) DEFAULT 0 NOT NULL,
+wrg_id STRING(3) COLLATE 'und:ci' DEFAULT 'EUR' NOT NULL,
+wv_kz STRING(1) COLLATE 'und:ci' DEFAULT ' ' NOT NULL,
+wv_grund_id BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+vk_aktion_brutto NUMERIC(9,2) DEFAULT 0 NOT NULL,
+vk_brutto NUMERIC(9,2) DEFAULT 0 NOT NULL,
+td_update TIMESTAMP,
+td_insert TIMESTAMP
+);

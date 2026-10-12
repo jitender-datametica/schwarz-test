@@ -1,0 +1,12 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view3.mv_l_terminierungsgruppe_3_1 (mandant_id, terminierungsgruppe_3_id) AS
+SELECT mandant_id,
+ terminierungsgruppe_3_id
+FROM kfl_production_dbp_view.v_wup_kunde_wg_disporhythmus_lft_zu_per_1 AS V01
+GROUP BY mandant_id,
+ terminierungsgruppe_3_id
+UNION DISTINCT
+SELECT mandant_id,
+ '-1' AS terminierungsgruppe_3_id
+FROM kfl_production_dbp_view.v_mandant_1 AS V02
+WHERE (mandant_id, '-1') NOT IN (SELECT (mandant_id, terminierungsgruppe_3_id)
+   FROM kfl_production_dbp_view.v_wup_kunde_wg_disporhythmus_lft_zu_per_1);

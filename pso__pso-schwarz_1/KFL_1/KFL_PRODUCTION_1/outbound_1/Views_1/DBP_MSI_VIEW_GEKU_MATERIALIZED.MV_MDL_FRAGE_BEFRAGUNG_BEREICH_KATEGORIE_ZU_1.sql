@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku_materialized.mv_mdl_frage_befragung_bereich_kategorie_zu_1 (frage_id
+, befragung_id, bereich_id, kategorie_id) AS SELECT *
+FROM kfl_production_dbp_view.v_mdl_frage_befragung_bereich_kategorie_zu_1 AS V01;

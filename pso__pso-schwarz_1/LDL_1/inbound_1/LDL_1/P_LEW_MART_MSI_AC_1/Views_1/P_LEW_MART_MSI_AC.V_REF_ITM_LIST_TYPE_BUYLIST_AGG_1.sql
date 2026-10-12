@@ -1,0 +1,33 @@
+create or replace view LDL_PRODUCTION_CLONE_GOOGLE_20260608_1030.P_LEW_MART_MSI_AC.V_REF_ITM_LIST_TYPE_BUYLIST_AGG_1(
+	AGG_BUYING_LIST_TYPE_ID,
+	BUYING_LIST_TYPE_ID,
+	BUYING_LIST_TYPE_DESC,
+	AGG_BUYING_LIST_TYPE_DESC
+) as
+SELECT
+    CASE
+       WHEN BUYING_LIST_TYPE_DESC LIKE 'Aktions-Artikel_1 %'      THEN 1
+       WHEN BUYING_LIST_TYPE_DESC LIKE 'Ausgelistet %'          THEN 2
+       WHEN BUYING_LIST_TYPE_DESC LIKE 'Neu-Einlistung %'       THEN 3
+       WHEN BUYING_LIST_TYPE_DESC LIKE 'Normalsortiment %'      THEN 4
+       WHEN BUYING_LIST_TYPE_DESC LIKE 'Saison-Artikel_1 %'       THEN 5
+       WHEN BUYING_LIST_TYPE_DESC LIKE 'Test_1-Artikel_1 %'         THEN 6
+     END AS AGG_BUYING_LIST_TYPE_ID
+   , BUYING_LIST_TYPE_ID   
+   , BUYING_LIST_TYPE_DESC 
+   , CASE
+       WHEN BUYING_LIST_TYPE_DESC LIKE '% M'
+         OR BUYING_LIST_TYPE_DESC LIKE '% EM'
+       THEN        
+           RTRIM(
+               SUBSTR(
+                   BUYING_LIST_TYPE_DESC
+                   , 1
+                   , LEN(BUYING_LIST_TYPE_DESC)
+                   - LEN(SPLIT_PART(BUYING_LIST_TYPE_DESC, ' ', -1))
+                   - 1
+               )
+           ) || ' EM+M'
+        END AS AGG_BUYING_LIST_TYPE_DESC
+FROM P_LEW_MART_MSI_AC.V_REF_ITM_LIST_TYPE_BUYLIST_1
+WHERE BUYING_LIST_TYPE_ID IN (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);

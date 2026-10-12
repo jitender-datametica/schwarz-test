@@ -1,0 +1,28 @@
+create or replace TABLE KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_DATA.BEST_BELEGFLUSS_BNK_1 (
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant_1 im DWH',
+	BEST_BELEG_ID NUMBER(18,0) NOT NULL COMMENT 'Das Feld enthält die Beleg ID der Bestellung und dient der eindeutigen Identifikation der Bestellbelege aus ebeln',
+	BEST_BELEG_POS_ID NUMBER(38,0) NOT NULL COMMENT 'Die Belegposition ID der Bestellung dient der eindeutigen Identifikation der Bestellpositionen pro Bestellung aus ebelp',
+	FOLGE_BELEG_ID NUMBER(18,0) NOT NULL COMMENT 'Das Feld enthält die ID der Lagerbewegung und dient zusammen mit dem Kalenderjahr der eindeutigen Identifikation der Lagerbewegung. aus ekbz.belnr',
+	FOLGE_BELEG_POS_ID NUMBER(38,0) NOT NULL COMMENT 'Das Feld enthält die Nummer einer Lagerbewegungsposition und dient zusammen mit der Lagerbewegungs ID und dem Kalenderjahr der eindeutigen Identifikation der Lagerbewegungsposition. aus ekbz.buzei ',
+	KJ NUMBER(38,0) NOT NULL COMMENT 'Dieses Attribut enthält das entsprechende Kalenderjahr und wird benötigt um einen Beleg in Kombination mit der Belegnummer eindeutig zu identifizieren. aus ekbz.gjahr ',
+	KOND_STUFE_ID NUMBER(38,0) NOT NULL COMMENT 'Konditionsstufe aus stunr',
+	KOND_ZAEHL_ID NUMBER(38,0) NOT NULL COMMENT 'Laufende Nummer der Kondition innerhalb der Stufe aus zaehk',
+	VORGART_BEST_ENTW_ID VARCHAR(1) NOT NULL COLLATE 'en-ci' COMMENT 'Vorgangsart der Bestellentwicklung aus vgabe',
+	BEST_ENTW_TYP_ID VARCHAR(1) NOT NULL COLLATE 'en-ci' COMMENT 'Kennzeichen über die Art_1 des Folgebeleges:  E = Wareneingang, Lagerbewegung, U = Warenausgang, Lagerbewegung, L = Lieferschein aus bewtp',
+	BETRAG_KONDITION NUMBER(18,4) NOT NULL WITH MASKING POLICY #unknown_policy COMMENT 'Konditionsbetrag aus dmbtr',
+	SOLL_HABEN_KZ VARCHAR(1) NOT NULL COLLATE 'en-ci' COMMENT 'Zeigt, auf welcher Seite des Kontos (S = Soll, H = Haben) die Fortschreibung der Verkehrszahlen erfolgt. aus shkzg',
+	REF_LAGERBEW_BELEG_ID VARCHAR(20) NOT NULL COLLATE 'en-ci' COMMENT 'Die Referenzbelegnummer kann die Belegnummer beim Geschäftspartner enthalten. aus xblnr',
+	GP_ID NUMBER(38,0) NOT NULL COMMENT 'Geschäftspartner - ID (Lieferanten - ID)',
+	DAT_ERFASST DATE NOT NULL COMMENT 'Erfassdatum aus cpudt',
+	KONDITIONSART_ID VARCHAR(4) NOT NULL COLLATE 'en-ci' COMMENT 'Eindeutiger Fachschlüssel der Konditionsart. aus kschl',
+	WRG_ID VARCHAR(3) NOT NULL COLLATE 'en-ci' COMMENT 'Kurzbezeichnung der Währung, z.Bsp. CZK, EUR. Aus hswae',
+	DAT_BUCH DATE NOT NULL COMMENT 'Buchungsdatum im Beleg aus budat.',
+	SYSTEM_ID NUMBER(38,0) NOT NULL COMMENT 'Die System ID kennzeichnet das Quellsystem der Daten (z. B. SAP PR1).',
+	BETRAG_WRBTR NUMBER(18,4) NOT NULL WITH MASKING POLICY #unknown_policy COMMENT 'Betrag in Belegwährung aus wrbtr. Muss unbedingt 1:1 aus SAP kommen, um Kursdifferenzen zum GLD auszuwerten',
+	ZEIT_ERFASST NUMBER(38,0) NOT NULL COMMENT 'Zeitpunkt der Datenerfassung aus cputm',
+	SOLL_HABEN_KKO VARCHAR(1) NOT NULL COLLATE 'en-ci' COMMENT 'Soll/Haben Kennzeichen korrespondierend zu bseg shkzg aus shkko',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	constraint PK_BEST_BELEGFLUSS_BNK primary key (MANDANT_ID, BEST_BELEG_ID, BEST_BELEG_POS_ID, FOLGE_BELEG_ID, FOLGE_BELEG_POS_ID, KJ, KOND_STUFE_ID, KOND_ZAEHL_ID, VORGART_BEST_ENTW_ID)
+)COMMENT='RPW - Bezugsnebenkosten zur Bestellung (für IWT-Prozess) aus ekbz - MULTISET'
+;

@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_eps_containertyp_1 AS SELECT mandant_id,
+ containertyp_id
+FROM kfl_production_dbp_data.l_eps_containertyp_1;

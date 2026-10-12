@@ -1,0 +1,12 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ek_kun.mv_wg_per_1 (wg_id, arthiertyp_id, lead_mwst_id, dat_von, abt_id
+, mandant_id, dat_bis, owg_id) AS SELECT wg_id,
+ arthiertyp_id,
+ lead_mwst_id,
+ dat_von,
+ abt_id,
+ mandant_id,
+ dat_bis,
+ owg_id
+FROM kfl_production_dbp_data.wg_per_1
+WHERE arthiertyp_id = 2
+ AND dat_bis > CURRENT_DATE;

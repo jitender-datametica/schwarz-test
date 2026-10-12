@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE WAWIADM.PERSONALSTAMM_1 (
+    PERSONALNR           NUMBER(10,0)   NOT NULL,
+    TAETIGKBEZNR         NUMBER(5,0),
+    ANREDENNR            NUMBER(5,0),
+    NAME                 VARCHAR(28)    NOT NULL WITH MASKING POLICY #unknown_policy,
+    VORNAME              VARCHAR(28)    WITH MASKING POLICY #unknown_policy,
+    GESCHLECHT           NUMBER(1,0),
+    GEB_DATUM            TIMESTAMP_NTZ(9) WITH MASKING POLICY #unknown_policy,
+    STRASSE              VARCHAR(28)    WITH MASKING POLICY #unknown_policy,
+    LANDKZL              VARCHAR(3)     NOT NULL,
+    PLZ                  VARCHAR(15)    NOT NULL WITH MASKING POLICY #unknown_policy,
+    ORT                  VARCHAR(28)    NOT NULL WITH MASKING POLICY #unknown_policy,
+    TELEFON              VARCHAR(28)    WITH MASKING POLICY #unknown_policy,
+    GUELTIG_AB           TIMESTAMP_NTZ(9),
+    EINARBEITUNG         NUMBER(1,0)    NOT NULL,
+    DATUM                TIMESTAMP_NTZ(9),
+    BEDIENER             VARCHAR(8)     WITH MASKING POLICY #unknown_policy,
+    BENUTZERID           VARCHAR(8),
+    SCN                  NUMBER(38,0)   DEFAULT 0,
+    CONSTRAINT PK_PERSONALSTAMM PRIMARY KEY (PERSONALNR)
+);

@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_belos_standort_typ_1 AS SELECT belos_standort_typ_id
+FROM kfl_production_dbp_data.l_belos_standort_typ_1;

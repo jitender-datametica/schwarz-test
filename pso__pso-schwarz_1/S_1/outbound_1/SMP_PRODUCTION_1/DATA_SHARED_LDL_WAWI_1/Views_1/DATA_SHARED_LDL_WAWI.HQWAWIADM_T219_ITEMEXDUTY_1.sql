@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW smp_production_data_shared_ldl_wawi.hqwawiadm_t219_itemexduty_1 (wawi_instanz_kzl, c219_itemnr,
+c219_exdutymain, c219_exdutysub, c219_exdutyvol, c219_mod_date, c219_mod_user, c219_validfrom, c219_validuntil, scn,
+delete_fg, extraction_tmsp) AS SELECT wawi_instanz_kzl,
+ c219_itemnr,
+ c219_exdutymain,
+ c219_exdutysub,
+ c219_exdutyvol,
+ c219_mod_date,
+ c219_mod_user,
+ c219_validfrom,
+ c219_validuntil,
+ scn,
+ delete_fg,
+ extraction_tmsp
+FROM ldl_wawi_production_hqwawiadm.t219_itemexduty_1;

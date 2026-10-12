@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_log.mv_stellplatzkategorie_1 (stellplatzkategorie, anz_stellplatz_von,
+anz_stellplatz_bis) AS SELECT DISTINCT stellplatzkategorie,
+ anz_stellplatz_von,
+ anz_stellplatz_bis
+FROM kfl_production_dbp_msi_v_view.v_ts_l_stellplatzkategorie_1;

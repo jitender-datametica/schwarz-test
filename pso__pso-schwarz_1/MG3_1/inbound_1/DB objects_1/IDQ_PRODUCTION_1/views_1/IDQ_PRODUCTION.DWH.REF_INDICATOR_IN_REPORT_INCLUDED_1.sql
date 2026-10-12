@@ -1,0 +1,8 @@
+create or replace view IDQ_PRODUCTION.DWH.REF_INDICATOR_IN_REPORT_INCLUDED_1(
+	IN_REPORT_INCLUDED,
+	DESC,
+	DESC_DE,
+	DESC_EN
+) as 
+	select ID, DESC_DE, DESC_DE, DESC_EN
+	from idq_results.REF_INDICATOR_1;

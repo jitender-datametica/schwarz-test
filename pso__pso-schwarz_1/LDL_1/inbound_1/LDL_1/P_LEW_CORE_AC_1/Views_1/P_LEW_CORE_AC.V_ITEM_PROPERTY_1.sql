@@ -1,0 +1,29 @@
+CREATE OR REPLACE VIEW P_LEW_CORE_AC.V_ITEM_PROPERTY_1
+(
+  client_id,
+  item_property_sid,
+  src_item_property_id,
+  src_atwrt,
+  item_property_cd,
+  item_property_int_name,
+  item_property_local_name,
+  item_property_descr,
+  dwh_load_id,
+  dwh_created,
+  dwh_updated
+)
+AS
+   SELECT
+    client_id,
+   item_property_sid,
+   src_item_property_id,
+   src_atwrt,
+   item_property_cd,
+   item_property_int_name,
+   item_property_local_name,
+   item_property_descr,
+   dwh_load_id,
+   dwh_created,
+   dwh_updated
+  FROM p_lew_core.t_item_property_1
+;

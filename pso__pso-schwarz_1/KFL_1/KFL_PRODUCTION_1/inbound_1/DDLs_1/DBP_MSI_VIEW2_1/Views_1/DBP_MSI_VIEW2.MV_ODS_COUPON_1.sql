@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW2.MV_ODS_COUPON_1 as
+   SELECT *
+   FROM dbp_v_ods.v_ods_coupon_1;

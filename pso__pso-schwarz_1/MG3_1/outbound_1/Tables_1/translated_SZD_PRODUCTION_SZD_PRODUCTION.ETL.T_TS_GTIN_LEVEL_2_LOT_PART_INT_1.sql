@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE szd_production_etl.t_ts_gtin_level_2_lot_part_int_1 (
+product_instance_group_sid INTEGER,
+dwh_valid_from_tmsp TIMESTAMP,
+dwh_valid_to_tmsp TIMESTAMP,
+dwh_valid_fg BOOL,
+lot_part_status_cd STRING(50),
+lot_product_instance_group_sid INTEGER,
+shipping_destination_cd STRING(50),
+gtin_nr STRING(50),
+spare_unit_fg BOOL,
+dwh_src_file_name STRING(500),
+dwh_src_1_tmsp TIMESTAMP,
+record_id STRING(1000),
+deleted_fg BOOL,
+error_descr STRING(1000),
+filename STRING(1000),
+hist_row_no STRING(1000),
+dwh_mapping_tmsp TIMESTAMP,
+dwh_ending_tmsp TIMESTAMP,
+error_fg INTEGER,
+dwh_load_id INTEGER
+);

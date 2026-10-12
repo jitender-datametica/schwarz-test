@@ -1,0 +1,21 @@
+CREATE TABLE CORE_REL.T_DEMAND_ITEM_AGG_1 (
+   cal_month                           NUMBER(38, 0)   NOT NULL COMMENT 'The identifier of a calendar_1 month in the form YYYYMM. E.g. 202101 für January 2021.',
+   cal_week                            NUMBER(38, 0)   NOT NULL COMMENT 'The week as a number of the form YYYYWW. YYYY is the year of the week and WW is the number of the week within the calendar_1 year. Week 1 is the first week in the calendar_1 year containing at least 4 days.',
+   client_id                           NUMBER(38, 0)   NOT NULL COMMENT 'Unique identifier of Lidl Country_1',
+   country_cd                          VARCHAR(160)    COMMENT 'Iso code of the country_1',
+   demand_source_name                  VARCHAR(100)    NOT NULL COMMENT 'Source name for a demand ',
+   item_ba_nr                          NUMBER(38, 0)   COMMENT 'Item_1 BA number',
+   item_ba_descr                       VARCHAR(500)    COMMENT 'Item_1 BA decsription',
+   item_ian_nr                         NUMBER(38, 0)   NOT NULL COMMENT 'Item_1 IAN number',
+   item_descr                          VARCHAR(250)    COMMENT 'Item_1 IAN description',
+   supplier_int_id                     NUMBER(38, 0)   COMMENT 'Internal number for a supplier_1',
+   pallet_factor                       NUMBER(38, 0)   COMMENT 'Pallet factor',
+   case_size                           NUMBER(38, 0)   COMMENT 'Case size',
+   demand_per_week_qty                 NUMBER(38, 5)   COMMENT 'Weekly quantity of demand',
+   demand_per_week_pal_qty             NUMBER(38, 5)   COMMENT 'Weekly quantity of demand in pallet',
+   demand_per_year_qty                 NUMBER(38, 5)   COMMENT 'Yearly quantity of demand',
+   demand_per_year_pal_qty             NUMBER(38, 5)   COMMENT 'Yearly quantity of demand in pallet',
+   dwh_created_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   dwh_updated_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+   CONSTRAINT PK_T_DEMAND_ITEM_AGG PRIMARY KEY (cal_month, cal_week, client_id, demand_source_name, item_ian_nr) NOT ENFORCED
+ )  COMMENT= 'A table that stores demand information enriched with proper product identification';

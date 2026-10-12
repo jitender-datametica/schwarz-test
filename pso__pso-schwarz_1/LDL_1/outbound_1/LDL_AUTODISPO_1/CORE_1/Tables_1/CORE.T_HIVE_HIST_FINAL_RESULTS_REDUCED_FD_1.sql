@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_autodispo_core.t_hive_hist_final_results_reduced_fd_1 (
+country_1 STRING(16777216),
+ts DATETIME,
+date_param STRING(16777216),
+date_ STRING(16777216),
+store BIGNUMERIC(38,0),
+wh BIGNUMERIC(38,0),
+itemno STRING(16777216),
+itemdesc STRING(16777216),
+subgroupno BIGNUMERIC(38,0),
+familyno BIGNUMERIC(38,0),
+v_model STRING(16777216),
+pfc BIGNUMERIC(38,10),
+pfc_model BIGNUMERIC(38,10),
+pfc_before_trend BIGNUMERIC(38,10),
+promotion BIGNUMERIC(38,0),
+forecast_day BIGNUMERIC(38,0),
+spec_placement BIGNUMERIC(38,0),
+source_extraction_tmsp TIMESTAMP NOT NULL,
+snflk_insert_tmsp TIMESTAMP NOT NULL,
+snflk_update_tmsp TIMESTAMP NOT NULL
+);

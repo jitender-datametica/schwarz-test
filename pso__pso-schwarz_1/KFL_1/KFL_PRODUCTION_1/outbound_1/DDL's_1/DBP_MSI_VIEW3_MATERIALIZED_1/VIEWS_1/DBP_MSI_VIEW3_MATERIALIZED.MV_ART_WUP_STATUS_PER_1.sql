@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view3_materialized.mv_art_wup_status_per_1 (art_id, dat_bis, dat_von,
+loesch_id, mandant_id, nb_id, wup_id, wg_verkett_id, fremd_lagerort_id, disponent_id, system_id, pps_plan_kalender_id,
+disposition_rhythmus_id, planlieferzeit, dispomerkmal, we_bearbeitungszeit, min_sicherh_bestand, anliefer_kalender,
+terminierungsgruppe_1_id, terminierungsgruppe_2_id, terminierungsgruppe_3_id, selbstabholung_fg, min_restlaufzeit) AS
+SELECT art_id,
+ dat_bis,
+ dat_von,
+ loesch_id,
+ mandant_id,
+ nb_id,
+ wup_id,
+ wg_verkett_id,
+ fremd_lagerort_id,
+ disponent_id,
+ system_id,
+ pps_plan_kalender_id,
+ disposition_rhythmus_id,
+ planlieferzeit,
+ dispomerkmal,
+ we_bearbeitungszeit,
+ min_sicherh_bestand,
+ anliefer_kalender,
+ terminierungsgruppe_1_id,
+ terminierungsgruppe_2_id,
+ terminierungsgruppe_3_id,
+ selbstabholung_fg,
+ min_restlaufzeit
+FROM kfl_production_dbp_view.v_art_wup_status_per_1 AS V01
+WHERE dat_bis = DATE '9999-12-31'
+ AND nb_id = -111;

@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t_ts_tcache_txj_510_load_2_tcache_daily_vat_statistics_intermediate___1 (
+store_sid INTEGER,
+country_org_sid INTEGER,
+stat_dt DATE,
+bus_dt DATE,
+real_estate_sid INTEGER,
+curr_stat_fg BOOL,
+geo_area_sid INTEGER,
+tax_class_cd STRING(20),
+vat_stat_calc_method_cd STRING(20),
+turnover_gross_val NUMERIC(29,5),
+vat_val NUMERIC(29,5),
+dwh_load_id INTEGER,
+dwh_node_cd STRING(20),
+record_id STRING(1000),
+deleted_fg BOOL,
+error_descr STRING(1000),
+filename STRING(1000),
+hist_row_no STRING(1000),
+dwh_mapping_tmsp TIMESTAMP,
+dwh_ending_tmsp TIMESTAMP,
+error_fg INTEGER
+);

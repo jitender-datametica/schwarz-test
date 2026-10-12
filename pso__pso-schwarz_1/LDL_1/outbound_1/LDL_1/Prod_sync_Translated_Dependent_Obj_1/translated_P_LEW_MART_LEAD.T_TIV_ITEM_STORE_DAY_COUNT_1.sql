@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE ldl_p_lew_mart_lead.t_tiv_item_store_day_count_1 (
+requested_cnt_dt DATE NOT NULL OPTIONS(description='DATUM DER INVENTURANFORDERUNG'),
+client_id INTEGER NOT NULL OPTIONS(description='MIS CLIENT ID'),
+request_id INTEGER NOT NULL OPTIONS(description='ANFORDERUNGS ID'),
+loc_sid_wh INTEGER NOT NULL OPTIONS(description='S-KEY DER LOCATION_1, HIER DER GESELLSCHAFT'),
+move_to_store_id INTEGER NOT NULL OPTIONS(description='S-KEY DER LOCATION_1, HIER DER FILIALE'),
+aspect_id INTEGER NOT NULL OPTIONS(description='GESELLSCHAFTSFORM (1 = BETRIEBS- 2 = VERTRIEBSGESELLSCHAFT)'),
+currency_iso_cd STRING(3) COLLATE 'und:ci' OPTIONS(description='3 STELLIGER WÄHRUNGS-CODE'),
+curr_tot_id STRING(3) COLLATE 'und:ci' OPTIONS(description='INTERNER WÄHRUNGS-CODE'),
+request_list_id INTEGER OPTIONS(description='ANFORDERUNGS LITE ID'),
+inv_type_id INTEGER OPTIONS(description='INVENTURTYP'),
+stock_corr_req_status_id INTEGER OPTIONS(description='STATUS_1 DER INVENTURANFORDERUNG'),
+item_sid INTEGER NOT NULL OPTIONS(description='S-KEY DER ARTIKEL_1'),
+cnt_reason_id INTEGER OPTIONS(description='GRUND DER INVENTURANFORDERUNG'),
+act_item_cnt BIGNUMERIC(38,10) OPTIONS(description='GEZÄHLTE MENGE'),
+soll_bestand BIGNUMERIC(38,10) OPTIONS(description='SOLLMENGE'),
+korrekturmenge NUMERIC(29,4) OPTIONS(description='KORREKTURMENGE'),
+price_retail_netto NUMERIC(29,4),
+korrekturwert NUMERIC(29,4),
+inv_cnt INTEGER OPTIONS(description='REPORTING-ZÄHLER')
+) OPTIONS(description='TEILINVENTUREN');

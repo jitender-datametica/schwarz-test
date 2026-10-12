@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_bcbi_fe_mstr_bcbi.t_dim_cal_week_1 (
+cy_week BIGNUMERIC(38,0),
+week_of_year BIGNUMERIC(38,0),
+cy_week_begin_week_part BIGNUMERIC(38,0),
+cy_week_end_week_part BIGNUMERIC(38,0),
+cy_week_begin_dt DATE,
+cy_week_end_dt DATE,
+cy_week_week_part_cnt BIGNUMERIC(38,0),
+cy_week_prev_1w BIGNUMERIC(38,0),
+cy_week_prev_1y BIGNUMERIC(38,0),
+cy_week_prev_2y BIGNUMERIC(38,0),
+cy_week_prev_3y BIGNUMERIC(38,0),
+cy_week_prev_4y BIGNUMERIC(38,0),
+cy_week_prev_5y BIGNUMERIC(38,0),
+cy_week_offset BIGNUMERIC(38,0),
+cy_week_short_name STRING(100),
+cy_week_name STRING(100),
+dwh_load_id BIGNUMERIC(38,0),
+dwh_created DATETIME,
+dwh_updated DATETIME
+);

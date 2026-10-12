@@ -1,0 +1,22 @@
+create table if not exists SZD_PRODUCTION.etl.t_cache_vlkpa_1 (
+	mandt varchar(3000) collate 'en-ci',
+	kunde varchar(3000) collate 'en-ci',
+	parvw varchar(3000) collate 'en-ci',
+	vstel varchar(3000) collate 'en-ci',
+	lfdat date,
+	vkorg varchar(3000) collate 'en-ci',
+	lfart varchar(3000) collate 'en-ci',
+	kunnr varchar(3000) collate 'en-ci',
+	kunag varchar(3000) collate 'en-ci',
+	ernam varchar(3000) collate 'en-ci',
+	vbeln varchar(3000) collate 'en-ci',
+	adrnr varchar(3000) collate 'en-ci',
+	adrnr_we varchar(3000) collate 'en-ci',
+	oid_extbol varchar(3000) collate 'en-ci',
+	oid_miscdl varchar(3000) collate 'en-ci',
+	extraction_date date,
+	dwh_created_tmsp timestamp_ltz(9) comment 'the point in time when this record was created in the data warehouse.',
+	dwh_updated_tmsp timestamp_ltz(9) comment 'the point in time when this record was created or last updated.',
+	dwh_src_file_name varchar(2000),
+	dwh_src_1_tmsp timestamp_ltz(9)
+);

@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_score_cargo.t_angebot_strecke_kostenbestandteil_staffel_hist_1 (
+angebot_strecke_kostenbestandteil_staffel_zu_abschlag_absolut BIGNUMERIC(38,5),
+angebot_strecke_kostenbestandteil_staffel_verhandlungsziel_absolut BIGNUMERIC(38,5),
+angebot_strecke_kostenbestandteil_staffel_lastmoddate TIMESTAMP,
+angebot_strecke_kostenbestandteil_staffel_rowid STRING(2000),
+angebot_strecke_kostenbestandteil_staffel_id BIGNUMERIC(38,0),
+angebot_strecke_kostenbestandteil_staffel_netto_verhandelt_ek BIGNUMERIC(38,5),
+angebot_strecke_kostenbestandteil_staffel_netto_angebot BIGNUMERIC(38,5),
+angebot_strecke_kostenbestandteil_staffel_netto_verhandelt STRING(2000),
+angebot_strecke_kostenbestandteil_staffel_masterrowid STRING(2000),
+angebot_strecke_kostenbestandteil_staffel_netto_verhandelt_logistikdienstleister BIGNUMERIC(38,5),
+angebot_strecke_kostenbestandteil_staffel_ausgeschriebene_staffel_rowid STRING(2000),
+angebot_strecke_kostenbestandteil_staffel_zu_abschlag_prozent BIGNUMERIC(38,5),
+angebot_strecke_kostenbestandteil_staffel_verhandlungsziel_prozent BIGNUMERIC(38,5),
+source_extraction_tmsp ARRAY < STRING >,
+tech_valid_from TIMESTAMP NOT NULL,
+tech_valid_to TIMESTAMP NOT NULL,
+snflk_insert_tmsp TIMESTAMP NOT NULL,
+snflk_update_tmsp TIMESTAMP NOT NULL
+);

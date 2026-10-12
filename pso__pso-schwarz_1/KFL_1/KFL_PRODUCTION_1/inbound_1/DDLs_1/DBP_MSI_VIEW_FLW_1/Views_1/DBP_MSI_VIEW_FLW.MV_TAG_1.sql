@@ -1,0 +1,53 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_FLW.MV_TAG_1
+-- 01.02.2016 twie: kjwo_kl_vj, gjwo_kl_vj entfernt
+(
+dat
+,kjmo
+,kjmo_vj
+,wtag_id
+,kjwo
+,kjwo_vj
+,gjwo
+,gjwo_vj
+,wo_dat_von
+,wo_dat_bis
+,gjmo
+,gjmo_vj
+,kjqu
+,gjqu
+,kj
+,gj
+,kjtag_id
+,gjtag_id
+,kjwo_kl
+,kjwo_kl_dat_von
+,kjwo_kl_dat_bis
+,gjwo_kl
+,gjwo_kl_dat_von
+,gjwo_kl_dat_bis
+,dat_vj
+,akt_tag
+,akt_mo
+,akt_mo_komplett
+,akt_wo
+,akt_wo_komplett
+,akt_gjwo_kl
+,akt_gjwo_kl_komplett
+,akt_kjwo_kl
+,akt_kjwo_kl_komplett
+,akt_gjqu
+,akt_gjqu_komplett
+,akt_kjqu
+,akt_kjqu_komplett
+,akt_gj
+,akt_gj_komplett
+,akt_kj
+,akt_kj_komplett
+,mo_gj
+,mo_kj
+,pjwo
+)
+AS
+   SELECT
+  dat, kjmo, kjmo_vj, wtag_id, kjwo, kjwo_vj, gjwo, gjwo_vj, wo_dat_von, wo_dat_bis, gjmo, gjmo_vj, kjqu, gjqu, kj, gj, kjtag_id, gjtag_id, kjwo_kl, kjwo_kl_dat_von, kjwo_kl_dat_bis, gjwo_kl, gjwo_kl_dat_von, gjwo_kl_dat_bis, dat_vj, akt_tag, akt_mo, akt_mo_komplett, akt_wo_komplett -1  AS  akt_wo, akt_wo_komplett, akt_gjwo_kl, akt_gjwo_kl_komplett, akt_kjwo_kl, akt_kjwo_kl_komplett, akt_gjqu, akt_gjqu_komplett, akt_kjqu, akt_kjqu_komplett, akt_gj, akt_gj_komplett, akt_kj, akt_kj_komplett, mo_gj, mo_kj, pjwo
+   FROM dbp_view.v_tag_1;

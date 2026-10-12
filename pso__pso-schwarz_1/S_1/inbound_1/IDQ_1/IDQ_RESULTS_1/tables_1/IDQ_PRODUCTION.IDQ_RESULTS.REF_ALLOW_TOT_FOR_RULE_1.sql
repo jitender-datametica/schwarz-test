@@ -1,0 +1,6 @@
+create or replace TABLE IDQ_PRODUCTION.IDQ_RESULTS.REF_ALLOW_TOT_FOR_RULE_1 (
+	ID NUMBER(38,0) NOT NULL autoincrement start 1 increment 1 order,
+	RULE_ID NUMBER(38,0) NOT NULL,
+	TEST_OBJECT_TYPE_ID NUMBER(38,0) NOT NULL,
+	constraint PK_REF_ALLOW_TOT_FOR_RULE primary key (ID)
+);

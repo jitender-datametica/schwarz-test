@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIFECYCLE.V_F_LIFECYCLE_RVM_DATA_NOT_TRANSMITTED_1
+AS SELECT
+ core.t_fact_rvm_delivery_status.rvm_sid
+,core.t_fact_rvm_delivery_status.rvm_processing_dt
+,core.t_fact_rvm_delivery_status.diff_in_days_cnt
+FROM
+core.t_fact_rvm_delivery_status_1
+;

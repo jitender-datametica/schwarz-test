@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_sql_pos_clean_wh_vat_2_item_wh_vat_empiric_hist_1 (
+client_id BIGNUMERIC(38) NOT NULL,
+lidl_country STRING(40) NOT NULL,
+context_load_id BIGNUMERIC(38,0) NOT NULL,
+sql_pos_clean_wh_vat_loc_sid_wh INTEGER NOT NULL,
+sql_pos_clean_wh_vat_vat_exception STRING(900) NOT NULL,
+sql_pos_clean_wh_vat_item_sid INTEGER NOT NULL,
+sql_pos_clean_wh_vat_vat_pct_calc_type_id INTEGER NOT NULL,
+loc_sid_wh BIGNUMERIC(38) NOT NULL,
+vat_exception STRING(300) COLLATE 'und:ci' NOT NULL,
+item_sid BIGNUMERIC(38) NOT NULL,
+vat_pct_calc_type_id BIGNUMERIC(38) NOT NULL,
+vat_pct NUMERIC(9,5) NOT NULL,
+deleted_fg BIGNUMERIC(38) NOT NULL,
+extraction_dt DATE,
+dwh_mapping_dt DATE NOT NULL,
+tf_error_fg INTEGER,
+record_id STRING(300) NOT NULL,
+filename STRING(1000) NOT NULL
+);

@@ -1,0 +1,31 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_PROTOKOLL_AENDERUNG_BSF_1 AS 
+    SELECT 
+         mandant_id
+        ,dat_aenderung
+        ,datzeit_aenderung_utc
+        ,wup_id
+        ,lagernummer_id
+        ,bereitstellungsflaeche
+        ,doppelbelegung_kz
+        ,index_nano
+        ,nb_id
+        ,transaktion_code
+        ,vorgangstyp_id
+        ,abbruchbedingung
+        ,kunde_id
+        ,wgvgrp_id
+        ,zlv_bsf_status
+        ,referenznummer
+        ,bestandart_id
+        ,status_verplant_fg
+        ,fixe_einplanung_fg
+        ,status_verplan_ign_fg
+        ,max_kap_bsf
+        ,anz_pal_bsf
+        ,verplante_kap
+        ,bestand_bsf
+        ,zlv_stp_ist
+        ,fixe_einplanung_markt_fg
+        ,lag_aktionssort
+
+FROM DBP_DATA.PROTOKOLL_AENDERUNG_BSF_1 ;

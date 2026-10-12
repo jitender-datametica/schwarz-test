@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW P_LEW_MART_PIT_ONPREM_AC.V_PIT_ITEM_FAMILYGROUP_1
+AS
+SELECT
+client_id
+,item_fam_grp_sid
+,item_fam_grp_descr
+FROM p_lew_mart_pit_onprem.v_pit_item_familygroup_1;

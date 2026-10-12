@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_wawi_agg_store_day_item_adv_asis_2 (client_id, wh_loc_sid, st_loc_sid,
+itemgroup_int_id, item_sid, dat_adv, dat_formdate, qty_sales, qty_piece_ejr, qty_weight_ejr, qty_return_ejr,
+qty_delivery, qty_stc_real, timestamp_mod) AS SELECT client_id,
+ wh_loc_sid,
+ st_loc_sid,
+ itemgroup_int_id,
+ item_sid,
+ dat_adv,
+ dat_formdate,
+ qty_sales,
+ qty_piece_ejr,
+ qty_weight_ejr,
+ qty_return_ejr,
+ qty_delivery,
+ qty_stc_real,
+ timestamp_mod
+FROM ldl_p_lew_core.t_wawi_agg_store_day_item_adv_asis_2;

@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_core.t_item_wh_stock_nfb_2 (
+client_id INTEGER NOT NULL,
+loc_sid INTEGER NOT NULL,
+item_sid INTEGER NOT NULL,
+active_from_dt DATE NOT NULL,
+active_to_dt DATE NOT NULL,
+stock_change_seq INTEGER NOT NULL,
+nfb_type_id INTEGER NOT NULL,
+delta_case_qty NUMERIC(18,5),
+calc_stock_case_qty NUMERIC(18,5),
+retail_price NUMERIC(18,5),
+retail_net_price NUMERIC(18,5),
+vat_total_val NUMERIC(18,5),
+modification_dt DATE,
+delta_day_dt DATE NOT NULL,
+deleted_fg INTEGER NOT NULL,
+dwh_load_id INTEGER NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL
+);

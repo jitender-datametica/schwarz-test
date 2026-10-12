@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t_ts_whwawiadm_wekopf_2_company_statistics_by_day___2 (
+int_company_sid INTEGER,
+stat_type_cd STRING(20),
+stat_dt DATE,
+bus_dt DATE,
+curr_stat_fg BOOL,
+stat_val NUMERIC(29,5),
+curr_cd STRING(3),
+stat_cnt INTEGER,
+stat_qty NUMERIC(29,5),
+stat_meas NUMERIC(29,5),
+uom_cd STRING(20),
+dwh_load_id INTEGER,
+dwh_node_cd STRING(20),
+record_id STRING(1000),
+deleted_fg BOOL,
+error_descr STRING(1000),
+filename STRING(1000),
+hist_row_no STRING(1000),
+dwh_mapping_tmsp TIMESTAMP,
+dwh_ending_tmsp TIMESTAMP,
+error_fg INTEGER
+);

@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.vis_rw_2 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+art_id BIGNUMERIC(38,0) NOT NULL,
+rw NUMERIC(18,3) NOT NULL,
+rw_counter BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+reload_rw NUMERIC(18,3) NOT NULL,
+reload_rw_counter BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+pruef_datum DATE NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

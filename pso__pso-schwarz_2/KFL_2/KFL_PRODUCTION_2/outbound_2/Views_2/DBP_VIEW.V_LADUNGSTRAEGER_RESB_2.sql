@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_ladungstraeger_resb_2 AS SELECT mandant_id,
+ reservierung_id,
+ reservierung_pos_id,
+ dat_von,
+ erledigt_fg,
+ art_id,
+ wup_id,
+ nb_id,
+ dat_ausstellung,
+ anz_ladungstraeger,
+ lager_bewart_id,
+ dat_aenderung,
+ dat_bis,
+ bewegung_erlaubt_fg,
+ spediteur_id
+FROM kfl_production_dbp_data.ladungstraeger_resb_2;

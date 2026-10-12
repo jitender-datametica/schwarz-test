@@ -1,0 +1,4 @@
+create or replace TABLE KFL_PRODUCTION.DBP_ETL.KMO_LIPS_EK_DAT_2 (
+	DAT_LIEF_SOLL DATE,
+	unique (DAT_LIEF_SOLL)
+);

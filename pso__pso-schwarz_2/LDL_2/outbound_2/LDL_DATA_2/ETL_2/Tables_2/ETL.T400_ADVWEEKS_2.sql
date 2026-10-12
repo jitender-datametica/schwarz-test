@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS ldl_data_etl.t400_advweeks_2 (
+ctrcode STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_nr BIGNUMERIC(38,0) NOT NULL,
+c400_id INTEGER NOT NULL,
+c400_advdate DATETIME,
+c400_date_a DATETIME,
+c400_date_b DATETIME,
+c400_date_x DATETIME,
+c400_moddate DATETIME,
+c400_moduser STRING(8),
+c400_advweek STRING(15),
+scn BIGNUMERIC(38,0) DEFAULT 0,
+c400_auto INTEGER,
+extraction_tmsp DATETIME,
+PRIMARY KEY (c400_id) NOT ENFORCED
+);

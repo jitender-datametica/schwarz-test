@@ -1,0 +1,84 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi.v_agg_net_int_pweek_2 (currency_iso_cd OPTIONS(description='Iso-Code Währung'),
+client_id OPTIONS(description='Landeskennzeichen'), currency_desc OPTIONS(description='Bezeichnung der Währung'),
+wh_desc OPTIONS(description='Gesellschaftsbezeichnung'), aspect_id
+OPTIONS(description='Gesellschaftsform (1 = Betriebs- 2 = Vertriebsgesellschaft)'), sales_manager_id
+OPTIONS(description='Bezirksleiter-Nr.'), wh_id OPTIONS(description='Gesellschaftsnummer'), wh_id_exp
+OPTIONS(description='Gesellschafts-Nr.-exp'), sales_manager_name OPTIONS(description='Bezirksleiter-Name'),
+account_manager_id OPTIONS(description='Vertriebsleiter-Nr.'), account_manager_name
+OPTIONS(description='Vertriebsleiter-Name'), move_to_store_id OPTIONS(description='Filial-Nr. nach letztem Filialumzug'),
+move_store_desc OPTIONS(description='Filialname nach letztem Filialumzug'), orig_store_nr
+OPTIONS(description='Original Filial-Nr.'), cy_week OPTIONS(description='Geschäftsjahr - Woche_2 Id - Format "JJJJMM"'),
+cy_partial_week OPTIONS(description='Geschäftsjahr - Teilwoche Id - 1 = erster Teil / 2 = zweiter Teil der Woche_2'),
+cy_partial_week_name
+OPTIONS(description='Geschäftsjahr - Woche_2/Teilwoche - Name der Woche_2 - Format = JJJJ KW 99 plus "/1" für den ersten Teil oder "/2" für den zweiten Teil der Woche_2'),
+country_group_id OPTIONS(description='Landesgruppe Kennzeichen'), country_group_desc
+OPTIONS(description='Landesgruppe Bezeichnung'), country_desc OPTIONS(description='Filial-Land_2 Bezeichnung'),
+gl_region_id OPTIONS(description='Geschäftsleitungsregion ID'), gl_region_desc
+OPTIONS(description='Beschreibung Geschäftsleitungsregion'), curr_tot_id
+OPTIONS(description='Fixe Werte für EUR=0, GBP=40 sonst Client_Id'), val_retail
+OPTIONS(description='Umsatz (gross value)'), val_retail_net OPTIONS(description='Umsatz (net value)'), val_retail_cum
+OPTIONS(description='Umsatz aufgelaufen im Geschäftsjahr (gross value)'), val_retail_net_cum
+OPTIONS(description='Umsatz aufgelaufen im Geschäftsjahr (net value)'), val_retail_wt_hrs_net_py
+OPTIONS(description='Umsatz an Tagen mit effektiven Arbeitsstunden (gross value), Vorjahr'), val_rtl_net_wt_hrs_net_py
+OPTIONS(description='Umsatz an Tagen mit effektiven Arbeitsstunden (net value), Vorjahr'), val_retail_wt_hrs_net
+OPTIONS(description='Umsatz an Tagen mit effektiven Arbeitsstunden (gross value)'), val_rtl_net_wt_hrs_net
+OPTIONS(description='Umsatz an Tagen mit effektiven Arbeitsstunden (net value)'), mt_hrs_cum
+OPTIONS(description='Schulungsstunden aufgelaufen im Geschäftsjahr'), wt_hrs_net
+OPTIONS(description='Arbeitsstunden effektiv'), mt_hrs OPTIONS(description='Schulungsstunden'), wt_hrs_net_py
+OPTIONS(description='Arbeitsstunden effektiv, Vorjahr'), mt_hrs_py_cum
+OPTIONS(description='Schulungsstunden aufgelaufen im Geschäftsjahr, voriges Geschäftsjahr'), wt_hrs_net_py_cum
+OPTIONS(description='Arbeitsstunden effektiv aufgelaufen im Geschäftsjahr, Vorjahr'), wt_hrs_net_cum
+OPTIONS(description='Arbeitsstunden effektiv aufgelaufen im Geschäftsjahr'), val_retail_wt_hrs_net_py_cum
+OPTIONS(description='Umsatz an Tagen mit effektiven Arbeitsstunden aufgelaufen im Geschäftsjahr (gross value), Vorjahr'),
+val_rtl_net_wt_hrs_net_py_cum
+OPTIONS(description='Umsatz an Tagen mit effektiven Arbeitsstunden aufgelaufen im Geschäftsjahr (net value), Vorjahr'),
+val_retail_wt_hrs_net_cum
+OPTIONS(description='Umsatz an Tagen mit effektiven Arbeitsstunden aufgelaufen im Geschäftsjahr (gross value)'),
+val_rtl_net_wt_hrs_net_cum
+OPTIONS(description='Umsatz an Tagen mit effektiven Arbeitsstunden aufgelaufen im Geschäftsjahr (net value)'), mt_hrs_py
+OPTIONS(description='Schulungsstunden, Vorjahr'))
+OPTIONS(DESCRIPTION = `VIEW CONTAINS THE BASE DATA FOR THE REPORTS NETTOLEISTUNG 1104004.121 AND 1104004.321. DATA IS PROVIDED BY STORE AND PARTIAL WEEK.`)
+AS SELECT currency_iso_cd,
+ client_id,
+ currency_desc,
+ wh_desc,
+ aspect_id,
+ sales_manager_id,
+ wh_id,
+ wh_id_exp,
+ sales_manager_name,
+ account_manager_id,
+ account_manager_name,
+ move_to_store_id,
+ move_store_desc,
+ orig_store_nr,
+ cy_week,
+ cy_partial_week,
+ cy_partial_week_name,
+ country_group_id,
+ country_group_desc,
+ country_desc,
+ gl_region_id,
+ gl_region_desc,
+ curr_tot_id,
+ val_retail,
+ val_retail_net,
+ val_retail_cum,
+ val_retail_net_cum,
+ val_retail_wt_hrs_net_py,
+ val_rtl_net_wt_hrs_net_py,
+ val_retail_wt_hrs_net,
+ val_rtl_net_wt_hrs_net,
+ mt_hrs_cum,
+ wt_hrs_net,
+ mt_hrs,
+ wt_hrs_net_py,
+ mt_hrs_py_cum,
+ wt_hrs_net_py_cum,
+ wt_hrs_net_cum,
+ val_retail_wt_hrs_net_py_cum,
+ val_rtl_net_wt_hrs_net_py_cum,
+ val_retail_wt_hrs_net_cum,
+ val_rtl_net_wt_hrs_net_cum,
+ mt_hrs_py
+FROM ldl_p_lew_mart_msi.t_agg_net_int_pweek_2;

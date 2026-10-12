@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ios.mv_l_rpm_fin_plantyp_2 (rpm_plantyp_id) AS SELECT rpm_plantyp_id
+FROM kfl_production_dbp_view.v_l_rpm_plantyp_2 AS V01;

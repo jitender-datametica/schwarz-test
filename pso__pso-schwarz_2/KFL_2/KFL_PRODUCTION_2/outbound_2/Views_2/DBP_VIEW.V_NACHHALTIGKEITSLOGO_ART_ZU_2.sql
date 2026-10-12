@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_nachhaltigkeitslogo_art_zu_2 AS SELECT mandant_id,
+ art_id,
+ nachhaltigkeitslogo_id
+FROM kfl_production_dbp_data.nachhaltigkeitslogo_art_zu_2;

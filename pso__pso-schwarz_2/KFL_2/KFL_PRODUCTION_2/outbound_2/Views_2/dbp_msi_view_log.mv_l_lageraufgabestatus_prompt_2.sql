@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_log.mv_l_lageraufgabestatus_prompt_2 (status_id) AS SELECT DISTINCT
+ status_id
+FROM kfl_production_dbp_view.v_lageraufgabe_2;

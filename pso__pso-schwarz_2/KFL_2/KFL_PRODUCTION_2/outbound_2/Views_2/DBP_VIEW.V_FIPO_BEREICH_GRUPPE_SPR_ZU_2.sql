@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_fipo_bereich_gruppe_spr_zu_2 AS SELECT fipo_bereich_gruppe_id,
+ spr_id,
+ fipo_bereich_gruppe_bez
+FROM kfl_production_dbp_data.fipo_bereich_gruppe_spr_zu_2;

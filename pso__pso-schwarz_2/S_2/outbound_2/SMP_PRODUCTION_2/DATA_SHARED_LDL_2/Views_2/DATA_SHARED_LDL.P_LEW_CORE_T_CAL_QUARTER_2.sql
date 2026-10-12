@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW smp_production_data_shared_ldl.p_lew_core_t_cal_quarter_2 (cy_qtr, cy, qtr_of_cy, cy_qtr_name,
+cy_qtr_begin_month, cy_qtr_end_month, cy_qtr_seq, cy_qtr_prev_1q, cy_qtr_prev_1y, cy_qtr_prev_2y, dwh_load_id,
+dwh_created, dwh_updated) AS SELECT cy_qtr,
+ cy,
+ qtr_of_cy,
+ cy_qtr_name,
+ cy_qtr_begin_month,
+ cy_qtr_end_month,
+ cy_qtr_seq,
+ cy_qtr_prev_1q,
+ cy_qtr_prev_1y,
+ cy_qtr_prev_2y,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_cal_quarter_2;

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_fremd_lagerort_artikelsortiment_zu_2 AS SELECT mandant_id,
+ fremd_lagerort_id,
+ artikelsortiment_id
+FROM kfl_production_dbp_data.fremd_lagerort_artikelsortiment_zu_2;

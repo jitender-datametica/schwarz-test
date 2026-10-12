@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_gps_plantimeday_2_workingtime_plan_store_day_2 (
+client_id BIGNUMERIC(38),
+lidl_country STRING(40),
+gps_plantimeday_bic_zmlila STRING(250) COLLATE 'und:ci' NOT NULL,
+gps_plantimeday_store NUMERIC(19,5) NOT NULL,
+gps_plantimeday_date0 DATE NOT NULL,
+orig_store_nr INTEGER,
+cal_dt DATE,
+turnover_net_val NUMERIC(18,5),
+turnover_per_hour_net_val NUMERIC(18,5),
+hours_total_cnt NUMERIC(18,5),
+hours_working_cnt NUMERIC(18,5),
+hours_inventory_cnt NUMERIC(18,5),
+hours_training_cnt NUMERIC(18,5),
+hours_misc_cnt NUMERIC(18,5),
+plan_update_tmsp DATETIME,
+source_system STRING(20) COLLATE 'und:ci',
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

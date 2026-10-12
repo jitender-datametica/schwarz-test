@@ -1,0 +1,50 @@
+CREATE OR REPLACE VIEW ldl_data_production_fe_mstr_gf_lead.v_dim_supplier_2 (sup_sid
+OPTIONS(description='The unique identifier (surrogate key) for the supplier.'), dwh_valid_from_tmsp
+OPTIONS(description='The point in time when this record became valid.'), dwh_valid_to_tmsp
+OPTIONS(description='The point in time when this record was no longer valid.'), dwh_valid_fg
+OPTIONS(description='An indicator showing the current record, i.e. where the current date is between dwh_valid_from and dwh_valid_to.'),
+sup_name OPTIONS(description='The name by which the supplier_2 is known.'), legal_name
+OPTIONS(description='The official name of the supplier_2, as shown in the company register.'), vat_nr
+OPTIONS(description='The VAT identification number of the supplier.'), sup_status_cd
+OPTIONS(description='The code for the lifecycle status_2 of a supplier.'), sup_status_descr
+OPTIONS(description='A textual description for the lifecycle status_2 of a supplier_2 in group language, i.e. in German.'),
+iso_country_cd
+OPTIONS(description='The code according to ISO 3166 identifying the country_2, in which the supplier_2 is located,'),
+country_name OPTIONS(description='The name of the country_2, in which the supplier_2 is located,'), city_name
+OPTIONS(description='The name of the city where the supplier_2 is located.'), district_name
+OPTIONS(description='The name of the district, in which the supplier_2 is located,'), zip
+OPTIONS(description='The postal code of the address_2 of the supplier.'), street_name
+OPTIONS(description='The name of the street where the supplier_2 is located.'), house_nr
+OPTIONS(description='The number of the building within the street where the supplier_2 is located.'), lon
+OPTIONS(description='The geographical longitude of the address_2 of the supplier.'), lat
+OPTIONS(description='The geographical latitude of the address_2 of the supplier.'), dwh_created_tmsp
+OPTIONS(description='The point in time when this record was created in the data warehouse.'), dwh_updated_tmsp
+OPTIONS(description='The point in time when this record was created or last updated.'), dwh_load_id
+OPTIONS(description='The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)'),
+dwh_node_cd
+OPTIONS(description='The code for the source system (or slice of source system) from which this record was loaded.'))
+OPTIONS(DESCRIPTION = `A SUPPLIER_2 IS A COMPANY THAT DELIVERS PRODUCTS TO THE SCHWARZ GROUP. SUPPLIER_2 IS ONE OUT OF POSSIBLY SEVERAL ROLES THAT CAN BE PLAYED BY A COMPANY.`)
+AS SELECT sup_sid,
+ dwh_valid_from_tmsp,
+ dwh_valid_to_tmsp,
+ dwh_valid_fg,
+ sup_name,
+ legal_name,
+ vat_nr,
+ sup_status_cd,
+ sup_status_descr,
+ iso_country_cd,
+ country_name,
+ city_name,
+ district_name,
+ zip,
+ street_name,
+ house_nr,
+ lon,
+ lat,
+ dwh_created_tmsp,
+ dwh_updated_tmsp,
+ dwh_load_id,
+ dwh_node_cd
+FROM ldl_data_production_core_dim.t_dim_supplier_2 AS main
+WHERE dwh_valid_fg;

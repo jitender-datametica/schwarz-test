@@ -1,0 +1,3 @@
+create or replace TABLE KFL_PRODUCTION.DBP_ETL.DE_WPUUMS_DAT_MIN_2 (
+	DAT DATE
+);

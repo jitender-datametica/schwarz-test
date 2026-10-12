@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_score_elm.t_dsp_order_hist_2 (
+dispoid BIGNUMERIC(38,0) NOT NULL,
+itempropid BIGNUMERIC(38,0) NOT NULL,
+daywhid BIGNUMERIC(38,0) NOT NULL,
+lorryno BIGNUMERIC(38,0) NOT NULL,
+versionid BIGNUMERIC(38,0) NOT NULL,
+corrtypeid BIGNUMERIC(38,0),
+elmstatus BIGNUMERIC(38,0),
+changedate DATE,
+changeuser BIGNUMERIC(38,0),
+order_reference STRING(250),
+wawipurchaseorderid STRING(250),
+order_number BIGNUMERIC(38,0),
+order_position BIGNUMERIC(38,0),
+orderquantity BIGNUMERIC(38,10),
+source_extraction_tmsp ARRAY < STRING >,
+tech_valid_from TIMESTAMP NOT NULL,
+tech_valid_to TIMESTAMP NOT NULL,
+snflk_insert_tmsp TIMESTAMP NOT NULL,
+snflk_update_tmsp TIMESTAMP NOT NULL,
+PRIMARY KEY (dispoid, itempropid, daywhid, lorryno, versionid) NOT ENFORCED
+);

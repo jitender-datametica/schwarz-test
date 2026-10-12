@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_lec_share.v_cal_day_py_swday_business_year_adjusted_2 AS SELECT *
+FROM ldl_dig_core.t_cal_day_py_swday_business_year_adjusted_2;

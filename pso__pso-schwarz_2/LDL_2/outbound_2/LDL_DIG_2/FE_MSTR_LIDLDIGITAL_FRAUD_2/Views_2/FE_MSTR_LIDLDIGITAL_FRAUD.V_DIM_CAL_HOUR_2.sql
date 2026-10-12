@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital_fraud.v_dim_cal_hour_2 AS SELECT hour_of_day,
+ upto_current_hour_ind
+FROM ldl_dig_fe_mstr_lidldigital.v_dim_cal_hour_2;

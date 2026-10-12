@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_L_WARENBEWEGUNGSTYP_2 AS 
+    SELECT 
+        mandant_id,
+        warenbewegungstyp_id
+		,TD_UPDATE 
+        ,TD_INSERT 
+FROM DBP_DATA.L_WARENBEWEGUNGSTYP_2 ;

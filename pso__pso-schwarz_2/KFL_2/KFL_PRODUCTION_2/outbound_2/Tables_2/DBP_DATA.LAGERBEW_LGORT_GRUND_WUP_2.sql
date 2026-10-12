@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.lagerbew_lgort_grund_wup_2 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+lagerort_id STRING(4) COLLATE 'und:ci' NOT NULL,
+grund_id STRING(10) COLLATE 'und:ci' NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+auto_fg STRING(1) COLLATE 'und:ci' NOT NULL,
+vorgangsart_id STRING(2) COLLATE 'und:ci' NOT NULL,
+lager_bewart_id STRING(3) COLLATE 'und:ci' NOT NULL,
+wg_id BIGNUMERIC(38,0) NOT NULL,
+arthiertyp_id BIGNUMERIC(38,0) NOT NULL,
+lief_pal_typ_id STRING(1) COLLATE 'und:ci' NOT NULL,
+dat_buch DATE NOT NULL,
+empfaenger_id BIGNUMERIC(38,0),
+betrag_lagerbew NUMERIC(18,2),
+betrag_verkauf NUMERIC(18,2),
+menge_lagerbew_bme NUMERIC(18,3) NOT NULL,
+menge_lief NUMERIC(18,3) NOT NULL,
+menge_lieferschein NUMERIC(18,3) NOT NULL,
+menge_lagerbew_kolli NUMERIC(18,3) NOT NULL,
+menge_lagerbew_palette NUMERIC(18,3),
+menge_erf NUMERIC(18,3) NOT NULL,
+wrg_id STRING(3) COLLATE 'und:ci' DEFAULT 'EUR' NOT NULL,
+mandant_id_empfaenger BIGNUMERIC(38,0),
+betrag_vk_netto_vz NUMERIC(18,4) DEFAULT 0,
+td_update TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+td_insert TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration')
+) CLUSTER BY mandant_id, dat_buch;

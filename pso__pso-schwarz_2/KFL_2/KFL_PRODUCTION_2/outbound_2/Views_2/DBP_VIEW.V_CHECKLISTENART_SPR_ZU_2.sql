@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_checklistenart_spr_zu_2 AS SELECT checklistenart_id,
+ spr_id,
+ cpr_checkliste_bez
+FROM kfl_production_dbp_data.checklistenart_spr_zu_2;

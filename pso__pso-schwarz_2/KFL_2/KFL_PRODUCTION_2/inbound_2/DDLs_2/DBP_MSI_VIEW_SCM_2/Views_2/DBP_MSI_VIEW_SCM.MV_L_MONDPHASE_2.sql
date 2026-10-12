@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_SCM.MV_L_MONDPHASE_2 as
+   SELECT *
+   FROM dbp_view.v_l_mondphase_2;

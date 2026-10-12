@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_wbs_art_wup_referenz_typ_spr_zu_2 AS SELECT mandant_id,
+ spr_id,
+ wbs_art_wup_ref_typ_id,
+ wbs_art_wup_ref_typ_bez
+FROM kfl_production_dbp_data.wbs_art_wup_referenz_typ_spr_zu_2;

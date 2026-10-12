@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.art_kl_preislage_zu_per_2 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+art_matching_id BIGNUMERIC(38,0) NOT NULL,
+kjmo BIGNUMERIC(38,0) NOT NULL,
+kjwo_update BIGNUMERIC(38,0) DEFAULT 999912 NOT NULL,
+wrg_id STRING(12) COLLATE 'und:ci',
+sm_id STRING(40) COLLATE 'und:ci',
+ksm_id STRING(16) COLLATE 'und:ci',
+owg_id BIGNUMERIC(38,0),
+wg_id BIGNUMERIC(38,0),
+wug_id BIGNUMERIC(38,0),
+vk_brutto_pk_1 NUMERIC(9,3),
+durchschnitt_preis_kasse NUMERIC(18,4),
+umsatz_brutto NUMERIC(18,4),
+umsatz_brutto_af NUMERIC(18,4),
+umsatz_brutto_sa NUMERIC(18,4),
+menge NUMERIC(18,3),
+menge_af NUMERIC(18,3),
+menge_sa NUMERIC(18,3),
+td_update TIMESTAMP,
+td_insert TIMESTAMP
+) CLUSTER BY mandant_id, kjwo_update, kjmo;

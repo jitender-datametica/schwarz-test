@@ -1,0 +1,32 @@
+--==============================================================
+-- Table: t_fact_order_measures_2
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: t_fact_order_measures_2
+   generated from Powerdesigner on Montag, 30. September 2024 13:27:59
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE.T_FACT_ORDER_MEASURES_2 (
+   cal_dt                              DATE            NOT NULL COMMENT 'Assigned date, in this case the last date where the good has to be delivered at the receiving warehouse',
+   main_crossdock_sid                  NUMBER          NOT NULL COMMENT 'Main crossdock over which the good is routed, for SaL (Sammelladung / Sammellogistik) logistic types',
+   main_crossdock_operating_hauler_sid NUMBER          NOT NULL COMMENT 'Operating hauler of the main crossdock',
+   executing_hauler_sid                NUMBER          NOT NULL COMMENT 'The hauler who runs the crossdock.',
+   bus_country_cd                      VARCHAR(2)      NOT NULL COMMENT 'Business country_2 to which the good is dedicated to',
+   receiving_wh_sid                    NUMBER          NOT NULL COMMENT 'Warehouse to which the good has to be delivered',
+   delivering_supplier_sid             NUMBER          NOT NULL COMMENT 'Supplier_2 who provides the goods',
+   delivering_supplier_site_sid        NUMBER          NOT NULL COMMENT 'Site of the supplier_2 where the goods are provided',
+   product_sid                         NUMBER          NOT NULL COMMENT 'Delivered Product',
+   product_variant_sid                 NUMBER          NOT NULL COMMENT 'Product variant which is delivered',
+   logistic_temp_cd                    VARCHAR(20)     NOT NULL COMMENT 'The code for the type of the temperature zone, e.g. TK, TL.',
+   logistic_type_cd                    VARCHAR(20)     NOT NULL COMMENT 'The code for the type of the logistic, e.g. SaL (Sammelladung / Sammellogistik) and KoL (Komplettladung / Direktlogistik)',
+   missing_reason_cd                   VARCHAR(20)     NOT NULL COMMENT 'A code defining why a (part of) a dispo order position was declared as being missing',
+   pallet_type_cd                      VARCHAR(20)     NOT NULL COMMENT 'Pallet code of the fact row',
+   double_deck_fg                      BOOLEAN         NOT NULL COMMENT 'Indicates whether two pallets can be placed on top of each other.',
+   case_cnt                            NUMBER          NOT NULL COMMENT 'The total number of cases in this position.',
+   pallet_cnt                          NUMBER          NOT NULL COMMENT 'The number of pallets in this position.',
+   std_pallet_qty                      NUMBER(38, 5)   COMMENT 'Quantity of pallets, standardised as Euro pallet. For Example one DD pallet  is 0,5. Double deck factor does not have an impact.',
+   missing_pallet_cnt                  NUMBER          NOT NULL COMMENT 'Quantity of pallets which were not delivered',
+   volume_meas                         NUMBER(38, 5)   COMMENT 'The total volume in m3 occupied by this position. (This includes the volume of the goods plus the volume of the pallets.)',
+   weight_meas                         NUMBER(38, 5)   COMMENT 'The total weight in kg of this position. (This includes the weight of the goods plus the pallet weight.)',   
+   CONSTRAINT PK_T_FACT_ORDER_MEASURES PRIMARY KEY (delivering_supplier_site_sid, main_crossdock_sid, executing_hauler_sid, receiving_wh_sid, product_sid, product_variant_sid, logistic_temp_cd, logistic_type_cd, missing_reason_cd, pallet_type_cd, double_deck_fg, cal_dt) NOT ENFORCED 
+)  COMMENT = 'This table records all deliveries to a crossdock. A crossdock is supplied by a hauler. The products are listed and the logistic type (Sammelladung & Komplettladung) and the temperature zone. Furthermore, the reason why a product has not arrived or is delayed is also given. ';

@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_BEWART_DET_ECOMMERCE_2 AS 
+    SELECT 
+        kundenkarte_id,
+        mandant_id
+
+FROM DBP_DATA.BEWART_DET_ECOMMERCE_2 ;

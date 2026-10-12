@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE dbp_etl.de_zekp_2 (
+    matnr INTEGER,
+    lifnr INTEGER,
+    werks INTEGER,
+    datab DATE,
+    abrut NUMERIC(29, 4),
+    abrna NUMERIC(29, 4),
+    abonba NUMERIC(29, 4),
+    aknet NUMERIC(29, 4),
+    aknb NUMERIC(29, 4),
+    aknbs NUMERIC(29, 4),
+    aknne NUMERIC(29, 4),
+    ekkba NUMERIC(29, 4),
+    mepre NUMERIC(29, 4),
+    lsein NUMERIC(29, 4),
+    lokau NUMERIC(29, 4),
+    bnk NUMERIC(29, 4),
+    zollba NUMERIC(29, 4),
+    konwa STRING(3) COLLATE 'und:ci',
+    kompmeng NUMERIC(29, 4),
+    td_update TIMESTAMP,
+    td_insert TIMESTAMP
+);

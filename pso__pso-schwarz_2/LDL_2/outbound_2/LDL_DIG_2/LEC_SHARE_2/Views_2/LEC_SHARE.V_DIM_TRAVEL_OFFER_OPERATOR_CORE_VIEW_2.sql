@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_lec_share.v_dim_travel_offer_operator_core_view_2 AS SELECT *
+FROM ldl_dig_core.v_dim_travel_offer_operator_2;

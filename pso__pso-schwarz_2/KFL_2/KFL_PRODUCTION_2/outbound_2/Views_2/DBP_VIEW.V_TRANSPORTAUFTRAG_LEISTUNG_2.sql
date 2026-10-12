@@ -1,0 +1,23 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_transportauftrag_leistung_2 AS SELECT mandant_id,
+ transport_beleg_id,
+ transport_beleg_pos_id,
+ lagernummer_id,
+ wup_id,
+ nb_id,
+ transport_beleg_pos_sub_id,
+ leist_empfaenger_sap_id,
+ leist_empfaenger_gruppe_id,
+ ext_ma_fg,
+ ausschluss_fg,
+ art_id,
+ menge_ist_nach,
+ dat_leistung,
+  (SAFE.PARSE_TIME('%H%M%S', CAST(MOD(CAST(zeit_leistung AS BIGNUMERIC), CAST('240000' AS NUMERIC)) AS STRING FORMAT '000000')
+   )) AS zeit_leistung,
+ transport_gv_id,
+ versandblock_id,
+ von_lagertyp_id,
+ nach_lagertyp_id,
+ gp_id,
+ ressource_typ_id
+FROM kfl_production_dbp_data.transportauftrag_leistung_2;

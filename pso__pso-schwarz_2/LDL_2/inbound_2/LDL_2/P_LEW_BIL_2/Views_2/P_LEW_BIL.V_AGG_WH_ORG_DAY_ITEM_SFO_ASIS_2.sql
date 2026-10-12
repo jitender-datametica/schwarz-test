@@ -1,0 +1,62 @@
+create or replace view LDL_PRODUCTION.P_LEW_BIL.V_AGG_WH_ORG_DAY_ITEM_SFO_ASIS_2(
+	CLIENT_ID,
+	LOC_SID_WH,
+	ASPECT_ID,
+	BOOKING_DAT,
+	SFOTYPE_ID,
+	ITEM_SID,
+	PCWO_REASON_ID,
+	SFO_TOTAL_QTY_ASIS,
+	SFO_WRTOFF_ZERO_QTY_ASIS,
+	SFO_TOTAL_RTL_RL_VAL_ASIS,
+	SFO_TOTAL_RTL_RL_NET_VAL_ASIS,
+	SFO_WRTOFF_ZERO_RTL_RL_VAL_ASIS,
+	SFO_WRTOFF_ZERO_RTL_RL_NET_VAL_ASIS,
+	VAL_PR_DIFF_SFO_ASIS,
+	VAL_PR_DIFF_NET_SFO_ASIS,
+	SFO_TOTAL_FA_QTY_ASIS,
+	SFO_WRTOFF_ZERO_FA_QTY_ASIS,
+	SFO_TOTAL_RTL_RL_FA_VAL_ASIS,
+	SFO_TOTAL_RTL_RL_NET_FA_VAL_ASIS,
+	SFO_WRTOFF_ZERO_RTL_RL_FA_VAL_ASIS,
+	SFO_WRTOFF_ZERO_RTL_RL_NET_FA_VAL_ASIS,
+	VAL_PR_DIFF_FA_SFO_ASIS,
+	VAL_PR_DIFF_NET_FA_SFO_ASIS,
+	CURR_CD_FROM
+) as
+
+   SELECT
+     agg.client_id,
+   agg.loc_sid_wh,
+   agg.aspect_id,
+   agg.booking_dat,
+   agg.sfotype_id,
+   agg.item_sid,
+   agg.pcwo_reason_id,
+   agg.sfo_total_qty                                                             AS sfo_total_qty_asis,
+   agg.sfo_wrtoff_zero_qty                                                       AS sfo_wrtoff_zero_qty_asis,
+   agg.sfo_total_rtl_rl_val  / cry.exchange_rate                                 AS sfo_total_rtl_rl_val_asis,
+   agg.sfo_total_rtl_rl_net_val  / cry.exchange_rate                             AS sfo_total_rtl_rl_net_val_asis,
+   agg.sfo_wrtoff_zero_rtl_rl_val / cry.exchange_rate                            AS sfo_wrtoff_zero_rtl_rl_val_asis,
+   agg.sfo_wrtoff_zero_rtl_rl_net_val / cry.exchange_rate                        AS sfo_wrtoff_zero_rtl_rl_net_val_asis,
+   agg.val_pr_diff_sfo / cry.exchange_rate                                       AS val_pr_diff_sfo_asis,
+   agg.val_pr_diff_net_sfo / cry.exchange_rate                                   AS val_pr_diff_net_sfo_asis,
+   agg.sfo_total_fa_qty                                                          AS sfo_total_fa_qty_asis,
+   agg.sfo_wrtoff_zero_fa_qty                                                    AS sfo_wrtoff_zero_fa_qty_asis,
+   agg.sfo_total_rtl_rl_fa_val  / cry.exchange_rate                              AS sfo_total_rtl_rl_fa_val_asis,
+   agg.sfo_total_rtl_rl_net_fa_val  / cry.exchange_rate                          AS sfo_total_rtl_rl_net_fa_val_asis,
+   agg.sfo_wrtoff_zero_rtl_rl_fa_val / cry.exchange_rate                         AS sfo_wrtoff_zero_rtl_rl_fa_val_asis,
+   agg.sfo_wrtoff_zero_rtl_rl_net_fa_val / cry.exchange_rate                     AS sfo_wrtoff_zero_rtl_rl_net_fa_val_asis,
+   agg.val_pr_diff_fa_sfo / cry.exchange_rate                                    AS val_pr_diff_fa_sfo_asis,
+   agg.val_pr_diff_net_fa_sfo / cry.exchange_rate                                AS val_pr_diff_net_fa_sfo_asis,
+   cry.curr_cd_from
+  FROM p_lew_bil.v_agg_wh_org_day_item_sfo_2 AS agg
+   INNER JOIN p_lew_core_ac.v_exchange_rate_known_hist_2 AS cry
+   ON  agg.client_id = cry.client_id
+   AND CURRENT_DATE BETWEEN cry.active_from_dt AND cry.active_to_dt
+   AND CURRENT_DATE BETWEEN cry.dwh_valid_from AND cry.dwh_valid_to
+   INNER JOIN p_lew_core_ac.v_exchange_rate_type_2 c
+   ON c.client_id = cry.client_id
+   AND c.x_rate_type_sid = cry.x_rate_type_sid
+   AND c.src_kurst = '@BEWE'
+   ;

@@ -1,0 +1,176 @@
+/*
+#----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS
+#----------------------------------------------------------------------------
+# Interface: DDL for P_LEW_MART_WFM.V_ITEMSALE_HOURS_CRD_DELTA_2
+#----------------------------------------------------------------------------
+# History:
+#  1.0  18.04.2023    Ulrich Ross               Init, User Story 455584
+#  1.1  17.08.2023    Ulrich Ross               Add new date filter (performance issue), User Story 515703
+#----------------------------------------------------------------------------
+*/
+CREATE OR REPLACE VIEW ldl_p_lew_mart_wfm.v_itemsale_hours_crd_delta_2 AS SELECT t8.client_id,
+ t8.store,
+ ROUND(CAST(t8.item_2 AS BIGNUMERIC), 0) AS item_2,
+ t8.receiptdate,
+ CAST(MAX(t8.time_last_sold_) AS TIME) AS timelastsold,
+ CAST(SUM(t8.`A118611`) AS NUMERIC) AS sum_qty_piece_unpacked_0,
+ CAST(SUM(t8.`A118612`) AS NUMERIC) AS sum_qty_piece_unpacked_1,
+ CAST(SUM(t8.`A118613`) AS NUMERIC) AS sum_qty_piece_unpacked_2,
+ CAST(SUM(t8.`A118614`) AS NUMERIC) AS sum_qty_piece_unpacked_3,
+ CAST(SUM(t8.`A118615`) AS NUMERIC) AS sum_qty_piece_unpacked_4,
+ CAST(SUM(t8.`A118616`) AS NUMERIC) AS sum_qty_piece_unpacked_5,
+ CAST(SUM(t8.`A118617`) AS NUMERIC) AS sum_qty_piece_unpacked_6,
+ CAST(SUM(t8.`A118618`) AS NUMERIC) AS sum_qty_piece_unpacked_7,
+ CAST(SUM(t8.`A118619`) AS NUMERIC) AS sum_qty_piece_unpacked_8,
+ CAST(SUM(t8.`A118620`) AS NUMERIC) AS sum_qty_piece_unpacked_9,
+ CAST(SUM(t8.`A118621`) AS NUMERIC) AS sum_qty_piece_unpacked_10,
+ CAST(SUM(t8.`A118622`) AS NUMERIC) AS sum_qty_piece_unpacked_11,
+ CAST(SUM(t8.`A118623`) AS NUMERIC) AS sum_qty_piece_unpacked_12,
+ CAST(SUM(t8.`A118624`) AS NUMERIC) AS sum_qty_piece_unpacked_13,
+ CAST(SUM(t8.`A118625`) AS NUMERIC) AS sum_qty_piece_unpacked_14,
+ CAST(SUM(t8.`A118626`) AS NUMERIC) AS sum_qty_piece_unpacked_15,
+ CAST(SUM(t8.`A118627`) AS NUMERIC) AS sum_qty_piece_unpacked_16,
+ CAST(SUM(t8.`A118628`) AS NUMERIC) AS sum_qty_piece_unpacked_17,
+ CAST(SUM(t8.`A118629`) AS NUMERIC) AS sum_qty_piece_unpacked_18,
+ CAST(SUM(t8.`A118630`) AS NUMERIC) AS sum_qty_piece_unpacked_19,
+ CAST(SUM(t8.`A118631`) AS NUMERIC) AS sum_qty_piece_unpacked_20,
+ CAST(SUM(t8.`A118632`) AS NUMERIC) AS sum_qty_piece_unpacked_21,
+ CAST(SUM(t8.`A118633`) AS NUMERIC) AS sum_qty_piece_unpacked_22,
+ CAST(SUM(t8.`A118634`) AS NUMERIC) AS sum_qty_piece_unpacked_23,
+ CAST(SUM(t8.`A118635`) AS NUMERIC) AS discount_pieces_unpacked_0,
+ CAST(SUM(t8.`A118636`) AS NUMERIC) AS discount_pieces_unpacked_1,
+ CAST(SUM(t8.`A118637`) AS NUMERIC) AS discount_pieces_unpacked_2,
+ CAST(SUM(t8.`A118638`) AS NUMERIC) AS discount_pieces_unpacked_3,
+ CAST(SUM(t8.`A118639`) AS NUMERIC) AS discount_pieces_unpacked_4,
+ CAST(SUM(t8.`A118640`) AS NUMERIC) AS discount_pieces_unpacked_5,
+ CAST(SUM(t8.`A118641`) AS NUMERIC) AS discount_pieces_unpacked_6,
+ CAST(SUM(t8.`A118642`) AS NUMERIC) AS discount_pieces_unpacked_7,
+ CAST(SUM(t8.`A118643`) AS NUMERIC) AS discount_pieces_unpacked_8,
+ CAST(SUM(t8.`A118644`) AS NUMERIC) AS discount_pieces_unpacked_9,
+ CAST(SUM(t8.`A118645`) AS NUMERIC) AS discount_pieces_unpacked_10,
+ CAST(SUM(t8.`A118646`) AS NUMERIC) AS discount_pieces_unpacked_11,
+ CAST(SUM(t8.`A118647`) AS NUMERIC) AS discount_pieces_unpacked_12,
+ CAST(SUM(t8.`A118648`) AS NUMERIC) AS discount_pieces_unpacked_13,
+ CAST(SUM(t8.`A118649`) AS NUMERIC) AS discount_pieces_unpacked_14,
+ CAST(SUM(t8.`A118650`) AS NUMERIC) AS discount_pieces_unpacked_15,
+ CAST(SUM(t8.`A118651`) AS NUMERIC) AS discount_pieces_unpacked_16,
+ CAST(SUM(t8.`A118652`) AS NUMERIC) AS discount_pieces_unpacked_17,
+ CAST(SUM(t8.`A118653`) AS NUMERIC) AS discount_pieces_unpacked_18,
+ CAST(SUM(t8.`A118654`) AS NUMERIC) AS discount_pieces_unpacked_19,
+ CAST(SUM(t8.`A118655`) AS NUMERIC) AS discount_pieces_unpacked_20,
+ CAST(SUM(t8.`A118656`) AS NUMERIC) AS discount_pieces_unpacked_21,
+ CAST(SUM(t8.`A118657`) AS NUMERIC) AS discount_pieces_unpacked_22,
+ CAST(SUM(t8.`A118658`) AS NUMERIC) AS discount_pieces_unpacked_23,
+ CAST(NULL AS BIGNUMERIC) AS load_id
+FROM (SELECT pos.client_id,
+   LOC.src_orig_store_nr AS store,
+   ITEM0.src_orig_item_nr AS item_2,
+   pos.dwh_cal_dt AS receiptdate,
+   MAX(pos.receipt_tmsp) AS time_last_sold_,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 0 THEN pos.sales_piece_qty ELSE 0 END) AS `A118611`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 1 THEN pos.sales_piece_qty ELSE 0 END) AS `A118612`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 2 THEN pos.sales_piece_qty ELSE 0 END) AS `A118613`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 3 THEN pos.sales_piece_qty ELSE 0 END) AS `A118614`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 4 THEN pos.sales_piece_qty ELSE 0 END) AS `A118615`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 5 THEN pos.sales_piece_qty ELSE 0 END) AS `A118616`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 6 THEN pos.sales_piece_qty ELSE 0 END) AS `A118617`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 7 THEN pos.sales_piece_qty ELSE 0 END) AS `A118618`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 8 THEN pos.sales_piece_qty ELSE 0 END) AS `A118619`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 9 THEN pos.sales_piece_qty ELSE 0 END) AS `A118620`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 10 THEN pos.sales_piece_qty ELSE 0 END) AS `A118621`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 11 THEN pos.sales_piece_qty ELSE 0 END) AS `A118622`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 12 THEN pos.sales_piece_qty ELSE 0 END) AS `A118623`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 13 THEN pos.sales_piece_qty ELSE 0 END) AS `A118624`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 14 THEN pos.sales_piece_qty ELSE 0 END) AS `A118625`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 15 THEN pos.sales_piece_qty ELSE 0 END) AS `A118626`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 16 THEN pos.sales_piece_qty ELSE 0 END) AS `A118627`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 17 THEN pos.sales_piece_qty ELSE 0 END) AS `A118628`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 18 THEN pos.sales_piece_qty ELSE 0 END) AS `A118629`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 19 THEN pos.sales_piece_qty ELSE 0 END) AS `A118630`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 20 THEN pos.sales_piece_qty ELSE 0 END) AS `A118631`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 21 THEN pos.sales_piece_qty ELSE 0 END) AS `A118632`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 22 THEN pos.sales_piece_qty ELSE 0 END) AS `A118633`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 23 THEN pos.sales_piece_qty ELSE 0 END) AS `A118634`,
+
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 0 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118635`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 1 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118636`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 2 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118637`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 3 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118638`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 4 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118639`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 5 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118640`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 6 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118641`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 7 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118642`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 8 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118643`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 9 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118644`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 10 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118645`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 11 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118646`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 12 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118647`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 13 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118648`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 14 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118649`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 15 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118650`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 16 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118651`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 17 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118652`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 18 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118653`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 19 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118654`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 20 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118655`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 21 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118656`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 22 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118657`,
+   SUM(CASE WHEN EXTRACT(HOUR FROM pos.receipt_tmsp) = 23 AND DIS.src_discount_pct > 0 THEN pos.discount_weight_qty ELSE 0 END) AS `A118658`
+  FROM (SELECT POS.client_id,
+     POS.loc_sid,
+     POS.item_sid,
+     POS.dwh_cal_dt,
+     POS.receipt_id,
+     POS.receiptline_nr,
+     POS.receiptline_voided,
+     POS.sales_fg,
+     POS.receipt_tmsp,
+     POS.discount_val,
+     POS.sales_piece_qty,
+     POS.discount_weight_qty,
+     POS.discount_sid
+    FROM ldl_p_lew_core_ac.v_pos_receiptline_2 AS POS
+     INNER JOIN (SELECT client_id,
+       loc_sid,
+       dwh_cal_dt
+      FROM ldl_p_lew_process_ac.v_wfm_export_core_delta_2 AS DELTAVIEW
+      WHERE process_name = 'export_wfm_itemsale_hours_crd'
+       AND process_specification = 'delta'
+       AND core_table_name = 't_pos_receiptline_2'
+       AND dwh_cal_dt BETWEEN DATE_SUB(CURRENT_DATE, INTERVAL 40 DAY) AND (DATE_SUB(CURRENT_DATE, INTERVAL 1 DAY))
+      GROUP BY client_id,
+       loc_sid,
+       dwh_cal_dt) AS delta_agg ON POS.dwh_cal_dt = delta_agg.dwh_cal_dt AND POS.client_id = delta_agg.client_id AND POS
+       .loc_sid = delta_agg.loc_sid
+    WHERE POS.turnover_relevant_fg = 1
+     AND (ROUND(CAST(POS.transaction_type_cd AS BIGNUMERIC), 0) BETWEEN 100 AND 109 OR POS.discount_weight_qty = 1)
+     AND POS.dwh_cal_dt BETWEEN DATE_SUB(CURRENT_DATE, INTERVAL 40 DAY) AND (DATE_SUB(CURRENT_DATE, INTERVAL 1 DAY))) AS
+   pos
+   INNER JOIN ldl_p_lew_core_ac.v_item_map_key_2 AS IMAP ON pos.client_id = IMAP.client_id AND pos.item_sid = IMAP.item_sid
+     
+   INNER JOIN ldl_p_lew_bil_ac.v_item_2 AS ITEM0 ON IMAP.client_id = ITEM0.client_id AND IMAP.item_sid_map = ITEM0.item_sid
+       AND pos.dwh_cal_dt BETWEEN ITEM0.dwh_valid_from AND ITEM0.dwh_valid_to
+   INNER JOIN ldl_p_lew_core_ac.v_subitemgroup_2 AS SUIG ON ITEM0.client_id = SUIG.client_id AND ITEM0.sub_item_grp_sid_asis
+       = SUIG.sub_item_grp_sid AND (ROUND(CAST(SUIG.src_subitemgrp_cd AS BIGNUMERIC), 0) IN (73, 74, 78) OR SUIG.client_id
+         = 33 AND ROUND(CAST(SUIG.src_subitemgrp_cd AS BIGNUMERIC), 0) IN (72, 73, 74, 78))
+   INNER JOIN ldl_p_lew_core_ac.v_location_2 AS LOC ON pos.client_id = LOC.client_id AND pos.loc_sid = LOC.loc_sid
+   LEFT JOIN ldl_p_lew_core.t_pos_discount_2 AS DIS ON pos.client_id = DIS.client_id AND pos.discount_sid = DIS.discount_sid
+       AND DIS.src_posart = '@'
+  GROUP BY client_id,
+   store,
+   item_2,
+   receiptdate,
+   pos.discount_sid,
+   DIS.src_discount_pct,
+   pos.receipt_id,
+   pos.receiptline_voided,
+   pos.receiptline_nr,
+   pos.sales_fg
+  QUALIFY (MAX(pos.receiptline_nr) OVER (PARTITION BY CAST(client_id AS STRING), CAST(store AS STRING), item_2, receiptdate
+        , CAST(pos.receipt_id AS STRING), CAST(COALESCE(pos.receiptline_voided, pos.receiptline_nr) AS STRING),CAST(pos.sales_fg AS STRING)
+        RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)) = pos.receiptline_nr) AS t8
+GROUP BY t8.client_id,
+ t8.store,
+ t8.item_2,
+ t8.receiptdate;

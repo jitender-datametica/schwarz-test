@@ -1,0 +1,143 @@
+/*disabled SPEC0164039*/
+
+--[OK] statement is translated correctly (syntax and type checks are fine)
+/*CREATE OR REPLACE TABLE KFL_PRODUCTION.DBP_ETL.artbew_wg_sum_tmp2_2
+AS (SELECT TOP 0  * FROM KFL_PRODUCTION.DBP_DATA.artbew_wg_sum_2);*/
+
+
+--translated statement
+--INSERT INTO KFL_PRODUCTION.DBP_ETL.artbew_wg_sum_tmp2_2
+--( mandant_id
+--, wup_id
+--, wg_id
+--, bewart_id
+--, dat
+--, nb_id
+--, arthiertyp_id
+--, umsatz_brutto
+--, umsatz_netto
+--, umsatz_wrg
+--, umsatz_brutto_konz
+--, umsatz_netto_konz
+--, kjmo
+--, menge
+--, quelle
+--)
+--SELECT
+--  aws.mandant_id
+--, aws.wup_id
+--, aws.wg_id
+--, aws.bewart_id
+--, dt1.dat_missing
+--, aws.nb_id
+--, aws.arthiertyp_id
+--, aws.umsatz_brutto
+--, aws.umsatz_netto
+--, aws.umsatz_wrg
+--, aws.umsatz_brutto_konz
+--, aws.umsatz_netto_konz
+--, aws.kjmo
+--, aws.menge
+--, 2 /* Kopiert = Kalkuliert = 2 */
+--FROM KFL_PRODUCTION.DBP_DATA.artbew_wg_sum_2 aws
+--INNER JOIN
+--(
+--SELECT 
+--  w1.mandant_id
+--, w1.wup_id 
+--, w1.nb_id
+--, w1.dat AS dat_missing
+--, MAX(w2.dat) as dat_source
+--FROM KFL_PRODUCTION.DBP_DATA.wupcal_2 w1
+--INNER JOIN KFL_PRODUCTION.DBP_DATA.wupcal_2 w2
+--ON w1.mandant_id = w2.mandant_id
+--AND w1.wup_id   = w2.wup_id
+--AND w1.nb_id    = w2.nb_id
+--AND w1.dat > to_date('2003-11-23','YYYY-MM_2-DD') -- 1031123
+--AND w1.dat < CURRENT_DATE("Europe/Berlin")
+--WHERE 
+--    w2.datenlieferung_artbew_wg_sum = 1
+--AND w2.dat < w1.dat
+--AND w1.datenlieferung_artbew_wg_sum = 0
+--AND w1.offen = 1
+--AND w1.nb_id IN (0,2,7)  
+--GROUP BY 1,2,3,4
+--) dt1
+--ON  dt1.mandant_id = aws.mandant_id
+--AND dt1.wup_id     = aws.wup_id
+--AND dt1.nb_id      = aws.nb_id
+--AND dt1.dat_source = aws.dat
+--AND aws.bewart_id NOT IN (1005,1010)
+--AND aws.nb_id NOT IN (2,7)
+--;
+
+--[OK] statement is translated correctly (syntax and type checks are fine)
+--DELETE FROM KFL_PRODUCTION.DBP_ETL.artbew_wg_sum_tmp2_2
+--WHERE (mandant_id, wup_id, nb_id, dat) IN
+--(SELECT mandant_id, wup_id, nb_id, dat FROM KFL_PRODUCTION.DBP_DATA.artbew_wg_sum_2 WHERE bewart_id NOT IN (1005,1010) AND nb_id NOT IN (2,7));
+
+--[OK] statement is translated correctly (syntax and type checks are fine)
+--UPDATE KFL_PRODUCTION.DBP_DATA.wupcal_2
+--SET datenlieferung_artbew_wg_sum = 2 
+--WHERE (mandant_id, wup_id, nb_id, dat) IN
+--(SELECT mandant_id, wup_id, nb_id, dat FROM KFL_PRODUCTION.DBP_ETL.artbew_wg_sum_tmp2_2);
+
+--[OK] statement is translated correctly (syntax and type checks are fine)
+--INSERT INTO KFL_PRODUCTION.DBP_ETL_PROCESS.artbew_wg_sum_agg_wt_2
+--(
+--  mandant_id
+--  ,wup_id
+--  ,nb_id
+--  ,dat
+--  ,calc_fg
+--  ,dat_lief
+--)
+--SELECT 
+--    mandant_id
+--  , wup_id
+--  , nb_id
+--  , dat
+--    , 1 as calc_fg
+--    , CURRENT_DATE("Europe/Berlin") as dat_lief
+--FROM 
+--  DBP_ETL.artbew_wg_sum_tmp2_2
+--GROUP BY 
+--  1,2,3,4,5,6
+--;
+
+--[OK] statement is translated correctly (syntax and type checks are fine)
+--INSERT INTO KFL_PRODUCTION.DBP_DATA.artbew_wg_sum_2--
+--(
+--mandant_id
+--, wup_id
+--, wg_id
+--, bewart_id
+--, dat
+--, nb_id
+--, arthiertyp_id
+--, umsatz_brutto
+--, umsatz_netto
+--, umsatz_wrg
+--, umsatz_brutto_konz
+--, umsatz_netto_konz
+--, kjmo
+--, menge
+--, quelle
+--)
+--SELECT
+--mandant_id
+--, wup_id
+--, wg_id
+--, bewart_id
+--, dat
+--, nb_id
+--, arthiertyp_id
+--, umsatz_brutto
+--, umsatz_netto
+--, umsatz_wrg
+--, umsatz_brutto_konz
+--, umsatz_netto_konz
+--, kjmo
+--, menge
+--, quelle
+--FROM KFL_PRODUCTION.DBP_ETL.artbew_wg_sum_tmp2_2;

@@ -1,0 +1,46 @@
+/* --------------------------------------------------------------------------------
+   DDL for table: T_FACT_CUSTOMS_CLEARANCE_REPORT_LINE_2
+   generated from Powerdesigner on Dienstag, 4. Februar 2025 14:27:27
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE.T_FACT_CUSTOMS_CLEARANCE_REPORT_LINE_2 (
+   MOVEMENT_REF_NUMBER                 VARCHAR(250)    NOT NULL COMMENT 'The movement reference number that identifies a declaration.',
+   TRADER_REFERENCE                    VARCHAR(250)    NOT NULL COMMENT 'Descriptive attribute - This is a reference assigned by the declarant for the goods covered by the declaration.',
+   ITEM_POSITION                       NUMBER(38, 0)   NOT NULL COMMENT 'The position number within the shipment/declaration. ',
+   CLEARANCE_DT                        DATE            NOT NULL COMMENT 'The clearance date of the declaration.',
+   CY_MONTH                            NUMBER(38, 0)   NOT NULL COMMENT 'The month identifier of the clearance date.',
+   AUTHORITY_COUNTRY_LOCATION_SID      NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) of the political country_2 of the customs authority.',
+   CONSIGNOR_PARTY_SID                 NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the consignor.',
+   IMPORTER_PARTY_SID                  NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the importer.',
+   IMPORTER_NUMBER                     VARCHAR(250)    NOT NULL COMMENT 'The business identifier of the importer.',
+   DECLARANT_PARTY_SID                 NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the declarant',
+   ACCEPTANCE_DT                       DATE            NOT NULL COMMENT 'Denormalized Attribute - The date of acceptance.',
+   DECLARANT_NUMBER                    VARCHAR(250)    NOT NULL COMMENT 'Denormalized Attribute - The business identifier of the declarant.',
+   DECLARANT_NAME                      VARCHAR(100)    COMMENT 'Denormalized Attribute - The name of the declarant.',
+   DECLARANT_AUTHORIZED_FG             BOOLEAN         NOT NULL COMMENT 'Denormalized Attribute - Flag indicating whether the declarant is authorized.',
+   CUSTOMS_DECLARATION_TYPE_CD         VARCHAR(50)     COMMENT 'The unique code of the type of the customs declaration',
+   CUSTOMS_PROCEDURE_CD                VARCHAR(50)     NOT NULL COMMENT 'The unique code of the customs procedure.',
+   CUSTOMS_PREFERENCE_CD               VARCHAR(50)     COMMENT 'The unique code of the customs procedure code.',
+   ORIGIN_COUNTRY_LOCATION_SID         NUMBER(38, 0)   COMMENT 'The unique identifier (surrogate key) of the political country.',
+   ORIGIN_ISO_COUNTRY_CD               VARCHAR(50)     NOT NULL COMMENT 'Denormalized Attribute - The ISO code of the origin country.',
+   CUSTOMS_PRODUCT_SID                 NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) of the customs product.',
+   CUSTOMS_TARIFF_NUMBER_CD            VARCHAR(50)     COMMENT 'Denormalized Attribute - The customs tariff number from the customs product.',
+   CUSTOMS_PRODUCT_NUMBER              VARCHAR(250)    NOT NULL COMMENT 'Denormalized Attribute - The product number including the additional code for the customs product.',
+   ARTICLE_VARIANT_NR                  VARCHAR(250)    COMMENT 'Descriptive Attribute - The arbitrary article variant number of a product from the GTS system.',
+   GOODS_DESCR                         VARCHAR(250)    COMMENT 'Denormalized Attribute - The name of the customs product.',
+   CURR_CD                             VARCHAR(3)      COLLATE 'en-ci' NOT NULL COMMENT 'The currency code for the duty paid amount, the VAT paid amount and the customs value.',
+   VAT_PAID_VAL                        NUMBER(38, 5)   NOT NULL COMMENT 'Fact - additive - The total amount of VAT paid on the item.',
+   DUTY_PAID_VAL                       NUMBER(38, 5)   NOT NULL COMMENT 'Fact - additive - The total amount of duty paid on the item.',
+   NET_WEIGHT_MEAS                     NUMBER(38, 5)   NOT NULL COMMENT 'Fact - additive - The net weight measure of the item.',
+   CUSTOMS_VAL                         NUMBER(38, 5)   NOT NULL COMMENT 'Fact - additive - The total value of the item_2 for the purposes of customs duty. In addition to the actual price of the goods this includes additional elements such as Freight Charges to the EU boundary. ',
+   PREFERENCE_INDICATOR_TXT            VARCHAR(1000)   COMMENT 'Descriptive Attribute - A list of documents that are used to determine the preference.',
+   ALLOCATION_CNT                      NUMBER(38,0)    COMMENT 'Fact - additive - The count of items in a package.',
+   PACKAGE_CNT                         NUMBER(38,0)    COMMENT 'Fact - additive - The count of packages.',
+   ITEM_CNT                            NUMBER(38,0)    COMMENT 'Fact - additive - The count of items (allocation count times package_2 count).',
+   BATCH_NR_TXT                        VARCHAR(1000)   COMMENT 'Descriptive Attribute - A list of batch numbers the product is part of (only for products from WWT).',
+   DWH_CREATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was inserted into the table.',
+   DWH_UPDATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last modified. (In case the record has not been modified since its creation, dwh_updated is identical to dwh_created.)',
+   DWH_SRC_FILE_NAME                   VARCHAR(500)    COMMENT 'Contains the name(s) of the input file(s) that delivered the record. It can be either the full path of the BLOG storage or the shortened file path',
+   DWH_SRC_1_TMSP                      TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The extraction timestamp of the record from the source',   
+   CONSTRAINT PK_FACT_CUSTOMS_CLEARANCE_REPORT_LINE PRIMARY KEY (MOVEMENT_REF_NUMBER, TRADER_REFERENCE, ITEM_POSITION) NOT ENFORCED 
+)  COMMENT = 'Fact table - Transactional Events - Periodic Snapshot_2 - This table contains information about the declarations and their items settled up by the customs authority. - Source - CDS Header Report, CDS Item_2 Report';

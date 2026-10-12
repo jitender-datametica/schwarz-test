@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_wholesale.v_dim_customs_product_type_2 (customs_product_type_cd,
+customs_product_type_descr) AS SELECT customs_product_type_cd,
+ customs_product_type_descr
+FROM szd_core.t_dim_customs_product_type_2;

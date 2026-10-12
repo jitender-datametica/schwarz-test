@@ -1,0 +1,14 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_lifecycle.v_l_lifecycle_hga_product_category_2 (hga_product_cat_id,
+hga_product_cat_name, hga_product_cat_name_de, hga_product_cat_name_ch, hga_product_cat_name_en, hga_product_cat_name_cz
+, hga_product_cat_name_lt, hga_product_cat_name_sk, hga_product_cat_name_si, hga_product_cat_name_ro) AS SELECT
+ hga_product_cat_id,
+ hga_product_cat_name,
+ hga_product_cat_name_de,
+ hga_product_cat_name_de AS hga_product_cat_name_ch,
+ hga_product_cat_name_en,
+ hga_product_cat_name_en AS hga_product_cat_name_cz,
+ hga_product_cat_name_en AS hga_product_cat_name_lt,
+ hga_product_cat_name_en AS hga_product_cat_name_sk,
+ hga_product_cat_name_en AS hga_product_cat_name_si,
+ hga_product_cat_name_en AS hga_product_cat_name_ro
+FROM szd_production_core.t_dim_hga_product_category_2;

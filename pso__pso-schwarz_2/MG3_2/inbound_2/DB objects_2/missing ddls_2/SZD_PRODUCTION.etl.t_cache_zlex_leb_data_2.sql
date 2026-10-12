@@ -1,0 +1,22 @@
+create table if not exists SZD_PRODUCTION.etl.t_cache_zlex_leb_data_2 (
+	mandt varchar(3000) collate 'en-ci',
+	timestamp_ number(38,0),
+	fileno number(38,0),
+	entryno number(38,0),
+	file_name varchar(3000) collate 'en-ci',
+	wawi_lifnr varchar(3000) collate 'en-ci',
+	erdat date,
+	land_2 varchar(3000) collate 'en-ci',
+	kunnr varchar(3000) collate 'en-ci',
+	lifex varchar(3000) collate 'en-ci',
+	wedat date,
+	matnr varchar(3000) collate 'en-ci',
+	maktx varchar(3000) collate 'en-ci',
+	wemng number(38,9),
+	meins varchar(3000) collate 'en-ci',
+	extraction_date date,
+	dwh_created_tmsp timestamp_ltz(9),
+	dwh_updated_tmsp timestamp_ltz(9),
+	dwh_src_file_name varchar(2000) not null,
+	dwh_src_1_tmsp timestamp_ltz(9) not null
+);

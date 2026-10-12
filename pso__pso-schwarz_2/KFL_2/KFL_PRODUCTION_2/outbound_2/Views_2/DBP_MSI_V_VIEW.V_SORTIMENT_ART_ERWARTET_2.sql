@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_v_view.v_sortiment_art_erwartet_2 AS SELECT mandant_id,
+ matching_id,
+ kjmo,
+ kjwo_update,
+ listung_sst_pflege,
+ art_id,
+ gtin,
+ stk_re_pflege,
+ status_2,
+ region_summary,
+ var_ost_basis_pflege,
+ var_ost_gross_pflege,
+ var_sued_ost_pflege,
+ var_sued_west_pflege,
+ var_west_pflege,
+ var_nord_pflege
+FROM kfl_production_dbp_msi_data.sortiment_art_erwartet_2;

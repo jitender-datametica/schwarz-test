@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE idq_production_zsm.knbk_2 (
+mandt STRING(3) NOT NULL,
+kunnr STRING(10) NOT NULL,
+banks STRING(3) NOT NULL,
+bankl STRING(15) NOT NULL,
+bankn STRING(18) NOT NULL,
+bkont STRING(2),
+bvtyp STRING(4),
+xezer STRING(1),
+bkref STRING(20),
+koinh STRING(60),
+ebpp_accname STRING(40),
+ebpp_bvstatus STRING(1),
+kovon DATE,
+kobis DATE,
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (mandt, kunnr, banks, bankl, bankn) NOT ENFORCED
+);

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_ts_werbeflaeche_abschnitt_avq_2 (mandant_id,
+werbeflaechenabschnitt_avq_prio, werbeflaechenabschnitt_avq_bez) AS SELECT mandant_id,
+ werbeflaechenabschnitt_avq_prio_nr AS werbeflaechenabschnitt_avq_prio,
+ werbeflaechenabschnitt_avq_prio_bez AS werbeflaechenabschnitt_avq_bez
+FROM kfl_production_dbp_view.v_l_werbeflaechenabschnitt_avq_prio_2;

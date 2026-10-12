@@ -1,0 +1,22 @@
+/*Manually create the aggregation control records here, rther than the generated protocol sql.
+We need to to do this because the generated protocol-sql uses for hist tables calendar_2 date instead of date_field here inv_dt.
+In order to benefit from the delta load we do it with post sql.
+*/
+
+MERGE INTO ETL_PROCESS.T_PRCS_DELTA_2 AS PRCS_DELTA
+    USING 
+    (
+            SELECT DISTINCT DWH_NODE_CD, COUNTRY_ORG_CD AS COUNTRY_CD, INV_DT AS DWH_CAL_DT, COALESCE(INT_ORG_SID, -1) AS LOC_SID,
+                            (SELECT DEPENDENCY FROM ETL_PROCESS.T_PRCS_MAIN_2 WHERE DEPENDENCY = 't_wawi_inventory_result_2' GROUP BY 1) AS DEPENDENCY
+            FROM ETL.${SRC2TGT_TEMP_TABLE2}_${SRC_CONTEXT_AREA}
+            WHERE ERROR_FG = 0 AND DEPENDENCY IS NOT NULL AND COUNTRY_ORG_CD IS NOT NULL AND INV_DT IS NOT NULL
+    ) AS POC 
+    ON PRCS_DELTA.DWH_NODE_CD = POC.DWH_NODE_CD
+        AND PRCS_DELTA.COUNTRY_CD = POC.COUNTRY_CD
+        AND PRCS_DELTA.DWH_CAL_DT = POC.DWH_CAL_DT
+        AND PRCS_DELTA.DEPENDENCY = POC.DEPENDENCY
+        AND PRCS_DELTA.LOC_SID = POC.LOC_SID
+    WHEN MATCHED THEN 
+            UPDATE SET LOAD_TMSP = CURRENT_TIMESTAMP, DWH_LOAD_ID = '${LOAD_ID}'
+    WHEN NOT MATCHED THEN 
+            INSERT (DEPENDENCY, DWH_NODE_CD, COUNTRY_CD, DWH_CAL_DT, LOC_SID, LOAD_TMSP, DWH_LOAD_ID) VALUES (POC.DEPENDENCY, POC.DWH_NODE_CD, POC.COUNTRY_CD, POC.DWH_CAL_DT, POC.LOC_SID, CURRENT_TIMESTAMP,'${LOAD_ID}');

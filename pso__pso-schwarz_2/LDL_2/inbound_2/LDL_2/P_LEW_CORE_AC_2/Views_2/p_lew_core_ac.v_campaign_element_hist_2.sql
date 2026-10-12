@@ -1,0 +1,24 @@
+CREATE OR REPLACE VIEW P_LEW_CORE_AC.v_campaign_element_hist_2 AS 
+    SELECT 
+        client_id
+        ,campaign_elem_sid
+        ,campaign_sid
+        ,item_sid
+        ,item_selection_nr
+        ,mdm_item_sid
+        ,campaign_elem_status_cd
+        ,campaign_elem_start_dt
+        ,campaign_elem_end_dt
+        ,plan_adv_day_cnt
+        ,plan_item_qty
+        ,int_cat_descr
+        ,nat_cat_descr
+        ,nat_theme_txt
+        ,comment_txt
+        ,deleted_fg
+        ,dwh_valid_from
+        ,dwh_valid_to
+        ,dwh_load_id
+        ,dwh_created
+        ,dwh_updated
+FROM P_LEW_CORE.t_campaign_element_hist_2 ;

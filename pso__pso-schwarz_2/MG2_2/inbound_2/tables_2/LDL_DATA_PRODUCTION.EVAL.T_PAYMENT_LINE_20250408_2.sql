@@ -1,0 +1,37 @@
+create or replace TABLE LDL_DATA_PRODUCTION.EVAL.T_PAYMENT_LINE_20250408_2 cluster by (
+     COUNTRY_ORG_CD,
+     BUS_DT
+)(
+	RETAIL_EVENT_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the related retail transaction, i.e. for the sales_2 or return of products..',
+	RETAIL_EVENT_LINE_SEQ NUMBER(38,0) NOT NULL COMMENT 'The number of the line in the retail event.',
+	PAYM_START_TMSP TIMESTAMP_TZ(9) NOT NULL COMMENT 'The point in time when the payment process started.',
+	PAYM_END_TMSP TIMESTAMP_TZ(9) NOT NULL COMMENT 'The point in time when the payment process was finished.',
+	BUS_DT DATE NOT NULL COMMENT 'The business date on which the retail event is counted.',
+	STORE_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the store where the related retail event happend.',
+	COUNTRY_ORG_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the related country_2 organization.',
+	COUNTRY_ORG_CD VARCHAR(2) NOT NULL COMMENT 'The code of the related business country. (The business country_2 is not identical to a political country.)',
+	REAL_ESTATE_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the real estate object.',
+	CASH_REGISTER_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the cash register which has created this transaction.',
+	CASH_REGISTER_TYPE_CD VARCHAR(20) COMMENT 'The code identifying the type of cash register. (standard cash register, self-checkout system, vending machine)',
+	CASH_REGISTER_USG_TYPE_CD VARCHAR(20) COMMENT 'The code identifying the way, how a cash register is used. It distinguishes between regular operations, training and maintenance.',
+	CASHIER_HASH VARCHAR(32) NOT NULL COMMENT 'The encrypted number of the cashier. (The hash is unique for a given store and a day.)',
+	CUST_SID NUMBER(38,0) COMMENT 'The unique identifier (surrogate key) for the customer.',
+	RETAIL_EVENT_LINE_SCENARIO_ID NUMBER(38,0) NOT NULL COMMENT 'The numeric identifier for the scenario which is represented by the retail event line.',
+	PAYM_LINE_TYPE_CD VARCHAR(20) NOT NULL COMMENT 'The code identifying the subtype discriminator for payment lines. It distinguishes between incoming and outgoing payments, i.e. payments made by the customer and payments made to the customer.',
+	LOCAL_PAYM_VAL NUMBER(38,5) COMMENT 'The amount which was paid in local currency. If the amount was paid by the customer, the sign is positive. If the amount was paid to the customer, the sign is negative. If the payment was in a foreign currency, this is the local currency equivalent.',
+	LOCAL_CURR_CD VARCHAR(3) COMMENT 'The code identifying the local currency of the store, according to ISO 4217.',
+	FOREIGN_PAYM_VAL NUMBER(38,5) COMMENT 'The amount which was paid in foreign currency. (indicated by the foreign currency code) If the amount was paid by the customer, the sign is positive. If the amount was paid to the customer, the sign is negative. ',
+	FOREIGN_CURR_CD VARCHAR(3) COMMENT 'The code identifying the foreign currency, according to ISO 4217.',
+	ROUND_DIFF NUMBER(38,0) COMMENT 'The difference between the sum of the retail event lines and the payment amount. The amounts can be different, if prices are on a lower granularity than the smallest coin used, or if the payment is made in a foreign currency.The amount is shown in local currency.',
+	PAYM_TYPE_ID NUMBER(38,0) NOT NULL COMMENT 'The identifier for the way of payment, i.e. cash, card, voucher, etc.',
+	CARD_TXN_NR VARCHAR(20) COMMENT 'The transaction number for the card payment.',
+	PAYM_CARD_TYPE_CD VARCHAR(20) COMMENT 'The code identifying the type of card which is used for payment, e.g. Maestro, Visa, Mastercard, etc.',
+	CARD_TXN_TYPE_CD VARCHAR(20) COMMENT 'The code identifying the kind of card transaction. E.g. debit, credit, cancellation, etc.',
+	CARD_AUTH_METHOD_CD VARCHAR(20) COMMENT 'The code identifying the authorization method for a card payment.',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.',
+	constraint PK_T_PAYMENT_LINE primary key (RETAIL_EVENT_SID, RETAIL_EVENT_LINE_SEQ)
+)COMMENT='A payment is the transfer of money from one party to another party. This includes on the one hand payments from a customer to the cashier in exchange for the products the customer bought, and on the other hand payments from the cashier to a customer. The second case can happen, if change is given to the customer or if the customer has returned products or deposit items.'
+;

@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view2.mv_werbewoche_woche_kl_2 (mandant_id, akt_kjwo_ww,
+akt_kjwo_ww_komplett, kjwo_ww, wo_ww, ww_dat_von, ww_dat_bis, ww_mo) AS SELECT DISTINCT mandant_id,
+ akt_kjwo_ww,
+ akt_kjwo_ww_komplett,
+ kjwo_ww,
+ SUBSTR(CAST(kjwo_ww AS STRING), 5, 2) AS wo_ww,
+ MIN(dat) OVER (PARTITION BY CAST(mandant_id AS STRING), CAST(kjwo_ww AS STRING) RANGE BETWEEN UNBOUNDED PRECEDING AND
+  UNBOUNDED FOLLOWING) AS ww_dat_von,
+ MAX(dat) OVER (PARTITION BY CAST(mandant_id AS STRING), CAST(kjwo_ww AS STRING) RANGE BETWEEN UNBOUNDED PRECEDING AND
+  UNBOUNDED FOLLOWING) AS ww_dat_bis,
+   EXTRACT(YEAR FROM MIN(dat) OVER (PARTITION BY CAST(mandant_id AS STRING), CAST(kjwo_ww AS STRING) RANGE BETWEEN
+     UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)) * 100 + EXTRACT(MONTH FROM MIN(dat) OVER (PARTITION BY CAST(mandant_id AS STRING)
+      , CAST(kjwo_ww AS STRING) RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)) AS ww_mo
+FROM kfl_production_dbp_data.werbewoche_kl_2 AS WW
+WHERE mandant_id = 1;

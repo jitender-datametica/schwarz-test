@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_art_nielsen_fakten_kjwo_2 AS SELECT mandant_id,
+ kjwo,
+ nielsen_market_id,
+ art_nielsen_id,
+ wrg_id,
+ umsatz_brutto,
+ umsatz_brutto_af,
+ umsatz_brutto_sa,
+ menge,
+ menge_af,
+ menge_sa,
+ distr_num,
+ distr_gew,
+ anz_maerkte,
+ distr_num_4_wo,
+ distr_gew_4_wo
+FROM kfl_production_dbp_data.art_nielsen_fakten_kjwo_2;

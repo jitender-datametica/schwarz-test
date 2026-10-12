@@ -1,0 +1,83 @@
+
+TRUNCATE TABLE ldl_data_production_etl.t_wawi_precore_t113_alloc_pos_2;
+
+
+
+ INSERT INTO ${temp_db}.${src2tgt_temp_table1}_${src_context_area}
+(dwh_node_cd, tf_error_fg, dwh_load_id, source_system, extraction_dt, deleted_fg, record_id, dwh_mapping_tmsp, filename
+ , storeno, ctrcode, datum, bediener, extraction_tmsp, scn, euro_pal_used, sperrvermerk, setzlistennr, aktpreis_org,
+ istdauer, printno, lagerplatzbereich, pal_partgo_used, aktuellpreis, lagerortnr, satas_nr, formdate, tkt_partgo_used,
+ artikelnr, aktuellpreisknz, decimalcase, wh_nr, bookflag, kommentar, dsac_nr, mwstschl, bestellkartons, listenpreis,
+ tgdate, lagerplatznr, orderarea, dispozeichen, artikelbez, groupno, status_2, c113_promobin, c113_original_qty,
+ c113_ref_picklistnr, c113_ewm_status, c113_catchweight, preisknz, c113_item_weight, c113_pickingstarttime,
+ c113_actpieces, tgstatus, c113_refpicklistquintiq, c113_originalpicklist, aktuellkartons, c113_caseflag, c113_pieces,
+ c113_subsequentadd, c113_nointegrationewm, c113_ewm_flag)
+(SELECT 'WAWI_HQ' AS dwh_node_cd,
+  0 AS tf_error_fg,
+  '${LOAD_ID}' AS dwh_load_id,
+  
+ 'WAWI' AS source_system,
+  CURRENT_DATE AS extraction_dt,
+   0 <> 0 AS deleted_fg,
+  CAST(0 AS STRING) AS record_id,
+  CURRENT_TIMESTAMP() AS dwh_mapping_tmsp,
+  '${SRC_INPUT_TABLE}' AS filename,
+  src.storeno,
+  LEFT(src.ctrcode, 2) AS ctrcode,
+  src.datum,
+  src.bediener,
+  src.extraction_tmsp,
+  src.scn,
+  src.euro_pal_used,
+  src.sperrvermerk,
+  src.setzlistennr,
+  src.aktpreis_org,
+  src.istdauer,
+  src.printno,
+  src.lagerplatzbereich,
+  src.pal_partgo_used,
+  src.aktuellpreis,
+  src.lagerortnr,
+  src.satas_nr,
+  src.formdate,
+  src.tkt_partgo_used,
+  src.artikelnr,
+  src.aktuellpreisknz,
+  src.decimalcase,
+  src.wh_nr,
+  src.bookflag,
+  src.kommentar,
+  src.dsac_nr,
+  src.mwstschl,
+  src.bestellkartons,
+  src.listenpreis,
+  src.tgdate,
+  src.lagerplatznr,
+  src.orderarea,
+  src.dispozeichen,
+  CAST(NULL AS STRING) AS artikelbez,
+  src.groupno,
+  src.status_2,
+  src.c113_promobin,
+  src.c113_original_qty,
+  src.c113_ref_picklistnr,
+  src.c113_ewm_status,
+  src.c113_catchweight,
+  src.preisknz,
+  src.c113_item_weight,
+  src.c113_pickingstarttime,
+  src.c113_actpieces,
+  src.tgstatus,
+  src.c113_refpicklistquintiq,
+  src.c113_originalpicklist,
+  src.aktuellkartons,
+  src.c113_caseflag,
+  src.c113_pieces,
+  src.c113_subsequentadd,
+  src.c113_nointegrationewm,
+  src.c113_ewm_flag
+ FROM ldl_data_production_etl.t113_alloc_pos_2 AS src
+  INNER JOIN ldl_data_production_etl.wawi_control_table_2 AS ctrl ON ctrl.source_table_name = UPPER('etl.t113_alloc_pos_2')
+    AND ctrl.source_status = 'A' AND src.extraction_tmsp BETWEEN ctrl.begin_tmsp AND ctrl.end_tmsp
+ QUALIFY (ROW_NUMBER() OVER (PARTITION BY src.setzlistennr, src.artikelnr ORDER BY src.extraction_tmsp IS NULL DESC, src
+       .extraction_tmsp DESC)) = 1);

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ios.mv_l_ginfo_markt_typ_2 (ginfo_markt_typ, ginfo_markt_typ_bez) AS
+SELECT ginfo_markt_typ,
+ ginfo_markt_typ_bez
+FROM kfl_production_dbp_view.v_l_ginfo_markt_typ_2;

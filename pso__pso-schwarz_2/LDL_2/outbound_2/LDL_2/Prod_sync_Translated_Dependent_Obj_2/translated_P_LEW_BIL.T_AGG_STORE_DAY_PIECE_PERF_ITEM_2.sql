@@ -1,0 +1,28 @@
+DROP TABLE IF EXISTS ldl_p_lew_bil.t_agg_store_day_piece_perf_item_2;
+CREATE OR REPLACE TABLE ldl_p_lew_bil.t_agg_store_day_piece_perf_item_2 (
+client_id INTEGER NOT NULL OPTIONS(description='Client identifier'),
+src_orig_store_nr INTEGER NOT NULL OPTIONS(description='Store identifier'),
+loc_sid_store INTEGER NOT NULL OPTIONS(description='Store identifier'),
+dwh_cal_dt DATE NOT NULL OPTIONS(description='Record date'),
+currency_iso_cd STRING(3) COLLATE 'und:ci' NOT NULL OPTIONS(description='Currency code'),
+item_sid INTEGER NOT NULL OPTIONS(description='Item_2  identifier'),
+sales_pieces NUMERIC(29,5) OPTIONS(description='Sales_2 pieces with dependency to Net time worked flag'),
+sales_pieces_fa NUMERIC(29,5) OPTIONS(description='Sales_2 pieces (foodaction) with dependency to Net time worked flag'),
+val_rtl_net_ejr NUMERIC(29,5)
+OPTIONS(description='Net sales_2 value from Receiptline with dependency to Net time worked flag'),
+average_price NUMERIC(29,5) OPTIONS(description='Average price with dependency to Net time worked flag'),
+piece_receipt NUMERIC(29,5) OPTIONS(description='Piece receipt with dependency to Net time worked flag'),
+cnt_customer NUMERIC(29,5) OPTIONS(description='Customer count with dependency to Net time worked flag'),
+time_working_netto_fg INTEGER NOT NULL OPTIONS(description='Net time worked flag'),
+training_time_hr NUMERIC(29,5) OPTIONS(description='Hours spent training'),
+dwh_load_id INTEGER NOT NULL OPTIONS(description='DWH load identifier'),
+dwh_created DATETIME NOT NULL OPTIONS(description='timestamp_ntz(9) record created'),
+sales_pieces_total NUMERIC(29,5) OPTIONS(description='Sales_2 pieces'),
+sales_pieces_fa_total NUMERIC(29,5) OPTIONS(description='Sales_2 pieces total (foodaction)'),
+sales_pieces_total_wo_multipack_factor NUMERIC(29,5) OPTIONS(description='Sales_2 pieces without multipack'),
+sales_pieces_wo_multipack_factor NUMERIC(29,5)
+OPTIONS(description='Sales_2 pieces with dependency to Net time worked flag without multipack'),
+multipack_fg INTEGER OPTIONS(description='Multipack flag'),
+multipack_factor NUMERIC(29,5) OPTIONS(description='Multipack factor')
+) CLUSTER BY client_id, dwh_cal_dt
+OPTIONS(description='Store day item_2 piece performance.');

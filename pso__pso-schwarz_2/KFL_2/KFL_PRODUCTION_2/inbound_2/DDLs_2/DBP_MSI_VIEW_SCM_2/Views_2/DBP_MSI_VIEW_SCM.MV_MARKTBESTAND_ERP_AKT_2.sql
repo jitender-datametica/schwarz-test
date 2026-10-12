@@ -1,0 +1,21 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_SCM.MV_MARKTBESTAND_ERP_AKT_2(
+	MANDANT_ID,
+	WUP_ID,
+	NB_ID,
+	ART_ID,
+	MENGE_LGBEST_ERP_FREI_BME
+) AS
+--2024-08-06,AP0204035, SPEC0254614,dknop, adding aktuell_wup_id logic
+   SELECT 
+   v01.mandant_id, 
+  -- wup_id, 
+  --CASE WHEN TRY_CAST(v01.wup_id AS INTEGER) = 0 THEN NULL ELSE TRY_CAST(aktuell_wup_id AS INTEGER) END wup_id, 
+   v05.aktuell_wup_id wup_id, 
+   v01.nb_id, art_id, menge_lgbest_erp_frei_bme
+   FROM dbp_view.v_marktbestand_erp_delta_2 v01
+   INNER JOIN dbp_view.v_wup_2 v05
+   ON v05.mandant_id = v01.mandant_id
+   --AND v05.wup_id = CASE WHEN TRY_CAST(v01.wup_id  AS INTEGER) = 0 THEN NULL ELSE TRY_CAST(v01.wup_id  AS INTEGER) END
+   AND v05.wup_id = v01.wup_id
+   AND ((v05.nb_id IN (2, 0, -111) AND v05.wup_id > 0) OR (v05.nb_id = -1 AND v05.wup_id = 0))
+;

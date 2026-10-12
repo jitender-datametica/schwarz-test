@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW nfpow_fe_mstr_apollo_kaufland.v_dim_kfl_competition_type_2 (kfl_client_id, kfl_competition_type_id
+, kfl_competition_type_txt) AS SELECT kfl_client_id,
+ kfl_competition_type_id,
+ kfl_competition_type_txt
+FROM nfpow_core.t_dim_kfl_competition_type_2;

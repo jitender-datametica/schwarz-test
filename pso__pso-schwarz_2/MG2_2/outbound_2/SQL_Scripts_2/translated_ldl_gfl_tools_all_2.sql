@@ -1,0 +1,33 @@
+TRUNCATE TABLE ldl_data_production_etl_process.t_prcs_main_2;
+
+
+INSERT INTO ldl_data_production_etl_process.t_prcs_main_2 (AGGREGATE, dependency, activate_tmsp)
+VALUES (NULL, 't_cancellation_line_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_discount_line_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_payment_line_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_price_information_event_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_product_retail_line_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_retail_event_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_technical_cash_register_event_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_tcache_fact_retail_by_store_day_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_fact_retail_by_store_day_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_product_retail_line_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_tcache_fact_turnover_by_store_day_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_fact_turnover_by_store_day', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_product_retail_line_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_write_off_event_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_daily_vat_statistics_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_fact_retail_by_store_day_product_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_plan_by_day_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_retail_event_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_revenue_accrual_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_revenue_statistics_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_daily_vat_statistics_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_internal_organization_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_plan_by_day_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_product_retail_line_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_product_variant_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_retail_event_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_revenue_accrual_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_revenue_statistics_2', CAST('2020-01-01 00:00:00' AS DATETIME)),
+  (NULL, 't_write_off_event_2', CAST('2020-01-01 00:00:00' AS DATETIME));

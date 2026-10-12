@@ -1,0 +1,128 @@
+/* Dummy_2 store added at country_2 level */ CREATE OR REPLACE VIEW ldl_p_lew_mart_msi.v_mat_org_store_pre_2 (store_id,
+client_id, country_cd, dat_opening, dat_real_opening, dat_closing, dat_valid_from, region_cd, object_nr, licence_nr,
+pst_lang_cd, mde_print_cd, closed_fg, mde_lang_cd, ord_unit_valid_store_cd, test_store_fg, transfer_fg, store_desc,
+orig_store_nr, wh_id, cnt_open_days, qty_min_dflt, dat_calc_start_py, dat_calc_end_py, dat_calc_start_ppy,
+dat_calc_end_ppy, dat_opening_ovis, dat_closing_ovis, dat_opening_ovis_move, dat_closing_ovis_move, objectstatus_id,
+mis_store_active_fg, move_to_store_id, move_fg) AS SELECT S.st_loc_sid AS store_id,
+ S.client_id,
+ S.country_cd,
+ S.dat_opening,
+ S.dat_real_opening,
+ S.dat_closing,
+ S.dat_valid_from,
+ S.region_cd,
+ S.object_nr,
+ S.licence_nr,
+ S.pst_lang_cd,
+ S.mde_print_cd,
+ S.closed_fg,
+ S.mde_lang_cd,
+ S.ord_unit_valid_store_cd,
+ S.test_store_fg,
+ S.transfer_fg,
+ S.store_desc,
+ S.orig_store_nr,
+ WH.src_wh_id AS wh_id,
+ S.cnt_open_days,
+ S.qty_min_dflt,
+ S.dat_calc_start_py,
+ S.dat_calc_end_py,
+ S.dat_calc_start_ppy,
+ S.dat_calc_end_ppy,
+ S.dat_opening_ovis,
+ S.dat_closing_ovis,
+ MIN(S.dat_opening_ovis) OVER (PARTITION BY CAST(S.client_id AS STRING), CAST(SR.move_to_st_loc_sid AS STRING)
+  RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS dat_opening_ovis_move,
+ CAST(MAX(CASE
+    WHEN S.dat_closing_ovis IS NULL
+    THEN '9999-12-31'
+    ELSE CAST(S.dat_closing_ovis AS STRING)
+    END) OVER (PARTITION BY CAST(S.client_id AS STRING), CAST(SR.move_to_st_loc_sid AS STRING) RANGE BETWEEN
+   UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS DATE) AS dat_closing_ovis_move,
+ S.objectstatus_id,
+ S.mis_store_active_fg,
+ SR.move_to_st_loc_sid AS move_to_store_id,
+ SR.move_fg
+FROM ldl_p_lew_core_ac.v_wawi_org_store_act_2 AS S
+ INNER JOIN ldl_p_lew_core_ac.v_wawi_org_all_store_reloc_act_2 AS SR ON S.client_id = SR.client_id AND S.st_loc_sid = SR.st_loc_sid
+   
+ INNER JOIN ldl_p_lew_bil_ac.v_warehouse_2 AS WH ON S.wh_loc_sid = WH.loc_sid_wh AND S.client_id = WH.client_id AND WH.dwh_actual_fg
+    = 1
+WHERE S.test_store_fg = 0
+ AND CURRENT_DATE >= S.dat_opening
+UNION ALL
+SELECT ST.loc_sid_store AS store_id,
+ wawi_dummy.client_id,
+ wawi_dummy.country_cd,
+ wawi_dummy.dat_opening,
+ wawi_dummy.dat_real_opening,
+ wawi_dummy.dat_closing,
+ wawi_dummy.dat_valid_from,
+ CAST(wawi_dummy.region_cd AS BIGNUMERIC) AS region_cd,
+ wawi_dummy.object_nr,
+ wawi_dummy.licence_nr,
+ CAST(wawi_dummy.pst_lang_cd AS BIGNUMERIC) AS pst_lang_cd,
+ CAST(wawi_dummy.mde_print_cd AS BIGNUMERIC) AS mde_print_cd,
+ wawi_dummy.closed_fg,
+ CAST(wawi_dummy.mde_lang_cd AS BIGNUMERIC) AS mde_lang_cd,
+ wawi_dummy.ord_unit_valid_store_cd,
+ wawi_dummy.test_store_fg,
+ wawi_dummy.transfer_fg,
+ wawi_dummy.store_desc,
+ wawi_dummy.orig_store_nr,
+ wawi_dummy.wh_id,
+ CAST(wawi_dummy.cnt_open_days AS NUMERIC) AS cnt_open_days,
+ wawi_dummy.qty_min_dflt,
+ wawi_dummy.dat_calc_start_py,
+ wawi_dummy.dat_calc_end_py,
+ wawi_dummy.dat_calc_start_ppy,
+ wawi_dummy.dat_calc_end_ppy,
+ wawi_dummy.dat_opening_ovis,
+ wawi_dummy.dat_closing_ovis,
+ wawi_dummy.dat_opening_ovis_move,
+ wawi_dummy.dat_closing_ovis_move,
+ CAST(wawi_dummy.objectstatus_id AS BIGNUMERIC) AS objectstatus_id,
+ wawi_dummy.mis_store_active_fg,
+ ST_MOVE_TO.loc_sid_store AS move_to_store_id,
+ wawi_dummy.move_fg
+FROM (SELECT - 1 * CLNT.client_id AS store_id,
+   CLNT.client_id,
+   CNTR.country_iso_cd AS country_cd,
+   DATE(NULL) AS dat_opening,
+   DATE(NULL) AS dat_real_opening,
+   DATE(NULL) AS dat_closing,
+   DATE(NULL) AS dat_valid_from,
+   NULL AS region_cd,
+   CAST(NULL AS STRING) AS object_nr,
+   CAST(NULL AS STRING) AS licence_nr,
+   NULL AS pst_lang_cd,
+   NULL AS mde_print_cd,
+   0 AS closed_fg,
+   NULL AS mde_lang_cd,
+   CAST(NULL AS STRING) AS ord_unit_valid_store_cd,
+   0 AS test_store_fg,
+   0 AS transfer_fg,
+    '#' || TRIM(CNTR.country_iso_cd) AS store_desc,
+    - 1 * CLNT.client_id AS orig_store_nr,
+    - 1 * CLNT.client_id AS wh_id,
+   NULL AS cnt_open_days,
+   SUBSTR(NULL, 1, 1) AS qty_min_dflt,
+   DATE(NULL) AS dat_calc_start_py,
+   DATE(NULL) AS dat_calc_end_py,
+   DATE(NULL) AS dat_calc_start_ppy,
+   DATE(NULL) AS dat_calc_end_ppy,
+   DATE(NULL) AS dat_opening_ovis,
+   DATE(NULL) AS dat_closing_ovis,
+   DATE(NULL) AS dat_opening_ovis_move,
+   DATE(NULL) AS dat_closing_ovis_move,
+   NULL AS objectstatus_id,
+   1 AS mis_store_active_fg,
+    - 1 * CLNT.client_id AS move_to_store_id,
+   0 AS move_fg
+  FROM ldl_p_lew_core_ac.v_wawi_ref_client_country_2 AS CLNT
+   INNER JOIN ldl_p_lew_core_ac.v_wawi_ref_country_2 AS CNTR ON CLNT.country_id = CNTR.country_id
+  WHERE CNTR.dashboard_relevant_fg = 1) AS wawi_dummy
+ INNER JOIN ldl_p_lew_bil_ac.v_store_2 AS ST ON wawi_dummy.client_id = ST.client_id AND wawi_dummy.store_id = ST.src_store_id
+     AND ST.dwh_actual_fg = 1
+ INNER JOIN ldl_p_lew_bil_ac.v_store_2 AS ST_MOVE_TO ON wawi_dummy.client_id = ST_MOVE_TO.client_id AND wawi_dummy.move_to_store_id
+     = ST_MOVE_TO.src_store_id AND ST_MOVE_TO.dwh_actual_fg = 1;

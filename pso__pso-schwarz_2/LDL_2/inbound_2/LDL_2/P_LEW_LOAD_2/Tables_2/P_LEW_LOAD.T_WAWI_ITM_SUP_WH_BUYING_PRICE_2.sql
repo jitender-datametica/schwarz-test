@@ -1,0 +1,27 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_WAWI_ITM_SUP_WH_BUYING_PRICE_2
+(
+  CLIENT_ID                 NUMBER(38)                    NOT NULL,
+  WH_ID                     NUMBER(38)                    NOT NULL,
+  ITEM_ID                   NUMBER(38)                    NOT NULL,
+  SUPPLIER_ID               NUMBER(38)                    NOT NULL,
+  DAT_REC_START             DATE                          NOT NULL,
+  DAT_REC_END               DATE                          NOT NULL,
+  DAT_VALID_FROM            DATE                          NOT NULL,
+  DAT_VALID_UNTIL           DATE                          NULL,
+  DAT_VALID_UNTIL_GROUP     DATE                          NULL,
+  CURRENCY_NR               NUMBER(38)                    NULL,
+  GROUP_NR                  NUMBER(18,0)                  NULL,
+  DELIVERY_ITEM_CD          VARCHAR(3) COLLATE 'en-ci'    NULL,
+  DUR_SHELFLIFE_CUST        VARCHAR(10) COLLATE 'en-ci'   NULL,
+  PERIOD_ID_SHELFLIFE_CUST  NUMBER(38)                    NULL,
+  DUR_SHELFLIFE_STORE       VARCHAR(10) COLLATE 'en-ci'   NULL,
+  PERIOD_ID_SHELFLIFE_STORE NUMBER(38)                    NULL,
+  DUR_SHELFLIFE_WH          VARCHAR(10) COLLATE 'en-ci'   NULL,
+  PERIOD_ID_SHELFLIFE_WH    NUMBER(38)                    NULL,
+  PRICE_BUYING              FLOAT                         NOT NULL,
+  PRICE_BUYING_SPECIAL      FLOAT                         NULL,
+  CURRENCY_NR_SPECIAL       NUMBER(38)                    NULL,
+  ORIGIN_COUNTRY_CD         VARCHAR(3) COLLATE 'en-ci'    NULL,
+  LOAD_ID                   NUMBER(38)                    NOT NULL,
+  LOAD_TS                   TIMESTAMP_NTZ(6)              NULL
+);

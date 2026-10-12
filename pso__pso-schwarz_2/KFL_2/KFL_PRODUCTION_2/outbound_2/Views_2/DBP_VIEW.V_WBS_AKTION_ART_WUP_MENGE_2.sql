@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_wbs_aktion_art_wup_menge_2 AS SELECT mandant_id,
+ wup_id,
+ wup_id_vz,
+ nb_id,
+ nb_id_vz,
+ art_id,
+ dat_ab,
+ dat_bis,
+ bonuskauf_promotionstyp,
+ dat_lief_split,
+ bestellmenge_final_ame,
+ menge_initial_ame,
+ menge_wbs,
+ init_lief_modus_kz
+FROM kfl_production_dbp_data.wbs_aktion_art_wup_menge_2;

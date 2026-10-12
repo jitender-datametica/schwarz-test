@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_protokoll_verladung_2 AS SELECT mandant_id,
+ tour_id,
+ handling_unit_id_ext,
+ datzeit_scan,
+ wup_id,
+ nb_id,
+ lagernummer_id,
+ kunde_id,
+ dat_scan,
+ zeit_scan,
+ versandeinheit_id,
+ lief_beleg_id,
+ dat_lief_soll,
+ arbeitsgebiet_id,
+ pruef_id,
+ gesamtgewicht_hu
+FROM kfl_production_dbp_data.protokoll_verladung_2;

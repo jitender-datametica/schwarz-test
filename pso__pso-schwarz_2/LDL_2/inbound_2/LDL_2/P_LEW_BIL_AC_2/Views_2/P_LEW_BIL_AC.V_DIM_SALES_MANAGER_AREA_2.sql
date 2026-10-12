@@ -1,0 +1,43 @@
+CREATE OR REPLACE VIEW P_LEW_BIL_AC.V_DIM_SALES_MANAGER_AREA_2
+(
+   client_id,
+   sales_manager_area_sid,
+   sales_manager_nr,
+   sales_manager_name,
+   account_manager_area_sid,
+   account_manager_nr,
+   account_manager_name,
+   sales_wh_sid,
+   sales_wh_nr,
+   sales_region_sid,
+   sales_region_manager_name,
+   lidl_country_cd,
+   lidl_country_name,
+   country_grp_sid,
+   country_grp_manager_name,
+   dwh_load_id,
+   dwh_created,
+   dwh_updated
+)
+AS
+   SELECT
+      client_id,
+   sales_manager_area_sid,
+   sales_manager_nr,
+   sales_manager_name,
+   account_manager_area_sid,
+   account_manager_nr,
+   account_manager_name,
+   sales_wh_sid,
+   sales_wh_nr,
+   sales_region_sid,
+   sales_region_manager_name,
+   lidl_country_cd,
+   lidl_country_name,
+   country_grp_sid,
+   country_grp_manager_name,
+   dwh_load_id,
+   dwh_created,
+   dwh_updated
+FROM p_lew_bil.t_dim_sales_manager_area_2
+;

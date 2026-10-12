@@ -1,0 +1,45 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_demo.mv_tag_2 AS SELECT dat,
+ wtag_id,
+ kjtag_id,
+ gjtag_id,
+ dat_vj,
+ DATE_SUB(dat_vj, INTERVAL 364 DAY) AS dat_vvj,
+ kjwo,
+ wo_dat_von,
+ wo_dat_bis,
+ kjmo,
+ kjmo_vj,
+ kj,
+ mo_gj,
+ mo_kj,
+ gjmo,
+ gjmo_vj,
+ gjqu,
+ gj,
+ akt_tag,
+   akt_wo * 10000 + akt_tag AS akt,
+   akt_wo_komplett * 10000 + akt_tag AS akt_komplett,
+ akt_wo,
+ akt_wo_komplett,
+ akt_mo,
+ akt_mo_komplett,
+ akt_gj,
+ akt_gj_komplett,
+ akt_kj,
+ akt_kj_komplett,
+ akt_gjqu,
+ akt_gjqu_komplett,
+      CAST(MOD(CAST(kjwo AS BIGNUMERIC), 100) AS STRING) || ' (' || CAST(wo_dat_von AS STRING) || '-' || CAST(wo_dat_bis AS STRING)
+    || ')' AS wo_von_bis,
+ PARSE_DATE('%F', SUBSTR(SUBSTR(CAST(DATE(dat) AS STRING), 1, 20), 1, 8) || '01') AS kjmo_dat,
+  akt_mo / 3 AS akt_qu,
+  CASE
+  WHEN PARSE_DATE('%F', CAST(kj AS STRING) || '-03-01') BETWEEN wo_dat_von AND wo_dat_bis
+  THEN kj * 100 + 1
+  ELSE gjwo_kl
+  END AS gjwo_neu,
+ kjwo_kl,
+ EXTRACT(DAY FROM dat) AS tag_tag,
+ EXTRACT(DAY FROM DATE_SUB(CURRENT_DATE, INTERVAL 1 DAY)) AS referenz_tag
+FROM kfl_production_dbp_view.v_tag_2 AS V01
+WHERE akt_gj BETWEEN - 11 AND 1;

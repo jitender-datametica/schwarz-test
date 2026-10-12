@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital.v_dim_order_cancel_fg_2 (is_order_cancel_fg, is_order_cancel_descr) AS
+SELECT *
+FROM ldl_dig_fe_mstr_lidldigital.t_dim_order_cancel_fg_2;

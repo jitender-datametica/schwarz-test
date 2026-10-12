@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku_materialized.mv_geku_vertriebsbuero_2 (vertriebsbuero_uid,
+country_uid, vertriebsbuero_bez) AS SELECT vertriebsbuero_uid,
+ country_uid,
+ vertriebsbuero_bez
+FROM kfl_production_dbp_view.v_geku_vertriebsbuero_2;

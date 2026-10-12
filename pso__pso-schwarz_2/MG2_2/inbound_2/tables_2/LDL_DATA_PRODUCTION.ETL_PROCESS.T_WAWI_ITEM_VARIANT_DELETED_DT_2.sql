@@ -1,0 +1,13 @@
+create or replace TABLE LDL_DATA_PRODUCTION.ETL_PROCESS.T_WAWI_ITEM_VARIANT_DELETED_DT_2 (
+	WAWI_ITEM_VARIANT_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) of the Wawi item.',
+	CTRCODE VARCHAR(2) NOT NULL COMMENT 'Wawi country_2 code. Canary islands (CS) is converted to Spain (ES).',
+	ORIG_ITEM_NR NUMBER(38,0) NOT NULL COMMENT 'Wawi short item_2 number, sourced from ARTIKEL.ARTNRVIER.',
+	SRC_CASE_SIZE NUMBER(38,0) NOT NULL COMMENT 'Wawi case size',
+	DWH_VALID_FROM_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'Timestamp of the first appearance of the Wawi item_2, sourced from ARTIKEL.GUELTIG_AB.',
+	DWH_VALID_TO_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'Closure timestamp, set when a new Wawi item_2 with matching number is defined.',
+	DELETED_DT DATE COMMENT 'Date of deletion of the WAWI item_2, according to T920_DELITEMS. Null if the Wawi item_2 is still existing in Wawi.',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.'
+);

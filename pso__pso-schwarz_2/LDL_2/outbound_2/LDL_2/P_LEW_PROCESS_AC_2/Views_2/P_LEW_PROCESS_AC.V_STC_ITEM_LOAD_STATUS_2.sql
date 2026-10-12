@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process_ac.v_stc_item_load_status_2 AS SELECT tabname,
+ last_loaded_id
+FROM ldl_p_lew_process.t_stc_item_load_status_2;

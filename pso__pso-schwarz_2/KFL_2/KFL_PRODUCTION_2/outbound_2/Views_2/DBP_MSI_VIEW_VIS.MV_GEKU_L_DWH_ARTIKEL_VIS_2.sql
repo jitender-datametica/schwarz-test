@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_geku_l_dwh_artikel_vis_2 AS SELECT geku_dwh_artikel_id AS
+ geku_dwh_artikel_vis_id,
+ geku_artikel_id AS geku_dwh_artikel_vis_nr,
+ geku_grund_uid AS geku_grund_vis_id
+FROM kfl_production_dbp_view.v_l_geku_dwh_artikel_2;

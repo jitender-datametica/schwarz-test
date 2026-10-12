@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_z_ds_wrf_matgrp_sku_2_cache_z_ds_wrf_matgrp_sku_hist_2 (
+client_id BIGNUMERIC(38,0),
+lidl_country STRING(40),
+z_ds_wrf_matgrp_sku_hier_id STRING(4),
+z_ds_wrf_matgrp_sku_matnr STRING(36),
+z_ds_wrf_matgrp_sku_node STRING(36),
+z_ds_wrf_matgrp_sku_date_from DATE,
+bic_zmlila STRING(60),
+hier_id STRING(60),
+matnr STRING(60),
+node STRING(60),
+date_from DATE,
+date_to DATE,
+mainflg STRING(60),
+deleted_fg BIGNUMERIC(38,0),
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

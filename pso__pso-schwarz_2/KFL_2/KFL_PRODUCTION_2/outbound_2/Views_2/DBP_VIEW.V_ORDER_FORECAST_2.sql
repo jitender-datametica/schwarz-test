@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_order_forecast_2 AS SELECT mandant_id,
+ wup_id,
+ nb_id,
+ art_id,
+ gp_id,
+ dat_plan,
+ dat_best,
+ dispoteilsortiment_id,
+ best_menge_einh_id,
+ basis_menge_einh_id,
+ menge_ofc_ame,
+ menge_ofc_bme,
+ dat_lief,
+ banf_beleg_id,
+ best_beleg_id,
+ td_insert,
+ td_update
+FROM kfl_production_dbp_data.order_forecast_2;

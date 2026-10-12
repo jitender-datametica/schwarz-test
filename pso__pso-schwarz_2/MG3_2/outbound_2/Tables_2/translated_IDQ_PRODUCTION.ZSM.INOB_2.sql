@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS idq_production_zsm.inob_2 (
+mandt STRING(3) NOT NULL,
+cuobj STRING(50) NOT NULL,
+klart STRING(3),
+obtab STRING(30),
+objek STRING(50),
+robtab STRING(30),
+robjek STRING(50),
+clint STRING(50),
+statu STRING(1),
+cucozhl INTEGER,
+parent INTEGER,
+root INTEGER,
+experte STRING(1),
+matnr STRING(18),
+datuv DATE,
+techs STRING(12),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (mandt, cuobj) NOT ENFORCED
+);

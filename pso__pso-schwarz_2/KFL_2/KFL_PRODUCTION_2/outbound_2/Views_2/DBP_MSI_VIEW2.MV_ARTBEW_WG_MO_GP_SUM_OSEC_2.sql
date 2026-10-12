@@ -1,0 +1,19 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view2.mv_artbew_wg_mo_gp_sum_osec_2 (bewart_id, kjmo, mandant_id, vk_menge,
+nb_id, umsatz_mwst_betrag, umsatz_netto, wg_id, wup_id, arthiertyp_id, posten_id) AS SELECT bewart_id,
+ kjmo,
+ mandant_id,
+ CAST(menge AS BIGNUMERIC) AS vk_menge,
+ nb_id,
+ CAST(umsatz_mwst_betrag AS BIGNUMERIC) AS umsatz_mwst_betrag,
+ CAST(umsatz_netto AS BIGNUMERIC) AS umsatz_netto,
+ wg_id,
+ wup_id,
+ arthiertyp_id,
+ SUBSTR(CASE
+   WHEN bewart_id = 1001 AND posten_id <> 'PN'
+   THEN ''
+   ELSE 'PN'
+   END, 1, 2) AS posten_id_
+FROM kfl_production_dbp_view.v_artbew_wg_mo_sum_2
+WHERE mandant_id = 1
+ AND arthiertyp_id = 2;

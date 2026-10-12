@@ -1,0 +1,3 @@
+create or replace view KFL_PRODUCTION.DBP_VIEW.V_L_GEKU_FV_2(
+	FV_FG
+) as SELECT FV_FG FROM DBP_DATA.L_GEKU_FV_2;

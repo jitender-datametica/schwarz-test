@@ -1,0 +1,23 @@
+CREATE TABLE ETL.T_TCACHE_SAPHANA_CV_VM28_CUBE_OBO_MIS_UMSKF_2 (
+	EXTRACTION_TS TIMESTAMP_NTZ(6),
+	EXTRACTION_DATE DATE,
+	SOURCE_SYSTEM VARCHAR(100000),
+	BIC_ZMLILA VARCHAR(100000),
+	LOAD_ID FLOAT,
+	KYF_ID VARCHAR(100000),
+	KYF_TYPE VARCHAR(100000),
+	URGUNIT VARCHAR(100000),
+	VLXMLCNTR VARCHAR(100000),
+	CALYEAR VARCHAR(100000),
+	CALDAY VARCHAR(100000),
+	VLXECUKYL VARCHAR(100000),
+	FISCYEAR VARCHAR(100000),
+	VLXMVERS VARCHAR(100000),
+	VLXMSTORE VARCHAR(100000),
+	VLXMWRNFL VARCHAR(100000),
+	KYF_ALL NUMBER(17,3),
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.'
+);

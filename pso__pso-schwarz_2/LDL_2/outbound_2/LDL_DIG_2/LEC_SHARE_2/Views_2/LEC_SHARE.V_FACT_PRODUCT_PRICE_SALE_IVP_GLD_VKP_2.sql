@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_lec_share.v_fact_product_price_sale_ivp_gld_vkp_2 AS SELECT *
+FROM ldl_dig_core.t_fact_product_price_sale_ivp_gld_vkp_2;

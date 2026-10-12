@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_qs.mv_l_pruef_status_umsatz_2 (pruef_status_umsatz,
+pruef_status_umsatz_bez) AS SELECT pruef_status_id AS pruef_status_umsatz,
+ pruef_status_bez AS pruef_status_umsatz_bez
+FROM kfl_production_dbp_view.v_l_pruef_status_2 AS V01;

@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE idq_production_idq_results.idq_addinfo_cbx_storno_item_2 (
+id BIGNUMERIC(38,0) NOT NULL,
+test_object_id BIGNUMERIC(38,0),
+source_system_primary_key STRING(1000),
+source_system_id BIGNUMERIC(38,0),
+country_id BIGNUMERIC(38,0),
+branch_id BIGNUMERIC(38,0),
+is_relevant BIGNUMERIC(38,0),
+item_no STRING(400),
+ldl_lot_no NUMERIC(20,0),
+ldl_buyer_short_code STRING(400),
+product_category_value STRING(1000),
+ldl_early_delivery_date STRING(400),
+lieferant STRING(1500),
+ldl_completion_type STRING(400),
+ldl_brand_name STRING(400),
+ldl_brand_type STRING(400),
+ldl_cat_indicator BIGNUMERIC(38,0),
+PRIMARY KEY (id) NOT ENFORCED
+);

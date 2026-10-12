@@ -1,0 +1,41 @@
+create or replace view LDL_PRODUCTION.P_LEW_CORE_AC.V_MDM_ADVERTISE_THEME_HIST_2(
+	CLIENT_ID,
+	MDM_AD_THEME_SID,
+	CBX_PROJ_VERSION_NR,
+	CBX_PROJ_DOC_STATUS,
+	CBX_PROJ_CHANGE_TMSP,
+	MDM_PREV_AD_THEME_SID,
+	MDM_RANGE_SEL_SID,
+	AD_THEME_APPROVAL_STATUS,
+	AD_THEME_WORKFLOW_STATUS,
+	AD_THEME_SELL_FROM_DAY,
+	AD_THEME_SELL_FROM_DT,
+	AD_THEME_RESP_BUYER_SID,
+	DELETED_FG,
+	DWH_VALID_FROM,
+	DWH_VALID_TO,
+	DWH_LOAD_ID,
+	DWH_CREATED,
+	DWH_UPDATED
+) as
+   SELECT
+       client_id
+   ,mdm_ad_theme_sid
+   ,cbx_proj_version_nr
+   ,cbx_proj_doc_status
+   ,cbx_proj_change_tmsp
+   ,mdm_prev_ad_theme_sid
+   ,mdm_range_sel_sid
+   ,ad_theme_approval_status
+   ,ad_theme_workflow_status
+   ,ad_theme_sell_from_day
+   ,ad_theme_sell_from_dt
+   ,ad_theme_resp_buyer_sid
+   ,deleted_fg
+   ,dwh_valid_from
+   ,dwh_valid_to
+   ,dwh_load_id
+   ,dwh_created
+   ,dwh_updated
+  FROM p_lew_core.t_mdm_advertise_theme_hist_2
+;

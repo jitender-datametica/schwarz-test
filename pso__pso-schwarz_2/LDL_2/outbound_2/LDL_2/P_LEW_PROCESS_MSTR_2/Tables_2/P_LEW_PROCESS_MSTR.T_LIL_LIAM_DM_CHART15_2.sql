@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_process_mstr.t_lil_liam_dm_chart15_2 (
+client_id BIGNUMERIC(38,0) NOT NULL,
+liam_parnt_clnt_cat_id STRING(216) COLLATE 'und:ci' NOT NULL,
+liam_clnt_cat_id STRING(216) COLLATE 'und:ci' NOT NULL,
+per_id BIGNUMERIC(38,0) NOT NULL,
+rtl_id BIGNUMERIC(38,0) NOT NULL,
+rtl_tp_id BIGNUMERIC(38,0) NOT NULL,
+currency_iso_cd STRING(24) COLLATE 'und:ci' NOT NULL,
+liamvaluelidlcattototalshare NUMERIC(23,5),
+liamvaluepotlidlcattototalshar NUMERIC(23,5),
+valuelidl NUMERIC(23,5),
+valuepotentiallidl NUMERIC(23,5),
+valuepotentialexploitationlidl NUMERIC(23,5),
+valuepotentialexploitation NUMERIC(23,5),
+vpegappp NUMERIC(23,5),
+avplidlsharebar NUMERIC(23,5),
+addedvaluepotentiallidl NUMERIC(23,5),
+liamvaluelidltfmcg NUMERIC(23,5),
+maxrawbuyer BIGNUMERIC(38,0),
+maxrawbuyerlidl BIGNUMERIC(38,0),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

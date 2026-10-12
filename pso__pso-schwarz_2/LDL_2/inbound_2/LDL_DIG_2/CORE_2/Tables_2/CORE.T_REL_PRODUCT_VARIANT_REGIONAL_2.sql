@@ -1,0 +1,50 @@
+/* --------------------------------------------------------------------------------
+   DDL FOR TABLE: T_REL_PRODUCT_VARIANT_REGIONAL_2
+   GENERATED FROM POWERDESIGNER ON Mittwoch, 27. Dezember 2023 14:19:25
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE.T_REL_PRODUCT_VARIANT_REGIONAL_2 (
+   WSHOP_CD                            VARCHAR(5)      NOT NULL COMMENT 'The unique code for the Lidl webshop',
+   PROD_VARIANT_SID                    NUMBER          NOT NULL COMMENT 'The unique identifier (surrogate key) for the product variant',
+   DWH_VALID_FROM_TMSP                 TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record became valid.',
+   DWH_VALID_TO_TMSP                   TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was no longer valid.',
+   DWH_VALID_FG                        BOOLEAN         NOT NULL COMMENT 'An indicator showing the current record in history.',
+   PROD_VARIANT_NR                     VARCHAR(20)     COMMENT 'The original product variant number',
+   REG_PROD_VARIANT_NAME               VARCHAR(100)    COMMENT 'The name by which the product variant is known  in particular webshop',
+   REG_PROD_VARIANT_DESCR              VARCHAR(250)    COMMENT 'Information about product variant in a free text form ( webshop specific )',
+   PROD_SID                            NUMBER          COMMENT 'The surrogate key for the main product ',
+   PROD_NR                             VARCHAR(20)     COMMENT 'The original product number',
+   REG_PROD_NAME                       VARCHAR(100)    COMMENT 'The name by which the main product is known in particular webshop',
+   PROD_TGT_DELIVERY_TIME              NUMBER          COMMENT 'This field comes from the VLT-Tool and tells how much time is expected for the delivery for a specific product variant. The value is country_2 dependant.',
+   TAX_CLASS_CD                        VARCHAR(5)      COMMENT 'The code identifying the tax class',
+   MATERIAL_POS_TYPE_CD                VARCHAR(5)      COMMENT 'The code for the process type a product can be assigned to (e.g NORM, BANS).',
+   DELIVERY_SRC_TYPE_CD                VARCHAR(5)      COMMENT 'The code for source location_2 of product from where it is delivered i.e. from supplier_2 or warehouse directly',
+   PACK_SIZE_HANDLE_GROUP_CD           VARCHAR(5)      COMMENT 'A code for packaging size classification grouped in the bigger buckets based on how many effort is required to handle it - '' 1 person''  , ''2 persons'' etc',
+   PROD_SIZE_HANDLE_GROUP_CD           VARCHAR(10)     COMMENT 'Product size classification defined by Controlling/PM. It divides the product size in types based on their dimensions (P_KT,P_GT,P_2MH, P_Sonst).
+            Necessary for evaluation of variable and fixed costs based on the size group.',
+   PROD_REG_CATALOG_UPDATE_DT          DATE            COMMENT 'Date of the last update of product in product catalog in particular country_2',
+   PROD_REG_CATALOG_INSERT_DT          DATE            COMMENT 'Date when product was inserted in product catalog in particular country_2',
+   FIRST_ONLINE_DT                     DATE            COMMENT 'Date of the first time the product went online in store on product_variant + country_2 level',
+   SHOP_CAT_SID                        NUMBER          COMMENT 'The original shop category code ( may be lower than level 4 )',
+   SHOP_CAT_NAME                       VARCHAR(250)    COMMENT 'The name by which the original shop category is known.',
+   SHOP_CAT_LVL4_SID                   NUMBER          COMMENT 'The unique identifier (surrogate key) for shop category level 4',
+   SHOP_CAT_LVL4_NAME                  VARCHAR(100)    COMMENT 'The name by which the shop category level 4 is known.',
+   SHOP_CAT_LVL3_SID                   NUMBER          COMMENT 'The unique identifier (surrogate key) for shop category level 3',
+   SHOP_CAT_LVL3_NAME                  VARCHAR(100)    COMMENT 'The name by which the shop category level 3 is known.',
+   SHOP_CAT_LVL2_SID                   NUMBER          COMMENT 'The unique identifier (surrogate key) for shop category level 2',
+   SHOP_CAT_LVL2_NAME                  VARCHAR(100)    COMMENT 'The name by which the shop category level 2 is known.',
+   SHOP_CAT_LVL1_SID                   NUMBER          COMMENT 'The unique identifier (surrogate key) for shop category level 1',
+   SHOP_CAT_LVL1_NAME                  VARCHAR(100)    COMMENT 'The name by which the shop category level 1 is known.',
+   PROD_ONLINE_STATUS_CD               VARCHAR(20)     COMMENT 'Code that defines the online status_2 of a product ',
+   PROD_LISTING_STATUS_CD              VARCHAR(20)     COMMENT 'Code that defines the listing status_2 of a product ',
+   SHOP_CAT_LVL4_CD                    NUMBER          COMMENT 'The code by which the shop category level 4 is known.',
+   SHOP_CAT_LVL3_CD                    NUMBER          COMMENT 'The code by which the shop category level 3 is known.',
+   SHOP_CAT_LVL2_CD                    NUMBER          COMMENT 'The code by which the shop category level 2 is known.',
+   SHOP_CAT_LVL1_CD                    NUMBER          COMMENT 'The code by which the shop category level 1 is known.',
+   DWH_CREATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   DWH_UPDATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',
+   DWH_SRC_FILE_NAME                   VARCHAR(255)    NOT NULL COMMENT 'The path and the name of the file(s) from which this record was loaded.',
+   SRC_FILE_TMSP                       TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was extracted from the source.',
+   SRC_TABLE_NAME                      VARCHAR(100)    COMMENT 'The name of the source tables',   
+   CONSTRAINT PK_T_REL_PRODUCT_VARIANT_REGIONAL PRIMARY KEY (PROD_VARIANT_SID, DWH_VALID_FROM_TMSP, WSHOP_CD) NOT ENFORCED 
+)  COMMENT = 'For a product variant, attributes can be different in different countries';

@@ -1,0 +1,20 @@
+create if not exists table IDQ_PRODUCTION.zsm.knbk_2 (
+	mandt varchar(3) not null,
+	kunnr varchar(10) not null,
+	banks varchar(3) not null,
+	bankl varchar(15) not null,
+	bankn varchar(18) not null,
+	bkont varchar(2),
+	bvtyp varchar(4),
+	xezer varchar(1),
+	bkref varchar(20),
+	koinh varchar(60),
+	ebpp_accname varchar(40),
+	ebpp_bvstatus varchar(1),
+	kovon date,
+	kobis date,
+	country_code varchar(2),
+	td_insert timestamp_ltz(9),
+	td_update timestamp_ltz(9),
+	constraint pkey primary key (mandt, kunnr, banks, bankl, bankn)
+);

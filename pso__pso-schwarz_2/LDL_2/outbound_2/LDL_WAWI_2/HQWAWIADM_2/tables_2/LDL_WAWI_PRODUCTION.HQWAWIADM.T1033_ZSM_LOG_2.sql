@@ -1,0 +1,15 @@
+CREATE OR REPLACE TABLE ldl_wawi_production_hqwawiadm.t1033_zsm_log_2 (
+wawi_instanz_kzl STRING(3) COLLATE 'und:ci' NOT NULL,
+c1033_id BIGNUMERIC(38,0) NOT NULL,
+c1033_tstamp DATETIME NOT NULL,
+c1033_object STRING(100) NOT NULL,
+c1033_values STRING(1000) NOT NULL,
+c1033_type STRING(3),
+c1033_appuser STRING(35),
+c1033_osuser STRING(100),
+c1033_idvalue BIGNUMERIC(38,10) NOT NULL,
+scn BIGNUMERIC(38,0) DEFAULT 0,
+delete_fg STRING(1),
+extraction_tmsp DATETIME,
+PRIMARY KEY (c1033_idvalue) NOT ENFORCED
+);

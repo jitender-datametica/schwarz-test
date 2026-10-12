@@ -1,0 +1,28 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TF_SQL_TCACHE_TXJ_520_2_TXJ_520_2
+(
+  CLIENT_ID                         NUMBER(38)                    NOT NULL,
+  LIDL_COUNTRY                      VARCHAR(40)                   NOT NULL,
+  CONTEXT_LOAD_ID                   NUMBER(38,0)                  NOT NULL,
+  SQL_TCACHE_TXJ_520_LOC_SID        NUMBER(10,0)                  NOT NULL,
+  SQL_TCACHE_TXJ_520_RECORD_CD      VARCHAR(12)                   NOT NULL,
+  SQL_TCACHE_TXJ_520_ITEM_SID       NUMBER(10,0)                  NOT NULL,
+  SQL_TCACHE_TXJ_520_DWH_CAL_DT     DATE                          NOT NULL,
+  SQL_TCACHE_TXJ_520_SNAPSHOT_TMSP  TIMESTAMP_NTZ(6)              NOT NULL,
+  LOC_SID                           NUMBER(38)                    NOT NULL,
+  ITEM_SID                          NUMBER(38)                    NOT NULL,
+  ITEM_NR                           VARCHAR(20) COLLATE 'en-ci'   NOT NULL,
+  RECORD_CD                         VARCHAR(12) COLLATE 'en-ci'   NOT NULL,
+  SNAPSHOT_TMSP                     TIMESTAMP_NTZ(6)              NOT NULL,
+  SALES_QTY                         NUMBER(18,5)                  NULL,
+  SALES_VAL                         NUMBER(18,5)                  NULL,
+  RETURNS_QTY                       NUMBER(18,5)                  NULL,
+  RETURNS_VAL                       NUMBER(18,5)                  NULL,
+  VOIDS_QTY                         NUMBER(18,5)                  NULL,
+  VOIDS_VAL                         NUMBER(18,5)                  NULL,
+  DWH_CAL_DT                        DATE                          NOT NULL,
+  EXTRACTION_DT                     DATE                          NULL,
+  DWH_MAPPING_DT                    DATE                          NOT NULL,
+  TF_ERROR_FG                       NUMBER(1,0)                   NULL,
+  RECORD_ID                         VARCHAR(300)                  NOT NULL,
+  FILENAME                          VARCHAR(1000)                 NOT NULL
+);

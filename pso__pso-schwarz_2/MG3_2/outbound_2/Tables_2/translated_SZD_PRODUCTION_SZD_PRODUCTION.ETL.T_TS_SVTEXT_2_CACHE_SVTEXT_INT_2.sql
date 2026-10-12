@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE szd_production_etl.t_ts_svtext_2_cache_svtext_int_2 (
+source_system STRING(2000),
+extraction_date DATE,
+load_id NUMERIC(29,5),
+entitaetsid INTEGER,
+sprid INTEGER,
+textnr NUMERIC(29,5),
+bezeichnung STRING(2000),
+freitext STRING(2000),
+aenddatum TIMESTAMP,
+aendbenid INTEGER,
+dwh_src_file_name STRING(2000),
+dwh_src_1_tmsp TIMESTAMP,
+record_id STRING(1000),
+deleted_fg BOOL,
+error_descr STRING(1000),
+filename STRING(1000),
+hist_row_no STRING(1000),
+dwh_mapping_tmsp TIMESTAMP,
+dwh_ending_tmsp TIMESTAMP,
+error_fg INTEGER,
+dwh_load_id INTEGER
+);

@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_LBS.MV_GRUPPE_USER_MATRIX_NEU_2(
+	GRUPPE_ID,
+	USER_ID
+) AS
+
+SELECT 
+ v01.lbs_gruppe_id
+,CAST ('' AS VARCHAR (10))  AS user_id
+
+FROM dbp_security.lbs_gruppe_2 v01;

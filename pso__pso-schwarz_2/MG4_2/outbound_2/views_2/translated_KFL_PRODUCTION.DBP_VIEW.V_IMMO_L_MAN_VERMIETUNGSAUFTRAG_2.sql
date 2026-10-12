@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_immo_l_man_vermietungsauftrag_2 (mandant_id, man_vermietungsauftrag_id,
+man_vermietungsauftrag_bez) AS SELECT mandant_id,
+ man_vermietungsauftrag_id,
+ man_vermietungsauftrag_bez
+FROM kfl_production_dbp_data.immo_l_man_vermietungsauftrag_2;

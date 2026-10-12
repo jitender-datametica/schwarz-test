@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead_ac.v_item_prpty_lst_lkup_2 (item_prpty_lst_id, item_prpty_lst_id_curr,
+item_prpty_lst_id_cncat, item_prpty_lst_name_at, item_prpty_lst_name_be, item_prpty_lst_name_be_fr,
+item_prpty_lst_name_bg, item_prpty_lst_name_ch, item_prpty_lst_name_cy, item_prpty_lst_name_cz, item_prpty_lst_name,
+item_prpty_lst_name_dk, item_prpty_lst_name_ee, item_prpty_lst_name_es, item_prpty_lst_name_fi, item_prpty_lst_name_fr,
+item_prpty_lst_name_gb, item_prpty_lst_name_gr, item_prpty_lst_name_hr, item_prpty_lst_name_hu, item_prpty_lst_name_ie,
+item_prpty_lst_name_it, item_prpty_lst_name_lt, item_prpty_lst_name_lv, item_prpty_lst_name_ni, item_prpty_lst_name_nl,
+item_prpty_lst_name_de, item_prpty_lst_name_pl, item_prpty_lst_name_pt, item_prpty_lst_name_ro, item_prpty_lst_name_se,
+item_prpty_lst_name_si, item_prpty_lst_name_sk, item_prpty_lst_name_tr, item_prpty_lst_name_cs, item_prpty_lst_name_mt,
+item_prpty_lst_name_us, item_prpty_lst_name_rs) AS SELECT *
+FROM ldl_p_lew_mart_lead.v_item_prpty_lst_lkup_2;

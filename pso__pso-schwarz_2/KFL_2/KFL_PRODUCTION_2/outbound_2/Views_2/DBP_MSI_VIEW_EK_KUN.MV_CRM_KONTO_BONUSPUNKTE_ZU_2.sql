@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ek_kun.mv_crm_konto_bonuspunkte_zu_2 AS SELECT crm_konto_id,
+ SUM(anz_einloesbare_bonuspunkte) AS anz_einloesbare_bonuspunkte,
+ SUM(anz_eingeloeste_bonuspunkte) AS anz_eingeloeste_bonuspunkte,
+ SUM(anz_verfallene_bonuspunkte) AS anz_verfallene_bonuspunkte
+FROM kfl_production_dbp_view.v_crm_konto_bonuspunkte_zu_2 AS V01
+GROUP BY crm_konto_id;

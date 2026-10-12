@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_itm_missing_hist2_0_2_item_missing_progress_2 (
+client_id BIGNUMERIC(38),
+lidl_country STRING(40),
+itm_missing_hist2_0_zmmi_no STRING(20) NOT NULL,
+itm_missing_hist2_0_zmmi_pos INTEGER NOT NULL,
+item_missing_id NUMERIC(20,0),
+item_missing_progress_id BIGNUMERIC(38),
+missing_activity_cd STRING(20),
+missing_state_cd STRING(20),
+missing_state_prev_cd STRING(20),
+missing_reason_cd STRING(20),
+missing_reason_prev_cd STRING(20),
+creation_dttm DATETIME,
+change_dttm DATETIME,
+dwh_cal_dt DATE,
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

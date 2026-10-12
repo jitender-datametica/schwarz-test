@@ -1,0 +1,51 @@
+create or replace view KFL_PRODUCTION.DBP_MSI_VIEW_EK_INT.MV_ARTBEW_MO_EK_CP_SUM_2(
+	MANDANT_ID,
+	ART_ID,
+	BEWART_ID,
+	WUP_ID,
+	NB_ID,
+	KJMO,
+	WRG_ID,
+	WUP_BEREINIGT_FG,
+	ZEK_ID,
+	EIGENMARKE_FG,
+	UMSATZ_NETTO,
+	UMSATZ_NETTO_VJ,
+	BETRAG_KMEP,
+	BETRAG_KMEP_VJ,
+	BETRAG_KMEP_O_FWU,
+	BETRAG_KMEP_O_FWU_VJ,
+	LOGKOSTENZUSCHLAG,
+	LOGKOSTENZUSCHLAG_VJ,
+	WERBE_ABSCHRIFT_NETTO,
+	WERBE_ABSCHRIFT_NETTO_VJ,
+	PREIS_ABSCHRIFT_NETTO,
+	PREIS_ABSCHRIFT_NETTO_VJ
+) as
+   SELECT
+   mandant_id,
+   art_id,
+   bewart_id,
+   wup_id,
+   nb_id,
+   kjmo,
+   wrg_id,
+   wup_bereinigt_fg,
+   zek_id,
+   eigenmarke_fg,
+   --menge, nicht in MO enthalten
+   umsatz_netto,
+   umsatz_netto_vj,
+   betrag_kmep,
+   betrag_kmep_vj,
+   betrag_kmep_o_fwu,
+   betrag_kmep_o_fwu_vj,
+   logkostenzuschlag,
+   logkostenzuschlag_vj,
+   werbe_abschrift_netto,
+   werbe_abschrift_netto_vj,
+   preis_abschrift_netto,
+   preis_abschrift_netto_vj
+   
+   FROM dbp_view.v_artbew_mo_ek_cp_sum_2
+   WHERE NOT (art_id IN (98001300, 98001310, 98001320) AND mandant_id = 6);

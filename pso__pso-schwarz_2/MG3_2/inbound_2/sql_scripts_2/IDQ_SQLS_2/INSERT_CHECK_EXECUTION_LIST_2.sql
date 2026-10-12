@@ -1,0 +1,22 @@
+INSERT INTO dbo.CHECK_EXECUTION_LIST_2
+(
+rule_id 
+,source_system_id 
+,source_system_type_id 
+,country_id 
+,branch_id 
+,test_object_type_id 
+,execution_date
+,execution_day_id 
+)
+VALUES
+(
+:rule_id 
+,:source_system_id 
+,:source_system_type_id 
+,:country_id 
+,:branch_id 
+,:test_object_type_id 
+,:execution_date
+,:execution_day_id 
+)

@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_org_salesorg_999_2 (
+client_id BIGNUMERIC(38) NOT NULL,
+st_loc_sid BIGNUMERIC(38) NOT NULL,
+dat_rec_start DATE NOT NULL,
+dat_rec_end DATE NOT NULL,
+sales_manager_id BIGNUMERIC(38) NOT NULL,
+sales_manager_name STRING(50) COLLATE 'und:ci',
+account_manager_id BIGNUMERIC(38) NOT NULL,
+account_manager_name STRING(50) COLLATE 'und:ci',
+store_manager_id BIGNUMERIC(38) NOT NULL,
+store_manager_name STRING(50) COLLATE 'und:ci',
+organisation_id BIGNUMERIC(38) NOT NULL,
+general_manager_id STRING(9) COLLATE 'und:ci' NOT NULL,
+general_manager_name STRING(32) COLLATE 'und:ci',
+district_id STRING(200) COLLATE 'und:ci' NOT NULL,
+dat_valid_from DATE NOT NULL,
+dat_valid_until DATE,
+wh_loc_sid_exp BIGNUMERIC(38) NOT NULL,
+load_id BIGNUMERIC(38) NOT NULL
+);

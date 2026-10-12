@@ -1,0 +1,5 @@
+create or replace TRANSIENT TABLE MV_DATUMSART_SPR_ZU_2 (
+        MANDANT_ID NUMBER(38,0),
+        DATUMSART_ID VARCHAR(2) COLLATE 'en-ci',
+        DATUMSART_BEZ VARCHAR(50) COLLATE 'en-ci'
+);

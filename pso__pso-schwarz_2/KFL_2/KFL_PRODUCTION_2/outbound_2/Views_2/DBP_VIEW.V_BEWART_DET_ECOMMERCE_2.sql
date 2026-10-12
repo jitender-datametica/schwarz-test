@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_bewart_det_ecommerce_2 AS SELECT kundenkarte_id,
+ mandant_id
+FROM kfl_production_dbp_data.bewart_det_ecommerce_2;

@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW smp_production_data_shared_ldl_wawi.hqwawiadm_t024_wawi_item_dep_2 (wawi_instanz_kzl, seqid,
+itemno_head, itemno_detail, posno, quantity, transferdate, transferflag, action_flag, location_2, scn, delete_fg,
+extraction_tmsp) AS SELECT wawi_instanz_kzl,
+ seqid,
+ itemno_head,
+ itemno_detail,
+ posno,
+ quantity,
+ transferdate,
+ transferflag,
+ action_flag,
+ location_2,
+ scn,
+ delete_fg,
+ extraction_tmsp
+FROM ldl_wawi_production_hqwawiadm.t024_wawi_item_dep_2;

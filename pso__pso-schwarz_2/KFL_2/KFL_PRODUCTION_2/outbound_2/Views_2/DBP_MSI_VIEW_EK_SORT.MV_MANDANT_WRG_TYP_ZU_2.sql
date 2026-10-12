@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ek_sort.mv_mandant_wrg_typ_zu_2 AS SELECT *
+FROM kfl_production_dbp_view.v_mandant_wrg_typ_zu_2 AS V01;

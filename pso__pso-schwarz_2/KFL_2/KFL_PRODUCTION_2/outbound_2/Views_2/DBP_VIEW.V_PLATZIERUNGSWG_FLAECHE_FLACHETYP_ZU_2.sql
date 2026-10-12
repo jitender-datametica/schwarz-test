@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_platzierungswg_flaeche_flachetyp_zu_2 AS SELECT mandant_id,
+ platzierungswg_id,
+ ginfo_flaeche_id,
+ ginfo_flaeche_typ_id,
+ techn_platz_id,
+ flaeche_quelle_id
+FROM kfl_production_dbp_data.platzierungswg_flaeche_flachetyp_zu_2;

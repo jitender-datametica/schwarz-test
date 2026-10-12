@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_bonuskauf_rabatttype_spr_zu_2 AS SELECT bonuskauf_rabatttype_id,
+ spr_id,
+ bonuskauf_rabatttype_bez
+FROM kfl_production_dbp_data.bonuskauf_rabatttype_spr_zu_2;

@@ -1,0 +1,10 @@
+CREATE OR REPLACE FUNCTION SNOWCONVERT.PUBLIC.MONTHS2INTERVAL_UDF("INPUT_PART" VARCHAR(30), "INPUT_VALUE" NUMBER(38,0))
+RETURNS VARCHAR(16777216)
+LANGUAGE SQL
+AS '
+DECODE(INPUT_PART,
+                ''YEAR'',                (INPUT_VALUE/(12))::varchar,
+                ''YEAR TO MONTH'',       TRUNC(INPUT_VALUE / 12) ||''-''|| MOD(INPUT_VALUE, 12)::varchar,     
+                ''MONTH'',               INPUT_VALUE::varchar
+)
+';

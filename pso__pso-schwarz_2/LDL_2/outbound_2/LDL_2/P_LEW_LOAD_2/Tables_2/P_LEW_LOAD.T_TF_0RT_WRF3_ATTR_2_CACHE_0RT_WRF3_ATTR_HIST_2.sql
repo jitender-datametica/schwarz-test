@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_0rt_wrf3_attr_2_cache_0rt_wrf3_attr_hist_2 (
+client_id BIGNUMERIC(38,0),
+lidl_country STRING(40),
+rt_wrf3_attr_werks STRING(8),
+rt_wrf3_attr_matkl STRING(18),
+rt_wrf3_attr_loclb STRING(8),
+rt_wrf3_attr_datbi DATE,
+bic_zmlila STRING(60),
+werks STRING(60),
+matkl STRING(60),
+loclb STRING(60),
+datab DATE,
+datbi DATE,
+prioritaet BIGNUMERIC(38,0),
+odq_changemode STRING(60),
+odq_entitycntr NUMERIC(18,5),
+deleted_fg BIGNUMERIC(38,0),
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

@@ -1,0 +1,25 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TF_LIL_ASSORT_REGION_CAT_2_LIL_ASSORT_REGION_CAT_2
+(
+  CLIENT_ID                                       NUMBER(38)                    NOT NULL,
+  LIDL_COUNTRY                                    VARCHAR(40)                   NOT NULL,
+  LIL_ASSORT_REGION_CAT_SRC_REGION_CD             VARCHAR(250)                  NOT NULL,
+  LIL_ASSORT_REGION_CAT_SRC_ASSORT_CAT_CD         VARCHAR(250)                  NOT NULL,
+  LIL_ASSORT_REGION_CAT_SRC_ASSORT_PARENT_CAT_CD  VARCHAR(250)                  NOT NULL,
+  SRC_REGION_CD                                   VARCHAR(40)                   NOT NULL,
+  SRC_ASSORT_PARENT_CAT_CD                        VARCHAR(200)                  NOT NULL,
+  SRC_ASSORT_CAT_CD                               VARCHAR(600)                  NOT NULL,
+  ASSORT_REGION_CAT_ID                            VARCHAR(27) COLLATE 'en-ci'   NOT NULL,
+  ASSORT_PARNT_CAT_NAME_DE                        VARCHAR(100) COLLATE 'en-ci'  NOT NULL,
+  ASSORT_PARNT_CAT_NAME_EN                        VARCHAR(100) COLLATE 'en-ci'  NOT NULL,
+  ASSORT_CHLD_CAT_NAME_DE                         VARCHAR(100) COLLATE 'en-ci'  NOT NULL,
+  ASSORT_CHLD_CAT_NAME_EN                         VARCHAR(100) COLLATE 'en-ci'  NOT NULL,
+  SEL_SRT_CD                                      NUMBER(38)                    NULL,
+  DATA_AVBL_NOPROMO_FG                            NUMBER(38)                    NULL,
+  DATA_AVBL_PROMO_FG                              NUMBER(38)                    NULL,
+  ACTIVE_FG                                       NUMBER(38)                    NULL,
+  EXTRACTION_DT                                   DATE                          NULL,
+  DWH_MAPPING_DT                                  DATE                          NOT NULL,
+  TF_ERROR_FG                                     NUMBER(1,0)                   NULL,
+  RECORD_ID                                       VARCHAR(300)                  NOT NULL,
+  FILENAME                                        VARCHAR(1000)                 NOT NULL
+);

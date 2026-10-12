@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_v_view.v_fipo_webservice_url_2 AS SELECT fipo_anlage_url
+FROM kfl_production_dbp_msi_data.fipo_webservice_url_2;

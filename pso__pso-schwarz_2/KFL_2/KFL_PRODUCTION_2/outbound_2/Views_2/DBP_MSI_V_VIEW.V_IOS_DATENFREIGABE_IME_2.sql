@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_v_view.v_ios_datenfreigabe_ime_2 AS SELECT user_id,
+ ime_fg
+FROM kfl_production_dbp_msi_data.ios_datenfreigabe_ime_2;

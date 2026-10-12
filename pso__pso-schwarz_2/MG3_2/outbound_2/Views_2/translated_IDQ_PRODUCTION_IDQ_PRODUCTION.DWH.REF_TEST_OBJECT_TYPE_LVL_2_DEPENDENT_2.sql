@@ -1,0 +1,22 @@
+CREATE OR REPLACE VIEW idq_production_dwh.ref_test_object_type_lvl_2_dependent_2 (dependent_ref_test_object_type_level_2_id
+, dependent_is_dummy, dependent_test_object_type, dependent_test_object_type_extended_name,
+dependent_test_object_type_extended_name_de, dependent_test_object_type_extended_name_en,
+dependent_test_object_type_extended_change_by, dependent_test_object_type_extended_last_change,
+dependent_test_object_type_extended_from_date, dependent_test_object_type_extended_to_date,
+dependent_ref_test_object_type_level_1_id) AS SELECT id AS dependent_ref_test_object_type_level_2_id,
+  CASE
+  WHEN id = level_1_id
+  THEN 1
+  ELSE 0
+  END AS dependent_is_dummy,
+ test_object_type AS dependent_test_object_type,
+ name_de AS dependent_test_object_type_extended_name,
+ name_de AS dependent_test_object_type_extended_name_de,
+ name_en AS dependent_test_object_type_extended_name_en,
+ change_by AS dependent_test_object_type_extended_change_by,
+ last_change AS dependent_test_object_type_extended_last_change,
+ from_date AS dependent_test_object_type_extended_from_date,
+ to_date AS dependent_test_object_type_extended_to_date,
+ level_1_id AS dependent_ref_test_object_type_level_1_id
+FROM idq_production_idq_results.ref_test_object_type_extended_2 AS tote
+WHERE level_3_id IS NULL;

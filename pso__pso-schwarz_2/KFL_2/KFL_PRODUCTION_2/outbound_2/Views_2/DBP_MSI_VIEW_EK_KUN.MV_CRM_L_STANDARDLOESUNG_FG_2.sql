@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ek_kun.mv_crm_l_standardloesung_fg_2 (standardloesung_fg) AS SELECT
+ flag AS standardloesung_fg
+FROM kfl_production_dbp_data.flag_spr_zu_2
+GROUP BY standardloesung_fg;

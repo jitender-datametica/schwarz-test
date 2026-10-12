@@ -1,0 +1,20 @@
+/* --------------------------------------------------------------------------------
+   DDL for table: t_warehouse_order_area_hist_2
+   generated from Powerdesigner on Mittwoch, 6. März 2024 09:51:21
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE P_LEW_CORE.T_WAREHOUSE_ORDER_AREA_HIST_2 CLUSTER BY (CLIENT_ID) (
+   client_id                           NUMBER(38,0)     NOT NULL COMMENT 'DWH-Mandant_2;',
+   loc_sid_wh                          NUMBER(38,0)     NOT NULL COMMENT 'reference to the WH',
+   order_area_sid                      NUMBER(38,0)     NOT NULL COMMENT 'reference to the Order Area',
+   wh_order_area_name                  VARCHAR(100)     COMMENT 'name describing the order area within a WH - may or may not be the same as the general name of the order area',
+   deleted_fg                          NUMBER(38,0)     NOT NULL COMMENT 'indication, whether the relationship is still active (deleted_fg = 0) or inactive (deleted_fg = 1)',
+   dwh_valid_from                      DATE             NOT NULL COMMENT 'Begin of the validity_2 interval of the record, oldest record of the history starts with 1900-01-01 (minus infinity).',
+   dwh_valid_to                        DATE             NOT NULL COMMENT 'End of the validity_2 interval of the record, newest record of the history ends with 9999-12-30 (plus infinity).',
+   dwh_load_id                         NUMBER(38,0)     NOT NULL COMMENT 'Identifier of the last run which inserted or updated the record. -1 means manually inserted.',
+   dwh_created                         TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Creation timestamp of the record in the DWH.',
+   dwh_updated                         TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Timestamp of the last update of the record in the DWH.',   
+   CONSTRAINT PK_T_WAREHOUSE_ORDER_AREA_HIST PRIMARY KEY (loc_sid_wh, order_area_sid, dwh_valid_from) NOT ENFORCED 
+)  COMMENT = '$Revision: 0000 $. Order areas ("Bestellbereiche") defined for a warehouse - based on the general set of order areas. Items are then related to specific order areas.
+             Example: Non-Food -> dog toy or T-shirt; Bake-Off -> bread; Cooling -> yoghurt';
+

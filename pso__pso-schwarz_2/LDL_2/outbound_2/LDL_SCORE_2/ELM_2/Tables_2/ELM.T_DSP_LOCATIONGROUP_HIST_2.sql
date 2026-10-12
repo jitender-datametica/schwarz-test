@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_score_elm.t_dsp_locationgroup_hist_2 (
+dispoid BIGNUMERIC(38,0) NOT NULL,
+locationsgroupid BIGNUMERIC(38,0) NOT NULL,
+locationgrouptypeid BIGNUMERIC(38,0),
+locationid BIGNUMERIC(38,0),
+changedate DATE,
+changeuser BIGNUMERIC(38,0),
+locgrouptimelineparentid BIGNUMERIC(38,0),
+locgrouptimelinedatefrom DATE,
+locgrouptimelinedateuntil DATE,
+locgrouptimelineownerlocid BIGNUMERIC(38,0),
+locgrouptimelineshort STRING(250),
+locgrouptimelinedesc STRING(250),
+source_extraction_tmsp ARRAY < STRING >,
+tech_valid_from TIMESTAMP NOT NULL,
+tech_valid_to TIMESTAMP NOT NULL,
+snflk_insert_tmsp TIMESTAMP NOT NULL,
+snflk_update_tmsp TIMESTAMP NOT NULL,
+PRIMARY KEY (dispoid, locationsgroupid) NOT ENFORCED
+);

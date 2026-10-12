@@ -1,0 +1,10 @@
+CREATE TABLE p_lew_mart_msi.t_msi_sys_revision_load_store_wrk_2
+(
+client_id SMALLINT NOT NULL,
+wh_loc_sid INTEGER NOT NULL,
+st_loc_sid INTEGER NOT NULL,
+orig_store_nr INTEGER,
+dat_formdate_from DATE NOT NULL,
+dat_formdate_until DATE NOT NULL,
+load_in_progress_fg BYTEINT DEFAULT 1 NOT NULL );
+

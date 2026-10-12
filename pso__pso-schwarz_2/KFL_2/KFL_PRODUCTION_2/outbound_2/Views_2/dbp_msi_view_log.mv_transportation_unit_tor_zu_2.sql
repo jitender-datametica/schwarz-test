@@ -1,0 +1,21 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_log.mv_transportation_unit_tor_zu_2 (mandant_id, transportation_unit_id
+, kj_transportation_unit, transportation_unit_sr_act_id, lagernummer_id, tor_id, tor_sr_act_id, datzeit_start_ist,
+datzeit_ende_ist, gp_id, wup_id, nb_id, konsolidierungsgruppe_id, spur_kapazitaet, spur_voll_fg,
+spur_planung_quittiert_fg, spurgruppe_id) AS SELECT mandant_id,
+ transportation_unit_id,
+ kj_transportation_unit,
+ transportation_unit_sr_act_id,
+ lagernummer_id,
+ tor_id,
+ tor_sr_act_id,
+ datzeit_start_ist,
+ datzeit_ende_ist,
+ gp_id,
+ wup_id,
+ nb_id,
+ konsolidierungsgruppe_id,
+ spur_kapazitaet,
+ spur_voll_fg,
+ spur_planung_quittiert_fg,
+ spurgruppe_id
+FROM kfl_production_dbp_view.v_transportation_unit_tor_zu_2;

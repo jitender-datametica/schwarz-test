@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.ivs_branche_vorgabe_2 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+miet_region_id BIGNUMERIC(38,0) NOT NULL,
+branche_id STRING(3) COLLATE 'und:ci' NOT NULL,
+konzessionaer_id STRING(20) COLLATE 'und:ci' NOT NULL,
+flaeche_groesse_von NUMERIC(18,2) DEFAULT 0 NOT NULL,
+flaeche_groesse_bis NUMERIC(18,2) DEFAULT 999999.99 NOT NULL,
+kunden_anzahl_von BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+kunden_anzahl_bis BIGNUMERIC(38,0) DEFAULT 999999999 NOT NULL,
+kaufland_baecker_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+kj BIGNUMERIC(38,0) NOT NULL,
+bl_id STRING(3) COLLATE 'und:ci' NOT NULL,
+branche_mix STRING(40) COLLATE 'und:ci',
+vorgabe_prozent NUMERIC(18,4),
+vorgabe_betrag NUMERIC(18,4),
+vorgabe_prodvt NUMERIC(18,4),
+vorgabe_miete NUMERIC(18,4),
+vorgabe_achsen_abschnitt BIGNUMERIC(18,12),
+vorgabe_steigung BIGNUMERIC(18,12),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

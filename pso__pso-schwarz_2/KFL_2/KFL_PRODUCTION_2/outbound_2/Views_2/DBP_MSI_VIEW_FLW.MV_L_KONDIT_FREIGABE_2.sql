@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_flw.mv_l_kondit_freigabe_2 (mandant_id, kondition_id,
+in_verkaufsorganisation_id, in_vw_id, in_art_id, konditionsart_id, applikation_id, preisliste_typ_id, wrg_id,
+freigabe_status_id, dat_von, dat_bis, bearbeitung_status_id) AS SELECT mandant_id,
+ kondition_id,
+ flw_verkaufsorganisation_id AS in_verkaufsorganisation_id,
+ flw_vw_id AS in_vw_id,
+ flw_art_id AS in_art_id,
+ konditionsart_id,
+ applikation_id,
+ preisliste_typ_id,
+ wrg_id,
+ freigabe_status_id,
+ dat_von,
+ dat_bis,
+ bearbeitung_status_id
+FROM kfl_production_dbp_view.v_flw_kondit_freigabe_2;

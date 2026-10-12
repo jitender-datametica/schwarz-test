@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process_ac.v_wawi_sys_bo_client_to_be_loaded_2 (client_id) AS SELECT client_id
+FROM ldl_p_lew_process.t_wawi_sys_bo_client_to_be_loaded_2;

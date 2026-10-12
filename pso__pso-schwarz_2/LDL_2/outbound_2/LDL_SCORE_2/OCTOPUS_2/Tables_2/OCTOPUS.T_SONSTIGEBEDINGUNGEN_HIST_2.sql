@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_score_octopus.t_sonstigebedingungen_hist_2 (
+id STRING(200),
+sortierregel STRING(1000),
+empfangsland STRING(1000),
+logistiktyp STRING(1000),
+ang_sheet STRING(1000),
+abgangsort_name STRING(1000),
+abgangsort_adresse STRING(1000),
+transporttyp_code STRING(1000),
+transporttyp_bezeichnung STRING(1000),
+text STRING(1000),
+angebotid STRING(1000),
+record_id BIGNUMERIC(38,5),
+extraction_date DATE,
+bic_zmlila STRING(1000),
+extraction_ts DATETIME,
+source_system STRING(1000),
+source_extraction_tmsp ARRAY < STRING >,
+tech_valid_from TIMESTAMP NOT NULL,
+tech_valid_to TIMESTAMP NOT NULL,
+snflk_insert_tmsp TIMESTAMP NOT NULL,
+snflk_update_tmsp TIMESTAMP NOT NULL
+);

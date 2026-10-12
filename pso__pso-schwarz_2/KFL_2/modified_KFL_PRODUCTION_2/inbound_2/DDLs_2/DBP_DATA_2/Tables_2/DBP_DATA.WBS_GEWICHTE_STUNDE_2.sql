@@ -1,0 +1,23 @@
+CREATE TABLE DBP_DATA.WBS_GEWICHTE_STUNDE_2 (
+   mandant_id                          INTEGER    NOT NULL COMMENT 'Mandant_2 im DWH',
+   wup_id                              INTEGER    NOT NULL COMMENT 'Mutter Wup_2 ID wird verwendet für Beziehung Lager zu Verteilzentrum',
+   nb_id                               INTEGER    NOT NULL COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer',
+   art_id                              INTEGER    NOT NULL COMMENT 'Input: Artikel_2 - Id einschliesslich der Generationen - ID (9-stellig); Output: 7stellige L&S-ID + Counter = 8stellige ArtikelID. WWNNNNPC (Warengruppe, Nummer, Prüfziffer, Counter) Regel: Neuer Artikel_2 -> Counter +1',
+   aktion_id                           VARCHAR(10)     COLLATE 'en-ci' NOT NULL COMMENT 'Eindeutige Kennung einer Aktion_2 aus der Quelle wakh.aktnr',
+   dat_von                             DATE            COMMENT 'YYYY-MM_2-DD // Aktion_2 gültig (von)',
+   dat_bis                             DATE            COMMENT 'YYYY-MM_2-DD // Aktion_2 gültig (bis)',
+   anzahl_faelle                       INTEGER    COMMENT 'Die Zahl der für die Berechnung verwendeter Fälle.',
+   anzahl_faelle_im_korridor           INTEGER    COMMENT 'Die Zahl der für die Berechnung verwendeter Fälle im Berechnungskorridor.',
+   korridor_level                      INTEGER    COMMENT 'Berechnete Werte aus Stundengewichten (WERBEANTEIL_IM_ZEITFENSTER) werden im AdjustmentCore mit einem Korridor (MIN_MENGE & MAX_MENGE) plausibilisert und bei Abweichung korrigiert.',
+   kategorie                           VARCHAR(100)    COMMENT 'Kennzeichnung, der Berechnungsgrundlage zu Evaluation:stable == Original Bondatensearch == Angereicherte Datenall == Aggregierte Daten',
+   menge_max                           INTEGER    COMMENT 'Maximale Korridormenge',
+   menge_min                           INTEGER    COMMENT 'Minimale Korridormenge',
+   menge_avg_21tage                    NUMBER(29,4)   COMMENT 'Durchschnittsmenge 21 Tage vor der jeweiligen Werbung (Sonntag zu Sonntag).',
+   anteil_zeitfenster1                 NUMBER(29,4)   COMMENT 'Geschätzter Anteil an IInitialmenge für Zeitfenster 1',
+   anteil_zeitfenster2                 NUMBER(29,4)   COMMENT 'Geschätzter Anteil an IInitialmenge für Zeitfenster 2',
+   referenziert_fg                     INTEGER    COMMENT 'Flag, ob die Berechnungsgrundlage mittels Referenzartikeln stabilisiert wurde.',
+   wbs_level                               VARCHAR(100)    COMMENT 'Berechnungsebene der Gewichte:  item_2 country_2:	3 ,wg_wug store: 4,wg store:	5,wg_wug country_2:	6 ,wg country_2:	7 ,default:	8',
+   wbs_level_id                            INTEGER    COMMENT 'Id der Berechnungsebene der Gewichte',
+   TD_UPDATE 	TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   TD_INSERT 	TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration'
+);

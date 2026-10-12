@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_in_art_2 AS SELECT mandant_id,
+ in_art_id,
+ in_art_nr,
+ basismenge_einh_id,
+ artikelart_id,
+ best_menge_einh_id,
+ art_id,
+ in_wg_id,
+ system_id,
+ einkaeufer_bis_int_id,
+ einkaeufer_grp_id,
+ pos_typ_id,
+ status_kz,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.in_art_2;

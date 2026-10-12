@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi.v_ref_wh_interface_2 (client_id, wh_loc_sid, system_key, system_desc,
+interface_key, interface_desc, dat_rec_start, dat_rec_end, load_id) AS SELECT *
+FROM ldl_p_lew_core_ac.v_wawi_ref_wh_interface_2;

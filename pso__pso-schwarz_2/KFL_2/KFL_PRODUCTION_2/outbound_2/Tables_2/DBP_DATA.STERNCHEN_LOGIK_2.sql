@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.sternchen_logik_2 (
+art_id BIGNUMERIC(38,0) NOT NULL,
+vw_id BIGNUMERIC(38,0) NOT NULL,
+sm_id BIGNUMERIC(38,0) DEFAULT - 9 NOT NULL,
+dat_von DATE NOT NULL,
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+dat_bis DATE NOT NULL,
+list_durchg_fg BIGNUMERIC(38,0) NOT NULL,
+bezugsweg1_fg BIGNUMERIC(38,0) NOT NULL,
+bezugsweg4_fg BIGNUMERIC(38,0) NOT NULL,
+kdis0_fg BIGNUMERIC(38,0) NOT NULL,
+kdis1_fg BIGNUMERIC(38,0) NOT NULL,
+anzahl_markt_soll BIGNUMERIC(38,0) NOT NULL,
+anzahl_markt_listung BIGNUMERIC(38,0),
+anzahl_markt_bezugsweg1 BIGNUMERIC(38,0),
+anzahl_markt_bezugsweg4 BIGNUMERIC(38,0),
+anzahl_markt_kdis0 BIGNUMERIC(38,0),
+anzahl_markt_kdis1 BIGNUMERIC(38,0),
+ksm_id STRING(4) COLLATE 'und:ci' DEFAULT '-9' NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

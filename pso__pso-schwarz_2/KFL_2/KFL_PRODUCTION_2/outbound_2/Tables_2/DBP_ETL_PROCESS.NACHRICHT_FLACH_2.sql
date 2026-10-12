@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl_process.nachricht_flach_2 (
+mandant_id BIGNUMERIC(38,0),
+nachricht_workflow_id STRING(100),
+nachricht_vorlage_id STRING(100),
+kommunikationskanal_id BIGNUMERIC(38,0),
+kampagne_id STRING(100),
+kampagne_kunde_id STRING(100),
+email_domain_name STRING(100),
+kjmo INTEGER,
+nachricht_subvorlage_name_liste_txt STRING(16777216),
+blockiert_typ_name STRING(200),
+bounce_typ_name STRING(100),
+gesendet INTEGER,
+blockiert INTEGER,
+zugestellt INTEGER,
+bounced_soft INTEGER,
+bounced_hard INTEGER,
+geoeffnet INTEGER,
+spam INTEGER,
+geklickt INTEGER,
+abgemeldet INTEGER
+);

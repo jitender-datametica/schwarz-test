@@ -1,0 +1,24 @@
+Insert into CHECK_DQ_BY_FIELD_HISTORICAL_2
+        (test_object_type_id
+        ,source_system_id
+        ,source_system_type_id
+        ,branch_id
+        ,country_id
+        ,field_id
+        ,calculation_time
+        ,calculation_day_id
+        ,score
+        ,test_object_amount
+        ,is_usable)
+values
+        (:test_object_type_id,
+         :source_system_id,
+         :source_system_type_id,
+         :branch_id,
+         :country_id,
+         :field_id,
+         :calculation_time,
+         :calculation_day_id,
+         :score,
+         :test_object_amount,
+         :is_usable);

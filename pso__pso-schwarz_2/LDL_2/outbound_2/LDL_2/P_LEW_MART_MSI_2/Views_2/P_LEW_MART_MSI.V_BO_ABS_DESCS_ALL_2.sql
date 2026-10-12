@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi.v_bo_abs_descs_all_2 AS SELECT client_id,
+ country_desc,
+ country_id,
+ country_iso_cd,
+ store_id,
+ orig_store_nr,
+ store_desc,
+ city,
+ wh_id,
+ wh_desc,
+ sales_manager_id,
+ sales_manager_name,
+ account_manager_id,
+ account_manager_name
+FROM ldl_p_lew_mart_msi.v_bo_descs_2 AS A;

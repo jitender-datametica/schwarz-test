@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_dispo_replenish_order_wh_record_2_replenish_order_wh_record_2 (
+record_id STRING(1000) COLLATE 'und:ci',
+client_id BIGNUMERIC(38),
+loc_sid BIGNUMERIC(38),
+order_record_id STRING(20) COLLATE 'und:ci',
+order_seq_nr BIGNUMERIC(38),
+order_created_tmsp DATETIME,
+order_updated_tmsp DATETIME,
+order_status_cd BIGNUMERIC(38),
+order_batch_id BIGNUMERIC(38),
+sup_sid BIGNUMERIC(38),
+delivery_dt DATE,
+dwh_cal_dt DATE,
+dwh_load_id BIGNUMERIC(38),
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tcache_cust_predictive_2 (
+customer_sid BIGNUMERIC,
+country_2 STRING(10),
+store_churn_30 NUMERIC(18,5),
+store_churn_90 NUMERIC(18,5),
+app_churn_30 NUMERIC(18,5),
+app_churn_90 NUMERIC(18,5),
+cltv_365 NUMERIC(18,5),
+store_app_cltv_fdef_date DATE,
+store_churn_date DATE,
+app_churn_date DATE,
+cltv_date DATE,
+store_churn_ts DATETIME,
+app_churn_ts DATETIME,
+cltv_ts DATETIME,
+extraction_dt DATE,
+dwh_load_id BIGNUMERIC,
+dwh_created DATETIME,
+dwh_updated DATETIME
+);

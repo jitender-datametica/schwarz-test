@@ -1,0 +1,117 @@
+/*
+#----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS
+#----------------------------------------------------------------------------
+# Interface: DDL for P_LEW_MART_CS_AC.v_bo_abs_wgi_mth_2
+#----------------------------------------------------------------------------
+# History:
+#  1.0  15.03.2021    Gunes, Oguzhan               Transfer to Snowflake.
+#                                                  https://jira.schwarz/browse/DDLE-1783
+#                                                  Create scripts for snowflake standardisation.
+#----------------------------------------------------------------------------
+*/
+CREATE OR REPLACE VIEW p_lew_mart_cs_ac.v_bo_abs_wgi_mth_2 (
+  client_id
+ ,country_desc
+ ,country_id
+ ,country_iso_cd
+ ,store_id
+ ,orig_store_nr
+ ,store_desc
+ ,city
+ ,wh_id
+ ,wh_desc
+ ,sales_manager_id
+ ,sales_manager_name
+ ,account_manager_id
+ ,account_manager_name
+ ,item_wgi_id
+ ,cy_month
+ ,week_page_by
+ ,currency_iso_cd
+ ,val_rtl_rl_sfo_store_asis
+ ,val_rtl_rl_net_sfo_store_asis
+ ,val_rtl_rl_sfo_store_asis_py
+ ,val_rtl_rl_net_sfo_str_asis_py
+ ,val_wrtoff_zero_asis
+ ,val_wrtoff_zero_net_asis
+ ,val_discount_sfo_asis
+ ,val_discount_net_sfo_asis
+ ,sfo_to_val_retail_pct
+ ,sfo_to_val_retail_net_pct
+ ,sfo_to_val_retail_pct_py
+ ,sfo_to_val_retail_net_pct_py
+ ,val_rtl_wgi_to_total_pct
+ ,val_rtl_net_wgi_to_net_tot_pct
+ ,val_rtl_total
+ ,val_rtl_net_total
+ ,val_rtl_ejr_adj_asis
+ ,val_rtl_net_ejr_adj_asis
+ ,val_rtl_ejr_adj_asis_py
+ ,val_rtl_net_ejr_adj_asis_py
+ ,top20_val_rtl_sfo_st_sfo_rel
+ ,top20_val_rtl_net_st_sfo_rel
+ ,top20_val_rtl_ejr_adj_sfo_rel
+ ,top20_val_rtl_net_ejr_sfo_rel
+ ,top20_val_rtl_total_rev
+ ,top20_val_rtl_net_total_rev
+ ,top20_val_rtl_pct_rev
+ ,top20_val_rtl_net_pct_rev
+ ,top20_sfo_to_val_retail_pct
+ ,top20_sfo_to_val_rtl_net_pct
+ ,top20_val_rtl_to_val_total_pct
+ ,top20_val_rtl_to_net_tot_pct
+) AS
+SELECT 
+  client_id
+ ,country_desc
+ ,country_id
+ ,country_iso_cd
+ ,store_id
+ ,orig_store_nr
+ ,store_desc
+ ,city
+ ,wh_id
+ ,wh_desc
+ ,sales_manager_id
+ ,sales_manager_name
+ ,account_manager_id
+ ,account_manager_name
+ ,item_wgi_id
+ ,cy_month
+ ,week_page_by
+ ,currency_iso_cd
+ ,val_rtl_rl_sfo_store_asis
+ ,val_rtl_rl_net_sfo_store_asis
+ ,val_rtl_rl_sfo_store_asis_py
+ ,val_rtl_rl_net_sfo_str_asis_py
+ ,val_wrtoff_zero_asis
+ ,val_wrtoff_zero_net_asis
+ ,val_discount_sfo_asis
+ ,val_discount_net_sfo_asis
+ ,sfo_to_val_retail_pct
+ ,sfo_to_val_retail_net_pct
+ ,sfo_to_val_retail_pct_py
+ ,sfo_to_val_retail_net_pct_py
+ ,val_rtl_wgi_to_total_pct
+ ,val_rtl_net_wgi_to_net_tot_pct
+ ,val_rtl_total
+ ,val_rtl_net_total
+ ,val_rtl_ejr_adj_asis
+ ,val_rtl_net_ejr_adj_asis
+ ,val_rtl_ejr_adj_asis_py
+ ,val_rtl_net_ejr_adj_asis_py
+ ,top20_val_rtl_sfo_st_sfo_rel
+ ,top20_val_rtl_net_st_sfo_rel
+ ,top20_val_rtl_ejr_adj_sfo_rel
+ ,top20_val_rtl_net_ejr_sfo_rel
+ ,top20_val_rtl_total_rev
+ ,top20_val_rtl_net_total_rev
+ ,top20_val_rtl_pct_rev
+ ,top20_val_rtl_net_pct_rev
+ ,top20_sfo_to_val_retail_pct
+ ,top20_sfo_to_val_rtl_net_pct
+ ,top20_val_rtl_to_val_total_pct
+ ,top20_val_rtl_to_net_tot_pct
+FROM p_lew_mart_cs.v_bo_abs_wgi_mth_2
+;

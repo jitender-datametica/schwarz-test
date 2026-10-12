@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_scm_core_rel.t_demand_wine_2 (
+land_2 STRING(100),
+wg STRING(100),
+ian BIGNUMERIC(38,0),
+artikelbezeichnung_inkl_gebindegroesse_vpe STRING(100),
+hilfsspalte STRING(100),
+gebinde BIGNUMERIC(38,4),
+iln BIGNUMERIC(38,0),
+lieferant STRING(100),
+ki BIGNUMERIC(38,0),
+pf BIGNUMERIC(38,0),
+geplante_jahresmenge_int_wga BIGNUMERIC(38,4),
+sv_massnahmen_ads_nis STRING(100),
+herkunft_land STRING(100),
+herkunft STRING(100),
+month INTEGER,
+year INTEGER,
+menge_anlieferung_land BIGNUMERIC(38,0),
+kollibedruckung STRING(100),
+dwh_updated_tmsp DATETIME OPTIONS(description='Erstellungszeitpunkt des Datensatzes im DWH.'),
+dwh_created_tmsp DATETIME OPTIONS(description='Zeitstempel der letzten Aktualisierung des Datensatzes im DWH.')
+);

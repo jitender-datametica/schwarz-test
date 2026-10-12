@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_sdl_ac.v_sdl_building_kpi_month_2 (version, kalenderjahr, kalendermonat, land_2,
+landeswaehrung, umsatz_netto, basisumsatz_lj, basisumsatz_vj, bereinigter_umsatz, kundenanzahl, basiskundenanzahl_lj,
+basiskundenanzahl_vj, bereinigte_kundenanzahl, anzahl_filialen, basisanzahl_filialen_vj, basisanzahl_filialen_lj,
+bereinigte_filialanzahl, verkaufstage, verkaufsflaeche, basisverkaufsflaeche_lj, basisverkaufsflaeche_vj,
+bereinigte_verkaufsflaeche, anzahl_filialen_neueroeffnung, anzahl_filialen_ersatz, anzahl_filialen_schliessung,
+anzahl_filialen_abrissneubau) AS SELECT *
+FROM ldl_p_lew_mart_sdl.v_sdl_building_kpi_month_2;

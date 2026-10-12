@@ -1,0 +1,31 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_WAWI_INVCORR_WH_C_TMP_2
+(
+  ERR_RELEASE                         NUMBER(38)                    NULL DEFAULT 0,
+  RELEASE_USER                        VARCHAR(30) COLLATE 'en-ci'   NULL,
+  ERR_DATE                            DATE                          NOT NULL DEFAULT CURRENT_DATE,
+  ERR_CD                              NUMBER(38)                    NULL,
+  COUNTRY_ISO_CD                      VARCHAR(3) COLLATE 'en-ci'    NOT NULL,
+  WH_ID                               VARCHAR(3) COLLATE 'en-ci'    NOT NULL,
+  INV_ID                              NUMBER(38)                    NULL,
+  ORIG_STORE_NR                       NUMBER(38)                    NULL,
+  POS_NR                              NUMBER(38)                    NULL,
+  ITEM_NR_LONG                        VARCHAR(14) COLLATE 'en-ci'   NULL,
+  ORIG_ITEM_NR                        NUMBER(10,0)                  NULL,
+  CASE_SIZE                           NUMBER(38)                    NULL,
+  ITEM_DESC                           VARCHAR(100) COLLATE 'en-ci'  NULL,
+  WEIGHT_FG                           NUMBER(1,0)                   NULL,
+  ORDER_AREA_CD                       VARCHAR(5) COLLATE 'en-ci'    NULL,
+  ORDER_AREA_DESC                     VARCHAR(35) COLLATE 'en-ci'   NULL,
+  QTY_CASE_INV_ITEM_CORR              FLOAT                         NULL,
+  QTY_PIECE_INV_ITEM_CORR             FLOAT                         NULL,
+  PRICE_RETAIL_INV_ITEM_CORR          FLOAT                         NULL,
+  QTY_CASE_NEW_INV_ITEM_CORR          FLOAT                         NULL,
+  QTY_PIECE_NEW_INV_ITEM_CORR         FLOAT                         NULL,
+  PRICE_RETAIL_NEW_INV_ITEM_CORR      FLOAT                         NULL,
+  CASE_SIZE_DEC                       NUMBER(9,4)                   NULL,
+  PRICE_RETAIL_INV_ITEM_CORR_NET      FLOAT                         NULL,
+  PRICE_RETAIL_NEW_INV_ITEM_CORR_NET  FLOAT                         NULL,
+  DAT_DAYEND                          DATE                          NULL,
+  LOAD_ID                             NUMBER(38)                    NULL
+)
+;

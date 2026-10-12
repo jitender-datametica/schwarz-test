@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.cpr_bau_gv_per_2 (
+projekt_id STRING(32) COLLATE 'und:ci' NOT NULL,
+dat_von DATE NOT NULL,
+bau_gv_dok_id STRING(32) COLLATE 'und:ci' NOT NULL,
+dat_bis DATE NOT NULL,
+dok_ersteller_name STRING(20) COLLATE 'und:ci',
+datzeit_erstellung DATETIME,
+dok_aenderer_name STRING(20) COLLATE 'und:ci',
+datzeit_aenderung DATETIME,
+dok_ordner_id STRING(1) COLLATE 'und:ci' NOT NULL,
+dok_gueltig_bis DATE,
+dok_aktenzeichen STRING(40) COLLATE 'und:ci',
+dok_dat_eingang DATE,
+dokumentart_bez STRING(255) COLLATE 'und:ci',
+dokument_unterart_bez STRING(255) COLLATE 'und:ci',
+dok_relevanz_kz STRING(1) COLLATE 'und:ci',
+dok_status_id STRING(10) COLLATE 'und:ci' NOT NULL,
+td_update TIMESTAMP,
+td_insert TIMESTAMP
+);

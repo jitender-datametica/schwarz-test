@@ -1,0 +1,18 @@
+CREATE TABLE P_LEW_BIL.T_AGG_STORE_DAY_SALES_PAYMENT_TYPE_2
+(
+client_id INTEGER NOT NULL,
+dat_formdate DATE NOT NULL,
+cy_month INTEGER NOT NULL,
+loc_sid INTEGER NOT NULL,
+orig_store_nr INTEGER,
+currency_iso_cd VARCHAR(20) NOT NULL,
+sales_net_val_pos DECIMAL(18,5),
+return_net_val_pos DECIMAL(18,5),
+cnt_customer INTEGER,
+sales_payment_type SMALLINT NOT NULL)
+/*** MSC-WARNING - MSCEWI2008 - PERFORMANCE REVIEW - CLUSTER BY ***/
+/*CLUSTER BY(RANGE_N(client_id BETWEEN 1 AND 40 EACH 1 ,
+NO RANGE), RANGE_N(dat_formdate BETWEEN '2014-01-01' AND '2030-12-31' EACH INTERVAL '1 day' ,
+NO RANGE))*/;
+
+

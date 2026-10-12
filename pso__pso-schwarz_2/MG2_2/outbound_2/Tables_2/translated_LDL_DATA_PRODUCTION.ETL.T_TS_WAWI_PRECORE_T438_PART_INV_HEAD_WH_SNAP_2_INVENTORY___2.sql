@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t_ts_wawi_precore_t438_part_inv_head_wh_snap_2_inventory___2 (
+inv_sid INTEGER,
+inv_dt DATE,
+inv_type_cd STRING(20),
+inv_nr INTEGER,
+int_org_sid INTEGER,
+int_org_type_cd STRING(20),
+country_org_sid INTEGER,
+country_org_cd STRING(2),
+inv_period_start_dt DATE,
+inv_period_end_dt DATE,
+dwh_load_id INTEGER,
+dwh_node_cd STRING(20),
+inv_reason_id INTEGER,
+record_id STRING(1000),
+deleted_fg BOOL,
+error_descr STRING(1000),
+filename STRING(1000),
+hist_row_no STRING(1000),
+dwh_mapping_tmsp TIMESTAMP,
+dwh_ending_tmsp TIMESTAMP,
+error_fg INTEGER
+);

@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW ldl_p_lew_bil_ac.v_agg_store_day_sig_sfo_asis_2 (client_id, loc_sid_store, src_orig_store_nr,
+booking_dat, subitemgroup_id, sfotype_id, pcwo_reason_id, sfo_total_qty, sfo_wrtoff_zero_qty, sfo_total_rtl_rl_val,
+sfo_total_rtl_rl_net_val, sfo_wrtoff_zero_rtl_rl_val, sfo_wrtoff_zero_rtl_rl_net_val, val_pr_diff_sfo,
+val_pr_diff_net_sfo, sfo_total_fa_qty, sfo_wrtoff_zero_fa_qty, sfo_total_rtl_rl_fa_val, sfo_total_rtl_rl_net_fa_val,
+sfo_wrtoff_zero_rtl_rl_fa_val, sfo_wrtoff_zero_rtl_rl_net_fa_val, val_pr_diff_fa_sfo, val_pr_diff_net_fa_sfo) AS SELECT
+ *
+FROM ldl_p_lew_bil.v_agg_store_day_sig_sfo_asis_2;

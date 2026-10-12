@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_dig_etl.t_inob_2 (
+cuobj BIGNUMERIC(36) NOT NULL,
+klart STRING(6) NOT NULL,
+obtab STRING(60) NOT NULL,
+objek STRING(180) NOT NULL,
+robtab STRING(60) NOT NULL,
+robjek STRING(100) NOT NULL,
+clint NUMERIC(20) NOT NULL,
+statu STRING(2) NOT NULL,
+cucozhl NUMERIC(8) NOT NULL,
+parent BIGNUMERIC(36) NOT NULL,
+root BIGNUMERIC(36) NOT NULL,
+experte STRING(2) NOT NULL,
+matnr STRING(80) NOT NULL,
+datuv DATE,
+techs STRING(24) NOT NULL,
+odq_changemode STRING(2) NOT NULL,
+odq_entitycntr BIGNUMERIC(38) NOT NULL,
+sap_sys_name STRING(20) NOT NULL,
+sap_client_id STRING(20) NOT NULL,
+tmsp_insert DATETIME,
+tmsp_update DATETIME
+);

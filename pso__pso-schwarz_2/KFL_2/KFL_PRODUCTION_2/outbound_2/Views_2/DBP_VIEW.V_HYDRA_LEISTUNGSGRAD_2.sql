@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_hydra_leistungsgrad_2 AS SELECT mandant_id,
+ pers_teilbereich_id,
+ dat,
+ lohnart_id,
+ zeitart_id,
+ praemiengrp_id,
+ transport_gv_id,
+ lagernummer_id,
+ ewm_fg,
+ dauer_ist,
+ dauer_soll,
+ grad_leistung,
+ menge,
+ abrechnung_fg
+FROM kfl_production_dbp_data.hydra_leistungsgrad_2;

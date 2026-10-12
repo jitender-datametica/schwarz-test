@@ -1,0 +1,22 @@
+CREATE TABLE DBP_DATA.MARKTABSCHRIFTEN_COI_2 (
+	WUP_ID INTEGER NOT NULL COMMENT '\"Der \"\"WUP_2\"\" beinhaltet Märkte und Läger. WUP_2=WarenUmschlagsPlatz\n ',
+	WUP_ABSCHRIFT_ID INTEGER NOT NULL COMMENT 'Belegnummer   numerisch St.   1-  4:   Marktnummer St.   5-  6:   Woche_2 St.   7-10:   lfd. Nummer  Bei Werbeabschriften:  Aktionsnummer, KMO: lagerbew_beleg_id ',
+	POSITIONSNUMMER_ID INTEGER NOT NULL COMMENT 'Positionsnummer des Einkaufsbeleg   5-stellig numerisch Bei Werbeabschriften: laufende Nummer pro Aktionsnummer KMO: lagerbew_beleg_pos_id ',
+	NB_ID INTEGER NOT NULL COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer',
+	DAT DATE NOT NULL COMMENT 'Belegdatum    Format  JJJJ-MM_2-TT',
+	MANDANT_ID INTEGER NOT NULL COMMENT 'Mandant_2 im DWH',
+	LASTUPD_DAT DATE NOT NULL COMMENT 'Datum der letzten Änderung      Format  JJJJ-MM_2-TT',
+	WOCHE_ID INTEGER NOT NULL COMMENT 'Woche_2 des Belegs  Format JJJJWW',
+	MENGE_ABSCHRIFT NUMBER(29,3) NOT NULL COMMENT 'Abschreibungsmenge',
+	ABSCHRIFTART_ID INTEGER NOT NULL COMMENT 'Abschriftenart  -  numerisch',
+	ART_ID INTEGER NOT NULL COMMENT 'Input: Artikel_2 - Id einschliesslich der Generationen - ID (9-stellig); Output: 7stellige L&S-ID + Counter = 8stellige ArtikelID. WWNNNNPC (Warengruppe, Nummer, Prüfziffer, Counter) Regel: Neuer Artikel_2 -> Counter +1',
+	ABSCHRIFTBETRAG_NETTO NUMBER(29,2) NOT NULL DEFAULT 0 COMMENT 'Abschriftenbetrag ohne MWSt - wird in der Versorgung errechnet',
+	ABSCHRIFTBETRAG_BRUTTO NUMBER(29,2) NOT NULL DEFAULT 0 COMMENT 'Abschriftenbetrag brutto',
+	WRG_ID VARCHAR(12) NOT NULL COLLATE 'en-ci' DEFAULT 'EUR' COMMENT 'Kurzbezeichnung der Währung, z.Bsp. CZK, EUR',
+	WV_KZ VARCHAR(4) NOT NULL COLLATE 'en-ci' DEFAULT ' ' COMMENT 'Kennzeichen Werbeverlängerung.Enthält E für Ersatzartikel, sonst leer',
+	WV_GRUND_ID INTEGER NOT NULL DEFAULT 0 COMMENT 'Grund der Werbeverlängerung, z.Bsp 22 Ersatzartikel = Ursprungsartikel, 23 Austauschartikel. Nur im Fall einer WV ist dieses Feld gefüllt',
+	VK_AKTION_BRUTTO NUMBER(29,2) NOT NULL DEFAULT 0 COMMENT 'Brutto Aktionslverkaufspreis des Artikels aus avkp0',
+	VK_BRUTTO NUMBER(29,2) NOT NULL DEFAULT 0 COMMENT 'Brutto Normalverkaufspreis des Artikels aus nvkp0',
+	TD_UPDATE TIMESTAMP_LTZ(9),
+	TD_INSERT TIMESTAMP_LTZ(9)
+);

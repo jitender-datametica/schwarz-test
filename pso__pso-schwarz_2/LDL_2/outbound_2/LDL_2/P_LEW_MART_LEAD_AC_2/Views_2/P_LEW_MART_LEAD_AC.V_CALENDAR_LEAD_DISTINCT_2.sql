@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead_ac.v_calendar_lead_distinct_2 AS SELECT *
+FROM ldl_p_lew_mart_lead.v_calendar_lead_distinct_2;

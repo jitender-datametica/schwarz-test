@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW smp_production_data_shared_ldl_wawi.hqwawiadm_waehrungsknz_2 (wawi_instanz_kzl, waehrungsknz_2,
+waehrkbez, waehrbez, gueltig_ab, standard_ue, datum, bediener, toleranz, currencysign1, currencysign2, scn, delete_fg,
+extraction_tmsp) AS SELECT waehrungsknz.wawi_instanz_kzl,
+ waehrungsknz.waehrungsknz_2,
+ waehrungsknz.waehrkbez,
+ waehrungsknz.waehrbez,
+ waehrungsknz.gueltig_ab,
+ waehrungsknz.standard_ue,
+ waehrungsknz.datum,
+ waehrungsknz.bediener,
+ waehrungsknz.toleranz,
+ waehrungsknz.currencysign1,
+ waehrungsknz.currencysign2,
+ waehrungsknz.scn,
+ waehrungsknz.delete_fg,
+ waehrungsknz.extraction_tmsp
+FROM ldl_wawi_production_hqwawiadm.waehrungsknz_2 AS waehrungsknz_2;

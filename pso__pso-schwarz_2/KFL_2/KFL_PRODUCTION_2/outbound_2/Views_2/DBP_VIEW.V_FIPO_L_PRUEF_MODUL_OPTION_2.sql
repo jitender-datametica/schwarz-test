@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_fipo_l_pruef_modul_option_2 AS SELECT fipo_pruef_modul_id,
+ fipo_pruef_modul_option_id
+FROM kfl_production_dbp_data.fipo_l_pruef_modul_option_2;

@@ -1,0 +1,22 @@
+CREATE OR REPLACE VIEW nfpow_fe_mstr_apollo_kaufland.v_dim_kfl_goods_transshipment_point_2 (lob_cd, kfl_client_id,
+kfl_gtp_nr, kfl_gtp_subsidiary_type_id, lob_name, kfl_client_cd, kfl_client_name, kfl_gtp_subsidiary_type_name,
+kfl_country_cd, kfl_country_name, active_from_dt, active_to_dt, sales_from_dt, kfl_gtp_type_id, kfl_gtp_type_name,
+kfl_sales_gtp_name, kfl_purch_gtp_name) AS SELECT lob_cd,
+ kfl_client_id,
+ kfl_gtp_nr,
+ kfl_gtp_subsidiary_type_id,
+ lob_name,
+ kfl_client_cd,
+ kfl_client_name,
+ kfl_gtp_subsidiary_type_name,
+ kfl_country_cd,
+ kfl_country_name,
+ active_from_dt,
+ active_to_dt,
+ sales_from_dt,
+ kfl_gtp_type_id,
+ kfl_gtp_type_name,
+ kfl_sales_gtp_name,
+ kfl_purch_gtp_name
+FROM nfpow_core.t_dim_kfl_goods_transshipment_point_2
+WHERE kfl_gtp_subsidiary_type_id = 0;

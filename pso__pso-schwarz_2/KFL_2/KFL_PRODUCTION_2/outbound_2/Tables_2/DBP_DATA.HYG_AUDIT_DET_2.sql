@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.hyg_audit_det_2 (
+frage_katalog_id STRING(36) COLLATE 'und:ci' NOT NULL,
+hyg_audit_id STRING(36) COLLATE 'und:ci' NOT NULL,
+audit_instance_id STRING(36) COLLATE 'und:ci' NOT NULL,
+audit_frage_id STRING(36) COLLATE 'und:ci' NOT NULL,
+hyg_thema_id STRING(36) COLLATE 'und:ci' NOT NULL,
+hyg_frage_id STRING(36) COLLATE 'und:ci',
+audit_frage_bemerkung STRING(2000) COLLATE 'und:ci',
+hyg_antwort_id STRING(36) COLLATE 'und:ci',
+hyg_antwort_max_punkte BIGNUMERIC(38,0),
+hyg_antwort_punkte BIGNUMERIC(38,0),
+hyg_antwort_stufe STRING(255) COLLATE 'und:ci',
+hyg_antwort_farbe STRING(10) COLLATE 'und:ci',
+hyg_antwort_rel_punkte BIGNUMERIC(38,0),
+hyg_antwort_string STRING(255) COLLATE 'und:ci',
+beantwortet_fg BIGNUMERIC(38,0) NOT NULL,
+relevant_fg BIGNUMERIC(38,0) NOT NULL,
+gj BIGNUMERIC(38,0) NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_score_fe_mstr_score.v_dim_calendar_day_of_week_2 AS SELECT day_of_week,
+ day_of_week_descr,
+ day_of_week_short_descr
+FROM ldl_score_core.t_dim_calendar_day_of_week_2;

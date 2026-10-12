@@ -1,0 +1,33 @@
+create or replace TABLE LDL_DATA_PRODUCTION.CORE_DIM.T_FACT_RETAIL_BY_STORE_DAY_WAWI_ITEM_2 cluster by (
+     COUNTRY_ORG_CD,
+     BUS_DT
+)(
+	BUS_DT DATE NOT NULL COMMENT 'The business date to which the measures are related.',
+	STORE_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the store, which has generated the revenue.',
+	WAWI_ITEM_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) of the Wawi item.',
+	COUNTRY_ORG_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the related country_2 organization. (The business country_2 is not identical to a political country.) The country_2 organization is responsible for the store which has sold the Wawi item_2, and it is the organization which has created the Wawi item.',
+	COUNTRY_ORG_CD VARCHAR(2) NOT NULL COMMENT 'The code of the business country_2 for which the related country_2 organization is responsible. (The business country_2 is not identical to a political country.) The country_2 organization is responsible for the store which has sold the Wawi item_2, and it is the organization which has created the Wawi item.',
+	SALES_CNT NUMBER(38,0) COMMENT 'The number of Wawi items which have been sold in the given store on the given day. (This attribute is empty for weight-based products.)',
+	SALES_QTY NUMBER(38,5) COMMENT 'In case of weight-based products, this is the quantity of the Wawi items which have been sold in the given store on the given day. (Quantity in the unit_2 defined by the unit_2 of measure code)',
+	RETURN_CNT NUMBER(38,0) COMMENT 'The number of Wawi items which have been returned in the given store on the given day. (This attribute is empty for weight-based products.)',
+	RETURN_QTY NUMBER(38,5) COMMENT 'In case of weight-based products, this is the quantity of the Wawi items which have been returned in the given store on the given day. (Quantity in the unit_2 defined by the unit_2 of measure code)',
+	PERF_ADJ_SALES_CNT NUMBER(38,0) COMMENT 'The number of Wawi items which have been sold in the given store on the given day. Only Wawi items with an international item_2 group or commission products with an absolute unit_2 price not between 0.0001 and 0.0315 EUR are considered. (This attribute is empty for weight-based products.)',
+	PERF_ADJ_SALES_QTY NUMBER(38,5) COMMENT 'In case of weight-based products, this is the quantity of the Wawi items which have been sold in the given store on the given day. Only Wawi items with an international item_2 group or commission products with an absolute unit_2 price not between 0.0001 and 0.0315 EUR are considered. (Quantity in the unit_2 defined by the unit_2 of measure code)',
+	PERF_ADJ_SALES_NET_VAL NUMBER(38,5) COMMENT 'The sales_2 portion of the net turnover which was generated for this Wawi item_2 in the given store on the given day. Only Wawi items with an international item_2 group or commission products with an absolute unit_2 price not between 0.0001 and 0.0315 EUR are considered. (This is the amount according to the cash register.)',
+	PERF_ADJ_RETURN_CNT NUMBER(38,0) COMMENT 'The number of Wawi item_2 which have been returned in the given store on the given day. Only Wawi items with an international item_2 group or commission products with an absolute unit_2 price not between 0.0001 and 0.0315 EUR are considered. (This attribute is empty for weight-based products.)',
+	PERF_ADJ_RETURN_QTY NUMBER(38,5) COMMENT 'In case of weight-based products, this is the quantity of the Wawi items which have been returned in the given store on the given day. Only Wawi items with an international item_2 group or commission products with an absolute unit_2 price not between 0.0001 and 0.0315 EUR are considered. (Quantity in the unit_2 defined by the unit_2 of measure code)',
+	PERF_ADJ_RETURN_NET_VAL NUMBER(38,5) COMMENT 'The return portion of the net turnover which was generated for this Wawi item_2 in the given store on the given day. Only Wawi items with an international item_2 group or commission products with an absolute unit_2 price not between 0.0001 and 0.0315 EUR are considered. (This is the amount according to the cash register.)',
+	UOM_CD VARCHAR(20) NOT NULL COMMENT 'The code identifying the unit_2 of measure for weight based products. (kg, ...)',
+	CASH_REGISTER_SALES_NET_VAL NUMBER(38,5) COMMENT 'The sales_2 portion of the net turnover which was generated for this Wawi item_2 in the given store on the given day. (This is the amount according to the cash register.)',
+	CASH_REGISTER_SALES_GROSS_VAL NUMBER(38,5) COMMENT 'The sales_2 portion of the gross turnover which was generated for this Wawi item_2 in the given store on the given day. (This is the amount according to the cash register.)',
+	CASH_REGISTER_RETURN_NET_VAL NUMBER(38,5) COMMENT 'The return portion of the net turnover which was generated for this Wawi item_2 in the given store on the given day. (This is the amount according to the cash register.)',
+	CASH_REGISTER_RETURN_GROSS_VAL NUMBER(38,5) COMMENT 'The return portion of the gross turnover which was generated for this Wawi item_2 in the given store on the given day. (This is the amount according to the cash register.)',
+	CURR_CD VARCHAR(3) NOT NULL COMMENT 'The code identifying the currency according to ISO-4217.',
+	LAST_TXN_TMSP TIMESTAMP_TZ(9) COMMENT 'The point in time when the last sales_2 transaction happend for this Wawi item_2 on the given day. This includes either sales_2 or returns. The timestamp is taken from end timestamp of the receipt header.',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.',
+	constraint PK_T_FACT_RETAIL_BY_STORE_DAY_WAWI_ITEM primary key (BUS_DT, STORE_SID, WAWI_ITEM_SID)
+)COMMENT='An aggregate fact holding basic retail measures per day, Wawi item_2 and store. This includes sales_2 and return volume and the gross and net turnover. (Turnover amounts are taken from the cash register.)'
+;

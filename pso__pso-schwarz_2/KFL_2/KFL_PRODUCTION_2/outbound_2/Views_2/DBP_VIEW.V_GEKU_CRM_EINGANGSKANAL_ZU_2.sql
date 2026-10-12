@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_geku_crm_eingangskanal_zu_2 AS SELECT geku_crm_eingangskanal_id,
+ geku_eingangskanal_id,
+ crm_eingangskanal_id
+FROM kfl_production_dbp_data.geku_crm_eingangskanal_zu_2;

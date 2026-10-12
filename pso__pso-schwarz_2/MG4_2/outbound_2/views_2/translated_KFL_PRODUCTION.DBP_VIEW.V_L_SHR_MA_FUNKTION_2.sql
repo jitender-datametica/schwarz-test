@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_shr_ma_funktion_2 (mandant_id, shr_ma_funktion_id) AS SELECT mandant_id
+ ,
+ shr_ma_funktion_id
+FROM kfl_production_dbp_data.l_shr_ma_funktion_2;

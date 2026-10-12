@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_precore.t_exports_monitoring_daily_2 (
+app_name STRING(128),
+parent_jobdef STRING(128),
+parent_job STRING(128),
+child_job STRING(256),
+commandline STRING(256),
+starttime DATETIME NOT NULL,
+endtime DATETIME,
+elapsed_time STRING(32),
+elapsed_time_sec FLOAT64,
+parent_stateenum STRING(64),
+child_stateenum STRING(64),
+child_jobid BIGNUMERIC(38,0),
+parent_jobid BIGNUMERIC(38,0) NOT NULL,
+total_written_disk FLOAT64,
+total_written_rec FLOAT64,
+total_read_rec FLOAT64,
+total_read_kb FLOAT64,
+total_rejected FLOAT64,
+total_cpu FLOAT64,
+PRIMARY KEY (parent_jobid, starttime) NOT ENFORCED
+);

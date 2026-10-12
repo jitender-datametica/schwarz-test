@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_lifecycle.v_l_lifecycle_hga_error_group_2 (hga_error_grp_sid,
+manufacturer_sid, hga_error_grp_name, hga_error_grp_name_de, hga_error_grp_name_ch, hga_error_grp_name_en,
+hga_error_grp_name_cz, hga_error_grp_name_lt, hga_error_grp_name_sk, hga_error_grp_name_si, hga_error_grp_name_ro) AS
+SELECT hga_error_grp_sid,
+ manufacturer_sid,
+ hga_error_grp_name,
+ hga_error_grp_name_de,
+ hga_error_grp_name_de AS hga_error_grp_name_ch,
+ hga_error_grp_name_en,
+ hga_error_grp_name_en AS hga_error_grp_name_cz,
+ hga_error_grp_name_en AS hga_error_grp_name_lt,
+ hga_error_grp_name_en AS hga_error_grp_name_sk,
+ hga_error_grp_name_en AS hga_error_grp_name_si,
+ hga_error_grp_name_en AS hga_error_grp_name_ro
+FROM szd_production_core.t_dim_hga_error_group_2;

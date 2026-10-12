@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW P_LEW_MART_PIT_ONPREM.V_ADVERT_WEEK_ITEM_MEDIUM_2
+AS
+SELECT
+client_id
+,adv_week_id
+,item_sid
+,adv_medium_sid
+FROM p_lew_mart_pit_onprem.t_advert_week_item_medium_2;

@@ -1,0 +1,32 @@
+/* --------------------------------------------------------------------------------
+   DDL for table: T_FACT_CONTAINER_SHIPMENT_MILESTONE_2
+   generated from Powerdesigner on Montag, 22. April 2024 11:13:50
+*/ --------------------------------------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS szd_core.t_fact_container_shipment_milestone_2 (
+container_resource_item_sid BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='Natural Key/Business Key - The unique identifier (surrogate key) for the container.'),
+container_milestone_cd STRING(50) NOT NULL
+OPTIONS(description='Natural Key/Business Key - A milestone is an event in the container lifecycle. Table contains the list of the possible events'),
+event_tmsp TIMESTAMP NOT NULL OPTIONS(description='The timestamp when the event took place'),
+container_milestone_result_cd STRING(50)
+OPTIONS(description='A milestone is an event in the container lifecycle. Table contains the list of the possible event results'),
+event_dt DATE NOT NULL OPTIONS(description='Natural Key/Business Key - A date when measurement was taken'),
+due_dt DATE OPTIONS(description='Due date of a milestone'),
+done_dt DATE OPTIONS(description='Done date of milestone (date when system receives the data)'),
+milestone_dt DATE OPTIONS(description='Business date of a milestone (e.g. date when gas measurement was done)'),
+container_milestone_result_evaluation_dt DATE OPTIONS(description='Event Result represented as a date'),
+container_milestone_result_evaluation_txt STRING(1000)
+OPTIONS(description='Descriptive attribute - Text Description of Event Result'),
+dwh_created_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was created in the data warehouse.'),
+dwh_updated_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was created or last updated.'),
+dwh_src_file_name STRING(500)
+OPTIONS(description='The path and the name of the file(s) from which this record was loaded.'),
+dwh_src_1_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was extracted from the source.'),
+PRIMARY KEY (container_resource_item_sid, event_tmsp, container_milestone_cd) NOT ENFORCED
+)
+OPTIONS(description='Fact table - Transactional Events - Transaction - Containers start existing when the actual time of shipment ("ATD") is near. Then, the producer enters container numbers and their content to the lots\' container load plan. Containers have individual milestones, too. When all container milestones of a type are resolved, this may trigger the according lot milestone. For example, if all containers are unloaded, the lots\' unloading milestone state changes to resolved. - Source - VMT');

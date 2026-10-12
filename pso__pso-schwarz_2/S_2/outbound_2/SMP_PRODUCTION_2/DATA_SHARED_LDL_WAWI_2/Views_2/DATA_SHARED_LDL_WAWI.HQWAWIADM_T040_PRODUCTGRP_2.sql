@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW smp_production_data_shared_ldl_wawi.hqwawiadm_t040_productgrp_2 (wawi_instanz_kzl, c040_prodgrpnr,
+c040_descshort, c040_desc, c040_sortingterm, c040_moduser, c040_moddate, scn, c040_can_edit_casesize,
+c040_can_edit_price, delete_fg, extraction_tmsp) AS SELECT wawi_instanz_kzl,
+ c040_prodgrpnr,
+ c040_descshort,
+ c040_desc,
+ c040_sortingterm,
+ c040_moduser,
+ c040_moddate,
+ scn,
+ c040_can_edit_casesize,
+ c040_can_edit_price,
+ delete_fg,
+ extraction_tmsp
+FROM ldl_wawi_production_hqwawiadm.t040_productgrp_2;

@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_it_projektart_2 AS SELECT it_projektart_id,
+ it_projektart_bez
+FROM kfl_production_dbp_data.l_it_projektart_2;

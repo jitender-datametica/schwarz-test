@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi_ac.v_ref_hier_start_group_2 (perspective_id, start_group_id, start_group_desc,
+start_group_long_desc, start_group_ipadimage, start_group_webimage, start_group_weblink, start_group_mobilelink,
+my_cockpit_weblink, my_cockpit_mobilelink, document_type_fg, document_type_fg_desc) AS SELECT *
+FROM ldl_p_lew_mart_msi.v_ref_hier_start_group_2;

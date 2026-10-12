@@ -1,0 +1,23 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_wawi_inv_store_item_corr_2 (client_id, item_sid, pos_nr, st_loc_sid, wh_loc_sid
+, inv_id, dat_dayend, order_area_cd, weight_fg, price_retail_inv_item_corr, price_rtl_net_inv_item_corr,
+price_retail_new_inv_item_corr, prc_rtl_new_net_inv_item_corr, qty_case_inv_item_corr, qty_case_new_inv_item_corr,
+qty_piece_inv_item_corr, qty_piece_new_inv_item_corr, case_size_dec, load_id) AS SELECT client_id,
+ item_sid,
+ pos_nr,
+ st_loc_sid,
+ wh_loc_sid,
+ inv_id,
+ dat_dayend,
+ order_area_cd,
+ weight_fg,
+ price_retail_inv_item_corr,
+ price_rtl_net_inv_item_corr,
+ price_retail_new_inv_item_corr,
+ prc_rtl_new_net_inv_item_corr,
+ qty_case_inv_item_corr,
+ qty_case_new_inv_item_corr,
+ qty_piece_inv_item_corr,
+ qty_piece_new_inv_item_corr,
+ case_size_dec,
+ load_id
+FROM ldl_p_lew_core.t_wawi_inv_store_item_corr_2;

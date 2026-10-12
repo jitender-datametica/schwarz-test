@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_process_mstr_lil_region_2_lil_region_2 (
+client_id BIGNUMERIC(38) NOT NULL,
+lidl_country STRING(40) NOT NULL,
+process_mstr_lil_region_src_region_cd STRING(250) NOT NULL,
+src_region_cd STRING(100) NOT NULL,
+region_id BIGNUMERIC(38,0) NOT NULL,
+region_name_en STRING(300),
+region_name_de STRING(300),
+region_short_desc STRING(300),
+region_long_desc STRING(300),
+region_srt_cd BIGNUMERIC(38,0),
+qr_srt_cd BIGNUMERIC(38,0),
+region_lvl BIGNUMERIC(38,0),
+sd_chld_below_12 STRING(300),
+sd_chld_over_12 STRING(300),
+active_fg BIGNUMERIC(38,0),
+extraction_dt DATE,
+dwh_mapping_dt DATE NOT NULL,
+tf_error_fg INTEGER,
+record_id STRING(300) NOT NULL,
+filename STRING(1000) NOT NULL
+);

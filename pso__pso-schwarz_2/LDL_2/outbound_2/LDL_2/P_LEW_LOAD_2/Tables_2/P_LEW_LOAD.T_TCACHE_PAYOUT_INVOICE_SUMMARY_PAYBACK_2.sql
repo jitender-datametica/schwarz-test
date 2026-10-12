@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tcache_payout_invoice_summary_payback_2 (
+client_id BIGNUMERIC(38,0) NOT NULL,
+acc_month BIGNUMERIC(38,0),
+accounted_in BIGNUMERIC(38,0),
+acc_type STRING(100),
+acc_sub_type STRING(100),
+client STRING(100),
+currency_iso_code STRING(100),
+goods_in_month BIGNUMERIC(38,0),
+supp_no_nat BIGNUMERIC(38,0),
+item_no_nat BIGNUMERIC(38,0),
+item_family_no STRING(100),
+item_grp_no STRING(100),
+payback_value BIGNUMERIC(38,5),
+extraction_dt DATE,
+extraction_ts TIMESTAMP,
+seq_num BIGNUMERIC(38,0),
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created TIMESTAMP NOT NULL,
+dwh_updated TIMESTAMP NOT NULL
+);

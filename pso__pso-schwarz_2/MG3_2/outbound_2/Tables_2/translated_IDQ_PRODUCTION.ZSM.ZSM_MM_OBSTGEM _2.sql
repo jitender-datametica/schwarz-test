@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS idq_production_zsm.zsm_mm_obstgem_2 (
+mandt STRING(3),
+matnr STRING(40) NOT NULL,
+ekorg STRING(4) NOT NULL,
+desc1 STRING(30),
+desc2 STRING(30),
+temp_min NUMERIC(8,1),
+temp_max NUMERIC(8,1),
+temp_mess STRING(1),
+art_cat STRING(2),
+plu INTEGER,
+wstaw STRING(17),
+aenam STRING(12),
+aedat STRING(24),
+ernam STRING(12),
+erdat STRING(24),
+longdesc STRING(132),
+wstaw_mlm STRING(17),
+desc_short_mlm STRING(40),
+desc_long_mlm STRING(132),
+PRIMARY KEY (matnr, ekorg) NOT ENFORCED
+);

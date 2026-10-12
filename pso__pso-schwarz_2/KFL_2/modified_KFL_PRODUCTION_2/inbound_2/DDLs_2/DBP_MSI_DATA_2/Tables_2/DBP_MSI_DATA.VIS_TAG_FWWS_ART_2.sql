@@ -1,0 +1,20 @@
+CREATE TABLE DBP_MSI_DATA.VIS_TAG_FWWS_ART_2 cluster by (MANDANT_ID, DAT)(
+	MANDANT_ID INTEGER NOT NULL COMMENT 'Mandant_2 im DWH, ein Mandant_2 je Land_2 ',
+	WUP_ID INTEGER NOT NULL COMMENT 'Mutter Wup_2 ID wird verwendet fuer Beziehung Lager zu Verteilzentrum',
+	DAT DATE NOT NULL COMMENT 'Datum im Format JJJJ-MM_2-TT',
+	NB_ID INTEGER NOT NULL COMMENT 'Nebenbetrieb. 0 = Markt',
+	ART_ID INTEGER NOT NULL COMMENT 'Input: Artikel_2 - Id einschliesslich der Generationen - ID (9-stellig); Output: 7stellige L&S-ID + Counter = 8stellige ArtikelID. WWNNNNPC (Warengruppe, Nummer, PrÃ¼fziffer, Counter) Regel: Neuer Artikel_2 -> Counter +1',
+	DISPOMERKMAL VARCHAR(2) NOT NULL COMMENT 'Schluessel, der bestimmt, ob und wie das Material disponiert wird, z.Bsp. manuelle Bestellpunktdisposition aus dismm',
+	DISPONENT_ID VARCHAR(3) NOT NULL COMMENT 'Disponent ID',
+	ARTIKEL_EXC209_FG INTEGER NOT NULL COMMENT 'Ermittlung der Artikel_2 mit Ausnahmegrund = 209',
+	ARTIKEL_EXC214_FG INTEGER NOT NULL COMMENT 'Ermittlung der Artikel_2 mit Ausnahmegrund = 214',
+	TAGESARTIKEL_FG INTEGER COMMENT 'Ermittlung der Tagesartikel' ,
+	BESTANDSARTIKEL_FG INTEGER NOT NULL COMMENT 'Ermittlung der Bestandsartikel ',
+	AUTODISPO_FG INTEGER NOT NULL COMMENT 'Ermittlung fer Artikel_2 Autodispo ',
+	ALLE_ART_O_KDIS_FG INTEGER NOT NULL COMMENT 'Ermittlung der Artikel_2 mit kdis = 0 und listung_id = 1',
+	ALLE_ART_FG INTEGER NOT NULL COMMENT 'Ermittlung der Artikel_2 mit listung_id = 1',
+	AUTODISPO_FG_12 INTEGER NOT NULL COMMENT 'Ermittlung der Artikel_2 Autodispo mit dm = 12 ',
+	BEZUGSWEG_ID INTEGER COMMENT 'Kennzeichnet, ob der Artikel_2 vom Zentrallager bezogen wird (Bezugsweg = 4) oder direkt vom Lieferanten (Bezugsweg = 1)',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration'
+)COMMENT = 'VIS - Aggregat FWWS auf Artikel_2-Tagesebene ';

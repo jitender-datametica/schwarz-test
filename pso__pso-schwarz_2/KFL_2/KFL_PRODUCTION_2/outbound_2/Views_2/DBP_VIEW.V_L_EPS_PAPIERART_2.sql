@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_eps_papierart_2 AS SELECT mandant_id,
+ papierart_id
+FROM kfl_production_dbp_data.l_eps_papierart_2;

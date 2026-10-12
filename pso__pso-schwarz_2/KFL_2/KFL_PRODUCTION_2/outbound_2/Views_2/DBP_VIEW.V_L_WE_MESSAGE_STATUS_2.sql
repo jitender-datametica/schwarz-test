@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_we_message_status_2 AS SELECT mandant_id,
+ we_message_status_id
+FROM kfl_production_dbp_data.l_we_message_status_2;

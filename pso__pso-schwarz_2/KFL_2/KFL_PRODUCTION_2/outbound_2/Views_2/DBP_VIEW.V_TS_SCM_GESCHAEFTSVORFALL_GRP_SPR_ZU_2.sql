@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_ts_scm_geschaeftsvorfall_grp_spr_zu_2 AS SELECT scm_gv_grp_id,
+ spr_id,
+ scm_gv_grp_bez
+FROM kfl_production_dbp_data.ts_scm_geschaeftsvorfall_grp_spr_zu_2;

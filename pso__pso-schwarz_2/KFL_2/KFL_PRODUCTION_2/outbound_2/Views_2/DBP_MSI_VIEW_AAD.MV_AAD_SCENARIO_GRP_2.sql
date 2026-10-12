@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_aad.mv_aad_scenario_grp_2 AS SELECT scenario_grp_id
+FROM kfl_production_dbp_view.v_aad_scenario_grp_spr_zu_2 AS V01
+GROUP BY scenario_grp_id;

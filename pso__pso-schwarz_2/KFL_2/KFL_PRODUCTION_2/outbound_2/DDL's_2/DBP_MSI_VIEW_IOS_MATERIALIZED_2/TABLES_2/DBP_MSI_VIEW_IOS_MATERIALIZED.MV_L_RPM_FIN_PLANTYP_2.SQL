@@ -1,0 +1,3 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_ios_materialized.mv_l_rpm_fin_plantyp_2 (
+rpm_plantyp_id INTEGER
+);

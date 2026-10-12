@@ -1,0 +1,22 @@
+CREATE OR REPLACE VIEW smp_production_data_shared_ldl_wawi.hqwawiadm_t220_dangerous_goods_2 (wawi_instanz_kzl, c220_itemno
+, c220_un_no, c220_un_desc, c220_dang_slip, c220_lq_grp, c220_trans_cat, c220_gross_wght, c220_pack_grp, c220_factor,
+c220_tunnelcode, scn, c220_un_desc_de, c220_limit_lq_qty, c220_lq_grp_flag, c220_env_haz_flag, delete_fg,
+extraction_tmsp) AS SELECT wawi_instanz_kzl,
+ c220_itemno,
+ c220_un_no,
+ c220_un_desc,
+ c220_dang_slip,
+ c220_lq_grp,
+ c220_trans_cat,
+ c220_gross_wght,
+ c220_pack_grp,
+ c220_factor,
+ c220_tunnelcode,
+ scn,
+ c220_un_desc_de,
+ c220_limit_lq_qty,
+ c220_lq_grp_flag,
+ c220_env_haz_flag,
+ delete_fg,
+ extraction_tmsp
+FROM ldl_wawi_production_hqwawiadm.t220_dangerous_goods_2;

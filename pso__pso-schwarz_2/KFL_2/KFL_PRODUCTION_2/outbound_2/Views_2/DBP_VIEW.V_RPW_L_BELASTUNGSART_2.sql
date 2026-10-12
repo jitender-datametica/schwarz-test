@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_rpw_l_belastungsart_2 AS SELECT belastungsart_vd_id,
+ belastungsart_id
+FROM kfl_production_dbp_data.rpw_l_belastungsart_2;

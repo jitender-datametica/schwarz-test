@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW FE_MSTR_AI_REPORTING.V_REF_OPTIMIZATION_GOAL_2(
+	OPT_GOAL_SID
+	,OPT_GOAL_TYPE_CD
+	,OPT_GOAL_VALUE
+) AS
+    /* Version: 1.0
+    ** Author:  Stefan Sockel
+    ** Date:    2022-11-09
+    ** Changes: Initial version
+    */
+SELECT 
+    OPT_GOAL_SID
+    ,OPT_GOAL_TYPE_CD
+    ,OPT_GOAL_VALUE
+FROM P_LEW_CORE.T_REF_OPTIMIZATION_GOAL_2;

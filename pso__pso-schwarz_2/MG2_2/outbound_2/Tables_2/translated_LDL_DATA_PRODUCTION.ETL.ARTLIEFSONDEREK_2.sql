@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.artliefsonderek_2 (
+ctrcode STRING(3) COLLATE 'und:ci' NOT NULL,
+artikelnr STRING(18) NOT NULL,
+krednr STRING(7) NOT NULL,
+gesellschaftsnr INTEGER NOT NULL,
+gueltig_ab DATETIME NOT NULL,
+gueltig_bis DATETIME,
+ekpreis BIGNUMERIC(29,10),
+groupnr INTEGER,
+datum DATETIME,
+bediener STRING(8),
+waehrungsknz_2 INTEGER,
+pallet_size INTEGER,
+listenknznr INTEGER,
+scn INTEGER DEFAULT 0,
+min_ord_qty INTEGER,
+min_ord_unit INTEGER,
+extraction_tmsp DATETIME,
+PRIMARY KEY (artikelnr, gesellschaftsnr, gueltig_ab, krednr) NOT ENFORCED
+);

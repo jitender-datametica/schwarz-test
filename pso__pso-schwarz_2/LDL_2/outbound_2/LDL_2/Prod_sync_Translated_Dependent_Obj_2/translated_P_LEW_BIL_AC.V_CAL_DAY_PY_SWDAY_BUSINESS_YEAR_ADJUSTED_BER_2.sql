@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW ldl_p_lew_bil_ac.v_cal_day_py_swday_business_year_adjusted_ber_2 (cal_dt, cy_week_part,
+prev_cy_dat_calendar_swd_ber, prev_prev_cy_dat_calendar_swd_ber, prev_prev_prev_cy_dat_calendar_swd_ber,
+prev_cy_dat_calendar_swd_ber_cum, prev_prev_cy_dat_calendar_swd_ber_cum, prev_prev_prev_cy_dat_calendar_swd_ber_cum) AS
+SELECT *
+FROM ldl_p_lew_bil.v_cal_day_py_swday_business_year_adjusted_ber_2;

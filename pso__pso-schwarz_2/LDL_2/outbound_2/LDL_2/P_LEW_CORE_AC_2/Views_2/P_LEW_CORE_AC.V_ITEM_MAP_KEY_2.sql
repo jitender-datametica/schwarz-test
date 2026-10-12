@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_item_map_key_2 (client_id, item_sid, item_sid_map, dwh_item_id, dwh_log_var_id
+, dwh_orig_item_nr, dwh_case_size, elwis_dwh_ec_cd, elwis_dwh_itm_sid, elwis_dwh_item_id, wawi_dwh_client_id,
+wawi_dwh_item_id, wawi_dwh_orig_item_nr, wawi_dwh_case_size, wawi_dwh_dat_valid_from, active_fg, dummy_fg, source_cd,
+dwh_create, dwh_upd, dwh_load_id) AS SELECT *
+FROM ldl_p_lew_core.v_item_map_key_2;

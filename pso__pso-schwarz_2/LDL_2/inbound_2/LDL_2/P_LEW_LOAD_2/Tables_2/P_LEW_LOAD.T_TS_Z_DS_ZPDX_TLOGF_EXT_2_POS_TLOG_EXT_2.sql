@@ -1,0 +1,26 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TS_Z_DS_ZPDX_TLOGF_EXT_2_POS_TLOG_EXT_2
+(
+  RECORD_ID       NUMBER(10,0)                  NULL,
+  CLIENT_ID       NUMBER(38)                    NULL,
+  RETAILSTOREID   VARCHAR(20) COLLATE 'en-ci'   NULL,
+  DWH_CAL_DT      DATE                          NULL,
+  TRANSINDEX      NUMBER(10,0)                  NULL,
+  ROWKEY          NUMBER(10,0)                  NULL,
+  EETL_LOGSY      VARCHAR(20) COLLATE 'en-ci'   NULL,
+  EETL_REQNR      NUMBER(10,0)                  NULL,
+  PARENTKEY       NUMBER(10,0)                  NULL,
+  RECORDQUALIFIER NUMBER(10,0)                  NULL,
+  WORKSTATIONID   VARCHAR(20) COLLATE 'en-ci'   NULL,
+  TRANSNUMBER     VARCHAR(40) COLLATE 'en-ci'   NULL,
+  FIELDGROUP      VARCHAR(10) COLLATE 'en-ci'   NULL,
+  FIELDNAME       VARCHAR(20) COLLATE 'en-ci'   NULL,
+  FIELDVALUE      VARCHAR(80) COLLATE 'en-ci'   NULL,
+  DWH_LOAD_ID     NUMBER(38)                    NULL,
+  DWH_CREATED     TIMESTAMP_NTZ(6)              NULL,
+  DWH_UPDATED     TIMESTAMP_NTZ(6)              NULL,
+  DWH_MAPPING_DT  DATE                          NULL,
+  ERROR_FG        NUMBER(38)                    NULL,
+  ERROR_DESCR     VARCHAR(1000) COLLATE 'en-ci' NULL,
+  FILENAME        VARCHAR(1000) COLLATE 'en-ci' NULL,
+  HIST_ROW_NO     NUMBER(38)                    NULL
+);

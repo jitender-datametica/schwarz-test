@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_wawi_itm_sup_wh_data_2 (client_id, item_sid, wh_loc_sid, sup_sid, dat_rec_start
+, dat_rec_end, dat_valid_from, dat_valid_until, active_fg, delete_fg, delivery_item_cd, currency_nr, dur_shelflife_cust
+, dur_shelflife_store, dur_shelflife_wh, period_id_shelflife_cust, period_id_shelflife_store, period_id_shelflife_wh,
+factor_period_cust, factor_period_store, factor_period_wh, brand_name, manufact_country, origin_country_cd, load_id) AS
+SELECT client_id,
+ item_sid,
+ wh_loc_sid,
+ sup_sid,
+ dat_rec_start,
+ dat_rec_end,
+ dat_valid_from,
+ dat_valid_until,
+ active_fg,
+ delete_fg,
+ delivery_item_cd,
+ currency_nr,
+ dur_shelflife_cust,
+ dur_shelflife_store,
+ dur_shelflife_wh,
+ period_id_shelflife_cust,
+ period_id_shelflife_store,
+ period_id_shelflife_wh,
+ factor_period_cust,
+ factor_period_store,
+ factor_period_wh,
+ brand_name,
+ manufact_country,
+ origin_country_cd,
+ load_id
+FROM ldl_p_lew_core.t_wawi_itm_sup_wh_data_2;

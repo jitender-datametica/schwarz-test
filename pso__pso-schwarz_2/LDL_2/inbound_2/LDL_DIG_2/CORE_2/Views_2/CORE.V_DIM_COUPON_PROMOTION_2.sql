@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW CORE.V_DIM_COUPON_PROMOTION_2
+(
+	COUPON_PROMO_CD,
+	COUPON_PROMO_NAME
+) COMMENT='A view that contains all distinct values for coupon promotion code and name from t_dim_coupon_2' 
+AS
+SELECT DISTINCT COUPON_PROMO_CD, COUPON_PROMO_NAME 
+FROM CORE.T_DIM_COUPON_2;

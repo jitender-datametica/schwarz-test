@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE smp_production_eval.kfl_pilot_kampagne_2 (
+mandant_id INTEGER,
+bonuskauf_id STRING(80),
+einloesedatum DATE,
+einloesedatum_buchung DATE,
+gutschriftsdatum STRING(9),
+filialnummer INTEGER,
+buchungskreis INTEGER,
+kaufland_artikel_nr INTEGER,
+artikelbezeichnung STRING(200) COLLATE 'und:ci',
+owg_nr INTEGER,
+wg_nr INTEGER,
+betrag_brutto_gezahlt NUMERIC(29,4),
+betrag_netto_gezahlt NUMERIC(29,2),
+betrag_brutto_gespart NUMERIC(29,4),
+betrag_netto_gespart NUMERIC(29,2),
+mwst_bez STRING(16777216),
+kategorie STRING(9),
+waehrung STRING(3),
+anz_coupon NUMERIC(29,3),
+anz_shopper_localty INTEGER,
+menge_artikel NUMERIC(29,3)
+);

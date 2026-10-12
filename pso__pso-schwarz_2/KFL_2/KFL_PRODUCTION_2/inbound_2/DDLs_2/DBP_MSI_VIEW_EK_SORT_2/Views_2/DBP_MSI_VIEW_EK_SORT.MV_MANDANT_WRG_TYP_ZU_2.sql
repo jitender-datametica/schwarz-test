@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_EK_SORT.MV_MANDANT_WRG_TYP_ZU_2
+AS
+   SELECT *
+   FROM dbp_view.v_mandant_wrg_typ_zu_2 v01;

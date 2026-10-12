@@ -1,0 +1,11 @@
+--[OK] statement is translated correctly (syntax and type checks are fine)
+
+
+
+SELECT MANDANT_ID,
+ GP_ID,
+ GP_TEILSORTIMENT_ID,
+ EINKAUFSORGANISATION_ID,
+ SPR_ID,
+ GP_TEILSORTIMENT_BEZ
+FROM KFL_PRODUCTION_DBP_DATA.GP_TEILSORTIMENT_SPR_ZU_2;

@@ -1,0 +1,16 @@
+/*
+# History:
+# 1.0     2023-10-18      Stephane Djiomou Tonga            Initial Version.
+#-----------------------------------------------------------------------------
+# Description:
+# This table will persist the data contained in P_LEW_TMP.vt1 Table.
+# Those Data are inserted during the execution of the AI Script aggr_load_t_agg_store_day_piece_perf_item.py in BIL Project.
+# The whole persisted data will be read on Sunday evening. After that, this Table will trunctate at the end of the execution 
+#-----------------------------------------------------------------------------
+*/
+
+
+CREATE TABLE IF NOT EXISTS ldl_p_lew_bil.t_vt1_str_day_item_2 (
+client_id BIGNUMERIC(38,0),
+dwh_cal_dt DATE
+);

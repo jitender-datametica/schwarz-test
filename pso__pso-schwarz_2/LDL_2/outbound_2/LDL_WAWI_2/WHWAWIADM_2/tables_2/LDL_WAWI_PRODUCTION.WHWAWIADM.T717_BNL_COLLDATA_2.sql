@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE ldl_wawi_production_whwawiadm.t717_bnl_colldata_2 (
+wawi_instanz_kzl STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_nr INTEGER NOT NULL,
+c717_formtype INTEGER NOT NULL,
+c717_itemgrp_nr INTEGER,
+c717_storenr INTEGER,
+c717_whnr INTEGER,
+c717_dayenddate DATETIME NOT NULL,
+c717_formdate DATETIME,
+c717_accountno INTEGER,
+c717_debit BIGNUMERIC(30,10),
+c717_credit BIGNUMERIC(30,10),
+c717_credit_net BIGNUMERIC(30,10),
+c717_debit_net BIGNUMERIC(30,10),
+c717_itemnr STRING(18),
+c717_idvalue BIGNUMERIC(38,10) NOT NULL,
+scn BIGNUMERIC(38,0) DEFAULT 0,
+delete_fg STRING(1),
+extraction_tmsp DATETIME,
+PRIMARY KEY (c717_idvalue, wh_nr) NOT ENFORCED
+);

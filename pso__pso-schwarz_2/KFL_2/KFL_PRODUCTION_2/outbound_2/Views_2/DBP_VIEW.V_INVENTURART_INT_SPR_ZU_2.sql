@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_inventurart_int_spr_zu_2 AS SELECT spr_id,
+ inventurart_int_id,
+ inventurart_int_bez
+FROM kfl_production_dbp_data.inventurart_int_spr_zu_2;

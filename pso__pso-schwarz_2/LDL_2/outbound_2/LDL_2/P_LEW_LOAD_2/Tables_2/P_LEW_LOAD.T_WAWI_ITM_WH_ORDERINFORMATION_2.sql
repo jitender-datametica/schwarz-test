@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_wawi_itm_wh_orderinformation_2 (
+client_id BIGNUMERIC(38) NOT NULL,
+wh_id BIGNUMERIC(38) NOT NULL,
+item_id BIGNUMERIC(38) NOT NULL,
+dat_rec_end DATE NOT NULL,
+dat_rec_start DATE NOT NULL,
+dispo_unit_id BIGNUMERIC(38),
+dispo_group_id BIGNUMERIC(38),
+weight NUMERIC(18,4),
+weight_fg BIGNUMERIC(38),
+delivery_time BIGNUMERIC(38),
+min_order_week BIGNUMERIC(38),
+order_item_fg BIGNUMERIC(38),
+dispo_cd STRING(7) COLLATE 'und:ci',
+dispo_period BIGNUMERIC(38),
+dispo_add_information STRING(20) COLLATE 'und:ci',
+best_before_fg BIGNUMERIC(38),
+pallet_note BIGNUMERIC(38),
+automatic_order_fg BIGNUMERIC(38),
+direct_delivery_fg BIGNUMERIC(38),
+load_id BIGNUMERIC(38) NOT NULL,
+load_ts DATETIME
+);

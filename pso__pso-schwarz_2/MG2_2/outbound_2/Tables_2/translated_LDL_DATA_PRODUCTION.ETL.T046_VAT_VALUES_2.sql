@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t046_vat_values_2 (
+ctrcode STRING(3) COLLATE 'und:ci' NOT NULL,
+c046_vatcode INTEGER NOT NULL,
+c046_countrycode STRING(3) NOT NULL,
+c046_datefrom DATETIME NOT NULL,
+c046_vatcat_id INTEGER,
+c046_dateto DATETIME,
+c046_vatpct NUMERIC(4,2) NOT NULL,
+c046_finaccount INTEGER,
+c046_finaccountext INTEGER,
+c046_fincode_nat STRING(5),
+c046_fincode_ec STRING(5),
+c046_fincode_nec STRING(5),
+c046_moddate DATETIME,
+c046_moduser STRING(8),
+c046_vatpct_sell NUMERIC(4,2) NOT NULL,
+scn INTEGER DEFAULT 0,
+extraction_tmsp DATETIME,
+PRIMARY KEY (c046_countrycode, c046_datefrom, c046_vatcode) NOT ENFORCED
+);

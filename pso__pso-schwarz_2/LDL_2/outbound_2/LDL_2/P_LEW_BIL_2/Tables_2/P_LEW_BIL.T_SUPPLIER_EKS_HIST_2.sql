@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_bil.t_supplier_eks_hist_2 (
+client_id BIGNUMERIC(38,0) NOT NULL,
+sup_sid BIGNUMERIC(38,0) NOT NULL,
+eks_no_list STRING(100),
+eks_no_01 BIGNUMERIC(38,0),
+eks_no_02 BIGNUMERIC(38,0),
+eks_no_03 BIGNUMERIC(38,0),
+eks_no_04 BIGNUMERIC(38,0),
+eks_no_05 BIGNUMERIC(38,0),
+eks_no_06 BIGNUMERIC(38,0),
+eks_no_07 BIGNUMERIC(38,0),
+eks_no_08 BIGNUMERIC(38,0),
+eks_no_09 BIGNUMERIC(38,0),
+eks_no_10 BIGNUMERIC(38,0),
+deleted_fg BIGNUMERIC(38,0) NOT NULL,
+dwh_valid_from DATE NOT NULL,
+dwh_valid_to DATE NOT NULL,
+dwh_actual_fg BIGNUMERIC(38,0),
+PRIMARY KEY (sup_sid, dwh_valid_from) NOT ENFORCED
+) CLUSTER BY client_id;

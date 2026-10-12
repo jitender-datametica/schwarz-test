@@ -1,0 +1,139 @@
+TRUNCATE TABLE ${TARGET_DB}.${TGT_TARGET_TABLE};
+
+INSERT INTO  ${TEMP_DB}.${SRC2TGT_TEMP_TABLE1}_${SRC_CONTEXT_AREA}
+(
+      CTRCODE
+    , WH_NR
+    , C187_FV_ID
+    , C187_LINK_ID
+    , C187_TASKID
+    , C187_RCV_ID
+    , C187_ROW_TYPE
+    , C187_ROW_STATUS
+    , C187_FLAGS
+    , C187_DATE
+    , C187_ITEMNR
+    , C187_KREDNR
+    , C187_CASESIZE
+    , C187_QTY
+    , C187_LOCATION
+    , C187_UNIT_TYPE
+    , C187_UNIT_VALUE
+    , C187_BRAND
+    , C187_BRAND2
+    , C187_KIND
+    , C187_KIND_VAL1
+    , C187_KIND_VAL2
+    , C187_COUNTRY
+    , C187_CLASS
+    , C187_COUNTRY2
+    , C187_CASE_P_LAYER
+    , C187_LAYER_P_PAL
+    , C187_CASE_P_PAL
+    , C187_QTY_PAL
+    , C187_PALLET_TYPE
+    , C187_EXTRA_CASES
+    , C187_BROKEN_CASES
+    , C187_CASESIZE_TYPE
+    , C187_DELIVERYNOTE
+    , C187_TEMP_CORE1
+    , C187_TEMP_CORE2
+    , C187_TEMP_SURFACE
+    , C187_EST_TEMP_MIN
+    , C187_EST_TEMP_MAX
+    , C187_ADHOC_HEAD_ID
+    , C187_SUB_ITEMNO
+    , C187_TRADEMARK
+    , C187_PARTIALFLAG
+    , C187_RCV_POS_ID
+    , SCN
+    , C187_SSCC
+    , C187_EST_MHD
+    , C187_KDRLZ
+    , EXTRACTION_TMSP
+
+    --------------------------------
+    , SOURCE_SYSTEM
+    , EXTRACTION_DT
+    , DWH_MAPPING_TMSP
+    , TF_ERROR_FG
+    , DELETED_FG
+    , RECORD_ID
+    , FILENAME
+    , DWH_NODE_CD
+    , DWH_LOAD_ID
+)
+SELECT 
+      LEFT( src.CTRCODE, 2) as CTRCODE
+    , WH_NR
+    , C187_FV_ID
+    , C187_LINK_ID
+    , C187_TASKID
+    , C187_RCV_ID
+    , C187_ROW_TYPE
+    , C187_ROW_STATUS
+    , C187_FLAGS
+    , C187_DATE
+    , C187_ITEMNR
+    , C187_KREDNR
+    , C187_CASESIZE
+    , C187_QTY
+    , C187_LOCATION
+    , C187_UNIT_TYPE
+    , C187_UNIT_VALUE
+    , C187_BRAND
+    , C187_BRAND2
+    , C187_KIND
+    , C187_KIND_VAL1
+    , C187_KIND_VAL2
+    , C187_COUNTRY
+    , C187_CLASS
+    , C187_COUNTRY2
+    , C187_CASE_P_LAYER
+    , C187_LAYER_P_PAL
+    , C187_CASE_P_PAL
+    , C187_QTY_PAL
+    , C187_PALLET_TYPE
+    , C187_EXTRA_CASES
+    , C187_BROKEN_CASES
+    , C187_CASESIZE_TYPE
+    , C187_DELIVERYNOTE
+    , C187_TEMP_CORE1
+    , C187_TEMP_CORE2
+    , C187_TEMP_SURFACE
+    , C187_EST_TEMP_MIN
+    , C187_EST_TEMP_MAX
+    , C187_ADHOC_HEAD_ID
+    , C187_SUB_ITEMNO
+    , C187_TRADEMARK
+    , C187_PARTIALFLAG
+    , C187_RCV_POS_ID
+    , SCN
+    , C187_SSCC
+    , C187_EST_MHD
+    , C187_KDRLZ
+    , EXTRACTION_TMSP
+
+    --------------------------------
+    , 'WAWI'                             AS SOURCE_SYSTEM
+    , CURRENT_DATE                       AS EXTRACTION_DT
+    , current_timestamp                  AS DWH_MAPPING_TMSP
+    , 0                                  AS TF_ERROR_FG
+    , 0                                  AS DELETED_FG
+    , 0                                  AS RECORD_ID
+    , '${SRC_INPUT_TABLE}'               AS FILENAME
+    , 'WAWI_HQ'                          AS DWH_NODE_CD
+    , '${LOAD_ID}'                       AS DWH_LOAD_ID
+FROM ${TEMP_DB}.${SRC_INPUT_TABLE} src
+INNER JOIN ETL.WAWI_CONTROL_TABLE_2 ctrl
+ON true
+AND ctrl.SOURCE_TABLE_NAME = UPPER('${TEMP_DB}.${SRC_INPUT_TABLE}')
+AND ctrl.SOURCE_STATUS = 'A'
+AND src.EXTRACTION_TMSP between ctrl.BEGIN_TMSP and ctrl.END_TMSP
+QUALIFY Row_Number() OVER 
+(PARTITION BY 
+    LEFT( src.CTRCODE, 2), 
+    C187_FV_ID 
+ ORDER BY src.EXTRACTION_TMSP DESC
+) = 1 
+;

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_vorgart_best_entw_spr_zu_2 AS SELECT mandant_id,
+ vorgart_best_entw_id,
+ spr_id,
+ vorgart_best_entw_bez
+FROM kfl_production_dbp_data.vorgart_best_entw_spr_zu_2;

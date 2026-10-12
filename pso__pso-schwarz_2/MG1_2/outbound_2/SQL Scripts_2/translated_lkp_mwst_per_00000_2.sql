@@ -1,0 +1,17 @@
+--[OK] statement is translated correctly (syntax and type checks are fine)
+
+
+
+SELECT MANDANT_ID,
+ MWST_ID,
+ MWST,
+ SAP_MWST_ID
+FROM (SELECT MANDANT_ID,
+   MWST_ID,
+   MWST,
+   SAP_MWST_ID,
+   DAT_BIS
+  FROM KFL_PRODUCTION_DBP_DATA.MWST_PER_2
+  ORDER BY MANDANT_ID NULLS LAST,
+   MWST_ID NULLS LAST,
+   DAT_BIS DESC NULLS FIRST) AS t0;

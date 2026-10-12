@@ -1,0 +1,67 @@
+CREATE OR REPLACE VIEW nfpow_fe_mstr_ekpsnf.v_fact_nfpo_advertise_theme_pillar_channel_2 (nfpo_adv_theme_sid,
+nfpo_pillar_sid, nfpo_main_pillar_cd, sales_channel_cd, nfpo_total_item_org_order_qty, nfpo_adv_stock_qty,
+nfpo_adv_store_cnt, nfpo_adjust_adv_sales_0_qty, nfpo_adjust_adv_sales_1_qty, nfpo_adjust_adv_sales_3_qty,
+nfpo_adjust_adv_sales_7_qty, nfpo_adjust_adv_sales_14_qty, nfpo_adjust_adv_sales_21_qty, nfpo_total_adjust_adv_sales_qty
+, nfpo_adjust_adv_return_0_qty, nfpo_adjust_adv_return_1_qty, nfpo_adjust_adv_return_3_qty, nfpo_adjust_adv_return_7_qty
+, nfpo_adjust_adv_return_14_qty, nfpo_adjust_adv_return_21_qty, nfpo_adjust_adv_sales_0_net_euro_val,
+nfpo_adjust_adv_sales_1_net_euro_val, nfpo_adjust_adv_sales_3_net_euro_val, nfpo_adjust_adv_sales_7_net_euro_val,
+nfpo_adjust_adv_sales_14_net_euro_val, nfpo_adjust_adv_sales_21_net_euro_val, nfpo_total_adjust_adv_sales_net_euro_val,
+nfpo_total_adjust_adv_sales_gross_euro_val, nfpo_adv_sales_7_margin_euro_val,
+nfpo_expected_item_org_order_purch_net_euro_price, nfpo_expected_item_org_order_purch_net_euro_val,
+nfpo_expected_item_org_order_main_pillar_hg_purch_net_euro_val,
+nfpo_expected_item_org_order_main_pillar_tx_purch_net_euro_val, nfpo_min_target_sales_gross_euro_price,
+nfpo_expected_item_org_order_sales_net_euro_val, nfpo_expected_item_org_order_margin_rate,
+nfpo_item_org_order_purch_net_euro_price, nfpo_planned_item_org_order_purch_net_euro_val,
+nfpo_avg_adv_sales_gross_euro_price, nfpo_avg_adv_sales_margin_rate, dwh_created_tmsp, dwh_updated_tmsp, dwh_src_tmsp)
+AS SELECT nfpo_adv_theme_sid,
+ nfpo_pillar_sid,
+ nfpo_main_pillar_cd,
+ sales_channel_cd,
+ nfpo_total_item_org_order_qty,
+ nfpo_adv_stock_qty,
+ nfpo_adv_store_cnt,
+ nfpo_adjust_adv_sales_0_qty,
+ nfpo_adjust_adv_sales_1_qty,
+ nfpo_adjust_adv_sales_3_qty,
+ nfpo_adjust_adv_sales_7_qty,
+ nfpo_adjust_adv_sales_14_qty,
+ nfpo_adjust_adv_sales_21_qty,
+ nfpo_total_adjust_adv_sales_qty,
+ nfpo_adjust_adv_return_0_qty,
+ nfpo_adjust_adv_return_1_qty,
+ nfpo_adjust_adv_return_3_qty,
+ nfpo_adjust_adv_return_7_qty,
+ nfpo_adjust_adv_return_14_qty,
+ nfpo_adjust_adv_return_21_qty,
+ nfpo_adjust_adv_sales_0_net_euro_val,
+ nfpo_adjust_adv_sales_1_net_euro_val,
+ nfpo_adjust_adv_sales_3_net_euro_val,
+ nfpo_adjust_adv_sales_7_net_euro_val,
+ nfpo_adjust_adv_sales_14_net_euro_val,
+ nfpo_adjust_adv_sales_21_net_euro_val,
+ nfpo_total_adjust_adv_sales_net_euro_val,
+ nfpo_total_adjust_adv_sales_gross_euro_val,
+ nfpo_adv_sales_7_margin_euro_val,
+ nfpo_expected_item_org_order_purch_net_euro_price,
+ nfpo_expected_item_org_order_purch_net_euro_val,
+  CASE
+  WHEN nfpo_main_pillar_cd IN ('HG')
+  THEN nfpo_expected_item_org_order_purch_net_euro_val
+  ELSE NULL
+  END AS nfpo_expected_item_org_order_main_pillar_hg_purch_net_euro_val,
+  CASE
+  WHEN nfpo_main_pillar_cd IN ('TX')
+  THEN nfpo_expected_item_org_order_purch_net_euro_val
+  ELSE NULL
+  END AS nfpo_expected_item_org_order_main_pillar_tx_purch_net_euro_val,
+ nfpo_min_target_sales_gross_euro_price,
+ nfpo_expected_item_org_order_sales_net_euro_val,
+ nfpo_expected_item_org_order_margin_rate,
+ nfpo_item_org_order_purch_net_euro_price,
+ nfpo_planned_item_org_order_purch_net_euro_val,
+ nfpo_avg_adv_sales_gross_euro_price,
+ nfpo_avg_adv_sales_margin_rate,
+ dwh_created_tmsp,
+ dwh_updated_tmsp,
+ dwh_src_tmsp
+FROM nfpow_core.t_fact_nfpo_advertise_theme_pillar_channel_2 AS A11;

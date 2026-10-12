@@ -1,0 +1,3 @@
+create or replace TABLE SMP_PRODUCTION.ETL_PROCESS.DUMMY_2 (
+	I NUMBER(38,0)
+);

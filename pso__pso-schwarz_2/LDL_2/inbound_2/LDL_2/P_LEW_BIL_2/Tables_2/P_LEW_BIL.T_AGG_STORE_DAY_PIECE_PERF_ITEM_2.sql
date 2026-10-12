@@ -1,0 +1,25 @@
+create or replace TABLE LDL_PRODUCTION_CLONE_GOOGLE_20260608_1030.P_LEW_BIL.T_AGG_STORE_DAY_PIECE_PERF_ITEM_2 cluster by (CLIENT_ID ,DWH_CAL_DT)(
+	CLIENT_ID NUMBER(38,0) NOT NULL COMMENT 'Client identifier',
+	SRC_ORIG_STORE_NR NUMBER(38,0) NOT NULL COMMENT 'Store identifier',
+	LOC_SID_STORE NUMBER(38,0) NOT NULL COMMENT 'Store identifier',
+	DWH_CAL_DT DATE NOT NULL COMMENT 'Record date',
+	CURRENCY_ISO_CD VARCHAR(3) NOT NULL COLLATE 'en-ci' COMMENT 'Currency code',
+	ITEM_SID NUMBER(38,0) NOT NULL COMMENT 'Item_2  identifier',
+	SALES_PIECES NUMBER(18,5) COMMENT 'Sales_2 pieces with dependency to Net time worked flag',
+	SALES_PIECES_FA NUMBER(18,5) COMMENT 'Sales_2 pieces (foodaction) with dependency to Net time worked flag',
+	VAL_RTL_NET_EJR NUMBER(18,5) COMMENT 'Net sales_2 value from Receiptline with dependency to Net time worked flag',
+	AVERAGE_PRICE NUMBER(18,5) COMMENT 'Average price with dependency to Net time worked flag',
+	PIECE_RECEIPT NUMBER(18,5) COMMENT 'Piece receipt with dependency to Net time worked flag',
+	CNT_CUSTOMER NUMBER(18,5) COMMENT 'Customer count with dependency to Net time worked flag',
+	TIME_WORKING_NETTO_FG NUMBER(38,0) NOT NULL COMMENT 'Net time worked flag',
+	TRAINING_TIME_HR NUMBER(18,5) COMMENT 'Hours spent training',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'DWH load identifier',
+	DWH_CREATED TIMESTAMP_NTZ(6) NOT NULL COMMENT 'Timestamp record created',
+	SALES_PIECES_TOTAL NUMBER(18,5) COMMENT 'Sales_2 pieces',
+	SALES_PIECES_FA_TOTAL NUMBER(18,5) COMMENT 'Sales_2 pieces total (foodaction)',
+	SALES_PIECES_TOTAL_WO_MULTIPACK_FACTOR NUMBER(18,5) COMMENT 'Sales_2 pieces without multipack',
+	SALES_PIECES_WO_MULTIPACK_FACTOR NUMBER(18,5) COMMENT 'Sales_2 pieces with dependency to Net time worked flag without multipack',
+	MULTIPACK_FG NUMBER(38,0) COMMENT 'Multipack flag',
+	MULTIPACK_FACTOR NUMBER(18,5) COMMENT 'Multipack factor'
+)COMMENT='Store day item_2 piece performance.'
+;

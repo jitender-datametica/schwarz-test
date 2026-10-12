@@ -1,0 +1,13 @@
+/* --------------------------------------------------------------------------------
+   DDL for table: T_DIM_CONTAINER_PACKING_PLACE_2
+   generated from Powerdesigner on Montag, 22. April 2024 11:13:50
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE.T_DIM_CONTAINER_PACKING_PLACE_2 (
+   CONTAINER_PACKING_PLACE_CD          VARCHAR(100)    NOT NULL COMMENT 'Natural Key/Business Key - Information where the container stuffing is taken place ',
+   DWH_CREATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   DWH_UPDATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+   DWH_SRC_FILE_NAME                   VARCHAR(500)    COMMENT 'The path and the name of the file(s) from which this record was loaded.',
+   DWH_SRC_1_TMSP                      TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was extracted from the source.',   
+   CONSTRAINT PK_DIM_CONTAINER_PACKING_PLACE PRIMARY KEY (CONTAINER_PACKING_PLACE_CD) NOT ENFORCED 
+)  COMMENT = 'Minor Dimension - Table contains the information where the container stuffing is taken place ( at the factory or at an export warehouse (CFS / IC) in Asia ). - Source - VMT';

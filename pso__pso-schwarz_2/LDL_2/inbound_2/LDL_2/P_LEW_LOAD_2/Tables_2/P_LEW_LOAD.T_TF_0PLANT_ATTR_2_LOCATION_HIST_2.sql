@@ -1,0 +1,26 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TF_0PLANT_ATTR_2_LOCATION_HIST_2
+(
+  CLIENT_ID               NUMBER(38)                    NULL,
+  LIDL_COUNTRY            VARCHAR(40)                   NULL,
+  PLANT_ATTR_WERKS        VARCHAR(8)                    NULL,
+  SRC_WERKS               VARCHAR(40)                   NULL,
+  SRC_VKORG               VARCHAR(40)                   NULL,
+  SRC_EKORG               VARCHAR(40)                   NULL,
+  SRC_ADDRNUMBER          VARCHAR(40)                   NULL,
+  SRC_WERKS_SUCCESSOR     VARCHAR(40)                   NULL,
+  BUS_CAL_CD              VARCHAR(20)                   NULL,
+  CUSTOMER_DISTRICT_CD    VARCHAR(20)                   NULL,
+  REGION_CD               VARCHAR(20)                   NULL,
+  ARCHIVE_FG              NUMBER(38)                    NULL,
+  DEMAND_PLAN_ACTIVE_FG   NUMBER(38)                    NULL,
+  DISTRIBUTION_CHANNEL_CD VARCHAR(20)                   NULL,
+  ASSESSMENT_AREA_CD      VARCHAR(20)                   NULL,
+  DIVISION_CD             VARCHAR(20)                   NULL,
+  TEST_STORE_FG           NUMBER(38)                    NULL,
+  DELETED_FG              NUMBER(38)                    NULL,
+  EXTRACTION_DT           DATE                          NULL,
+  DWH_MAPPING_DT          DATE                          NULL,
+  TF_ERROR_FG             NUMBER(1,0)                   NULL,
+  RECORD_ID               NUMBER(10,0)                  NULL,
+  FILENAME                VARCHAR(1000)                 NULL
+);

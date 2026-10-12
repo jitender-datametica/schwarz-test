@@ -1,0 +1,23 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_wawi_sup_paymentcondition_2 (client_id, sup_sid, dat_rec_start, dat_rec_end,
+dat_valid_from, dat_valid_from_cond, dat_valid_until, dat_inv_end_fg, std_fg, days_cd, days_after_cd, pos_nr,
+start_type_cd, paymenttype_cd, payment_term_entry_fg, extra_sup_sid, val_discount, val_rebate, load_id) AS SELECT
+ client_id,
+ sup_sid,
+ dat_rec_start,
+ dat_rec_end,
+ dat_valid_from,
+ dat_valid_from_cond,
+ dat_valid_until,
+ dat_inv_end_fg,
+ std_fg,
+ days_cd,
+ days_after_cd,
+ pos_nr,
+ start_type_cd,
+ paymenttype_cd,
+ payment_term_entry_fg,
+ extra_sup_sid,
+ val_discount,
+ val_rebate,
+ load_id
+FROM ldl_p_lew_core.t_wawi_sup_paymentcondition_2;

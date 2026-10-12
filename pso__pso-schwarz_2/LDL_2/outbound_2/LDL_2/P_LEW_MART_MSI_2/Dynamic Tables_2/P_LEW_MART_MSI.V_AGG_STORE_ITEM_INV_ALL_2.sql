@@ -1,0 +1,58 @@
+
+CREATE OR REPLACE TABLE ldl_p_lew_mart_msi.v_agg_store_item_inv_all_2
+AS
+SELECT AGG.client_id,
+ AGG.store_id,
+ AGG.inv_id,
+ AGG.cy_month,
+ AGG.dat_valid_from,
+ AGG.dat_valid_until,
+ ITMP.item_sid_map AS item_id,
+  AGG.val_rtl_ejr / CRY.rate_currency_exchange AS val_rtl_ejr,
+  AGG.val_rtl_net_ejr / CRY.rate_currency_exchange AS val_rtl_net_ejr,
+  AGG.val_return_ejr / CRY.rate_currency_exchange AS val_return_ejr,
+  AGG.val_return_net_ejr / CRY.rate_currency_exchange AS val_return_net_ejr,
+ AGG.qty_piece_ejr,
+ AGG.qty_return_ejr,
+ AGG.diff_inv_stc_calc_cnt,
+  AGG.diff_inv_stc_calc_price_avg / CRY.rate_currency_exchange AS diff_inv_stc_calc_price_avg,
+  AGG.diff_inv_stc_calc_prc_avg_net / CRY.rate_currency_exchange AS diff_inv_stc_calc_prc_avg_net,
+  AGG.diff_inv_stc_calc_val / CRY.rate_currency_exchange AS diff_inv_stc_calc_val,
+  AGG.diff_inv_stc_calc_val_net / CRY.rate_currency_exchange AS diff_inv_stc_calc_val_net,
+  AGG.diff_inv_stc_calc_val_net_diff / CRY.rate_currency_exchange AS diff_inv_stc_calc_val_net_diff,
+  AGG.val_abs / CRY.rate_currency_exchange AS val_abs,
+  AGG.val_net_abs / CRY.rate_currency_exchange AS val_net_abs,
+  AGG.val_pr_diff_del / CRY.rate_currency_exchange AS val_pr_diff_del,
+  AGG.val_pr_diff_net_del / CRY.rate_currency_exchange AS val_pr_diff_net_del,
+  AGG.val_pr_diff_return / CRY.rate_currency_exchange AS val_pr_diff_return,
+  AGG.val_pr_diff_net_return / CRY.rate_currency_exchange AS val_pr_diff_net_return,
+  AGG.val_pv / CRY.rate_currency_exchange AS val_pv,
+  AGG.val_net_pv / CRY.rate_currency_exchange AS val_net_pv,
+  AGG.val_claim / CRY.rate_currency_exchange AS val_claim,
+  AGG.val_claim_net / CRY.rate_currency_exchange AS val_claim_net,
+  AGG.val_rtl_fa_ejr / CRY.rate_currency_exchange AS val_rtl_fa_ejr,
+  AGG.val_rtl_net_fa_ejr / CRY.rate_currency_exchange AS val_rtl_net_fa_ejr,
+  AGG.val_return_fa_ejr / CRY.rate_currency_exchange AS val_return_fa_ejr,
+  AGG.val_return_net_fa_ejr / CRY.rate_currency_exchange AS val_return_net_fa_ejr,
+ AGG.qty_piece_fa_ejr,
+ AGG.qty_return_fa_ejr,
+ AGG.diff_inv_stc_calc_cnt_fa,
+  AGG.diff_inv_stc_calc_val_fa / CRY.rate_currency_exchange AS diff_inv_stc_calc_val_fa,
+  AGG.diff_inv_stc_calc_val_net_fa / CRY.rate_currency_exchange AS diff_inv_stc_calc_val_net_fa,
+  AGG.val_abs_fa / CRY.rate_currency_exchange AS val_abs_fa,
+  AGG.val_net_abs_fa / CRY.rate_currency_exchange AS val_net_abs_fa,
+  AGG.val_pr_diff_fa_del / CRY.rate_currency_exchange AS val_pr_diff_fa_del,
+  AGG.val_pr_diff_net_fa_del / CRY.rate_currency_exchange AS val_pr_diff_net_fa_del,
+  AGG.val_pr_diff_fa_return / CRY.rate_currency_exchange AS val_pr_diff_fa_return,
+  AGG.val_pr_diff_net_fa_return / CRY.rate_currency_exchange AS val_pr_diff_net_fa_return,
+  AGG.val_pv_fa / CRY.rate_currency_exchange AS val_pv_fa,
+  AGG.val_net_pv_fa / CRY.rate_currency_exchange AS val_net_pv_fa,
+  AGG.val_claim_fa / CRY.rate_currency_exchange AS val_claim_fa,
+  AGG.val_claim_net_fa / CRY.rate_currency_exchange AS val_claim_net_fa,
+ CRY.currency_iso_cd
+FROM ldl_p_lew_bil_ac.v_agg_store_item_inv_all_2 AS AGG
+ INNER JOIN ldl_p_lew_core_ac.v_wawi_ref_client_currency_rate_2 AS CRY ON AGG.client_id = CRY.client_id AND CURRENT_DATE
+   BETWEEN CRY.dat_rec_start AND CRY.dat_rec_end
+ INNER JOIN ldl_p_lew_core_ac.v_item_map_key_2 AS ITMP ON AGG.client_id = ITMP.client_id AND AGG.item_id = ITMP.item_sid;
+
+

@@ -1,0 +1,12 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_reb.mv_artkz_display_2 (display_id, display_bez, mandant_id, spr_id) AS
+SELECT display_id,
+  CASE
+  WHEN display_id = 0
+  THEN 'kein Displayartikel'
+  ELSE display_bez
+  END AS display_bez,
+ mandant_id,
+ spr_id
+FROM kfl_production_dbp_view.v_artkz_display_2
+WHERE mandant_id = 1
+ AND spr_id = 22;

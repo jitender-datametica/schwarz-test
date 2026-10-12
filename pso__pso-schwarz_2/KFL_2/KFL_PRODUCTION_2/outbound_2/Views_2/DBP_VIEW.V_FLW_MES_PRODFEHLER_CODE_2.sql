@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_flw_mes_prodfehler_code_2 AS SELECT mandant_id,
+ fehler_code_id,
+ fehler_katalog_id,
+ fehler_code_gruppe_id
+FROM kfl_production_dbp_data.flw_mes_prodfehler_code_2;

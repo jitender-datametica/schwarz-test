@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_cross_docking_avis_2 AS SELECT mandant_id,
+ cd_beleg_id,
+ wup_id,
+ nb_id,
+ cd_typ_id,
+ lagerort_id,
+ gp_id,
+ kunde_id,
+ dat_lief_soll,
+ handling_unit_id_ext,
+ lief_beleg_ext_id,
+ cd_status_id,
+ mandant_id_kunde,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.cross_docking_avis_2;

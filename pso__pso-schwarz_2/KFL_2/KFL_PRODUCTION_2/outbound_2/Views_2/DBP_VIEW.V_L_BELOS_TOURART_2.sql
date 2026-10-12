@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_belos_tourart_2 AS SELECT mandant_id,
+ belos_tourart_id
+FROM kfl_production_dbp_data.l_belos_tourart_2;

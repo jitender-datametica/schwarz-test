@@ -1,0 +1,12 @@
+create or replace view LDL_DIG_PRODUCTION.FE_MSTR_LIDLDIGITAL.V_DIM_COUNTRY_2(
+	COUNTRY_CD,
+	COUNTRY_NAME,
+	COUNTRY_ISO3_CD
+) as SELECT
+     COUNTRY_CD
+    ,COUNTRY_NAME
+    ,COUNTRY_ISO3_CD
+FROM lec_share.v_dim_country_2
+UNION ALL
+    SELECT '-1', '', ''
+;

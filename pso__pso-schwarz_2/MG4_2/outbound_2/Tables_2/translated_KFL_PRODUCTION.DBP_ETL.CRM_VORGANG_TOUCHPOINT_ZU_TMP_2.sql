@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl.crm_vorgang_touchpoint_zu_tmp_2 (
+mandant_id INTEGER NOT NULL,
+crm_vorgang_id STRING(36) COLLATE 'und:ci' NOT NULL,
+kl_opencount INTEGER,
+kl_inprogresscount INTEGER,
+kl_customercount INTEGER,
+kl_departmentcount INTEGER,
+kl_salescount INTEGER,
+kl_countrycount INTEGER,
+kl_reactioncount INTEGER,
+kl_overduecount INTEGER,
+kl_reviewcount INTEGER,
+kl_solvedcount INTEGER,
+kl_closedcount INTEGER,
+kl_canceledcount INTEGER,
+kl_irrelevantcount INTEGER,
+kl_mergedcount INTEGER,
+td_update TIMESTAMP,
+td_insert TIMESTAMP
+);

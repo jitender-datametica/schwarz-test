@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_wup_oeffnung_typ_2 AS SELECT mandant_id,
+ wup_oeffnungs_typ_id
+FROM kfl_production_dbp_data.l_wup_oeffnung_typ_2;

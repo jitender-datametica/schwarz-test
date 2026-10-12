@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ais_int.mv_l_transfer_status_2 (mandant_id, transfer_status_id) AS
+SELECT mandant_id,
+ transfer_status_id
+FROM kfl_production_dbp_data.l_transfer_status_2;

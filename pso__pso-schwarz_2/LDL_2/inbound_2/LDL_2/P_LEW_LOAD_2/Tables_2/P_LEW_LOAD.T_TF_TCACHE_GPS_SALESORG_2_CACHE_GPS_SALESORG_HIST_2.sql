@@ -1,0 +1,28 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TF_TCACHE_GPS_SALESORG_2_CACHE_GPS_SALESORG_HIST_2
+(
+  CLIENT_ID                     NUMBER(38)                    NOT NULL,
+  LIDL_COUNTRY                  VARCHAR(40)                   NOT NULL,
+  TCACHE_GPS_SALESORG_COUNTRY   VARCHAR(6)                    NOT NULL,
+  TCACHE_GPS_SALESORG_STORENO   NUMBER(10,0)                  NOT NULL,
+  TCACHE_GPS_SALESORG_WAREHOUSE NUMBER(10,0)                  NOT NULL,
+  TCACHE_GPS_SALESORG_VALIDFROM DATE                          NOT NULL,
+  COUNTRY_2                       VARCHAR(20) COLLATE 'en-ci'   NOT NULL,
+  STORENO                       VARCHAR(20) COLLATE 'en-ci'   NOT NULL,
+  WAREHOUSE                     VARCHAR(20) COLLATE 'en-ci'   NOT NULL,
+  SALES_MANAGER_ID              VARCHAR(20) COLLATE 'en-ci'   NULL,
+  SALES_MANAGER_NAME            VARCHAR(100) COLLATE 'en-ci'  NULL,
+  ACCOUNT_MANAGER_ID            VARCHAR(20) COLLATE 'en-ci'   NULL,
+  ACCOUNT_MANAGER_NAME          VARCHAR(100) COLLATE 'en-ci'  NULL,
+  STORE_MANAGER_ID              VARCHAR(20) COLLATE 'en-ci'   NULL,
+  STORE_MANAGER_NAME            VARCHAR(100) COLLATE 'en-ci'  NULL,
+  GENERAL_MANAGER_ID            VARCHAR(20) COLLATE 'en-ci'   NULL,
+  GENERAL_MANAGER_NAME          VARCHAR(100) COLLATE 'en-ci'  NULL,
+  SALESAREA                     VARCHAR(100) COLLATE 'en-ci'  NULL,
+  VALIDFROM                     DATE                          NOT NULL,
+  DELETED_FG                    NUMBER(38)                    NOT NULL,
+  EXTRACTION_DT                 DATE                          NULL,
+  DWH_MAPPING_DT                DATE                          NOT NULL,
+  TF_ERROR_FG                   NUMBER(1,0)                   NULL,
+  RECORD_ID                     VARCHAR(300)                  NOT NULL,
+  FILENAME                      VARCHAR(1000)                 NOT NULL
+);

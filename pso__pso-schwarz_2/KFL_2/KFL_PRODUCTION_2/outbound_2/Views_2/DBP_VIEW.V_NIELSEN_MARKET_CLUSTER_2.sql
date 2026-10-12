@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_nielsen_market_cluster_2 AS SELECT mandant_id,
+ nielsen_market_cluster_id,
+ nielsen_market_cluster_bez
+FROM kfl_production_dbp_data.nielsen_market_cluster_2;

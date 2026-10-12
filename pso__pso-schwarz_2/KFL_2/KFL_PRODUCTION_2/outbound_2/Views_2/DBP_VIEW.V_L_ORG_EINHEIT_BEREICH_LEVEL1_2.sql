@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_org_einheit_bereich_level1_2 AS SELECT hr_objekt_bereich_level1_id
+FROM kfl_production_dbp_data.l_org_einheit_bereich_level1_2;

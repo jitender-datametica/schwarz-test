@@ -1,0 +1,27 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TF_SQL_POS_CLEAN_TRANS_2_POS_CTRL_REGISTER_TRANSACTION_2
+(
+  CLIENT_ID                           NUMBER(38)                    NOT NULL,
+  LIDL_COUNTRY                        VARCHAR(40)                   NOT NULL,
+  SQL_POS_CLEAN_TRANS_LOC_SID_STORE   NUMBER(10,0)                  NOT NULL,
+  SQL_POS_CLEAN_TRANS_POS_TERMINAL_ID NUMBER(10,0)                  NOT NULL,
+  SQL_POS_CLEAN_TRANS_ORIG_RECEIPT_NR NUMBER(10,0)                  NOT NULL,
+  SQL_POS_CLEAN_TRANS_DAT_FORMDATE    DATE                          NOT NULL,
+  LOC_SID                             NUMBER(38)                    NOT NULL,
+  RECEIPT_ID                          NUMBER(38)                    NOT NULL,
+  RECEIPT_DT                          DATE                          NOT NULL,
+  RECEIPT_TMSP                        TIMESTAMP_NTZ(6)              NOT NULL,
+  REGISTER_ID                         NUMBER(38)                    NOT NULL,
+  CASHIER_ID                          NUMBER(38)                    NULL,
+  AUTHORITY_CD                        VARCHAR(20) COLLATE 'en-ci'   NULL,
+  TIMEZONE_ID                         NUMBER(38)                    NULL,
+  TRANSACTION_BEGIN_TMSP              TIMESTAMP_NTZ(6)              NULL,
+  TRANSACTION_END_TMSP                TIMESTAMP_NTZ(6)              NULL,
+  TRANSACTION_TYPE_CD                 VARCHAR(20)                   NOT NULL,
+  TRANSACTION_TYPE_DETAIL_ID          NUMBER(38)                    NOT NULL,
+  DWH_CAL_DT                          DATE                          NOT NULL,
+  EXTRACTION_DT                       DATE                          NULL,
+  DWH_MAPPING_DT                      DATE                          NOT NULL,
+  TF_ERROR_FG                         NUMBER(1,0)                   NULL,
+  RECORD_ID                           VARCHAR(300)                  NOT NULL,
+  FILENAME                            VARCHAR(1000)                 NOT NULL
+);

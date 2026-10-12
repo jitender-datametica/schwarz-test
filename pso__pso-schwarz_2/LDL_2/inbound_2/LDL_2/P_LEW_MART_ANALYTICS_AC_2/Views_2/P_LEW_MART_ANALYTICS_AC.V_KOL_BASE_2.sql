@@ -1,0 +1,191 @@
+CREATE OR REPLACE VIEW P_LEW_MART_ANALYTICS_AC.V_KOL_BASE_2
+(
+      client_id
+    , item_ian
+    , adv_ian_dt
+    , adv_store_dt
+    , item_descr
+    , sup_name
+    , range_plan_cd
+    , src_familygrp_cd
+    , cbx_item_doc_status
+    , buyer_cd
+    , ean_2
+    , ean_descr
+    , ean_size_name
+    , ean_style_name
+    , country_cbx_cd
+    , sort_val
+    , sort_ean_size_val
+    , sort_ean_style_val
+    , proportion_ean_size_qty
+    , proportion_ean_style_qty
+    , client_block_cd
+    , pack_list_name
+    , ean_equals_ian_fg
+    , kol_content_not_equals_calc_dq_fg
+    , item_part_cnt
+    , pack_assort_type
+    , ad_theme_am
+    , ad_theme_cd
+    , ad_theme_name
+    , src_style_uniqids_cd
+    , ean_clean
+    , kol_content_qty
+    , kol_content_calc_qty
+    , delivery_ian_qty
+    , orig_store_nr
+    , sales_hour
+    , sales_dt
+    , sales_qty
+    , sales_tmsp
+    , proportion_kol_qty
+    , delivery_ian_store_adv_ean
+    , delivery_ian_store_adv_ean_size
+    , delivery_ian_store_adv_ean_style
+    , delivery_cntry_ian_adv_qty
+    , sales_cntry_ian_adv_ean_qty
+    , sales_ian_1d_qty
+    , sales_ian_1d_block_qty
+    , sales_ian_1d_int_qty
+    , sales_ean_7d_qty
+    , sales_ean_1d_qty
+    , sales_ean_1d_block_qty
+    , sales_ean_1d_int_qty
+    , sales_ean_size_7d_qty
+    , sales_ean_size_1d_qty
+    , sales_ean_size_1d_block_qty
+    , sales_ean_size_1d_int_qty
+    , sales_ean_style_7d_qty
+    , sales_ean_style_1d_qty
+    , sales_ean_style_1d_block_qty
+    , sales_ean_style_1d_int_qty
+    , sum_sales_fake_ean_qty
+    , sum_sales_fake_ean_cntry_qty
+    , sales_ratio_ian_qty
+    , sales_ratio_ean_qty
+    , sales_ratio_ean_size_qty
+    , sales_ratio_ean_style_qty
+    , cumsum_sales_qty
+    , cumsum_sales_ean_size_qty
+    , cumsum_sales_ean_style_qty
+    , cumsum_sales_ratio_ean_qty
+    , cumsum_sales_ratio_ean_size_qty
+    , cumsum_sales_ratio_ean_style_qty
+    , cbx_primary_key_null_dq_fg
+    , cbx_sort_val_null_dq_fg
+    , no_deliveries_dq_fg
+    , no_deliveries_cntry_dq_fg
+    , cbx_sort_ian_val_null_dq_fg
+    , no_sales_dq_fg
+    , no_sales_ian_dq_fg
+    , cbx_extra_columns_null_dq_fg
+    , ean_equals_ian_dq_fg
+    , single_ean_bl_fg
+    , too_large_ian_avq_dq_fg
+    , too_large_ean_avq_dq_fg
+    , different_sort_in_block_bl_fg
+    , different_sort_in_int_bl_fg
+    , different_kollo_in_block_bl_fg
+    , different_kollo_in_int_bl_fg
+    , different_eans_in_block_bl_fg
+    , different_eans_in_int_bl_fg
+    , no_wt_available_dq_fg
+    , more_than_one_adv_bl_fg
+)
+AS
+   SELECT
+         client_id,
+   item_ian,
+   adv_ian_dt,
+   adv_store_dt,
+   item_descr,
+   sup_name,
+   range_plan_cd,
+   src_familygrp_cd,
+   cbx_item_doc_status,
+   buyer_cd,
+   ean_2,
+   ean_descr,
+   ean_size_name,
+   ean_style_name,
+   country_cbx_cd,
+   sort_val,
+   sort_ean_size_val,
+   sort_ean_style_val,
+   proportion_ean_size_qty,
+   proportion_ean_style_qty,
+   client_block_cd,
+   pack_list_name,
+   ean_equals_ian_fg,
+   kol_content_not_equals_calc_dq_fg,
+   item_part_cnt,
+   pack_assort_type,
+   ad_theme_am,
+   ad_theme_cd,
+   ad_theme_name,
+   src_style_uniqids_cd,
+   ean_clean,
+   kol_content_qty,
+   kol_content_calc_qty,
+   delivery_ian_qty,
+   orig_store_nr,
+   sales_hour,
+   sales_dt,
+   sales_qty,
+   sales_tmsp,
+   proportion_kol_qty,
+   delivery_ian_store_adv_ean,
+   delivery_ian_store_adv_ean_size,
+   delivery_ian_store_adv_ean_style,
+   delivery_cntry_ian_adv_qty,
+   sales_cntry_ian_adv_ean_qty,
+   sales_ian_1d_qty,
+   sales_ian_1d_block_qty,
+   sales_ian_1d_int_qty,
+   sales_ean_7d_qty,
+   sales_ean_1d_qty,
+   sales_ean_1d_block_qty,
+   sales_ean_1d_int_qty,
+   sales_ean_size_7d_qty,
+   sales_ean_size_1d_qty,
+   sales_ean_size_1d_block_qty,
+   sales_ean_size_1d_int_qty,
+   sales_ean_style_7d_qty,
+   sales_ean_style_1d_qty,
+   sales_ean_style_1d_block_qty,
+   sales_ean_style_1d_int_qty,
+   sum_sales_fake_ean_qty,
+   sum_sales_fake_ean_cntry_qty,
+   sales_ratio_ian_qty,
+   sales_ratio_ean_qty,
+   sales_ratio_ean_size_qty,
+   sales_ratio_ean_style_qty,
+   cumsum_sales_qty,
+   cumsum_sales_ean_size_qty,
+   cumsum_sales_ean_style_qty,
+   cumsum_sales_ratio_ean_qty,
+   cumsum_sales_ratio_ean_size_qty,
+   cumsum_sales_ratio_ean_style_qty,
+   cbx_primary_key_null_dq_fg,
+   cbx_sort_val_null_dq_fg,
+   no_deliveries_dq_fg,
+   no_deliveries_cntry_dq_fg,
+   cbx_sort_ian_val_null_dq_fg,
+   no_sales_dq_fg,
+   no_sales_ian_dq_fg,
+   cbx_extra_columns_null_dq_fg,
+   ean_equals_ian_dq_fg,
+   single_ean_bl_fg,
+   too_large_ian_avq_dq_fg,
+   too_large_ean_avq_dq_fg,
+   different_sort_in_block_bl_fg,
+   different_sort_in_int_bl_fg,
+   different_kollo_in_block_bl_fg,
+   different_kollo_in_int_bl_fg,
+   different_eans_in_block_bl_fg,
+   different_eans_in_int_bl_fg,
+   no_wt_available_dq_fg,
+   more_than_one_adv_bl_fg
+  FROM p_lew_mart_analytics.t_kol_base_2
+;

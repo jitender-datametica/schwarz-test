@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tcache_backkammern_hist_unmatched_2 (
+client_id BIGNUMERIC(38,0),
+cs_db_ovenid BIGNUMERIC,
+cs_manufacturer STRING(200),
+cs_country STRING(200),
+cs_bi_country STRING(200),
+cs_store STRING(200),
+cs_ip STRING(200),
+cs_name STRING(200),
+cs_position_oven BIGNUMERIC,
+cs_position_deck STRING(200),
+cs_serial_number STRING(200),
+cs_type STRING(200),
+cs_year_of_construction BIGNUMERIC,
+cs_end_of_warranty STRING(200),
+min_calc_ts DATETIME,
+extraction_dt DATE,
+dwh_load_id BIGNUMERIC(38,0),
+dwh_created DATETIME,
+dwh_updated DATETIME
+);

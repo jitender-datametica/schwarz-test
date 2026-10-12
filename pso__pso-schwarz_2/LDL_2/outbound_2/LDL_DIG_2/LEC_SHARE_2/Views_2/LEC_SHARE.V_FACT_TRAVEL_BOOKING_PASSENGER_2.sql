@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_lec_share.v_fact_travel_booking_passenger_2 AS SELECT *
+FROM ldl_dig_core.t_fact_travel_booking_passenger_2;

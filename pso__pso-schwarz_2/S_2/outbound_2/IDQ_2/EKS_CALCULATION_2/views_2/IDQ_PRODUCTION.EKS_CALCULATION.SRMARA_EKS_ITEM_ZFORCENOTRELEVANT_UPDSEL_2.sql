@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.srmara_eks_item_zforcenotrelevant_updsel_2 (itemno,
+zforcenotrelevant, zforcenotrelevantnew) AS SELECT stmara_eks_item.itemno,
+ stmara_eks_item.zforcenotrelevant,
+ eks_zsm_articlerelevancyoverride.forcenotrelevant AS zforcenotrelevantnew
+FROM idq_production_eks_calculation.stmara_eks_item_2
+ INNER JOIN idq_production_eks_calculation.eks_zsm_articlerelevancyoverride_2 ON stmara_eks_item.itemno = CAST(eks_zsm_articlerelevancyoverride.itemno AS FLOAT64)
+  
+WHERE eks_zsm_articlerelevancyoverride.forcenotrelevant = 1;

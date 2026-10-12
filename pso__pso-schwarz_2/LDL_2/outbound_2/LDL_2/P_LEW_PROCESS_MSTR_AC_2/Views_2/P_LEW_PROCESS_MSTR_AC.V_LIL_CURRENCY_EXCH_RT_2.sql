@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process_mstr_ac.v_lil_currency_exch_rt_2 (from_currency_iso_cd, to_currency_iso_cd,
+rate_currency_exchange) AS SELECT from_currency_iso_cd,
+ to_currency_iso_cd,
+ rate_currency_exchange
+FROM ldl_p_lew_process_mstr.t_lil_currency_exch_rt_2;

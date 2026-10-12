@@ -1,0 +1,116 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_wbs_pmr_werbeaenderungen_2 (mandant_id, art_id, offer_id,
+aktion_id, dat_beladung, dat_ab, dat_bis, kjwo, werbethema_vortag_bez, titel_fg, rueckseite_fg, tv_fg, anz_tage_werbung
+, werbeaenderung_marktanzahlerhoehung_fg, werbeaenderung_marktanzahlreduktion_fg, werbeaenderung_abbildungsaenderung_fg
+, rabattaenderung_fg, pmr_werbethema_id, pmr_werbethema_beschreibung, preis_aktion, preis_aktion_vorlauf, preis_normal,
+preis_normal_vorlauf, bonuskauf_fg, bonuskauf_geschaeftsvorfall_id, bonuskauf_promotionstyp, werbemittel_art_id,
+werbemittel_id, werbeflaeche_abschnitt_name, werbeflaeche_thema_id, normalpreisaenderung_fg, aktionspreisaenderung_fg,
+werbeaenderung_artikelentfernung_fg, werbeaenderung_artikelneuanlage_fg, anzahl_artikelentfernung,
+anzahl_artikelneuanlage, anzahl_wup, artikelentfernung_art_fg, artikelneuanlage_art_fg, anzahl_markt_out,
+anzahl_markt_in) AS SELECT WBS.mandant_id,
+ WBS.art_id,
+ WBS.offer_id,
+ WBS.aktion_id,
+ WBS.dat_beladung,
+ WBS.dat_ab,
+ WBS.dat_bis,
+ WBS.kjwo,
+ MAX(WBS.werbethema_vortag_bez) AS werbethema_vortag_bez,
+ MAX(WBS.titel_fg) AS titel_fg,
+ MAX(WBS.rueckseite_fg) AS rueckseite_fg,
+ MAX(WBS.tv_fg) AS tv_fg,
+ MAX(WBS.anz_tage_werbung) AS anz_tage_werbung,
+ MAX(WBS.werbeaenderung_marktanzahlerhoehung_fg) AS werbeaenderung_marktanzahlerhoehung_fg,
+ MAX(WBS.werbeaenderung_marktanzahlreduktion_fg) AS werbeaenderung_marktanzahlreduktion_fg,
+ MAX(WBS.werbeaenderung_abbildungsaenderung_fg) AS werbeaenderung_abbildungsaenderung_fg,
+ MAX(WBS.rabattaenderung_fg) AS rabattaenderung_fg,
+ MAX(PMR.pmr_werbethema_id) AS pmr_werbethema_id,
+ MAX(PMR.pmr_werbethema_beschreibung) AS pmr_werbethema_beschreibung,
+ WBS.preis_aktion,
+ WBS.preis_aktion_vorlauf,
+ WBS.preis_normal,
+ WBS.preis_normal_vorlauf,
+ MAX(PMR.bonuskauf_fg) AS bonuskauf_fg,
+ MAX(RIGHT('00' || COALESCE(CAST(PMR.bonuskauf_geschaeftsvorfall_id AS STRING), ''), 2)) AS
+ bonuskauf_geschaeftsvorfall_id,
+ MAX(PMR.bonuskauf_promotionstyp) AS bonuskauf_promotionstyp,
+ PMR_WM.werbemittel_art_id,
+ PMR_WM.werbemittel_id,
+ PMR_WM.werbeflaeche_abschnitt_name,
+ PMR_WM.werbeflaeche_thema_id,
+ MAX(WBS.normalpreisaenderung_fg) AS normalpreisaenderung_fg,
+ MAX(WBS.aktionspreisaenderung_fg) AS aktionspreisaenderung_fg,
+ MAX(WBS.werbeaenderung_artikelentfernung_fg) AS werbeaenderung_artikelentfernung_fg,
+ MAX(WBS.werbeaenderung_artikelneuanlage_fg) AS werbeaenderung_artikelneuanlage_fg,
+ MAX(WBS.anzahl_artikelentfernung) AS anzahl_artikelentfernung,
+ MAX(WBS.anzahl_artikelneuanlage) AS anzahl_artikelneuanlage,
+ COUNT(DISTINCT WBS.wup_id) AS anzahl_wup,
+ MAX(IF(WBS.anzahl_artikelentfernung = WBS.anzahl_wup, 1, 0)) AS artikelentfernung_art_fg,
+ MAX(IF(WBS.anzahl_artikelneuanlage = WBS.anzahl_wup, 1, 0)) AS artikelneuanlage_art_fg,
+ MAX(WBS.anzahl_markt_out) AS anzahl_markt_out,
+ MAX(WBS.anzahl_markt_in) AS anzahl_markt_in
+FROM (SELECT DISTINCT mandant_id_vz,
+   mandant_id,
+   wup_id,
+   art_id,
+   offer_id,
+   aktion_id,
+   dat_beladung,
+   dat_ab,
+   dat_bis,
+   kjwo,
+   COALESCE(werbethema_vortag_bez, ' ') AS werbethema_vortag_bez,
+   titel_fg,
+   rueckseite_fg,
+   tv_fg,
+   anz_tage_werbung,
+   werbeaenderung_marktanzahlerhoehung_fg,
+   werbeaenderung_marktanzahlreduktion_fg,
+   werbeaenderung_abbildungsaenderung_fg,
+   rabattaenderung_fg,
+   preis_aktion,
+   preis_aktion_vorlauf,
+   preis_normal,
+   preis_normal_vorlauf,
+    CASE
+    WHEN preis_normal <> preis_normal_vorlauf
+    THEN 1
+    ELSE 0
+    END AS normalpreisaenderung_fg,
+    CASE
+    WHEN preis_aktion <> preis_aktion_vorlauf
+    THEN 1
+    ELSE 0
+    END AS aktionspreisaenderung_fg,
+   werbeaenderung_artikelentfernung_fg,
+   werbeaenderung_artikelneuanlage_fg,
+   COUNT(wup_id) OVER (PARTITION BY CAST(mandant_id_vz AS STRING), CAST(art_id AS STRING), aktion_id, dat_beladung
+    RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS anzahl_wup,
+   SUM(werbeaenderung_artikelentfernung_fg) OVER (PARTITION BY CAST(mandant_id_vz AS STRING), CAST(art_id AS STRING),
+      aktion_id, dat_beladung RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS anzahl_artikelentfernung,
+   SUM(werbeaenderung_artikelneuanlage_fg) OVER (PARTITION BY CAST(mandant_id_vz AS STRING), CAST(art_id AS STRING),
+      aktion_id, dat_beladung RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS anzahl_artikelneuanlage,
+   SUM(werbeaenderung_marktanzahlreduktion_fg) OVER (PARTITION BY CAST(mandant_id_vz AS STRING), CAST(art_id AS STRING)
+      , aktion_id, dat_beladung RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS anzahl_markt_out,
+   SUM(werbeaenderung_marktanzahlerhoehung_fg) OVER (PARTITION BY CAST(mandant_id_vz AS STRING), CAST(art_id AS STRING)
+      , aktion_id, dat_beladung RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS anzahl_markt_in
+  FROM kfl_production_dbp_view.v_wbs_werbeaenderungen_2 AS WBS_INNER) AS WBS
+ INNER JOIN kfl_production_dbp_view.v_pmr_angebot_art_wup_zu_2 AS PMR ON WBS.mandant_id = PMR.mandant_id AND WBS.wup_id =
+      PMR.wup_id AND WBS.art_id = PMR.art_id AND WBS.offer_id = PMR.angebot_id AND WBS.aktion_id = PMR.aktion_id
+ INNER JOIN kfl_production_dbp_view.v_pmr_angebot_werbemittel_werbeflaeche_zu_2 AS PMR_WM ON PMR.mandant_id = PMR_WM.mandant_id
+    AND PMR.angebot_id = PMR_WM.angebot_id
+GROUP BY WBS.mandant_id,
+ WBS.art_id,
+ WBS.offer_id,
+ WBS.aktion_id,
+ WBS.dat_beladung,
+ WBS.dat_ab,
+ WBS.dat_bis,
+ WBS.kjwo,
+ PMR_WM.werbemittel_art_id,
+ PMR_WM.werbemittel_id,
+ PMR_WM.werbeflaeche_abschnitt_name,
+ PMR_WM.werbeflaeche_thema_id,
+ WBS.preis_aktion,
+ WBS.preis_aktion_vorlauf,
+ WBS.preis_normal,
+ WBS.preis_normal_vorlauf;

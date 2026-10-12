@@ -1,0 +1,96 @@
+CREATE OR REPLACE VIEW ldl_s_conl_workbench.v_g_elke_logistics_2 AS -- metadata
+
+/* MSC-ERROR - MSCEWI2041 - TRUNC FUNCTION WAS ADDED TO ENSURE INTEGER. MAY NEED CHANGES IF NOT NUMERIC OR STRING. ** */
+-- joining bf4 on bf3
+ SELECT ROUND(CAST(TRUNC(CAST(BF3.cost_center AS BIGNUMERIC)) AS BIGNUMERIC), 0) AS cost_center,
+ BF3.cy_month,
+ BF3.gesell_dl AS classification_1,
+ BF3.fil_lag_fix AS classification_2,
+ BF3.regio AS classification_3,
+ BF3.regio_sub AS classification_4,
+ BF3.vl AS classification_5,
+ BF3.rm AS classification_6,
+ /* bf4 data */ BF4.netto_cases_picking AS cases,
+ BF4.pallets_in,
+ BF4.pallets_out,
+ BF4.we_hours_gross,
+ BF4.we_hours_overtime,
+ BF4.we_hours_sick,
+ BF4.we_hours_holiday,
+ BF4.we_hours_external,
+ BF4.we_hours_total,
+ BF4.wb_hours_gross,
+ BF4.wb_hours_overtime,
+ BF4.wb_hours_sick,
+ BF4.wb_hours_holiday,
+ BF4.wb_hours_external,
+ BF4.wb_hours_total,
+ BF4.wa_hours_gross,
+ BF4.wa_hours_overtime,
+ BF4.wa_hours_sick,
+ BF4.wa_hours_holiday,
+ BF4.wa_hours_external,
+ BF4.wa_hours_total,
+ BF4.hours_bt_and_house_tech,
+  BF4.hours_total - BF4.hours_total_external AS hours_internal,
+ BF4.hours_total_external,
+ BF4.hours_total,
+ BF4.productivity_cases_per_hour_total,
+ BF4.productivity_pallets_per_hour_total,
+ /* bf3 data */ BF3.load_factor,
+ BF3.amount_of_trips,
+  BF3.load_factor * BF3.amount_of_trips AS load_factor_times_trips,
+ BF3.amount_of_trucks_per_day,
+ BF3.kilometers,
+ BF3.use_time,
+ /* logistics rates data */ LR.hourly_rate AS uurtarief,
+ LR.kilometer_rate AS kilometertarief,
+ /* PO LEAD data part 1 */ LAGER.headcount_teammanager,
+ LAGER.headcount_medewerker,
+ LAGER.headcount_hulpkracht,
+ LAGER.fte_teammanager,
+ LAGER.fte_medewerker,
+ LAGER.fte_hulpkracht,
+ /* eployee_fluctuation data */ FLUC.employee_inflow_teammanager,
+ FLUC.employee_inflow_medewerker,
+ FLUC.employee_inflow_hulpkracht,
+ FLUC.employee_outflow_teammanager,
+ FLUC.employee_outflow_medewerker,
+ FLUC.employee_outflow_hulpkracht,
+ /* PO LEAD data part 2 */ LAGER.cla_hourly_wage_teammanager,
+ LAGER.cla_hourly_wage_medewerker,
+ LAGER.cla_hourly_wage_hulpkracht,
+ LAGER.permanent_contract_teammanager,
+ LAGER.permanent_contract_medewerker,
+ LAGER.permanent_contract_hulpkracht,
+ LAGER.non_permanent_contract_teammanager,
+ LAGER.non_permanent_contract_medewerker,
+ LAGER.non_permanent_contract_hulpkracht,
+ LAGER.avg_years_service_teammanager,
+ LAGER.avg_years_service_medewerker,
+ LAGER.avg_years_service_hulpkracht,
+ LAGER.avg_age_permanent_contract_teammanager,
+ LAGER.avg_age_permanent_contract_medewerker,
+ LAGER.avg_age_permanent_contract_hulpkracht,
+ LAGER.avg_age_non_permanent_contract_teammanager,
+ LAGER.avg_age_non_permanent_contract_medewerker,
+ LAGER.avg_age_non_permanent_contract_hulpkracht,
+ LAGER.age_23_and_older_teammanager,
+ LAGER.age_23_and_older_medewerker,
+ LAGER.age_23_and_older_hulpkracht,
+ LAGER.age_under_23_teammanager,
+ LAGER.age_under_23_medewerker,
+ LAGER.age_under_23_hulpkracht
+FROM ldl_s_conl_workbench.v_g_bf3_gesamt_cross_join_2 AS BF3
+ LEFT JOIN ldl_s_conl_workbench.v_g_bf4_gesamt_2 AS BF4 ON BF3.cost_center = BF4.cost_center AND BF3.cy_month = BF4.cy_month
+        AND BF3.gesell_dl = BF4.gesell_dl AND BF3.fil_lag_fix = BF4.fil_lag_fix AND BF3.regio = BF4.regio AND BF3.regio_sub
+    = BF4.regio_sub -- joining logistics_rates on bf3
+
+ LEFT JOIN ldl_s_conl_workbench.v_g_logistics_rates_2 AS LR ON CAST(BF3.cost_center AS FLOAT64) = LR.cost_center AND BF3.cy_month
+    = LR.cy_month -- joining PO_lead data on ELKE data
+
+ LEFT JOIN ldl_s_conl_workbench.v_g_po_lager_2 AS LAGER ON BF3.cy_month = LAGER.cy_month AND BF3.cost_center = LAGER.cost_center
+   -- joining employee_2 fluctuations on ELKE data
+
+ LEFT JOIN ldl_s_conl_workbench.v_g_employee_fluctuation_2 AS FLUC ON BF3.cost_center = FLUC.orig_store_nr AND BF3.cy_month
+    = FLUC.cy_month;

@@ -1,0 +1,27 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_WAWI_DISPO_ORDERDETAIL_WH_2
+(
+  CLIENT_ID           NUMBER(38)                    NOT NULL,
+  WH_ID               NUMBER(38)                    NOT NULL,
+  PO_NR               VARCHAR(12) COLLATE 'en-ci'   NOT NULL,
+  ITEM_ID             NUMBER(38)                    NOT NULL,
+  DISPO_LFD_NR        NUMBER(38)                    NOT NULL,
+  DISPO_NR            NUMBER(38)                    NOT NULL,
+  QTY_PIECE_DISPO     NUMBER(8,0)                   NOT NULL,
+  DAT_DELIVERY        DATE                          NULL,
+  TIME_DELIVERY       TIME                          NULL,
+  QTY_PIECE_DISPO_2   NUMBER(8,0)                   NULL,
+  DAT_DISPO           TIMESTAMP_NTZ(0)              NULL,
+  DAT_DISPO_M2        TIMESTAMP_NTZ(0)              NULL,
+  PART_CD             NUMBER(38)                    NOT NULL,
+  STATUS_DISPO        NUMBER(38)                    NULL,
+  CASE_FACTOR_DISPO   NUMBER(38)                    NULL,
+  DIFF_WE             NUMBER(38)                    NULL,
+  QTY_ORG_ORDER       FLOAT                         NULL,
+  DAT_ORG_DELIVERY    DATE                          NULL,
+  TASK_ID             NUMBER(38)                    NULL,
+  TIME_DELIVERY_UNTIL TIMESTAMP_NTZ(0)              NULL,
+  CASE_SIZE_REAL      NUMBER(7,3)                   NULL,
+  TIMESTAMP_FN        TIMESTAMP_NTZ(0)              NOT NULL,
+  DAT_DAYEND          DATE                          NULL,
+  LOAD_ID             NUMBER(38)                    NULL
+);

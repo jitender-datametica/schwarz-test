@@ -1,0 +1,361 @@
+CREATE OR REPLACE DYNAMIC TABLE DBP_MSI_VIEW_IMMO.MV_IMMO_OBJEKT_WUP_ZUORDNUNG_2(
+	MANDANT_ID,
+	IMMO_OBJEKT_ID,
+	OBJEKT_ORT,
+	OBJEKT_NAME,
+	VORSTAND_MITARBEITER_ID,
+	VORSTAND_NACHNAME,
+	VORSTAND_VORNAME,
+	OBJEKTLEITER_MITARBEITER_ID,
+	OBJEKTLEITER_NACHNAME,
+	OBJEKTLEITER_VORNAME,
+	RL_MA_ID,
+	RL_NACHNAME,
+	RL_VORNAME,
+	WUP_ID,
+	WUP_STANDORT,
+	BREITENGRAD,
+	LAENGENGRAD,
+	WUP_DAT_VON,
+	WUP_EROEFFNUNG,
+	WUP_SCHLIESSUNG,
+	VSVT_BEZ,
+	GF_ID,
+	GF_NAME,
+	VKL_ID,
+	VKL_NAME,
+	HL_ID,
+	HL_NAME,
+	TECHN_PLATZ_ID,
+	TECH_PLATZ_BEZ,
+	NL_BAU_EINR_BEZ,
+	BL_BAU_EINR_NAME,
+	BETREUER_BAU_EINR_NAME,
+	OL_VERMIETUNG_NAME,
+	FRISCHE_BAECKER,
+	DISCOUNT_BACKSHOP,
+	KAUFLAND_BAECKEREI,
+	EIGENTUM_BEZ,
+	IMMO_OBJEKT_BEZ,
+	OBJEKT_MIETE_BIS,
+	FLAECHE_VERKAUF,
+	FLAECHE_BETRIEB,
+	FLAECHE_KONZESSIONAERE,
+	FLAECHE_PARKPLAETZE,
+	TELEFON_NR,
+	TELEFAX_NR
+) TARGET_LAG = '1 hour, 30 minutes' REFRESH_MODE = FULL INITIALIZE = ON_CREATE WAREHOUSE = WH_KFL_%%environmentAbbreviation%%_DYNAMIC_TABLE_IMMO
+ AS
+
+   -- 2009-05-04
+   -- ZUORDNUNGEN denormalisiert (aktuell)
+   -- immo_objekt + wup_2 (Marktstamm) + techn_platz (Ebene 2)
+   -- Mapping: wup_id(xxx0) - Immo_objekt(xxx8) + wup_id(xxx3) - Immo_objekt(xxx4)
+   -- 2009KW07 Anpassung an Änderungen aus IOS
+   -- 2009-05  Anpassung JOIN gf_2-Tabelle (ek_fg)
+   -- 200912  Thema: Parkplaetze-Anzahl   (Werte von IOS)
+   -- 200912  Thema: Vermietername  (Werte von  IOS)
+   -- 200912  Ohne Vermietername / der Name schon in  "ol_vermietung_name"
+   -- 2010KW33 Umlenken aller Joins auf immo_objekt_per 
+   -- WENN Wup_2-Nachbildung DANN (immo_objekt_bez = wup_id) SONST (immo_objekt_id = immo_objekt_id)
+   -- 2012KW38 Integration KMO Mandanten
+   -- 2013KW03 Transkription ergaenzt
+   -- 2013KW31PU Offizielle Bezeichnungen
+   -- 2013KW46 Regionalleiter
+   -- 20170601 KMorgenstern breitengrad und laengengrad aus wup_2 übernommen
+   -- 20200709 SPEC0081244 sanadze: Initialisierung
+   SELECT
+   i.mandant_id,
+   i.immo_objekt_id,
+   dbp_process.transcriptc(i.objekt_ort) AS objekt_ort,
+   dbp_process.transcriptc(
+       CASE
+         WHEN CHARINDEX( 'PAOB', objekt_name) > 0 THEN TRIM(SUBSTRING(objekt_name, 1, CHARINDEX( 'PAOB', objekt_name) -1))
+   WHEN CHARINDEX( ',PAOB', objekt_name) > 0 THEN TRIM(SUBSTRING(objekt_name, 1, CHARINDEX( ',PAOB', objekt_name) -1))
+   WHEN CHARINDEX( 'UMGL', objekt_name) > 0 THEN TRIM(SUBSTRING(objekt_name, 1, CHARINDEX( 'UMGL', objekt_name) -1))
+   WHEN CHARINDEX( ',UMGL', objekt_name) > 0 THEN TRIM(SUBSTRING(objekt_name, 1, CHARINDEX( ',UMGL', objekt_name) -1))
+   WHEN CHARINDEX( 'Partnerobjekt', objekt_name) > 0 THEN TRIM(SUBSTRING(objekt_name, 1, CHARINDEX( 'Partnerobjekt', objekt_name) -1))
+   ELSE objekt_name END
+  ) AS objekt_name,
+   vs.Mitarbeiter_ID      vorstand_mitarbeiter_id,
+   vs.nachname            vorstand_nachname,
+   vs.vorname             vorstand_vorname,
+   ol.zustaendig_id      objektleiter_mitarbeiter_id,
+   dbp_process.transcriptc(ol.nachname) AS             objektleiter_nachname,
+   dbp_process.transcriptc(ol.vorname) AS             objektleiter_vorname,
+   rl.zustaendig_id                                         AS rl_ma_id,
+   dbp_process.transcriptc(rl.nachname) AS rl_nachname,
+   dbp_process.transcriptc(rl.vorname)  AS rl_vorname,
+   w.wup_id,
+   w.wup_standort,
+   COALESCE(w.breitengrad,0) AS breitengrad,
+   COALESCE(w.laengengrad,0) AS laengengrad,
+   w.dat_von   AS wup_dat_von,
+   
+   NULLIF(w.dat_eroeffnung,TO_DATE('19011231','YYYYMMDD')) wup_eroeffnung ,
+   NULLIF(w.dat_bis,TO_DATE('19991231','YYYYMMDD'))AS  wup_schliessung ,
+   
+   
+   w.vsvt_bez,
+   w.gf_id,
+   w.gf_name,
+   w.vkl_id,
+   w.vkl_name,
+   w.hl_id,
+   w.hl_name,
+   tp.techn_platz_id,
+   tp.tech_platz_bez,
+   tp.nl_bau_einr_bez,
+   dbp_process.transcriptc(tp.bl_bau_einr_name) AS bl_bau_einr_name,
+   dbp_process.transcriptc(tp.betreuer_bau_einr_name) AS betreuer_bau_einr_name,
+   dbp_process.transcriptc(tp.ol_vermietung_name) AS  ol_vermietung_name,-- momentan nicht verwendet
+   tp.frische_baecker,
+   tp.discount_backshop,
+   tp.kaufland_baeckerei,
+   dbp_process.transcriptc(tp.eigentum_bez) AS  eigentum_bez, -- nicht verwendet (aus KOVA)
+   i.immo_objekt_bez,
+   
+    CAST(NULL AS VARCHAR)               AS objekt_miete_bis  -- nicht verwendet (aus KOVA)
+   
+   ,
+   w.verkaufsflaeche      flaeche_verkauf,
+   w.betriebsflaeche      flaeche_betrieb,
+   0::DECIMAL(18,2)      flaeche_konzessionaere,
+   COALESCE(tp.ginfo_flaeche_netto , 0 ) AS flaeche_parkplaetze   --  neu  inseriert   fuer  PPL
+   ,
+   ''::VARCHAR(40)       telefon_nr,
+   ''::VARCHAR(40)       telefax_nr
+   FROM
+   (SELECT
+   mandant_id,
+   immo_objekt_id,
+   dat_von,
+   dat_bis,
+   objekt_groesse,
+   konzessionaer_groesse,
+   objekt_ort,
+   objekt_strasse,
+   objekt_plz,
+   objekt_name,
+   dat_1bereich_oeffnung,
+   dat_objekt_oeffnung,
+   eigenmiete_pro_qm,
+   eigenmiete_pro_monat,
+   wrg_id,
+   objektart_id,
+   objektart_datum_von,
+   objektart_datum_bis,
+   system_id,
+   buchungskreis_id,
+   immo_objekt_obj_id,
+   immo_objekt_bez,
+   immo_objekt_nr
+   FROM dbp_view.v_ivs_immo_objekt_per_2
+     WHERE dat_bis = '9999-12-31'
+
+   UNION
+   SELECT
+   mandant_id,
+   'IW----------0'  AS immo_objekt_id,
+   
+   TO_DATE('1900-01-01','YYYY-MM_2-DD') /*WARNING: CUSTOM UDF 'INT_TO_DATE_UDF' INSERTED.*/ AS dat_von,
+   ('9999-12-31') /*WARNING: CUSTOM UDF 'INT_TO_DATE_UDF' INSERTED.*/ AS dat_bis,
+    
+    
+    
+   0 AS objekt_groesse,
+   0 AS konzessinoaer_groesse,
+   '' AS objekt_org,
+   '' AS objekt_strasse,
+   '' AS objekt_plz,
+   'ohne Zuordnung'  AS objekt_name,
+   TO_DATE('1900-01-01','YYYY-MM_2-DD') /*WARNING: CUSTOM UDF 'INT_TO_DATE_UDF' INSERTED.*/ AS dat_1bereicth_oeffnung,
+   TO_DATE('1900-01-01','YYYY-MM_2-DD')/*WARNING: CUSTOM UDF 'INT_TO_DATE_UDF' INSERTED.*/ AS dat_objekt_oeffnung,
+   0.00 AS eigenmiete_pro_qm,
+   0.00 AS eigenmiete_pro_monat,
+   default_wrg AS wrg_id,
+   '3'  AS objekart_id,
+  TO_DATE('1900-01-01','YYYY-MM_2-DD') /*WARNING: CUSTOM UDF 'INT_TO_DATE_UDF' INSERTED.*/ AS objektart_datum_von,
+  TO_DATE('9999-12-31') /*WARNING: CUSTOM UDF 'INT_TO_DATE_UDF' INSERTED.*/ AS objektart_datum_bis,
+   0 AS sysetem_id,
+   0 AS buchungskreis_id,
+   'IW----------0' AS immo_objekt_obj_id,
+   0 AS immo_objekt_bez,
+   '' AS immo_objekt_nr
+   FROM dbp_view.v_tag_2
+   INNER JOIN dbp_view.v_mandant_2 m
+   ON 1=1
+
+   WHERE dat = CURRENT_DATE
+ ) i
+   LEFT JOIN -- WUP_2 Vertriebszuordnungen GF_2, VKL_2, Schiene
+   (SELECT
+   w1.mandant_id,
+   w1.wup_id,
+   w1.wup_standort,
+   COALESCE(w1.breitengrad,0) AS breitengrad,
+   COALESCE(w1.laengengrad,0) AS laengengrad,
+   w1.dat_eroeffnung,
+   w1.dat_von,
+   w1.dat_bis,
+   gf1.gf_id,
+   gf1.gf_name,
+   vs1.vsvt_bez,
+   w1.vkl_id,
+   vkl1.vkl_name,
+   w1.hl_id,
+   hl1.hl_name,
+   w1.verkaufsflaeche,
+   w1.betriebsflaeche
+   FROM dbp_view.v_wup_2  w1
+   LEFT JOIN dbp_view.v_hl_2 hl1
+   ON w1.hl_id = hl1.hl_id
+   AND w1.mandant_id = hl1.mandant_id
+   LEFT JOIN dbp_view.v_vkl_2 vkl1
+   ON w1.vkl_id = vkl1.vkl_id
+   AND w1.mandant_id = vkl1.mandant_id
+   LEFT JOIN dbp_view.v_gf_2 gf1
+   ON vkl1.gf_id = gf1.gf_id
+   AND vkl1.mandant_id = gf1.mandant_id
+   AND gf1.ek_fg = 0
+   LEFT JOIN dbp_view.v_vs_2 vs1
+   ON w1.vs_id = vs1.vs_id
+   AND w1.mandant_id = vs1.mandant_id
+
+ WHERE w1.nb_id = 0
+   AND w1.dat_eroeffnung > TO_DATE('1900-01-01','YYYY-MM_2-DD')
+)  w
+   ON i.immo_objekt_bez = w.wup_id
+   AND i.mandant_id = w.mandant_id
+   LEFT JOIN -- Immo: Vorstand (=Gebiet)
+   (SELECT
+   oz.mandant_id,
+   oz.immo_objekt_id,
+   oz.zustaendig_id,
+   iz.mitarbeiter_id,
+   iz.vorname,
+   iz.nachname,
+   iz.anrede
+   FROM dbp_view.v_ivs_objekt_zustaendig_zu_per_2 oz
+   INNER JOIN dbp_msi_view_immo.mv_vorstand_2  iz
+   ON oz.zustaendig_id = iz.mitarbeiter_id
+   AND oz.mandant_id = iz.mandant_id
+
+ WHERE oz.dat_bis = '9999-12-31'
+   AND oz.zustaendig_typ_id = 1
+
+   UNION
+   SELECT
+   mandant_id,
+   'IW----------0'::VARCHAR(20),
+   0::INT,
+   0::INT,
+   'Gebiet'::VARCHAR(40),
+   'ohne Zuordnung'::VARCHAR(40),
+   NULL::VARCHAR(10)
+   FROM dbp_view.v_tag_2
+   INNER JOIN dbp_view.v_mandant_2
+   ON 1=1
+
+   WHERE dat = CURRENT_DATE
+ ) vs_2
+   ON i.immo_objekt_id  = vs.immo_objekt_id
+   AND i.mandant_id = vs.mandant_id
+   LEFT JOIN -- Immo: Objektleiter Vermietung
+   (SELECT
+   oz.mandant_id,
+   oz.immo_objekt_id,
+   oz.zustaendig_id,
+   iz.vorname,
+   iz.nachname,
+   iz.anrede
+   FROM dbp_view.v_ivs_objekt_zustaendig_zu_per_2 oz
+   INNER JOIN dbp_view.v_ivs_immo_zustaendig_2  iz
+   ON  oz.zustaendig_id = iz.zustaendig_id
+   AND oz.mandant_id = iz.mandant_id
+
+   WHERE oz.dat_bis = '9999-12-31'
+   AND   oz.zustaendig_typ_id = 2
+
+   UNION ALL
+   SELECT
+   mandant_id,
+   'IW----------0'::VARCHAR(20),
+   0::INT,
+   'ohne'::VARCHAR(40),
+   'Zuordnung'::VARCHAR(40),
+   ''::VARCHAR(10)
+   FROM dbp_view.v_mandant_2
+   ) ol
+   ON i.immo_objekt_id = ol.immo_objekt_id
+   AND i.mandant_id = ol.mandant_id
+   LEFT JOIN -- Immo: Regionalleiter
+   (SELECT
+   oz.mandant_id,
+   oz.immo_objekt_id,
+   oz.zustaendig_id,
+   iz.vorname,
+   iz.nachname,
+   iz.anrede
+   FROM dbp_view.v_ivs_objekt_zustaendig_zu_per_2 oz
+   INNER JOIN dbp_view.v_ivs_immo_zustaendig_2  iz
+   ON  oz.zustaendig_id = iz.zustaendig_id
+   AND oz.mandant_id = iz.mandant_id
+
+   WHERE oz.dat_bis = '9999-12-31'
+   AND   oz.zustaendig_typ_id = 3
+
+   UNION ALL
+   SELECT
+   mandant_id,
+   'IW----------0'::VARCHAR(20),
+   0::INT,
+   'ohne'::VARCHAR(40),
+   'Zuordnung'::VARCHAR(40),
+   ''::VARCHAR(10)
+   FROM dbp_view.v_mandant_2
+   ) rl
+   ON i.immo_objekt_id = rl.immo_objekt_id
+   AND i.mandant_id = rl.mandant_id
+   LEFT JOIN
+   (
+-- Techn. Platz Zuordnungen (ohne Vertriebsstruktur)
+SELECT
+   tp0.techn_platz_id,
+   tp0.mandant_id,
+   tp0.wup_id,
+   COALESCE(tp0.kostenstelle_id, TRIM(tp0.wup_id) || '-800')::VARCHAR(20) kostenstelle_id,
+   tp1.tech_platz_bez,
+   tp2.kbl_nl_bez           nl_bau_einr_bez,
+   tp2.tp_bl_kbl_name       bl_bau_einr_name,
+   tp2.tp_betreuer_kbl_name betreuer_bau_einr_name,
+   tp2.tp_ol_vermietung     ol_vermietung_name,
+   tp2.frische_baecker,
+   tp2.discount_backshop,
+   CASE WHEN CONTAINS( tp2.frische_baecker, 'J') OR CONTAINS( tp2.discount_backshop, 'J') THEN 'Ja'
+   WHEN CONTAINS( tp2.frische_baecker, 'N') OR CONTAINS( tp2.discount_backshop, 'N') THEN 'Nein'
+   ELSE ''
+END::CHAR(4) kaufland_baeckerei,
+   tp2.eigentum_bez  -- not used
+   ,
+   gfp.ginfo_flaeche_netto   --  neu  inseriert   fuer  PPL  
+
+   FROM dbp_view.v_techn_platz_per_2 tp0
+   INNER JOIN dbp_view.v_techn_platz_spr_zu_per_2 tp1
+   ON tp0.techn_platz_id = tp1.techn_platz_id
+   LEFT JOIN dbp_view.v_techn_platz_ebene_2_per_2 tp2
+   ON tp0.techn_platz_id = tp2.techn_platz_id
+   LEFT OUTER JOIN dbp_view.v_ginfo_flaeche_per_2 gfp
+   ON tp0.techn_platz_id = gfp.techn_platz_id
+
+   WHERE tp0.techn_platz_ebene_id = 2
+     AND tp0.dat_bis = '9999-12-31'
+     AND tp1.dat_bis = '9999-12-31'
+     AND tp2.dat_bis = '9999-12-31'
+     AND tp1.spr_id = 22
+     AND gfp.ginfo_flaeche_id = 'PPL'
+     AND gfp.dat_bis = '9999-12-31'     --  neu  inseriert   fuer  PPL
+   --  neu  inseriert   fuer  PPL
+   ) tp
+   ON i.immo_objekt_bez = tp.wup_id
+   AND i.mandant_id = tp.mandant_id;

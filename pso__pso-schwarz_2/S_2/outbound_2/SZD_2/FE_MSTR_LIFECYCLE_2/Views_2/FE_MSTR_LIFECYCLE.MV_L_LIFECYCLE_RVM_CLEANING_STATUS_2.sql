@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_lifecycle.mv_l_lifecycle_rvm_cleaning_status_2 AS SELECT cleaning_status_cd,
+ cleaning_status_descr_en,
+ cleaning_status_descr_de,
+ cleaning_status_descr
+FROM szd_core.t_dim_rvm_cleaning_status_2;

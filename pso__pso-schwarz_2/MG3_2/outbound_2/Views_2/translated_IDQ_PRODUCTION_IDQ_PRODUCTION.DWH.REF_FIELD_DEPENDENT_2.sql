@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW idq_production_dwh.ref_field_dependent_2 (dependent_ref_field_id,
+dependent_ref_source_system_type_id, dependent_source_table, dependent_field_technical_name, dependent_field_name,
+dependent_field_name_de, dependent_field_name_en) AS SELECT id AS dependent_ref_field_id,
+ source_system_type_id AS dependent_ref_source_system_type_id,
+ source_table AS dependent_source_table,
+ technical_name AS dependent_field_technical_name,
+ name_de AS dependent_field_name,
+ name_de AS dependent_field_name_de,
+ name_en AS dependent_field_name_en
+FROM idq_production_idq_results.ref_field_2;

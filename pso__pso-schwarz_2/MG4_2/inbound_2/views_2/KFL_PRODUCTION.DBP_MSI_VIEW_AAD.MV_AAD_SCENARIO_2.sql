@@ -1,0 +1,10 @@
+create or replace view KFL_PRODUCTION.DBP_MSI_VIEW_AAD.MV_AAD_SCENARIO_2(
+	SCENARIO_ID,
+	SCENARIO_GRP_ID
+) as
+--20.06.2023 snik: SPEC0200569 Lookup AAD_SCENARIO_2
+   SELECT 
+     v01.scenario_id
+   , v01.scenario_grp_id
+   FROM DBP_VIEW.V_AAD_SCENARIO_2 v01
+;

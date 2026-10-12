@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW3.MV_WAQFK_QUOTE_2 as
+   SELECT *
+   FROM dbp_view.v_waqfk_quote_2;

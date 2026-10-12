@@ -1,0 +1,34 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIDLDIGITAL.V_FACT_STOCK_WAREHOUSE_STORAGE_LOCATION_DAILY_2
+(
+     WH_SID
+    ,STORAGE_LOC_CD
+    ,PROD_VARIANT_SID
+    ,CAL_DT
+    ,ACTIVE_FG
+    ,WH_CD
+    ,STOCK_SYS_TYPE_CD
+    ,BLOCKED_STOCK_CNT
+    ,BLOCKED_STOCK_RETURN_CNT
+    ,UNRESTRICTED_STOCK_CNT
+    ,RESTRICTED_STOCK_CNT
+    ,IN_TRANSFER_CNT
+    ,IN_QTY_INSPECTION_CNT
+    ,TOTAL_STOCK_CNT
+)
+AS SELECT
+     WH_SID
+    ,CASE WHEN STORAGE_LOC_CD = '' THEN '-1' ELSE IFNULL(STORAGE_LOC_CD, '-1') END
+    ,IFNULL(PROD_VARIANT_SID, '-1')
+    ,CAL_DT
+    ,ACTIVE_FG
+    ,WH_CD
+    ,NULL::VARCHAR(5) -- TODO: remove this column once it has been removed from the MSTR schema
+    ,BLOCKED_STOCK_CNT
+    ,BLOCKED_STOCK_RETURN_CNT
+    ,UNRESTRICTED_STOCK_CNT
+    ,RESTRICTED_STOCK_CNT
+    ,IN_TRANSFER_CNT
+    ,IN_QTY_INSPECTION_CNT
+    ,NULL::NUMBER(38, 0) -- TODO: remove this column once it has been removed from the MSTR schema
+FROM lec_share.v_fact_stock_warehouse_storage_location_daily_2
+;

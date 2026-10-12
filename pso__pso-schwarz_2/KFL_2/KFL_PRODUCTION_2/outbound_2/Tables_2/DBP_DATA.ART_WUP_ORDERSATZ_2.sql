@@ -1,0 +1,29 @@
+--==============================================================
+-- Table: art_wup_ordersatz_2
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: art_wup_ordersatz_2
+   generated from Powerdesigner on Tuesday, February 20, 2024 3:55:29 PM_2
+*/ --------------------------------------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.art_wup_ordersatz_2 (
+mandant_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Mandant_2 im DWH'),
+wup_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Betrieb'),
+nb_id BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer'),
+art_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Artikelnummer'),
+dat_von DATE NOT NULL OPTIONS(description='Datum gültig ab'),
+dat_bis DATE OPTIONS(description='Datum gültig bis'),
+bezugsvorschrift_kz STRING(1) COLLATE 'und:ci' NOT NULL OPTIONS(description='Bezugsvorschrift'),
+bezugsquelle_kz STRING(1) COLLATE 'und:ci' NOT NULL OPTIONS(description='Bezugsquelle'),
+status_f_aenderungen_fg BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Statusfeld F-Änderungen'),
+kdis_zzsopomvke_fg BIGNUMERIC(38,0) NOT NULL OPTIONS(description='KDIS durch ZZSOPO-MVKE_2'),
+kdis_auslistungsprozess_fg BIGNUMERIC(38,0) NOT NULL OPTIONS(description='KDIS aus Auslistungsprozess'),
+archivierungs_kz STRING(1) COLLATE 'und:ci' NOT NULL OPTIONS(description='Archivierungskennzeichen'),
+td_update TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+td_insert TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+PRIMARY KEY (mandant_id, wup_id, nb_id, art_id, dat_von) NOT ENFORCED
+) OPTIONS(description='FLW - ZEK_2-Ordersatz - Pflege der Bezugswege auf Artikel_2-Markt-Ebene - SAP RET - ZEKORDERSATZ01_2');

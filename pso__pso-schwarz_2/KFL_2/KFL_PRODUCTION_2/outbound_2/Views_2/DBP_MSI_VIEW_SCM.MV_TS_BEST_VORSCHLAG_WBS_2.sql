@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_ts_best_vorschlag_wbs_2 AS SELECT *
+FROM kfl_production_dbp_msi_v_view.v_ts_best_vorschlag_wbs_2;

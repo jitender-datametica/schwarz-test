@@ -1,0 +1,42 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_clear_stock_spr_zu_2 (mandant_id, clear_stock_id,
+clear_stock_bez, clear_stock_bez_de, clear_stock_bez_cz, clear_stock_bez_sk, clear_stock_bez_hr, clear_stock_bez_pl,
+clear_stock_bez_ro, clear_stock_bez_bg) AS SELECT v_mandant.mandant_id,
+ t0.clear_stock_id,
+ t0.clear_stock_bez,
+ t0.clear_stock_bez_de,
+ t0.clear_stock_bez_cz,
+ t0.clear_stock_bez_sk,
+ t0.clear_stock_bez_hr,
+ t0.clear_stock_bez_pl,
+ t0.clear_stock_bez_ro,
+ t0.clear_stock_bez_bg
+FROM (SELECT 0 AS clear_stock_id,
+    'kein' AS clear_stock_bez,
+    'kein' AS clear_stock_bez_de,
+    'Žádný Clear Stock' AS clear_stock_bez_cz,
+    'Bez' AS clear_stock_bez_sk,
+    'Nema' AS clear_stock_bez_hr,
+    'Bez CS' AS clear_stock_bez_pl,
+    'Fara Clear Stock' AS clear_stock_bez_ro,
+    'без Clear Stock' AS clear_stock_bez_bg
+   UNION ALL
+   SELECT 1 AS clear_stock_id,
+    'Blockbestand' AS clear_stock_bez,
+    'Blockbestand' AS clear_stock_bez_de,
+    'Blokovaná zásoba' AS clear_stock_bez_cz,
+    'Blokovaná zásoba' AS clear_stock_bez_sk,
+    'Blokirana zaliha' AS clear_stock_bez_hr,
+    'Zapas zablokowany' AS clear_stock_bez_pl,
+    'Cantitate Blocata' AS clear_stock_bez_ro,
+    'Блокирана наличност' AS clear_stock_bez_bg
+   UNION ALL
+   SELECT 2 AS clear_stock_id,
+    'verfügbarer Bestand' AS clear_stock_bez,
+    'verfügbarer Bestand' AS clear_stock_bez_de,
+    'Dostupná zásoba' AS clear_stock_bez_cz,
+    'Dostupná zásoba' AS clear_stock_bez_sk,
+    'Raspoloživa zaliha' AS clear_stock_bez_hr,
+    'Dostępny zapas' AS clear_stock_bez_pl,
+    'Stoc Disponibil' AS clear_stock_bez_ro,
+    'Свободна наличност' AS clear_stock_bez_bg) AS t0
+ INNER JOIN kfl_production_dbp_view.v_mandant_2 ON TRUE;

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_kmr_l_massnahme_status_2 AS SELECT amx_system_id,
+ massnahme_status_id,
+ massnahme_status_bez
+FROM kfl_production_dbp_data.kmr_l_massnahme_status_2;

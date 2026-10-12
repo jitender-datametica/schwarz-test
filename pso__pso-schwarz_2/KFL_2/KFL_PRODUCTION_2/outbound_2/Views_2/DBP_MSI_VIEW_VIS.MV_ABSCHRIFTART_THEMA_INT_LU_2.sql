@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_abschriftart_thema_int_lu_2 AS SELECT abschriftart_thema_int_id
+FROM kfl_production_dbp_view.v_l_abschriftart_thema_int_2 AS ATIL;

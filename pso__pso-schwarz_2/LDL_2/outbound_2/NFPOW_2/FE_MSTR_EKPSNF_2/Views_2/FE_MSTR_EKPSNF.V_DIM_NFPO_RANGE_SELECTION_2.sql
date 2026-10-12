@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW nfpow_fe_mstr_ekpsnf.v_dim_nfpo_range_selection_2 (nfpo_range_sel_sid, nfpo_range_sel_nr,
+nfpo_range_plan_nr, nfpo_range_sel_cal_month, nfpo_range_sel_cal_year, nfpo_range_sel_deliv_from_cal_week,
+nfpo_range_sel_deliv_to_cal_week, nfpo_range_sel_adv_from_cal_week, nfpo_range_sel_adv_to_cal_week, dwh_created_tmsp,
+dwh_updated_tmsp, dwh_src_tmsp) AS SELECT *
+FROM nfpow_core.t_dim_nfpo_range_selection_2;

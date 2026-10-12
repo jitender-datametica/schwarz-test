@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.vis_mengen_korrektur_liste_2 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+dat_we DATE DEFAULT CAST('1900-01-01' AS DATE) NOT NULL,
+dat_aenderung DATE NOT NULL,
+problemcode_id STRING(4) COLLATE 'und:ci' NOT NULL,
+mkl_beleg_id INTEGER NOT NULL,
+kj BIGNUMERIC(38,0) NOT NULL,
+mkl_beleg_pos_id BIGNUMERIC(38,0) NOT NULL,
+art_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+gp_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+ref_beleg_id STRING(20) COLLATE 'und:ci' DEFAULT ' ' NOT NULL,
+verursacher_id BIGNUMERIC(38,0) DEFAULT 0,
+menge_we NUMERIC(18,3) DEFAULT 0 NOT NULL,
+we_menge_einh_id STRING(3) COLLATE 'und:ci' DEFAULT '   ' NOT NULL,
+retoure_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+menge_kor NUMERIC(18,3) DEFAULT 0 NOT NULL,
+kor_menge_einh_id STRING(3) COLLATE 'und:ci' DEFAULT '   ' NOT NULL,
+anzeigen_fg BIGNUMERIC(38,0) DEFAULT 1 NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

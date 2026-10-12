@@ -1,0 +1,15 @@
+create or replace TABLE SMP_PRODUCTION.CORE_REL.T_SHOPPER_2 (
+	DIVISION_ID VARCHAR(100) NOT NULL COMMENT 'Division Lidl or Kaufland (LDL/KFL)',
+	COUNTRY_ID VARCHAR(100) NOT NULL COMMENT 'Country_2 iso code',
+	SHOPPER_ID VARCHAR(100) NOT NULL COMMENT 'SMP Shopper_2 reference',
+	SOURCE_SYSTEM_ID VARCHAR(100) NOT NULL COMMENT 'Sourcesystem, e.g. DWH, SMP, PIQ ',
+	CREATE_TMSP TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Creation timestamp',
+	LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'Generated load id of the transformation job',
+	SHOPPER_ID_REF VARIANT NOT NULL COMMENT 'Division shopper_2 reference, e.g. customer_sid, Kundenkarte_id, KFL sometimes more than one',
+	ACTIVE_FG NUMBER(38,0) NOT NULL COMMENT 'Flag active/inactve Shopper_2',
+	HOME_STORE_ID VARCHAR(100) COMMENT 'Shopper_2 Favorite Store/Homestore',
+	HOME_ZIP_CODE VARCHAR(100) COMMENT 'Shopper_2 Zip Code (based on Favourite Store/Homestore',
+	GENDER_ID VARCHAR(100) COMMENT 'Shoppper Gender: male, femaile, diverse, unknown',
+	AGE NUMBER(38,0) COMMENT 'Age of Shopper_2'
+)COMMENT='Shopper_2 masterdata'
+;

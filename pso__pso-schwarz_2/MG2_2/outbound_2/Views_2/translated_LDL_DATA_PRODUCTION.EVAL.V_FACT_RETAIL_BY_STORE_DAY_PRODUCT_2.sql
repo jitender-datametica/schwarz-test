@@ -1,0 +1,599 @@
+/* Preselection of relevant time period */
+
+
+--, cal_month
+
+
+--, prev_1y_cal_dt
+
+
+--, prev_1y_swday_cal_dt
+
+
+--, prev_2y_cal_dt
+
+
+--, prev_2y_swday_cal_dt
+
+
+-- last 3 business years and current business year 
+
+
+/* Preselection of corresponding days mapped for previous year values */
+
+
+-- Adjust types: M = previous year, MC = previous year by-to-date, W = previous year same weekday, WC = previous year same weekday by-to-date 
+
+
+/* Preselection of all fact data */
+
+
+-- PK (bus_dt, store_sid, sales_variant_sid)
+
+
+--BE  -- THIS IS FOR TESTING!!!!!
+
+
+--		AND store_sid = 5417 --BE  -- THIS IS FOR TESTING!!!!!
+
+
+--		AND prod_sid = 483794 -- Wird jeden TAG_2 verkauf  -- THIS IS FOR TESTING!!!!!
+
+
+-- THIS IS FOR TESTING!!!!!
+
+
+-- THIS IS FOR TESTING!!!!!
+
+
+-- THIS IS FOR TESTING!!!!!
+
+
+/* Cumulation of relevant facts per business year */
+
+
+/* Corresponding facts in the past 1/4 - for the calender day of previous business year */
+
+
+/* KPI values for the same calendar_2 day of previous business year */
+
+
+-- no total_cnt for py and no total_qty for py required
+
+
+/* bytd values */
+
+
+-- calendar_2 day 
+
+
+-- previous year 
+
+
+/* Corresponding facts in the past 2/4 - for the same weekday of previous business year */
+
+
+/* KPI values for the same weekday of previous business year */
+
+
+-- no total_cnt for py and no total_qty for py required
+
+
+/* bytd values */
+
+
+-- weekday 
+
+
+-- previous year 
+
+
+/* Corresponding facts in the past 3/4 - for the same calendar_2 day of second to last business year */
+
+
+/* KPI values for the same calendar_2 day of second to last business year */
+
+
+-- calendar_2 day 
+
+
+-- second to last business year 
+
+
+/* Corresponding facts in the past 4/4 - for the same weekday of second to last business year */
+
+
+/* KPI values for the same weekday of second to last business year */
+
+
+-- weekday 
+
+
+-- second to last business year 
+
+
+/* Mapping of facts from previous business years for each calendar_2 day and weekday */
+
+
+/* KPI values for the same calendar_2 day of previous business year */
+
+
+-- no total_cnt for py and no total_qty for py required
+
+
+/* bytd values */
+
+
+/* KPI values for the same weekday of previous business year */
+
+
+-- no total_cnt for py and no total_qty for py required
+
+
+/* bytd values */
+
+
+/* KPI values for the same calendar_2 day of second to last business year */
+
+
+/* KPI values for the same weekday of second to last business year */
+
+
+-- no need for country_org_sid due to PK 
+
+
+-- no need for prod_sid due to PK 
+
+
+-- no need for country_org_sid due to PK 
+
+
+-- no need for prod_sid due to PK 
+
+
+-- no need for country_org_sid due to PK 
+
+
+-- no need for prod_sid due to PK 
+
+
+-- no need for country_org_sid due to PK 
+
+
+-- no need for prod_sid due to PK 
+
+
+/* Final select */
+
+
+/* KPI values for the same calendar_2 day of previous business year */
+
+
+--, rel_cal_dt_pc
+
+
+-- no total_cnt for py and no total_qty for py required
+
+
+/* bytd values */
+
+
+/* KPI values for the same weekday of previous business year */
+
+
+--, rel_cal_dt_pw
+
+
+-- no total_cnt for py and no total_qty for py required
+
+
+/* bytd values */
+
+
+/* KPI values for the same calendar_2 day of second to last business year */
+
+
+--, rel_cal_dt_ppc
+
+
+/* KPI values for the same weekday of second to last business year */
+
+
+--, rel_cal_dt_ppw
+
+
+--ORDER BY country_org_cd 
+
+
+--	, store_sid
+
+
+--	, prod_sid
+
+
+--	, sales_variant_sid
+
+
+--	, bus_year
+
+
+--	, bus_dt
+
+
+CREATE OR REPLACE VIEW ldl_data_production_eval.v_fact_retail_by_store_day_product_2
+OPTIONS(DESCRIPTION = `AN AGGREGATE FACT HOLDING BASIC RETAIL MEASURES PER DAY, PRODUCT AND STORE. THIS INCLUDES SALES_2 AND RETURN VOLUME AND THE GROSS AND NET TURNOVER. TURNOVER AMOUNTS ARE TAKEN FROM THE CASH REGISTER.`)
+AS WITH limitation_time_period AS (SELECT cal_dt,
+   bus_year,
+   bus_year_offset
+  FROM ldl_data_production_core_dim.t_dim_calendar_date_2
+  WHERE bus_year_offset BETWEEN - 3 AND 0), facts_retail AS (SELECT r.country_org_sid,
+   r.country_org_cd,
+   r.store_sid,
+   r.prod_sid,
+   r.sales_variant_sid,
+   t.bus_year,
+   r.bus_dt,
+   r.uom_cd,
+   r.curr_cd,
+   r.sales_cnt,
+   r.sales_qty,
+   r.return_cnt,
+   r.return_qty,
+   r.cash_register_sales_net_val AS sales_net_val,
+   r.cash_register_return_net_val AS return_net_val,
+   r.cash_register_sales_gross_val AS sales_gross_val,
+   r.cash_register_return_gross_val AS return_gross_val,
+   r.perf_adj_sales_cnt,
+   r.perf_adj_sales_qty,
+   r.perf_adj_sales_net_val,
+   r.perf_adj_return_cnt,
+   r.perf_adj_return_qty,
+   r.perf_adj_return_net_val,
+   r.dwh_created_tmsp,
+   r.dwh_updated_tmsp,
+   r.dwh_load_id,
+   r.dwh_node_cd
+  FROM ldl_data_production_core_dim.t_fact_retail_by_store_day_product_2 AS r
+   INNER JOIN limitation_time_period AS t ON r.bus_dt = t.cal_dt
+  WHERE r.country_org_sid = 127
+   AND (t.cal_dt BETWEEN DATE '2025-01-01' AND DATE '2025-01-31' OR t.cal_dt BETWEEN DATE '2024-01-01' AND
+       DATE '2024-01-31' OR t.cal_dt BETWEEN DATE '2023-01-01' AND DATE '2023-01-31')), fact_cumulations AS (SELECT
+   country_org_sid,
+   country_org_cd,
+   store_sid,
+   prod_sid,
+   sales_variant_sid,
+   bus_year,
+   bus_dt,
+   uom_cd,
+   curr_cd,
+   sales_cnt,
+   sales_qty,
+   return_cnt,
+   return_qty,
+    IFNULL(sales_cnt, 0) + IFNULL(return_cnt, 0) AS total_cnt,
+    IFNULL(sales_qty, 0) + IFNULL(return_qty, 0) AS total_qty,
+   sales_net_val,
+   return_net_val,
+   sales_gross_val,
+   return_gross_val,
+    IFNULL(sales_net_val, 0) + IFNULL(return_net_val, 0) AS turnover_net_val,
+    IFNULL(sales_gross_val, 0) + IFNULL(return_gross_val, 0) AS turnover_gross_val,
+   perf_adj_sales_cnt,
+   perf_adj_sales_qty,
+   perf_adj_sales_net_val,
+   perf_adj_return_cnt,
+   perf_adj_return_qty,
+   perf_adj_return_net_val,
+    IFNULL(perf_adj_sales_cnt, 0) + IFNULL(perf_adj_return_cnt, 0) AS perf_adj_total_cnt,
+    IFNULL(perf_adj_sales_qty, 0) + IFNULL(perf_adj_return_qty, 0) AS perf_adj_total_qty,
+    IFNULL(perf_adj_sales_net_val, 0) + IFNULL(perf_adj_return_net_val, 0) AS perf_adj_turnover_net_val,
+   SUM(sales_cnt) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING), CAST(prod_sid AS STRING)
+      , CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN
+    UNBOUNDED PRECEDING AND CURRENT ROW) AS sales_bytd_cnt,
+   SUM(sales_qty) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING), CAST(prod_sid AS STRING)
+      , CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN
+    UNBOUNDED PRECEDING AND CURRENT ROW) AS sales_bytd_qty,
+   SUM(return_cnt) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING), CAST(prod_sid AS STRING)
+      , CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN
+    UNBOUNDED PRECEDING AND CURRENT ROW) AS return_bytd_cnt,
+   SUM(return_qty) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING), CAST(prod_sid AS STRING)
+      , CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN
+    UNBOUNDED PRECEDING AND CURRENT ROW) AS return_bytd_qty,
+   SUM(sales_net_val) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING), CAST(prod_sid AS STRING)
+      , CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN
+    UNBOUNDED PRECEDING AND CURRENT ROW) AS sales_bytd_net_val,
+   SUM(return_net_val) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING), CAST(prod_sid AS STRING)
+      , CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN
+    UNBOUNDED PRECEDING AND CURRENT ROW) AS return_bytd_net_val,
+   SUM(IFNULL(sales_net_val, 0) + IFNULL(return_net_val, 0)) OVER (PARTITION BY CAST(country_org_sid AS STRING), CAST(store_sid AS STRING)
+      , CAST(prod_sid AS STRING), CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING) ORDER BY bus_dt IS NULL,
+      bus_dt ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS turnover_bytd_net_val,
+   SUM(IFNULL(perf_adj_sales_cnt, 0) + IFNULL(perf_adj_return_cnt, 0)) OVER (PARTITION BY CAST(country_org_sid AS STRING)
+      , CAST(store_sid AS STRING), CAST(prod_sid AS STRING), CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING)
+      ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS perf_adj_total_bytd_cnt,
+   SUM(IFNULL(perf_adj_sales_qty, 0) + IFNULL(perf_adj_return_qty, 0)) OVER (PARTITION BY CAST(country_org_sid AS STRING)
+      , CAST(store_sid AS STRING), CAST(prod_sid AS STRING), CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING)
+      ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS perf_adj_total_bytd_qty,
+   SUM(IFNULL(perf_adj_sales_net_val, 0) + IFNULL(perf_adj_return_net_val, 0)) OVER (PARTITION BY CAST(country_org_sid AS STRING)
+      , CAST(store_sid AS STRING), CAST(prod_sid AS STRING), CAST(sales_variant_sid AS STRING), CAST(bus_year AS STRING)
+      ORDER BY bus_dt IS NULL, bus_dt ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS
+   perf_adj_turnover_bytd_net_val,
+   dwh_created_tmsp,
+   dwh_updated_tmsp,
+   dwh_load_id,
+   dwh_node_cd
+  FROM facts_retail), limitation_adjusted_days AS (SELECT t_cal_date_adjusted_relationship.cal_dt,
+   t_cal_date_adjusted_relationship.cal_dt_adjust_type_cd,
+   t_cal_date_adjusted_relationship.bus_year_diff,
+   t_cal_date_adjusted_relationship.rel_cal_dt
+  FROM ldl_data_production_core_rel.t_cal_date_adjusted_relationship_2
+   INNER JOIN limitation_time_period AS t15 USING (cal_dt)), facts_past_pc AS (SELECT c.country_org_sid,
+   c.country_org_cd,
+   c.store_sid,
+   c.prod_sid,
+   c.sales_variant_sid,
+   d.cal_dt,
+   d.rel_cal_dt,
+   c.sales_cnt AS sales_py_cnt,
+   c.sales_qty AS sales_py_qty,
+   c.return_cnt AS return_py_cnt,
+   c.return_qty AS return_py_qty,
+   c.sales_net_val AS sales_py_net_val,
+   c.return_net_val AS return_py_net_val,
+   c.turnover_net_val AS turnover_py_net_val,
+   c.perf_adj_total_cnt AS perf_adj_total_py_cnt,
+   c.perf_adj_total_qty AS perf_adj_total_py_qty,
+   c.perf_adj_turnover_net_val AS perf_adj_turnover_py_net_val,
+   c.sales_bytd_cnt AS sales_py_bytd_cnt,
+   c.sales_bytd_qty AS sales_py_bytd_qty,
+   c.return_bytd_cnt AS return_py_bytd_cnt,
+   c.return_bytd_qty AS return_py_bytd_qty,
+   c.sales_bytd_net_val AS sales_py_bytd_net_val,
+   c.return_bytd_net_val AS return_py_bytd_net_val,
+   c.turnover_bytd_net_val AS turnover_py_bytd_net_val,
+   c.perf_adj_total_bytd_cnt AS perf_adj_total_py_bytd_cnt,
+   c.perf_adj_total_bytd_qty AS perf_adj_total_py_bytd_qty,
+   c.perf_adj_turnover_bytd_net_val AS perf_adj_turnover_py_bytd_net_val
+  FROM fact_cumulations AS c
+   INNER JOIN limitation_adjusted_days AS d ON c.bus_dt = d.rel_cal_dt AND d.cal_dt_adjust_type_cd = 'M' AND d.bus_year_diff
+      = 1), facts_past_pw AS (SELECT c.country_org_sid,
+   c.country_org_cd,
+   c.store_sid,
+   c.prod_sid,
+   c.sales_variant_sid,
+   d.cal_dt,
+   d.rel_cal_dt,
+   c.sales_cnt AS sales_py_swday_cnt,
+   c.sales_qty AS sales_py_swday_qty,
+   c.return_cnt AS return_py_swday_cnt,
+   c.return_qty AS return_py_swday_qty,
+   c.sales_net_val AS sales_py_swday_net_val,
+   c.return_net_val AS return_py_swday_net_val,
+   c.turnover_net_val AS turnover_py_swday_net_val,
+   c.perf_adj_total_cnt AS perf_adj_total_py_swday_cnt,
+   c.perf_adj_total_qty AS perf_adj_total_py_swday_qty,
+   c.perf_adj_turnover_net_val AS perf_adj_turnover_py_swday_net_val,
+   c.sales_bytd_cnt AS sales_py_swday_bytd_cnt,
+   c.sales_bytd_qty AS sales_py_swday_bytd_qty,
+   c.return_bytd_cnt AS return_py_swday_bytd_cnt,
+   c.return_bytd_qty AS return_py_swday_bytd_qty,
+   c.sales_bytd_net_val AS sales_py_swday_bytd_net_val,
+   c.return_bytd_net_val AS return_py_swday_bytd_net_val,
+   c.turnover_bytd_net_val AS turnover_py_swday_bytd_net_val,
+   c.perf_adj_total_bytd_cnt AS perf_adj_total_py_swday_bytd_cnt,
+   c.perf_adj_total_bytd_qty AS perf_adj_total_py_swday_bytd_qty,
+   c.perf_adj_turnover_bytd_net_val AS perf_adj_turnover_py_swday_bytd_net_val
+  FROM fact_cumulations AS c
+   INNER JOIN limitation_adjusted_days AS d ON c.bus_dt = d.rel_cal_dt AND d.cal_dt_adjust_type_cd = 'W' AND d.bus_year_diff
+      = 1), facts_past_ppc AS (SELECT c.country_org_sid,
+   c.country_org_cd,
+   c.store_sid,
+   c.prod_sid,
+   c.sales_variant_sid,
+   d.cal_dt,
+   d.rel_cal_dt,
+   c.perf_adj_turnover_net_val AS perf_adj_turnover_ppy_net_val,
+   c.perf_adj_turnover_bytd_net_val AS perf_adj_turnover_ppy_bytd_net_val
+  FROM fact_cumulations AS c
+   INNER JOIN limitation_adjusted_days AS d ON c.bus_dt = d.rel_cal_dt AND d.cal_dt_adjust_type_cd = 'M' AND d.bus_year_diff
+      = 2), facts_past_ppw AS (SELECT c.country_org_sid,
+   c.country_org_cd,
+   c.store_sid,
+   c.prod_sid,
+   c.sales_variant_sid,
+   d.cal_dt,
+   d.rel_cal_dt,
+   c.perf_adj_turnover_net_val AS perf_adj_turnover_ppy_swday_net_val,
+   c.perf_adj_turnover_bytd_net_val AS perf_adj_turnover_ppy_swday_bytd_net_val
+  FROM fact_cumulations AS c
+   INNER JOIN limitation_adjusted_days AS d ON c.bus_dt = d.rel_cal_dt AND d.cal_dt_adjust_type_cd = 'W' AND d.bus_year_diff
+      = 2), fact_consolidation AS (SELECT c.country_org_sid,
+   c.country_org_cd,
+   c.store_sid,
+   c.prod_sid,
+   c.sales_variant_sid,
+   c.bus_year,
+   c.bus_dt,
+   c.uom_cd,
+   c.curr_cd,
+   c.sales_cnt,
+   c.sales_qty,
+   c.return_cnt,
+   c.return_qty,
+   c.total_cnt,
+   c.total_qty,
+   c.sales_net_val,
+   c.return_net_val,
+   c.sales_gross_val,
+   c.return_gross_val,
+   c.turnover_net_val,
+   c.turnover_gross_val,
+   c.perf_adj_sales_cnt,
+   c.perf_adj_sales_qty,
+   c.perf_adj_sales_net_val,
+   c.perf_adj_return_cnt,
+   c.perf_adj_return_qty,
+   c.perf_adj_return_net_val,
+   c.perf_adj_total_cnt,
+   c.perf_adj_total_qty,
+   c.perf_adj_turnover_net_val,
+   c.sales_bytd_cnt,
+   c.sales_bytd_qty,
+   c.return_bytd_cnt,
+   c.return_bytd_qty,
+   c.sales_bytd_net_val,
+   c.return_bytd_net_val,
+   c.turnover_bytd_net_val,
+   c.perf_adj_total_bytd_cnt,
+   c.perf_adj_total_bytd_qty,
+   c.perf_adj_turnover_bytd_net_val,
+   pc.rel_cal_dt AS rel_cal_dt_pc,
+   pc.sales_py_cnt,
+   pc.sales_py_qty,
+   pc.return_py_cnt,
+   pc.return_py_qty,
+   pc.sales_py_net_val,
+   pc.return_py_net_val,
+   pc.turnover_py_net_val,
+   pc.perf_adj_total_py_cnt,
+   pc.perf_adj_total_py_qty,
+   pc.perf_adj_turnover_py_net_val,
+   pc.sales_py_bytd_cnt,
+   pc.sales_py_bytd_qty,
+   pc.return_py_bytd_cnt,
+   pc.return_py_bytd_qty,
+   pc.sales_py_bytd_net_val,
+   pc.return_py_bytd_net_val,
+   pc.turnover_py_bytd_net_val,
+   pc.perf_adj_total_py_bytd_cnt,
+   pc.perf_adj_total_py_bytd_qty,
+   pc.perf_adj_turnover_py_bytd_net_val,
+   pw.rel_cal_dt AS rel_cal_dt_pw,
+   pw.sales_py_swday_cnt,
+   pw.sales_py_swday_qty,
+   pw.return_py_swday_cnt,
+   pw.return_py_swday_qty,
+   pw.sales_py_swday_net_val,
+   pw.return_py_swday_net_val,
+   pw.turnover_py_swday_net_val,
+   pw.perf_adj_total_py_swday_cnt,
+   pw.perf_adj_total_py_swday_qty,
+   pw.perf_adj_turnover_py_swday_net_val,
+   pw.sales_py_swday_bytd_cnt,
+   pw.sales_py_swday_bytd_qty,
+   pw.return_py_swday_bytd_cnt,
+   pw.return_py_swday_bytd_qty,
+   pw.sales_py_swday_bytd_net_val,
+   pw.return_py_swday_bytd_net_val,
+   pw.turnover_py_swday_bytd_net_val,
+   pw.perf_adj_total_py_swday_bytd_cnt,
+   pw.perf_adj_total_py_swday_bytd_qty,
+   pw.perf_adj_turnover_py_swday_bytd_net_val,
+   ppc.rel_cal_dt AS rel_cal_dt_ppc,
+   ppc.perf_adj_turnover_ppy_net_val,
+   ppc.perf_adj_turnover_ppy_bytd_net_val,
+   ppw.rel_cal_dt AS rel_cal_dt_ppw,
+   ppw.perf_adj_turnover_ppy_swday_net_val,
+   ppw.perf_adj_turnover_ppy_swday_bytd_net_val,
+   c.dwh_created_tmsp,
+   c.dwh_updated_tmsp,
+   c.dwh_load_id,
+   c.dwh_node_cd
+  FROM fact_cumulations AS c
+   LEFT JOIN facts_past_pc AS pc ON c.store_sid = pc.store_sid AND c.sales_variant_sid = pc.sales_variant_sid AND c.bus_dt
+      = pc.cal_dt
+   LEFT JOIN facts_past_pw AS pw ON c.store_sid = pw.store_sid AND c.sales_variant_sid = pw.sales_variant_sid AND c.bus_dt
+      = pw.cal_dt
+   LEFT JOIN facts_past_ppc AS ppc ON c.store_sid = ppc.store_sid AND c.sales_variant_sid = ppc.sales_variant_sid AND c
+     .bus_dt = ppc.cal_dt
+   LEFT JOIN facts_past_ppw AS ppw ON c.store_sid = ppw.store_sid AND c.sales_variant_sid = ppw.sales_variant_sid AND c
+     .bus_dt = ppw.cal_dt) (SELECT country_org_sid,
+   country_org_cd,
+   store_sid,
+   prod_sid,
+   sales_variant_sid,
+   bus_year,
+   bus_dt,
+   uom_cd,
+   curr_cd,
+   sales_cnt,
+   sales_qty,
+   return_cnt,
+   return_qty,
+   total_cnt,
+   total_qty,
+   sales_net_val,
+   return_net_val,
+   sales_gross_val,
+   return_gross_val,
+   turnover_net_val,
+   turnover_gross_val,
+   perf_adj_sales_cnt,
+   perf_adj_sales_qty,
+   perf_adj_sales_net_val,
+   perf_adj_return_cnt,
+   perf_adj_return_qty,
+   perf_adj_return_net_val,
+   perf_adj_total_cnt,
+   perf_adj_total_qty,
+   perf_adj_turnover_net_val,
+   sales_bytd_cnt,
+   sales_bytd_qty,
+   return_bytd_cnt,
+   return_bytd_qty,
+   sales_bytd_net_val,
+   return_bytd_net_val,
+   turnover_bytd_net_val,
+   perf_adj_total_bytd_cnt,
+   perf_adj_total_bytd_qty,
+   perf_adj_turnover_bytd_net_val,
+   sales_py_cnt,
+   sales_py_qty,
+   return_py_cnt,
+   return_py_qty,
+   sales_py_net_val,
+   return_py_net_val,
+   turnover_py_net_val,
+   perf_adj_total_py_cnt,
+   perf_adj_total_py_qty,
+   perf_adj_turnover_py_net_val,
+   sales_py_bytd_cnt,
+   sales_py_bytd_qty,
+   return_py_bytd_cnt,
+   return_py_bytd_qty,
+   sales_py_bytd_net_val,
+   return_py_bytd_net_val,
+   turnover_py_bytd_net_val,
+   perf_adj_total_py_bytd_cnt,
+   perf_adj_total_py_bytd_qty,
+   perf_adj_turnover_py_bytd_net_val,
+   sales_py_swday_cnt,
+   sales_py_swday_qty,
+   return_py_swday_cnt,
+   return_py_swday_qty,
+   sales_py_swday_net_val,
+   return_py_swday_net_val,
+   turnover_py_swday_net_val,
+   perf_adj_total_py_swday_cnt,
+   perf_adj_total_py_swday_qty,
+   perf_adj_turnover_py_swday_net_val,
+   sales_py_swday_bytd_cnt,
+   sales_py_swday_bytd_qty,
+   return_py_swday_bytd_cnt,
+   return_py_swday_bytd_qty,
+   sales_py_swday_bytd_net_val,
+   return_py_swday_bytd_net_val,
+   turnover_py_swday_bytd_net_val,
+   perf_adj_total_py_swday_bytd_cnt,
+   perf_adj_total_py_swday_bytd_qty,
+   perf_adj_turnover_py_swday_bytd_net_val,
+   perf_adj_turnover_ppy_net_val,
+   perf_adj_turnover_ppy_bytd_net_val,
+   perf_adj_turnover_ppy_swday_net_val,
+   perf_adj_turnover_ppy_swday_bytd_net_val,
+   dwh_created_tmsp,
+   dwh_updated_tmsp,
+   dwh_load_id,
+   dwh_node_cd
+  FROM fact_consolidation);

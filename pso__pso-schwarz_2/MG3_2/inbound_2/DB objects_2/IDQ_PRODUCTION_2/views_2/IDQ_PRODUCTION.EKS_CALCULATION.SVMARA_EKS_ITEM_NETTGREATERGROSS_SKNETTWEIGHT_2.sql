@@ -1,0 +1,22 @@
+create or replace view IDQ_PRODUCTION.EKS_CALCULATION.SVMARA_EKS_ITEM_NETTGREATERGROSS_SKNETTWEIGHT_2(
+	ITEMID,
+	ITEMNO,
+	LISTINGOVERVIEWID,
+	CASESIZE,
+	NETWEIGHT,
+	TOTAL_CASENETWEIGHT,
+	SUPPLIERNO,
+	RECEIVINGCOUNTRY
+) as
+SELECT EKS_CALCULATION.svMARA_EKS_ITEM_NettGreaterGross_SKAvgNettweight.ITEMID, 
+	EKS_CALCULATION.svMARA_EKS_ITEM_NettGreaterGross_SKAvgNettweight.ITEMNO, 
+	EKS_CALCULATION.svMARA_EKS_ITEM_NettGreaterGross_SKAvgNettweight.LISTINGOVERVIEWID, 
+                EKS_CALCULATION.svMARA_EKS_ITEM_NettGreaterGross_SKAvgNettweight.CaseSize, 
+				EKS_CALCULATION.svMARA_EKS_ITEM_NettGreaterGross_SKAvgNettweight.Netweight, 
+				EKS_CALCULATION.svBASKEA_EKS_Total_CaseNetweight.Total_CaseNetweight, 
+                EKS_CALCULATION.svMARA_EKS_ITEM_NettGreaterGross_SKAvgNettweight.SUPPLIERNO, 
+				EKS_CALCULATION.svMARA_EKS_ITEM_NettGreaterGross_SKAvgNettweight.ReceivingCountry
+				FROM EKS_CALCULATION.svMARA_EKS_ITEM_NettGreaterGross_SKAvgNettweight_2 
+				INNER JOIN
+                EKS_CALCULATION.svBASKEA_EKS_Total_CaseNetweight_2
+				ON EKS_CALCULATION.svMARA_EKS_ITEM_NettGreaterGross_SKAvgNettweight.ITEMID = EKS_CALCULATION.svBASKEA_EKS_Total_CaseNetweight.SK_ITEMID;

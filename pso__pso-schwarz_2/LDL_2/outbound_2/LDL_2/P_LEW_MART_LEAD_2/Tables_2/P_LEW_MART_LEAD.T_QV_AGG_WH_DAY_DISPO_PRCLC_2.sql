@@ -1,0 +1,62 @@
+/*
+#----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS
+#----------------------------------------------------------------------------
+# Interface: DDL for P_LEW_MART_LEAD.T_QV_AGG_WH_DAY_DISPO_PRCLC_2
+#----------------------------------------------------------------------------
+# History:
+#
+#  Vrs Date       Developer               Task
+#  --- ---------- ----------------------- --------------------------------
+#  1.0 2020-06-23 Rodrigo Cione           20200309_2424_QuickView_remove_dum
+#
+#----------------------------------------------------------------------------
+*/
+
+/*
+#----------------------------------------------------------------------------
+# Table DDL
+#----------------------------------------------------------------------------
+*/
+
+
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_lead.t_qv_agg_wh_day_dispo_prclc_2 (
+client_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Landeskennzeichen'),
+client_desc STRING(35) COLLATE 'und:ci' OPTIONS(description='Bezeichnung des Landes'),
+country_group_id BIGNUMERIC(38,0) OPTIONS(description='Landesgruppe Kennzeichen'),
+country_group_desc STRING(60) COLLATE 'und:ci' OPTIONS(description='Landesgruppe Bezeichnung'),
+gl_region_id BIGNUMERIC(38,0) OPTIONS(description='Geschaeftsleitungsregion ID'),
+gl_region_desc STRING(60) COLLATE 'und:ci' OPTIONS(description='Beschreibung Geschaeftsleitungsregion'),
+wh_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Gesellschaftsnummer'),
+wh_desc STRING(50) COLLATE 'und:ci' OPTIONS(description='Gesellschaftsbezeichnung'),
+aspect_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Gesellschaftsform (1 = Betriebs- 2 = Vertriebsgesellschaft)'),
+aspect_desc STRING(4) COLLATE 'und:ci' OPTIONS(description='Gesellschaftsform Bezeichnung'),
+currency_iso_cd STRING(3) COLLATE 'und:ci' OPTIONS(description='Iso-Code Waehrung'),
+curr_tot_id BIGNUMERIC(38,0) OPTIONS(description='Fixe Werte fuer EUR=0, GBP=40 sonst Client_Id'),
+dat_formdate DATE NOT NULL OPTIONS(description='Aenderungsdatum'),
+mis_store_active_fg BIGNUMERIC(38,0) OPTIONS(description='MIS Flag zur Kennzeichnung aktiver Filialen'),
+val_adj_gross_sfo_wh NUMERIC(19,5) OPTIONS(description='Abschriften_2 Lager (gross value)'),
+val_adj_gross_sfo_wh_py NUMERIC(19,5) OPTIONS(description='Abschriften_2 Lager (gross value), Vorjahr'),
+val_adj_net_sfo_wh NUMERIC(19,5) OPTIONS(description='Abschriften_2 Lager (net value)'),
+val_adj_net_sfo_wh_py NUMERIC(19,5) OPTIONS(description='Abschriften_2 Lager (net value), Vorjahr'),
+val_pr_diff_gross_sfo NUMERIC(19,5) OPTIONS(description='SQL PV-Preisdifferenzen SFO Basis (gross value)'),
+val_pr_diff_gross_sfo_py NUMERIC(19,5) OPTIONS(description='SQL PV-Preisdifferenzen SFO Basis (gross value), Vorjahr'),
+val_pr_diff_net_sfo NUMERIC(19,5) OPTIONS(description='SQL PV-Preisdifferenzen SFO Basis (net value)'),
+val_pr_diff_net_sfo_py NUMERIC(19,5) OPTIONS(description='SQL PV-Preisdifferenzen SFO Basis (net value), Vorjahr'),
+val_retail_gross_asis NUMERIC(19,5) OPTIONS(description='Umsatz (gross value)'),
+val_retail_gross_asis_py NUMERIC(19,5) OPTIONS(description='Umsatz (gross value), Vorjahr'),
+val_retail_net_asis NUMERIC(19,5) OPTIONS(description='Umsatz (net value)'),
+val_retail_net_asis_py NUMERIC(19,5) OPTIONS(description='Umsatz (net value), Vorjahr'),
+cnt_miss_item NUMERIC(19,5) OPTIONS(description='Anzahl Fehlartikel pro Gesellschaft und Tag_2'),
+cnt_miss_item_py NUMERIC(19,5) OPTIONS(description='Anzahl Fehlartikel pro Gesellschaft und Tag_2, Vorjahr'),
+cnt_dat_miss_item NUMERIC(19,5) OPTIONS(description='Anzahl Tage (Fehlartikel)'),
+cnt_dat_miss_item_py NUMERIC(19,5) OPTIONS(description='Anzahl Tage (Fehlartikel), Vorjahr'),
+val_roc_prclc_wh NUMERIC(19,5) OPTIONS(description='Reichweite Lager - Nominator in EP'),
+val_roc_prclc_wh_py NUMERIC(19,5) OPTIONS(description='Reichweite Lager - Nominator in EP, Vorjahr'),
+avg_stc_wh NUMERIC(19,5) OPTIONS(description='durchschn.-Bestand des Artikles in EP'),
+avg_stc_wh_py NUMERIC(19,5) OPTIONS(description='durchschn.-Bestand des Artikles in EP, Vorjahr'),
+dwh_load_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Load Identification'),
+dwh_created DATETIME NOT NULL OPTIONS(description='Insert record timestamp'),
+dwh_updated DATETIME NOT NULL OPTIONS(description='Update record timestamp')
+) CLUSTER BY client_id, dat_formdate
+OPTIONS(description='Table');

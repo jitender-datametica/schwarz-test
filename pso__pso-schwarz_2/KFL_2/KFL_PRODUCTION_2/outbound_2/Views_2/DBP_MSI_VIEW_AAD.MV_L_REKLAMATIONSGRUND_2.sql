@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_aad.mv_l_reklamationsgrund_2 AS SELECT mandant_id,
+ reklamationsgrund_id
+FROM kfl_production_dbp_view.v_l_reklamationsgrund_2 AS V01;

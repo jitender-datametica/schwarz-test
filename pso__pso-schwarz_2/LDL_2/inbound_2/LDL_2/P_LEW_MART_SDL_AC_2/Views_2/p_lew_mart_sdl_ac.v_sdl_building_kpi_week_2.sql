@@ -1,0 +1,57 @@
+CREATE OR REPLACE VIEW P_LEW_MART_SDL_AC.v_sdl_building_kpi_week_2
+(
+     version
+   , kalenderjahr
+   , kalenderwoche
+   , land_2
+   , landeswaehrung
+   , umsatz_netto
+   , basisumsatz_lj
+   , basisumsatz_vj
+   , bereinigter_umsatz
+   , kundenanzahl
+   , basiskundenanzahl_lj
+   , basiskundenanzahl_vj
+   , bereinigte_kundenanzahl
+   , anzahl_filialen
+   , basisanzahl_filialen_vj
+   , basisanzahl_filialen_lj
+   , bereinigte_filialanzahl
+   , verkaufstage
+   , verkaufsflaeche
+   , basisverkaufsflaeche_lj
+   , basisverkaufsflaeche_vj
+   , bereinigte_verkaufsflaeche
+   , anzahl_filialen_neueroeffnung
+   , anzahl_filialen_ersatz
+   , anzahl_filialen_schliessung
+   , anzahl_filialen_abrissneubau
+) AS
+SELECT version
+     , kalenderjahr
+     , kalenderwoche
+     , land_2
+     , landeswaehrung
+     , umsatz_netto
+     , basisumsatz_lj
+     , basisumsatz_vj
+     , bereinigter_umsatz
+     , kundenanzahl
+     , basiskundenanzahl_lj
+     , basiskundenanzahl_vj
+     , bereinigte_kundenanzahl
+     , anzahl_filialen
+     , basisanzahl_filialen_vj
+     , basisanzahl_filialen_lj
+     , bereinigte_filialanzahl
+     , verkaufstage
+     , verkaufsflaeche
+     , basisverkaufsflaeche_lj
+     , basisverkaufsflaeche_vj
+     , bereinigte_verkaufsflaeche
+     , anzahl_filialen_neueroeffnung
+     , anzahl_filialen_ersatz
+     , anzahl_filialen_schliessung
+     , anzahl_filialen_abrissneubau
+FROM P_LEW_MART_SDL.v_sdl_building_kpi_week_2
+;

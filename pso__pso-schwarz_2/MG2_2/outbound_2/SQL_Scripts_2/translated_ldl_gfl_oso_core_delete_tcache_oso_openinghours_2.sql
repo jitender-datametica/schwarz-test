@@ -1,0 +1,1 @@
+TRUNCATE TABLE ldl_data_production_etl.t_tcache_oso_openinghours_2;

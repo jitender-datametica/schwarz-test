@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl.hr_flukt_kz_tmp_2 (
+mitarbeiter_id STRING(20),
+massn STRING(2) COLLATE 'und:ci',
+massg STRING(2) COLLATE 'und:ci',
+mandant_id INTEGER,
+kjmo INTEGER,
+zhr_massn_1 STRING(4) COLLATE 'und:ci',
+zhr_massg_1 STRING(4) COLLATE 'und:ci',
+zhr_massnbegda_1 DATE,
+zhr_massnendda_1 DATE,
+kjmo_massn_anf_1 INTEGER,
+kjmo_massn_ende_1 INTEGER,
+ma_flukt_kz_1 INTEGER,
+zhr_massn_2 STRING(4) COLLATE 'und:ci',
+zhr_massg_2 STRING(4) COLLATE 'und:ci',
+zhr_massnbegda_2 DATE,
+zhr_massnendda_2 DATE,
+kjmo_massn_anf_2 INTEGER,
+kjmo_massn_ende_2 INTEGER,
+ma_flukt_kz_2 INTEGER
+);

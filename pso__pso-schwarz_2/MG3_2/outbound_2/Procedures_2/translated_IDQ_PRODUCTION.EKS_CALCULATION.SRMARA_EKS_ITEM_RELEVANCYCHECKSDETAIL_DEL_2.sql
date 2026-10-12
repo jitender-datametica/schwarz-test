@@ -1,0 +1,3 @@
+CREATE OR REPLACE PROCEDURE idq_production_eks_calculation.srmara_eks_item_relevancychecksdetail_del()
+BEGIN
+TRUNCATE TABLE idq_production_eks_calculation.stmara_eks_item_relevancychecksdetail_2;END;

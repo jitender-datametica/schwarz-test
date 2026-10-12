@@ -1,0 +1,23 @@
+/* --------------------------------------------------------------------------------
+   DDL for table: t_dim_kfl_season_2
+   generated from Powerdesigner on Montag, 31. Juli 2023 15:56:31
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE.T_DIM_KFL_SEASON_2 DATA_RETENTION_TIME_IN_DAYS = 2 (
+   kfl_client_id                       NUMBER(38,0)     NOT NULL COMMENT 'identifier of the KFL client (Mandant_2) in the Kaufland DWH
+            KFL: KFL_PRODUCTION.DBP_DATA.saison_spr_zu.mandant_id
+            CORE_REL: t_kfl_season.kfl_client_id',
+   kfl_season_nr                       VARCHAR(100)     NOT NULL COMMENT 'identifier of the season in the Kaufland DWH
+            KFL: KFL_PRODUCTION.DBP_DATA.saison_spr_zu.SAISON_ID
+            CORE_REL: t_kfl_season.kfl_season_nr',
+   kfl_season_name                     VARCHAR(100)     COMMENT 'German name of the season in the Kaufland DWH
+            KFL: KFL_PRODUCTION.DBP_DATA.saison_spr_zu.SAISON_BEZ
+            CORE_REL: t_kfl_season.kfl_season_name',
+   dwh_created_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'Creation timestamp of the record in the DWH.',
+   dwh_updated_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'Timestamp of the last update of the record in the DWH.',
+   dwh_src_tmsp                        TIMESTAMP_LTZ(9) NOT NULL COMMENT 'Timestamp of source extraction.',   
+   CONSTRAINT PK_T_DIM_KFL_SEASON PRIMARY KEY (kfl_client_id, kfl_season_nr) NOT ENFORCED 
+)  COMMENT = 'Kaufland season (German names only)
+             KFL: DBP_DATA.SAISON_SPR_ZU_2
+             CORE_REL: T_KFL_SEASON_2';
+

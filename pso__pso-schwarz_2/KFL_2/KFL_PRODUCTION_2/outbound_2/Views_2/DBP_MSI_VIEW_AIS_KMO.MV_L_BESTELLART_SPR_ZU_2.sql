@@ -1,0 +1,72 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ais_kmo.mv_l_bestellart_spr_zu_2 (mandant_id, bestellart_id,
+bestellart_bez, bestellart_bez_de, bestellart_bez_cz, bestellart_bez_sk, bestellart_bez_hr, bestellart_bez_pl,
+bestellart_bez_ro, bestellart_bez_bg) AS SELECT mandant_id,
+ bestellart_id,
+ COALESCE(MAX(CASE
+    WHEN spr_id = 22
+    THEN bestellart_bez
+    ELSE NULL
+    END), 'N/A') AS bestellart_bez,
+ COALESCE(MAX(CASE
+    WHEN spr_id = 22
+    THEN bestellart_bez
+    ELSE NULL
+    END), 'N/A') AS bestellart_bez_de,
+ COALESCE(MAX(CASE
+    WHEN spr_id = 124
+    THEN bestellart_bez
+    ELSE NULL
+    END), COALESCE(MAX(CASE
+     WHEN spr_id = 22
+     THEN bestellart_bez
+     ELSE NULL
+     END), 'N/A')) AS bestellart_bez_cz,
+ COALESCE(MAX(CASE
+    WHEN spr_id = 108
+    THEN bestellart_bez
+    ELSE NULL
+    END), COALESCE(MAX(CASE
+     WHEN spr_id = 22
+     THEN bestellart_bez
+     ELSE NULL
+     END), 'N/A')) AS bestellart_bez_sk,
+ COALESCE(MAX(CASE
+    WHEN spr_id = 65
+    THEN bestellart_bez
+    ELSE NULL
+    END), COALESCE(MAX(CASE
+     WHEN spr_id = 22
+     THEN bestellart_bez
+     ELSE NULL
+     END), 'N/A')) AS bestellart_bez_hr,
+ COALESCE(MAX(CASE
+    WHEN spr_id = 90
+    THEN bestellart_bez
+    ELSE NULL
+    END), COALESCE(MAX(CASE
+     WHEN spr_id = 22
+     THEN bestellart_bez
+     ELSE NULL
+     END), 'N/A')) AS bestellart_bez_pl,
+ COALESCE(MAX(CASE
+    WHEN spr_id = 95
+    THEN bestellart_bez
+    ELSE NULL
+    END), COALESCE(MAX(CASE
+     WHEN spr_id = 22
+     THEN bestellart_bez
+     ELSE NULL
+     END), 'N/A')) AS bestellart_bez_ro,
+ COALESCE(MAX(CASE
+    WHEN spr_id = 18
+    THEN bestellart_bez
+    ELSE NULL
+    END), COALESCE(MAX(CASE
+     WHEN spr_id = 22
+     THEN bestellart_bez
+     ELSE NULL
+     END), 'N/A')) AS bestellart_bez_bg
+FROM kfl_production_dbp_view.v_bestellart_spr_zu_2 AS V01
+WHERE mandant_id <> 1
+GROUP BY mandant_id,
+ bestellart_id;

@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tcache_pos_statistic_clean_2 (
+context_load_id BIGNUMERIC(38) NOT NULL,
+client_id BIGNUMERIC(38) NOT NULL,
+loc_sid_store BIGNUMERIC(38) NOT NULL,
+loc_sid_wh BIGNUMERIC(38) NOT NULL,
+dat_formdate DATE,
+context_country STRING(20) COLLATE 'und:ci',
+orig_wh_nr BIGNUMERIC(38) NOT NULL,
+orig_store_nr INTEGER NOT NULL,
+pos_terminal_id BIGNUMERIC(38) NOT NULL,
+checker_id BIGNUMERIC(38),
+checker_state BIGNUMERIC(38),
+stat_code BIGNUMERIC(38),
+audit_nr BIGNUMERIC(38),
+stat_count BIGNUMERIC(38),
+val_stat_amount NUMERIC(18,4),
+dc_server_id BIGNUMERIC(38) NOT NULL,
+timestamp_running DATETIME,
+dwh_load_id BIGNUMERIC(38) NOT NULL,
+dwh_cal_dt DATE,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL
+);

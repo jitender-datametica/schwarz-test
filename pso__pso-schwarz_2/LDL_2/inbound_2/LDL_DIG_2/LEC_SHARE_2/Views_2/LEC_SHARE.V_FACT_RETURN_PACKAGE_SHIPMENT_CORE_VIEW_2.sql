@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW lec_share.v_fact_return_package_shipment_core_view_2
+AS
+SELECT
+	*
+FROM
+	core.v_fact_return_package_shipment_2
+;

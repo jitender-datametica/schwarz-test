@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view2.mv_ts_l_artikel_cluster_saison_2 AS SELECT ek_saison_id,
+ ek_saison_bez
+FROM kfl_production_dbp_msi_view2.ts_ais_de_l_ek_saison_2;

@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_rpw.mv_l_soll_haben_2 (soll_haben_kz, mandant_id) AS SELECT 'S' AS
+ soll_haben_kz,
+ mandant_id
+FROM kfl_production_dbp_view.v_mandant_2
+WHERE mandant_id = 1
+UNION ALL
+SELECT 'H' AS soll_haben_kz,
+ mandant_id
+FROM kfl_production_dbp_view.v_mandant_2
+WHERE mandant_id = 1;

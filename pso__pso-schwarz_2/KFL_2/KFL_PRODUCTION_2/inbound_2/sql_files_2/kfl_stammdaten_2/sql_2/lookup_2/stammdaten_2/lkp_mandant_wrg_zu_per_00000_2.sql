@@ -1,0 +1,1 @@
+select mandant_id, von_wrg_id, wrg_id, umrechnungskurs,dat_von, dat_bis from dbp_data.mandant_wrg_zu_per_2 where von_wrg_id is not null group by 1,2,3,4,5,6 order by 1,2,5,6;

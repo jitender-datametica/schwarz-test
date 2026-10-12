@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_ts_avq_schwellwert_2 AS SELECT mandant_id,
+ avq_schwellwert,
+ we_bestand_schwellwert
+FROM kfl_production_dbp_msi_view_vis.ts_avq_schwellwert_2;

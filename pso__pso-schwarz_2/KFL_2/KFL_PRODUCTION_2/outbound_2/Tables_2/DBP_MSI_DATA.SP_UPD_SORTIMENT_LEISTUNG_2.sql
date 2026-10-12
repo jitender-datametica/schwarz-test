@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_msi_data.sp_upd_sortiment_leistung_2 (
+user_id STRING(30) COLLATE 'und:ci' NOT NULL,
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+kjmo BIGNUMERIC(38,0) NOT NULL,
+matching_id BIGNUMERIC(38,0) NOT NULL,
+art_id BIGNUMERIC(38,0),
+gtin STRING(300) COLLATE 'und:ci' NOT NULL,
+stk_re_pflege STRING(255) COLLATE 'und:ci',
+vorschlag STRING(255) COLLATE 'und:ci',
+lieferantenwissen_pflege STRING(255) COLLATE 'und:ci',
+produktwissen_pflege STRING(255) COLLATE 'und:ci',
+k_listung_pflege STRING(4) COLLATE 'und:ci',
+ost_basis_pflege STRING(2) COLLATE 'und:ci',
+ost_gross_pflege STRING(2) COLLATE 'und:ci',
+sued_ost_pflege STRING(2) COLLATE 'und:ci',
+sued_west_pflege STRING(2) COLLATE 'und:ci',
+west_pflege STRING(2) COLLATE 'und:ci',
+nord_pflege STRING(2) COLLATE 'und:ci',
+nielsen_art_bez STRING(300) COLLATE 'und:ci',
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

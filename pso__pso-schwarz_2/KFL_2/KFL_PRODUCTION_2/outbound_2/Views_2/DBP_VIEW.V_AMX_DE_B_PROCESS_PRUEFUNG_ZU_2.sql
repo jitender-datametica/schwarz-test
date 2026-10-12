@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_amx_de_b_process_pruefung_zu_2 AS SELECT business_process_id,
+ pruefung_id
+FROM kfl_production_dbp_data.amx_de_b_process_pruefung_zu_2;

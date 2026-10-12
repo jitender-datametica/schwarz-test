@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE idq_production_kfl_ret.zact2_2 (
+mandt STRING(3) NOT NULL,
+actnr STRING(10) NOT NULL,
+matnr STRING(40) NOT NULL,
+werks STRING(4) NOT NULL,
+xused STRING(4),
+price NUMERIC(11,2),
+waers STRING(5),
+kunnr STRING(10),
+lifnr STRING(10),
+price_o NUMERIC(11,2),
+waers_o STRING(5),
+xauto STRING(1),
+price_bb NUMERIC(11,2),
+waers_bb STRING(5),
+vkgst STRING(1),
+padat STRING(24),
+loevm STRING(1),
+country_code STRING(4),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (mandt, actnr, matnr, werks) NOT ENFORCED
+);

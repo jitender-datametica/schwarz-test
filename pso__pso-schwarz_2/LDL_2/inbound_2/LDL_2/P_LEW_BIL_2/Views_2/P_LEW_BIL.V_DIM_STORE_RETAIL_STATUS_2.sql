@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW P_LEW_BIL.V_DIM_STORE_RETAIL_STATUS_2 as
+   SELECT
+        store_retail_status_cd,
+   store_retail_status_descr,
+   COALESCE(store_retail_status_descr_de, store_retail_status_descr)  AS store_retail_status_descr_de,
+   COALESCE(store_retail_status_descr_en, store_retail_status_descr)  AS store_retail_status_descr_en,
+   COALESCE(store_retail_status_descr_bg, store_retail_status_descr)  AS store_retail_status_descr_bg,
+   COALESCE(store_retail_status_descr_cs, store_retail_status_descr)  AS store_retail_status_descr_cs,
+   COALESCE(store_retail_status_descr_da, store_retail_status_descr)  AS store_retail_status_descr_da,
+   COALESCE(store_retail_status_descr_el, store_retail_status_descr)  AS store_retail_status_descr_el,
+   COALESCE(store_retail_status_descr_es, store_retail_status_descr)  AS store_retail_status_descr_es,
+   COALESCE(store_retail_status_descr_fi, store_retail_status_descr)  AS store_retail_status_descr_fi,
+   COALESCE(store_retail_status_descr_fr, store_retail_status_descr)  AS store_retail_status_descr_fr,
+   COALESCE(store_retail_status_descr_hr, store_retail_status_descr)  AS store_retail_status_descr_hr,
+   COALESCE(store_retail_status_descr_hu, store_retail_status_descr)  AS store_retail_status_descr_hu,
+   COALESCE(store_retail_status_descr_it, store_retail_status_descr)  AS store_retail_status_descr_it,
+   COALESCE(store_retail_status_descr_lt, store_retail_status_descr)  AS store_retail_status_descr_lt,
+   COALESCE(store_retail_status_descr_nl, store_retail_status_descr)  AS store_retail_status_descr_nl,
+   COALESCE(store_retail_status_descr_pl, store_retail_status_descr)  AS store_retail_status_descr_pl,
+   COALESCE(store_retail_status_descr_pt, store_retail_status_descr)  AS store_retail_status_descr_pt,
+   COALESCE(store_retail_status_descr_ro, store_retail_status_descr)  AS store_retail_status_descr_ro,
+   COALESCE(store_retail_status_descr_sh, store_retail_status_descr)  AS store_retail_status_descr_sh,
+   COALESCE(store_retail_status_descr_sk, store_retail_status_descr)  AS store_retail_status_descr_sk,
+   COALESCE(store_retail_status_descr_sl, store_retail_status_descr)  AS store_retail_status_descr_sl,
+   COALESCE(store_retail_status_descr_sv, store_retail_status_descr)  AS store_retail_status_descr_sv,
+   dwh_load_id,
+   dwh_created,
+   dwh_updated
+   FROM p_lew_bil.t_dim_store_retail_status_2
+;

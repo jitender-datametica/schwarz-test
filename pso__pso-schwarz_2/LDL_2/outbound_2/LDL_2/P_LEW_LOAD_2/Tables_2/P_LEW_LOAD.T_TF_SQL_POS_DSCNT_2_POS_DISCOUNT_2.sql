@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_sql_pos_dscnt_2_pos_discount_2 (
+client_id BIGNUMERIC(38) NOT NULL,
+lidl_country STRING(40) NOT NULL,
+context_load_id BIGNUMERIC(38,0) NOT NULL,
+sql_pos_dscnt_discount_nr STRING(60) COLLATE 'und:ci' NOT NULL,
+sql_pos_dscnt_posart STRING(3) COLLATE 'und:ci' NOT NULL,
+sql_pos_dscnt_discount_pct NUMERIC(23,0) NOT NULL,
+discount_nr STRING(100) NOT NULL,
+posart STRING(2) NOT NULL,
+discount_pct NUMERIC(20,0) NOT NULL,
+src_discount_nr STRING(100) COLLATE 'und:ci' NOT NULL,
+src_posart STRING(1) COLLATE 'und:ci' NOT NULL,
+src_discount_pct NUMERIC(18,5) NOT NULL,
+discount_descr STRING(100) COLLATE 'und:ci',
+first_appearance_dt DATE NOT NULL,
+extraction_dt DATE,
+dwh_mapping_dt DATE NOT NULL,
+tf_error_fg INTEGER,
+record_id STRING(300) NOT NULL,
+filename STRING(1000) NOT NULL
+);

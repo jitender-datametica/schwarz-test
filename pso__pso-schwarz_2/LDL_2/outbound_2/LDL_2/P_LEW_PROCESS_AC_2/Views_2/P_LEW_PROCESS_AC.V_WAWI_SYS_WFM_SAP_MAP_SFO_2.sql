@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process_ac.v_wawi_sys_wfm_sap_map_sfo_2 (interface_name, mov_type_cd, mov_reason_cd,
+order_type_cd, mis_sfo_type_id, cmpnt_area_cd, cmpnt_reason_cd, mov_type_descr, mis_sfo_type_descr, mov_reason_descr,
+order_type_descr, writeoff_zero, status_2, active_fg) AS SELECT interface_name,
+ mov_type_cd,
+ mov_reason_cd,
+ order_type_cd,
+ mis_sfo_type_id,
+ cmpnt_area_cd,
+ cmpnt_reason_cd,
+ mov_type_descr,
+ mis_sfo_type_descr,
+ mov_reason_descr,
+ order_type_descr,
+ writeoff_zero,
+ status_2,
+ active_fg
+FROM ldl_p_lew_process.t_wawi_sys_wfm_sap_map_sfo_2;

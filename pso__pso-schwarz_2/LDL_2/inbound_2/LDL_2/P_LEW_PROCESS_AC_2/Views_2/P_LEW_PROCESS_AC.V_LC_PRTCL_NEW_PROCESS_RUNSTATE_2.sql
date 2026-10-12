@@ -1,0 +1,49 @@
+CREATE OR REPLACE VIEW P_LEW_PROCESS_AC.V_LC_PRTCL_NEW_PROCESS_RUNSTATE_2
+(
+    tcache_database
+    , tcache_tablename
+    , tcache_recipient_processname
+    , tcache_processcontainer
+    , context_area_type
+    , context_area
+    , context_load_id
+    , ready_ts
+    , updated_ts
+    , last_touched_ts
+    , cnt_wait4total
+    , cnt_ready
+    , cnt_wait4pending
+    , ctx_open_fg
+    , ctx_started_fg
+    , before_success_state
+    , ctx_state_new
+    , tcache_deleted_since
+    , is_before_state_protected
+    , ctx_state
+)
+AS
+SELECT
+tcache_database,
+tcache_tablename,
+tcache_recipient_processname,
+tcache_processcontainer,
+context_area_type,
+context_area,
+context_load_id,
+ready_ts,
+updated_ts,
+last_touched_ts,
+cnt_wait4total,
+cnt_ready,
+cnt_wait4pending,
+ctx_open_fg,
+ctx_started_fg,
+before_success_state,
+ctx_state_new,
+tcache_deleted_since,
+is_before_state_protected,
+ctx_state
+FROM p_lew_process.v_lc_prtcl_new_process_runstate_2
+;
+
+

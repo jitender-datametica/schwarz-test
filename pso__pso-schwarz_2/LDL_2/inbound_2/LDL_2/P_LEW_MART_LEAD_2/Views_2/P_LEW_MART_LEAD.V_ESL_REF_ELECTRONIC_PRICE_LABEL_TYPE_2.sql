@@ -1,0 +1,27 @@
+ /*
+#----------------------------------------------------------------------------------------------------------------
+# Interface: DDL for P_LEW_MART_LEAD.V_ESL_REF_ELECTRONIC_PRICE_LABEL_TYPE_2 
+#----------------------------------------------------------------------------------------------------------------
+# History:
+#  1.0  30.08.2024	SIMEON NIKOLAEV	INITIAL SETUP
+#
+#----------------------------------------------------------------------------------------------------------------
+*/
+CREATE OR REPLACE VIEW P_LEW_MART_LEAD.V_ESL_REF_ELECTRONIC_PRICE_LABEL_TYPE_2 
+(
+   ELECTRONIC_PRICE_LABEL_TYPE_CD_FE
+  ,PRICE_LABEL_PRODUCER_NAME
+) AS
+SELECT 
+  CASE 
+    WHEN ELECTRONIC_PRICE_LABEL_TYPE_CD IN ('HF_G1_2.6_BWR','NEWTON_GRAPHIC_2_6_RED')					THEN '02.6'
+    WHEN ELECTRONIC_PRICE_LABEL_TYPE_CD IN ('HF_G1_13_BWR','NEWTON_GRAPHIC_12_2_RED')					THEN '12.2'
+    WHEN ELECTRONIC_PRICE_LABEL_TYPE_CD IN ('HF_VUSION_5.9_BW_FREEZER','NEWTON_GRAPHIC_5_85_FREEZER')	THEN '05.9 F'
+    WHEN ELECTRONIC_PRICE_LABEL_TYPE_CD IN ('HF_VUSION_5.9_BWR','NEWTON_GRAPHIC_5_85_RED')				THEN '05.9'
+    WHEN ELECTRONIC_PRICE_LABEL_TYPE_CD IN ('HF_VUSION_9.7_BWR','NEWTON_GRAPHIC_9_7_RED')				THEN '09.7'
+    ELSE NULL 
+   END AS ELECTRONIC_PRICE_LABEL_TYPE_CD_FE
+  ,PRICE_LABEL_PRODUCER_NAME
+  
+FROM P_LEW_CORE_AC.V_ESL_REF_ELECTRONIC_PRICE_LABEL_TYPE_2 
+;

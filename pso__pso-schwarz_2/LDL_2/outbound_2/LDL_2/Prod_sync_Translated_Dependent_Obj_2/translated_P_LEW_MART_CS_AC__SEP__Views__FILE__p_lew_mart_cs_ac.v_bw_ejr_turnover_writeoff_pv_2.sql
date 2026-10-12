@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_cs_ac.v_bw_ejr_turnover_writeoff_pv_2 (client_id, `land_2 o08 iso-code`,
+`wg i05 mis wg id`, `uwg i04 mis uwg id`, `artikelfamilie gruppiert i04 artikelfamiliennummer`,
+`artikelart _u0028_hist_u0029_ hi08 id`, `waehrung x02 bezeichnung`, `monat_2 t05 id`, `umsatz ejr aufgel`,
+`abschriften_2 gesamt aufgel`, `preisveraenderung aufgel`) AS SELECT client_id,
+ `land_2 o08 iso-code`,
+ `wg i05 mis wg id`,
+ `uwg i04 mis uwg id`,
+ `artikelfamilie gruppiert i04 artikelfamiliennummer`,
+ `artikelart _u0028_hist_u0029_ hi08 id`,
+ `waehrung x02 bezeichnung`,
+ `monat_2 t05 id`,
+ `umsatz ejr aufgel`,
+ `abschriften_2 gesamt aufgel`,
+ `preisveraenderung aufgel`
+FROM ldl_p_lew_mart_cs.v_bw_ejr_turnover_writeoff_pv_2;

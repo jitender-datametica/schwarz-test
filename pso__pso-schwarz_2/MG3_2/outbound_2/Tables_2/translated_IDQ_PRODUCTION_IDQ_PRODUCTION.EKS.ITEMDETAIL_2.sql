@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE idq_production_eks.itemdetail_2 (
+itemid INTEGER,
+packageid INTEGER,
+unitid INTEGER,
+bundlefact INTEGER,
+volume STRING(255),
+crdate DATETIME,
+moddate DATETIME,
+cruser STRING(35),
+moduser STRING(35),
+mountunitid INTEGER,
+netweight_unitid INTEGER,
+mount INTEGER,
+subpackageid INTEGER,
+netweight STRING(255),
+text_int STRING(80),
+text_nat STRING(80),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

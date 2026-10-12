@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW smp_production_data_shared_ldl.p_lew_core_t_cal_busyear_quarter_2 (busyear_qtr, busyear,
+qtr_of_busyear_id, busyear_qtr_name, busyear_qtr_begin_month, busyear_qtr_end_month, by_qtr_seq, by_qtr_prev_1q,
+by_qtr_prev_1y, by_qtr_prev_2y, dwh_load_id, dwh_created, dwh_updated) AS SELECT busyear_qtr,
+ busyear,
+ qtr_of_busyear_id,
+ busyear_qtr_name,
+ busyear_qtr_begin_month,
+ busyear_qtr_end_month,
+ by_qtr_seq,
+ by_qtr_prev_1q,
+ by_qtr_prev_1y,
+ by_qtr_prev_2y,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_cal_busyear_quarter_2;

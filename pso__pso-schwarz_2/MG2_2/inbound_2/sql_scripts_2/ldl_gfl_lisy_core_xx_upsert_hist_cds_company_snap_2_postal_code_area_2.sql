@@ -1,0 +1,60 @@
+INSERT INTO  ETL.${SRC2TGT_TEMP_TABLE1}_${SRC_CONTEXT_AREA}
+(
+        POSTAL_CD_AREA_NAT_KEY_NR,
+        POSTAL_CD_AREA_KEY_TYPE_CD,
+        COUNTRY_NAT_KEY_NR,
+        COUNTRY_KEY_TYPE_CD,
+	ISO_COUNTRY_CD,
+	COUNTRY_NAME,
+	ZIP,
+	POSTAL_CD_AREA_NAME,
+        SOURCE_SYSTEM,
+        EXTRACTION_DT,
+        DWH_MAPPING_TMSP,
+        TF_ERROR_FG,
+        DELETED_FG,
+        RECORD_ID,
+        FILENAME,
+        DWH_NODE_CD,
+        DWH_LOAD_ID
+)
+SELECT
+        COALESCE(SRC.IGL_ISOCODE2, '') || '|' || COALESCE(SRC.IGL_POSTALCODE, '') AS POSTAL_CD_AREA_NAT_KEY_NR,
+        'ZIP' AS POSTAL_CD_AREA_KEY_TYPE_CD,
+        COALESCE(SRC.IGL_ISOCODE2, '') AS COUNTRY_NAT_KEY_NR,
+	'CTRY' AS COUNTRY_KEY_TYPE_CD,
+        CASE
+            WHEN IGL_ISOCODE2 = 'NI' THEN 'GB'
+            ELSE IGL_ISOCODE2
+        END AS ISO_COUNTRY_CD,
+        CASE
+            WHEN IGL_ISOCODE2 = 'NI' THEN 'Vereinigtes Königreich'
+            ELSE CTRY.COUNTRY_NAME 
+        END AS COUNTRY_NAME,
+        SRC.IGL_POSTALCODE AS ZIP,
+        '' AS POSTAL_CD_AREA_NAME,
+        'LISY' AS SOURCE_SYSTEM,
+        CURRENT_DATE AS EXTRACTION_DT,
+        SRC.SINKMODIFIEDON AS DWH_MAPPING_TMSP,
+        0 AS TF_ERROR_FG,
+        0 AS DELETED_FG,
+        0 AS RECORD_ID,
+        't_${SRC_INPUT_TABLE}' AS FILENAME,
+        'LISY' AS DWH_NODE_CD,
+        '${LOAD_ID}' as DWH_LOAD_ID 
+FROM etl_process.t_${SRC_INPUT_TABLE} SRC
+LEFT JOIN CORE_REL.T_COUNTRY_2 CTRY
+ON SRC.IGL_ISOCODE2 = CTRY.ISO_COUNTRY_CD
+WHERE IGL_ISOCODE2 IS NOT NULL
+AND IGL_POSTALCODE IS NOT NULL
+AND DELETED <> 'x'
+--- ""Grossebersdorf"" is same as ""Großebersdorf"" when converted to UPPER
+-- so we eliminate such duplicates of NK by taking the longer ( ""ss"" instead of ""ß"")
+QUALIFY ROW_NUMBER() OVER 
+	(PARTITION BY SRC.IGL_ISOCODE2
+                      ||'|'|| UPPER(NVL(SRC.IGL_POSTALCODE, ''))
+	ORDER BY 
+            LENGTH(SRC.IGL_ISOCODE2
+                      ||'|'|| UPPER(NVL(SRC.IGL_POSTALCODE, ''))
+           ), SINKMODIFIEDON DESC) = 1
+;

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ims.mv_l_anlage_klasse_2 AS SELECT mandant_id,
+ anlage_klasse_id,
+ gesperrt_fg
+FROM kfl_production_dbp_view.v_l_anlage_klasse_2;

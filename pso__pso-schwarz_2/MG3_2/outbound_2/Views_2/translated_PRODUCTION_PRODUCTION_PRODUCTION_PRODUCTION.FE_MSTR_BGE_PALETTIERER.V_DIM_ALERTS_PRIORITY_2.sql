@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW production_production_fe_mstr_bge_palettierer.v_dim_alerts_priority_2 (alerts_priority_id,
+alerts_priority_desc) AS SELECT alerts_priority_id,
+ alerts_priority_desc
+FROM production_production_core.t_dim_alerts_priority_2;

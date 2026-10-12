@@ -1,0 +1,32 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ais_int.mv_wup_art_gp_korrektur_2 (mandant_id, wup_id, nb_id, art_id,
+dat_von, dat_bis, dat_korrektur, dat_zurueckliegend, gp_alt_id, gp_neu_id, bq_findung_alt_id, bq_findung_neu_id,
+menge_vk_bme, betrag_umsatz_netto, betrag_ek_netto_alt, betrag_ek_netto_neu, betrag_ek_mep_alt, betrag_ek_mep_neu) AS
+SELECT mandant_id,
+ wup_id,
+ nb_id,
+ art_id,
+ MIN(dat_vk) AS dat_von,
+ MAX(dat_vk) AS dat_bis,
+ dat_korrektur,
+ DATE_DIFF((SELECT MAX(dat_korrektur)
+   FROM kfl_production_dbp_view.v_wup_art_gp_korrektur_2), dat_korrektur, DAY) AS dat_zurueckliegend,
+ gp_alt_id,
+ gp_neu_id,
+ bq_findung_alt_id,
+ bq_findung_neu_id,
+ SUM(menge_vk_bme) AS menge_vk_bme,
+ SUM(betrag_umsatz_netto) AS betrag_umsatz_netto,
+ SUM(betrag_ek_netto_alt) AS betrag_ek_netto_alt,
+ SUM(betrag_ek_netto_neu) AS betrag_ek_netto_neu,
+ SUM(betrag_ek_mep_alt) AS betrag_ek_mep_alt,
+ SUM(betrag_ek_mep_neu) AS betrag_ek_mep_neu
+FROM kfl_production_dbp_view.v_wup_art_gp_korrektur_2 AS V01
+GROUP BY mandant_id,
+ wup_id,
+ nb_id,
+ art_id,
+ dat_korrektur,
+ gp_alt_id,
+ gp_neu_id,
+ bq_findung_alt_id,
+ bq_findung_neu_id;

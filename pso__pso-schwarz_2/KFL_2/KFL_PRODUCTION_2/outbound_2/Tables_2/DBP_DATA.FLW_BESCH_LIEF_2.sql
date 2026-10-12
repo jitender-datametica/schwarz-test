@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.flw_besch_lief_2 (
+lief_beleg_id INTEGER NOT NULL,
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+dat_aenderung DATE NOT NULL,
+dat_beleg DATE NOT NULL,
+dat_erfasst DATE NOT NULL,
+dat_kommission_soll DATE NOT NULL,
+dat_ladung DATE NOT NULL,
+dat_lief_soll DATE NOT NULL,
+dat_transport_dispo DATE NOT NULL,
+dat_wa_plan DATE NOT NULL,
+dat_wa_ist DATE NOT NULL,
+versandstelle_id STRING(4) COLLATE 'und:ci' NOT NULL,
+lief_typ_id STRING(4) COLLATE 'und:ci' NOT NULL,
+versand_bedingung_id STRING(2) COLLATE 'und:ci' NOT NULL,
+flw_kunde_id BIGNUMERIC(38,0),
+werk_id BIGNUMERIC(38,0),
+flw_verkaufsorganisation_id STRING(4) COLLATE 'und:ci' NOT NULL,
+system_id BIGNUMERIC(38,0) NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

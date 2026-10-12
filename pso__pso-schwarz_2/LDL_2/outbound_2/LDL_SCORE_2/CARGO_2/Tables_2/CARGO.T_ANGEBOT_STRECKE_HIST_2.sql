@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_score_cargo.t_angebot_strecke_hist_2 (
+angebot_strecke_id BIGNUMERIC(38,0),
+angebot_strecke_anm_einkauf STRING(2000),
+angebot_strecke_anm_intern STRING(2000),
+angebot_strecke_masterrowid STRING(2000),
+angebot_strecke_max_transportkapazitaet_pro_woche BIGNUMERIC(38,5),
+angebot_strecke_gueltig_bis_verhandelt_ek TIMESTAMP,
+angebot_strecke_typ_strecke STRING(2000),
+angebot_strecke_gueltig_von TIMESTAMP,
+angebot_strecke_gueltig_bis TIMESTAMP,
+angebot_strecke_lastmoddate TIMESTAMP,
+angebot_strecke_anm_logistikdienstleister STRING(2000),
+angebot_strecke_verhandlungsziel_prozent BIGNUMERIC(38,5),
+angebot_strecke_verhandlungsziel_euro BIGNUMERIC(38,5),
+angebot_strecke_gueltig_bis_verhandelt_logistikdienstleister TIMESTAMP,
+angebot_strecke_ausgeschriebene_strecke_rowid STRING(2000),
+source_extraction_tmsp ARRAY < STRING >,
+tech_valid_from TIMESTAMP NOT NULL,
+tech_valid_to TIMESTAMP NOT NULL,
+snflk_insert_tmsp TIMESTAMP NOT NULL,
+snflk_update_tmsp TIMESTAMP NOT NULL
+);

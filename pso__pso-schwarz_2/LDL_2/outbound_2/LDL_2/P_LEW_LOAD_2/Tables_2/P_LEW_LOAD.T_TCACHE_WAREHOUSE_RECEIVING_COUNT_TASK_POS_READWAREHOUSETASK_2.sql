@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tcache_warehouse_receiving_count_task_pos_readwarehousetask_2 (
+client_id BIGNUMERIC(38,0) NOT NULL,
+lgnum STRING(4),
+tanum STRING(100),
+tapos STRING(10),
+nista BIGNUMERIC(38,5),
+altme STRING(10),
+nlenr BIGNUMERIC(38,0),
+vlenr BIGNUMERIC(38,0),
+docno STRING(32),
+itemno STRING(32),
+rdoccat STRING(10),
+trart STRING(32),
+tostat STRING(2),
+matnr STRING(40),
+grdate DATE,
+grtime DATE,
+dwh_load_id BIGNUMERIC(38,0),
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL
+);

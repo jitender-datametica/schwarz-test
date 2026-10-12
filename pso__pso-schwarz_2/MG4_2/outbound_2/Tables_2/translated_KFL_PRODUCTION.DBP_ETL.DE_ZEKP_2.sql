@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl.de_zekp_2 (
+matnr INTEGER,
+lifnr INTEGER,
+werks INTEGER,
+datab DATE,
+abrut NUMERIC(18,4),
+abrna NUMERIC(18,4),
+abonba NUMERIC(18,4),
+aknet NUMERIC(18,4),
+aknb NUMERIC(18,4),
+aknbs NUMERIC(18,4),
+aknne NUMERIC(18,4),
+ekkba NUMERIC(18,4),
+mepre NUMERIC(18,4),
+lsein NUMERIC(18,4),
+lokau NUMERIC(18,4),
+bnk NUMERIC(18,4),
+zollba NUMERIC(18,4),
+konwa STRING(3) COLLATE 'und:ci',
+kompmeng NUMERIC(18,4),
+td_update TIMESTAMP,
+td_insert TIMESTAMP
+);

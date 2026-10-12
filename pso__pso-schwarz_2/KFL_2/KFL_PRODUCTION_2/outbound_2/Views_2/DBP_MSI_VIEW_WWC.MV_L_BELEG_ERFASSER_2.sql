@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_wwc.mv_l_beleg_erfasser_2 (beleg_erfasser_id) AS SELECT
+ beleg_erfasser_id
+FROM kfl_production_dbp_view.v_l_beleg_erfasser_2;

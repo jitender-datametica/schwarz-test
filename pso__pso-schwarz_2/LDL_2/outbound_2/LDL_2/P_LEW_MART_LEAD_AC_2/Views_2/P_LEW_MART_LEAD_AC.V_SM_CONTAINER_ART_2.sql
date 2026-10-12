@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead_ac.v_sm_container_art_2 AS SELECT cont_art_id,
+ container_art
+FROM ldl_p_lew_mart_lead.t_sm_container_art_2;

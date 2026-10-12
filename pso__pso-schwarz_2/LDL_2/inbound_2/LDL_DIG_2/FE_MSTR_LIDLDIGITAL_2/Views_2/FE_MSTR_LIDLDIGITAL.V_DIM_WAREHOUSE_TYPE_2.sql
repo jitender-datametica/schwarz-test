@@ -1,0 +1,13 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIDLDIGITAL.V_DIM_WAREHOUSE_TYPE_2
+(
+     WH_TYPE_CD
+    ,WH_TYPE_DESCR
+)
+AS SELECT
+     WH_TYPE_CD
+    ,WH_TYPE_DESCR
+FROM
+    lec_share.v_dim_warehouse_type_2
+UNION ALL 
+    SELECT '-1', ''
+;

@@ -1,0 +1,23 @@
+CREATE TABLE P_LEW_MART_LEAD.T_AGG_MISS_SIG_STORE_DAY_2 CLUSTER BY (  client_id, dat_formdate ) COMMENT = 'Aggregationstabelle für Fehlartikel: Granularität = client/loc_sid_store/dat_formdate/Artikelfamalie'
+(
+  client_id                NUMBER(38,0) NOT NULL COMMENT 'MIS Client ID'
+, loc_sid_store            NUMBER(38,0) NOT NULL COMMENT 'S-Key der Location_2, hier der Filiale'
+, item_grp_int_sid         NUMBER(38,0) NOT NULL COMMENT 'S-Key für Internationale Warengruppe'
+, sub_item_grp_sid         NUMBER(38,0) NOT NULL COMMENT 'S-Key für Unterwarengruppe'
+, item_fam_grp_sid         NUMBER(38,0) NOT NULL COMMENT 'S-Key der Artikelfamiliengruppe'
+, itemgroup_int_id         NUMBER(38,0)          COMMENT 'Warengruppe ID'
+, subitemgroup_id          NUMBER(38,0)          COMMENT 'Unterwarengruppe ID'
+, item_familygroup_id      NUMBER(38,0)          COMMENT 'Artikelfamilie ID'
+, dat_formdate             DATE         NOT NULL COMMENT 'Bezugsdatum'
+, day_of_week              NUMBER(38,0) NOT NULL COMMENT 'Tagesnummer der Woche_2 1-7'
+, cy_month                 NUMBER(38,0) NOT NULL COMMENT 'Monat_2 des Geschäftsjahres im Format "JJJJMM"'
+, cy_partial_week_id       NUMBER(38,0) NOT NULL COMMENT 'Teilwoche: Format yyyywwn, n in (1,2,9)'
+, cy_week                  NUMBER(38,0) NOT NULL COMMENT 'Geschäftsjahr - Woche_2 Id - Format "JJJJMM"'
+, busyear                  NUMBER(38,0) NOT NULL COMMENT 'Geschäftsjahr'
+, currency_iso_cd          VARCHAR(3)            COMMENT '3 stelliger Währungs-Code'
+, curr_tot_id              NUMBER(38,0)          COMMENT 'Interner Währungs-Code'
+, miss_item_cnt            BIGINT                COMMENT 'Anzahl der Fehlartikel'
+, skipped_fg               NUMBER(1,0)           COMMENT '0 - Nicht skipped, 1 - Skipped.  Skipped = miss_item_cnt > p_value aus P_LEW_MART_LEAD.T_VT_REF_PARAMETER mit p_id = 1'
+, dwh_updated              TIMESTAMP    NOT NULL COMMENT 'Technische Zeitstempel'
+)
+;

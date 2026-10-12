@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_cos_bonuspunkte_transaktion_2 (crm_konto_id,
+datzeit_bonuspunkte_transaktion, mandant_id, bonuspunkte_transaktion_id, anz_bonuspunkte_transaktion,
+bonuspunkte_transaktion_richtung, datzeit_update) AS SELECT crm_konto_id,
+ datzeit_bonuspunkte_transaktion,
+ mandant_id,
+ bonuspunkte_transaktion_id,
+ anz_bonuspunkte_transaktion,
+ bonuspunkte_transaktion_richtung,
+ datzeit_update
+FROM kfl_production_dbp_data.cos_bonuspunkte_transaktion_2;

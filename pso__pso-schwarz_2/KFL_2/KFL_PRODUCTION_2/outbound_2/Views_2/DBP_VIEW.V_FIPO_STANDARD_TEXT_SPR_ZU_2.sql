@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_fipo_standard_text_spr_zu_2 AS SELECT fipo_standard_text_id,
+ spr_id,
+ fipo_standard_text
+FROM kfl_production_dbp_data.fipo_standard_text_spr_zu_2;

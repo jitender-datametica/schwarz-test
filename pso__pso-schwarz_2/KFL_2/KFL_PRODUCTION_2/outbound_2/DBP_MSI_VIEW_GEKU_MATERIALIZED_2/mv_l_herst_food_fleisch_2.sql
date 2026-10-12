@@ -1,0 +1,3 @@
+CREATE OR REPLACE TABLE dbp_msi_view_geku_materialized.mv_l_herst_food_fleisch_2 (
+hersteller_food_fleisch_id INTEGER
+);

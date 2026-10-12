@@ -1,0 +1,35 @@
+create or replace TABLE KFL_PRODUCTION.DBP_DATA.BSCH_RECH_DET_2 cluster by (
+     WUP_ID,
+     DAT 
+)(
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant_2 im DWH',
+	BSCH_ID NUMBER(18,0) NOT NULL COMMENT 'WE-/WA-ID - numerisch',
+	BSCH_POS_ID NUMBER(38,0) NOT NULL COMMENT 'Positions-ID   -  numerisch',
+	DAT DATE NOT NULL COMMENT 'Bezugsdatum',
+	BEWART_ID NUMBER(38,0) NOT NULL COMMENT 'Bewegungsart ID wird hier - leider! in einem anderen Sinn als im übrigen Datenmodell verwendet - hier: Typ der Wareneingangsbewegung WE/WA 1, BA = 2, RBA = 3',
+	ART_ID NUMBER(38,0) NOT NULL COMMENT 'Input: Artikel_2 - Id einschliesslich der Generationen - ID (9-stellig); Output: 7stellige L&S-ID + Counter = 8stellige ArtikelID. WWNNNNPC (Warengruppe, Nummer, Prüfziffer, Counter) Regel: Neuer Artikel_2 -> Counter +1',
+	WUP_ID NUMBER(38,0) NOT NULL COMMENT 'Mutter Wup_2 ID wird verwendet für Beziehung Lager zu Verteilzentrum',
+	NB_ID NUMBER(38,0) NOT NULL COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer',
+	GP_ID NUMBER(38,0) NOT NULL COMMENT '6 stellige Lieferanten-ID (ohne Pfandpositionen in Detailtabelle)',
+	BA_ID NUMBER(38,0) COMMENT 'Bela-/Rückbela-ID   numerisch = 0 bei WE/WA',
+	BA_POS_ID NUMBER(38,0) COMMENT 'Bela-/Rückbela-Positions-ID numerisch = 0 bei WE/WA',
+	MENGE_RECH NUMBER(18,3) COMMENT 'den Umsatz betreffende Menge',
+	EK_N NUMBER(18,4) WITH MASKING POLICY #unknown_policy COMMENT 'EK-Netto-Umsatz für den Artikel.',
+	EK_NN NUMBER(18,4) WITH MASKING POLICY #unknown_policy COMMENT 'Netto Netto Umsatz Gesamt für den Artikel.',
+	STATUS_2 NUMBER(38,0) COMMENT 'Status_2: endgültig 3, gelöscht 2, vorläufig 1',
+	EINKAUFSORGANISATION_ID NUMBER(38,0) COMMENT 'Für verschiedene Unternehmensbereiche - Warenhandel, Fleischwerk - existieren unterschiedliche Einkaufsorganisationen',
+	VK_N NUMBER(18,4) COMMENT 'VK_2-Netto-Umsatz',
+	EK_MEP NUMBER(18,4) WITH MASKING POLICY #unknown_policy COMMENT 'EK-Mep-Umsatz für den Artikel.',
+	EK_KB NUMBER(18,4) WITH MASKING POLICY #unknown_policy COMMENT 'EK-Kalkulationsbasis-Umsatz für den Artikel.',
+	DIFF_MENGE_RECH_WE NUMBER(18,3) NOT NULL COMMENT 'Bei endgültigen Belegen wird hier die Differenz zur Menge des letzten vorläufigen Belegs gespeichert',
+	DIFF_EK_N_WE NUMBER(18,4) NOT NULL WITH MASKING POLICY #unknown_policy COMMENT 'Bei endgültigen Belegen wird hier die Differenz zum EKnetto des letzten vorläufigen Belegs gespeichert',
+	DIFF_VK_N_WE NUMBER(18,4) NOT NULL COMMENT 'Bei endgültigen Belegen wird hier die Differenz zum VKnetto des letzten vorläufigen Belegs gespeichert',
+	LAGERORT_ID VARCHAR(4) COLLATE 'en-ci' COMMENT 'Schlüssel für die Lagerorte. Die Lagerorte sind pro Werk/Betrieb eindeutig. Aus lgort',
+	LAGER_BEWART_ID VARCHAR(3) COLLATE 'en-ci' COMMENT 'Schlüssel der Bewegungsarten der Lagerbewegung. Datentyp abweichend von der lookup-Tabelle gewählt',
+	LOGKOSTEN NUMBER(18,4) COMMENT 'enthält Logistikkosten (menge aus bsch_rech_det_2 * logistikkostenzuschlag aus art_gp_wup_zu_per_2)',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	WRG_ID VARCHAR(3) COMMENT 'Kurzbezeichnung der Waehrung, z.Bsp. CZK, EUR',
+	constraint PK_BSCH_RECH_DET primary key (MANDANT_ID, BSCH_ID, BSCH_POS_ID, DAT, BEWART_ID, ART_ID, WUP_ID, NB_ID)
+)COMMENT='TP2_AIS - Wareneingänge auf Positionsebene'
+;

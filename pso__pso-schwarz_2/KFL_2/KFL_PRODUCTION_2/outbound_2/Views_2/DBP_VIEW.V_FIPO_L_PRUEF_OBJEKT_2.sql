@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_fipo_l_pruef_objekt_2 AS SELECT fipo_pruef_objekt_id,
+ mandant_id,
+ fipo_objekt_typ_id
+FROM kfl_production_dbp_data.fipo_l_pruef_objekt_2;

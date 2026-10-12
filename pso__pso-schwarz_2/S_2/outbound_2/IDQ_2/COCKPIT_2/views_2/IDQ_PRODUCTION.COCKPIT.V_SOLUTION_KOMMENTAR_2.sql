@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW idq_production_cockpit.v_solution_kommentar_2 (solution_id, incidents_eskalationen,
+kommentar_incidents_eskalationen, anforderungspipeline, kommentar_anforderungspipeline, solutionreife,
+kommentar_solutionreife, reife_fachbereich, kommentar_reife_fachbereich) AS SELECT *
+FROM idq_production_cockpit.solution_kommentar_2;

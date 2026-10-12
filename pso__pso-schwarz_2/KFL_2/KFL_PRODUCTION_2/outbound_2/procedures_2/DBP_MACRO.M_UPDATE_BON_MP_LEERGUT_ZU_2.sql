@@ -1,0 +1,14 @@
+CREATE OR REPLACE PROCEDURE dbp_macro.m_update_bon_mp_leergut_zu(IN MANDANT_ID FLOAT64, IN MP_ODS_ID FLOAT64, IN ALERT_FG FLOAT64)
+BEGIN
+DECLARE sql_stmt STRING;
+DECLARE sql_commit STRING;
+
+BEGIN TRANSACTION;
+SET sql_stmt  =  '''UPDATE dbp_data.bon_mp_leergut_zu_2 SET  alert_fg = CAST(@ALERT_FG AS INT64) WHERE mandant_id = @MANDANT_ID AND mp_ods_id = @MP_ODS_ID ''';
+
+EXECUTE IMMEDIATE (sql_stmt) USING ALERT_FG AS ALERT_FG,  MANDANT_ID AS MANDANT_ID,  MP_ODS_ID AS MP_ODS_ID;
+
+SET sql_commit  =  'COMMIT TRANSACTION';
+
+EXECUTE IMMEDIATE (sql_commit);
+END;

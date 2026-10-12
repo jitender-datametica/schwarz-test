@@ -1,0 +1,11 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.srmara_eks_item_znegotiatingcountry_barollupsk_updsel_2 (itemid,
+bitflag, znegotiatingcountry, znegotiatingcountrynew) AS SELECT stmara_eks_item.itemid,
+ stmara_eks_item.bitflag,
+ stmara_eks_item.znegotiatingcountry,
+ srmara_eks_item_znegotiatingcountry_barollup01.znegotiatingcountry AS znegotiatingcountrynew
+FROM idq_production_eks_calculation.stmara_eks_item_2
+ INNER JOIN idq_production_eks_calculation.srmara_eks_item_znegotiatingcountry_barollup01_2 ON stmara_eks_item.itemid =
+   srmara_eks_item_znegotiatingcountry_barollup01.itemid AND stmara_eks_item.bitflag =
+   srmara_eks_item_znegotiatingcountry_barollup01.bitflag
+WHERE stmara_eks_item.bitflag = 2
+ AND stmara_eks_item.znegotiatingcountry IS NULL;

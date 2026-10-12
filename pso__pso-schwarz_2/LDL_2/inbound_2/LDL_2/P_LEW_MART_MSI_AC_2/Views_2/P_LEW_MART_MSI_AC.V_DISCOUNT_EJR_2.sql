@@ -1,0 +1,55 @@
+CREATE OR REPLACE VIEW P_LEW_MART_MSI_AC.V_DISCOUNT_EJR_2
+/*
+#-------------------------------------------------------------------------------------------
+# History:
+#  1.1  09.02.2024    Chetana Patil       ADO_468229_AP0169432 - Differenzierung Rabattierung (Rabattstaffeln) 
+#  1.2  23.02.2024    Chetana Patil       ADO_468229_AP0169432 - Changes  
+#  1.3  14.05.2024    Chetana Patil       ADO_468229_AP0169432 - Changes  
+#-------------------------------------------------------------------------------------------
+*/
+(
+	CLIENT_ID
+	, STORE_ID
+	, ITEM_ID
+	, DISCOUNT_ID 
+    , DAT_CALENDAR
+	, DISCOUNT_PCT  
+	, SRC_DISCOUNT_NR
+	, LISTING_TYPE_ID_HIST
+	, BUYING_LIST_TYPE_ID_HIST
+	, SRC_POSART
+	, DISCOUNT_DESCR
+	, FIRST_APPEARANCE_DT
+	, LIDLPLUS_COUPON_PATTERN_FG
+    , CURRENCY_ISO_CD
+	, VAL_DISCOUNT_NET_EJR 
+	, VAL_DISCOUNT_HQ_NET_EJR
+	, VAL_DISCOUNT_BASE_NET_EJR 
+	, QTY_DISCOUNT_POS_EJR 
+	, QTY_DISCOUNT_HQ_EJR
+)
+AS 
+(
+  SELECT
+	CLIENT_ID
+	, STORE_ID
+	, ITEM_ID
+	, DISCOUNT_ID 
+    , DAT_CALENDAR
+	, DISCOUNT_PCT  
+	, SRC_DISCOUNT_NR
+	, LISTING_TYPE_ID_HIST
+	, BUYING_LIST_TYPE_ID_HIST
+	, SRC_POSART
+	, DISCOUNT_DESCR
+	, FIRST_APPEARANCE_DT
+	, LIDLPLUS_COUPON_PATTERN_FG
+    , CURRENCY_ISO_CD
+	, VAL_DISCOUNT_NET_EJR 
+	, VAL_DISCOUNT_HQ_NET_EJR
+	, VAL_DISCOUNT_BASE_NET_EJR 
+	, QTY_DISCOUNT_POS_EJR 
+	, QTY_DISCOUNT_HQ_EJR
+  FROM P_LEW_MART_MSI.V_DISCOUNT_EJR_2
+)
+;

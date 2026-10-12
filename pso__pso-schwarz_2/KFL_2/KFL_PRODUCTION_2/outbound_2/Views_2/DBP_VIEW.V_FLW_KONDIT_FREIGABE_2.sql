@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_flw_kondit_freigabe_2 AS SELECT mandant_id,
+ flw_verkaufsorganisation_id,
+ flw_vw_id,
+ flw_art_id,
+ konditionsart_id,
+ applikation_id,
+ preisliste_typ_id,
+ wrg_id,
+ freigabe_status_id,
+ dat_bis,
+ dat_von,
+ kondition_id,
+ bearbeitung_status_id,
+ system_id,
+ td_insert,
+ td_update
+FROM kfl_production_dbp_data.flw_kondit_freigabe_2;

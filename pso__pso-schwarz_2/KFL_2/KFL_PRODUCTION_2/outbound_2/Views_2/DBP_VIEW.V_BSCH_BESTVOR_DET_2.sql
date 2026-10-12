@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_bsch_bestvor_det_2 AS SELECT mandant_id,
+ best_vor_nr,
+ best_vor_pos,
+ dat_plan,
+ art_id,
+ gp_id,
+ menge_best_vor,
+ menge_best,
+ status_2,
+ best_vor_einh,
+ best_einh,
+ wup_id,
+ nb_id,
+ bestellart_id,
+ dat_lief_soll
+FROM kfl_production_dbp_data.bsch_bestvor_det_2;

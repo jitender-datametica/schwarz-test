@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_verrechfall_kostenart_spr_zu_2 AS SELECT mandant_id,
+ verrechfall_kostenart_id,
+ spr_id,
+ verrechfall_kostenart_bez
+FROM kfl_production_dbp_data.verrechfall_kostenart_spr_zu_2;

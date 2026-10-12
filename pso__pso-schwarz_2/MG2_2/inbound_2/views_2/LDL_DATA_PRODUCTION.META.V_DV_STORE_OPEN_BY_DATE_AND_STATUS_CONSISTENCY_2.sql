@@ -1,0 +1,28 @@
+create or replace view LDL_DATA_PRODUCTION.META.V_DV_STORE_OPEN_BY_DATE_AND_STATUS_CONSISTENCY_2(
+	PART_WEEK,
+	PART_WEEK_BEGIN_DT,
+	PART_WEEK_END_DT,
+	RE_BY_DATES_REAL_ESTATE_SID,
+	RE_BY_DATES_REAL_ESTATE_NR,
+	RE_BY_DATES_REAL_ESTATE_STATUS_CD,
+	RE_BY_DATES_REAL_ESTATE_STATUS_DESCR,
+	RE_BY_DATES_PRECONTRACT_DT,
+	RE_BY_DATES_CONTRACT_DT,
+	RE_BY_DATES_OPEN_DT,
+	RE_BY_DATES_CLOSE_DT,
+	RE_BY_DATES_DWH_VALID_FROM_TMSP,
+	RE_BY_DATES_DWH_VALID_TO_TMSP,
+	RE_BY_STATUS_REAL_ESTATE_SID,
+	RE_BY_STATUS_REAL_ESTATE_NR,
+	RE_BY_STATUS_REAL_ESTATE_STATUS_CD,
+	RE_BY_STATUS_REAL_ESTATE_STATUS_DESCR,
+	RE_BY_STATUS_PRECONTRACT_DT,
+	RE_BY_STATUS_CONTRACT_DT,
+	RE_BY_STATUS_OPEN_DT,
+	RE_BY_STATUS_CLOSE_DT,
+	RE_BY_STATUS_DWH_VALID_FROM_TMSP,
+	RE_BY_STATUS_DWH_VALID_TO_TMSP,
+	FAILED,
+	TOTAL
+) COMMENT='Consistency between opening/closing dates and the real estate status_2\ninput datasets:\ncore_dim.t_dim_calendar_partial_week_2\ncore_dim.t_dim_real_estate_2\ncore_dim.t_fact_real_estate_lifecycle_2'
+ as WITH wk as ( SELECT part_week, part_week_begin_dt, part_week_end_dt FROM core_dim.t_dim_calendar_partial_week_2 WHERE part_week_offset = -1 ) select wk.part_week, wk.part_week_begin_dt, wk.part_week_end_dt, re_by_dates.real_estate_sid re_by_dates_real_estate_sid, re_by_dates.real_estate_nr re_by_dates_real_estate_nr, re_by_dates.real_estate_status_cd re_by_dates_real_estate_status_cd, re_by_dates.real_estate_status_descr re_by_dates_real_estate_status_descr, re_by_dates.precontract_dt re_by_dates_precontract_dt, re_by_dates.contract_dt re_by_dates_contract_dt, re_by_dates.open_dt re_by_dates_open_dt, re_by_dates.close_dt re_by_dates_close_dt, re_by_dates.dwh_valid_from_tmsp re_by_dates_dwh_valid_from_tmsp, re_by_dates.dwh_valid_to_tmsp re_by_dates_dwh_valid_to_tmsp, re_by_status.real_estate_sid re_by_status_real_estate_sid, re_by_status.real_estate_nr re_by_status_real_estate_nr, re_by_status.real_estate_status_cd re_by_status_real_estate_status_cd, re_by_status.real_estate_status_descr re_by_status_real_estate_status_descr, re_by_status.precontract_dt re_by_status_precontract_dt, re_by_status.contract_dt re_by_status_contract_dt, re_by_status.open_dt re_by_status_open_dt, re_by_status.close_dt re_by_status_close_dt, re_by_status.dwh_valid_from_tmsp re_by_status_dwh_valid_from_tmsp, re_by_status.dwh_valid_to_tmsp re_by_status_dwh_valid_to_tmsp, CASE WHEN re_by_dates_real_estate_sid IS NULL or re_by_status_real_estate_sid IS NULL THEN 1 ELSE 0 END AS FAILED, 1 AS TOTAL from wk, ( select re.real_estate_sid, re.real_estate_nr, re.real_estate_status_cd, re.real_estate_status_descr, rel.precontract_dt, rel.contract_dt, rel.open_dt, rel.close_dt, re.dwh_valid_from_tmsp, re.dwh_valid_to_tmsp from core_dim.t_dim_real_estate_2 as re_2 join core_dim.t_fact_real_estate_lifecycle_2 as rel on re.real_estate_sid = rel.real_estate_sid, wk where re.real_estate_type_cd in ('STORE', 'SPEC') and wk.part_week_end_dt between re.dwh_valid_from_tmsp and re.dwh_valid_to_tmsp and rel.open_dt <> '0001-01-01' and rel.open_dt <= wk.part_week_end_dt and ( rel.close_dt > wk.part_week_end_dt or rel.close_dt = '0001-01-01' ) ) re_by_dates full outer join ( select re.real_estate_sid, re.real_estate_nr, re.real_estate_status_cd, re.real_estate_status_descr, rel.precontract_dt, rel.contract_dt, rel.open_dt, rel.close_dt, re.dwh_valid_from_tmsp, re.dwh_valid_to_tmsp from core_dim.t_dim_real_estate_2 as re_2 join core_dim.t_fact_real_estate_lifecycle_2 as rel on re.real_estate_sid = rel.real_estate_sid, wk where re.real_estate_type_cd in ('STORE', 'SPEC') and wk.part_week_end_dt between re.dwh_valid_from_tmsp and re.dwh_valid_to_tmsp and re.real_estate_status_cd in ('OP', 'TC') ) re_by_status on re_by_dates.real_estate_sid = re_by_status.real_estate_sid;

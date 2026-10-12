@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_time_tracking_record_2 (client_id, loc_sid, time_record_id,
+time_record_change_dt, employee_hash, time_type_sid, event_type_cd, event_tmsp, event_booking_type_cd, cancel_fg,
+dwh_cal_dt, dwh_load_id, dwh_created, dwh_updated) AS SELECT client_id,
+ loc_sid,
+ time_record_id,
+ time_record_change_dt,
+ employee_hash,
+ time_type_sid,
+ event_type_cd,
+ event_tmsp,
+ event_booking_type_cd,
+ cancel_fg,
+ dwh_cal_dt,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_time_tracking_record_2 AS V;

@@ -1,0 +1,46 @@
+CREATE OR REPLACE VIEW P_LEW_MART_LEAD_AC.V_AGG_WTOF_STR_WK_2
+(
+client_id
+,loc_sid_store_move_to
+,currency_iso_cd
+,busyear
+,cy_month
+,cy_week_partial_week_id
+,wtof_wd1_val
+,wtof_wd2_val
+,wtof_wd3_val
+,wtof_wd4_val
+,wtof_wd5_val
+,wtof_wd6_val
+,wtof_wd7_val
+,wtof_wktd_val
+,wtof_mtd_val
+,wtof_bytd_val
+,wtof_p1y_sum_str_wktd
+,wtof_p1y_sum_str_mtd
+,wtof_p1y_sum_str_bytd
+)
+AS
+   SELECT
+    wtof.client_id,
+   wtof.loc_sid_store_move_to,
+   wtof.currency_iso_cd,
+   wtof.busyear,
+   wtof.cy_month,
+   wtof.cy_week_partial_week_id,
+   wtof.wtof_wd1_val,
+   wtof.wtof_wd2_val,
+   wtof.wtof_wd3_val,
+   wtof.wtof_wd4_val,
+   wtof.wtof_wd5_val,
+   wtof.wtof_wd6_val,
+   wtof.wtof_wd7_val,
+   wtof.wtof_wktd_val,
+   wtof.wtof_mtd_val,
+   wtof.wtof_bytd_val,
+   wtof.wtof_p1y_sum_str_wktd,
+   wtof.wtof_p1y_sum_str_mtd,
+   wtof.wtof_p1y_sum_str_bytd
+
+   FROM p_lew_mart_lead.t_agg_wtof_str_wk_2 wtof
+;

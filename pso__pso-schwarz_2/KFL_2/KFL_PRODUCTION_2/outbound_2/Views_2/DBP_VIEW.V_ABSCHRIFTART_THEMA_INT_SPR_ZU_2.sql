@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_abschriftart_thema_int_spr_zu_2 AS SELECT abschriftart_thema_int_id,
+ spr_id,
+ abschriftart_thema_int_bez
+FROM kfl_production_dbp_data.abschriftart_thema_int_spr_zu_2;

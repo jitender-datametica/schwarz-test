@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE idq_production_eks.supplierstation_2 (
+supplierstationid BIGNUMERIC(38,0),
+stationcatid BIGNUMERIC(38,0),
+supplierno BIGNUMERIC(38,0),
+crdate DATETIME,
+moddate DATETIME,
+shortdesc STRING(25),
+cruser STRING(35),
+moduser STRING(35),
+description STRING(80),
+unitid BIGNUMERIC(38,0),
+storagearea STRING(255),
+sapno BIGNUMERIC(38,0),
+sap_id STRING(15),
+sap_indicator STRING(3),
+tin STRING(10),
+gln STRING(13),
+ewg STRING(200),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

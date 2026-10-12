@@ -1,0 +1,4 @@
+CREATE or REPLACE TABLE DBP_ETL.marktbestand_erp_temp_2
+AS SELECT * FROM ${TEMP_TABLE}
+;
+

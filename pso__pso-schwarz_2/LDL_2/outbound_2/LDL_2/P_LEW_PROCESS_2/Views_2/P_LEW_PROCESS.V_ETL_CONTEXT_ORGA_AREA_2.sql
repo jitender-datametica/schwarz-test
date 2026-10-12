@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process.v_etl_context_orga_area_2 AS SELECT client_id,
+ country_cd,
+ cluster_area_cd AS area_cd,
+ cluster_area_type AS area_grp_type,
+ cluster_type
+FROM ldl_p_lew_process.t_client_cluster_hierarchy_maindef_2;

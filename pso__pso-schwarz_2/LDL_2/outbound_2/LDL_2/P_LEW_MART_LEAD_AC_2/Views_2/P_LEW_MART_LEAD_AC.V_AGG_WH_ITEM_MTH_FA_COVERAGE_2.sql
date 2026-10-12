@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead_ac.v_agg_wh_item_mth_fa_coverage_2 AS SELECT client_id,
+ wh_loc_sid,
+ wh_id,
+ item_sid,
+ src_itemgrp_int_cd,
+ cy_week_partial_week_id,
+ month_id,
+ byr,
+ currency_iso_cd,
+ stock_mth_asis,
+ stock_mth_py,
+ revenue_mth_asis,
+ revenue_mth_py,
+ coverage_mth_item_asis,
+ coverage_mth_item_py
+FROM ldl_p_lew_mart_lead.t_agg_wh_item_mth_fa_coverage_2;

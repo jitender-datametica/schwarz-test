@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE idq_production_idq_results.idq_addinfo_zsm_art_mig_2 (
+id INTEGER NOT NULL,
+test_object_id INTEGER,
+source_system_primary_key STRING(1000),
+source_system_id INTEGER,
+country_id INTEGER,
+branch_id INTEGER,
+is_relevant INTEGER,
+artikelnummer STRING(18),
+artikelbezeichnung STRING(40),
+`ALTE ARTIKELNUMMER` STRING(18),
+artikelart STRING(4),
+warenbereich STRING(9),
+warengruppe STRING(9),
+berechtigungsgruppe STRING(4),
+status_2 STRING(2),
+erstellungsdatum STRING(10),
+aenderungsdatum_am_status STRING(20),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (id) NOT ENFORCED
+);

@@ -1,0 +1,41 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_frische_inventur_2 (mandant_id, nb_id, wup_id, arthiertyp_id,
+frische_wg_id, kjmo, wrg_id, anf_bestand_vk_brutto, end_bestand_vk_brutto, we_zl_vk_brutto, we_dezentral_vk_brutto,
+tkl_lieferung_vk_brutto, aussaft_pausch_vk_brutto, abschrift_brutto, werbe_abschrift_brutto, erl_mind_brutto,
+umsatz_brutto, anf_bestand_ek_netto, end_bestand_ek_netto, we_dezentral_ek_netto, we_zl_ek_netto, we_zl_vk_netto,
+we_shop_in_shop_ek_netto, we_shop_in_shop_vk_netto, tkl_lieferung_ek_netto, umsatz_netto, erl_mind_netto, geplant_fg,
+durchgefuehrt_fg, frische_fg) AS SELECT V01.mandant_id,
+ V01.nb_id,
+ WUP.aktuell_wup_id AS wup_id,
+ V01.arthiertyp_id,
+ V01.wg_id AS frische_wg_id,
+ V01.kjmo,
+ V01.wrg_id,
+ V01.anf_bestand_vk_brutto,
+ V01.end_bestand_vk_brutto,
+ V01.we_zl_vk_brutto,
+ V01.we_dezentral_vk_brutto,
+ V01.tkl_lieferung_vk_brutto,
+ CAST(CASE
+   WHEN V01.wg_id = 1
+   THEN V01.we_zl_vk_brutto * 0.006
+   ELSE 0
+   END AS NUMERIC) AS aussaft_pausch_vk_brutto,
+ V01.abschrift_brutto,
+ V01.werbe_abschrift_brutto,
+ V01.erl_mind_brutto,
+ V01.umsatz_brutto,
+ V01.anf_bestand_ek_netto,
+ V01.end_bestand_ek_netto,
+ V01.we_dezentral_ek_netto,
+ V01.we_zl_ek_netto,
+ V01.we_zl_vk_netto,
+ V01.we_shop_in_shop_ek_netto,
+ V01.we_shop_in_shop_vk_netto,
+ V01.tkl_lieferung_ek_netto,
+ V01.umsatz_netto,
+ V01.erl_mind_netto,
+ V01.geplant_fg,
+ V01.durchgefuehrt_fg,
+   V01.geplant_fg * 10 + V01.durchgefuehrt_fg AS frische_fg
+FROM kfl_production_dbp_view.v_frische_inventur_2 AS V01
+ INNER JOIN kfl_production_dbp_view.v_wup_2 AS WUP_2 ON V01.mandant_id = WUP.mandant_id AND V01.wup_id = WUP.wup_id;

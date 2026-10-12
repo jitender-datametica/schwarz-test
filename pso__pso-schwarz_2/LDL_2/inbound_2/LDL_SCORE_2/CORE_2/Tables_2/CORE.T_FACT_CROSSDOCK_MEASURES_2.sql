@@ -1,0 +1,29 @@
+--==============================================================
+-- Table: t_fact_crossdock_measures_2
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: t_fact_crossdock_measures_2
+   generated from Powerdesigner on Montag, 30. September 2024 13:13:26
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE.T_FACT_CROSSDOCK_MEASURES_2 (
+   crossdock_sid                        NUMBER          NOT NULL COMMENT 'Refering crossdock',
+   operating_hauler_sid                 NUMBER          NOT NULL COMMENT 'Hauler (Spediteur) who is running the crossdock',
+   logistic_temp_cd                     VARCHAR(20)     NOT NULL COMMENT 'The code for the type of the temperature zone, e.g. TK, TL.',
+   transport_service_type_cd            VARCHAR(20)     NOT NULL COMMENT 'The code for the type of the transport service, e.g. "Vorlauf" or "Zwischenlauf"',
+   pallet_type_cd                       VARCHAR(20)     NOT NULL COMMENT 'Pallet code of the fact row',
+   cal_dt                               DATE            NOT NULL COMMENT 'Assigned date, in this case the concrete date at the crossdock',
+   first_day_of_time_range_fg           BOOLEAN         NOT NULL COMMENT 'Indicates if this row is used for year to date calculations',
+   day_accurate_delivery_fg             BOOLEAN         NOT NULL COMMENT 'Indicates if this row only containy day accurate delivery amounts',
+   receiving_bus_country_cd             VARCHAR(2)      NOT NULL COMMENT 'Business country_2 to which the good is dedicated to',
+   pallet_cnt                           NUMBER          COMMENT 'The total number of pallets that have been ordered.',
+   adv_pallet_cnt                       NUMBER          COMMENT 'The number of pallets that have been ordered as part of an advertising campaign.',
+   weighted_pallet_cnt                  NUMBER(38, 5)   COMMENT 'The number of ordered pallets divided by the number of relevant days in the time range.',
+   transport_storage_space_qty          NUMBER(38, 5)   COMMENT 'Needed storage space due to transport services',
+   transport_storage_space_weighted_qty NUMBER(38, 5)   COMMENT 'Needed storage space due to transport services divided by the amount of relevant days within timerange',
+   logistics_storage_space_qty          NUMBER(38, 5)   COMMENT 'Needed storage space due to logistic services',
+   logistics_storage_space_weighted_qty NUMBER(38, 5)   COMMENT 'Needed storage space due to logistic services divided by the amount of relevant days within timerange',
+   site_capacity_asis_qty               NUMBER(38, 5)   COMMENT 'Current capacacity for the crossdock, temperature zone combination at the moment',
+   site_capacity_hist_qty               NUMBER(38, 5)   COMMENT 'Capacity for the crossdock, temperature zone combination at the assigned date',   
+   CONSTRAINT PK_T_FACT_CROSSDOCK_MEASURES PRIMARY KEY (crossdock_sid, logistic_temp_cd, transport_service_type_cd, pallet_type_cd, cal_dt, first_day_of_time_range_fg, day_accurate_delivery_fg, receiving_bus_country_cd) NOT ENFORCED 
+)  COMMENT = 'This factual table basically captures the capacities of crossdocks. It lists the crossdocks that are expecting a delivery. A delivery can either take place on a key date or over a period of time. Each delivery takes up a certain amount of pallet space and the current free space in the crossdock is indicated. ';

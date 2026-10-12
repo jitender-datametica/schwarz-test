@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_flw.mv_l_flw_mes_prodfehler_2 (mandant_id, mes_prodzeittyp_id) AS
+SELECT mandant_id,
+ mes_prodzeittyp_id
+FROM kfl_production_dbp_view.v_flw_mes_prodfehler_spr_zu_2
+GROUP BY mandant_id,
+ mes_prodzeittyp_id;

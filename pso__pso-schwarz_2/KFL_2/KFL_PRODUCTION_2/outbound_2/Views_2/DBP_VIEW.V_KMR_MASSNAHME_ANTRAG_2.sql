@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_kmr_massnahme_antrag_2 AS SELECT amx_system_id,
+ massnahme_id,
+ auditee_letzter_antrag_id,
+ auditee_letzter_antrag_bez,
+ dat_auditee_letzter_antrag,
+ auditor_letzte_antwort_id,
+ auditor_letzte_antwort_bez,
+ dat_auditor_letzte_antwort
+FROM kfl_production_dbp_data.kmr_massnahme_antrag_2;

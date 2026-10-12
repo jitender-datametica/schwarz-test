@@ -1,0 +1,35 @@
+/* --------------------------------------------------------------------------------
+   DDL FOR TABLE: T_AGG_FINANCIAL_PERIOD_SUMMARY_2
+   GENERATED FROM POWERDESIGNER ON Freitag, 20. Mai 2022 08:01:47
+*/ --------------------------------------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS ldl_dig_core.t_agg_financial_period_summary_2 (
+fiscal_year BIGNUMERIC NOT NULL
+OPTIONS(description='A number that represents the fiscal year for which the accounting document is posted'),
+fiscal_period BIGNUMERIC NOT NULL
+OPTIONS(description='Number of the fiscal period within a fiscal year.. Note some fiscal years may contain more that 12 periods'),
+cost_center_nr STRING(20) NOT NULL OPTIONS(description='Identifier of the Cost Center'),
+acct_nr STRING(20) NOT NULL
+OPTIONS(description='Number of the Account. The there are postings in the GL they are booked to this account_2 number'),
+internal_company_sid BIGNUMERIC NOT NULL OPTIONS(description='The unique identifier (surrogate key) for the company'),
+ctrl_area_cd STRING(5) NOT NULL OPTIONS(description='Code of the Controlling Area'),
+acct_data_src_name STRING(20) NOT NULL
+OPTIONS(description='Name  of the source of the aggregated data (DWH - for data coming from t_fact_accounting_document_line_2, EXT - for data coming from external excel file)'),
+posting_dt DATE OPTIONS(description='The date when the posting was made'),
+total_amount_net_eur_val BIGNUMERIC(38,5)
+OPTIONS(description='The aggregated amount of all transactions for the fiscal period booked to the given cost center, company and account_2 number'),
+dwh_created_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was created in the data warehouse.'),
+dwh_updated_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was last updated.'),
+dwh_src_file_name STRING(255) NOT NULL
+OPTIONS(description='The path and the name of the file(s) from which this record was loaded.'),
+src_file_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was extracted from the source.'),
+internal_company_cd STRING(5)
+OPTIONS(description='Unique identifier of the company to which we book accounting documents in the source system (SAP)'),
+PRIMARY KEY (fiscal_year, fiscal_period, cost_center_nr, acct_nr, internal_company_sid, ctrl_area_cd, acct_data_src_name
+ ) NOT ENFORCED
+)
+OPTIONS(description='Aggregated data for a fiscal period for achieved results at company, cost_center and account_2 (cost element) level');

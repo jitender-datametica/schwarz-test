@@ -1,0 +1,45 @@
+/* --------------------------------------------------------------------------------
+   DDL for table: T_FACT_CHARGE_LOG_EVENTS_2
+   generated from Powerdesigner on Mittwoch, 4. Juni 2025 15:40:00
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE.T_FACT_CHARGE_LOG_EVENTS_2 (
+   CHARGER_PROVIDER_SYSTEM_CD          VARCHAR(50)     NOT NULL COMMENT 'Natural/Business Key - The unique code of the charger provider system.',
+   CHARGE_LOG_UUID_NR                  VARCHAR(50)     NOT NULL COMMENT 'Natural/Business Key - The unique identifier of the charge log event.',
+   CHARGE_EVENT_DT                     DATE            NOT NULL COMMENT 'Descriptive Attribute - The date of the charging event (Determined from the local end timestamp).',
+   START_TMSP                          TIMESTAMP_TZ(9) NOT NULL COMMENT 'Descriptive Attribute - The start timestamp of the loading process.',
+   END_TMSP                            TIMESTAMP_TZ(9) NOT NULL COMMENT 'Descriptive Attribute - The end timestamp of the loading process.',
+   CHARGER_RESOURCE_ITEM_SID           NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the charger',
+   CHARGER_CLASSIFICATION_ID           NUMBER(38, 0)   NOT NULL COMMENT 'Unique identifier of the classification of a charger.',
+   CHARGER_SERIAL_NR                   VARCHAR(50)     COMMENT 'Descriptive Attribute - The serial number of the charger the charge log event occurs.',
+   CHARGER_LABEL_NR                    VARCHAR(250)    COMMENT 'Descriptive Attribute - The label of the charging station.',
+   CHARGER_STATION_TYPE_CD             VARCHAR(50)     COMMENT 'Descriptive Attribute - The unique code of the charger station type.',
+   DIVISION_PARTY_SID                  NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the party as a division.',
+   DIVISION_NAME                       VARCHAR(100)    COMMENT 'Descriptive Attribute - The name of the division.',
+   COUNTRY_LOCATION_SID                NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) of the political country.',
+   COUNTRY_ISO_CD                      VARCHAR(3)      COMMENT 'Descriptive Attribute - The ISO code of the country_2 of the charger station.',
+   INTERNAL_COMPANY_NAME               VARCHAR(100)    COMMENT 'Descriptive Attribute - The name of the interal company unit.',
+   REAL_ESTATE_RESOURCE_ITEM_SID       NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the real estate.',
+   REAL_ESTATE_NR                      VARCHAR(50)     COMMENT 'Descriptive Attribute - The business number of the real estate (e.g. store number).',
+   REAL_ESTATE_ZIP                     VARCHAR(15)     COMMENT 'Descriptive Attribute - The zip code (postal area code) of the real estate.',
+   REAL_ESTATE_CITY_NAME               VARCHAR(100)    COMMENT 'Descriptive Attribute - The name of the city where the real estate is located.',
+   REAL_ESTATE_STREET_NAME             VARCHAR(100)    COMMENT 'Descriptive Attribute - The name of the street including the house number of the real estate.',
+   CHARGE_POINT_RESOURCE_ITEM_SID      NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the charge point.',
+   CHARGE_POINT_PLUGIN_TYPE_CD         VARCHAR(50)     NOT NULL COMMENT 'The unique code of the plugin type of the charge point.',
+   CHARGE_POINT_NR                     NUMBER(38, 0)   COMMENT 'Descriptive Attribute - The number of the charge point of the charger station (usually 1, 2 or 3).',
+   CHARGE_POINT_EVSE_NR                VARCHAR(250)    COMMENT 'Descriptive Attribute - Electric Vehicle Supply Equipment Identifier',
+   CHARGE_POINT_CONNECTOR_LABEL_TXT    VARCHAR(1000)   COMMENT 'Descriptive Attribute - The connector label of the charge point.',
+   ROAMING_IDENTIFICATION_DATA_TXT     VARCHAR(1000)   COMMENT 'Descriptive Attribute - The roaming identification data (RFID tag_2).',
+   CUSTOMER_UUID_NR                    VARCHAR(250)    COMMENT 'Descriptive Attribute - The unique business identifier of the customer application.',
+   AUTHENTICATION_METHOD_CD            VARCHAR(50)     NOT NULL COMMENT 'The unique code of the authentication method.',
+   DURATION_SEC                        NUMBER(38,0)    NOT NULL COMMENT 'Fact - additive - The duration of the charging process in seconds.',
+   TOTAL_CHARGING_POWER_MEAS           NUMBER(38, 5)   NOT NULL COMMENT 'Fact - additive - The provided amount of power for the charging process measured in kilowatt.',
+   AVERAGE_CHARGING_POWER_MEAS         NUMBER(38, 5)   NOT NULL COMMENT 'Fact - non additive - The average power for the charging process measured in kilowatt per hour.',
+   CURR_CD                             VARCHAR(3)      NOT NULL COMMENT 'The EUR currency code.',
+   LOCAL_CURR_CD                       VARCHAR(3)      NOT NULL COMMENT 'The local currency code.',
+   TURNOVER_VAL                        NUMBER(38, 5)   NOT NULL COMMENT 'Fact - additive - The turnover amount of the charging process in EUR.',
+   TURNOVER_LOCAL_VAL                  NUMBER(38, 5)   NOT NULL COMMENT 'Fact - additive - The turnover amount of the charging process in the local currency.',
+   DWH_CREATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was inserted into the table.',
+   DWH_UPDATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last modified. (In case the record has not been modified since its creation, dwh_updated is identical to dwh_created.)',   
+   CONSTRAINT PK_FACT_CHARGE_LOG_EVENTS PRIMARY KEY (CHARGER_PROVIDER_SYSTEM_CD, CHARGE_LOG_UUID_NR) NOT ENFORCED 
+)  COMMENT = 'Fact table - Transactional Events - This table contains detailed informationen of charge log events.  - Source - IOT Charger';

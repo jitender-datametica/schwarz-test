@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_banf_art_gp_dat_sum_2 AS SELECT mandant_id,
+ art_id,
+ wup_id,
+ nb_id,
+ gp_id,
+ dat_lief_soll,
+ in_aktion_fg,
+ dat_kalk,
+ vk_brutto,
+ banf_menge_kolli,
+ forecast_menge_kolli,
+ menge_best_kolli,
+ banf_menge_kg,
+ forecast_menge_kg,
+ menge_best_kg
+FROM kfl_production_dbp_data.banf_art_gp_dat_sum_2;

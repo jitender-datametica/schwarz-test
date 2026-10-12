@@ -1,0 +1,56 @@
+CREATE OR REPLACE DYNAMIC TABLE DBP_MSI_VIEW2.MV_VIS_TAG_FWWS_WG_2
+(
+	MANDANT_ID,
+	NB_ID,
+	WUP_ID,
+	BEZUGSWEG_ID,
+	ARTHIERTYP_ID,
+	ABT_ID,
+	WG_ID,
+	DAT,
+	KJWO,
+	KJMO,
+	GJ,
+	AKT_TAG,
+	DISPONENT_ID,
+	DISPOMERKMAL,
+	ANZ_ARTIKEL_AUTODISPO,
+	ANZ_ARTIKEL_MARKT_GELISTET_OKD,
+	ANZ_ARTIKEL_MARKT_GELISTET,
+	ANZ_ARTIKEL_EXC209,
+	ANZ_ARTIKEL_EXC214,
+	ANZ_ARTIKEL_AUTODISPO_DM12,
+	SUM_ARTIKEL_AUTODISPO,
+	SUM_ARTIKEL_MARKT_GELISTET_OKD,
+	SUM_ARTIKEL_MARKT_GELISTET,
+	TAGESARTIKEL_FG
+) TARGET_LAG = '1 HOUR, 30 MINUTES' REFRESH_MODE = FULL INITIALIZE = ON_CREATE WAREHOUSE = WH_KFL_%%environmentAbbreviation%%_DYNAMIC_TABLE_AIS_DE
+AS
+SELECT
+v01.mandant_id, 
+v01.nb_id, 
+v01.wup_id, 
+v01.bezugsweg_id, 
+v01.arthiertyp_id, 
+v01.abt_id, 
+v01.wg_id, 
+v01.dat, 
+v01.kjwo, 
+v01.kjmo, 
+v01.gj, 
+v01.akt_tag, 
+v01.disponent_id, 
+v01.dispomerkmal, 
+v01.anz_artikel_autodispo, 
+v01.anz_artikel_markt_gelistet_okd, 
+v01.anz_artikel_markt_gelistet, 
+v01.anz_artikel_exc209, 
+v01.anz_artikel_exc214, 
+v01.anz_artikel_autodispo_dm12, 
+v01.sum_artikel_autodispo, 
+v01.sum_artikel_markt_gelistet_okd, 
+v01.sum_artikel_markt_gelistet, 
+v01.tagesartikel_fg
+
+FROM dbp_msi_v_view.v_vis_tag_fwws_wg_2  v01
+WHERE v01.mandant_id = 1;

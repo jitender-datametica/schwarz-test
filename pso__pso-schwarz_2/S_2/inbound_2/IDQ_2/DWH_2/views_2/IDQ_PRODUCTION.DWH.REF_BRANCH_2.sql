@@ -1,0 +1,8 @@
+create or replace view IDQ_PRODUCTION.DWH.REF_BRANCH_2(
+	REF_BRANCH_ID,
+	BRANCH_NAME
+) as
+SELECT ID          AS REF_BRANCH_ID
+      ,NAME        AS BRANCH_NAME
+FROM idq_results.REF_BRANCH_2
+;

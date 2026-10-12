@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE kfl_production_eval.`_spannen_agg2_2` (
+mandant_id INTEGER,
+wup_id INTEGER,
+kopf_art_id INTEGER,
+bewart_id INTEGER,
+bewart_det_id INTEGER,
+promo_fg INTEGER,
+ean_kasse INTEGER,
+stueckliste_id INTEGER,
+dat DATE,
+ek_brutto_spn BIGNUMERIC(29,10),
+ek_netto_spn BIGNUMERIC(29,10),
+ek_nettonetto_spn BIGNUMERIC(29,10),
+ek_kal_basis_spn BIGNUMERIC(29,10),
+ek_mep_spn BIGNUMERIC(29,10),
+einstandspreis_spn BIGNUMERIC(29,10),
+logkostenzuschlag_spn BIGNUMERIC(29,10),
+ek_netto_bnk_spn BIGNUMERIC(29,10),
+ek_netto_bnk_sachk_spn BIGNUMERIC(29,10),
+ek_mep_vor_fwu_spn BIGNUMERIC(29,10),
+bonusbasis_spn BIGNUMERIC(29,10),
+ek_mep_jdn_spn BIGNUMERIC(29,12)
+);

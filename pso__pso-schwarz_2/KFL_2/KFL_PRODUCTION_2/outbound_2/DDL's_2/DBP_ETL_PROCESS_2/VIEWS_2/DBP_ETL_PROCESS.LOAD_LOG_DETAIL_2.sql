@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_etl_process.load_log_detail_2 (cycle_id, date_start, date_end, time_start,
+time_end, job_name, proc_name, proc_type, quelle, ziel, raw_file, cust_line_count, file_line_count, utl_row_count,
+dupl_rows, err1_rows, err2_rows, status_2, err_id, info_text, comment_text, script_name, loop_id, td_insert, td_update) AS
+SELECT *
+FROM kfl_production_dbp_process.load_log_detail_2;

@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_data.flw_pruefmerkmal_ergebnis_2 (
+prueflos_id INTEGER NOT NULL,
+merkmal_lfd_nr INTEGER NOT NULL,
+knoten_lfd_nr INTEGER NOT NULL,
+erg_detail_id INTEGER DEFAULT 0 NOT NULL,
+satzstatus_id INTEGER NOT NULL,
+mandant_id INTEGER NOT NULL,
+fehlerklasse_id INTEGER NOT NULL,
+katalogart_id STRING(1) COLLATE 'und:ci' NOT NULL,
+codegruppe_id STRING(10) COLLATE 'und:ci' NOT NULL,
+pruefcode_id STRING(4) COLLATE 'und:ci' NOT NULL,
+version_id INTEGER NOT NULL,
+qual_meldung_id INTEGER NOT NULL,
+dat_pruef_von DATE NOT NULL,
+messwert_ni_fg INTEGER NOT NULL,
+original_input STRING(30) COLLATE 'und:ci',
+messwert NUMERIC(29,5),
+system_id INTEGER NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

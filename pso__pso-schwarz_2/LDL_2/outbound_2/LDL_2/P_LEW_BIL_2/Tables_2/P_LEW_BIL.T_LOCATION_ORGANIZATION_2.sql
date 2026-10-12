@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_bil.t_location_organization_2 (
+client_id BIGNUMERIC(38,0) NOT NULL,
+loc_sid_wh BIGNUMERIC(38,0) NOT NULL,
+loc_sid_store BIGNUMERIC(38,0) NOT NULL,
+sales_manager_id BIGNUMERIC(38,0) NOT NULL,
+sales_manager_name STRING(100) COLLATE 'und:ci',
+account_manager_id BIGNUMERIC(38,0) NOT NULL,
+account_manager_name STRING(100) COLLATE 'und:ci',
+general_manager_id BIGNUMERIC(38,0) NOT NULL,
+general_manager_name STRING(100) COLLATE 'und:ci',
+organisation_id BIGNUMERIC(38,0) NOT NULL,
+district_cd STRING(300) COLLATE 'und:ci',
+active_from_dt DATE,
+active_to_dt DATE,
+deleted_fg BIGNUMERIC(38,0),
+dwh_valid_from DATE,
+dwh_valid_to DATE,
+dwh_actual_fg BIGNUMERIC(38,0),
+active_fg BIGNUMERIC(38,0)
+);

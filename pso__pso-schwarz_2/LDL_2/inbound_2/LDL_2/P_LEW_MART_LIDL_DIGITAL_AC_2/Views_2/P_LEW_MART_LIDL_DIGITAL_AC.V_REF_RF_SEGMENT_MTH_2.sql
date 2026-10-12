@@ -1,0 +1,47 @@
+/*
+#-----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS
+#-----------------------------------------------------------------------------
+# Interface: V_REF_SEGMENT_MTH
+#-----------------------------------------------------------------------------
+
+#-----------------------------------------------------------------------------
+
+#-----------------------------------------------------------------------------
+
+#-----------------------------------------------------------------------------
+# History:
+#
+#  Vrs Date       Developer        Task
+#  --- ---------- ---------------  --------------------------------------------
+#  1.0 2022-03-30 Marcin Kikola    Initial version AP0092849_neue_kundencluster
+#  1.1 2022-08-05 Pawel Wieczorek  AP0092849 changing names
+#
+#------------------------------------------------------------------------------
+*/
+
+/* ==============================================================================
+   View DDL
+   ============================================================================== */
+
+
+CREATE OR REPLACE VIEW P_LEW_MART_LIDL_DIGITAL_AC.V_REF_RF_SEGMENT_MTH_2
+COMMENT = 'Lidlplus : Recency-frequency segments - referenece table'
+(
+ MTH_RF_SEGMENT_SID     COMMENT 'Ids of recency-frequency segments from rfm model - used (MTH_RF_SEGMENT_SID) to select p_lew_core.t_ref_segment.segment_sid'
+,MTH_RF_SEGMENT_NAME    COMMENT 'Recency-frequency segments, rf_segment: New, Loyal, Occasional, Rare, Inactive, Lost, Special'
+,MTH_RF_SEGMENT_DESCR   COMMENT 'Exact description of recency-frequency from rfm model'
+,LOAD_ID                COMMENT 'Load identifier'
+,DWH_CREATED            COMMENT 'Row create time'
+,DWH_UPDATED            COMMENT 'Row update time'
+)
+AS
+SELECT
+ MTH_RF_SEGMENT_SID
+,MTH_RF_SEGMENT_NAME
+,MTH_RF_SEGMENT_DESCR
+,LOAD_ID
+,DWH_CREATED
+,DWH_UPDATED
+FROM P_LEW_MART_LIDL_DIGITAL.V_REF_RF_SEGMENT_MTH_2 
+;

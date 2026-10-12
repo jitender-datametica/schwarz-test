@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.mcx_feedback_2 (
+feedback_id BIGNUMERIC(38,0) NOT NULL,
+umfrage_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+befragter_id BIGNUMERIC(38,0) NOT NULL,
+frage_id BIGNUMERIC(38,0) NOT NULL,
+scale_id BIGNUMERIC(38,0) NOT NULL,
+antwort_id BIGNUMERIC(38,0) NOT NULL,
+datzeit_abschluss DATETIME NOT NULL,
+dat_feedback DATE NOT NULL,
+abschluss_id BIGNUMERIC(38,0) NOT NULL,
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+gf_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+dat DATE NOT NULL,
+zeitspanne STRING(40) COLLATE 'und:ci',
+zeitspanne_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+bonwertspanne STRING(50) COLLATE 'und:ci' NOT NULL,
+td_update TIMESTAMP,
+td_insert TIMESTAMP
+);

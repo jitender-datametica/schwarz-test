@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.ivs_konzessionaer_per_2 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+konzessionaer_id STRING(20) COLLATE 'und:ci' NOT NULL,
+dat_von DATE NOT NULL,
+dat_bis DATE NOT NULL,
+konzessionaer_branche_id STRING(3) COLLATE 'und:ci',
+konzessionaer_rechtsform STRING(10) COLLATE 'und:ci',
+konzessionaer_name STRING(80) COLLATE 'und:ci',
+konzessionaer_strasse STRING(40) COLLATE 'und:ci',
+konzessionaer_plz STRING(6) COLLATE 'und:ci',
+konzessionaer_ort STRING(40) COLLATE 'und:ci',
+dat_insolvenz_eintritt DATE,
+intern_fg STRING(1) COLLATE 'und:ci',
+land_id STRING(2) COLLATE 'und:ci',
+konzessionaer_topmieter_fg BIGNUMERIC(38,0) NOT NULL,
+konzessionaer_holding_id STRING(20) COLLATE 'und:ci',
+system_id BIGNUMERIC(38,0),
+buchungskreis_id BIGNUMERIC(38,0),
+konzessionaer_gruppe_id STRING(20) COLLATE 'und:ci',
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

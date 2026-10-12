@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_crm_vorgang_2 (crm_vorgang_id, ticketnummer, vorgangnummer,
+ticket_text, dat_start, dat, dat_ende, dat_aenderung, wup_id, nb_id, mandant_id, crm_prozess_id, crm_emotion_id,
+crm_eigenmarke_id, crm_eingangskanal_id, etiketten_text, crm_prioritaet_id, crm_schaedlingsart_id, crm_status_id,
+foto_fg, fremdkoerper_fg, standardloesung_fg, ebene_3_id) AS SELECT V01.crm_vorgang_id,
+ V01.ticketnummer,
+ V01.vorgangnummer,
+ V01.ticket_text,
+ V01.dat_start,
+ DATE(V01.dat_start) AS dat,
+ V01.dat_ende,
+ V01.dat_aenderung,
+ WUP.aktuell_wup_id AS wup_id,
+ V01.nb_id,
+ V01.mandant_id,
+ V01.crm_prozess_id,
+ V01.crm_emotion_id,
+ V01.crm_eigenmarke_id,
+ V01.crm_eingangskanal_id,
+ V01.etiketten_text,
+ V01.crm_prioritaet_id,
+ V01.crm_schaedlingsart_id,
+ V01.crm_status_id,
+ V01.foto_fg,
+ V01.fremdkoerper_fg,
+ V01.standardloesung_fg,
+ V02.ebene_3_id
+FROM kfl_production_dbp_view.v_crm_vorgang_2 AS V01
+ INNER JOIN kfl_production_dbp_view.v_crm_l_themenbaum_lv2_2 AS V02 ON V01.crm_themenbaum_lv2_id = V02.crm_themenbaum_lv2_id
+  
+ INNER JOIN kfl_production_dbp_view.v_wup_2 AS WUP_2 ON V01.mandant_id = WUP.mandant_id AND V01.wup_id = WUP.wup_id;

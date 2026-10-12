@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW P_LEW_BIL.V_AJI_DELIV_STORE_WH_2 as
+
+   /*
+   #DescStart#
+   #$Revision: 7235 $, $LastChangedBy: mmurtenthaler $
+   #SubjectAreas#: Anliefermenge
+   #DescEnd#
+   */
+   SELECT
+     a.client_id,
+   a.loc_sid_store,
+   a.loc_sid_wh_asis,
+   a.loc_sid_wh_aspect1_asis,
+   a.loc_sid_wh_aspect2_asis
+   FROM p_lew_bil.t_agg_deliv_base_2 a
+   GROUP BY 1,2,3,4,5
+;

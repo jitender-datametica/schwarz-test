@@ -1,0 +1,51 @@
+create or replace view KFL_PRODUCTION.DBP_MSI_VIEW_EK_KUN.MV_MONAT_2(
+	KJMO,
+	KJMO_VJ,
+	GJMO,
+	GJMO_VJ,
+	KJQU,
+	GJQU,
+	KJ,
+	GJ,
+	AKT_MO,
+	AKT_MO_KOMPLETT,
+	AKT_GJQU,
+	AKT_GJQU_KOMPLETT,
+	AKT_KJQU,
+	AKT_KJQU_KOMPLETT,
+	AKT_GJ,
+	AKT_GJ_KOMPLETT,
+	AKT_KJ,
+	AKT_KJ_KOMPLETT,
+	MO_GJ,
+	MO_KJ,
+	MIN_DAT,
+	MAX_DAT,
+	GJHJ
+) as
+SELECT
+kjmo
+,kjmo_vj
+,gjmo
+,gjmo_vj
+,kjqu
+,gjqu
+,kj
+,gj
+,akt_mo
+,akt_mo_komplett
+,akt_gjqu
+,akt_gjqu_komplett
+,akt_kjqu
+,akt_kjqu_komplett
+,akt_gj
+,akt_gj_komplett
+,akt_kj
+,akt_kj_komplett
+,mo_gj
+,mo_kj
+,min_dat
+,max_dat
+,gjhj
+FROM dbp_view.v_monat_2
+;

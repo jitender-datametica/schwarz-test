@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_aad_scenario_metric_unit_spr_zu_2 (scenario_metric_unit_id, spr_id,
+mandant_id, scenario_metric_unit_descr) AS SELECT scenario_metric_unit_id,
+ spr_id,
+ mandant_id,
+ scenario_metric_unit_descr
+FROM kfl_production_dbp_data.aad_scenario_metric_unit_spr_zu_2;

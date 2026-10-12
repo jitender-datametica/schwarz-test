@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE ldl_wawi_production_whwawiadm.artikellagerort_2 (
+wawi_instanz_kzl STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_nr INTEGER NOT NULL,
+artikelnr STRING(18) NOT NULL,
+kartlagerortnr INTEGER,
+lagerplatzkarton INTEGER,
+pallagerortnr INTEGER,
+lagerplatzpalette INTEGER,
+dueslagerortnr INTEGER,
+lagerplatzduesseld INTEGER,
+datum DATETIME,
+bediener STRING(8),
+invfig_karton STRING(1),
+invfig_palette STRING(1),
+invfig_duesseld STRING(1),
+scn BIGNUMERIC(38,0) DEFAULT 0,
+delete_fg STRING(1),
+extraction_tmsp DATETIME,
+PRIMARY KEY (artikelnr, wh_nr) NOT ENFORCED
+);

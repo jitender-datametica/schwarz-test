@@ -1,0 +1,25 @@
+--[not OK] statement is not translated correctly-----------------------------------------------------------------
+--original statement
+--SELECT COUNT(*) FROM (
+--
+----begin subquery
+--SELECT tablename FROM dbc.tables
+--WHERE UPPER(tablename) = 'ART_WUP_GP_TMP2_2'
+--AND UPPER(databasename) = UPPER('${DWH_COMMON_DBX_LOAD}')
+----end subquery
+--
+--);
+--
+--Comment from validation checker
+--MESSAGE: [unixODBC]User temporarily locked. Try again later, or contact_2 your local system administrator.
+--translated statement
+SELECT COUNT(*) FROM (
+
+--begin subquery
+SELECT table_name FROM information_schema.tables
+WHERE UPPER(table_name) = 'ART_WUP_GP_TMP2_2'
+AND UPPER(table_schema) = UPPER('DBP_ETL_2')
+--end subquery
+
+);
+

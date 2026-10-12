@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ims.mv_l_berichts_pos_inv_grp_2 AS SELECT berichts_pos_invest_grp_id,
+ ahk_aufwand_id
+FROM kfl_production_dbp_view.v_l_berichts_pos_inv_grp_2;

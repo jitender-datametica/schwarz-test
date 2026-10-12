@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_msi.t_msi_ejr_return_price_2 (
+client_id BIGNUMERIC(38,0),
+st_loc_sid BIGNUMERIC(38,0),
+pos_terminal_id BIGNUMERIC(38,0),
+dat_formdate DATE,
+time_receipt_ejr TIME,
+orig_receipt_nr_ejr BIGNUMERIC(38,0),
+checker_id BIGNUMERIC(38,0),
+s_client_id_ejr BIGNUMERIC(38,0),
+s_orig_store_nr_ejr BIGNUMERIC(38,0),
+s_dat_formdate_ejr DATE,
+s_orig_receipt_nr_ejr BIGNUMERIC(38,0),
+s_pos_terminal_id_ejr BIGNUMERIC(38,0),
+item_sid BIGNUMERIC(38,0),
+rt_price_retail_ejr NUMERIC(18,4),
+s_price_retail_ejr NUMERIC(18,4),
+max_wawi_price NUMERIC(18,4),
+is_return_price_gt_sale BIGNUMERIC(38,0),
+is_return_price_gt_wawi BIGNUMERIC(38,0)
+);

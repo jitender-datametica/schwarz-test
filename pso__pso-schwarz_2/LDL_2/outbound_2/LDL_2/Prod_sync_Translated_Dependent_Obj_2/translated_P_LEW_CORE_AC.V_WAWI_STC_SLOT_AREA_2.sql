@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_wawi_stc_slot_area_2 (client_id, wh_loc_sid, stc_slot_area, dat_rec_start,
+dat_rec_end, stc_slot_id_from, stc_slot_id_until, stc_location_id, allocation_info, stc_location_nr_wamas, qty_max_case
+, qty_max_layer, qty_max_dd, qty_max_euro, max_order_amount, stc_slot_send_cd, mde_print_cd, wamas_group,
+pallet_factor_avg, pallet_target_height_go, pallet_feet_height_go, tour_active_cd, tlb_serial_nr,
+avg_mde_factor_active_cd, factor_type, factor_value, weight_euro_avg, weight_dd_avg, weight_box_avg, weight_tktrolli_avg
+, weight_rolli_avg, ssi_fg, load_id) AS SELECT *
+FROM ldl_p_lew_core.t_wawi_stc_slot_area_2;

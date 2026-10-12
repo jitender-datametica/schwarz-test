@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_wwc.mv_coi_l_ump_referenz_2 (referenzgrund_id, referenzgrund_bez) AS
+SELECT referenzgrund_id,
+ referenzgrund_bez
+FROM kfl_production_dbp_view.v_coi_l_ump_referenz_2;

@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_as_food_2 AS SELECT art_id,
+ mandant_id,
+ nb_id,
+ wup_id,
+ dat_auslistung,
+ gp_id,
+ wrg_id,
+ phase_status,
+ erl_fg,
+ dat_final,
+ menge_startbestand,
+ vk_netto,
+ menge_endbestand,
+ erl_kz,
+ dat_aend
+FROM kfl_production_dbp_data.as_food_2;

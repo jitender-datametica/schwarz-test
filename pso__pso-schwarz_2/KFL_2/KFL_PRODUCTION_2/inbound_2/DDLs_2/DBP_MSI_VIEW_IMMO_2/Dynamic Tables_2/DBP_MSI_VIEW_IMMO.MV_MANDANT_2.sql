@@ -1,0 +1,14 @@
+CREATE OR REPLACE DYNAMIC TABLE DBP_MSI_VIEW_IMMO.MV_MANDANT_2(
+	MANDANT_ID,
+	MANDANT_BEZ,
+	MANDANT_KBEZ
+) TARGET_LAG = '1 hour, 30 minutes' REFRESH_MODE = FULL INITIALIZE = ON_CREATE WAREHOUSE = WH_KFL_%%environmentAbbreviation%%_DYNAMIC_TABLE_IMMO
+ AS
+SELECT
+m.mandant_id
+,m.mandant_bez
+,m.mandant_kbez
+FROM dbp_view.v_mandant_2  m
+
+
+;

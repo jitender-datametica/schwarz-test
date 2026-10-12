@@ -1,0 +1,111 @@
+create or replace view SMP_PRODUCTION.FE_PORTAL_SMP.V_CAMPAIGN_MEASUREMENT_DAY_2(
+	DAY_DT,
+	CAMPAIGN_ID,
+	ADVERTISER_ID,
+	SOURCE_SYSTEM_ID,
+	ADVERTISER_ID_SMP,
+	ADVERTISER_ID_PIQ,
+	CAMPAIGN_NAME,
+	CAMPAIGN_START_DT,
+	CAMPAIGN_END_DT,
+	CHANNEL_ID,
+	BUDGET_VAL,
+	ATTRIBUTION_START_DT,
+	ATTRIBUTION_END_DT,
+	GTIN_ASSIGNED_LIST,
+	CAMPAIGN_TYPE_ID,
+	CAMPAIGN_STATUS_ID,
+	BID_VAL,
+	CAMPAIGN_ID_EXT,
+	COUNTRY_ID,
+	DIVISION_ID,
+	SALES_QTY,
+	SALES_VAL,
+	BID_AVG_VAL,
+	BUDGET_SPENT_VAL,
+	IMPRESSION_QTY,
+	VIEW_QTY,
+	CLICK_QTY,
+	SHOPPER_QTY,
+	CONVERSION_QTY,
+	VIEW_FREQUENCY_PCT,
+	CLICK_THROUGH_PCT,
+	CONVERSION_PCT,
+	ROAS_PCT,
+	CHAMPAIGN_LAST_MODIFIED
+) as 
+SELECT
+   m.DAY_DT
+  ,m.CAMPAIGN_ID
+  ,m.ADVERTISER_ID
+  ,m.SOURCE_SYSTEM_ID
+  ,COALESCE(e.ADVERTISER_ID_SMP_SPLIT, m.ADVERTISER_ID_SMP) AS ADVERTISER_ID_SMP_
+  ,m.ADVERTISER_ID_PIQ
+  ,m.CAMPAIGN_NAME
+  ,m.CAMPAIGN_START_DT
+  ,m.CAMPAIGN_END_DT
+  ,COALESCE(cm.CHANNEL_ID_MAP, m.CHANNEL_ID) AS CHANNEL_ID 
+  ,m.BUDGET_VAL
+  ,m.ATTRIBUTION_START_DT
+  ,m.ATTRIBUTION_END_DT
+  ,m.GTIN_ASSIGNED_LIST
+  ,m.CAMPAIGN_TYPE_ID
+  ,m.CAMPAIGN_STATUS_ID
+  ,m.ADVERTISER_BID_VAL AS BID_VAL
+  ,m.CAMPAIGN_ID_EXT
+  ,m.COUNTRY_ID
+  ,m.DIVISION_ID
+  ,m.SALES_QTY
+  ,m.SALES_VAL
+  ,m.BID_AVG_VAL
+  ,CASE 
+        WHEN m.day_dt >= m.upd_tmsp::DATE
+        THEN nrt.BUDGET_SPENT_VAL
+        ELSE m.BUDGET_SPENT_VAL
+    END BUDGET_SPENT_VAL
+  ,m.IMPRESSION_QTY
+  ,CASE 
+        WHEN m.day_dt >= m.upd_tmsp::DATE
+        THEN nrt.VIEW_QTY
+        ELSE m.VIEW_QTY
+    END VIEW_QTY
+  ,CASE 
+        WHEN m.day_dt >= m.upd_tmsp::DATE
+        THEN nrt.CLICK_QTY
+        ELSE m.CLICK_QTY
+    END CLICK_QTY
+  ,m.SHOPPER_QTY
+  ,m.CONVERSION_QTY
+  ,CAST(NULLIFZERO(m.VIEW_QTY/NULLIFZERO(m.SHOPPER_QTY)) AS NUMBER(18,3)) AS VIEW_FREQUENCY_PCT
+  ,CASE 
+        WHEN m.day_dt >= m.upd_tmsp::DATE
+        THEN nrt.CLICK_THROUGH_PCT
+        ELSE CAST(100 * NULLIFZERO(m.CLICK_QTY/NULLIFZERO(m.VIEW_QTY)) AS NUMBER(18,3))
+    END CLICK_THROUGH_PCT
+  ,CAST(NULLIFZERO(m.CONVERSION_QTY/NULLIFZERO(m.CLICK_QTY)) AS NUMBER(18,3)) AS CONVERSION_PCT
+  ,CAST(NULLIFZERO(m.SALES_VAL/NULLIFZERO(m.BUDGET_SPENT_VAL)) AS NUMBER(18,3)) AS ROAS_PCT
+  ,m.CAMPAIGN_LAST_MODIFIED
+FROM core.t_fact_campaign_measurement_day_2 m
+
+
+LEFT OUTER JOIN etl_process.t_campaign_advertiser_exception_2 e
+ON m.division_id = e.division_id
+  AND m.country_id = e.country_id
+  AND m.campaign_id = e.campaign_id 
+
+
+LEFT OUTER JOIN etl_process.t_ref_channel_map_2 cm
+ON m.division_id = cm.division_id
+  AND m.country_id = cm.country_id
+  AND m.channel_id = cm.channel_id 
+
+LEFT OUTER JOIN CORE.V_NRT_CAMPAIGN_MEASUREMENT_DAY_2 nrt 
+ON m.campaign_id = nrt.campaign_id
+    AND m.day_dt = nrt.day_dt
+
+
+INNER JOIN fe_portal_smp.v_campaign_portal_permission_2 p
+ON m.division_id = p.division_id
+  AND m.country_id = p.country_id
+  AND m.campaign_id = p.campaign_id
+;

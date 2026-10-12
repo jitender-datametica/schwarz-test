@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_process.t_bo_flop10_client_status_2 (
+client_id BIGNUMERIC(38,0),
+sap_cluster_cd STRING(100) COLLATE 'und:ci'
+);

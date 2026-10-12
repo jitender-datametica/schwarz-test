@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE szd_production_core.t_dim_charging_station_owner_2 (
+party_sid INTEGER NOT NULL OPTIONS(description='The unique identifier (surrogate key) for the charging station owner.'),
+dwh_valid_from_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record became valid.'),
+dwh_valid_to_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was no longer valid.'),
+dwh_valid_fg BOOL NOT NULL OPTIONS(description='An indicator showing the current record in history.'),
+charging_station_owner_name STRING(100) NOT NULL
+OPTIONS(description='The displayable name of the charging station owner.'),
+dwh_created_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was inserted into the table.'),
+dwh_updated_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was last modified. (In case the record has not been modified since its creation, dwh_updated is identical to dwh_created.)'),
+dwh_src_file_name STRING(500) NOT NULL
+OPTIONS(description='Contains the name(s) of the input file(s) that delivered the record. It can be either the full path of the BLOG storage or the shortened file path'),
+dwh_src_1_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The extraction timestamp of the record from the source'),
+PRIMARY KEY (party_sid, dwh_valid_from_tmsp) NOT ENFORCED
+)
+OPTIONS(description='Major Dimension - The charging station owner is a party that is responsible for one or more charging stations. - Source - IOT Charger');

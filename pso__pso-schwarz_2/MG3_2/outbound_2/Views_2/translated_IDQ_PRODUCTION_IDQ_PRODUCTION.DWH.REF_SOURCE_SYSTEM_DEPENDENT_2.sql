@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW idq_production_dwh.ref_source_system_dependent_2 (dependent_ref_source_system_id,
+dependent_source_system_name, dependent_ref_source_system_type_id) AS SELECT id AS dependent_ref_source_system_id,
+ source_system AS dependent_source_system_name,
+ source_system_type_id AS dependent_ref_source_system_type_id
+FROM idq_production_idq_results.ref_source_system_2;

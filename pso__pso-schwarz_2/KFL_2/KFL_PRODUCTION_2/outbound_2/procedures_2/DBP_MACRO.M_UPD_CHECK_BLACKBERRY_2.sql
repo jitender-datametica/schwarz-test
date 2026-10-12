@@ -1,0 +1,13 @@
+CREATE OR REPLACE PROCEDURE dbp_macro.m_upd_check_blackberry(IN MANDANT_ID FLOAT64, IN BB_FG FLOAT64)
+BEGIN
+DECLARE sql_stmt STRING;
+DECLARE sql_commit STRING;
+Begin TRANSACTION;
+SET sql_stmt  =  '''UPDATE dbp_msi_data.check_blackberry_2 SET  mandant_id = CAST(@MANDANT_ID AS INT64),  bb_fg = CAST(@BB_FG AS INT64) WHERE mandant_id = @MANDANT_ID_1 AND dat = DATE_SUB(CURRENT_DATE("Europe/Berlin"), INTERVAL 1 DAY) ''';
+
+EXECUTE IMMEDIATE (sql_stmt) USING MANDANT_ID AS MANDANT_ID,  BB_FG AS BB_FG,  MANDANT_ID AS MANDANT_ID_1;
+
+SET sql_commit  =  'COMMIT TRANSACTION';
+
+EXECUTE IMMEDIATE (sql_commit);
+END;

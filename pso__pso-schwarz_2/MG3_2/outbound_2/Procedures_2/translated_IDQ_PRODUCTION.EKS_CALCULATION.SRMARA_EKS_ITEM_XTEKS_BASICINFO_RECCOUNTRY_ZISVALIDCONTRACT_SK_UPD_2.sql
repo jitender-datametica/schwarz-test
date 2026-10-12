@@ -1,0 +1,6 @@
+CREATE OR REPLACE PROCEDURE idq_production_eks_calculation.srmara_eks_item_xteks_basicinfo_reccountry_zisvalidcontract_sk_upd()
+BEGIN
+UPDATE idq_production_eks_calculation.xteks_basicinfo_reccountry_2 SET
+    zisvalidcontract = sr.zisvalidcontractnew FROM idq_production_eks_calculation.srmara_eks_item_xteks_basicinfo_reccountry_zisvalidcontract_sk_updsel_2 AS sr
+WHERE xteks_basicinfo_reccountry.listingoverviewid = sr.listingoverviewid AND xteks_basicinfo_reccountry.casesize = sr.casesize AND xteks_basicinfo_reccountry.sk_itemid = sr.sk_itemid AND xteks_basicinfo_reccountry.itemid = sr.itemid AND xteks_basicinfo_reccountry.contractpricevalidityid = sr.contractpricevalidityid AND xteks_basicinfo_reccountry.supplierno = sr.supplierno;
+END;

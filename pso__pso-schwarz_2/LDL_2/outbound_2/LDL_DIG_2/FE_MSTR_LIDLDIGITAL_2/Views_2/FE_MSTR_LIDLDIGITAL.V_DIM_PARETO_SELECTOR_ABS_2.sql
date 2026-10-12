@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital.v_dim_pareto_selector_abs_2 AS SELECT *
+FROM ldl_dig_fe_mstr_lidldigital.t_dim_pareto_selector_abs_2;

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view3.mv_l_disposition_rhythmus_ltf_2 (mandant_id,
+disposition_rhythmus_ltf_id) AS SELECT mandant_id,
+ disposition_rhythmus_ltf_id
+FROM kfl_production_dbp_view.v_l_disposition_rhythmus_ltf_2 AS V01;

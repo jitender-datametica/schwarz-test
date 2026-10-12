@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_wawi_indicator_delete_l_2 (
+indicator_id BIGNUMERIC(38) NOT NULL,
+indicator_type_id BIGNUMERIC(38) NOT NULL,
+org_type_id BIGNUMERIC(38) NOT NULL,
+country_iso_cd STRING(2) COLLATE 'und:ci' NOT NULL,
+org_unit_nr BIGNUMERIC(38),
+cy BIGNUMERIC(38),
+dat_formdate_from DATE,
+dat_formdate_until DATE,
+cal_week_from BIGNUMERIC(38),
+cal_week_until BIGNUMERIC(38),
+month_id_from BIGNUMERIC(38),
+month_id_until BIGNUMERIC(38),
+file_name STRING(100) COLLATE 'und:ci' NOT NULL,
+timestamp_fn DATETIME NOT NULL,
+dat_dayend DATE NOT NULL,
+load_id BIGNUMERIC(38) NOT NULL
+);

@@ -1,0 +1,15 @@
+create or replace view KFL_PRODUCTION.DBP_VIEW.V_MONAT_SPR_ZU_2(
+	MO_ID,
+	SPR_ID,
+	MO_BEZ,
+	TD_UPDATE,
+	TD_INSERT
+) as
+SELECT
+    MO_ID,
+    SPR_ID,
+    MO_BEZ,
+    TD_UPDATE,
+    TD_INSERT
+FROM
+    DBP_DATA.MONAT_SPR_ZU_2;

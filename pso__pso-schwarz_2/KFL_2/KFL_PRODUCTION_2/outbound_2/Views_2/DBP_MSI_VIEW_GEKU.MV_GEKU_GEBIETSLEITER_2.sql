@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku.mv_geku_gebietsleiter_2 (gebietsleiter_uid, vertriebsbuero_uid,
+gebietsleiter_bez, gebietsleiter_ldap) AS SELECT gebietsleiter_uid,
+ vertriebsbuero_uid,
+ gebietsleiter_bez,
+ berichts_empfaenger_ldap AS gebietsleiter_ldap
+FROM kfl_production_dbp_view.v_geku_gebietsleiter_2;

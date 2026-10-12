@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_fipo_l_objekt_typ_2 AS SELECT fipo_objekt_typ_id,
+ fipo_objekt_typ_bez,
+ fipo_sap_vkorg
+FROM kfl_production_dbp_data.fipo_l_objekt_typ_2;

@@ -1,0 +1,27 @@
+CREATE TABLE DBP_DATA.VAUS_WUP_2 (
+	MANDANT_ID INTEGER NOT NULL COMMENT 'Mandant_2 im DWH',
+	WUP_ID INTEGER NOT NULL COMMENT 'Marktnummer aus t001w.werks',
+	VS_ID INTEGER NOT NULL DEFAULT 0 COMMENT 'ID der Vertriebsschiene. Vertriebssicht auf die WUP_2-Objekte',
+	LAND_ID VARCHAR(8) NOT NULL DEFAULT '  ' COMMENT 'Land_2, in dem sich der Markt befindet. Hat immer Länge von 2 Zeichen (PL, CZ, DE,..). Im Quellsystem SAP hat das Feld 3 Zeichen ',
+	REGION_ID INTEGER NOT NULL DEFAULT -1 COMMENT 'Region_2 eines Landes, z.Bsp. Hessen, Kärnten. Wird im DWH als künstlicher Schlüssel über die SAP-Region_2 gebildet. Quelle ist t001w.bundesland ',
+	WUP_PLZ VARCHAR(40) NOT NULL DEFAULT ' ' COMMENT 'Postleitzahl aus adrc.postcode1',
+	WUP_STADT_1 VARCHAR(320) NOT NULL DEFAULT ' ' COMMENT 'Stadt (Adresse) aus city_1',
+	WUP_STR VARCHAR(320) NOT NULL DEFAULT ' ' COMMENT 'Strasse (Adresse) aus street',
+	WUP_NAME_1 VARCHAR(320) NOT NULL DEFAULT ' ' COMMENT 'Bezeichnung des Marktes aus name',
+	WUP_NAME_2 VARCHAR(320) COMMENT 'Bezeichnung (abweichend von postalischer Adresse) aus adrc.name1',
+	SYSTEM_ID INTEGER NOT NULL DEFAULT -1 COMMENT 'Spezifiziert das Quellsystem, aus dem die Daten kommen.',
+	BUCHUNGSKREIS_ID INTEGER NOT NULL DEFAULT -1 COMMENT 'Zuordnung des Buchungskreises zu dem WUP_2 über die SAP Quelle T001K und T001.',
+	WUP_TELEFON VARCHAR(80) COMMENT 'Telefonnummer aus telf1',
+	WUP_FAX VARCHAR(80) COMMENT 'Faxnummer aus telfx',
+	DAT_EROEFFNUNG DATE NOT NULL DEFAULT (2090 - 12) - 31 COMMENT '\"Echtes\" Eröffnungsdatum des Marktes. Quelle?',
+	DAT_SCHLIESSUNG DATE NOT NULL DEFAULT (9999 - 12) - 31 COMMENT 'Schließungsdatum. Quelle ?',
+	BETRIEBSRAT_FG INTEGER NOT NULL DEFAULT 0 COMMENT 'Wird aus Tabelle zrs_vsdata versorgt. Ermittlung noch ?',
+	NILS_VERTEILGEBIET_ID INTEGER NOT NULL DEFAULT 0 COMMENT 'Verteilgebiet. Quelle noch ?',
+	AUFLAGE_WUP_VERTEILGEBIET INTEGER NOT NULL COMMENT 'Auflage im Verteilgebiet des Marktes. Quelle noch ?',
+	AUFLAGE_WUP_AUSLAGE INTEGER COMMENT 'Anzahl der dem Markt zur Verfügung gestellten Exemplare. Quelle noch ?',
+	GLN_ID VARCHAR(80) NOT NULL DEFAULT ' ' COMMENT 'Global Location_2 Number - international  eindeutige Kennzeichnung der Lokation. Quelle ist KNA1_2 (Retail) mit den Feldern bbbnr(Basisnummer), bbsnr(Individueller Nummernteil) und bubkz(Prüfziffer)',
+	KUNDE_ID VARCHAR(40) NOT NULL DEFAULT '          ' COMMENT 'Kundennummer des Marktes. Entspricht der Marktnummer mit führenden Nullen',
+	TD_INSERT TIMESTAMP_LTZ(9),
+	TD_UPDATE TIMESTAMP_LTZ(9)
+)COMMENT='VIS - Stammdaten für den WarenUmschlagsPlatz aus den Quellen csks, t001w_2, adrc_2'
+;

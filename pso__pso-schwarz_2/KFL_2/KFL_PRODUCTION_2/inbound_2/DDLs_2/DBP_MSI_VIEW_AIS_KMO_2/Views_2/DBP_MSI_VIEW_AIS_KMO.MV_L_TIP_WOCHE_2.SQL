@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_AIS_KMO.MV_L_TIP_WOCHE_2
+(
+kjwo_werbe_ende
+)
+AS
+SELECT
+kjwo_werbe_ende
+FROM DBP_VIEW.V_SHOPPER_2
+GROUP BY kjwo_werbe_ende;

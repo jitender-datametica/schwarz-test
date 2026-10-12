@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view3_materialized.ts_art_stellplatz_faktor_2 (art_id, mandant_id,
+stellplatz_faktor) AS SELECT *
+FROM kfl_production_dbp_msi_view3.ts_art_stellplatz_faktor_2;

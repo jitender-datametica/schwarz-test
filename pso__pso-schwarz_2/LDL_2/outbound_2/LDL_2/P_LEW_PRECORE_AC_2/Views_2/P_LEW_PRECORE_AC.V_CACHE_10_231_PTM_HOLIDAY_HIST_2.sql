@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW ldl_p_lew_precore_ac.v_cache_10_231_ptm_holiday_hist_2 (client_id, landkzl, whnr, loc_sid_wh,
+region_id, holiday_date, holiday_week, description, deleted_fg, dwh_valid_from, dwh_valid_to, dwh_load_id, dwh_created,
+dwh_updated) AS SELECT client_id,
+ landkzl,
+ whnr,
+ loc_sid_wh,
+ region_id,
+ holiday_date,
+ holiday_week,
+ description,
+ deleted_fg,
+ dwh_valid_from,
+ dwh_valid_to,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_precore.t_cache_10_231_ptm_holiday_hist_2;

@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_cache_esl_slabel_2 (
+src_id BIGNUMERIC(38,0),
+src_firmware_version INTEGER,
+src_update_status STRING(255),
+src_temperature NUMERIC(9,2),
+src_battery_level STRING(100),
+src_data_channel_rssi INTEGER,
+src_wakeup_channel_rssi INTEGER,
+src_product_info STRING(255),
+src_filename STRING(1000),
+src_db_host STRING(255),
+tgt_id BIGNUMERIC(38,0),
+tgt_instance STRING(255),
+tgt_update_status STRING(255),
+tgt_battery_level BIGNUMERIC(38,0),
+tgt_data_channel_rssi INTEGER,
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL
+);

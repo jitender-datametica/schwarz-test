@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view3_materialized.mv_tp_l_techn_platz_2 (techn_platz_id) AS SELECT
+ techn_platz_id
+FROM kfl_production_dbp_view.v_tp_l_techn_platz_2 AS V01;

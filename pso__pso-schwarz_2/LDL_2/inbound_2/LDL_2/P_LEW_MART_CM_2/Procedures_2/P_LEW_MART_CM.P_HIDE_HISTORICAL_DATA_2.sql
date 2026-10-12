@@ -1,0 +1,19 @@
+CREATE OR REPLACE PROCEDURE P_LEW_MART_CM.P_HIDE_HISTORICAL_DATA(CLIENT_ID NUMBER(38,0), PER_ID NUMBER(38,0), APPLICATION_ID NUMBER(38,0), ACTIVE_FG NUMBER(1,0))
+RETURNS VARCHAR(100)
+LANGUAGE SQL
+EXECUTE AS CALLER
+AS 
+$$
+BEGIN
+    BEGIN TRANSACTION;
+        /* Update the flag to either deactivate (hide) or activate (show) a period for a client and an application. */
+        UPDATE P_LEW_MART_CM.T_LIL_HISTORICAL_PERIODS_PER_CLIENT_AND_APPLICATION_2
+		    SET ACTIVE_FG = :ACTIVE_FG, TRANSACTION_TMSP = CURRENT_TIMESTAMP()
+		   WHERE CLIENT_ID = :CLIENT_ID AND PER_ID = :PER_ID AND APPLICATION_ID = :APPLICATION_ID;
+    /* Commit transaction. */
+    COMMIT;
+    /* Return the number of changed rows and the query ID. */
+	RETURN 'Updated '  || SQLROWCOUNT || ' rows. Query ID: '||LAST_QUERY_ID(-2);
+END;
+$$
+;

@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW P_LEW_MART_ANALYTICS_AC.V_ADVERT_WEEK_PERIOD_2
+AS
+   SELECT
+     client_id,
+   adv_week_id,
+   adv_period_id,
+   adv_week_period_start_dt,
+   adv_week_period_end_dt,
+   adv_week_period_sort_val
+  FROM p_lew_mart_analytics.t_advert_week_period_2;

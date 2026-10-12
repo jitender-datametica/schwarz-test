@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_wholesale.v_dim_customs_additional_procedure_2 (additional_procedure_cd,
+additional_procedure_descr) AS SELECT additional_procedure_cd,
+ additional_procedure_descr
+FROM szd_core.t_dim_customs_additional_procedure_2;

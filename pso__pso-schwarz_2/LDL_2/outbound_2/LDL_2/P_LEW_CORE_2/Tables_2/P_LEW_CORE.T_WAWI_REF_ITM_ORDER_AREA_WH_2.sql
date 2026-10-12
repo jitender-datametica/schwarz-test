@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_core.t_wawi_ref_itm_order_area_wh_2 (
+client_id BIGNUMERIC(38,0) NOT NULL,
+wh_loc_sid BIGNUMERIC(38,0) NOT NULL,
+order_area STRING(3) COLLATE 'und:ci' NOT NULL,
+order_area_desc STRING(35) COLLATE 'und:ci' NOT NULL,
+order_area_cd STRING(3) COLLATE 'und:ci' NOT NULL,
+instant_print INTEGER,
+group_change INTEGER,
+change_date DATE,
+output_pdlk INTEGER,
+printer_no BIGNUMERIC(38,0),
+used_by_wamas BIGNUMERIC(38,0),
+only_del_note BIGNUMERIC(38,0),
+delivery_note BIGNUMERIC(38,0),
+plausibility_check BIGNUMERIC(38,0),
+storeage_pl_check BIGNUMERIC(38,0),
+order_stock BIGNUMERIC(38,0),
+dat_dayend DATE,
+load_id BIGNUMERIC(38,0) NOT NULL
+);

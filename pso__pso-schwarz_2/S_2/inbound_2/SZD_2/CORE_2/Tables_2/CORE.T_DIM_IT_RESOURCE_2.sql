@@ -1,0 +1,39 @@
+/* --------------------------------------------------------------------------------
+   DDL for table: T_DIM_IT_RESOURCE_2
+   generated from Powerdesigner on Dienstag, 16. April 2024 15:34:12
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE.T_DIM_IT_RESOURCE_2 (
+   RESOURCE_ITEM_SID                   NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the resource item. as an IT ressource. Key generation based on META table for party key space.',
+   DWH_VALID_FROM_TMSP                 TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record became valid.',
+   DWH_VALID_TO_TMSP                   TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was no longer valid.',
+   IT_RESOURCE_TYPE_ID                 NUMBER(38, 0)   NOT NULL COMMENT 'Natural/Business Key - The unique code identifying the discriminators for task configuration item_2 groups (CI group) in IT4You.',
+   OWNER_COUNTRY_BUSINESS_LOCATION_SID NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the location. It defines the business country_2 of the ticket caller. Key generation based on META table for party key space.',
+   OWNER_DIVISION_PARTY_SID            NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the party owner division. It defines the division of the ticket owner. Key generation based on META table for party key space.',
+   OWNER_ORG_UNIT_PARTY_SID            NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the party owner org unit. It defines the org unit_2 of of the ticket owner.  Key generation based on META table for party key space.',
+   LOCALIZATION_ID                     NUMBER(38, 0)   NOT NULL COMMENT 'Natural Key/Business Key - code identifying the discriminators for localization',
+   SOLUTION_BUSINESS_UNIT_PARTY_SID    NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the party as a business unit. It defines the business unit_2 of the solution.',
+   IT_RESOURCE_NR                      VARCHAR(250)    NOT NULL COMMENT 'Natural/Business Key -  number of CI group (z.B. ITS0012345, BS0012345, APP0001234)',
+   IT_RESOURCE_PSP_NR                  VARCHAR(250)    NOT NULL COMMENT 'Natural/Business Key - PSP Element number',
+   IT_RESOURCE_NAME                    VARCHAR(100)    NOT NULL COMMENT 'Descriptive Attribute - name of CI group. CI as configuration item_2 is source system term for e.g. applications, databases, solutions & other objects ',
+   OWNER_COUNTRY_BUSINESS_CD           VARCHAR(3)      NOT NULL COMMENT 'Denormalized Attribute - The code identifying the country_2 according in the SCHWARZ group',
+   OWNER_COUNTRY_BUSINESS_NAME         VARCHAR(100)    NOT NULL COMMENT 'Denormalized Attribute - The name by which the country_2 is known,',
+   OWNER_DIVISION_CD                   VARCHAR(50)     NOT NULL COMMENT 'Denormalized Attribute - Natural/Business Key - The unique code for each division within the Schwarz Group, i.e.L-Lidl or K-Kaufland',
+   OWNER_DIVISION_NAME                 VARCHAR(100)    NOT NULL COMMENT 'Denormalized Attribute - The name for the division within the Schwarz Group, i.e.Lidl or Kaufland',
+   OWNER_INT_ORG_UNIT_NAME             VARCHAR(100)    NOT NULL COMMENT 'Denormalized Attribute - The textual name of an organization unit_2',
+   OWNER_LVL2_INT_ORG_UNIT_PARTY_SID   NUMBER(38, 0)   NOT NULL COMMENT 'Denormalized Attribute - The unique identifier (surrogate key) for the party surrogate key space. Key generation based on META table for party key space.  Level 1 Internal Org Unit.',
+   OWNER_LVL2_INT_ORG_UNIT_NAME        VARCHAR(100)    NOT NULL COMMENT 'Denormalized Attribute - The name of the organizational unit_2 at level 1.',
+   OWNER_LVL3_INT_ORG_UNIT_PARTY_SID   NUMBER(38, 0)   NOT NULL COMMENT 'Denormalized Attribute - The unique identifier (surrogate key) for the party surrogate key space. Key generation based on META table for party key space.  Level 2 Internal Org Unit.',
+   OWNER_LVL3_INT_ORG_UNIT_NAME        VARCHAR(100)    NOT NULL COMMENT 'Denormalized Attribute - The name of the organizational unit_2 at level 2.',
+   OWNER_LVL4_INT_ORG_UNIT_PARTY_SID   NUMBER(38, 0)   NOT NULL COMMENT 'Denormalized Attribute - The unique identifier (surrogate key) for the party surrogate key space. Key generation based on META table for party key space.  Level 3 Internal Org Unit.',
+   OWNER_LVL4_INT_ORG_UNIT_NAME        VARCHAR(100)    NOT NULL COMMENT 'Denormalized Attribute - The name of the organizational unit_2 at level 4.',
+   OWNER_LVL5_INT_ORG_UNIT_PARTY_SID   NUMBER(38, 0)   NOT NULL COMMENT 'Denormalized Attribute - The unique identifier (surrogate key) for the party surrogate key space. Key generation based on META table for party key space.  Level 4 Internal Org Unit.',
+   OWNER_LVL5_INT_ORG_UNIT_NAME        VARCHAR(100)    NOT NULL COMMENT 'Denormalized Attribute - The name of the organizational unit_2 at level 4.',
+   SOURCE_SYS_NR                       VARCHAR(100)    NOT NULL COMMENT 'Source system payload attribute - Technical Surrogate Key (surves as Natural Key) - additional technical system id for identification of tickets.',
+   SOURCE_UPDATED_ON_TMSP              TIMESTAMP_TZ(9) COMMENT 'Source system payload attribute - The point in time when this record was last modified in the source system. (In case the record has not been modified since its creation, source_updated_on is identical to creation timestamp)',
+   DWH_CREATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was inserted into the table.',
+   DWH_UPDATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last modified. (In case the record has not been modified since its creation, dwh_updated is identical to dwh_created.)',
+   DWH_SRC_FILE_NAME                   VARCHAR(500)    COMMENT 'Contains the name(s) of the input file(s) that delivered the record. It can be either the full path of the BLOG storage or the shortened file path',
+   DWH_SRC_1_TMSP                      TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The extraction timestamp of the record from the source',   
+   CONSTRAINT PK_DIM_IT_RESOURCE PRIMARY KEY (RESOURCE_ITEM_SID, DWH_VALID_FROM_TMSP) NOT ENFORCED 
+)  COMMENT = 'Major Dimension - This subtype holds information on all IT resources like network, software, hardware, application, solution and other resources. Denormalized attributes for internal org levels (besides lowest leaf level as FK) are supportive - Source - IT4You Service Now for Solutions ITPM, SARA, for Solution Infrastructure HAK2';

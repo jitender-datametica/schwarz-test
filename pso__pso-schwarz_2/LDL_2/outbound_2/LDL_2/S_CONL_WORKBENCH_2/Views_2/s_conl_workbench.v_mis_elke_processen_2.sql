@@ -1,0 +1,70 @@
+CREATE OR REPLACE VIEW ldl_s_conl_workbench.v_mis_elke_processen_2 AS SELECT LJ.business_year,
+  CASE
+  WHEN LJ.report_month <= 2
+  THEN ROUND(CAST(TRUNC(CAST(CONCAT(TRIM(CAST(LJ.business_year + 1 AS STRING FORMAT '0000')), TRIM(CAST(LJ.report_month AS STRING FORMAT '00'))) AS BIGNUMERIC)) AS BIGNUMERIC)
+   , 0)
+  ELSE ROUND(CAST(TRUNC(CAST(CONCAT(TRIM(CAST(LJ.business_year AS STRING FORMAT '0000')), TRIM(CAST(LJ.report_month AS STRING FORMAT '00')
+        )) AS BIGNUMERIC)) AS BIGNUMERIC), 0)
+  END AS booking_month,
+ LJ.report_month,
+ LJ.warehouse_number AS warehouse_id,
+ LJ.pallet_non_stores AS pallet_non_stores_lj,
+ VJ.pallet_non_stores AS pallet_non_stores_vj,
+  LJ.pallet_non_stores - VJ.pallet_non_stores AS delta_vj_pallet_non_stores,
+ LJ.trucks_count AS trucks_count_lj,
+ VJ.trucks_count AS trucks_count_vj,
+  LJ.trucks_count - VJ.trucks_count AS delta_vj_trucks_count,
+ LJ.shifts_count AS shifts_count_lj,
+ VJ.shifts_count AS shifts_count_vj,
+  LJ.shifts_count - VJ.shifts_count AS delta_vj_shifts_count,
+ LJ.time_used AS time_used_lj,
+ VJ.time_used AS time_used_vj,
+  LJ.time_used - VJ.time_used AS delta_vj_time_used,
+ LJ.tours_count AS tours_count_lj,
+ VJ.tours_count AS tours_count_vj,
+  LJ.tours_count - VJ.tours_count AS delta_vj_tours_count,
+ LJ.tours_per_shift AS tours_per_shift_lj,
+ VJ.tours_per_shift AS tours_per_shift_vj,
+  LJ.tours_per_shift - VJ.tours_per_shift AS delta_vj_tours_per_shift,
+ LJ.pallets_per_shift AS pallets_per_shift_lj,
+ VJ.pallets_per_shift AS pallets_per_shift_vj,
+  LJ.pallets_per_shift - VJ.pallets_per_shift AS delta_vj_pallets_per_shift,
+ LJ.kilometers AS kilometers_lj,
+ VJ.kilometers AS kilometers_vj,
+  LJ.kilometers - VJ.kilometers AS delta_vj_kilometers,
+ LJ.km_per_pallet AS km_per_pallet_lj,
+ VJ.km_per_pallet AS km_per_pallet_vj,
+  LJ.km_per_pallet - VJ.km_per_pallet AS delta_vj_km_per_pallet,
+ LJ.utilization_percentage AS utilization_percentage_lj,
+ VJ.utilization_percentage AS utilization_percentage_vj,
+  LJ.utilization_percentage - VJ.utilization_percentage AS delta_vj_utilization_percentage
+FROM (SELECT business_year,
+   report_month,
+   warehouse_number,
+   pallet_non_stores,
+   trucks_count,
+   shifts_count,
+   time_used,
+   tours_count,
+   tours_per_shift,
+   pallets_per_shift,
+   kilometers,
+   km_per_pallet,
+   utilization_percentage
+  FROM ldl_s_conl_workbench.t_i_elke_processen_2
+  WHERE business_year = 2021) AS LJ
+ INNER JOIN (SELECT business_year,
+   report_month,
+   warehouse_number,
+   pallet_non_stores,
+   trucks_count,
+   shifts_count,
+   time_used,
+   tours_count,
+   tours_per_shift,
+   pallets_per_shift,
+   kilometers,
+   km_per_pallet,
+   utilization_percentage
+  FROM ldl_s_conl_workbench.t_i_elke_processen_2
+  WHERE business_year = 2020) AS VJ ON LJ.report_month = VJ.report_month AND LJ.warehouse_number = VJ.warehouse_number;

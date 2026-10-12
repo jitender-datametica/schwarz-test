@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_wawi_itemgrp_hq_l_2 (
+country_iso_cd STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_id_hq STRING(3) COLLATE 'und:ci' NOT NULL,
+subitemgroup_id BIGNUMERIC(38) NOT NULL,
+person_id BIGNUMERIC(38) NOT NULL,
+mainitemgroup_id BIGNUMERIC(38) NOT NULL,
+person_name STRING(28) COLLATE 'und:ci',
+subitemgroup_short_desc_german STRING(15) COLLATE 'und:ci' NOT NULL,
+subitemgroup_desc_german STRING(35) COLLATE 'und:ci',
+subitemgroup_sortterm_german INTEGER NOT NULL,
+diff_rcv INTEGER,
+statisticgroup_id BIGNUMERIC(38),
+cnt_rcv BIGNUMERIC(38),
+rcv_days BIGNUMERIC(38),
+itemgroup_int_id BIGNUMERIC(38) NOT NULL,
+dat_dayend DATE,
+load_id BIGNUMERIC(38)
+);

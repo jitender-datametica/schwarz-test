@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t_ts_tcache_oso_openinghours_2_store_opening_hours___2 (
+store_sid INTEGER,
+day_of_week INTEGER,
+dwh_valid_from_tmsp TIMESTAMP,
+dwh_valid_to_tmsp TIMESTAMP,
+dwh_valid_fg BOOL,
+open_tm TIME,
+close_tm TIME,
+dwh_load_id INTEGER,
+dwh_node_cd STRING(20),
+break_start_tm TIME,
+break_end_tm TIME,
+record_id STRING(1000),
+deleted_fg BOOL,
+error_descr STRING(1000),
+filename STRING(1000),
+hist_row_no STRING(1000),
+dwh_mapping_tmsp TIMESTAMP,
+dwh_ending_tmsp TIMESTAMP,
+error_fg INTEGER
+);

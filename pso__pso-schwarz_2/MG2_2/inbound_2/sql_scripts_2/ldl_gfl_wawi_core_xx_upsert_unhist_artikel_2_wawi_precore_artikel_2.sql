@@ -1,0 +1,198 @@
+TRUNCATE TABLE ${TARGET_DB}.${TGT_TARGET_TABLE};
+
+INSERT INTO  ${TEMP_DB}.${SRC2TGT_TEMP_TABLE1}_${SRC_CONTEXT_AREA}
+(
+      CTRCODE
+    , ARTIKELNR
+    , INTARTGRUPNR
+    , MHDPRUEFUNG
+    , ARTNRVIER
+    , ARTGRUPNR
+    , BEZ_LANG
+    , DEUTSCHTEXT
+    , GUELTIG_AB
+    , INHALT_KARTON
+    , KARTON_LAGE
+    , KARTON_EURO
+    , KARTON_DUESS
+    , WEITERLEITUNGSNR
+    , PREISSCHILD
+    , PREISSTREIFEN
+    , PLAKAT
+    , MDESSP
+    , PLU
+    , LIDLEK_LANDKZL
+    , TEXT1
+    , TEXT2
+    , DATUM
+    , BEDIENER
+    , PERSONALNR
+    , LANDKZL
+    , GROESSEEINHEIT
+    , PACKUNG
+    , INTWGRUPNR
+    , WGRUPNR
+    , KARTONPLU
+    , WAELZUNGNR
+    , STDMWST
+    , MIND_KOLLI
+    , MIND_LAGE
+    , MIND_DUESS
+    , MIND_EURO
+    , KLSTBESTEINHEIT
+    , DIREKTLOESCHKNZ
+    , BESTBEREICH_2
+    , BEZ_KURZ
+    , BEZ_KURZ2
+    , BEZ_KURZ3
+    , ANLIEFERTEMP
+    , GEFAHRGUT
+    , DUALSYSTEM
+    , SAISONKNZ
+    , FOOD
+    , PFAND
+    , EINGELIST
+    , EINGEL_DATUM
+    , AUSGELIST
+    , AUSGEL_DATUM
+    , LISTENKNZNR
+    , ORDERSATZNR
+    , KDRESTLAUFZEIT
+    , STDMHDKNZKD
+    , FILRESTLAUFZEIT
+    , STDMHDKNZFIL
+    , LGRESTLAUFZEIT
+    , STDMHDKNZLG
+    , BEVERAGE_TAX
+    , MARKE
+    , PAKETUNIT
+    , UNIT_ID
+    , ADVDATE
+    , REFUND
+    , CONTDEPITEMNR
+    , DISCOUNT
+    , TEXT3
+    , SCALE_FLAG
+    , BASED_ON_EKS
+    , ITEMVERSION
+    , DECIMALCASE
+    , ADD_DISCOUNT
+    , SCN
+    , SHELFLIFE_TYPE
+    , EXTRACTION_TMSP
+ 
+
+    --------------------------------
+    , SOURCE_SYSTEM
+    , EXTRACTION_DT
+    , DWH_MAPPING_TMSP
+    , TF_ERROR_FG
+    , DELETED_FG
+    , RECORD_ID
+    , FILENAME
+    , DWH_NODE_CD
+    , DWH_LOAD_ID
+)
+SELECT 
+      LEFT( src.CTRCODE, 2) as CTRCODE
+    , ARTIKELNR
+    , INTARTGRUPNR
+    , MHDPRUEFUNG
+    , ARTNRVIER
+    , ARTGRUPNR
+    , BEZ_LANG
+    , DEUTSCHTEXT
+    , GUELTIG_AB
+    , INHALT_KARTON
+    , KARTON_LAGE
+    , KARTON_EURO
+    , KARTON_DUESS
+    , WEITERLEITUNGSNR
+    , PREISSCHILD
+    , PREISSTREIFEN
+    , PLAKAT
+    , MDESSP
+    , PLU
+    , LIDLEK_LANDKZL
+    , TEXT1
+    , TEXT2
+    , DATUM
+    , BEDIENER
+    , PERSONALNR
+    , LANDKZL
+    , GROESSEEINHEIT
+    , PACKUNG
+    , INTWGRUPNR
+    , WGRUPNR
+    , KARTONPLU
+    , WAELZUNGNR
+    , STDMWST
+    , MIND_KOLLI
+    , MIND_LAGE
+    , MIND_DUESS
+    , MIND_EURO
+    , KLSTBESTEINHEIT
+    , DIREKTLOESCHKNZ
+    , BESTBEREICH_2
+    , BEZ_KURZ
+    , NULL AS BEZ_KURZ2
+    , NULL AS BEZ_KURZ3
+    , ANLIEFERTEMP
+    , GEFAHRGUT
+    , DUALSYSTEM
+    , SAISONKNZ
+    , FOOD
+    , PFAND
+    , EINGELIST
+    , EINGEL_DATUM
+    , AUSGELIST
+    , AUSGEL_DATUM
+    , LISTENKNZNR
+    , ORDERSATZNR
+    , KDRESTLAUFZEIT
+    , STDMHDKNZKD
+    , FILRESTLAUFZEIT
+    , STDMHDKNZFIL
+    , LGRESTLAUFZEIT
+    , STDMHDKNZLG
+    , BEVERAGE_TAX
+    , MARKE
+    , PAKETUNIT
+    , UNIT_ID
+    , ADVDATE
+    , REFUND
+    , CONTDEPITEMNR
+    , DISCOUNT
+    , TEXT3
+    , SCALE_FLAG
+    , BASED_ON_EKS
+    , ITEMVERSION
+    , DECIMALCASE
+    , ADD_DISCOUNT
+    , SCN
+    , SHELFLIFE_TYPE
+    , EXTRACTION_TMSP
+
+    --------------------------------
+    , 'WAWI'                             AS SOURCE_SYSTEM
+    , CURRENT_DATE                       AS EXTRACTION_DT
+    , current_timestamp                  AS DWH_MAPPING_TMSP
+    , 0                                  AS TF_ERROR_FG
+    , 0                                  AS DELETED_FG
+    , 0                                  AS RECORD_ID
+    , '${SRC_INPUT_TABLE}'               AS FILENAME
+    , 'WAWI_HQ'                          AS DWH_NODE_CD
+    , '${LOAD_ID}'                       AS DWH_LOAD_ID
+FROM ${TEMP_DB}.${SRC_INPUT_TABLE} src
+INNER JOIN ETL.WAWI_CONTROL_TABLE_2 ctrl
+ON true
+AND ctrl.SOURCE_TABLE_NAME = UPPER('${TEMP_DB}.${SRC_INPUT_TABLE}')
+AND ctrl.SOURCE_STATUS = 'A'
+AND src.EXTRACTION_TMSP between ctrl.BEGIN_TMSP and ctrl.END_TMSP
+QUALIFY Row_Number() OVER 
+(PARTITION BY 
+    LEFT( src.CTRCODE, 2), 
+    ARTIKELNR 
+ ORDER BY src.EXTRACTION_TMSP DESC
+) = 1 
+;

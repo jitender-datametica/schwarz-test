@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_SCM.MV_L_PROGNOSESYSTEM_2 as
+   SELECT t.*
+   FROM (SELECT * FROM (SELECT 'UDF' AS prognose_system) x
+   UNION ALL
+   SELECT * FROM (SELECT 'FUR' AS prognose_system) x
+   ) t;

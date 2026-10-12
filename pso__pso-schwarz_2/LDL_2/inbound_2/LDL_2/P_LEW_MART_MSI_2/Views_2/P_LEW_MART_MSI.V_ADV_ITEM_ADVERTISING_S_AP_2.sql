@@ -1,0 +1,42 @@
+CREATE OR REPLACE VIEW P_LEW_MART_MSI.V_ADV_ITEM_ADVERTISING_S_AP_2
+     (
+     client_id
+     , wh_loc_sid
+     , orig_item_nr
+     , dat_adv
+     , dat_rec_start
+     , dat_rec_end
+     , dat_adv_end
+     , dat_adv_desc
+     , dat_before_sales
+     , dat_behind_sales_period1
+     , dat_behind_sales_period2
+     , dat_before_delivery
+     , dat_behind_delivery
+     , dat_behind_delivery_period1
+     , dat_behind_delivery_period2
+     , dat_behind_sales_extension
+     , orig_promotion_domain_nr
+     , timestamp_load
+      )
+     AS
+        SELECT
+            client_id,
+        wh_loc_sid,
+        orig_item_nr,
+        dat_adv,
+        dat_rec_start,
+        dat_rec_end,
+        dat_adv_end,
+        dat_adv_desc,
+        dat_before_sales,
+        dat_behind_sales_period1,
+        dat_behind_sales_period2,
+        dat_before_delivery,
+        dat_behind_delivery,
+        dat_behind_delivery_period1,
+        dat_behind_delivery_period2,
+        dat_behind_sales_extension,
+        orig_promotion_domain_nr,
+        timestamp_load
+        FROM p_lew_core_ac.v_wawi_adv_item_advertising_s_ap_2;

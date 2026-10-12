@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_msi.v_ref_ejr_xml_paymenttype_2 AS SELECT paymenttype_id,
+ comment_string
+FROM ldl_p_lew_core_ac.v_wawi_ref_ejr_xml_paymenttypes_2;

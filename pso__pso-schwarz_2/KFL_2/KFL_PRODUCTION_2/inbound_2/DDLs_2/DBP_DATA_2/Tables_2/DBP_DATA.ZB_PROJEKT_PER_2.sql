@@ -1,0 +1,28 @@
+create or replace TABLE KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_DATA.ZB_PROJEKT_PER_2 (
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant_2 im DWH',
+	PROJEKT_NR VARCHAR(100) NOT NULL COMMENT 'Eindeutige Code des Projektes aus ePPM. ',
+	DAT_VON DATE NOT NULL COMMENT 'Beginn der Gültigkeit, Teil der DWH-Historisierung.',
+	DAT_BIS DATE NOT NULL COMMENT 'Ende der Gültigkeit, Teil der DWH-Historisierung.',
+	WUP_ID NUMBER(38,0) COMMENT 'Mutter Wup_2 ID wird verwendet für Beziehung Lager zu Verteilzentrum',
+	NB_ID NUMBER(38,0) COMMENT 'Im bisherigen System die 4 Stelle der Marktnummer die Nebenbetriebskennziffer',
+	PSP_NR VARCHAR(20) COMMENT 'PSP-Nummer des Projektes.',
+	PROJEKT_STATUS_ID NUMBER(38,0) NOT NULL COMMENT 'ID des Projektstatus.',
+	PSP_STATUS_ID NUMBER(38,0) NOT NULL COMMENT 'ID des Status_2 des Buchungselementes (entspricht der PSP_NR). Kann vom Status_2 des Projektes abweichen.',
+	PROJEKT_NAME VARCHAR(100) COMMENT 'Name des Projektes.',
+	PROJEKT_LAND_ID VARCHAR(2) NOT NULL COMMENT 'Alphanumerischer Code des Landes in dem das Projekt stattfindet.',
+	PROJEKTTYP_ID NUMBER(38,0) COMMENT 'ID des Projekttyps',
+	PROJEKTART_CD VARCHAR(20) NOT NULL COMMENT 'Alphanumerischer Coder der Projektart',
+	PROJEKT_REGION_NAME VARCHAR(100) COMMENT 'Name der Region_2 innerhalb des Landes in dem das Projekt stattfindet. Entsprich nicht den politischen Regionen, bspw. Bundesländer.',
+	PROJEKT_PLZ_NR VARCHAR(40) COMMENT 'Nummer der Postleitzahl in dem das Projekt statfindet.',
+	PROJEKT_STANDORT_NAME VARCHAR(100) COMMENT 'Name des Standortes an dem das Projekt stattfindet. Sollte in den meisten Fällen dem Namen der Stadt / der Gemeinde entsprechen.',
+	PROJEKT_STADTTEIL_NAME VARCHAR(100) COMMENT 'Name des Stadtteils in dem das Projekt stattfindet.',
+	PROJEKT_STRASSE_NAME VARCHAR(100) COMMENT 'Name der Straße an dem das Projekt stattfindet.',
+	PROJEKT_HAUS_NR VARCHAR(40) COMMENT 'Hausnummer an dem das Projekt in der Straße stattfindet.',
+	PROJEKT_BEMERKUNG_TXT VARCHAR(1000) COMMENT 'Freitext für projektbezogene Bemerkungen.',
+	DAT_STORNO DATE COMMENT 'Datum des Storno sollte ein Projekt nachträglich storniert werden.',
+	GJ_PLAN_EROEFFNUNG NUMBER(38,0) COMMENT 'Geplantes Geschäftsjahr für die Eröffnung.',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	constraint PK_ZB_PROJEKT_PER primary key (MANDANT_ID, PROJEKT_NR, DAT_VON)
+)COMMENT='Enthält historisierte Stammdaten für Projekte im Bereich Zentralbereiche (ZB).'
+;

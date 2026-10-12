@@ -1,0 +1,1 @@
+select LAND_2,LBBSA,SOBKZ,XUMLME,XTRAME,XUMLMC  from dbp_etl.t156c_2 group by 1,2,3,4,5,6;

@@ -1,0 +1,23 @@
+create or replace TABLE LDL_DATA_PRODUCTION.ETL.T_WAWI_PRECORE_T920_DELITEMS_2 (
+	CTRCODE VARCHAR(3) NOT NULL COLLATE 'en-ci',
+	C920_BATCHNR NUMBER(10,0),
+	C920_BATCHDATE TIMESTAMP_NTZ(9),
+	C920_BATCHITEMNR NUMBER(10,0) NOT NULL,
+	C920_ITEMNR_SHORT VARCHAR(18),
+	C920_STATE NUMBER(10,0),
+	C920_CLOSED NUMBER(1,0),
+	C920_MODDATE TIMESTAMP_NTZ(9),
+	C920_MODUSER VARCHAR(8),
+	C920_ITEMDESC VARCHAR(100),
+	C920_ERRORTABLE VARCHAR(30),
+	C920_ERROR_MESSAGE VARCHAR(1000),
+	C920_RELEASED_BY VARCHAR(8),
+	C920_CREATED_BY VARCHAR(8),
+	C920_IDVALUE NUMBER(38,10),
+	SCN NUMBER(38,0) DEFAULT 0,
+	EXTRACTION_TMSP TIMESTAMP_NTZ(9),
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.'
+);

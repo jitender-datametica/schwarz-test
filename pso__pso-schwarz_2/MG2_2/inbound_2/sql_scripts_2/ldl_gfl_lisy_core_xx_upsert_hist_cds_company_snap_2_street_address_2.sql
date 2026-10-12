@@ -1,0 +1,84 @@
+INSERT INTO  ETL.${SRC2TGT_TEMP_TABLE1}_${SRC_CONTEXT_AREA}
+(
+        IGL_ISOCODE2,
+        IGL_CITY,
+        STREET_ADDR_NK,
+        STREET_ADDR_KEY_TYPE_CD,
+        COUNTRY_KEY_TYPE_CD,
+        ISO_COUNTRY_CD,
+        COUNTRY_NAME,
+        CITY_KEY_TYPE_CD,
+        CITY_NAME,
+        DISTRICT_KEY_TYPE_CD,
+        DISTRICT_NK,
+        POSTAL_CD_AREA_KEY_TYPE_CD,
+        ZIP,
+        STREET_NAME,
+        HOUSE_NR,
+        REPORTING_COUNTRY_KEY_TYPE_CD,
+        REPORTING_COUNTRY_CD,
+        SOURCE_SYSTEM,
+        EXTRACTION_DT,
+        DWH_MAPPING_TMSP,
+        TF_ERROR_FG,
+        DELETED_FG,
+        RECORD_ID,
+        FILENAME,
+        DWH_NODE_CD,
+        DWH_LOAD_ID
+)
+SELECT
+        SRC.IGL_ISOCODE2 AS IGL_ISOCODE2,
+        SRC.IGL_CITY AS IGL_CITY,
+        COALESCE(SRC.IGL_ISOCODE2, '') || '|' || COALESCE(SRC.IGL_CITY, '') || '|' || COALESCE(SRC.IGL_POSTALCODE, '') || '|' || COALESCE(SRC.IGL_STREET, '') || '|' || COALESCE(SRC.IGL_HOUSENUMBER, '') AS STREET_ADDR_NK,
+        'STAD' AS STREET_ADDR_KEY_TYPE_CD,
+        'CTRY' AS COUNTRY_KEY_TYPE_CD,
+        CASE
+            WHEN IGL_ISOCODE2 = 'NI' THEN 'GB'
+            ELSE IGL_ISOCODE2
+        END AS ISO_COUNTRY_CD,
+        CASE
+            WHEN IGL_ISOCODE2 = 'NI' THEN 'Vereinigtes Königreich'
+            ELSE CTRY.COUNTRY_NAME 
+        END AS COUNTRY_NAME,
+        'CITY' AS CITY_KEY_TYPE_CD,
+        SRC.IGL_CITY AS CITY_NAME,
+        'DSTR' AS DISTRICT_KEY_TYPE_CD,
+        NULL AS DISTRICT_NK,
+        'ZIP' AS POSTAL_CD_AREA_KEY_TYPE_CD,
+        SRC.IGL_POSTALCODE AS ZIP,
+        SRC.IGL_STREET AS STREET_NAME,
+        SRC.IGL_HOUSENUMBER AS HOUSE_NR,
+        'REP_CTRY' AS REPORTING_COUNTRY_KEY_TYPE_CD,
+        SRC.IGL_ISOCODE2 AS REPORTING_COUNTRY_CD,
+        'LISY' AS SOURCE_SYSTEM,
+        CURRENT_DATE AS EXTRACTION_DT,
+        SRC.EXTRACTION_TS AS DWH_MAPPING_TMSP,
+        0 AS TF_ERROR_FG,
+        0 AS DELETED_FG,
+        0 AS RECORD_ID,
+        't_${SRC_INPUT_TABLE}' AS FILENAME,
+        'LISY' AS DWH_NODE_CD,
+        '${LOAD_ID}' as DWH_LOAD_ID 
+FROM etl_process.t_${SRC_INPUT_TABLE} SRC
+LEFT JOIN CORE_REL.T_COUNTRY_2 CTRY
+ON SRC.IGL_ISOCODE2 = CTRY.ISO_COUNTRY_CD
+WHERE IGL_ISOCODE2 IS NOT NULL
+AND IGL_CITY IS NOT NULL
+AND DELETED <> 'x'
+-- ""Grossebersdorf"" is same as ""Großebersdorf"" when converted to UPPER
+-- so we eliminate such duplicates of NK by taking the longer ( ""ss"" instead of ""ß"")
+QUALIFY ROW_NUMBER() OVER 
+	(PARTITION BY SRC.IGL_ISOCODE2
+				   ||'|'|| UPPER(NVL(SRC.IGL_CITY, ''))
+				   ||'|'|| UPPER(NVL(SRC.IGL_POSTALCODE, ''))
+				   ||'|'|| UPPER(NVL(SRC.IGL_STREET, ''))
+				   ||'|'|| UPPER(NVL(SRC.IGL_HOUSENUMBER, ''))
+	ORDER BY LENGTH(SRC.IGL_ISOCODE2
+				   ||'|'|| UPPER(NVL(SRC.IGL_CITY, ''))
+				   ||'|'|| UPPER(NVL(SRC.IGL_POSTALCODE, ''))
+				   ||'|'|| UPPER(NVL(SRC.IGL_STREET, ''))
+				   ||'|'|| UPPER(NVL(SRC.IGL_HOUSENUMBER, ''))
+				   ),
+                                   SINKMODIFIEDON DESC) = 1
+;

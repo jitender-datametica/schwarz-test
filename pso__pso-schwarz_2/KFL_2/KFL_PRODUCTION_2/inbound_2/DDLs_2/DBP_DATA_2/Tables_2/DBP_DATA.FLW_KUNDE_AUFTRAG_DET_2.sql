@@ -1,0 +1,29 @@
+--==============================================================
+-- Table: flw_kunde_auftrag_det_2
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: flw_kunde_auftrag_det_2
+   generated from Powerdesigner on Monday, March 4, 2024 12:59:40 PM_2
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE DBP_DATA.FLW_KUNDE_AUFTRAG_DET_2 (
+   mandant_id                          NUMBER(38,0)     NOT NULL COMMENT 'Mandant_2 im DWH',
+   verkaufs_beleg_id                   NUMBER(18,0)     NOT NULL COMMENT 'Eindeutige ID des Verkaufsbelegs aus vbeln. Referenziert auf flw_besch_faktura_det.vorlage_beleg_id',
+   verkaufs_beleg_pos_id               NUMBER(38,0)     NOT NULL COMMENT 'Belegposition aus posnr',
+   flw_art_id                          NUMBER(38,0)     NOT NULL COMMENT 'Im DWH erzeugter numerischer Schlüssel für die Artikelnummer.',
+   verk_menge_einh_id                  VARCHAR(3)       NOT NULL COLLATE 'en-ci' COMMENT 'ID der alternativen Mengeneinheit aus meinh',
+   menge_auftrag_vme_kum               NUMBER(18,3)     NOT NULL COMMENT 'Kumulierte Auftragsmenge in VME aus kwmeng',
+   menge_bes_bme_kum                   NUMBER(18,3)     NOT NULL DEFAULT 0 COMMENT 'Kumulierte bestätigte Menge in Basismengeneinheit aus klmeng',
+   system_id                           NUMBER(38,0)     NOT NULL COMMENT 'Spezifiziert das Quellsystem, aus dem die Daten kommen.',
+   werk_id                             NUMBER(38,0)     COMMENT 'Numerischer Surrogate key für das Werk werks',
+   absagegrund_id                      VARCHAR(2)       COLLATE 'en-ci' COMMENT 'ID des Absagegrunds für Kundenaufträge. Quelle ist das Feld abgru. Referenz zur Tabelle flw_l_absagegrund_2',
+   nettogew                            NUMBER(18,3)     NOT NULL DEFAULT 0 COMMENT 'Nettogewicht in KG aus ntgew',
+   wert_ek_netto                       NUMBER(18,4)     NOT NULL DEFAULT 0 COMMENT 'Nettowert der Kundenauftragsposition in Belegwährung aus netwr',
+   zwsum_2_betrag                      NUMBER(18,4)     NOT NULL DEFAULT 0 COMMENT 'Konditionszwischensumme 2 aus dem Kalkulationsschema aus kzwi2',
+   zwsum_4_betrag                      NUMBER(18,4)     NOT NULL DEFAULT 0 COMMENT 'Konditionszwischensumme 4 aus dem Kalkulationsschema aus kzwi4 ',
+   sap_art_id_kunde                    VARCHAR(20)      COLLATE 'en-ci' COMMENT 'Materialnummer des Kunden aus dem Quellfeld kdmat. Entspricht immer einer Kaufland-Artikelnummer. Da der Mandant_2 des Kunden unbekannt ist, kann keine Verbindung über Stammdaten hergestellt werden',
+   TD_UPDATE                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   TD_INSERT                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   CONSTRAINT PK_FLW_KUNDE_AUFTRAG_DET PRIMARY KEY (mandant_id, verkaufs_beleg_id, verkaufs_beleg_pos_id) NOT ENFORCED
+)  COMMENT = 'FLW - Verkaufsbeleg Positionsdaten aus vbap';
+

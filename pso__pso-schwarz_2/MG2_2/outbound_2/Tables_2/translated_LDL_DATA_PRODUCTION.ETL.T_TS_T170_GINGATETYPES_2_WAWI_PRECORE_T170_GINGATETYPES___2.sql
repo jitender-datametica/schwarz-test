@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t_ts_t170_gingatetypes_2_wawi_precore_t170_gingatetypes___2 (
+ctrcode STRING(3) COLLATE 'und:ci',
+wh_nr INTEGER,
+c170_gatetypeid INTEGER,
+c170_gatetype STRING(33),
+c170_show_pallets INTEGER,
+c170_check_temp INTEGER,
+c170_mult_bb_date INTEGER,
+c170_mult_pal_fact INTEGER,
+c170_def_task_type INTEGER,
+c170_rcv_lane INTEGER,
+scn INTEGER,
+extraction_tmsp DATETIME,
+dwh_load_id INTEGER,
+record_id STRING(1000),
+deleted_fg BOOL,
+error_descr STRING(1000),
+filename STRING(1000),
+hist_row_no STRING(1000),
+dwh_mapping_tmsp TIMESTAMP,
+error_fg INTEGER
+);

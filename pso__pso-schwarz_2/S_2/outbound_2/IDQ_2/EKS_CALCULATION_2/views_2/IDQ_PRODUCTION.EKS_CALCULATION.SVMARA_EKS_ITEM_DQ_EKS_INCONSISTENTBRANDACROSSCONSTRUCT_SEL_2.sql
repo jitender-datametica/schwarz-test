@@ -1,0 +1,51 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.svmara_eks_item_dq_eks_inconsistentbrandacrossconstruct_sel_2 (negotiatingcountry
+, buyershortsign, buyerfirstname, buyerlastname, zmatkl, articlefamily, ba_itemno, ba_description, sk_itemno,
+sk_description, itemid, itemno, articletype, description, markenart, supplierno, supplierdescription, zrelevantmdm,
+zsource, zactive) AS SELECT DISTINCT stmara_eks_item.znegotiatingcountry AS negotiatingcountry,
+ stmara_eks_item.buyershortsign,
+ stmara_eks_item.buyerfirstname,
+ stmara_eks_item.buyerlastname,
+ stmara_eks_item.zmatkl,
+ stmara_eks_item.articlefamily,
+ svmara_eks_item_ea_sk_ba_link.ba_itemno,
+ svmara_eks_item_ea_sk_ba_link.ba_description,
+ svmara_eks_item_ea_sk_ba_link.sk_itemno,
+ svmara_eks_item_ea_sk_ba_link.sk_description,
+ stmara_eks_item.itemid,
+ stmara_eks_item.itemno,
+ stmara_eks_item.zarticletype AS articletype,
+ stmara_eks_item.description_int AS description,
+ brandtype.description AS markenart,
+ IFNULL(supplier.intsupplierno, STEKS_SUPPLIER_1.intsupplierno) AS supplierno,
+ IFNULL(supplier.description, STEKS_SUPPLIER_1.description) AS supplierdescription,
+  CASE
+  WHEN xteks_basicinfo_reccountry.ziswawirelevant IS NULL
+  THEN stmara_eks_item.zrelevantmdm
+  ELSE xteks_basicinfo_reccountry.ziswawirelevant
+  END AS zrelevantmdm,
+ stmara_eks_item.zsource,
+ stmara_eks_item.zactive
+FROM idq_production_eks.supplier_2
+ RIGHT JOIN (idq_production_eks.supplier_2 AS STEKS_SUPPLIER_1 INNER JOIN idq_production_eks_calculation.steks_listingoverviewmax_2
+   AS STEKS_LISTINGOVERVIEWMAX_1 ON STEKS_SUPPLIER_1.supplierno = STEKS_LISTINGOVERVIEWMAX_1.supplierno RIGHT JOIN
+  idq_production_eks_calculation.svmara_eks_item_ea_sk_ba_link_2 ON STEKS_LISTINGOVERVIEWMAX_1.itemid =
+   svmara_eks_item_ea_sk_ba_link.sk_itemid RIGHT JOIN (idq_production_eks_calculation.stmara_eks_item_2 INNER JOIN (SELECT
+     zitem_ba
+    FROM idq_production_eks_calculation.stmara_eks_item_2
+    WHERE zarticletype = 'EA'
+     AND zactive = 1
+    GROUP BY zitem_ba
+    HAVING COUNT(DISTINCT brandtypeid) > 1) AS ITEMBA ON stmara_eks_item.zitem_ba = ITEMBA.zitem_ba INNER JOIN
+   idq_production_eks.brandtype_2 ON stmara_eks_item.brandtypeid = brandtype.brandtypeid) ON svmara_eks_item_ea_sk_ba_link_2
+   .ea_itemid = stmara_eks_item.itemid LEFT JOIN idq_production_eks_calculation.steks_listingoverviewmax_2 ON
+   stmara_eks_item.itemid = steks_listingoverviewmax.itemid) ON supplier.supplierno = steks_listingoverviewmax.supplierno
+  
+ LEFT JOIN idq_production_eks_calculation.xteks_basicinfo_reccountry_2 ON stmara_eks_item.itemno =
+    xteks_basicinfo_reccountry.itemno AND steks_listingoverviewmax.listingoverviewid = xteks_basicinfo_reccountry.listingoverviewid
+     AND supplier.supplierno = xteks_basicinfo_reccountry.supplierno
+ LEFT JOIN idq_production_eks_calculation.eks_zsm_excludelist_2 ON stmara_eks_item.itemno = eks_zsm_excludelist.itemno AND
+    (eks_zsm_excludelist.supplierno IS NULL OR IFNULL(supplier.intsupplierno, STEKS_SUPPLIER_1.intsupplierno) =
+      eks_zsm_excludelist.supplierno) AND eks_zsm_excludelist.reportno = '054'
+WHERE stmara_eks_item.zactive = 1
+ AND stmara_eks_item.zarticletype = 'EA'
+ AND eks_zsm_excludelist.itemno IS NULL;

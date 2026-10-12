@@ -1,0 +1,4 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_flw_materialized.mv_l_l_lieferposition_typ_2 (
+mandant_id INTEGER,
+lief_pos_typ_id STRING(4) COLLATE 'und:ci'
+);

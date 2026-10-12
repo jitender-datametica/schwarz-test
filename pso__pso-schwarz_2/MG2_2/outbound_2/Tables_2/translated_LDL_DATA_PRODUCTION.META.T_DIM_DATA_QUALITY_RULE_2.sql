@@ -1,0 +1,73 @@
+CREATE OR REPLACE TABLE ldl_data_production_meta.t_dim_data_quality_rule_2 (
+test_sid INTEGER NOT NULL OPTIONS(description='The unique identifier (surrogate key) for a data quality rule.'),
+dwh_valid_from_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record became valid.'),
+dwh_valid_to_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was no longer valid.'),
+dwh_valid_fg BOOL NOT NULL
+OPTIONS(description='An indicator showing the current record, i.e. where the current date is between dwh_valid_from and dwh_valid_to.'),
+dq_rule_name STRING(250) NOT NULL OPTIONS(description='The name by which the data quality rule has been defined.'),
+dq_rule_descr STRING(250)
+OPTIONS(description='A free text describing the character and purpose of the data quality rule.'),
+dq_rule_type_cd STRING(20) NOT NULL
+OPTIONS(description='A code for the subtype discriminators for data quality rules. It distinguishes between business rules, generated and parametrized rules.'),
+dq_rule_type_descr STRING(250) NOT NULL
+OPTIONS(description='A textual description for the subtype discriminators for data quality rules. It distinguishes between business rules, generated and parametrized rules.'),
+dq_rule_template_sid INTEGER NOT NULL
+OPTIONS(description='The unique identifier (surrogate key) for the template which was used to generate a formal data quality rule.'),
+dq_rule_template_name STRING(100) NOT NULL
+OPTIONS(description='The name of the template script which was used to generate a formal data quality rule.'),
+tested_sys_name STRING(100) NOT NULL
+OPTIONS(description='This test_2 targets a table. This attribute contains the name of the IT system in which this table resides.'),
+tested_db_name STRING(100) NOT NULL
+OPTIONS(description='This test_2 targets a table. This attribute contains the name of the database in which this table resides.'),
+tested_schema_name STRING(100) NOT NULL
+OPTIONS(description='This test_2 targets a table. This attribute contains the name of the schema in which this table resides.'),
+tested_table_sid INTEGER NOT NULL
+OPTIONS(description='The unique identifier (surrogate key) of the table which is the target of this test. In case the data quality check works on a view, then this is the underlying table. If the view uses multiple tables, this is the primary table.'),
+tested_table_name STRING(250) NOT NULL
+OPTIONS(description='The name of the table, which is the target of this test. In case the data quality check works on a view, then this is the underlying table. If the view uses multiple tables, this is the primary table.'),
+test_origin_cd STRING(20) NOT NULL
+OPTIONS(description='The code identifying the operational source which defines the test.'),
+test_origin_descr STRING(250) NOT NULL
+OPTIONS(description='A textual description for the operational source which defines the test.'),
+test_lifecycle_status_cd STRING(20) NOT NULL
+OPTIONS(description='The code identifying the lifecycle status_2 of a test. E.g. draft, approved, expired, ...'),
+test_lifecycle_status_descr STRING(250) NOT NULL
+OPTIONS(description='A textual description for the lifecycle status_2 of a test.'),
+scheduling_freq_cd STRING(20) NOT NULL
+OPTIONS(description='A code defining, how often the data quality rule is executed. E.g daily, weekly, ...'),
+scheduling_freq_descr STRING(250) NOT NULL OPTIONS(description='A textual description for the scheduling frequency.'),
+dq_dimension_cd STRING(20) NOT NULL
+OPTIONS(description='A code identifying the basic aspect by which data quality is measured. E.g. correctness, timeliness, completeness, consistency, etc.'),
+dq_dimension_name STRING(100) NOT NULL
+OPTIONS(description='The name of the basic aspect by which data quality is measured. E.g. correctness, timeliness, completeness, consistency, etc.'),
+dq_rule_src_cd STRING(20) NOT NULL
+OPTIONS(description='The code identifying the origin of the data quality rule. A rule may be defined by business or by the data modelling team or because of a formal guideline, such as checking all foreign keys for referential integrity violations. (Note that the origin of a data quality rule is independent from the way how it is implemented, i.e. as a generated rule, a parametrized rule or as a business rule.)'),
+dq_rule_src_descr STRING(250) NOT NULL
+OPTIONS(description='A textual description for the origin of the data quality rule.'),
+dq_rule_criticality_lvl_cd STRING(20) NOT NULL
+OPTIONS(description='The code identifying the criticality level for a data quality rule. E.g. high, medium, low.'),
+dq_rule_criticality_lvl_descr STRING(250) NOT NULL
+OPTIONS(description='A textual description for the criticality level for a data quality rule. E.g. high, medium, low.'),
+dq_project_cd STRING(20) NOT NULL OPTIONS(description='The code identifying the data quality project.'),
+dq_project_name STRING(100) NOT NULL OPTIONS(description='The name by which the data quality project is known.'),
+rule_prio INTEGER
+OPTIONS(description='Optionally, a weight can be assigned to a data quality rule. In an aggregation the results of the rule are weighted accordingly.'),
+sql_txt STRING(32000) OPTIONS(description='The SQL statement which runs the data quality check.'),
+rwi_sql_txt STRING(32000)
+OPTIONS(description='The SQL statement which selects those records from the tested data structure which violate the data quality rule.'),
+rwi_cond_sql_txt STRING(32000)
+OPTIONS(description='The SQL statement which selects those records from the tested data structure which violate the data quality rule. The statement contains an additional condition which limits the number of records to those ones that are of highest interest, e.g. to the most recent ones.'),
+comment_txt STRING(1000) OPTIONS(description='A free text comment to the data quality rule.'),
+dwh_created_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was created in the data warehouse.'),
+dwh_updated_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was created or last updated.'),
+dwh_load_id INTEGER NOT NULL
+OPTIONS(description='The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)'),
+dwh_node_cd STRING(20) NOT NULL
+OPTIONS(description='The code for the source system (or slice of source system) from which this record was loaded.'),
+PRIMARY KEY (test_sid, dwh_valid_from_tmsp) NOT ENFORCED
+)
+OPTIONS(description='A data quality rule checks, if records conform to a certain condition. E.g. prices must be positive, or referential integrity. A data quality rule returns the number of records that have passed the check, and the number of records which have failed the check.');

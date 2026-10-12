@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_log.mv_l_transport_gv_2 (transport_gv_id) AS SELECT transport_gv_id
+FROM kfl_production_dbp_view.v_l_transport_gv_2
+GROUP BY transport_gv_id;

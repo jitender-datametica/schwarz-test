@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_bakeoff_oven_event_2 (client_id, loc_sid_wh, loc_sid_store, oven_id, oven_ip,
+oven_brand, event_tmsp, event_index, device_type, baking_prog_id, baking_prog_descr, manual_intervention_fg,
+event_type_id, event_type_descr, parameter_id, parameter_descr, oven_temperature_expected_val, oven_temperature_real_val
+, steam_generator_temperature_real_val, operating_state_id, operating_state_descr, dwh_cal_dt, dwh_load_id, dwh_created
+, dwh_updated) AS SELECT *
+FROM ldl_p_lew_core.t_bakeoff_oven_event_2;

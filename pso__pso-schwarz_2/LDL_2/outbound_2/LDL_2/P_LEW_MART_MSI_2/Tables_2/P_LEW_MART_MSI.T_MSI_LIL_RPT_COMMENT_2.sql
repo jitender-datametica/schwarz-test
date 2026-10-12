@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_msi.t_msi_lil_rpt_comment_2 (
+story_id STRING(256) NOT NULL,
+doc_id STRING(256) NOT NULL,
+version_id STRING(256) NOT NULL,
+user_name STRING(128) NOT NULL,
+client_id BIGNUMERIC(38,0),
+clnt_rtl_id BIGNUMERIC(38,0),
+rtl_brand_id BIGNUMERIC(38,0),
+per_tp_id BIGNUMERIC(38,0),
+per_id BIGNUMERIC(38,0),
+lift_cat_id BIGNUMERIC(38,0),
+liam_parnt_clnt_cat_id STRING(27) COLLATE 'und:ci',
+liam_clnt_cat_id STRING(27) COLLATE 'und:ci',
+prom_id BIGNUMERIC(38,0),
+meas_id BIGNUMERIC(38,0),
+currency_iso_cd STRING(3) COLLATE 'und:ci',
+comment_1 STRING(100) COLLATE 'und:ci',
+comment_2 STRING(100) COLLATE 'und:ci',
+comment_p STRING(200) COLLATE 'und:ci',
+show_report_fg BIGNUMERIC(38,0),
+cmt_unit_id BIGNUMERIC(38,0) NOT NULL,
+mod_tmsp DATETIME NOT NULL
+);

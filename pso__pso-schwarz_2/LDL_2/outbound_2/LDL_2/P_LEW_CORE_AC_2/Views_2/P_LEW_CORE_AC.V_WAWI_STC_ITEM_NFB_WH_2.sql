@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_wawi_stc_item_nfb_wh_2 (client_id, wh_loc_sid, item_sid, dat_formdate, pos_nr,
+pos_nr_link, nfb_type_cd, qty_case_nfb, dat_dayend, price_retail, price_retail_net, val_vat, price_buying,
+dat_modification, load_id) AS SELECT client_id,
+ wh_loc_sid,
+ item_sid,
+ dat_formdate,
+ pos_nr,
+ pos_nr_link,
+ nfb_type_cd,
+ qty_case_nfb,
+ dat_dayend,
+ price_retail,
+ price_retail_net,
+ val_vat,
+ price_buying,
+ dat_modification,
+ load_id
+FROM ldl_p_lew_core.t_wawi_stc_item_nfb_wh_2;

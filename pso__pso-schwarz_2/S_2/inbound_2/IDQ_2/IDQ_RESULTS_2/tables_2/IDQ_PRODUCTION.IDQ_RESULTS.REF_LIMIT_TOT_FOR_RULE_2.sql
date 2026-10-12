@@ -1,0 +1,5 @@
+create or replace TABLE IDQ_PRODUCTION.IDQ_RESULTS.REF_LIMIT_TOT_FOR_RULE_2 (
+	ID NUMBER(38,0) NOT NULL autoincrement start 1 increment 1 order,
+	RULE_ID NUMBER(38,0) NOT NULL,
+	constraint PK_REF_LIMIT_TOT_FOR_RULE primary key (ID)
+);

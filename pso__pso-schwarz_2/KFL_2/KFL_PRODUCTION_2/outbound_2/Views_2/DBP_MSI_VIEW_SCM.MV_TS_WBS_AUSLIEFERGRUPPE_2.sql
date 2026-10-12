@@ -1,0 +1,23 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_ts_wbs_ausliefergruppe_2 (mandant_id, ausliefergruppe_id,
+ausliefergruppe_cluster_id, faktor_rest_von_normalbestand, berechnung_schwellwert_pal_abrundung_proz,
+berechnung_schwellwert_pal_aufrundung_proz, berechnung_kolli_rundung_proz, nachversorgung_schwellwert_pal_abrundung_proz
+, nachversorgung_schwellwert_pal_aufrundung_proz, nachversorgung_kolli_rundung_proz, faktor_max_kapa_endbestand,
+faktor_bestand_betrachtung, erweiterung_bedarfshorizont_tage, menge_zielendbestand_schwellwert_ame) AS SELECT mandant_id
+ ,
+ ausliefergruppe_id,
+ ausliefergruppe_cluster_name AS ausliefergruppe_cluster_id,
+ MAX(rest_von_normalbestand_proz) AS faktor_rest_von_normalbestand,
+ MAX(berechnung_schwellwert_pal_abrundung_proz) AS schwellwert_pal_abrundung_proz,
+ MAX(berechnung_schwellwert_pal_aufrundung_proz) AS schwellwert_pal_aufrundung_proz,
+ MAX(berechnung_kolli_rundung_proz) AS kolli_rundung_proz,
+ MAX(nachversorgung_schwellwert_pal_abrundung_proz) AS nachversorgung_schwellwert_pal_abrundung_proz,
+ MAX(nachversorgung_schwellwert_pal_aufrundung_proz) AS nachversorgung_schwellwert_pal_aufrundung_proz,
+ MAX(nachversorgung_kolli_rundung_proz) AS nachversorgung_kolli_rundung_proz,
+ MAX(max_kapa_endbestand_proz) AS faktor_max_kapa_endbestand,
+ MAX(bestand_betrachtung_proz) AS faktor_bestand_betrachtung,
+ MAX(erweiterung_bedarfshorizont_tage) AS erweiterung_bedarfshorizont_tage,
+ MAX(menge_zielendbestand_schwellwert_ame) AS zielendbestand_schwellwert_ame
+FROM kfl_production_dbp_view.v_ts_wbs_ausliefergruppe_2 AS V01
+GROUP BY mandant_id,
+ ausliefergruppe_id,
+ ausliefergruppe_cluster_id;

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_log.mv_l_lager_bewart_prompt_2 (lager_bewart_id) AS SELECT
+ lager_bewart_id
+FROM kfl_production_dbp_view.v_l_lager_bewart_2 AS V01
+WHERE system_id NOT IN (2, 17, 28, 32, 48, 53)
+GROUP BY lager_bewart_id;

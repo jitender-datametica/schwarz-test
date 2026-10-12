@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_RPW.MV_RECH_KONTOART_SPR_ZU_2
+    (
+    system_id
+    ,mandant_id
+    ,rech_kontoart_id
+    ,spr_id
+    ,rech_kontoart_bez
+    )
+    AS
+       SELECT
+       7,
+       mandant_id,
+       rech_kontoart_id,
+       spr_id,
+       rech_kontoart_bez
+       FROM dbp_view.v_rech_kontoart_spr_zu_2
+       WHERE mandant_id = 1
+       AND  spr_id = 22
+
+       UNION ALL
+
+       SELECT
+       7,
+       1,
+       '0',
+       22,
+       'system generated'
+       FROM dbp_view.v_rech_kontoart_spr_zu_2
+       GROUP BY 1,2,3,4
+ ;

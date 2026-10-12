@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_zeit_30min_2 (zeit_stunde, zeit_30min, zeit_30min_bez) AS SELECT
+ zeit_stunde,
+ zeit_minute AS zeit_30min,
+   zeit_von || '-' || zeit_bis_30min AS zeit_30min_bez
+FROM kfl_production_dbp_view.v_zeit_2
+WHERE zeit_minute IN (0, 30);

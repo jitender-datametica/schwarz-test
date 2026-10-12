@@ -1,0 +1,133 @@
+CREATE OR REPLACE VIEW P_LEW_MART_MSI.V_ITM_ITEM_HIST_2 AS
+   /* 	
+   #DescStart# 	
+   #$Revision: 6244 $, $LastChangedBy: hwieber $ 
+   # 03.01.2025    Yeddulapalli, Bharat          AP0097106: ADO 703883: Nettogewicht   
+   #SubjectAreas#: Artikelstamm 	
+   #DescEnd# 	
+   */	
+   SELECT	
+   client_id	
+  , item_sid AS item_id	
+  , dat_rec_start	
+  , dat_rec_end	
+  , dat_valid_from	
+  , add_docs_fg	
+  , additions	
+  , age_fg	
+  , beverage_tax	
+  , brand_name	
+  , buyer_id	
+  , buyer_name	
+  , COALESCE(buying_list_type_id, -1) AS buying_list_type_id	
+  , CASE WHEN buying_list_type_id IS NULL THEN 'Dummy_2-Artikelart' ELSE buying_list_type_desc END AS buying_list_type_desc	
+  , buying_list_orderset_nr
+  , qty_min_piece_ordering	
+  , buyer_name_int	
+  , contract_country_cd	
+  , case_dd	
+  , case_depth	
+  , case_euro	
+  , case_layer	
+  , case_plu_fg	
+  , case_height
+  , case_size	
+  , case_size_dec	
+  , case_volume	
+  , case_weight
+  , case_width	
+  , commodity_cd	
+  , cont_deposit_item_nr	
+  , consumption_tax_main_id	
+  , consumption_tax_sub_id	
+  , country_cd	
+  , dangerous_goods_fg	
+  , dat_adv	
+  , dat_delisting	
+  , dat_listing	
+  , dat_min_shelflifetest_fg	
+  , delisting_fg	
+  , delivery_temp	
+  , val_deposit	
+  , direct_delete_mde_fg	
+  , discount_fg	
+  , dualsystem_fg	
+  , dur_shelflife_wh	
+  , dur_shelflife_cust	
+  , dur_shelflife_store	
+  , factor_period_cust	
+  , factor_period_store	
+  , factor_period_wh	
+  , food_fg	
+  , forwarding_item_nr	
+  , int_subitemgroup_id	
+  , item_familygroup_id	
+  , item_parts	
+  , item_parts_cd	
+  , item_plu_nr	
+  , item_short_desc_1	
+  , item_short_desc_2	
+  , item_text_1	
+  , item_text_2	
+  , item_text_3	
+  , item_short_desc_3	
+  , item_version	
+  , lidl_buying_country_cd	
+  , listing_fg	
+  , logistic_unit_cd	
+  , max_receive_temp	
+  , mdessp_fg	
+  , minus_fg	
+  , min_case_layer	
+  , min_case_dd	
+  , min_case_euro	
+  , min_case_orderunit	
+  , min_receive_temp	
+  , net_piece_weight	
+  , net_case_weight	
+  , order_area_cd	
+  , orig_item_nr_int	
+  , package_qty	
+  , packing	
+  , pct_discount	
+  , pct_consumption_tax	
+  , period_id_shelflife_cust	
+  , period_id_shelflife_store	
+  , period_id_shelflife_wh	
+  , piece_depth	
+  , piece_height	
+  , piece_width	
+  , piece_volume	
+  , piece_weight
+  , piece_net_weight_kg_meas  AS piece_net_weight   
+  , poster_fg	
+  , price_sign_fg	
+  , price_strip_fg	
+  , qty_consumption_tax_add	
+  , res_selltime	
+  , reusable_fg	
+  , scale_fg	
+  , season_fg	
+  , smallest_orderunit	
+  , smallest_unit	
+  , stock_capacity	
+  , status_id_hq	
+  , subitemgroup_id
+  , tax_refund_fg	
+  , taxation	
+  , type_cd	
+  , type_receive_temp_fg	
+  , unitsize	
+  , val_consumption_tax	
+  , vat_id	
+  , wallow_nr	
+  , weight	
+  , weight_item_fg	
+  , write_off	
+  , wg_fg	
+  , packagetype_desc	
+  , COALESCE(item_actiongroup_id, -1) AS item_actiongroup_id	
+  , COALESCE(item_sub_actiongroup_id, -1) AS item_sub_actiongroup_id	
+  , load_id	
+   FROM p_lew_core_ac.v_wawi_itm_item_2	
+;

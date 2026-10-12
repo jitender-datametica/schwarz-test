@@ -1,0 +1,31 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_INVENTUR_DET_2 AS 
+    SELECT 
+        inv_beleg_id
+        ,gj
+        ,inv_beleg_pos_id
+        ,mandant_id
+        ,dat_letzt_zaehl
+        ,lagerort_id
+        ,dat_buch
+        ,wup_id
+        ,nb_id
+        ,art_id
+        ,lagerbew_beleg_id
+        ,lagerbew_beleg_pos_id
+        ,kj
+        ,erfsngs_menge_einh_id
+        ,menge_erf
+        ,menge_buch
+        ,menge_zaehl
+        ,wert_diff_inv
+        ,wert_vk_brutto
+        ,wert_vk_extern
+        ,wert_vk_netto
+        ,vk_inventur_diff_brutto
+        ,vk_inventur_diff_netto
+        ,wert_zaehl
+        ,wert_menge_buch
+        ,nullzaehl_fg
+        ,beleg_erfasser_id
+        ,wrg_id
+FROM DBP_DATA.inventur_det_2 ;

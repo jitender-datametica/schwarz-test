@@ -1,0 +1,13 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_AIS_INT.JAVA_SPRACHEN_2
+(
+SPR_ID,
+SPR_NAME,
+SPR_ISO
+) 
+AS
+SELECT
+spr_id,
+spr_name,
+spr_iso
+FROM dbp_view.v_spr_2
+WHERE dwh_spr = 1;

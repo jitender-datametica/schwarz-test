@@ -1,0 +1,23 @@
+create or replace view PROCESS_MINING_PRODUCTION.EVAL.T_U_REQUEST_DEDUP_L3_2(
+	ADDITIONAL_ASSIGNEE_LIST,
+	ASSIGNED_TO,
+	CLOSED_BY,
+	OPENED_BY,
+	U_ASSIGNED_TO_HISTORY,
+	U_CALLER,
+	U_CALLER_COUNTRY,
+	U_COMPLETED_BY,
+	U_CURRENT_OBV,
+	U_PERSONAL_DATA,
+	U_SERVICE_MANAGER,
+	U_UPDATE_USER_HISTORY,
+	U_UPDATED_BY,
+	WORK_NOTES_LIST,
+	SYS_ID,
+	SYS_UPDATED_ON,
+	SEQNUM
+) as
+select *
+from ( select *, row_number() over (partition by sys_id order by sys_updated_on desc) as seqnum
+from PROCESS_MINING_PRODUCTION.ETL.T_U_REQUEST_L3_2)
+where seqnum = 1;

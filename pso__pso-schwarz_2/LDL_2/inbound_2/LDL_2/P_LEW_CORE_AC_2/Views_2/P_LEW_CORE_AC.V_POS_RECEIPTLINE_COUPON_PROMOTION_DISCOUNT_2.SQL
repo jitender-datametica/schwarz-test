@@ -1,0 +1,81 @@
+CREATE OR REPLACE VIEW P_LEW_CORE_AC.v_pos_receiptline_coupon_promotion_discount_2
+     (
+   client_id
+   , loc_sid
+   , item_sid
+   , curr_sid
+   , uom_sid
+   , register_id
+   , receipt_id
+   , receipt_dt
+   , receipt_tmsp
+   , receiptline_nr
+   , transaction_type_cd
+   , timezone_id
+   , ean_barcode
+   , main_item_grp_cd
+   , weight_item_fg
+   , turnover_relevant_fg
+   , sales_fg
+   , deposit_fg
+   , discount_sid
+   , discount_val
+   , discount_base_val
+   , discount_weight_qty
+   , discount_piece_qty
+   , vat_pct_val
+   , vat_val
+   , tax_class_cd
+   , void_fg
+   , receiptline_voided
+   , receiptline_voided_by
+   , return_fg
+   , return_reason_cd
+   , dwh_cal_dt
+   , dwh_load_id
+   , dwh_created
+   , dwh_updated
+
+
+)
+AS 
+SELECT
+    
+   client_id
+   , loc_sid
+   , item_sid
+   , curr_sid
+   , uom_sid
+   , register_id
+   , receipt_id
+   , receipt_dt
+   , receipt_tmsp
+   , receiptline_nr
+   , transaction_type_cd
+   , timezone_id
+   , ean_barcode
+   , main_item_grp_cd
+   , weight_item_fg
+   , turnover_relevant_fg
+   , sales_fg
+   , deposit_fg
+   , discount_sid
+   , discount_val
+   , discount_base_val
+   , discount_weight_qty
+   , discount_piece_qty
+   , vat_pct_val
+   , vat_val
+   , tax_class_cd
+   , void_fg
+   , receiptline_voided
+   , receiptline_voided_by
+   , return_fg
+   , return_reason_cd
+   , dwh_cal_dt
+   , dwh_load_id
+   , dwh_created
+   , dwh_updated
+
+FROM P_LEW_CORE.t_pos_receiptline_coupon_promotion_discount_2
+;

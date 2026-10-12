@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_artb_ku_tag_abt_wup_sum_2 AS SELECT mandant_id,
+ nb_id,
+ wup_id,
+ wrg_id AS umsatz_wrg,
+ arthiertyp_id,
+ abt_id,
+ dat,
+ kjmo,
+ kjwo,
+ ums_netto AS umsatz_netto,
+ ums_netto_wvj AS umsatz_netto_vj,
+ ums_netto_wvvj AS umsatz_netto_vvj,
+ ums_netto_kvj AS umsatz_netto_kvj,
+ ums_netto_kvvj AS umsatz_netto_kvvj
+FROM kfl_production_dbp_msi_v_view.v_vis_tag_umsatz_abt_2 AS V01;

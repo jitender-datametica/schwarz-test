@@ -1,0 +1,42 @@
+CREATE OR REPLACE VIEW FE_MSTR_MASTER.V_FACT_TURNOVER_BY_STORE_DAY_QTR_HR_2(
+cal_dt COMMENT 'The business date to which the measures are related.'
+,store_sid COMMENT 'Th,e unique identifier (surrogate key) for a store.'
+,country_org_cd COMMENT 'The code of the business country_2 for which this country_2 organization is responsible. (The business country_2 is not identical to a political country.)'
+,hr COMMENT ' The hour of day, i.e.a number in the range from 0 to 23.'
+,half_hr COMMENT 'The unique identifier for a half-hour interval. Format: hhmm, indicating the begin time of the half-hour interval, with hh being the hour component and mm_2 the minute component.'
+,qtr_hr COMMENT 'The unique identifier for a quarter-hour interval. Format: hhmm, indicating the begin time of the quarter-hour interval, with hh being the hour component and mm_2 the minute component.'
+,turnover_net_val COMMENT 'The net turnover which was generated for that store on the given day. (This is the consolidated amount after applying the priority logic.)'
+,turnover_gross_val COMMENT 'The gross turnover which was generated for that store on the given day. (This is the consolidated amount after applying the priority logic.)'
+,curr_cd COMMENT 'The code identifying the currency according to ISO-4217.'
+,curr_group_fg COMMENT 'Flag for Group Currency'
+,curr_local_fg COMMENT 'Flag for Local Currency'
+,receipt_cnt COMMENT 'The number of sales_2 transactions (i.e. the number of receipts) which have been performed in that store on the given day. (This is the consolidated amount after applying the priority logic.)'
+) COMMENT='The Store day quarter hour level view for Turnover and customer count based on event tables' AS SELECT 
+main.bus_dt AS cal_dt
+,main.store_sid AS store_sid
+,main.country_org_cd AS country_org_cd
+,HOUR(main.event_end_tmsp)::NUMBER(38,0) AS hr
+,HOUR(main.event_end_tmsp) * 100 + FLOOR(MINUTE(main.event_end_tmsp) / 30 ) * 30::NUMBER(38,0) AS half_hr
+,HOUR(main.event_end_tmsp) * 100 + FLOOR(MINUTE(main.event_end_tmsp) / 15 ) * 15::NUMBER(38,0) AS qtr_hr
+,SUM(main.retail_line_net_val / fer.exchange_rate) AS turnover_net_val
+,SUM(main.retail_line_gross_val / fer.exchange_rate) AS turnover_gross_val
+,fer.src_curr_cd AS curr_cd
+,DECODE(fer.src_curr_cd,'EUR',1,0) AS curr_group_fg
+,DECODE(fer.src_curr_cd,fer.tgt_curr_cd,1,0) AS curr_local_fg
+,COUNT(DISTINCT main.retail_event_sid) AS receipt_cnt
+FROM CORE_REL.T_PRODUCT_RETAIL_LINE_2 main
+INNER JOIN  CORE_DIM.T_FACT_EXCHANGE_RATE_2 fer
+ON main.curr_cd = fer.tgt_curr_cd
+WHERE exchange_rate_type_cd = 'BEW_ISK'
+AND (fer.src_curr_cd = 'EUR' OR fer.src_curr_cd = fer.tgt_curr_cd)
+AND fer.active_fg = TRUE
+AND main.turnover_relevant_fg = TRUE
+GROUP BY main.bus_dt 
+,main.store_sid 
+,main.country_org_cd 
+,hr
+,half_hr 
+,qtr_hr
+,fer.src_curr_cd
+,curr_group_fg
+,curr_local_fg;

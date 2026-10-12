@@ -1,0 +1,6 @@
+CREATE TABLE meta.t_srg_uom_sid_2(
+   uom_sid NUMBER AUTOINCREMENT,
+   uom_cd VARCHAR(5),
+   SRC_TABLE_NAME	VARCHAR(250),
+   DWH_CREATED_TMSP	TIMESTAMP_LTZ(9)
+);

@@ -1,0 +1,27 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_aad.mv_ods_bon_transaction_2 (bon_id, bon_dat, wup_id, mandant_id,
+kasse_nr, bon_beginn, datei_name, kassierer_nr, cancel_fg, transaction_name, bon_nr, bon_ende, bon_booking, suspended_fg
+, training_fg, kasse_typ_id, kpos_kasse_typ, kassensystem_name, kpos_transaction_name, kpos_transaction_status,
+dat_booking, bon_nr_fiscal) AS SELECT V01.bon_id,
+ V01.bon_dat,
+ V02.aktuell_wup_id AS wup_id,
+ V01.mandant_id,
+ V01.kasse_nr,
+ V01.bon_beginn,
+ V01.datei_name,
+ V01.kassierer_nr,
+ V01.cancel_fg,
+ V01.transaction_name,
+ V01.bon_nr,
+ V01.bon_ende,
+ V01.bon_booking,
+ V01.suspended_fg,
+ V01.training_fg,
+ V01.kasse_typ_id,
+ V01.kpos_kasse_typ,
+ V01.kassensystem_name,
+ V01.kpos_transaction_name,
+ V01.kpos_transaction_status,
+ V01.dat_booking,
+ V01.bon_nr_fiscal
+FROM kfl_production_dbp_v_ods.v_ods_bon_transaction_2 AS V01
+ INNER JOIN kfl_production_dbp_view.v_wup_2 AS V02 ON V01.wup_id = V02.wup_id AND V01.mandant_id = V02.mandant_id;

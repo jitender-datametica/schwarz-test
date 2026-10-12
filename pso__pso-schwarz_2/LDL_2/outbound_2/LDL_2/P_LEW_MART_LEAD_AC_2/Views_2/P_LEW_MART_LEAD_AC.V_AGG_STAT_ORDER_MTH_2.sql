@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead_ac.v_agg_stat_order_mth_2 (client_id, cy_month, py_month, currency_iso_cd,
+curr_tot_id, order_cnt_stationary_mth, order_lin_cnt_stationary_mth, turnover_net_val_stationary_mth,
+plan_turnover_net_val_stationary_mth, order_cnt_stationary_pym, order_lin_cnt_stationary_pym,
+turnover_net_val_stationary_pym) AS SELECT client_id,
+ cy_month,
+ py_month,
+ currency_iso_cd,
+ curr_tot_id,
+ order_cnt_stationary_mth,
+ order_lin_cnt_stationary_mth,
+ turnover_net_val_stationary_mth,
+ plan_turnover_net_val_stationary_mth,
+ order_cnt_stationary_pym,
+ order_lin_cnt_stationary_pym,
+ turnover_net_val_stationary_pym
+FROM ldl_p_lew_mart_lead.t_agg_stat_order_mth_2;

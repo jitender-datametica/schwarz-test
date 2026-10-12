@@ -1,0 +1,24 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.svmara_eks_item_commodity_code_missingsel_2 (negotiatingcountry,
+buyershortsign, buyerfirstname, buyerlastname, zmatkl, articlefamily, itemid, itemno, articletype, description,
+supplierno, supplierdescription, zrelevantmdm, zsource, zactive) AS SELECT svmara_eks_item_commodity_code_missingsel_all_2
+ .negotiatingcountry,
+ svmara_eks_item_commodity_code_missingsel_all.buyershortsign,
+ svmara_eks_item_commodity_code_missingsel_all.buyerfirstname,
+ svmara_eks_item_commodity_code_missingsel_all.buyerlastname,
+ svmara_eks_item_commodity_code_missingsel_all.zmatkl,
+ svmara_eks_item_commodity_code_missingsel_all.articlefamily,
+ svmara_eks_item_commodity_code_missingsel_all.itemid,
+ svmara_eks_item_commodity_code_missingsel_all.itemno,
+ svmara_eks_item_commodity_code_missingsel_all.articletype,
+ svmara_eks_item_commodity_code_missingsel_all.description_int AS description,
+ svmara_eks_item_commodity_code_missingsel_all.supplierno,
+ svmara_eks_item_commodity_code_missingsel_all.supplierdescription,
+ svmara_eks_item_commodity_code_missingsel_all.zrelevantmdm,
+ svmara_eks_item_commodity_code_missingsel_all.zsource,
+ svmara_eks_item_commodity_code_missingsel_all.zactive
+FROM idq_production_eks_calculation.svmara_eks_item_commodity_code_missingsel_all_2
+ LEFT JOIN idq_production_eks_calculation.eks_zsm_excludelist_2 ON svmara_eks_item_commodity_code_missingsel_all.itemno =
+    eks_zsm_excludelist.itemno AND (eks_zsm_excludelist.supplierno IS NULL OR
+      svmara_eks_item_commodity_code_missingsel_all.supplierno = eks_zsm_excludelist.supplierno) AND eks_zsm_excludelist_2
+   .reportno = '022'
+WHERE eks_zsm_excludelist.itemno IS NULL;

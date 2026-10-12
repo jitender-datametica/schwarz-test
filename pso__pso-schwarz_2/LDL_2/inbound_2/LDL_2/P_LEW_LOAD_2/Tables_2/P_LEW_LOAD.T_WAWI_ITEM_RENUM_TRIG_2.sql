@@ -1,0 +1,7 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_WAWI_ITEM_RENUM_TRIG_2
+(
+  ORIG_LIST_NR    NUMBER(38)                    NOT NULL,
+  COUNTRY_ISO_CD  VARCHAR(3) COLLATE 'en-ci'    NOT NULL,
+  CLIENT_ID       NUMBER(38)                    NOT NULL,
+  DAT_DAYEND      DATE                          NOT NULL
+);

@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_precore.t_cache_z_ds_a018_hist_2 (
+client_id BIGNUMERIC(38,0) NOT NULL,
+bic_zmlila STRING(20),
+kappl STRING(20) NOT NULL,
+kschl STRING(20) NOT NULL,
+lifnr STRING(20) NOT NULL,
+matnr STRING(20) NOT NULL,
+ekorg STRING(20) NOT NULL,
+esokz STRING(20) NOT NULL,
+datbi DATE NOT NULL,
+datab DATE,
+knumh STRING(20),
+deleted_fg BIGNUMERIC(38,0) NOT NULL,
+dwh_valid_from DATE NOT NULL,
+dwh_valid_to DATE NOT NULL,
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL,
+PRIMARY KEY (client_id, kappl, kschl, lifnr, matnr, ekorg, esokz, datbi, dwh_valid_from) NOT ENFORCED
+);

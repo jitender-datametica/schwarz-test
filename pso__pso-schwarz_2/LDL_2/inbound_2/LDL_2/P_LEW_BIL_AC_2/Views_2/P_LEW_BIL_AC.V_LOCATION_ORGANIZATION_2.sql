@@ -1,0 +1,41 @@
+create or replace view LDL_PRODUCTION.P_LEW_BIL_AC.V_LOCATION_ORGANIZATION_2(
+	CLIENT_ID,
+	LOC_SID_WH,
+	LOC_SID_STORE,
+	SALES_MANAGER_ID,
+	SALES_MANAGER_NAME,
+	ACCOUNT_MANAGER_ID,
+	ACCOUNT_MANAGER_NAME,
+	GENERAL_MANAGER_ID,
+	GENERAL_MANAGER_NAME,
+	ORGANISATION_ID,
+	DISTRICT_CD,
+	ACTIVE_FROM_DT,
+	ACTIVE_TO_DT,
+	DELETED_FG,
+	DWH_VALID_FROM,
+	DWH_VALID_TO,
+	DWH_ACTUAL_FG,
+	ACTIVE_FG
+) as
+   SELECT
+       client_id,
+   loc_sid_wh,
+   loc_sid_store,
+   sales_manager_id,
+   sales_manager_name,
+   account_manager_id,
+   account_manager_name,
+   general_manager_id,
+   general_manager_name,
+   organisation_id,
+   district_cd,
+   active_from_dt,
+   active_to_dt,
+   deleted_fg,
+   dwh_valid_from,
+   dwh_valid_to,
+   dwh_actual_fg,
+   active_fg
+  FROM p_lew_bil.v_location_organization_2
+;

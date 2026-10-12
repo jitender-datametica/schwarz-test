@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_z_ds_tcurr_2_cache_z_ds_tcurr_hist_2 (
+client_id BIGNUMERIC(38,0),
+lidl_country STRING(40),
+z_ds_tcurr_kurst STRING(8),
+z_ds_tcurr_fcurr STRING(10),
+z_ds_tcurr_tcurr STRING(10),
+z_ds_tcurr_gdatu STRING(16),
+bic_zmlila STRING(60),
+fcurr STRING(60),
+tcurr STRING(60),
+kurst STRING(60),
+gdatu DATE,
+ukurs NUMERIC(18,5),
+active_from_dt DATE,
+deleted_fg BIGNUMERIC(38,0),
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

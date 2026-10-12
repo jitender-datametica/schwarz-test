@@ -1,0 +1,13 @@
+-- 07.06.2018 twie: SPEC0038139 Schlüssel für DWH Artikel_2 um kmr_quelle_id ergänzt für Zusammenführung Hierarchie
+
+-- 30.03.2015 twie: neues aktiv_fg, da mit Einführung neuer Kategorienbaum alte Kategorien deaktiviert werden
+
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku.mv_l_geku_artikel_2 (geku_artikel_uid, geku_artikel_id,
+geku_grund_uid, land_iso, geku_dwh_artikel_id, kmr_quelle_id, aktiv_fg) AS SELECT geku_artikel_uid,
+ geku_artikel_id,
+ geku_grund_uid,
+ land_iso,
+ geku_dwh_artikel_id,
+ 3 AS kmr_quelle_id,
+ aktiv_fg
+FROM kfl_production_dbp_view.v_l_geku_artikel_2;

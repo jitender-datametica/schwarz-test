@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW nfpow_fe_mstr_apollo_kaufland.v_dim_kfl_business_year_2 (kfl_bus_year, kfl_bus_year_offset,
+kfl_completed_bus_year_offset) AS SELECT kfl_bus_year,
+ kfl_bus_year_offset,
+ kfl_completed_bus_year_offset
+FROM nfpow_core.t_dim_kfl_business_year_2;

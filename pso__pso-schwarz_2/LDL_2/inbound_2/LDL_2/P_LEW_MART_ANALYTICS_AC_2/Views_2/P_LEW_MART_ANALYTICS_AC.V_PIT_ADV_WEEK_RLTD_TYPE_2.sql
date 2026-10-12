@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW P_LEW_MART_ANALYTICS_AC.V_PIT_ADV_WEEK_RLTD_TYPE_2
+AS
+
+SELECT
+  adv_week_rltd_type_id
+, adv_week_rltd_type_descr
+FROM p_lew_mart_analytics.v_pit_adv_week_rltd_type_2;

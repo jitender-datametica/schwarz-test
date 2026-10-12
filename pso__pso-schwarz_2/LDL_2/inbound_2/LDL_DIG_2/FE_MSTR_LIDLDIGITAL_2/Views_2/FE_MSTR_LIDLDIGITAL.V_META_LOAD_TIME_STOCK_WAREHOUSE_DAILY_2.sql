@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIDLDIGITAL.V_META_LOAD_TIME_STOCK_WAREHOUSE_DAILY_2
+AS 
+WITH CTE AS (
+    SELECT
+        MAX(DWH_UPDATED_TMSP) AS MAX_DWH_UPDATED_TMSP
+    FROM
+        lec_share.v_fact_stock_warehouse_storage_location_daily_2
+    UNION SELECT
+        MAX(DWH_UPDATED_TMSP) AS MAX_DWH_UPDATED_TMSP
+    FROM
+        lec_share.v_fact_stock_warehouse_daily_2
+)
+SELECT
+    CONVERT_TIMEZONE('Europe/Berlin', MIN(MAX_DWH_UPDATED_TMSP))::TIMESTAMP_NTZ AS MAX_DWH_UPDATED_TMSP
+FROM
+    CTE
+;

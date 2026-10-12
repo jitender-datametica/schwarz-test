@@ -1,0 +1,16 @@
+create or replace view DBP_MSI_VIEW_SCM_MATERIALIZED.MV_EK_GF_2(
+	GF_ID,
+	GF_NAME,
+	MANDANT_ID,
+	EK_FG
+) as
+--2024-01-24, dknop, remove v01.mandant_id = 1
+SELECT v01.gf_id
+      ,v01.gf_name
+	  ,v01.mandant_id
+	  ,v01.ek_fg 
+FROM DBP_VIEW.v_gf_2 v01
+
+WHERE 
+--v01.mandant_id = 1 AND 
+v01.ek_fg = 1;

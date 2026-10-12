@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_filialart_2 AS SELECT filialart_id
+FROM kfl_production_dbp_data.l_filialart_2;

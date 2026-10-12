@@ -1,0 +1,10 @@
+CREATE OR REPLACE TABLE ldl_wawi_production_wawiadm.t210_case_gtin_2 (
+c210_itemno STRING(18) NOT NULL,
+c210_case_gtin STRING(14) NOT NULL,
+c210_desc STRING(50) NOT NULL,
+c210_order_gtin INTEGER NOT NULL,
+c210_moduser STRING(20) NOT NULL,
+c210_moddate DATETIME NOT NULL,
+scn INTEGER DEFAULT 0,
+PRIMARY KEY (c210_case_gtin) NOT ENFORCED
+);

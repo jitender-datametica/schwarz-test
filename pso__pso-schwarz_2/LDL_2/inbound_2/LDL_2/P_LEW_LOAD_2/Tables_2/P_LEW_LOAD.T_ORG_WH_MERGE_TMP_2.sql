@@ -1,0 +1,28 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_ORG_WH_MERGE_TMP_2
+(
+  ASPECT_ID             NUMBER(38)                    NOT NULL,
+  CLIENT_ID             NUMBER(38)                    NOT NULL,
+  WH_LOC_SID            NUMBER(38)                    NOT NULL,
+  COUNTRY_CD            VARCHAR(3) COLLATE 'en-ci'    NULL,
+  GL_REGION_ID          NUMBER(38)                    NULL,
+  DAT_OPENING           DATE                          NULL,
+  COSTCENTER_CD         NUMBER(38)                    NULL,
+  COMPANY               VARCHAR(50) COLLATE 'en-ci'   NULL,
+  ORDER_BUYING_LIST_CD  NUMBER(38)                    NULL,
+  VAT_REGION_NR         VARCHAR(20) COLLATE 'en-ci'   NULL,
+  REGION_CD             NUMBER(38)                    NULL,
+  STOCK_PLAIN           NUMBER(8,0)                   NULL,
+  SPONSION              VARCHAR(50) COLLATE 'en-ci'   NULL,
+  GLOBAL_LOCATION_NR    VARCHAR(50) COLLATE 'en-ci'   NULL,
+  WH_DESC               VARCHAR(50) COLLATE 'en-ci'   NULL,
+  DISTRIBUTE_WH_FG      NUMBER(38)                    NULL,
+  INT_FG                NUMBER(38)                    NULL,
+  HQ_FG                 NUMBER(38)                    NULL,
+  PROP_WH_FG            NUMBER(38)                    NULL,
+  SALES_WH_FG           NUMBER(38)                    NULL,
+  SUPP_WH_FG            NUMBER(38)                    NULL,
+  WAWI_DATA_FG          NUMBER(38)                    NULL,
+  OVIS_DATA_FG          NUMBER(38)                    NULL,
+  PARENT_WH_LOC_SID     NUMBER(38)                    NULL,
+  BUYING_REGION         VARCHAR(50) COLLATE 'en-ci'   NULL
+);

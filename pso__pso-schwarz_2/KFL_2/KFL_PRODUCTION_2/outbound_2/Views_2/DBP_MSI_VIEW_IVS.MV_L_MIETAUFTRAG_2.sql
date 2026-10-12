@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ivs.mv_l_mietauftrag_2 AS SELECT mandant_id,
+ mietauftrag_id
+FROM kfl_production_dbp_view.v_ivs_l_mietauftrag_2;

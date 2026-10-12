@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIFECYCLE.MV_L_LIFECYCLE_RVM_PREV_ACTIONS_TYPE_2 
+AS SELECT
+ core.t_dim_rvm_prev_actions_type.rvm_prev_action_type_id
+,core.t_dim_rvm_prev_actions_type.rvm_prev_action_type_descr_en
+,core.t_dim_rvm_prev_actions_type.rvm_prev_action_type_descr_de
+,core.t_dim_rvm_prev_actions_type.rvm_prev_action_type_descr
+FROM 
+core.t_dim_rvm_prev_actions_type_2
+;

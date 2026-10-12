@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process_ac.v_fks_core_columns_2 (refkey_name, refkey_owner_column_name,
+refkey_owner_column_position, references_column_name) AS SELECT refkey_name,
+ refkey_owner_column_name,
+ refkey_owner_column_position,
+ references_column_name
+FROM ldl_p_lew_process.t_fks_core_columns_2;

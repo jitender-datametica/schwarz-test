@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_lagerbereichskennzeichen_spr_zu_2 AS SELECT mandant_id,
+ lagernummer_id,
+ lagerbereichskennzeichen_id,
+ spr_id,
+ lagerbereichskennzeichen_bez
+FROM kfl_production_dbp_data.lagerbereichskennzeichen_spr_zu_2;

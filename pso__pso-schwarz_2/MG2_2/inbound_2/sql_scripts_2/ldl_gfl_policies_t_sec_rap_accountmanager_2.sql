@@ -1,0 +1,39 @@
+DELETE FROM POLICIES.T_SEC_RAP_ACCOUNTMANAGER_2;
+
+INSERT INTO POLICIES.T_SEC_RAP_ACCOUNTMANAGER_2 (
+	ACCT_MGR_DISTRICT_SID,
+	ACCT_MGR_DISTRICT_NR,
+	ACCT_MGR_DISTRICT_NAME,
+	SALES_COMPANY_NR,
+	ISO_COUNTRY_CD,
+	BENCHMARK_TYPE_ID,
+	LOGIN_NAME_EMAIL
+)
+SELECT 
+        int_org.ACCT_MGR_DISTRICT_SID
+        ,int_org.ACCT_MGR_DISTRICT_NR
+        ,int_org.ACCT_MGR_DISTRICT_NAME
+        ,int_org.SALES_COMPANY_NR
+        ,int_org.ISO_COUNTRY_CD AS ISO_COUNTRY_CD
+        ,bench_type.BENCHMARKING_TYPE_ID AS BENCHMARK_TYPE_ID
+        ,u.USER_NAME AS LOGIN_NAME_EMAIL
+    FROM (
+            SELECT
+                ACCT_MGR_DISTRICT_SID,
+                ACCT_MGR_DISTRICT_NR,
+                ACCT_MGR_DISTRICT_NAME,
+                ACCT_MGR_EMP_SID,
+                SALES_COMPANY_NR,
+                ISO_COUNTRY_CD,
+                INT_ORG_TYPE_CD,
+                INT_ORG_SID
+            FROM CORE_DIM.T_DIM_INTERNAL_ORGANIZATION_2 
+            WHERE   DWH_VALID_FG = 1
+                AND INT_ORG_TYPE_CD = 'ACCOUNT_MANAGER'
+                AND ACCT_MGR_EMP_SID <> -1  -- additional filter
+        ) int_org
+    LEFT OUTER JOIN  CORE_DIM.T_DIM_BENCHMARKING_TYPE_2 bench_type
+               ON BENCHMARKING_TYPE_ID = 3 -- Account_2 Manager Level
+    LEFT OUTER JOIN META.T_USER_2 u
+                ON  int_org.ACCT_MGR_EMP_SID = u.EMP_SID
+;

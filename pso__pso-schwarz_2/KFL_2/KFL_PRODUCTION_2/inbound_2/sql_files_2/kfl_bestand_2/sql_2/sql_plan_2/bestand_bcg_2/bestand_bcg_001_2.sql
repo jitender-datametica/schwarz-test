@@ -1,0 +1,183 @@
+create or replace volatile table _bestand (
+  mandant_id integer,
+  art_id integer,
+  wup_id smallint,
+  dat date,
+  menge_frei decimal(18,3),
+  menge_qual decimal(18,3),
+  menge_gesp decimal(18,3)
+);
+
+insert into _bestand
+select mandant_id,
+       art_id,
+       wup_id,
+       dat,
+       menge_lgbest_erp_frei_bme as menge_frei,
+       menge_lgbest_erp_qual_bme as menge_qual,
+       menge_lgbest_erp_gesp_bme as menge_gesp
+from dbp_etl_process.dwh_mardh_monatsendbestand_2
+where mandant_id > 1 and
+      dat in (select max(dat) from dbp_etl_process.dwh_mardh_monatsendbestand_2)
+;
+
+create or replace volatile table _lieferung1 as (
+select mandant_id,
+       art_id,
+       wup_id,
+       dat_buch as dat,
+       sum(case 
+             when a.lager_bewart_id = '313' 
+             then a.menge_erf
+             when a.lager_bewart_id in ('343','344') and a.menge_lagerbew_bme = 0 and a.mandant_id = 5
+             then a.menge_erf
+             when a.mandant_id = 2 and
+                  a.wup_id in (2700,3900) and
+                  a.lager_bewart_id = '315'
+             then 0
+             else a.menge_lagerbew_bme end) as menge_lief_frei,
+       0 as menge_lief_qual,
+       0 as menge_lief_gesp
+from dbp_data.lagerbew_det_2 a
+join dbp_etl_process.mseg_bewart_daria_2 b
+  on a.lager_bewart_id = b.lager_bewart_id and
+     trim(a.auto_fg) = trim(b.auto_fg_frei) and
+     b.relevant_fg = 1
+where a.mandant_id > 1 and
+      dat_buch between (select min(dat)+1 from _bestand) and current_date
+group by 1,2,3,4
+union all
+select mandant_id,
+       art_id,
+       wup_id,
+       dat_buch as dat,
+       0 as menge_lief_frei,
+       sum(a.menge_lagerbew_bme) as menge_lief_qual,
+       0 as menge_lief_gesp
+from dbp_data.lagerbew_det_2 a
+join dbp_etl_process.mseg_bewart_daria_2 b
+  on a.lager_bewart_id = b.lager_bewart_id and
+     trim(a.auto_fg) = trim(b.auto_fg_qual) and
+     b.relevant_fg = 1
+where a.mandant_id > 1 and
+      dat_buch between (select min(dat)+1 from _bestand) and current_date
+group by 1,2,3,4
+union all
+select mandant_id,
+       art_id,
+       wup_id,
+       dat_buch as dat,
+       0 as menge_lief_frei,
+       0 as menge_lief_qual,
+       sum(a.menge_lagerbew_bme) as menge_lief_gesp
+from dbp_data.lagerbew_det_2 a
+join dbp_etl_process.mseg_bewart_daria_2 b
+  on a.lager_bewart_id = b.lager_bewart_id and
+     trim(a.auto_fg) = trim(b.auto_fg_gesp) and
+     b.relevant_fg = 1
+where a.mandant_id > 1 and
+      dat_buch between (select min(dat)+1 from _bestand) and current_date
+group by 1,2,3,4
+);
+
+create or replace volatile table _tage as (
+select dat
+from dbp_data.tag_2
+where dat between (select min(dat)+1 from _bestand) and current_date
+);
+
+execute immediate 
+$$
+begin
+  let loop_counter1 integer := (select 1);
+  let loop_counter_value integer := 0;
+
+  while ((loop_counter1) > 0) do
+
+
+  insert into _bestand
+  select coalesce(a.mandant_id,b.mandant_id),
+         coalesce(a.art_id,b.art_id),
+         coalesce(a.wup_id,b.wup_id),
+         coalesce(a.dat,b.dat+1),
+         zeroifnull(b.menge_frei)+zeroifnull(a.menge_lief_frei),
+         zeroifnull(b.menge_qual)+zeroifnull(a.menge_lief_qual),
+         zeroifnull(b.menge_gesp)+zeroifnull(a.menge_lief_gesp)
+  from (select mandant_id,
+               art_id,
+               wup_id,
+               dat,
+               sum(menge_lief_frei) as menge_lief_frei,
+               sum(menge_lief_qual) as menge_lief_qual,
+               sum(menge_lief_gesp) as menge_lief_gesp
+        from _lieferung1
+        where dat in (select min(dat) from _tage)
+        group by 1,2,3,4) a
+  full join (select *
+             from _bestand
+             where dat in (select min(dat)-1 from _tage)) b
+    on a.art_id = b.art_id and
+       a.wup_id = b.wup_id and
+       a.mandant_id = b.mandant_id and
+       a.dat = b.dat+1
+   ;
+
+   delete from _tage
+   where dat in (select min(dat) from _tage)
+   ;
+  
+   loop_counter1 := (select * from table(result_scan(last_query_id())));
+   loop_counter_value := loop_counter_value + 1;
+  end while;
+
+  return loop_counter_value;
+
+end;
+$$
+;
+
+delete from dbp_etl_process.mard_bcg_2
+where cast(td_insert as date) between (select min(dat) from _bestand) and (select max(dat) from _bestand) and
+      dat between current_date-10 and current_date and
+      mandant_id > 1
+;
+
+insert into dbp_etl_process.mard_bcg_2 (mandant_id,
+                                      art_id,
+                                      wup_id,
+                                      nb_id,
+                                      menge_lgbest_erp_frei_bme,
+                                      td_insert,
+                                      td_update)
+select a.mandant_id,
+       a.art_id,
+       e.wup_id,
+       e.nb_id,
+       a.menge_frei as menge_lgbest_erp_frei_bme,
+       cast(a.dat as timestamp) as td_insert,
+       current_timestamp as td_update
+from _bestand a
+join dbp_data.art_wg_zu_per_2 b
+  on a.mandant_id = b.mandant_id and
+     a.art_id = b.art_id and
+     b.arthiertyp_id = 2 and
+     b.dat_bis = '9999-12-31'
+join dbp_data.wg_spr_zu_2 c
+  on a.mandant_id = c.mandant_id and
+     b.wg_id = c.wg_id and
+     b.arthiertyp_id = c.arthiertyp_id and
+     c.spr_id = 22
+join dbp_data.wg_per_2 d
+  on a.mandant_id = d.mandant_id and
+     b.wg_id = d.wg_id and
+     b.arthiertyp_id = d.arthiertyp_id and
+     d.dat_bis = '9999-12-31'
+join dbp_data.wup_2 e
+  on a.mandant_id = e.mandant_id and
+     a.wup_id = e.wup_id and
+     e.nb_id = 0
+where d.owg_id in (1006,1010) and
+      a.mandant_id > 1 and
+      a.dat between (select min(dat) from _bestand) and (select max(dat) from _bestand) and
+      a.dat between current_date-10 and current_date
+;

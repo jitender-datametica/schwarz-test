@@ -1,0 +1,24 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_AIS_INT.MV_SORT_SUPERUSER_2
+(
+MANDANT_ID,
+USER_ID,
+SUPERUSER_FG,
+TEILSORTIMENT_FG
+)
+AS
+SELECT
+ v01.mandant_id
+,COALESCE (v02.user_id, v01.user_id)
+,CASE WHEN wg_id = -999 THEN 1 ELSE 0 END AS superuser_fg
+,CASE WHEN v02.user_id IS NOT NULL THEN 1 ELSE 0 END AS teilsortiment_fg
+
+FROM DBP_SECURITY.SORTIMENT_USER_WG_ZU_2 v01
+
+LEFT JOIN
+(SELECT
+ DISTINCT user_id
+,mandant_id
+FROM DBP_SECURITY.USER_ZEK_ZU_2) v02
+    
+ON v01.user_Id = v02.user_id
+AND v01.mandant_id = v02.mandant_id;

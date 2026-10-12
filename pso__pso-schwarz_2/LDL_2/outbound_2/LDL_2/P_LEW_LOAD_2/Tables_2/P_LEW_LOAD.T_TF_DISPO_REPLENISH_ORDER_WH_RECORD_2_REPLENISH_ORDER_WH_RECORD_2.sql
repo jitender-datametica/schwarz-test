@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_dispo_replenish_order_wh_record_2_replenish_order_wh_record_2 (
+client_id BIGNUMERIC(38) NOT NULL,
+lidl_country STRING(40) NOT NULL,
+dispo_replenish_order_wh_record_whnr STRING(250) NOT NULL,
+dispo_replenish_order_wh_record_po_nr BIGNUMERIC(38,0) NOT NULL,
+order_record_id STRING(20) COLLATE 'und:ci' NOT NULL,
+order_seq_nr BIGNUMERIC(38) NOT NULL,
+order_created_tmsp DATETIME,
+order_updated_tmsp DATETIME,
+order_status_cd BIGNUMERIC(38),
+order_batch_id BIGNUMERIC(38),
+orig_supplier_nr STRING(40),
+delivery_dt DATE NOT NULL,
+dwh_cal_dt DATE NOT NULL,
+extraction_dt DATE,
+dwh_mapping_dt DATE NOT NULL,
+tf_error_fg INTEGER,
+record_id STRING(300) NOT NULL,
+filename STRING(1000) NOT NULL
+);

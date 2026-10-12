@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_precore.t_exports_monitoring_factsheet_2 (
+application_name STRING(256),
+abinitio_project STRING(256),
+abinitio_graph STRING(256),
+target_system STRING(256),
+responsible_name STRING(256),
+contact_email STRING(256),
+noparent_jobs BIGNUMERIC(38,0),
+nochild_jobs BIGNUMERIC(38,0),
+noparent_jobruns BIGNUMERIC(38,0),
+nochild_jobruns BIGNUMERIC(38,0),
+start_time_firstjob DATETIME,
+end_time_lastjob DATETIME,
+elapsed_time_min TIME,
+total_cpu BIGNUMERIC(38,0),
+total_record_read BIGNUMERIC(38,0),
+total_record_write BIGNUMERIC(38,0),
+total_record_reject BIGNUMERIC(38,0),
+dwh_valid_from DATE,
+dwh_valid_to DATE,
+dwh_created DATETIME,
+dwh_updated DATETIME
+);

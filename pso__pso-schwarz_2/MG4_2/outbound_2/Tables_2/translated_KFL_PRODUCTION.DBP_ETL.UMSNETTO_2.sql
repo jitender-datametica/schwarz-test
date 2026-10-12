@@ -1,0 +1,12 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl.umsnetto_2 (
+buchungskreis STRING(4),
+marktnummer STRING(4),
+fi_konto STRING(10),
+kontobez STRING(50),
+netto_umsatz STRING(12),
+brutto_umsatz STRING(12),
+steuersatz STRING(2),
+gjmo STRING(6),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

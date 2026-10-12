@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE kfl_production_eval.bf_bons_sort_sum_2 (
+mandant_id INTEGER NOT NULL,
+wup_id INTEGER NOT NULL,
+dat DATE,
+kl_art_id INTEGER NOT NULL,
+anz_bons INTEGER NOT NULL,
+bon_ums_af NUMERIC(18,2) NOT NULL,
+bon_ums_sa NUMERIC(18,2) NOT NULL,
+bon_abs_af NUMERIC(18,3) NOT NULL,
+bon_abs_sa NUMERIC(18,3) NOT NULL,
+art_ums_af NUMERIC(18,2) NOT NULL,
+art_ums_sa NUMERIC(18,2) NOT NULL,
+art_abs_af NUMERIC(18,3) NOT NULL,
+art_abs_sa NUMERIC(18,3) NOT NULL,
+restbon_af NUMERIC(18,2) NOT NULL,
+restbon_sa NUMERIC(18,3) NOT NULL,
+art_bons_af INTEGER NOT NULL,
+art_bons_sa INTEGER NOT NULL,
+cp_bons_af INTEGER NOT NULL,
+cp_bons_sa INTEGER NOT NULL
+);

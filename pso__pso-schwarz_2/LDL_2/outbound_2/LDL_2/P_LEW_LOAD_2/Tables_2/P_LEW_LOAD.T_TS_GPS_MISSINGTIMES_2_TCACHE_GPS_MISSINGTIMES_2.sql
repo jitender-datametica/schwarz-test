@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_gps_missingtimes_2_tcache_gps_missingtimes_2 (
+record_id STRING(1000) COLLATE 'und:ci',
+client_id BIGNUMERIC(38),
+bic_zmlila STRING(20),
+orig_store_nr INTEGER,
+time_record_id BIGNUMERIC(38),
+time_record_change_dt DATE,
+employee_hash STRING(100) COLLATE 'und:ci',
+wh_id INTEGER,
+missingtype_id STRING(40),
+hours_cnt NUMERIC(9,5),
+cancel_fg BIGNUMERIC(38),
+file_record_id BIGNUMERIC(38),
+dwh_load_id BIGNUMERIC(38),
+dwh_cal_dt DATE,
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

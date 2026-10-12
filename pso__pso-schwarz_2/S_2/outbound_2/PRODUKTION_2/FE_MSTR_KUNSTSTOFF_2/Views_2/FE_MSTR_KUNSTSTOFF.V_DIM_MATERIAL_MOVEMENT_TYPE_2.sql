@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW produktion_fe_mstr_kunststoff.v_dim_material_movement_type_2 (material_movement_type_id,
+material_movement_type_descr) AS SELECT material_movement_type_id,
+ material_movement_type_descr
+FROM produktion_core.t_dim_material_movement_type_2;

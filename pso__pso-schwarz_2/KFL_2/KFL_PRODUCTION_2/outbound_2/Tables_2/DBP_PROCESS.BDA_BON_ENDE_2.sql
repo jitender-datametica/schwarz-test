@@ -1,0 +1,19 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_process.bda_bon_ende_2 (
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+dat_bon DATE NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+kasse_nr BIGNUMERIC(38,0) NOT NULL,
+system_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+dat_bon_ende DATE NOT NULL,
+dat_bon_start DATE NOT NULL,
+zeit_bon_ende BIGNUMERIC(38,0) NOT NULL,
+bon_nr BIGNUMERIC(38,0) NOT NULL,
+islogoff BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+folge_dat_bon DATE DEFAULT CAST('9999-12-31' AS DATE) NOT NULL,
+folge_dat_bon_ende DATE DEFAULT CAST('9999-12-31' AS DATE) NOT NULL,
+folge_zeit_bon_ende BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+folge_bon_islogoff BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+td_update TIMESTAMP,
+td_insert TIMESTAMP
+);

@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_AIS_INT.MV_YEAR_TO_DATE_2
+(
+ YTD_KJ
+,YTD_KJMO
+,KJMO
+)
+AS
+SELECT
+ DISTINCT 'YTD '||v01.kj AS YTD_KJ 
+,'YTD '||v01.kjmo AS YTD_KJMO
+,v02.kjmo AS KJMO 
+
+FROM dbp_view.v_tag_2 v01
+JOIN dbp_view.v_tag_2 v02
+ON (v01.kj = v02.kj)
+
+WHERE v02.kjmo <= v01.kjmo
+AND v01.dat BETWEEN '2020-01-01' AND CURRENT_DATE();

@@ -1,0 +1,22 @@
+create table if not exists SZD_PRODUCTION.etl.t_etl_dim_store_hist_2 (
+	store_sid number(38,0) not null comment 'the unique identifier (surrogate key) for a main store. it is identical to the key of the store that has first been assigned to this main store.',
+	dwh_valid_from_dt date not null comment 'the date when this record became valid.',
+	dwh_valid_to_dt date not null comment 'the date when this record was no longer valid.',
+	dwh_valid_fg boolean not null comment 'an indicator showing the current record, i.e. where the current date is between dwh_valid_from and dwh_valid_to.',
+	lob_cd varchar(50) not null comment 'the code for the line of business within the schwarz group, i.e.lidl or kaufland \nlob=line os business',
+	lob_name varchar(100) not null comment 'the name for the line of business within the schwarz group, i.e.lidl or kaufland\nlob=line os business',
+	company_id number(38,0) comment 'the company number of a store e.g. 13',
+	company_name varchar(100) comment 'the company name of a store. e.g. lidl gmbh & co. kg',
+	store_nr varchar(250) comment 'the number by which the store is known to business. this number is unique for a given client_id, but not globally unique. (the same number can be in different clients).',
+	store_name varchar(100) comment 'the name, by which the store in known.',
+	store_active_fg boolean not null comment 'an indicator showing if the store had any sales_2 during the last 36 months. (the flag is equivalent to mis_store_active_fg in the core. it is not delivered by a source system, but calculated during the core load.)',
+	street_name varchar(100) comment 'the name of the street where the store is located.',
+	house_nr varchar(20) comment 'the number of the building within the street where the store is located.',
+	city_name varchar(100) comment 'the name of the city where the store is located.',
+	zip varchar(15) comment 'the postal code of the store address.',
+	country_pol_cd varchar(3) not null comment 'the code identifying a political country_2 according to iso 3166.',
+	country_pol_name varchar(100) not null comment 'the name for a political country_2 in group language, i.e. in german.',
+	dwh_created_tmsp timestamp_ltz(9) not null comment 'the point in time when this record was inserted into the table.',
+	dwh_updated_tmsp timestamp_ltz(9) not null comment 'the point in time when this record was last modified. (in case the record has not been modified since its creation, dwh_updated is identical to dwh_created.)',
+	constraint pk_t_dim_store_hist primary key (store_sid, dwh_valid_from_dt)
+);

@@ -1,0 +1,17 @@
+CREATE OR REPLACE DYNAMIC TABLE DBP_MSI_VIEW2.MV_ART_GP_AKTUELL_2
+(
+	ART_ID,
+	AKT_GP_ID,
+	MANDANT_ID,
+	WUP_ID
+) TARGET_LAG = '1 HOUR, 30 MINUTES' REFRESH_MODE = FULL INITIALIZE = ON_CREATE WAREHOUSE = WH_KFL_%%environmentAbbreviation%%_DYNAMIC_TABLE_AIS_DE
+AS
+SELECT  
+ art_id
+,gp_id
+,mandant_id
+,wup_id
+
+FROM dbp_view.v_art_gp_nm_zu_per_2
+WHERE mandant_id = 1
+AND dat_bis = '9999-12-31';

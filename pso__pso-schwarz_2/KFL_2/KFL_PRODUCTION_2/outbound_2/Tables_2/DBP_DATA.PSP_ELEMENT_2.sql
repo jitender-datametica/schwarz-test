@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.psp_element_2 (
+psp_id STRING(30) COLLATE 'und:ci' NOT NULL,
+system_id BIGNUMERIC(38,0) NOT NULL,
+projekt_id STRING(4) COLLATE 'und:ci',
+projektart_id BIGNUMERIC(38,0) NOT NULL,
+kostenstelle_id STRING(20) COLLATE 'und:ci',
+pc_id STRING(10) COLLATE 'und:ci',
+krk_id STRING(4) COLLATE 'und:ci' NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0),
+buchungskreis_id BIGNUMERIC(38,0) NOT NULL,
+benutzerfeld_1 STRING(20) COLLATE 'und:ci' DEFAULT ' ' NOT NULL,
+benutzerfeld_2 STRING(20) COLLATE 'und:ci' DEFAULT ' ' NOT NULL,
+benutzerfeld_4 STRING(10) COLLATE 'und:ci' DEFAULT '          ' NOT NULL,
+dat_von DATE NOT NULL,
+last_upd_dat DATE NOT NULL,
+geschaeftsbereich_id STRING(4) COLLATE 'und:ci',
+it_relevant_fg BIGNUMERIC(38,0) NOT NULL,
+psp_bez STRING(40) COLLATE 'und:ci',
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

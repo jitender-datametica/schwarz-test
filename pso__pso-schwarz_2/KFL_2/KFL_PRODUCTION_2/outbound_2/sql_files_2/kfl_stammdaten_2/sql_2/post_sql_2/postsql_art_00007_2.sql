@@ -1,0 +1,18 @@
+--[~OK - basic syntax] correct Snowflake syntax but one or more objects are missing and type check was not applied
+
+
+UPDATE dbp_data.art_2 AS art0 SET
+    mutter_vk_id = NULL FROM (
+    SELECT
+        art_id AS `_art_id`,
+        mandant_id AS `_mandant_id`
+    FROM dbp_data.art_2
+    WHERE
+        dat_bis > CURRENT_DATE("Europe/Berlin")
+        AND (
+            mandant_id, art_id) NOT IN (
+            SELECT (mandant_id, art_id)
+            FROM ${TEMP_TABLE}
+        )
+) AS t1_2
+WHERE art0.art_id = t1.`_art_id` AND art0.mandant_id = t1.`_mandant_id`;

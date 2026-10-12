@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_ivs_mietvertrag_sicher_2 AS SELECT mandant_id,
+ mietvertrag_id,
+ sicherheit_lfd_nr,
+ betrag_sicherheit_ist,
+ dat_eingang,
+ wrg_id,
+ betrag_sicherheit_soll,
+ dat_bis,
+ dat_einloesung,
+ dat_rueckgabe,
+ dat_uebergabe,
+ dat_ausstellung,
+ debitor_id,
+ buchungskreis_id,
+ buergschaft_typ_id,
+ buergschaft_id,
+ kaution_bez
+FROM kfl_production_dbp_data.ivs_mietvertrag_sicher_2;

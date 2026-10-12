@@ -1,0 +1,3 @@
+create or replace TABLE KFL_PRODUCTION.DBP_ETL.SORT_WG_LISTE_2 (
+	WG_ID NUMBER(38,0)
+);

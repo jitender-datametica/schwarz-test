@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl_process.kucher_kmep_sum_2 (
+mandant_id BIGNUMERIC(38,0),
+art_id BIGNUMERIC(38,0),
+bewart_id BIGNUMERIC(38,0),
+wup_id BIGNUMERIC(38,0),
+nb_id BIGNUMERIC(38,0),
+kjwo BIGNUMERIC(38,0),
+wrg_id STRING(3) COLLATE 'und:ci',
+wup_bereinigt_fg BIGNUMERIC(38,0),
+zek_id BIGNUMERIC(38,0),
+eigenmarke_fg BIGNUMERIC(38,0),
+menge NUMERIC(18,3),
+umsatz_netto NUMERIC(18,4),
+betrag_kmep_kw NUMERIC(18,4),
+logkostenzuschlag NUMERIC(18,4),
+werbe_abschrift_netto NUMERIC(18,4),
+preis_abschrift_netto NUMERIC(18,2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

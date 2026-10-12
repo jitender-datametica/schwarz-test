@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_ref_time_type_2 (client_id, time_type_sid, src_wh_id, src_time_type_id,
+src_time_type_cd, time_type_short_descr, time_type_descr, presence_fg, performance_relevant_fg, source_system,
+dwh_load_id, dwh_created, dwh_updated) AS SELECT client_id,
+ time_type_sid,
+ src_wh_id,
+ src_time_type_id,
+ src_time_type_cd,
+ time_type_short_descr,
+ time_type_descr,
+ presence_fg,
+ performance_relevant_fg,
+ source_system,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_ref_time_type_2 AS V;

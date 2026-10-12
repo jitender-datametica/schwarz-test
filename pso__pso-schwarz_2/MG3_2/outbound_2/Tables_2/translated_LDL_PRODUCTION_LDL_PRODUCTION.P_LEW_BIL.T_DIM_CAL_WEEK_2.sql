@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE ldl_production_p_lew_bil.t_dim_cal_week_2 (
+cy_week INTEGER NOT NULL,
+week_of_year INTEGER NOT NULL,
+cy_week_begin_week_part INTEGER NOT NULL,
+cy_week_end_week_part INTEGER NOT NULL,
+cy_week_begin_dt DATE NOT NULL,
+cy_week_end_dt DATE NOT NULL,
+cy_week_week_part_cnt INTEGER,
+cy_week_prev_1w INTEGER NOT NULL,
+cy_week_prev_1y INTEGER NOT NULL,
+cy_week_prev_2y INTEGER NOT NULL,
+cy_week_prev_3y INTEGER NOT NULL,
+cy_week_prev_4y INTEGER NOT NULL,
+cy_week_prev_5y INTEGER NOT NULL,
+cy_week_offset INTEGER,
+cy_week_short_name STRING(100) NOT NULL,
+cy_week_name STRING(100) NOT NULL,
+dwh_load_id INTEGER NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL
+);

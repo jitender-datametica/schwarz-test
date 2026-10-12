@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_wawi_stock_con_l_0_qas_2 (
+country_iso_cd STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_id STRING(3) COLLATE 'und:ci' NOT NULL,
+itm_consgr_id BIGNUMERIC(38,0) NOT NULL,
+itm_consgr_desc STRING(35) COLLATE 'und:ci',
+dat_modification DATE,
+orig_item_nr INTEGER NOT NULL,
+item_desc STRING(35) COLLATE 'und:ci',
+subitemgroup_id BIGNUMERIC(38,0),
+price_retail_cons NUMERIC(18,4),
+dat_dayend DATE,
+file_name STRING(100) COLLATE 'und:ci',
+timestamp_fn DATETIME NOT NULL,
+load_id BIGNUMERIC(38,0) NOT NULL,
+dc_server_id BIGNUMERIC(38,0) NOT NULL,
+extraction_ts DATETIME
+);

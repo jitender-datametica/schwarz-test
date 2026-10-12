@@ -1,0 +1,290 @@
+CREATE OR REPLACE PROCEDURE  DBP_MSI_VIEW_NFMD.SP_IN_NFMD_MARKDOWN_DECISION(
+    "P_MANDANT_ID" NUMBER, 
+    "P_MARKDOWN_DECISION" VARCHAR, 
+    "P_MARKDOWN_DECISION_EN" VARCHAR, 
+    "P_MARKDOWN_DECISION_NATIVE" VARCHAR, 
+    "P_FLAG_RETOURE" NUMBER)
+RETURNS VARCHAR
+LANGUAGE SQL
+EXECUTE AS OWNER
+AS $$
+
+BEGIN
+
+CASE :P_MANDANT_ID 
+  WHEN 1 THEN 
+        INSERT INTO DBP_MSI_VIEW_NFMD.TS_NFMD_MARKDOWN_DECISION_2 (
+                mandant_id,
+                MARKDOWN_DECISION_ID,
+                MARKDOWN_DECISION_DESCR,
+                MARKDOWN_DECISION_DESCR_bg,
+                MARKDOWN_DECISION_DESCR_cz,
+                MARKDOWN_DECISION_DESCR_en,
+                MARKDOWN_DECISION_DESCR_hr,
+                MARKDOWN_DECISION_DESCR_pl,
+                MARKDOWN_DECISION_DESCR_ro,
+                MARKDOWN_DECISION_DESCR_sk,
+                MARKDOWN_DECISION_DESCR_NATIVE,
+                active_fg,
+                retoure_fg
+        )
+        SELECT 
+            :P_MANDANT_ID,
+            CASE WHEN MAX(MARKDOWN_DECISION_ID) = 97 THEN 100 ELSE MAX(MARKDOWN_DECISION_ID)+1 END as MARKDOWN_DECISION_ID,
+            :P_MARKDOWN_DECISION_NATIVE,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_NATIVE,
+            1,
+            :P_FLAG_RETOURE
+       FROM DBP_MSI_VIEW_NFMD.TS_NFMD_MARKDOWN_DECISION_2
+            WHERE  MANDANT_ID = :P_MANDANT_ID 
+            AND MARKDOWN_DECISION_ID NOT IN (98,99);
+
+
+ WHEN 2 THEN 
+        INSERT INTO DBP_MSI_VIEW_NFMD.TS_NFMD_MARKDOWN_DECISION_2 (
+                mandant_id,
+                MARKDOWN_DECISION_ID,
+                MARKDOWN_DECISION_DESCR,
+                MARKDOWN_DECISION_DESCR_bg,
+                MARKDOWN_DECISION_DESCR_cz,
+                MARKDOWN_DECISION_DESCR_en,
+                MARKDOWN_DECISION_DESCR_hr,
+                MARKDOWN_DECISION_DESCR_pl,
+                MARKDOWN_DECISION_DESCR_ro,
+                MARKDOWN_DECISION_DESCR_sk,
+                MARKDOWN_DECISION_DESCR_NATIVE,
+                active_fg,
+                retoure_fg
+        )
+        SELECT 
+            :P_MANDANT_ID,
+            CASE WHEN MAX(MARKDOWN_DECISION_ID) = 97 THEN 100 ELSE MAX(MARKDOWN_DECISION_ID)+1 END as MARKDOWN_DECISION_ID,
+            :P_MARKDOWN_DECISION,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_NATIVE,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_NATIVE,
+            1,
+            :P_FLAG_RETOURE
+        FROM DBP_MSI_VIEW_NFMD.TS_NFMD_MARKDOWN_DECISION_2
+            WHERE  MANDANT_ID = :P_MANDANT_ID 
+            AND MARKDOWN_DECISION_ID NOT IN (98,99);
+WHEN 3 THEN 
+        INSERT INTO DBP_MSI_VIEW_NFMD.TS_NFMD_MARKDOWN_DECISION_2 (
+                mandant_id,
+                MARKDOWN_DECISION_ID,
+                MARKDOWN_DECISION_DESCR,
+                MARKDOWN_DECISION_DESCR_bg,
+                MARKDOWN_DECISION_DESCR_cz,
+                MARKDOWN_DECISION_DESCR_en,
+                MARKDOWN_DECISION_DESCR_hr,
+                MARKDOWN_DECISION_DESCR_pl,
+                MARKDOWN_DECISION_DESCR_ro,
+                MARKDOWN_DECISION_DESCR_sk,
+                MARKDOWN_DECISION_DESCR_NATIVE,
+                active_fg,
+                retoure_fg
+        )
+        SELECT 
+            :P_MANDANT_ID,
+            CASE WHEN MAX(MARKDOWN_DECISION_ID) = 97 THEN 100 ELSE MAX(MARKDOWN_DECISION_ID)+1 END as MARKDOWN_DECISION_ID,
+            :P_MARKDOWN_DECISION,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_NATIVE,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_NATIVE,
+            1,
+            :P_FLAG_RETOURE
+        FROM DBP_MSI_VIEW_NFMD.TS_NFMD_MARKDOWN_DECISION_2
+            WHERE  MANDANT_ID = :P_MANDANT_ID 
+            AND MARKDOWN_DECISION_ID NOT IN (98,99);
+WHEN 4 THEN 
+        INSERT INTO DBP_MSI_VIEW_NFMD.TS_NFMD_MARKDOWN_DECISION_2 (
+                mandant_id,
+                MARKDOWN_DECISION_ID,
+                MARKDOWN_DECISION_DESCR,
+                MARKDOWN_DECISION_DESCR_bg,
+                MARKDOWN_DECISION_DESCR_cz,
+                MARKDOWN_DECISION_DESCR_en,
+                MARKDOWN_DECISION_DESCR_hr,
+                MARKDOWN_DECISION_DESCR_pl,
+                MARKDOWN_DECISION_DESCR_ro,
+                MARKDOWN_DECISION_DESCR_sk,
+                MARKDOWN_DECISION_DESCR_NATIVE,
+                active_fg,
+                retoure_fg
+        )
+        SELECT 
+            :P_MANDANT_ID,
+            CASE WHEN MAX(MARKDOWN_DECISION_ID) = 97 THEN 100 ELSE MAX(MARKDOWN_DECISION_ID)+1 END as MARKDOWN_DECISION_ID,
+            :P_MARKDOWN_DECISION,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_NATIVE,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_NATIVE,
+            1,
+            :P_FLAG_RETOURE
+       FROM DBP_MSI_VIEW_NFMD.TS_NFMD_MARKDOWN_DECISION_2
+            WHERE  MANDANT_ID = :P_MANDANT_ID 
+            AND MARKDOWN_DECISION_ID NOT IN (98,99);
+WHEN 5 THEN 
+        INSERT INTO DBP_MSI_VIEW_NFMD.TS_NFMD_MARKDOWN_DECISION_2 (
+                mandant_id,
+                MARKDOWN_DECISION_ID,
+                MARKDOWN_DECISION_DESCR,
+                MARKDOWN_DECISION_DESCR_bg,
+                MARKDOWN_DECISION_DESCR_cz,
+                MARKDOWN_DECISION_DESCR_en,
+                MARKDOWN_DECISION_DESCR_hr,
+                MARKDOWN_DECISION_DESCR_pl,
+                MARKDOWN_DECISION_DESCR_ro,
+                MARKDOWN_DECISION_DESCR_sk,
+                MARKDOWN_DECISION_DESCR_NATIVE,
+                active_fg,
+                retoure_fg
+        )
+        SELECT 
+            :P_MANDANT_ID,
+            CASE WHEN MAX(MARKDOWN_DECISION_ID) = 97 THEN 100 ELSE MAX(MARKDOWN_DECISION_ID)+1 END as MARKDOWN_DECISION_ID,
+            :P_MARKDOWN_DECISION,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_NATIVE,
+            :P_MARKDOWN_DECISION_NATIVE,
+            1,
+            :P_FLAG_RETOURE
+        FROM DBP_MSI_VIEW_NFMD.TS_NFMD_MARKDOWN_DECISION_2
+            WHERE  MANDANT_ID = :P_MANDANT_ID 
+            AND MARKDOWN_DECISION_ID NOT IN (98,99);
+WHEN 6 THEN 
+        INSERT INTO DBP_MSI_VIEW_NFMD.TS_NFMD_MARKDOWN_DECISION_2 (
+                mandant_id,
+                MARKDOWN_DECISION_ID,
+                MARKDOWN_DECISION_DESCR,
+                MARKDOWN_DECISION_DESCR_bg,
+                MARKDOWN_DECISION_DESCR_cz,
+                MARKDOWN_DECISION_DESCR_en,
+                MARKDOWN_DECISION_DESCR_hr,
+                MARKDOWN_DECISION_DESCR_pl,
+                MARKDOWN_DECISION_DESCR_ro,
+                MARKDOWN_DECISION_DESCR_sk,
+                MARKDOWN_DECISION_DESCR_NATIVE,
+                active_fg,
+                retoure_fg
+        )
+        SELECT 
+            :P_MANDANT_ID,
+            CASE WHEN MAX(MARKDOWN_DECISION_ID) = 97 THEN 100 ELSE MAX(MARKDOWN_DECISION_ID)+1 END as MARKDOWN_DECISION_ID,
+            :P_MARKDOWN_DECISION,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_NATIVE,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_NATIVE,
+            1,
+            :P_FLAG_RETOURE
+       FROM DBP_MSI_VIEW_NFMD.TS_NFMD_MARKDOWN_DECISION_2
+            WHERE  MANDANT_ID = :P_MANDANT_ID 
+            AND MARKDOWN_DECISION_ID NOT IN (98,99);
+         
+WHEN 7 THEN 
+        INSERT INTO DBP_MSI_VIEW_NFMD.TS_NFMD_MARKDOWN_DECISION_2 (
+                mandant_id,
+                MARKDOWN_DECISION_ID,
+                MARKDOWN_DECISION_DESCR,
+                MARKDOWN_DECISION_DESCR_bg,
+                MARKDOWN_DECISION_DESCR_cz,
+                MARKDOWN_DECISION_DESCR_en,
+                MARKDOWN_DECISION_DESCR_hr,
+                MARKDOWN_DECISION_DESCR_pl,
+                MARKDOWN_DECISION_DESCR_ro,
+                MARKDOWN_DECISION_DESCR_sk,
+                MARKDOWN_DECISION_DESCR_NATIVE,
+                active_fg,
+                retoure_fg
+        )
+        SELECT 
+            :P_MANDANT_ID,
+            CASE WHEN MAX(MARKDOWN_DECISION_ID) = 97 THEN 100 ELSE MAX(MARKDOWN_DECISION_ID)+1 END as MARKDOWN_DECISION_ID,
+            :P_MARKDOWN_DECISION,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_NATIVE,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_NATIVE,
+            1,
+            :P_FLAG_RETOURE
+        FROM DBP_MSI_VIEW_NFMD.TS_NFMD_MARKDOWN_DECISION_2
+            WHERE  MANDANT_ID = :P_MANDANT_ID 
+            AND MARKDOWN_DECISION_ID NOT IN (98,99);
+WHEN 8 THEN 
+        INSERT INTO DBP_MSI_VIEW_NFMD.TS_NFMD_MARKDOWN_DECISION_2 (
+                mandant_id,
+                MARKDOWN_DECISION_ID,
+                MARKDOWN_DECISION_DESCR,
+                MARKDOWN_DECISION_DESCR_bg,
+                MARKDOWN_DECISION_DESCR_cz,
+                MARKDOWN_DECISION_DESCR_en,
+                MARKDOWN_DECISION_DESCR_hr,
+                MARKDOWN_DECISION_DESCR_pl,
+                MARKDOWN_DECISION_DESCR_ro,
+                MARKDOWN_DECISION_DESCR_sk,
+                MARKDOWN_DECISION_DESCR_NATIVE,
+                active_fg,
+                retoure_fg
+        )
+        SELECT 
+            :P_MANDANT_ID,
+            CASE WHEN MAX(MARKDOWN_DECISION_ID) = 97 THEN 100 ELSE MAX(MARKDOWN_DECISION_ID)+1 END as MARKDOWN_DECISION_ID,
+            :P_MARKDOWN_DECISION,
+            :P_MARKDOWN_DECISION_NATIVE,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_EN,
+            :P_MARKDOWN_DECISION_NATIVE,
+            1,
+            :P_FLAG_RETOURE
+        FROM DBP_MSI_VIEW_NFMD.TS_NFMD_MARKDOWN_DECISION_2
+            WHERE  MANDANT_ID = :P_MANDANT_ID 
+            AND MARKDOWN_DECISION_ID NOT IN (98,99);
+     
+    END;
+
+COMMIT;
+RETURN 'Verwertungsentscheidung hinzugefuegt';
+
+END;
+$$;
+    

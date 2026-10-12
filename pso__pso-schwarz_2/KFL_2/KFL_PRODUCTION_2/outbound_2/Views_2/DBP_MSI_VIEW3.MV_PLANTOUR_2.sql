@@ -1,0 +1,31 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view3.mv_plantour_2 (mandant_id, wup_id, nb_id, plantour_id, tour_id,
+trailer_fg, trailer_id, dat_trailer, zeit_trailer, ausfahrt_pforte_dt, zeitstempel_trailer) AS SELECT TOUR_PL.mandant_id
+ ,
+ TOUR_PL.wup_id,
+ TOUR_PL.nb_id,
+ TOUR_PL.plantour_id,
+ TOUR_PL.tour_id,
+ TOUR_PL.trailer_fg,
+ TOUR_PL.trailer_id,
+ TOUR_PL.dat_trailer,
+ TOUR_PL.zeit_trailer,
+ tour_p_s.ausfahrt_pforte_dt,
+  CASE
+  WHEN TOUR_PL.zeit_trailer IS NULL
+  THEN NULL
+  ELSE DATETIME(TOUR_PL.dat_trailer, COALESCE(TOUR_PL.zeit_trailer, TIME '00:00:00'))
+  END AS zeitstempel_trailer
+FROM kfl_production_dbp_view.v_plantour_2 AS TOUR_PL
+ INNER JOIN kfl_production_dbp_view.v_tour_2 AS TOUR_2 ON TOUR_PL.mandant_id = TOUR.mandant_id AND TOUR_PL.tour_id = TOUR.tour_id
+   
+ LEFT JOIN (SELECT mandant_id,
+   tour_id,
+   MIN(CAST(REPLACE(SUBSTR(CAST(dat_erfasst AS STRING), 1, 11) || ' ' || CAST(zeit_erfasst AS STRING), ',', ':') AS DATETIME)
+    ) AS ausfahrt_pforte_dt
+  FROM kfl_production_dbp_view.v_tour_plombe_start_2
+  WHERE plombe_vorgang_id = 'B'
+   AND storno_fg = 0
+   AND nb_id = - 111
+  GROUP BY mandant_id,
+   tour_id) AS tour_p_s ON TOUR.mandant_id = tour_p_s.mandant_id AND TOUR.tour_id = tour_p_s.tour_id
+WHERE TOUR.transportart_id IN ('Z001', 'ZF01', 'ZF02', 'ZF03');

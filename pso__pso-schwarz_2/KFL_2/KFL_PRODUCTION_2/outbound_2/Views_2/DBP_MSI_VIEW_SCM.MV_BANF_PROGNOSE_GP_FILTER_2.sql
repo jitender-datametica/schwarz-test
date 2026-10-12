@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_scm.mv_banf_prognose_gp_filter_2 AS SELECT mandant_id,
+ gp_id
+FROM kfl_production_dbp_view.v_banf_prognose_gp_filter_2;

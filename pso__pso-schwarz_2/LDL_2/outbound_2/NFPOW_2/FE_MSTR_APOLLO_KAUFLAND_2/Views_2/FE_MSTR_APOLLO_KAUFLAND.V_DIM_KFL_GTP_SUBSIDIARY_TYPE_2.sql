@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW nfpow_fe_mstr_apollo_kaufland.v_dim_kfl_gtp_subsidiary_type_2 (kfl_gtp_subsidiary_type_id,
+kfl_gtp_subsidiary_type_name) AS SELECT kfl_gtp_subsidiary_type_id,
+ kfl_gtp_subsidiary_type_name
+FROM nfpow_core.t_dim_kfl_gtp_subsidiary_type_2;

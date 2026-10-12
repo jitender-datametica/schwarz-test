@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_msi.t_msi_ejr_rel_trans_to_trans_2 (
+c_st_loc_sid BIGNUMERIC(38,0),
+c_client_id BIGNUMERIC(38,0),
+c_pos_terminal_id BIGNUMERIC(38,0),
+c_dat_formdate DATE,
+c_time_receipt_ejr TIME,
+c_orig_receipt_nr_ejr BIGNUMERIC(38,0),
+c_checker_id BIGNUMERIC(38,0),
+c_transaction_type_id STRING(3) COLLATE 'und:ci',
+p_st_loc_sid BIGNUMERIC(38,0) NOT NULL,
+p_client_id BIGNUMERIC(38,0) NOT NULL,
+p_pos_terminal_id BIGNUMERIC(38,0) NOT NULL,
+p_dat_formdate DATE NOT NULL,
+p_time_receipt_ejr TIME NOT NULL,
+p_proof_object_nr_ejr STRING(13) COLLATE 'und:ci' NOT NULL,
+p_checker_id BIGNUMERIC(38,0) NOT NULL,
+scenario_group_id BIGNUMERIC(38,0),
+resumed_trans_seqnr BIGNUMERIC(38,0),
+p_val_retail_ejr NUMERIC(18,4)
+) CLUSTER BY p_client_id, p_st_loc_sid;

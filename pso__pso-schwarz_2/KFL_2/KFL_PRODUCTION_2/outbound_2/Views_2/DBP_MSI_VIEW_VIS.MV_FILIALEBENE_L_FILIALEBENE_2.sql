@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_filialebene_l_filialebene_2 AS SELECT filialebene_id,
+ mandant_id
+FROM kfl_production_dbp_view.v_l_filialebene_2;

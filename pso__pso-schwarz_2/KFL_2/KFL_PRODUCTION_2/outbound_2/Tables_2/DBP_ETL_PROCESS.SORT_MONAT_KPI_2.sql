@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl_process.sort_monat_kpi_2 (
+mandant_id BIGNUMERIC(38,0),
+kjmo BIGNUMERIC(38,0),
+art_id BIGNUMERIC(38,0),
+anz_bons BIGNUMERIC(38,0),
+bon_ums_af NUMERIC(18,2),
+bon_ums_sa NUMERIC(18,2),
+bon_abs_af NUMERIC(18,3),
+bon_abs_sa NUMERIC(18,3),
+art_ums_af NUMERIC(18,2),
+art_ums_sa NUMERIC(18,2),
+art_abs_af NUMERIC(18,3),
+art_abs_sa NUMERIC(18,3),
+restbon_af NUMERIC(18,2),
+restbon_sa NUMERIC(18,3),
+art_bons_af BIGNUMERIC(38,0),
+art_bons_sa BIGNUMERIC(38,0),
+cp_bons_af BIGNUMERIC(38,0),
+cp_bons_sa BIGNUMERIC(38,0),
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

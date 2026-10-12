@@ -1,0 +1,10 @@
+CREATE OR REPLACE VIEW P_LEW_MART_PIT_ONPREM_AC.V_PIT_DAY_ITEM_STORE_CNT_2
+AS
+SELECT
+client_id
+,dwh_cal_dt
+,cy_month
+,F_Client_Store_Cnt
+,F_Client_Store_Cnt_Month
+,F_diff_Store_Cnt_to_Month
+FROM p_lew_mart_pit_onprem.v_pit_day_item_store_cnt_2;

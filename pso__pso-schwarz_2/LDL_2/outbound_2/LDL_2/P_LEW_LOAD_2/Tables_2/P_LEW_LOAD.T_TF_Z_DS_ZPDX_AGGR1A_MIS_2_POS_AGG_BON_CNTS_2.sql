@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_z_ds_zpdx_aggr1a_mis_2_pos_agg_bon_cnts_2 (
+client_id BIGNUMERIC(38),
+lidl_country STRING(40),
+z_ds_zpdx_aggr1a_mis_retailstoreid STRING(10),
+z_ds_zpdx_aggr1a_mis_businessdaydate DATE,
+z_ds_zpdx_aggr1a_mis_aggr_no STRING(11),
+src_werks STRING(40),
+aggr_nr BIGNUMERIC(38),
+cnt_receipts_sales BIGNUMERIC(38),
+cnt_receipts_returns BIGNUMERIC(38),
+cnt_receiptlines_total BIGNUMERIC(38),
+cnt_receiptlines_sales BIGNUMERIC(38),
+cnt_receiptlines_returns BIGNUMERIC(38),
+trans_start_tmsp DATETIME,
+trans_end_tmsp DATETIME,
+dwh_cal_dt DATE,
+extraction_dt DATE,
+dwh_mapping_dt DATE,
+tf_error_fg INTEGER,
+record_id INTEGER,
+filename STRING(1000)
+);

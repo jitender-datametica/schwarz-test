@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.flw_besch_lief_det_2 (
+lief_beleg_id INTEGER NOT NULL,
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+lief_beleg_pos_id BIGNUMERIC(38,0) NOT NULL,
+lief_pos_typ_id STRING(4) COLLATE 'und:ci' NOT NULL,
+flw_art_id BIGNUMERIC(38,0) NOT NULL,
+charge_id STRING(10) COLLATE 'und:ci' NOT NULL,
+menge_lief_ist_bme NUMERIC(18,3) DEFAULT 0 NOT NULL,
+verk_menge_einh_id STRING(3) COLLATE 'und:ci' NOT NULL,
+nettogew NUMERIC(18,3) DEFAULT 0 NOT NULL,
+gew_einh_id STRING(3) COLLATE 'und:ci' NOT NULL,
+menge_lief_ist_lme NUMERIC(18,3) DEFAULT 0 NOT NULL,
+flw_vw_id BIGNUMERIC(38,0) NOT NULL,
+werk_id BIGNUMERIC(38,0) NOT NULL,
+dat_mat_bereitstllg DATE NOT NULL,
+vorlage_beleg_id INTEGER NOT NULL,
+vorlage_beleg_pos_id BIGNUMERIC(38,0) DEFAULT - 1 NOT NULL,
+system_id BIGNUMERIC(38,0) NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

@@ -1,0 +1,62 @@
+CREATE OR REPLACE PROCEDURE DBP_MSI_VIEW_NFMD.SP_MRG_NFMD_APPROVE_DECISION(
+    P_KJWO_WW FLOAT, 
+    P_MANDANT_ID FLOAT, 
+    P_USER_ID VARCHAR(255))
+RETURNS STRING
+LANGUAGE SQL
+COMMENT='Submits markdown decision'
+EXECUTE AS OWNER
+AS $$
+BEGIN
+
+MERGE INTO DBP_MSI_VIEW_NFMD.TS_NFMD_APPROVED_DECISION_2 f USING (
+    -- Ermittlung bei welchem Artikel_2 die Entscheidung sich geändert hat /bzw. noch keine Entscheidung freigegeben wurden ist
+    SELECT DISTINCT  mv.KJWO_WW,
+        mv.MANDANT_ID,
+        --mv.AKTION_ID,
+        mv.ART_ID,
+        mv.MARKDOWN_DECISION
+    FROM DBP_MSI_VIEW_NFMD.MV_NFMD_ART_PROMOTION_2 mv
+        LEFT JOIN DBP_MSI_VIEW_NFMD.TS_NFMD_APPROVED_DECISION_2 ff ON (
+            ff.KJWO_WW = mv.KJWO_WW
+            --AND ff.AKTION_ID = mv.AKTION_ID
+            AND ff.MANDANT_ID = mv.MANDANT_ID
+            AND ff.ART_ID = mv.ART_ID
+            AND ff.MARKDOWN_DECISION_ID = mv.MARKDOWN_DECISION
+        )
+    WHERE mv.KJWO_WW = :P_KJWO_WW
+        AND mv.MANDANT_ID = :P_MANDANT_ID
+        AND ff.art_id IS NULL
+) wb ON (
+    f.KJWO_WW = wb.KJWO_WW
+   -- AND f.AKTION_ID = wb.AKTION_ID
+    AND f.MANDANT_ID = wb.MANDANT_ID
+    AND f.ART_ID = wb.ART_ID
+)
+WHEN MATCHED THEN
+UPDATE
+    SET f.DWH_CREATED_TMSP = CURRENT_TIMESTAMP::TIMESTAMP_NTZ,
+   --f.USER_ID = :3,
+    f.MARKDOWN_DECISION_ID = COALESCE (wb.MARKDOWN_DECISION, 0)
+WHEN NOT MATCHED THEN
+INSERT (KJWO_WW, MANDANT_ID, AKTION_ID, ART_ID, DWH_CREATED_TMSP, USER_ID, MARKDOWN_DECISION_ID )
+VALUES (KJWO_WW,
+        MANDANT_ID,
+        '0',
+        ART_ID,
+        CURRENT_TIMESTAMP::TIMESTAMP_NTZ,
+        :P_USER_ID,
+        COALESCE(MARKDOWN_DECISION, 0));
+
+
+INSERT INTO DBP_MSI_VIEW_NFMD.TS_NFMD_DECISION_APPROVAL_LOG_2 (
+                        KJWO_WW, 
+                        MANDANT_ID, 
+                        DWH_CREATED_TMSP, 
+                        USER_ID) 
+                VALUES (:P_KJWO_WW, :P_MANDANT_ID, CURRENT_TIMESTAMP::TIMESTAMP_NTZ, :P_USER_ID); 
+
+COMMIT;
+RETURN 'Entscheidung friegegeben';
+END;
+$$;

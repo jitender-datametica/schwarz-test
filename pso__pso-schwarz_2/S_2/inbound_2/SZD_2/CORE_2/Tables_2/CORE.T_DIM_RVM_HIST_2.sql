@@ -1,0 +1,51 @@
+/* --------------------------------------------------------------------------------
+   DDL for table: T_DIM_RVM_HIST_2
+   generated from Powerdesigner on Mittwoch, 10. Juli 2024 09:16:22
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE.T_DIM_RVM_HIST_2 (
+   RVM_SID                             NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for the despotie machine which is located in a store',
+   DWH_VALID_FROM_TMSP                 TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record became valid.',
+   DWH_VALID_TO_TMSP                   TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was no longer valid.',
+   DWH_VALID_FG                        BOOLEAN         NOT NULL COMMENT 'An indicator showing the current record, i.e. where the current date is between dwh_valid_from and dwh_valid_to.',
+   MANUFACTURER_SID                    NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for a company which produces deposit machines.',
+   RVM_TYPE_CD                         VARCHAR(50)     NOT NULL COMMENT 'The code by which this type of deposit machine is identied, as assigned by the manufacturer.',
+   STORE_SID                           NUMBER(38, 0)   NOT NULL COMMENT 'The unique identifier (surrogate key) for a main store. It is identical to the key of the store that has first been assigned to this main store.',
+   COUNTRY_POL_CD                      VARCHAR(3)      COMMENT 'The code identifying a political country_2 according to ISO 3166.',
+   LOB_CD                              VARCHAR(50)     NOT NULL COMMENT 'The code for the line of business within the Schwarz Group, i.e.Lidl or Kaufland
+            lob=line os business',
+   RVM_SORT_TYPE_CD                    VARCHAR(50)     NOT NULL COMMENT 'The code for the deposit machine background system sort type',
+   RVM_ORIENTATION_CD                  VARCHAR(50)     NOT NULL COMMENT 'The code for the deposit machine background system orientation',
+   RVM_PACK_TYPE_CD                    VARCHAR(50)     NOT NULL COMMENT 'The code for the deposit machine background system packtype',
+   RVM_WINDING_CD                      VARCHAR(50)     NOT NULL COMMENT 'The code for the deposit machine background system winding',
+   RVM_ACTIVE_ID                       NUMBER(38, 0)   NOT NULL COMMENT 'The id showing the activity state of the deposit machine.',
+   MANUFACTURER_NAME                   VARCHAR(100)    NOT NULL COMMENT 'The name of a company which produces deposit machines.',
+   SERIAL_NR                           VARCHAR(250)    NOT NULL COMMENT 'The serial number of this machine, as assigned by the manufacturer.',
+   INITIAL_INSTALLATION_DT             DATE            NOT NULL COMMENT 'The date when this machine was first installed.',
+   INACTIVE_DT                         DATE            COMMENT 'The date when the machine was inactivated.',
+   STORE_NR                            VARCHAR(250)    NOT NULL COMMENT 'The number by which the store is known to business. This number is unique for a given client_id, but not globally unique. (The same number can be in different clients).',
+   STORE_NAME                          VARCHAR(100)    NOT NULL COMMENT 'The name, by which the store in known.',
+   LOB_NAME                            VARCHAR(100)    NOT NULL COMMENT 'The name for the line of business within the Schwarz Group, i.e.Lidl or Kaufland
+            lob=line os business',
+   RVM_DONATION_START_DT               DATE            COMMENT 'The start date of the donation, if the RVM supports donations',
+   IN_STORE_SEQ                        NUMBER(38, 0)   COMMENT 'The number consecutively of deposit machines in one store',
+   ENERGY_SAVE_MODE_FG                 BOOLEAN         COMMENT 'The flag showing, if the deposit machine supports energy saving mode i.e. false',
+   CONF_CRATE_FG                       BOOLEAN         NOT NULL COMMENT 'The flag showing, if the deposit machine is able to take back crate items.',
+   CONF_REFILLABLE_FG                  BOOLEAN         NOT NULL COMMENT 'The flag showing, if the deposit machine is able to take back refillable items.',
+   CONF_NON_REFILLABLE_FG              BOOLEAN         NOT NULL COMMENT 'The flag showing, if the deposit machine is able to take back non-refillable items.',
+   CONF_BACK_SYS_CRATE_FG              BOOLEAN         COMMENT 'The flag showing, if the deposit machine has a backgroundsystem for crates.',
+   CONF_BACK_SYS_TABLE_FG              BOOLEAN         COMMENT 'The flag showing, if the deposit machine has a backgroundsystem for table.',
+   CONF_LAST_UPDATE_TMSP               TIMESTAMP_TZ(9) COMMENT 'The timestamp for the last backgroundsystem sort type',
+   RVM_SOFTWARE_VERSION_NR             VARCHAR(250)    COMMENT 'The release number of the current software version of this machine.',
+   RVM_SOFTWARE_LAST_UPDATE_DT         DATE            COMMENT 'The date when the last software update was done for this machine.',
+   SMR_SOFTWARE_VERSION_NR             VARCHAR(250)    COMMENT 'The release number of the current software version of this machine SMR.',
+   SMR_SOFTWARE_LAST_UPDATE_DT         DATE            COMMENT 'The date when the last software update was done for this machine SMR.',
+   TIME_ZONE_OFFSET_HOUR_CNT           VARCHAR(250)    COMMENT 'The current time zone of the machine, i.e. the offset to UTC.',
+   DWH_SRC_FILE_NAME                   VARCHAR(500)    NOT NULL COMMENT 'The unique identifier of the batch load that has done the last modification to this record. (This can either be the initial insert, or an update operation at a later point in time.)',
+   DWH_CREATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was inserted into the table.',
+   DWH_UPDATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last modified. (In case the record has not been modified since its creation, dwh_updated is identical to dwh_created.)',
+   SRC_1_TMSP                          TIMESTAMP_TZ(9) NOT NULL COMMENT 'The identifier for the first source the table refers to.',
+   SRC_2_TMSP                          TIMESTAMP_TZ(9) NOT NULL COMMENT 'The identifier for the second source the table refers to.',
+   SRC_3_TMSP                          TIMESTAMP_TZ(9) NOT NULL COMMENT 'The identifier for the third source the table refers to.',   
+   CONSTRAINT PK_T_DIM_RVM_HIST PRIMARY KEY (RVM_SID, DWH_VALID_FROM_TMSP) NOT ENFORCED 
+)  COMMENT = 'A machine typically located in or in front of a store, which accepts returnable bottles (and similar items).';

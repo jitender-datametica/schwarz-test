@@ -1,0 +1,149 @@
+CREATE OR REPLACE VIEW ldl_data_fe_mstr_gf_lead.v_fact_retail_by_store_day_benchmark_2 (benchmark_type_id
+OPTIONS(description='BENCHMARK Type Identifier'), cal_dt
+OPTIONS(description='The business date to which the measures are related.'), store_sid
+OPTIONS(description='Th,e unique identifier (surrogate key) for a store.'), country_org_cd
+OPTIONS(description='The code of the business country_2 for which this country_2 organization is responsible. (The business country_2 is not identical to a political country.)'),
+turnover_net_val
+OPTIONS(description='The net turnover which was generated for that store on the given day. (This is the consolidated amount after applying the priority logic.)'),
+turnover_bytd_net_val
+OPTIONS(description='The business-year-to-date sum of the net turnover for that store up to the given day. (This is the consolidated amount after applying the priority logic.)'),
+turnover_py_net_val
+OPTIONS(description='The net turnover which was generated for that store on the same calendar_2 date one year ago. (This is the consolidated amount after applying the priority logic.)'),
+turnover_py_bytd_net_val
+OPTIONS(description='The business-year-to-date sum of the net turnover for that store up to the same calendar_2 date one year ago. (This is the consolidated amount after applying the priority logic.)'),
+turnover_py_swday_net_val
+OPTIONS(description='The net turnover which was generated for that store on the same weekday one year ago. (This is the consolidated amount after applying the priority logic.)'),
+turnover_py_swday_bytd_net_val
+OPTIONS(description='The business-year-to-date sum of the net turnover for that store up to the same weekday one year ago. (This is the consolidated amount after applying the priority logic.)'),
+cash_register_turnover_net_val
+OPTIONS(description='The net turnover which was generated for that store on the given day according to the cash register.'),
+eod_turnover_net_val
+OPTIONS(description='The net turnover which was generated for that store on the given day according to the end-of-day processing of the retail system.'),
+booked_turnover_net_val
+OPTIONS(description='The net turnover which has been booked to the store by financial accounting.'),
+plan_turnover_net_val OPTIONS(description='The net turnover which has been planned for that store and that day.'),
+plan_turnover_bytd_net_val
+OPTIONS(description='The business-year-to-date sum of the net turnover which has been planned for that store up to the given day.'),
+plan_turnover_py_net_val
+OPTIONS(description='The net turnover which was planned for that store on the same calendar_2 date one year ago.'),
+plan_turnover_py_bytd_net_val
+OPTIONS(description='The business-year-to-date sum of the net turnover which was planned for that store up to the same calendar_2 date one year ago.'),
+plan_turnover_py_swday_net_val
+OPTIONS(description='The net turnover which was planned for that store on the same weekday one year ago.'),
+plan_turnover_py_swday_bytd_net_val
+OPTIONS(description='The business-year-to-date sum of the net turnover which was planned for that store up to the same weekday one year ago.'),
+turnover_gross_val
+OPTIONS(description='The gross turnover which was generated for that store on the given day. (This is the consolidated amount after applying the priority logic.)'),
+turnover_bytd_gross_val
+OPTIONS(description='The business-year-to-date sum of the gross turnover for that store up to the given day. (This is the consolidated amount after applying the priority logic.)'),
+turnover_py_gross_val
+OPTIONS(description='The gross turnover which was generated for that store on the same calendar_2 date one year ago. (This is the consolidated amount after applying the priority logic.)'),
+turnover_py_bytd_gross_val
+OPTIONS(description='The business-year-to-date sum of the gross turnover for that store up to the same calendar_2 date one year ago. (This is the consolidated amount after applying the priority logic.)'),
+turnover_py_swday_gross_val
+OPTIONS(description='The gross turnover which was generated for that store on the same weekday one year ago. (This is the consolidated amount after applying the priority logic.)'),
+turnover_py_swday_bytd_gross_val
+OPTIONS(description='The business-year-to-date sum of the gross turnover for that store up to the same weekday one year ago. (This is the consolidated amount after applying the priority logic.)'),
+cash_register_turnover_gross_val
+OPTIONS(description='The gross turnover which was generated for that store on the given day according to the cash register.'),
+eod_turnover_gross_val
+OPTIONS(description='The gross turnover which was generated for that store on the given day according to the end-of-day processing of the retail system.'),
+curr_cd OPTIONS(description='The code identifying the currency according to ISO-4217.'), curr_group_fg
+OPTIONS(description='Flag for Group Currency'), curr_local_fg OPTIONS(description='Flag for Local Currency'),
+receipt_cnt
+OPTIONS(description='The number of sales_2 transactions (i.e. the number of receipts) which have been performed in that store on the given day. (This is the consolidated amount after applying the priority logic.)'),
+receipt_bytd_cnt
+OPTIONS(description='The business-year-to-date sum of the number of sales_2 transactions (i.e. the number of receipts) which have been performed in that store up to the given day. (This is the consolidated amount after applying the priority logic.)'),
+receipt_py_cnt
+OPTIONS(description='The number of sales_2 transactions (i.e. the number of receipts) which have been performed in that store on the same calendar_2 date one year ago. (This is the consolidated amount after applying the priority logic.)'),
+receipt_py_bytd_cnt
+OPTIONS(description='The business-year-to-date sum of the number of sales_2 transactions (i.e. the number of receipts) which have been performed in that store up to the same calendar_2 date one year ago. (This is the consolidated amount after applying the priority logic.)'),
+receipt_py_swday_cnt
+OPTIONS(description='The number of sales_2 transactions (i.e. the number of receipts) which have been performed in that store on the same weekday one year ago. (This is the consolidated amount after applying the priority logic.)'),
+receipt_py_swday_bytd_cnt
+OPTIONS(description='The business-year-to-date sum of the number of sales_2 transactions (i.e. the number of receipts) which have been performed in that store up to the same weekday one year ago. (This is the consolidated amount after applying the priority logic.)'),
+cash_register_receipt_cnt
+OPTIONS(description='The number of sales_2 transactions (i.e. the number of receipts) which have been performed in that store on the given day according to the cash register.'),
+eod_receipt_cnt
+OPTIONS(description='The number of sales_2 transactions (i.e. the number of receipts) which have been performed in that store on the given day according ot the end-of-day processing of the retail system.'),
+booked_receipt_cnt
+OPTIONS(description='The number of sales_2 transactions (i.e. the number of receipts) which have been booked to the store by financial accounting.'),
+plan_receipt_cnt
+OPTIONS(description='The number of sales_2 transactions (i.e. the number of receipts) which have been planned for that store and that day.'),
+plan_receipt_bytd_cnt
+OPTIONS(description='The business-year-to-date sum of the number of sales_2 transactions (i.e. the number of receipts) which have been planned for that store up to that day.'),
+plan_receipt_py_cnt
+OPTIONS(description='The number of sales_2 transactions (i.e. the number of receipts) which have been planned for that store on the same calendar_2 date one year ago.'),
+plan_receipt_py_bytd_cnt
+OPTIONS(description='The business-year-to-date sum of the number of sales_2 transactions (i.e. the number of receipts) which have been planned for that store up to the same calendar_2 date one year ago.'),
+plan_receipt_py_swday_cnt
+OPTIONS(description='The number of sales_2 transactions (i.e. the number of receipts) which have been planned for that store on the same weekday one year ago.'),
+plan_receipt_py_swday_bytd_cnt
+OPTIONS(description='The business-year-to-date sum of the number of sales_2 transactions (i.e. the number of receipts) which have been planned for that store up to the same weekday one year ago.'),
+dwh_created_tmsp OPTIONS(description='The point in time when this record was created in the data warehouse.'),
+dwh_updated_tmsp OPTIONS(description='The point in time when this record was created or last updated.'), dwh_load_id
+OPTIONS(description='The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)'),
+dwh_node_cd OPTIONS(description='The dwh loaded node'))
+OPTIONS(DESCRIPTION = `THE STORE DAY LEVEL VIEW FOR TURNOVER AND CUSTOMER COUNT INCL. TIME TRANSFORMATIONS`) AS SELECT
+ MAIN.benchmarking_type_id AS benchmark_type_id,
+ MAIN.bus_dt AS cal_dt,
+ MAIN.int_org_sid AS store_sid,
+ MAIN.country_org_cd,
+  MAIN.turnover_net_val / FER.exchange_rate AS turnover_net_val,
+  MAIN.turnover_bytd_net_val / FER.exchange_rate AS turnover_bytd_net_val,
+  MAIN.turnover_py_net_val / FER.exchange_rate AS turnover_py_net_val,
+  MAIN.turnover_py_bytd_net_val / FER.exchange_rate AS turnover_py_bytd_net_val,
+  MAIN.turnover_py_swday_net_val / FER.exchange_rate AS turnover_py_swday_net_val,
+  MAIN.turnover_py_swday_bytd_net_val / FER.exchange_rate AS turnover_py_swday_bytd_net_val,
+  MAIN.cash_register_turnover_net_val / FER.exchange_rate AS cash_register_turnover_net_val,
+  MAIN.eod_turnover_net_val / FER.exchange_rate AS eod_turnover_net_val,
+  MAIN.booked_turnover_net_val / FER.exchange_rate AS booked_turnover_net_val,
+  MAIN.plan_turnover_net_val / FER.exchange_rate AS plan_turnover_net_val,
+  MAIN.plan_turnover_bytd_net_val / FER.exchange_rate AS plan_turnover_bytd_net_val,
+  MAIN.plan_turnover_py_net_val / FER.exchange_rate AS plan_turnover_py_net_val,
+  MAIN.plan_turnover_py_bytd_net_val / FER.exchange_rate AS plan_turnover_py_bytd_net_val,
+  MAIN.plan_turnover_py_swday_net_val / FER.exchange_rate AS plan_turnover_py_swday_net_val,
+  MAIN.plan_turnover_py_swday_bytd_net_val / FER.exchange_rate AS plan_turnover_py_swday_bytd_net_val,
+  MAIN.turnover_gross_val / FER.exchange_rate AS turnover_gross_val,
+  MAIN.turnover_bytd_gross_val / FER.exchange_rate AS turnover_bytd_gross_val,
+  MAIN.turnover_py_gross_val / FER.exchange_rate AS turnover_py_gross_val,
+  MAIN.turnover_py_bytd_gross_val / FER.exchange_rate AS turnover_py_bytd_gross_val,
+  MAIN.turnover_py_swday_gross_val / FER.exchange_rate AS turnover_py_swday_gross_val,
+  MAIN.turnover_py_swday_bytd_gross_val / FER.exchange_rate AS turnover_py_swday_bytd_gross_val,
+  MAIN.cash_register_turnover_gross_val / FER.exchange_rate AS cash_register_turnover_gross_val,
+  MAIN.eod_turnover_gross_val / FER.exchange_rate AS eod_turnover_gross_val,
+ FER.src_curr_cd AS curr_cd,
+  CASE
+  WHEN FER.src_curr_cd = 'EUR'
+  THEN 1
+  ELSE 0
+  END AS curr_group_fg,
+  CASE
+  WHEN FER.src_curr_cd = FER.tgt_curr_cd
+  THEN 1
+  ELSE 0
+  END AS curr_local_fg,
+ MAIN.receipt_cnt,
+ MAIN.receipt_bytd_cnt,
+ MAIN.receipt_py_cnt,
+ MAIN.receipt_py_bytd_cnt,
+ MAIN.receipt_py_swday_cnt,
+ MAIN.receipt_py_swday_bytd_cnt,
+ MAIN.cash_register_receipt_cnt,
+ MAIN.eod_receipt_cnt,
+ MAIN.booked_receipt_cnt,
+ MAIN.plan_receipt_cnt,
+ MAIN.plan_receipt_bytd_cnt,
+ MAIN.plan_receipt_py_cnt,
+ MAIN.plan_receipt_py_bytd_cnt,
+ MAIN.plan_receipt_py_swday_cnt,
+ MAIN.plan_receipt_py_swday_bytd_cnt,
+ MAIN.dwh_created_tmsp,
+ MAIN.dwh_updated_tmsp,
+ MAIN.dwh_load_id,
+ MAIN.dwh_node_cd
+FROM ldl_data_core_dim.t_fact_retail_by_store_day_benchmark_2 AS MAIN
+ INNER JOIN ldl_data_core_dim.t_fact_exchange_rate_2 AS FER ON MAIN.curr_cd = FER.tgt_curr_cd
+WHERE FER.exchange_rate_type_cd = 'BEW_ISK'
+ AND (FER.src_curr_cd = 'EUR' OR FER.src_curr_cd = FER.tgt_curr_cd)
+ AND FER.active_fg;

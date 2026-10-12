@@ -1,0 +1,35 @@
+create or replace view DBP_MSI_VIEW_SCM_MATERIALIZED.MV_STUECKLISTE_2(
+	MANDANT_ID,
+	STUECKLISTE_ID,
+	DAT_VON,
+	DAT_BIS,
+	ART_ID_KOPF,
+	STUECKLISTE_VERWENDUNG_ID,
+	STUECKLISTE_POS_ID,
+	DAT_VON_POS,
+	DAT_BIS_POS,
+	ART_ID_KOMPONENTE,
+	STUECKLISTE_TYP_ID,
+	KOMPONENTENMENGE,
+	KOMPONENTENMENGE_EINH_ID
+) as
+SELECT
+	stko.mandant_id
+	, stko.stueckliste_id
+	, stko.dat_von as dat_von
+	, stko.dat_bis as dat_bis
+	, stko.art_id as art_id_kopf
+	, stko.stueckliste_verwendung_id
+	, stpo.stueckliste_pos_id
+	, stpo.dat_von as dat_von_pos
+	, stpo.dat_bis as dat_bis_pos
+	, stpo.art_id as art_id_komponente
+	, stpo.stueckliste_typ_id
+	, stpo.komponentenmenge
+	, stpo.komponentenmenge_einh_id
+FROM dbp_view.v_stueckliste_2 stko_2
+JOIN dbp_view.v_stueckliste_det_2 stpo_2
+	ON (stko.mandant_id = stpo.mandant_id
+		AND stko.stueckliste_id = stpo.stueckliste_id)
+WHERE stko.dat_bis = '9999-12-31'
+	AND stpo.dat_bis = '9999-12-31';

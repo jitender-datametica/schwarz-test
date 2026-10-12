@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_kdc_rating_2 AS SELECT kdc_rating_uid,
+ creation_date,
+ expiration_date,
+ mandant_id,
+ geku_artikel_uid,
+ geku_emotion_id,
+ geku_prioritaet_id,
+ response_time,
+ kindness,
+ satisfaction,
+ repeated_contact,
+ recommendation,
+ datzeit_inserted,
+ datzeit_updated,
+ abschlussgrund_id,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.kdc_rating_2;

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process_ac.v_load_control_applications_2 (load_process_application_id,
+load_process_application_name, load_process_application_desc) AS SELECT load_process_application_id,
+ load_process_application_name,
+ load_process_application_desc
+FROM ldl_p_lew_process.t_load_control_applications_2;

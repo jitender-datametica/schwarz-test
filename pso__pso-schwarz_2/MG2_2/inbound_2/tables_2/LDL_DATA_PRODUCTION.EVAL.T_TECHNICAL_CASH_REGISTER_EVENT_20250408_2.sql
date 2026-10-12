@@ -1,0 +1,25 @@
+create or replace TABLE LDL_DATA_PRODUCTION.EVAL.T_TECHNICAL_CASH_REGISTER_EVENT_20250408_2 cluster by (BUS_DT)(
+	TECH_CASH_REGISTER_EVENT_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the technical cash register event. (The surrogate key is unique across all types of cash register events.)',
+	CASH_REGISTER_EVENT_NR NUMBER(38,0) NOT NULL COMMENT 'The sequence number of the cash register transaction. It is unique to the cash register, but might be re_2-cycled after some time.',
+	EVENT_TMSP TIMESTAMP_TZ(9) NOT NULL COMMENT 'The point in time when the technical cash register event happened. ',
+	BUS_DT DATE NOT NULL COMMENT 'The business date on which the technical cash register event is counted.',
+	STORE_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the store where the technical cash register event happend.',
+	COUNTRY_ORG_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the related country_2 organization.',
+	COUNTRY_ORG_CD VARCHAR(2) NOT NULL COMMENT 'The code of the related business country. (The business country_2 is not identical to a political country.)',
+	REAL_ESTATE_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the real estate object.',
+	CASH_REGISTER_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the cash register which has created this transaction.',
+	CASH_REGISTER_TYPE_CD VARCHAR(20) COMMENT 'The code identifying the type of cash register. (standard cash register, self-checkout system, vending machine)',
+	CASH_REGISTER_USG_TYPE_CD VARCHAR(20) COMMENT 'The code identifying the way, how a cash register is used. It distinguishes between regular operations, training and maintenance.',
+	CASHIER_HASH VARCHAR(32) NOT NULL COMMENT 'The encrypted number of the cashier. (The hash is unique for a given store and a day.)',
+	TECH_CASH_REGISTER_EVENT_TYPE_CD VARCHAR(20) NOT NULL COMMENT 'The code identifying the kind of technical cash register event.',
+	OFFLINE_FG BOOLEAN NOT NULL COMMENT 'An indicator showing, if the transaction was entered while the cash register was offline.',
+	CANCEL_FG BOOLEAN NOT NULL COMMENT 'An indicator showing, if the transaction was cancelled.',
+	SUSPEND_FG BOOLEAN NOT NULL COMMENT 'An indicator showing, if the transaction was suspended. Some later transaction may resume the suspended transaction to complete it.',
+	TRAINING_FG BOOLEAN NOT NULL COMMENT 'An indicator showing, if the transaction was entered in training mode, e.g. when a (new) cashier learns how to use the functionalities of the cash register.',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.',
+	constraint PK_T_TECHNICAL_CASH_REGISTER_EVENT primary key (TECH_CASH_REGISTER_EVENT_SID)
+)COMMENT='Technical cash register events include transactions such as log on / log off, locking or unlocking the cash register reprinting a receipt.'
+;

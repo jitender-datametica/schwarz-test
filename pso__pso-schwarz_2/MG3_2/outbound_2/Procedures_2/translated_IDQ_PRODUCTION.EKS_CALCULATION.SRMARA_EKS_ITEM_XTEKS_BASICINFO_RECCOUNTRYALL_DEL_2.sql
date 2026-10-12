@@ -1,0 +1,3 @@
+CREATE OR REPLACE PROCEDURE idq_production_eks_calculation.srmara_eks_item_xteks_basicinfo_reccountryall_del()
+BEGIN
+TRUNCATE TABLE idq_production_eks_calculation.xteks_basicinfo_reccountry_2;END;

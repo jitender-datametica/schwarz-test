@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_iotchargers.v_dim_charge_point_plugin_type_2 (charge_point_plugin_type_cd,
+charge_point_plugin_type_name) AS SELECT charge_point_plugin_type_cd,
+ charge_point_plugin_type_name
+FROM szd_production_core.t_dim_charge_point_plugin_type_2;

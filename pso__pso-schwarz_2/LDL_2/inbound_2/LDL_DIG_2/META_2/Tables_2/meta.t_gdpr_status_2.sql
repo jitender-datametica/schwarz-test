@@ -1,0 +1,6 @@
+CREATE TABLE META.T_GDPR_STATUS_2 (
+        STATUS_ID         INT IDENTITY(1,1),
+        STATUS_VAL        VARCHAR(250)   NOT NULL,
+        TMSP_INSERT       TIMESTAMP_NTZ(9),
+        TMSP_UPDATE       TIMESTAMP_NTZ(9)        
+);

@@ -1,0 +1,216 @@
+/*
+#-------------------------------------------------------------------------------
+# Copyright  LIDL Stiftung & Co. KG - PITonCloud Application 2023
+#-------------------------------------------------------------------------------
+# Interface : View for AGG_REGION_ADV_WEEK_NAN
+#-------------------------------------------------------------------------------
+# Describtion: Create Frontend View for AGG_REGION_ADV_WEEK_NAN
+#-------------------------------------------------------------------------------
+# Encoding. UTF8noBom
+#-------------------------------------------------------------------------------
+# History:
+#  1.0  2023-01-17 Andreas Kurz	    Initial version
+#  1.1  2023-06-29 K Lukaszewska	Testing cube information added
+#  1.2  2023-07-12 Prasanna Ranjan  Added CUBE_PARTITION_KEY
+#  1.3  2023-11-02 Andreas Kurz		Added COALESCE(BRAND_NAME,'n/A') AS BRAND_NAME
+#  2.0  2024-02-13 Prasanna Ranjan	Added new columns for PIT Increment 2 (PV)
+#  4.0  2024-03-25 Nikolai Toknov   add PV_LP_NET_VAL, PV_LP_NET_VAL_SHARE_PCT, PV_PD_NET_VAL, PV_PD_NET_VAL_SHARE_PCT, PV_WAWI_NET_VAL, PV_WAWI_NET_VAL_SHARE_PCT
+#  4.1  2024-09-24 Prasanna Ranjan	Adjustment Increment 2.1 (PV)
+#  4.2  2025-02-10 Andreas Kurz		Reworked Structure based on Increment PV 2.1 business requirements (FE-MSTR)
+#  4.3  2025-06-26 Andreas Kurz		Added Weighted AVG KPIs for Vk_2 alt / neu and Billiger in PCT
+#-------------------------------------------------------------------------------
+*/
+
+/*
+USE ROLE		R_LDL_D_PIT_ETL;
+USE WAREHOUSE	WH_LDL_D_PIT_ETL_S;
+USE DATABASE 	LDL_PRODUCTION_CLONE_PIT_R60001;
+--USE DATABASE 	LDL_PRODUCTION_CLONE_PIT;
+--USE DATABASE	LDL_PRODUCTION_CLONE_PIT_CLONE_AP0123442_AKTIONSTYPEN;
+USE SCHEMA 		P_LEW_FE_MSTR_PIT; 
+
+-- LDL_PRODUCTION_CLONE_PIT_CLONE_AP0123442_AKTIONSTYPEN.P_LEW_FE_MSTR_PIT
+--SHOW DATABASES LIKE 'LDL_PRODUCTION_CLONE_PIT%';
+--SELECT GET_DDL('view','P_LEW_FE_MSTR_PIT.V_AGG_REGION_ADV_WEEK_NAN_2');
+*/
+
+/* 
+---------------------------------------------------------------------
+Create Access View p_lew_fe_mstr_pit.v_agg_region_adv_week_nan_2 
+------------------------------------------------------------------------
+*/
+CREATE OR REPLACE VIEW P_LEW_FE_MSTR_PIT.V_AGG_REGION_ADV_WEEK_NAN_2
+COMMENT = 'View Dimension AGG_REGION_ADV_WEEK_NAN'
+AS
+SELECT
+	  agg.CLIENT_ID
+	, agg.COUNTRY_ISO_CD
+	, agg.COUNTRY_DESCR
+	, agg.WAREHOUSE_SID
+	, agg.WAREHOUSE_MSTR_SID
+	, agg.WAREHOUSE_GID
+	, agg.WAREHOUSE_MSTR_GID
+	, agg.WAREHOUSE_NAME
+	, agg.ORIG_WH_NR
+	, agg.ADV_WEEK_ID
+	, agg.ADV_WEEK_MSTR_ID
+	, agg.ADV_WEEK_START_DT
+	, agg.ADV_WEEK_END_DT
+	, agg.ADV_WEEK_START_DT_DESCR
+	, agg.ADV_WEEK_END_DT_DESCR
+	, agg.ADV_WEEK_START_DAY_SDESCR
+	, agg.ADV_WEEK_END_DAY_SDESCR
+	, agg.ADV_WEEK_START_DAY_DESCR
+	, agg.ADV_WEEK_END_DAY_DESCR
+	, agg.LENGTH_OF_ADV_WEEK
+	, agg.ADV_WEEK_YEAR_ID
+	, agg.ADV_WEEK_WEEK_NR
+	, agg.ADV_WEEK_SDESCR
+	, agg.ADV_WEEK_DESCR
+	, agg.ADV_WEEK_LDESCR
+	, agg.ADV_WEEK_OVERLAP_LDESCR
+	, agg.PREV_1_ADV_WEEK_ID
+	, agg.NEXT_1_ADV_WEEK_ID
+	, agg.PREV_1_YEAR_ADV_WEEK_ID
+	, agg.LAST_ADV_WEEK_FG
+	, agg.LAST_CLOSED_ADV_WEEK_FG
+	, agg.MOV_ADV_WEEK_START_FROM_CURRENT
+	, agg.MAX_ADV_PERIOD_END_DT
+	, agg.REPORTING_LINE_SID
+	, agg.REPORTING_LINE_DESCR
+	, agg.ORIG_ITEM_GID
+	, agg.ORIG_ITEM_MSTR_GID
+	, agg.ORIG_ITEM_NR
+	, agg.ORIG_ITEM_MSTR_NR
+	, agg.DAT_VALID_FROM
+	, agg.ITEM_NAME
+	, agg.ITEM_DESCR
+	, agg.ITEM_INT_DESCR
+	, agg.ITEM_FAM_GRP_SID
+	, agg.ITEM_FAM_GRP_SRC_ID
+	, agg.ITEM_FAM_GRP_SRC_CD
+	, agg.ITEM_FAM_GRP_NAME
+	, agg.ITEM_FAM_GRP_DESCR
+	, agg.ITEM_FAM_GRP_INT_DESCR
+	, agg.SUB_ITEM_GRP_GID
+	, agg.SUB_ITEM_GRP_MSTR_GID
+	, agg.SUB_ITEM_GRP_SID
+	, agg.SUB_ITEM_GRP_MSTR_SID
+	, agg.SUB_ITEM_GRP_SRC_CD
+	, agg.SUB_ITEM_GRP_NAME
+	, agg.SUB_ITEM_GRP_DESCR
+	, agg.SUB_ITEM_GRP_INT_DESCR
+	, agg.ITEM_GRP_INT_GID
+	, agg.ITEM_GRP_INT_MSTR_GID
+	, agg.ITEM_GRP_INT_SID
+	, agg.ITEM_GRP_INT_MSTR_SID
+	, agg.ITEM_GRP_INT_SRC_CD
+	, agg.ITEM_GRP_INT_NAME
+	, agg.ITEM_GRP_INT_DESCR
+	, agg.ITEM_GRP_INT_INT_DESCR
+	, agg.BRAND_SID
+	, COALESCE(agg.BRAND_NAME, 'n/A') AS BRAND_NAME
+	, agg.BRAND_TYPE_CD
+	, agg.BUYING_LIST_TYPE_ID
+	, agg.BUYING_LIST_TYPE_DESCR
+	, agg.BUYING_LIST_TYPE_INT_DESCR
+	, agg.SUPPLIER_LIST_DESCR
+	, agg.ACTION_TYPE_ID
+	, agg.ACTION_TYPE_SORT_VAL
+	, agg.ACTION_TYPE_NAME
+	, agg.ACTION_TYPE_DESCR
+	--, agg.PV_TYPE_ID
+	, agg.SORT_ORDER_VAL
+	, agg.ADD_RECEIPT_CNT
+	, agg.ADD_RECEIPT_PER_STORE_CNT
+	, agg.ADD_TURNOVER_NET_VAL
+	, agg.ADD_TURNOVER_NET_PER_STORE_VAL
+	, agg.ADD_TURNOVER_QTY
+	, agg.ADD_TURNOVER_PER_STORE_QTY
+	, agg.ADD_TURNOVER_REVENUE_NET_VAL
+	, agg.ADD_TURNOVER_REVENUE_NET_PER_STORE_VAL
+	-- AKU 2025-02-12 Open if ADV_ITEM_CNT is needed currently not populated by script
+	, agg.ADV_ITEM_CNT
+	, agg.ADV_ITEM_PER_RECEIPT_CNT
+	, agg.ADV_RECEIPT_ADV_TURNOVER_NET_VAL
+	, agg.ADV_RECEIPT_NP_TURNOVER_NET_VAL
+	, agg.ADV_RECEIPT_TOTAL_TURNOVER_NET_VAL
+	, agg.BASE_RECEIPT_CNT
+	, agg.BASE_RESTBON_TURNOVER_NET_VAL
+	, agg.BASE_TURNOVER_NET_VAL
+	, agg.BASE_TURNOVER_QTY
+	, agg.BASE_TURNOVER_REVENUE_NET_VAL
+	, agg.CHEAPER_MAX_PCT
+	, agg.CHEAPER_MIN_PCT
+	, agg.CHEAPER_RANGE
+	, agg.CHERRY_PICKER_RECEIPT_CNT
+	, agg.CHERRY_PICKER_RECEIPT_CNT_PCT
+	, agg.EXCLUSIVE_BUYER_RECEIPT_CNT
+	, agg.EXCLUSIVE_BUYER_RECEIPT_CNT_PCT
+	, agg.HEAVY_BUYER_RECEIPT_CNT
+	, agg.HEAVY_BUYER_RECEIPT_CNT_PCT
+	, agg.PRICE_BUY_NET
+	, agg.PRICE_RETAIL_NEW_GROSS_RANGE
+	, agg.PRICE_RETAIL_NEW_MAX_GROSS
+	, agg.PRICE_RETAIL_NEW_MIN_GROSS
+	, agg.PRICE_RETAIL_OLD_GROSS_RANGE
+	, agg.PRICE_RETAIL_OLD_MAX_GROSS
+	, agg.PRICE_RETAIL_OLD_MIN_GROSS
+	, agg.PV_EFFIC_REVENUE_FACTOR
+	, agg.PV_EFFIC_TURNOVER_FACTOR
+	
+	-- AKU 2025-03-31
+	, iff( agg.ACTION_TYPE_ID > 10, NULL, agg.PV_NET_VAL)	 			AS PV_NET_VAL
+	, iff( agg.ACTION_TYPE_ID > 10, NULL, agg.PV_NET_VAL_SHARE_PCT) 	AS PV_NET_VAL_SHARE_PCT	
+
+	, agg.PV_LP_NET_VAL
+	, agg.PV_LP_NET_VAL_SHARE_PCT
+	, agg.PV_NPPS_NET_VAL
+	, agg.PV_NPPS_NET_VAL_SHARE_PCT
+	, agg.PV_WAWI_NET_VAL
+	, agg.PV_WAWI_NET_VAL_SHARE_PCT
+	, agg.PV_RECEIPT_CNT_FACTOR
+	, agg.PV_TURNOVER_NET_VAL_FACTOR
+	, agg.PV_TURNOVER_QTY_FACTOR
+	, agg.RECEIPT_CNT
+	, agg.RECEIPT_CNT_SHARE_PCT
+	, agg.RECEIPT_PER_STORE_CNT
+	, agg.RESTBON_EFFECT_PCT
+	, agg.RESTBON_NP_TURNOVER_NET_VAL
+	, agg.RESTBON_TURNOVER_NET_VAL
+	, agg.RESTBON_TURNOVER_REVENUE_NET_VAL
+	, agg.STORE_CNT
+	, agg.TOTAL_RECEIPT_CNT
+	, agg.TOTAL_TURNOVER_NET_VAL
+	, agg.TURNOVER_MARGIN_PCT
+	, agg.TURNOVER_NET_PER_STORE_VAL
+	, agg.TURNOVER_NET_VAL
+	, agg.TURNOVER_NET_VAL_SHARE_PCT
+	, agg.TURNOVER_QTY
+	, agg.TURNOVER_REVENUE_NET_VAL
+	, agg.TURNOVER_REVENUE_NET_STORE_VAL
+	, agg.VOLUME_BUY_NET_VAL
+	
+		-- AKU 205-06-26
+	, agg.CHEAPER_WEIGHTED_AVG_IN_PCT
+	, agg.PRICE_RETAIL_OLD_WEIGHTED_AVG_GROSS
+	, agg.PRICE_RETAIL_NEW_WEIGHTED_AVG_GROSS
+	
+	, agg.REJECT_FG
+	, agg.REJECT_REASON_ID
+	, agg.SOURCE_SYSTEM_ID
+	, agg.DELETED_FG
+	, agg.DWH_CREATED_TS
+	, agg.DWH_UPDATED_TS
+	, agg.LOAD_ID		
+	, ROW_NUMBER()OVER (PARTITION BY NULL ORDER BY NULL) AS CUBE_PARTITION_KEY	
+FROM P_LEW_FE_MSTR_PIT.T_AGG_REGION_ADV_WEEK_NAN_2 agg
+WHERE TRUE
+	AND agg.DELETED_FG 	= 0
+	AND agg.REJECT_FG	= 0
+;	
+
+--SELECT * FROM P_LEW_FE_MSTR_PIT.V_AGG_REGION_ADV_WEEK_NAN_2 LIMIT 1;
+
+
+/* --- EOF - END OF FILE --- */

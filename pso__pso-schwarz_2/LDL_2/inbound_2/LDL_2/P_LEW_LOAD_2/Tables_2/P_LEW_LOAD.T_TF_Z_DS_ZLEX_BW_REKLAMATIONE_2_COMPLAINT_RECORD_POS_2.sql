@@ -1,0 +1,28 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TF_Z_DS_ZLEX_BW_REKLAMATIONE_2_COMPLAINT_RECORD_POS_2
+(
+  CLIENT_ID                       NUMBER(38)                    NULL,
+  LIDL_COUNTRY                    VARCHAR(40)                   NULL,
+  Z_DS_ZLEX_BW_REKLAMATIONE_RKLNR VARCHAR(20)                   NULL,
+  Z_DS_ZLEX_BW_REKLAMATIONE_RKLPO NUMBER(5,0)                   NULL,
+  COMPLAINT_RECORD_ID             NUMBER(20,0)                  NULL,
+  COMPLAINT_RECORD_POS_ID         NUMBER(38)                    NULL,
+  SRC_MATNR                       VARCHAR(40)                   NULL,
+  SRC_WERKS_SEND                  VARCHAR(40)                   NULL,
+  SRC_WERKS_RECEIVE               VARCHAR(40)                   NULL,
+  SRC_MSEHI                       VARCHAR(40)                   NULL,
+  SRC_WAERS                       VARCHAR(40)                   NULL,
+  COMPLAINT_REASON_MARK           VARCHAR(20)                   NULL,
+  COMPLAINT_REASON_LABEL          VARCHAR(100) COLLATE 'en-ci'  NULL,
+  COMPLAINT_AREA_MARK             VARCHAR(20)                   NULL,
+  COMPLAINT_AREA_LABEL            VARCHAR(100) COLLATE 'en-ci'  NULL,
+  UOM_CD                          VARCHAR(20)                   NULL,
+  COMPLAINT_QTY                   NUMBER(18,5)                  NULL,
+  CURR_CD                         VARCHAR(20)                   NULL,
+  COMPLAINT_VAL                   NUMBER(18,5)                  NULL,
+  DWH_CAL_DT                      DATE                          NULL,
+  EXTRACTION_DT                   DATE                          NULL,
+  DWH_MAPPING_DT                  DATE                          NULL,
+  TF_ERROR_FG                     NUMBER(1,0)                   NULL,
+  RECORD_ID                       NUMBER(10,0)                  NULL,
+  FILENAME                        VARCHAR(1000)                 NULL
+);

@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW P_LEW_MART_MSI.V_AGG_WH_WK_FA_COVERAGE_2 as
+   SELECT
+          CAST(NULL AS INTEGER) AS cy_week_partial_week_id,
+   CAST(NULL AS INTEGER) AS cy_week_partial_week_id2,
+   CAST(NULL AS SMALLINT) AS client_id,
+   CAST(NULL AS INTEGER)  AS wh_id,
+   CAST(NULL AS SMALLINT) AS byr,
+   CAST(NULL AS INTEGER) AS month_id,
+   CAST(NULL AS INTEGER) AS week_id,
+   CAST(NULL AS VARCHAR) AS working_dat,
+   CAST(NULL AS CHAR(3)) AS currency_iso_cd,
+   CAST(NULL AS DECIMAL(18,8)) AS fa_stock_wh_wk_asis,
+   CAST(NULL AS DECIMAL(18,8)) AS fa_stock_wh_mth_asis,
+   CAST(NULL AS DECIMAL(18,8)) AS fa_stock_wh_yr_asis,
+   CAST(NULL AS DECIMAL(18,8)) AS fa_stock_wh_wk_p1y,
+   CAST(NULL AS DECIMAL(18,8)) AS fa_stock_wh_mth_p1y,
+   CAST(NULL AS DECIMAL(18,8)) AS fa_stock_wh_yr_p1y,
+   CAST(NULL AS DECIMAL(20,8)) AS fa_retail_mth_pm,
+   CAST(NULL AS DECIMAL(18,8)) AS fa_stock_wh_wk_pyd,
+   CAST(NULL AS DECIMAL(18,8)) AS fa_stock_wh_mth_pyd,
+   CAST(NULL AS DECIMAL(18,8)) AS fa_stock_wh_yr_pyd,
+   CAST(NULL AS DECIMAL(20,8)) AS fa_retail_mth_pmpy,
+   CAST(NULL AS DECIMAL(18,8)) AS fa_coverage_wh_wk_asis,
+   CAST(NULL AS DECIMAL(18,8)) AS fa_coverage_wh_mth_asis,
+   CAST(NULL AS DECIMAL(18,8)) AS fa_coverage_wh_yr_asis,
+   CAST(NULL AS DECIMAL(18,8)) AS fa_coverage_wh_wk_pyd,
+   CAST(NULL AS DECIMAL(18,8)) AS fa_coverage_wh_mth_pyd,
+   CAST(NULL AS DECIMAL(18,8)) AS fa_coverage_wh_yr_pyd
+
+;

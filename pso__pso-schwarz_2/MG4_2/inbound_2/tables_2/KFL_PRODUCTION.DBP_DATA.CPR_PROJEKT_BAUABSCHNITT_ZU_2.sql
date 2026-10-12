@@ -1,0 +1,28 @@
+create or replace TABLE KFL_PRODUCTION.DBP_DATA.CPR_PROJEKT_BAUABSCHNITT_ZU_2 (
+	PROJEKT_UNTER_ID VARCHAR(32) NOT NULL COMMENT 'eindeutige ID aus Aufgabe oder Checkliste_Punkt',
+	PROJEKT_ID VARCHAR(32) NOT NULL COMMENT 'Eindeutige ID des Projekts',
+	BAUABSCHNITT_ID VARCHAR(32) COMMENT 'eindeutige ID der Bauabschnitte aus Aufgabe oder Phase, bzw. Kopf aus Projekt',
+	CPR_EXT_ID VARCHAR(30) NOT NULL DEFAULT ' ' COMMENT 'eindeutige Projektnummer pro Projekt und Sprache',
+	CPR_SYSTEMSTATUS1_PRJ_ID NUMBER(38,0) NOT NULL DEFAULT 0 COMMENT 'Schluessel für den Projekt-Systemstatus1, Enthält numerische Werte von 1 aufsteigend',
+	CPR_SYSTEMSTATUS1_BAUAB_ID NUMBER(38,0) NOT NULL DEFAULT 0 COMMENT 'Schluessel für den Bauabschnitt-Systemstatus1, Enthält numerische Werte von 1 aufsteigend',
+	DAT_EROEFFNUNG_PROJEKT DATE NOT NULL DEFAULT CAST('1900-01-01' AS DATE) COMMENT 'maximaler Eröffnungstermin pro Projekt',
+	SORT_ID NUMBER(38,0) NOT NULL DEFAULT 0 COMMENT 'Quelle von bauabschnitt_id, 1 = cpr_projekt_per_2, 2 = cpr_phase_per_2 oder cpr_aufgabe_per_2',
+	CPR_SUCHFELD_ID NUMBER(38,0) NOT NULL DEFAULT 0 COMMENT 'Diese ID wird bei der Versorgung aus dem von der Quelle gelieferten Feld generiert',
+	DAT_START_IST DATE NOT NULL DEFAULT CAST('1900-01-01' AS DATE) COMMENT 'Isttermin Start',
+	DAT_ENDE_IST DATE NOT NULL DEFAULT CAST('1900-01-01' AS DATE) COMMENT 'Isttermin Ende',
+	DAT_START_VORHERSAGE DATE NOT NULL DEFAULT CAST('1900-01-01' AS DATE) COMMENT 'Prognosetermin Start',
+	DAT_ENDE_VORHERSAGE DATE NOT NULL DEFAULT CAST('1900-01-01' AS DATE) COMMENT 'Prognosetermin Ende',
+	DAT_START_EINSCHRAENKUNG DATE NOT NULL DEFAULT CAST('1900-01-01' AS DATE) COMMENT 'Solltermin Start',
+	DAT_ENDE_EINSCHRAENKUNG DATE NOT NULL DEFAULT CAST('1900-01-01' AS DATE) COMMENT 'Solltermin Ende',
+	PROJEKT_EXISTIERT_VOR_14TAGE_FG NUMBER(38,0) NOT NULL DEFAULT 0 COMMENT 'Flag: War das Projekt vor 14 Tagen (actual date - 14) existent (1 = existent)',
+	DAT_START_IST_MINUS_14 DATE NOT NULL DEFAULT CAST('1900-01-01' AS DATE) COMMENT 'Isttermin Start - Stand vor 14 Tagen',
+	DAT_ENDE_IST_MINUS_14 DATE NOT NULL DEFAULT CAST('1900-01-01' AS DATE) COMMENT 'Isttermin Ende - Stand vor 14 Tagen',
+	DAT_START_VORHERSAGE_MINUS_14 DATE NOT NULL DEFAULT CAST('1900-01-01' AS DATE) COMMENT 'Prognosetermin Start - Stand vor 14 Tagen',
+	DAT_ENDE_VORHERSAGE_MINUS_14 DATE NOT NULL DEFAULT CAST('1900-01-01' AS DATE) COMMENT 'Prognosetermin Ende - Stand vor 14 Tagen',
+	DAT_START_EINSCHRAENKUNG_MINUS_14 DATE NOT NULL DEFAULT CAST('1900-01-01' AS DATE) COMMENT 'Solltermin Start - Stand vor 14 Tagen',
+	DAT_ENDE_EINSCHRAENKUNG_MINUS_14 DATE NOT NULL DEFAULT CAST('1900-01-01' AS DATE) COMMENT 'Solltermin Ende  - Stand vor 14 Tagen',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	constraint PK_CPR_PROJEKT_BAUABSCHNITT_ZU primary key (PROJEKT_UNTER_ID)
+)COMMENT='IOS - Tabelle für die korrekte Zuordnung von Terminen zu Bauabschnitten und Projekten'
+;

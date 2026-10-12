@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE idq_production_kfl_ret.t024_2 (
+mandt STRING(3) NOT NULL,
+ekgrp STRING(3) NOT NULL,
+eknam STRING(18),
+ektel STRING(12),
+ldest STRING(4),
+telfx STRING(31),
+tel_number STRING(30),
+tel_extens STRING(10),
+smtp_addr STRING(241),
+zzrp_ldap STRING(40),
+zzwblid NUMERIC(3,0),
+zzwbl STRING(35),
+zzgfid NUMERIC(2,0),
+zzgf STRING(35),
+zzabt STRING(12),
+zzek_smgrp STRING(3),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (mandt, ekgrp) NOT ENFORCED
+);

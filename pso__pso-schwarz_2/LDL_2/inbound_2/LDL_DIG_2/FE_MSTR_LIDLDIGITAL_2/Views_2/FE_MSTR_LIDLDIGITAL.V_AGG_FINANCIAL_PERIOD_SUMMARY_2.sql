@@ -1,0 +1,83 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIDLDIGITAL.V_AGG_FINANCIAL_PERIOD_SUMMARY_2(
+	FISCAL_YEAR
+	,FISCAL_PERIOD
+	,COST_CENTER_NR
+	,ACCT_NR
+	,INTERNAL_COMPANY_SID
+	,CTRL_AREA_CD
+	,TOTAL_AMOUNT_NET_EUR_VAL
+	,ACCT_DATA_SRC_NAME
+	,ACCT_DOC_POSTING_DT
+	,ACCT_DOCUMENT_TX
+	,ACCT_DOC_NR
+	,CTRL_DOC_NR
+	,ACCT_DOC_DT
+	,ACCT_COST_TYPE_CD
+	,PROD_VARIANT_NR
+	,OFFSETTING_ACCT_NR
+	,GROUP_ACCT_NR
+	,INTERNAL_COMPANY_PARTNER_SID
+	,ACCT_DOC_TYPE_CD
+	,SENDER_COST_CENTER_NR
+) AS SELECT
+     IFNULL(A1.FISCAL_YEAR, 0) AS FISCAL_YEAR
+    ,IFNULL(A1.FISCAL_PERIOD, 0) AS FISCAL_PERIOD
+    ,CASE WHEN A1.COST_CENTER_NR = '' THEN '-1' ELSE IFNULL(A1.COST_CENTER_NR, '-1') END AS COST_CENTER_NR
+    ,CASE WHEN A1.ACCT_NR = '' THEN '-1' ELSE IFNULL(A1.ACCT_NR, '-1') END AS ACCT_NR
+    ,IFNULL(A1.INTERNAL_COMPANY_SID, '-1') AS INTERNAL_COMPANY_SID
+    ,CASE WHEN A1.CTRL_AREA_CD = '' THEN '-1' ELSE IFNULL(A1.CTRL_AREA_CD, '-1') END AS CTRL_AREA_CD
+    ,IFNULL(A1.TOTAL_AMOUNT_NET_EUR_VAL, '0') AS TOTAL_AMOUNT_NET_EUR_VAL
+    ,A1.ACCT_DATA_SRC_NAME AS ACCT_DATA_SRC_NAME
+    ,A1.POSTING_DT AS ACCT_DOC_POSTING_DT
+    ,'-1' AS ACCT_DOCUMENT_TX
+    ,'dummy_2' AS ACCT_DOC_NR
+    ,'dummy_2' AS CTRL_DOC_NR
+    ,A1.POSTING_DT AS ACCT_DOC_DT
+    ,'1' AS ACCT_COST_TYPE_CD
+    ,'-1' AS PROD_VARIANT_NR
+    , '-1' AS offsetting_acct_nr
+    ,CASE WHEN A2.Group_acct_nr = ''THEN '-1' ELSE IFNULL(A2.Group_acct_nr,'-1') END AS group_acct_nr
+    ,'-1' AS internal_company_partner_sid
+    ,'-1' AS ACCT_DOC_TYPE_CD
+	,'-1' AS SENDER_COST_CENTER_NR
+FROM
+    lec_share.v_agg_financial_period_summary_2 A1
+LEFT JOIN
+    (
+        SELECT
+            acct_nr
+            ,internal_company_sid
+            ,GROUP_ACCT_NR
+        FROM
+            lec_share.v_dim_financial_account_2
+        WHERE
+            DWH_VALID_FG = TRUE AND CHART_OF_ACCOUNTS_CD = 'LDI1'
+    ) A2
+    ON
+       A1.acct_nr = A2.acct_nr
+       AND A1.internal_company_sid = A2.internal_company_sid
+WHERE
+    A1.ACCT_DATA_SRC_NAME = 'EXT'
+UNION ALL
+    SELECT
+         '0' --  FISCAL_YEAR
+        ,'0' -- ,FISCAL_PERIOD
+        ,'-1' -- ,COST_CENTER_NR
+        ,'-1' -- ,ACCT_NR
+        ,'-1' -- ,INTERNAL_COMPANY_SID
+        ,'-1' -- ,CTRL_AREA_CD
+        ,'0' -- ,POSTING_GROUP_TGT_NET_EUR_VAL
+        ,'' -- ,ACCT_DATA_SRC_NAME
+        ,TO_DATE('1900-01-01') --, POSTING_DT
+        ,'-1' -- ACCT_DOCUMENT_TX
+        ,'-1' -- ACCT_DOC_NR
+        ,'-1' -- CTRL_DOC_NR
+        ,TO_DATE('1900-01-01') -- ACCT_DOC_DT
+        ,'-1' -- ACCT_COST_TYPE_CD
+        ,'-1' -- PROD_VARIANT_NR
+        ,'-1'
+        ,'-1'
+        ,'-1'
+        ,'-1'
+		,'-1'
+;

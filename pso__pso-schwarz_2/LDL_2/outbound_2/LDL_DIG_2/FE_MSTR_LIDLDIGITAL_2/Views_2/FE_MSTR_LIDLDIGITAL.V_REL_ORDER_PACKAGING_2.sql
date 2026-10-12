@@ -1,0 +1,22 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital.v_rel_order_packaging_2 (pack_sid, pack_pos_nr, delivery_order_sid,
+delivery_order_pos_nr, prod_variant_sid, delivery_order_nr, cust_order_sid, cust_order_pos_nr, ic_order_sid,
+ic_order_pos_nr, ic_order_nr, delivery_to_point_of_use_fg, delivery_pick_up_for_recycling_fg,
+delivery_label_for_recycling_fg, deliv_prod_qty, deliv_prod_price, deliv_prod_val) AS SELECT IFNULL(pack_sid, -1) AS
+ pack_sid,
+ pack_pos_nr,
+ IFNULL(delivery_order_sid, -1) AS delivery_order_sid,
+ delivery_order_pos_nr,
+ IFNULL(prod_variant_sid, -1) AS prod_variant_sid,
+ delivery_order_nr,
+ IFNULL(cust_order_sid, -1) AS cust_order_sid,
+ cust_order_pos_nr,
+ IFNULL(ic_order_sid, -1) AS ic_order_sid,
+ ic_order_pos_nr,
+ ic_order_nr,
+ delivery_to_point_of_use_fg,
+ delivery_pick_up_for_recycling_fg,
+ delivery_label_for_recycling_fg,
+ deliv_prod_qty,
+ deliv_prod_price,
+ deliv_prod_val
+FROM ldl_dig_lec_share.v_rel_order_packaging_2;

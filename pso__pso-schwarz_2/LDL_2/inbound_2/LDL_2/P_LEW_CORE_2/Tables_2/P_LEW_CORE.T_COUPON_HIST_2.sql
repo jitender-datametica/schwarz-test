@@ -1,0 +1,36 @@
+create or replace TABLE LDL_PRODUCTION_CLONE_GOOGLE_20260608_1030.P_LEW_CORE.T_COUPON_HIST_2 cluster by (
+     CLIENT_ID,
+     COUPON_SID 
+)(
+	CLIENT_ID NUMBER(38,0) NOT NULL COMMENT 'unique identifier of the DWH client / slice',
+	COUPON_SID NUMBER(38,0) NOT NULL COMMENT 'unique identifier of the Coupon (surrogate key)',
+	COUPON_TYPE_CD VARCHAR(40) COLLATE 'en-ci' COMMENT 'unique code identifying the type of the coupon,  e.g. GiftProduct, SpecialPrice, BuyXGetAFree etc.',
+	COUPON_NR VARCHAR(50) COLLATE 'en-ci' COMMENT 'a number that is used to identify a certain coupon',
+	COUPON_NAME VARCHAR(100) COLLATE 'en-ci' COMMENT 'the name of the coupon, i.e. giving a hint for what coupon it is (like Gratis Gasanzuender or 10% Parika-Mischung)',
+	LOYALTY_PROG_CD VARCHAR(5) COLLATE 'en-ci' COMMENT 'identifier of the loyalty program: LPLUS (LidlPlus)',
+	GEO_AREA_SID NUMBER(38,0) COMMENT 'unique identifier of the geographical area (surrogate key)',
+	GEO_AREA_CD VARCHAR(5) COLLATE 'en-ci' COMMENT 'code of the geographical area',
+	COUPON_STATUS_CD VARCHAR(5) COLLATE 'en-ci' COMMENT 'unique code describing the status_2 of a coupon, e.g. being planned, activated or deactivated',
+	DISCOUNT_TYPE_CD VARCHAR(40) COLLATE 'en-ci' COMMENT 'unique code for the discount type, e.g. X Percentage, XForY, SpecialPrice, etc.',
+	CURR_CD VARCHAR(2) COLLATE 'en-ci' COMMENT 'currency cde for the discount value or special price of a product',
+	REDUCED_SALES_PRICE NUMBER(38,5) COMMENT 'the special price of the product that is linked to the coupon',
+	DISCOUNT_VAL NUMBER(38,5) COMMENT 'by how much money amount the product that is linked to coupon is reduced, e.g. 0.50€ discount on peppers',
+	DISCOUNT_PCT NUMBER(38,5) COMMENT 'by how much percent the product that is linked to the coupon is reduced; e.g. 10% on peppers',
+	DISCOUNT_X_CNT NUMBER(38,0) COMMENT 'how many pieces a customer needs to buy in order to get some free, i.e. the customer gets y_cnt',
+	DISCOUNT_Y_CNT NUMBER(38,0) COMMENT 'how many pieces the customer gets in case he buys x_cnt',
+	DELETED_FG NUMBER(38,0) NOT NULL COMMENT 'Coupon is in case of deleted_fg = 1 not known in the source system in the time frame dwh_valid_from / dwh_valid_to. Note: this is also set ff the loesch-kz in the source system is set.',
+	DWH_VALID_FROM DATE NOT NULL COMMENT 'Begin of the validity_2 interval of the record, oldest record of the history starts with 1900-01-01 (minus infinity).',
+	DWH_VALID_TO DATE NOT NULL COMMENT 'End of the validity_2 interval of the record, newest record of the history ends with 9999-12-30 (plus infinity).',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'Identifier of the last run which inserted or updated the record. -1 means manually inserted.',
+	DWH_CREATED TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Creation timestamp of the record in the DWH.',
+	DWH_UPDATED TIMESTAMP_NTZ(9) NOT NULL COMMENT 'Timestamp of the last update of the record in the DWH.',
+	ORIG_DISCOUNT_TYPE_SID NUMBER(38,0) COMMENT 'unique identifier of the discount_type in SCRM table promotionhst (surrogate key)',
+	ORIG_COUPON_TYPE_SID NUMBER(38,0) COMMENT 'unique identifier of the category in SCRM table promotionhst (surrogate key)',
+	COUPON_REASON_NR NUMBER(38,0) COMMENT 'identifier of the coupon reason in SCRM',
+	COUPON_ACTIVATION_TMSP TIMESTAMP_NTZ(9) COMMENT 'time when the coupon is visible to the customer in the the app',
+	COUPON_VALID_FROM_TMSP TIMESTAMP_NTZ(9) COMMENT 'start timestamp when the coupon can be used by customers to get discount on their purchase',
+	COUPON_VALID_TO_TMSP TIMESTAMP_NTZ(9) COMMENT 'end timestamp when the coupon can be used by customers to get discount on their purchase',
+	BUNDLE_ITEM_CNT NUMBER(38,0) COMMENT 'Number of of sales_2 items which form a bundle to apply a certain benefit on. For example 4 items have to be purchased to get a special price for all 4 together.',
+	constraint PK_T_COUPON_HIST primary key (COUPON_SID, DWH_VALID_FROM)
+)COMMENT='$Revision: 0000 $. A coupon reduces the amount that the customer needs to pay for his/her purchase or gives free products for the purchase.'
+;

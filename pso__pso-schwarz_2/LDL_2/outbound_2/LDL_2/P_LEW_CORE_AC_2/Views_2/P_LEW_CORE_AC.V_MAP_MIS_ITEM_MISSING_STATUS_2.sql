@@ -1,0 +1,12 @@
+CREATE OR REPLACE VIEW ldl_p_lew_core_ac.v_map_mis_item_missing_status_2 (client_id, item_status_cd, missing_state_cd,
+missing_reason_cd, mis_item_missing_reason_cd, mis_end_cd_pp, dwh_load_id, dwh_created, dwh_updated) AS SELECT client_id
+ ,
+ item_status_cd,
+ missing_state_cd,
+ missing_reason_cd,
+ mis_item_missing_reason_cd,
+ mis_end_cd_pp,
+ dwh_load_id,
+ dwh_created,
+ dwh_updated
+FROM ldl_p_lew_core.t_map_mis_item_missing_status_2;

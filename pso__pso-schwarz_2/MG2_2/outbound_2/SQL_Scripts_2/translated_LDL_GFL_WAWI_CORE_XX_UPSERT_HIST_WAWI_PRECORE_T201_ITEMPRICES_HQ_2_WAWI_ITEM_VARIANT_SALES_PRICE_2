@@ -1,0 +1,5 @@
+UPDATE ldl_data_production_core_rel.t_wawi_item_variant_sales_price_2 SET
+ dwh_valid_fg = IF(CURRENT_DATE BETWEEN SAFE_CAST(t_wawi_item_variant_sales_price.dwh_valid_from_tmsp as DATE) AND (SAFE_CAST(t_wawi_item_variant_sales_price_2
+      .dwh_valid_to_tmsp as DATE)), 1, 0) <> 0
+WHERE dwh_valid_fg <> (IF(CURRENT_DATE BETWEEN SAFE_CAST(dwh_valid_from_tmsp as DATE) AND (SAFE_CAST(dwh_valid_to_tmsp
+       as DATE)), 1, 0) <> 0);

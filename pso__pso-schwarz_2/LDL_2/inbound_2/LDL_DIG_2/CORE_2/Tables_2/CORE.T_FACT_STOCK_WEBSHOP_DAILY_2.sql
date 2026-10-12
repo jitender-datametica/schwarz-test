@@ -1,0 +1,28 @@
+/* --------------------------------------------------------------------------------
+   DDL FOR TABLE: T_FACT_STOCK_WEBSHOP_DAILY_2
+   GENERATED FROM POWERDESIGNER ON Donnerstag, 13. Juni 2024 15:04:23
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE.T_FACT_STOCK_WEBSHOP_DAILY_2 (
+   WSHOP_CD                            VARCHAR(5)      NOT NULL COMMENT 'The unique code for the Lidl webshop',
+   PROD_VARIANT_SID                    NUMBER          NOT NULL COMMENT 'The unique identifier (surrogate key) for the product variant',
+   CAL_DT                              DATE            NOT NULL COMMENT 'The day represented as a calendar_2 date of the form YYYY-MM_2-DD. YYYY is the calendar_2 year, MM_2 (between 1 and 12) the calendar_2 month and DD the day of the calendar_2 month (between 1 and 31).',
+   ACTIVE_FG                           BOOLEAN         COMMENT 'An indicator showing the current record from a business perspective, i.e. where the current date is between active_from_dt and active_to_dt',
+   AVAIL_TO_PROMISE_CNT                NUMBER          COMMENT 'The amount of stock which is currently available within the specific warehouse.
+            All of the stock can be sold within the onlineshop and is stored in an internal warehouse. This field is obsolete and will be replaced by avail_to_sell_stock_cnt.',
+   GLOBAL_STOCK_CNT                    NUMBER          COMMENT 'Global stock represents a common pool of stock that is available for the webshops to take stock from (when their supply is not enogh) This value represents the count of given product variant in this common pool (global stock) that is available for this webshop',
+   AVAIL_TO_SELL_CNT                   NUMBER          COMMENT 'Available for Sale is the high level rack''s and pick-area''s stock within the system. This field is obsolete and will be replaced by avail_to_sell_stock_cnt.',
+   RECEIV_ON_DOCK_CNT                  NUMBER          COMMENT '"Received on dock" is the incoming goods area''s stock within the system. In case of a new delivery the stock would be stated first as ROD.',
+   COVERED_REMAIN_CNT                  NUMBER          COMMENT 'The amount, which the countries were actually able to reserve from the specific warehouses.
+            Calculation Logic: ATP - reservations (under consideration of hard and soft once and potential overbookings of other countries) --> 
+            All of the stock can be sold within the onlineshop and is stored in an internal warehouse.',
+   ALLOC_STOCK_CNT                     NUMBER          COMMENT 'The reserved stock for a country_2 - this stock is only available for this country_2 (for a certain time period)',
+   PROD_VARIANT_NR                     VARCHAR(20)     COMMENT 'The product variant number',
+   AVAIL_LVL_CD                        VARCHAR(5)      COMMENT 'Indicator code for availability (1, Online ausverkauft; 2, Online in Kürze; 3, Bestellbar; Null, Offline)',
+   AVAIL_TO_SELL_STOCK_CNT             NUMBER          COMMENT 'Stock count of the product variant available for sale on that day in the given webshop - this is the maximum product count that can be ordered in total in all customer orders placed on that day. This field is going to replace the fields avail_to_sell_cnt and avail_to_promise_cnt.',
+   DWH_CREATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   DWH_UPDATED_TMSP                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',
+   DWH_SRC_FILE_NAME                   VARCHAR(255)    COMMENT 'The path and the name of the file(s) from which this record was loaded.',
+   SRC_FILE_TMSP                       TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was extracted from the source.',   
+   CONSTRAINT PK_T_FACT_STOCK_WEBSHOP_DAILY PRIMARY KEY (WSHOP_CD, PROD_VARIANT_SID, CAL_DT) NOT ENFORCED 
+)  COMMENT = 'The table contains the daily updates of available products to sell in particular webshop.';

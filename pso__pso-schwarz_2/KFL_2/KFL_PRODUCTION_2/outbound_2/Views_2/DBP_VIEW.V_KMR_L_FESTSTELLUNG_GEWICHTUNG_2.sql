@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_kmr_l_feststellung_gewichtung_2 AS SELECT amx_system_id,
+ feststellung_gewichtung_id,
+ feststellung_gewichtung_bez
+FROM kfl_production_dbp_data.kmr_l_feststellung_gewichtung_2;

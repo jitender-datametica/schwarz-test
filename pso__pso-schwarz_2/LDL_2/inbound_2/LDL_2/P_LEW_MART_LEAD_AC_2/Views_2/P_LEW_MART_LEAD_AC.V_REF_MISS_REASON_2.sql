@@ -1,0 +1,70 @@
+CREATE OR REPLACE VIEW P_LEW_MART_LEAD_AC.V_REF_MISS_REASON_2
+(
+ reason_id
+,reason_desc
+,reason_desc_AT
+,reason_desc_BE
+,reason_desc_BG
+,reason_desc_CH
+,reason_desc_CY
+,reason_desc_CZ
+,reason_desc_DE
+,reason_desc_DK
+,reason_desc_ES
+,reason_desc_FI
+,reason_desc_FR
+,reason_desc_GB
+,reason_desc_GR
+,reason_desc_HR
+,reason_desc_HU
+,reason_desc_IE
+,reason_desc_IT
+,reason_desc_LT
+,reason_desc_LV
+,reason_desc_NI
+,reason_desc_NL
+,reason_desc_PL
+,reason_desc_PT
+,reason_desc_RO
+,reason_desc_SE
+,reason_desc_SI
+,reason_desc_SK
+,reason_desc_CS
+,reason_desc_MT
+,reason_desc_US
+)
+AS
+   SELECT
+    reason_id,
+   reason_desc,
+   reason_desc_AT,
+   reason_desc_BE,
+   reason_desc_BG,
+   reason_desc_CH,
+   reason_desc_CY,
+   reason_desc_CZ,
+   reason_desc_DE,
+   reason_desc_DK,
+   reason_desc_ES,
+   reason_desc_FI,
+   reason_desc_FR,
+   reason_desc_GB,
+   reason_desc_GR,
+   reason_desc_HR,
+   reason_desc_HU,
+   reason_desc_IE,
+   reason_desc_IT,
+   reason_desc_LT,
+   reason_desc_LV,
+   reason_desc_NI,
+   reason_desc_NL,
+   reason_desc_PL,
+   reason_desc_PT,
+   reason_desc_RO,
+   reason_desc_SE,
+   reason_desc_SI,
+   reason_desc_SK,
+   reason_desc_CS,
+   reason_desc_MT,
+   reason_desc_US
+   FROM p_lew_mart_lead.v_ref_miss_reason_2;

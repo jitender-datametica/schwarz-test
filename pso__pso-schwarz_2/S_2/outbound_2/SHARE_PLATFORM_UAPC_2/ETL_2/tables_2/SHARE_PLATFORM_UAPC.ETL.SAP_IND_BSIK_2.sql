@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE share_platform_uapc_etl.sap_ind_bsik_2 (
+augbl STRING(16777216),
+augdt DATE,
+belnr STRING(16777216),
+blart STRING(16777216),
+bldat DATE,
+budat DATE,
+bukrs STRING(16777216),
+buzei BIGNUMERIC(38,0),
+gjahr BIGNUMERIC(38,0),
+lifnr STRING(16777216),
+mandt STRING(16777216),
+umsks STRING(16777216),
+umskz STRING(16777216),
+wrbtr NUMERIC(14,2),
+xblnr STRING(16777216),
+xzahl STRING(16777216),
+zlspr STRING(16777216),
+zterm STRING(16777216),
+zuonr STRING(16777216)
+);

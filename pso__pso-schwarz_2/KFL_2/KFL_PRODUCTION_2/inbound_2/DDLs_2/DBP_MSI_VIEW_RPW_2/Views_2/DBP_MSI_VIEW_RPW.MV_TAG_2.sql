@@ -1,0 +1,151 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_RPW.MV_TAG_2
+          -- 01.02.2016 twie: kjwo_kl_vj, gjwo_kl_vj entfernt
+          (
+          dat
+          ,kjmo
+          ,kjmo_vj
+          ,wtag_id
+          ,kjwo
+          ,kjwo_vj
+          ,gjwo
+          ,gjwo_vj
+          ,wo_dat_von
+          ,wo_dat_bis
+          ,gjmo
+          ,gjmo_vj
+          ,kjqu
+          ,gjqu
+          ,kj
+          ,gj
+          ,kjtag_id
+          ,gjtag_id
+          ,kjwo_kl
+          ,kjwo_kl_dat_von
+          ,kjwo_kl_dat_bis
+          ,gjwo_kl
+          ,gjwo_kl_dat_von
+          ,gjwo_kl_dat_bis
+          ,dat_vj
+          ,akt_tag
+          ,akt_mo
+          ,akt_mo_komplett
+          ,akt_wo
+          ,akt_wo_komplett
+          ,akt_gjwo_kl
+          ,akt_gjwo_kl_komplett
+          ,akt_kjwo_kl
+          ,akt_kjwo_kl_komplett
+          ,akt_gjqu
+          ,akt_gjqu_komplett
+          ,akt_kjqu
+          ,akt_kjqu_komplett
+          ,akt_gj
+          ,akt_gj_komplett
+          ,akt_kj
+          ,akt_kj_komplett
+          ,mo_gj
+          ,mo_kj
+          ,system_id
+          )
+          AS
+
+             SELECT
+             dat,
+             kjmo,
+             kjmo_vj,
+             wtag_id,
+             kjwo,
+             kjwo_vj,
+             gjwo,
+             gjwo_vj,
+             wo_dat_von,
+             wo_dat_bis,
+             gjmo,
+             gjmo_vj,
+             kjqu,
+             gjqu,
+             kj,
+             gj,
+             kjtag_id,
+             gjtag_id,
+             kjwo_kl,
+             kjwo_kl_dat_von,
+             kjwo_kl_dat_bis,
+             gjwo_kl,
+             gjwo_kl_dat_von,
+             gjwo_kl_dat_bis,
+             dat_vj,
+             akt_tag,
+             akt_mo,
+             akt_mo_komplett,
+             akt_wo,
+             akt_wo_komplett,
+             akt_gjwo_kl,
+             akt_gjwo_kl_komplett,
+             akt_kjwo_kl,
+             akt_kjwo_kl_komplett,
+             akt_gjqu,
+             akt_gjqu_komplett,
+             akt_kjqu,
+             akt_kjqu_komplett,
+             akt_gj,
+             akt_gj_komplett,
+             akt_kj,
+             akt_kj_komplett,
+             mo_gj,
+             mo_kj,
+             7 AS system_id
+             FROM dbp_view.v_tag_2
+             WHERE kjmo >= 200501
+             AND dat <= CURRENT_DATE
+
+             UNION ALL
+
+             SELECT
+             CAST('1900-01-01' AS DATE) AS dat,
+             190001 AS kjmo,
+             189901 AS kjmo_vj,
+             1 AS wtag_id,
+             190001 AS kjwo,
+             189852 AS kjwo_vj,
+             189944 AS gjwo,
+             189843 AS gjwo_vj,
+             CAST('1900-01-01' AS DATE) AS wo_dat_von,
+             CAST('1900-01-07' AS DATE) AS wo_dat_bis,
+             189911 AS gjmo,
+             189811 AS gjmo_vj,
+             190001.30 AS kjqu,
+             189904.63 AS gjqu,
+             1900 AS kj,
+             1899 AS gj,
+             1 AS kjtag_id,
+             307 AS gjtag_id,
+             190001 AS kjwo_kl,
+             CAST('1900-01-01' AS DATE) AS kjwo_kl_dat_von,
+             CAST('1900-01-07' AS DATE) AS kjwo_kl_dat_bis,
+             189901 AS gjwo_kl,
+             CAST('1900-01-01' AS DATE) AS gjwo_kl_dat_von,
+             CAST('1900-01-07' AS DATE) AS gjwo_kl_dat_bis,
+             CAST('1899-01-02' AS DATE) AS dat_vj,
+             -32768 AS akt_tag,
+             -32768 AS akt_mo,
+             -32768 AS akt_mo_komplett,
+             -32768 AS akt_wo,
+             -32768 AS akt_wo_komplett,
+             -32768 AS akt_gjwo_kl,
+             -32768 AS akt_gjwo_kl_komplett,
+             -32768 AS akt_kjwo_kl,
+             -32768 AS akt_kjwo_kl_komplett,
+             -32768 AS akt_gjqu,
+             -32768 AS akt_gjqu_komplett,
+             -32768 AS akt_kjqu,
+             -32768 AS akt_kjqu_komplett,
+             -32768 AS akt_gj,
+             -32768 AS akt_gj_komplett,
+             -32768 AS akt_kj,
+             -32768 AS akt_kj_komplett,
+             11 AS mo_gj,
+             1 AS mo_kj,
+             7 AS system_id
+FROM dbp_view.v_tag_2
+WHERE dat = CURRENT_DATE;

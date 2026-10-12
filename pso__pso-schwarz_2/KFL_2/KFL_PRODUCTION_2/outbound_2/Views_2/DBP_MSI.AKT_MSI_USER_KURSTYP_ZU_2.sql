@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi.akt_msi_user_kurstyp_zu_2 (user_id, kurstyp_id) AS SELECT V02.user_id,
+ V02.kurstyp_id
+FROM kfl_production_dbp_msi_data.akt_msi_user_2 AS V01
+ INNER JOIN kfl_production_dbp_msi_v_view.v_user_kurstyp_zu_2 AS V02 ON V01.user_id = V02.user_id AND V01.session_id = ABS(FARM_FINGERPRINT(SESSION_USER()
+     ))
+GROUP BY V02.user_id,
+ V02.kurstyp_id;

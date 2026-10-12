@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_handling_unit_ewm_qual_2 AS SELECT mandant_id,
+ handling_unit_guid,
+ seq_nr,
+ pruef_art,
+ lagernummer_id,
+ datzeit_ausfuehrung,
+ handling_unit_id,
+ lagersortiment_id,
+ verschachtelt_fg,
+ waqfk_status,
+ gewicht_soll,
+ gewicht_ist,
+ menge_einh_id,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.handling_unit_ewm_qual_2;

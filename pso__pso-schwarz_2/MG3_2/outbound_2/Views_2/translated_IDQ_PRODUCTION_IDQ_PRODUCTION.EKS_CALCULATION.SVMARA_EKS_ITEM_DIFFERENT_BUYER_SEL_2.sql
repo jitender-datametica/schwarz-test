@@ -1,0 +1,20 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.svmara_eks_item_different_buyer_sel_2 (negotiatingcountry,
+buyershortsign, buyerfirstname, buyerlastname, zmatkl, articlefamily, ba_itemno, itemid, itemno, articletype,
+description, zrelevantmdm, zsource, zactive) AS SELECT svmara_eks_item_different_buyer_sel_all.negotiatingcountry,
+ svmara_eks_item_different_buyer_sel_all.buyershortsign,
+ svmara_eks_item_different_buyer_sel_all.buyerfirstname,
+ svmara_eks_item_different_buyer_sel_all.buyerlastname,
+ svmara_eks_item_different_buyer_sel_all.zmatkl,
+ svmara_eks_item_different_buyer_sel_all.articlefamily,
+ svmara_eks_item_different_buyer_sel_all.ba_itemno,
+ svmara_eks_item_different_buyer_sel_all.itemid,
+ svmara_eks_item_different_buyer_sel_all.itemno,
+ svmara_eks_item_different_buyer_sel_all.articletype,
+ svmara_eks_item_different_buyer_sel_all.description,
+ svmara_eks_item_different_buyer_sel_all.zrelevantmdm,
+ svmara_eks_item_different_buyer_sel_all.zsource,
+ svmara_eks_item_different_buyer_sel_all.zactive
+FROM idq_production_eks_calculation.svmara_eks_item_different_buyer_sel_all_2
+ LEFT JOIN idq_production_eks_calculation.eks_zsm_excludelist_2 ON svmara_eks_item_different_buyer_sel_all.itemno =
+   eks_zsm_excludelist.itemno AND eks_zsm_excludelist.reportno = '013'
+WHERE eks_zsm_excludelist.itemno IS NULL;

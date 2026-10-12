@@ -1,0 +1,22 @@
+CREATE OR REPLACE VIEW idq_production_sp_mep.sp_inob_2 (country_id, mandt, cuobj, klart, obtab, objek, robtab, robjek,
+clint, statu, cucozhl, parent, root, experte, matnr, datuv, techs, idq_loaddate, idq_user) AS SELECT 5 AS country_id,
+ mandt,
+ cuobj,
+ klart,
+ obtab,
+ objek,
+ robtab,
+ robjek,
+ clint,
+ statu,
+ cucozhl,
+ parent,
+ root,
+ experte,
+ matnr,
+ datuv,
+ techs,
+ td_update AS idq_loaddate,
+ 'Snowflake SP_MEP/View' AS idq_user
+FROM idq_production_sp_mep.inob_2
+WHERE mandt = '865';

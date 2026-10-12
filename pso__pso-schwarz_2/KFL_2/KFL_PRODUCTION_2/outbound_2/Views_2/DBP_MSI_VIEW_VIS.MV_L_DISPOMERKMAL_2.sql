@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_l_dispomerkmal_2 AS SELECT dispomerkmal,
+ dispomerkmal_bez
+FROM kfl_production_dbp_data.dispomerkmal_spr_zu_2;

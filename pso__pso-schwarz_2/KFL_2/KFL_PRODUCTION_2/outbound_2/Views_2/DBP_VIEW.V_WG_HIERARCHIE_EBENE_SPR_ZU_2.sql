@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_wg_hierarchie_ebene_spr_zu_2 AS SELECT mandant_id,
+ arthiertyp_id,
+ wg_hierarchie_ebene_id,
+ spr_id,
+ wg_hierarchie_ebene_bez
+FROM kfl_production_dbp_data.wg_hierarchie_ebene_spr_zu_2;

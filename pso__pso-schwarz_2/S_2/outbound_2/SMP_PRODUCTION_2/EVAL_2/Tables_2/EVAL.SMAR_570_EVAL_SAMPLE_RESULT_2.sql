@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE smp_production_eval.smar_570_eval_sample_result_2 (
+x_gtin_id STRING(100),
+y_gtin_id STRING(100),
+common_n INTEGER,
+x_gtin_name STRING(500),
+y_gtin_name STRING(500),
+x_category_name STRING(500),
+y_category_name STRING(500),
+x_n INTEGER,
+y_n INTEGER,
+total_n INTEGER,
+ln_p_ab FLOAT64,
+ln_p_a FLOAT64,
+ln_p_b FLOAT64,
+pmi_smoothed_5 FLOAT64,
+pmi FLOAT64,
+pmi_weighted FLOAT64,
+support NUMERIC(29,6),
+p_a NUMERIC(29,6),
+p_b NUMERIC(29,6),
+confidence NUMERIC(29,6)
+);

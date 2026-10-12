@@ -1,0 +1,56 @@
+/*
+====================================================================================================
+Division:           Lidl
+Solution:           Operational Logistics (LOGOP)
+DB schema:          fe_mstr_logop
+DB table/view:      V_AG_ELKE_STAMMDATEN_LAND_2
+====================================================================================================
+Change history:     version, date, developer, comment
+    1.0     2025-12-11      Simeon Nikolaev            Initial version
+====================================================================================================
+*/
+CREATE OR REPLACE VIEW FE_MSTR_LOGOP.V_AG_ELKE_STAMMDATEN_LAND_2 (
+  LAND_2
+ ,LANDESKUERZEL
+ ,CLIENT_ID
+) AS
+SELECT DISTINCT
+   LAND_2
+ , LANDESKUERZEL
+ , CASE 
+		WHEN  LANDESKUERZEL = 'INT'	THEN 0
+		WHEN  LANDESKUERZEL = 'AT'	THEN 1
+		WHEN  LANDESKUERZEL = 'BE'	THEN 2
+		WHEN  LANDESKUERZEL = 'BG'	THEN 3
+		WHEN  LANDESKUERZEL = 'CH'	THEN 4
+		WHEN  LANDESKUERZEL = 'CY'	THEN 5
+		WHEN  LANDESKUERZEL = 'CZ'	THEN 6
+		WHEN  LANDESKUERZEL = 'DK'	THEN 8
+		WHEN  LANDESKUERZEL = 'ES'	THEN 10
+		WHEN  LANDESKUERZEL = 'FI'	THEN 11
+		WHEN  LANDESKUERZEL = 'FR'	THEN 12
+		WHEN  LANDESKUERZEL = 'GB'	THEN 13
+		WHEN  LANDESKUERZEL = 'GR'	THEN 14
+		WHEN  LANDESKUERZEL = 'HR'	THEN 15
+		WHEN  LANDESKUERZEL = 'HU'	THEN 16
+		WHEN  LANDESKUERZEL = 'IE'	THEN 17
+		WHEN  LANDESKUERZEL = 'IT'	THEN 18
+		WHEN  LANDESKUERZEL = 'LT'	THEN 19
+		WHEN  LANDESKUERZEL = 'LV'	THEN 20
+		WHEN  LANDESKUERZEL = 'NI'	THEN 21
+		WHEN  LANDESKUERZEL = 'NL'	THEN 22
+		WHEN  LANDESKUERZEL = 'DE'	THEN 23
+		WHEN  LANDESKUERZEL = 'PL'	THEN 24
+		WHEN  LANDESKUERZEL = 'PT'	THEN 25
+		WHEN  LANDESKUERZEL = 'RO'	THEN 26
+		WHEN  LANDESKUERZEL = 'SE'	THEN 27
+		WHEN  LANDESKUERZEL = 'SI'	THEN 28
+		WHEN  LANDESKUERZEL = 'SK'	THEN 29
+		WHEN  LANDESKUERZEL = 'CS'	THEN 31
+		WHEN  LANDESKUERZEL = 'MT'	THEN 32
+		WHEN  LANDESKUERZEL = 'US'	THEN 33
+		WHEN  LANDESKUERZEL = 'RS_2'	THEN 34
+		ELSE NULL
+   END AS CLIENT_ID
+FROM DATA.T_AG_ELKE_STAMMDATEN_2
+;

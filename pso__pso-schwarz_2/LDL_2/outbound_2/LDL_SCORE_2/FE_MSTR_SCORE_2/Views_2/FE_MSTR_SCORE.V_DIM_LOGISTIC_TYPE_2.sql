@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW ldl_score_fe_mstr_score.v_dim_logistic_type_2 AS SELECT logistic_type_cd,
+ logistic_type_descr
+FROM ldl_score_core.t_dim_logistic_type_2;

@@ -1,0 +1,127 @@
+/*
+#----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS
+#----------------------------------------------------------------------------
+# Interface: DDL for P_LEW_MART_WFM_AC.V_ITEMSALE_HOURS_CRD_DELTA_2
+#----------------------------------------------------------------------------
+# History:
+#  1.0  18.04.2023    Ulrich Ross               Init, User Story 455584
+#----------------------------------------------------------------------------
+*/
+
+CREATE OR REPLACE VIEW P_LEW_MART_WFM_AC.V_ITEMSALE_HOURS_CRD_DELTA_2
+
+(
+    client_id
+  , store
+  , item_2
+  , receiptdate
+  , timelastsold
+  , sum_qty_piece_unpacked_0
+  , sum_qty_piece_unpacked_1
+  , sum_qty_piece_unpacked_2
+  , sum_qty_piece_unpacked_3
+  , sum_qty_piece_unpacked_4
+  , sum_qty_piece_unpacked_5
+  , sum_qty_piece_unpacked_6
+  , sum_qty_piece_unpacked_7
+  , sum_qty_piece_unpacked_8
+  , sum_qty_piece_unpacked_9
+  , sum_qty_piece_unpacked_10
+  , sum_qty_piece_unpacked_11
+  , sum_qty_piece_unpacked_12
+  , sum_qty_piece_unpacked_13
+  , sum_qty_piece_unpacked_14
+  , sum_qty_piece_unpacked_15
+  , sum_qty_piece_unpacked_16
+  , sum_qty_piece_unpacked_17
+  , sum_qty_piece_unpacked_18
+  , sum_qty_piece_unpacked_19
+  , sum_qty_piece_unpacked_20
+  , sum_qty_piece_unpacked_21
+  , sum_qty_piece_unpacked_22
+  , sum_qty_piece_unpacked_23
+  , discount_pieces_unpacked_0
+  , discount_pieces_unpacked_1
+  , discount_pieces_unpacked_2
+  , discount_pieces_unpacked_3
+  , discount_pieces_unpacked_4
+  , discount_pieces_unpacked_5
+  , discount_pieces_unpacked_6
+  , discount_pieces_unpacked_7
+  , discount_pieces_unpacked_8
+  , discount_pieces_unpacked_9
+  , discount_pieces_unpacked_10
+  , discount_pieces_unpacked_11
+  , discount_pieces_unpacked_12
+  , discount_pieces_unpacked_13
+  , discount_pieces_unpacked_14
+  , discount_pieces_unpacked_15
+  , discount_pieces_unpacked_16
+  , discount_pieces_unpacked_17
+  , discount_pieces_unpacked_18
+  , discount_pieces_unpacked_19
+  , discount_pieces_unpacked_20
+  , discount_pieces_unpacked_21
+  , discount_pieces_unpacked_22
+  , discount_pieces_unpacked_23
+  , load_id
+)
+AS
+SELECT
+    client_id
+  , store
+  , item_2
+  , receiptdate
+  , timelastsold
+  , sum_qty_piece_unpacked_0
+  , sum_qty_piece_unpacked_1
+  , sum_qty_piece_unpacked_2
+  , sum_qty_piece_unpacked_3
+  , sum_qty_piece_unpacked_4
+  , sum_qty_piece_unpacked_5
+  , sum_qty_piece_unpacked_6
+  , sum_qty_piece_unpacked_7
+  , sum_qty_piece_unpacked_8
+  , sum_qty_piece_unpacked_9
+  , sum_qty_piece_unpacked_10
+  , sum_qty_piece_unpacked_11
+  , sum_qty_piece_unpacked_12
+  , sum_qty_piece_unpacked_13
+  , sum_qty_piece_unpacked_14
+  , sum_qty_piece_unpacked_15
+  , sum_qty_piece_unpacked_16
+  , sum_qty_piece_unpacked_17
+  , sum_qty_piece_unpacked_18
+  , sum_qty_piece_unpacked_19
+  , sum_qty_piece_unpacked_20
+  , sum_qty_piece_unpacked_21
+  , sum_qty_piece_unpacked_22
+  , sum_qty_piece_unpacked_23
+  , discount_pieces_unpacked_0
+  , discount_pieces_unpacked_1
+  , discount_pieces_unpacked_2
+  , discount_pieces_unpacked_3
+  , discount_pieces_unpacked_4
+  , discount_pieces_unpacked_5
+  , discount_pieces_unpacked_6
+  , discount_pieces_unpacked_7
+  , discount_pieces_unpacked_8
+  , discount_pieces_unpacked_9
+  , discount_pieces_unpacked_10
+  , discount_pieces_unpacked_11
+  , discount_pieces_unpacked_12
+  , discount_pieces_unpacked_13
+  , discount_pieces_unpacked_14
+  , discount_pieces_unpacked_15
+  , discount_pieces_unpacked_16
+  , discount_pieces_unpacked_17
+  , discount_pieces_unpacked_18
+  , discount_pieces_unpacked_19
+  , discount_pieces_unpacked_20
+  , discount_pieces_unpacked_21
+  , discount_pieces_unpacked_22
+  , discount_pieces_unpacked_23
+  , load_id
+FROM p_lew_mart_wfm.v_itemsale_hours_crd_delta_2
+;

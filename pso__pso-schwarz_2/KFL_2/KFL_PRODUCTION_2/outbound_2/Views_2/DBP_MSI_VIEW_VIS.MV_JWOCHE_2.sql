@@ -1,0 +1,13 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_jwoche_2 (jwo, jwo_ist, jwo_bez, jwo_bez_de, jwo_bez_cz,
+jwo_bez_sk, jwo_bez_hr, jwo_bez_pl, jwo_bez_ro, jwo_bez_bg) AS SELECT DISTINCT CAST(MOD(CAST(kjwo AS BIGNUMERIC), 100) AS BIGNUMERIC)
+ AS jwo,
+ CAST(CAST(MOD(CAST(kjwo AS BIGNUMERIC), 100) AS BIGNUMERIC) AS STRING FORMAT '00') AS jkw_ist,
+  'KW' || CAST(CAST(MOD(CAST(kjwo AS BIGNUMERIC), 100) AS BIGNUMERIC) AS STRING FORMAT '00') AS jkw_bez,
+  'KW' || CAST(CAST(MOD(CAST(kjwo AS BIGNUMERIC), 100) AS BIGNUMERIC) AS STRING FORMAT '00') AS jkw_bez_de,
+  'KT' || CAST(CAST(MOD(CAST(kjwo AS BIGNUMERIC), 100) AS BIGNUMERIC) AS STRING FORMAT '00') AS jkw_bez_cz,
+  'KW' || CAST(CAST(MOD(CAST(kjwo AS BIGNUMERIC), 100) AS BIGNUMERIC) AS STRING FORMAT '00') AS jkw_bez_sk,
+  'KW' || CAST(CAST(MOD(CAST(kjwo AS BIGNUMERIC), 100) AS BIGNUMERIC) AS STRING FORMAT '00') AS jkw_bez_hr,
+  'KW' || CAST(CAST(MOD(CAST(kjwo AS BIGNUMERIC), 100) AS BIGNUMERIC) AS STRING FORMAT '00') AS jkw_bez_pl,
+  'KW' || CAST(CAST(MOD(CAST(kjwo AS BIGNUMERIC), 100) AS BIGNUMERIC) AS STRING FORMAT '00') AS jkw_bez_ro,
+  'КС' || CAST(CAST(MOD(CAST(kjwo AS BIGNUMERIC), 100) AS BIGNUMERIC) AS STRING FORMAT '00') AS jkw_bez_bg
+FROM kfl_production_dbp_view.v_woche_2 AS V01;

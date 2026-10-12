@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.scm_ba_artikel_stage_2 (
+extraction_timestamp DATETIME,
+excel_rownum INTEGER,
+col_land_verhandelt STRING(100),
+col_int_liefnr_verhandlungspart INTEGER,
+col_bezeichnung_verhandlungspart STRING(100),
+col_warengruppe STRING(100),
+col_ba_nr INTEGER,
+col_ba_bezeichnung STRING(100),
+col_eks_nummer INTEGER,
+col_artikelbez STRING(100),
+col_eks_nummer_sorte INTEGER,
+col_bezeichnung_sorte STRING(100),
+col_gebinde_anzahl STRING(100),
+col_gebinde_inhalt INTEGER,
+col_gebinde_einheit STRING(100),
+col_gebinde_verpackung STRING(100),
+col_gebinde STRING(100),
+col_kolliinhalt INTEGER,
+col_palfkt INTEGER,
+col_land STRING(100)
+);

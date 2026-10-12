@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_precore.t_cache_v_pit_promotion_sales_planning_hist_2 (
+client_id BIGNUMERIC(38,0) NOT NULL,
+pvpsp_srcinst_id STRING(100) COLLATE 'und:ci' NOT NULL,
+pvpsp_srcinst_code STRING(100) COLLATE 'und:ci',
+pvpsp_pvpit_id STRING(100) COLLATE 'und:ci' NOT NULL,
+pvpsp_valid_from DATE NOT NULL,
+pvpsp_valid_to DATE,
+pvpsp_salestype_value STRING(100) COLLATE 'und:ci' NOT NULL,
+pvpsp_proplan_id STRING(100) COLLATE 'und:ci' NOT NULL,
+pvpsp_storgrp_id STRING(100) COLLATE 'und:ci' NOT NULL,
+pvpsp_sales_quota NUMERIC(9,5),
+pvpsp_sales_amount BIGNUMERIC(38,0),
+pvpsp_is_writeoff BIGNUMERIC(38,0),
+pvpsp_reduction_amount BIGNUMERIC(38,0),
+deleted_fg BIGNUMERIC(38,0) NOT NULL,
+dwh_valid_from DATE NOT NULL,
+dwh_valid_to DATE NOT NULL,
+dwh_load_id BIGNUMERIC(38,0) NOT NULL,
+dwh_created DATETIME NOT NULL,
+dwh_updated DATETIME NOT NULL,
+PRIMARY KEY (pvpsp_valid_from, dwh_valid_from) NOT ENFORCED
+);

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW produktion_fe_mstr_bge_palettierer.v_dim_alerts_shift_description_2 AS SELECT
+ alerts_shift_description_id,
+ alerts_day_shift_desc
+FROM produktion_core.t_dim_alerts_shift_description_2;

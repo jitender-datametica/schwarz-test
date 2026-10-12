@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE data_business_layer_production_gold.teaser_report_2 (
+date DATE,
+country_2 STRING(16777216),
+page STRING(16777216),
+promotion_group STRING(16777216),
+promotion_creative STRING(16777216),
+promotion_id STRING(16777216),
+promotion_position STRING(16777216),
+device_category STRING(16777216),
+platform STRING(16777216),
+web_app STRING(16777216),
+saleschannel STRING(16777216),
+transactions_qty BIGNUMERIC(38,0),
+revenue_euro_net_val FLOAT64,
+promotion_views_qty BIGNUMERIC(38,0),
+promotion_clicks_qty BIGNUMERIC(38,0),
+sessions_promotion_views BIGNUMERIC(38,0),
+sessions_promotion_clicks BIGNUMERIC(38,0),
+promotion_linkurl STRING(16777216),
+promotion_creative_type STRING(16777216),
+country_type_flag STRING(16777216)
+);

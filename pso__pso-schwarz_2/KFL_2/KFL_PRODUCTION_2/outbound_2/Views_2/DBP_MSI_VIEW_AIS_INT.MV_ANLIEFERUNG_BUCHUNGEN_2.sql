@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ais_int.mv_anlieferung_buchungen_2 AS SELECT V1.mandant_id,
+ V1.anlieferung_id,
+ V1.entladestelle_id,
+ V1.menge_palette_gesamt,
+ V1.datzeit_entl_gebucht,
+ V1.datzeit_ankunft,
+ V1.datzeit_tor,
+ V1.datzeit_entl_beginn,
+ V1.datzeit_entl_ende,
+ V1.datzeit_ausfahrt,
+ V1.anlieferung_status1_id,
+ V1.anlieferung_status2_id,
+ V1.sako_fg,
+ V1.retoure_kz,
+ V1.anlieferung_spediteur_id,
+ V2.best_beleg_id,
+ V3.dat_best_beleg,
+ V2.lagernummer_id,
+ V2.wup_id,
+ V2.nb_id,
+ V2.retoure_fg,
+ V2.palettiert_fg,
+ V2.werbung_fg,
+ V2.menge_palette_ist,
+ V2.menge_palette_soll,
+ V2.gp_id
+FROM kfl_production_dbp_view.v_anlieferung_management_2 AS V1
+ INNER JOIN kfl_production_dbp_view.v_anlieferung_management_det_2 AS V2 ON V1.anlieferung_id = V2.anlieferung_id AND V1.mandant_id
+    = V2.mandant_id
+ LEFT JOIN kfl_production_dbp_view.v_besch_best_2 AS V3 ON V2.best_beleg_id = V3.best_beleg_id AND V2.mandant_id = V3.mandant_id;

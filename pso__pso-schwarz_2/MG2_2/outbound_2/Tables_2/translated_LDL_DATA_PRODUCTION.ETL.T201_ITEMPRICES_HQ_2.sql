@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t201_itemprices_hq_2 (
+ctrcode STRING(3) COLLATE 'und:ci' NOT NULL,
+c201_groupnr BIGNUMERIC(29,10) NOT NULL,
+c201_itemdesc STRING(100),
+c201_vatcode INTEGER NOT NULL,
+c201_editedby STRING(8),
+c201_lastedited DATETIME,
+c201_datefrom DATETIME NOT NULL,
+c201_dateto DATETIME NOT NULL,
+c201_beverage_tax BIGNUMERIC(29,10) NOT NULL,
+c201_price BIGNUMERIC(29,10),
+c201_containerdep BIGNUMERIC(29,10),
+c201_tarecode INTEGER,
+c201_itemno STRING(18) NOT NULL,
+c201_itemnr BIGNUMERIC(29,10) NOT NULL,
+c201_reason_id INTEGER,
+c201_refdate DATETIME,
+c201_pv_flag INTEGER,
+scn INTEGER DEFAULT 0,
+c201_linked_deposit_item STRING(18),
+extraction_tmsp DATETIME,
+PRIMARY KEY (c201_groupnr, c201_itemnr, c201_datefrom) NOT ENFORCED
+);

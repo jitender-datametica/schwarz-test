@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW szd_production_fe_mstr_wholesale.v_fact_customs_clearance_report_per_day_2 (clearance_dt,
+authority_country_location_sid, consignor_party_sid, declarant_party_sid, import_location_sid,
+customs_declaration_type_cd, dispatch_country_location_sid, transport_country_location_sid, declaration_cnt,
+duty_paid_val, excise_val, curr_cd) AS SELECT clearance_dt,
+ authority_country_location_sid,
+ consignor_party_sid,
+ declarant_party_sid,
+ import_location_sid,
+ customs_declaration_type_cd,
+ dispatch_country_location_sid,
+ transport_country_location_sid,
+ declaration_cnt,
+ duty_paid_val,
+ excise_val,
+ curr_cd
+FROM szd_production_core.t_fact_customs_clearance_report_per_day_2;

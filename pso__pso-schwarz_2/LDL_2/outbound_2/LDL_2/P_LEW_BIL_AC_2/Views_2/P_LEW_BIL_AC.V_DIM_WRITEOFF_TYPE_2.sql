@@ -1,0 +1,7 @@
+CREATE OR REPLACE VIEW ldl_p_lew_bil_ac.v_dim_writeoff_type_2 (writeoff_type_cd, writeoff_type_descr,
+writeoff_type_descr_de, writeoff_type_descr_en, writeoff_type_descr_bg, writeoff_type_descr_cs, writeoff_type_descr_da,
+writeoff_type_descr_el, writeoff_type_descr_es, writeoff_type_descr_fi, writeoff_type_descr_fr, writeoff_type_descr_hr,
+writeoff_type_descr_hu, writeoff_type_descr_it, writeoff_type_descr_lt, writeoff_type_descr_nl, writeoff_type_descr_pl,
+writeoff_type_descr_pt, writeoff_type_descr_ro, writeoff_type_descr_sh, writeoff_type_descr_sk, writeoff_type_descr_sl,
+writeoff_type_descr_sv, correction_fg, dwh_load_id, dwh_created, dwh_updated) AS SELECT *
+FROM ldl_p_lew_bil.v_dim_writeoff_type_2;

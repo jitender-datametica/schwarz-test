@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_data.cpr_checkliste_per_2 (
+cpr_checkliste_id STRING(32) COLLATE 'und:ci' NOT NULL,
+dat_von DATE NOT NULL,
+dat_bis DATE NOT NULL,
+projekt_phase_id STRING(32) COLLATE 'und:ci' NOT NULL,
+cpr_ext_id STRING(30) COLLATE 'und:ci' NOT NULL,
+aenderbar_kz STRING(1) COLLATE 'und:ci' NOT NULL,
+checklistenart_id STRING(20) COLLATE 'und:ci' NOT NULL,
+sap_user STRING(20) COLLATE 'und:ci' NOT NULL,
+nicht_relevant_fg INTEGER NOT NULL,
+dat_aufloesung DATE,
+teil_massn_kz INTEGER NOT NULL,
+cpr_systemstatus1_id INTEGER NOT NULL,
+cpr_systemstatus2_id INTEGER NOT NULL,
+cpr_systemstatus3_id INTEGER NOT NULL,
+cpr_suchfeld_id INTEGER,
+zeitstempel DATETIME NOT NULL,
+td_update TIMESTAMP,
+td_insert TIMESTAMP
+);

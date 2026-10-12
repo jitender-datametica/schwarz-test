@@ -1,0 +1,28 @@
+Insert into CHECK_DQ_BY_FIELD_AND_TEST_OBJECT_CURRENT_2
+        (scope_id
+        ,test_object_id
+        ,test_object_type_id
+        ,source_system_id
+        ,source_system_type_id
+        ,branch_id
+        ,country_id
+        ,field_id
+        ,calculation_time
+        ,calculation_day_id
+        ,penalty
+        ,score
+        ,is_usable)
+values
+        (:scope_id,
+         :test_object_id,
+         :test_object_type_id,
+         :source_system_id,
+         :source_system_type_id,
+         :branch_id,
+         :country_id,
+         :field_id,
+         :calculation_time,
+         :calculation_day_id,
+         :penalty,
+         :score,
+         :is_usable);

@@ -1,0 +1,13 @@
+create or replace view IDQ_PRODUCTION.EKS_CALCULATION.SRMARA_EKS_ITEM_ZISCURRENTCONTRACTUPDSEL_2(
+	ITEMID,
+	ZISCURRENTCONTRACT,
+	ZISCURRENTCONTRACTNEW
+) as
+SELECT EKS_CALCULATION.STMARA_EKS_ITEM.ITEMID,
+         zIsCurrentContract,
+         '1' AS zIsCurrentContractNew
+  FROM   EKS_CALCULATION.STMARA_EKS_ITEM_2
+  WHERE  ( zIsCurrentContract IS NULL )
+         AND ( IFNULL(zHasValidMaxLU, 0) = 1 )
+         AND ( IFNULL(zHasValidADSFLG, 0) = 1 )
+         AND ( IFNULL(zHasValidContractDate, 0) = 1 );

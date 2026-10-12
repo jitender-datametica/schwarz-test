@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku.mv_crm_vorgang_fremdkoerper_zu_2 (crm_vorgang_id,
+crm_fremdkoerper_id) AS SELECT crm_vorgang_id,
+ crm_fremdkoerper_id
+FROM kfl_production_dbp_view.v_crm_vorgang_fremdkoerper_zu_2;

@@ -1,0 +1,4 @@
+CREATE OR REPLACE TABLE dbp_msi_view_rpw_materialized.mv_l_ocr_eingangskanal_2 (
+mandant_id INTEGER,
+ocr_eingangskanal_id STRING(1)
+);

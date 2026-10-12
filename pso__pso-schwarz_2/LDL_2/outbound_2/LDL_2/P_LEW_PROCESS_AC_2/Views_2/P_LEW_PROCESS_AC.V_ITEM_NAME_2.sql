@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_p_lew_process_ac.v_item_name_2 AS SELECT *
+FROM ldl_p_lew_process.v_item_name_2;

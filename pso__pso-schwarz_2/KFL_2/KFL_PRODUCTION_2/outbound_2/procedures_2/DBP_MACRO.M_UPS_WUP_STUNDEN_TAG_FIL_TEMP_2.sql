@@ -1,0 +1,115 @@
+CREATE OR REPLACE  PROCEDURE dbp_macro.m_ups_wup_stunden_tag_fil_temp(
+      IN IN_MANDANT_ID FLOAT64,
+      IN IN_WUP_ID FLOAT64,
+      IN IN_NB_ID FLOAT64,
+      IN IN_DAT DATE,
+      IN IN_UMS_NETTO_PLAN_MAN FLOAT64,
+      IN IN_STUNDEN_MARKT FLOAT64,
+      IN IN_STUNDEN_SONSTIGE FLOAT64,
+      IN IN_STUNDEN_VERSETZUNG FLOAT64,
+      IN IN_STUNDEN_PLAN FLOAT64,
+      IN IN_STUNDEN_SONSTIGE_PLAN FLOAT64,
+      IN IN_SPERRE_WOCHE_SO FLOAT64,
+      IN IN_SPERRE_MONAT_7 FLOAT64,
+      IN IN_SPERRE_MONAT_15 FLOAT64,
+      IN IN_SPERRE_LAND FLOAT64)
+      BEGIN
+        DECLARE sql_stmt STRING;
+
+DECLARE sql_commit STRING;
+BEGIN TRANSACTION;
+SET sql_stmt =
+  '''MERGE INTO dbp_data.wup_stunden_tag_2 AS A USING (SELECT v01.wup_id,   v01.nb_id,   v01.mandant_id,   v01.dat,   v03.wrg_id,    CASE    WHEN @IN_SPERRE_WOCHE_SO = 0    THEN COALESCE(@IN_UMS_NETTO_PLAN_MAN, V02.ums_netto_plan_man)    ELSE CAST(V02.ums_netto_plan_man AS FLOAT64)    END AS ums_netto_plan_man,    CASE    WHEN @IN_SPERRE_LAND = 0 AND @IN_SPERRE_MONAT_15 = 0    THEN COALESCE(@IN_STUNDEN_MARKT, V02.stunden_markt)    ELSE CAST(V02.stunden_markt AS FLOAT64)    END AS stunden_markt,    CASE    WHEN @IN_MANDANT_ID = 1 AND @IN_SPERRE_MONAT_7 = 0    THEN COALESCE(@IN_STUNDEN_SONSTIGE, V02.stunden_sonstige)    WHEN @IN_MANDANT_ID_1 <> 1 AND @IN_SPERRE_MONAT_15_1 = 0    THEN COALESCE(@IN_STUNDEN_SONSTIGE_1, V02.stunden_sonstige)    ELSE CAST(CASE      WHEN V02.stunden_sonstige = 0      THEN NULL      ELSE V02.stunden_sonstige      END AS FLOAT64)    END AS stunden_sonstige,    CASE    WHEN @IN_MANDANT_ID_1_2 <> 1 AND @IN_SPERRE_MONAT_15_1_2 = 0    THEN COALESCE(@IN_STUNDEN_VERSETZUNG, V02.stunden_versetzung)    ELSE CAST(V02.stunden_versetzung AS FLOAT64)    END AS stunden_versetzung,    CASE    WHEN @IN_SPERRE_WOCHE_SO_1 = 0    THEN COALESCE(@IN_STUNDEN_PLAN, V02.stunden_plan)    ELSE CAST(V02.stunden_plan AS FLOAT64)    END AS stunden_plan,    CASE    WHEN @IN_MANDANT_ID_1_2_3 = 1 AND @IN_SPERRE_WOCHE_SO_1_2 = 0    THEN COALESCE(@IN_STUNDEN_SONSTIGE, V02.stunden_sonstige_plan)    WHEN @IN_MANDANT_ID_1_2_3_4 <> 1 AND @IN_SPERRE_MONAT_15_1_2_3 = 0    THEN COALESCE(@IN_STUNDEN_SONSTIGE_PLAN_1, V02.stunden_sonstige_plan)    ELSE CAST(V02.stunden_sonstige_plan AS FLOAT64)    END AS stunden_sonstige_plan  FROM (SELECT V01_2.wup_id,     V01_2.nb_id,     V01_2.mandant_id,     V01_1.dat    FROM dbp_data.tag_2 AS V01_1     INNER JOIN dbp_data.wup_2 AS V01_2 ON TRUE    WHERE V01_2.mandant_id = @IN_MANDANT_ID_1_2_3_4_5     AND V01_2.wup_id = @IN_WUP_ID     AND V01_2.nb_id = @IN_NB_ID     AND V01_1.dat = @IN_DAT) AS v01   LEFT JOIN dbp_view.v_wup_stunden_tag_2 AS V02 ON v01.wup_id = V02.wup_id AND v01.nb_id = V02.nb_id AND      v01.mandant_id = V02.mandant_id AND v01.dat = V02.dat   LEFT JOIN (SELECT mandant_id,     wrg_id    FROM dbp_data.mandant_wrg_typ_zu_2    WHERE wrg_typ_id = 1) AS v03 ON v01.mandant_id = v03.mandant_id) AS using_select ON A.wup_id = using_select.wup_id AND A.nb_id = using_select.nb_id AND A.mandant_id = using_select.mandant_id AND A.dat   = using_select.dat WHEN MATCHED THEN UPDATE SET  wrg_id = using_select.wrg_id,  ums_netto_plan_man = CAST(ROUND(CAST(ABS(using_select.ums_netto_plan_man) AS BIGNUMERIC), 0) AS NUMERIC),  stunden_markt = CAST(ROUND(CAST(using_select.stunden_markt AS BIGNUMERIC), 0) AS NUMERIC),  stunden_sonstige = CAST(ROUND(CAST(using_select.stunden_sonstige AS BIGNUMERIC), 0) AS NUMERIC),  stunden_versetzung = CAST(ROUND(CAST(using_select.stunden_versetzung AS BIGNUMERIC), 0) AS NUMERIC),  stunden_plan = CAST(ROUND(CAST(ABS(using_select.stunden_plan) AS BIGNUMERIC), 0) AS NUMERIC),  stunden_sonstige_plan = CAST(ROUND(CAST(CASE      WHEN using_select.mandant_id IN (2, 5, 8)      THEN ABS(using_select.stunden_sonstige_plan)      ELSE using_select.stunden_sonstige_plan      END AS BIGNUMERIC), 0) AS NUMERIC) WHEN NOT MATCHED THEN INSERT (wup_id, nb_id, mandant_id, dat, stunden_markt, stunden_sonstige, stunden_plan,  stunden_co5_sonstige, ums_netto_plan, ums_netto_plan_man, wrg_id, stunden_sonstige_plan, stunden_co1_iks,  stunden_co2_ea, stunden_co3_anue, stunden_co4_reinigung, stunden_versetzung, stunden_plan_pep) VALUES(using_select.wup_id  , using_select.nb_id, using_select.mandant_id, using_select.dat, CAST(ROUND(CAST(using_select.stunden_markt AS BIGNUMERIC)    , 0) AS NUMERIC), CAST(ROUND(CAST(using_select.stunden_sonstige AS BIGNUMERIC), 0) AS NUMERIC), CAST(ROUND(CAST(ABS(using_select.stunden_plan) AS BIGNUMERIC)    , 0) AS NUMERIC), 0, 0.00, CAST(ROUND(CAST(ABS(using_select.ums_netto_plan_man) AS BIGNUMERIC), 0) AS NUMERIC),  using_select.wrg_id, CAST(ROUND(CAST(CASE      WHEN using_select.mandant_id IN (2, 5, 8)      THEN ABS(using_select.stunden_sonstige_plan)      ELSE using_select.stunden_sonstige_plan      END AS BIGNUMERIC), 0) AS NUMERIC), 0, 0, 0, 0, CAST(ROUND(CAST(COALESCE(using_select.stunden_versetzung, 0) AS BIGNUMERIC)    , 0) AS NUMERIC), 0) ''';
+
+EXECUTE IMMEDIATE(sql_stmt)
+USING
+  IF(
+    IN_SPERRE_WOCHE_SO = CAST(NULL AS FLOAT64),
+    CAST(NULL AS FLOAT64),
+    IN_SPERRE_WOCHE_SO) AS IN_SPERRE_WOCHE_SO,
+IF(
+  IN_UMS_NETTO_PLAN_MAN = CAST(NULL AS FLOAT64),
+  CAST(NULL AS FLOAT64),
+  IN_UMS_NETTO_PLAN_MAN) AS IN_UMS_NETTO_PLAN_MAN,
+IF(
+  IN_SPERRE_LAND = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), IN_SPERRE_LAND)
+  AS IN_SPERRE_LAND,
+IF(
+  IN_SPERRE_MONAT_15 = CAST(NULL AS FLOAT64),
+  CAST(NULL AS FLOAT64),
+  IN_SPERRE_MONAT_15) AS IN_SPERRE_MONAT_15,
+IF(
+  IN_STUNDEN_MARKT = CAST(NULL AS FLOAT64),
+  CAST(NULL AS FLOAT64),
+  IN_STUNDEN_MARKT) AS IN_STUNDEN_MARKT,
+IF(IN_MANDANT_ID = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), IN_MANDANT_ID)
+  AS IN_MANDANT_ID,
+IF(
+  IN_SPERRE_MONAT_7 = CAST(NULL AS FLOAT64),
+  CAST(NULL AS FLOAT64),
+  IN_SPERRE_MONAT_7) AS IN_SPERRE_MONAT_7,
+IF(
+  IN_STUNDEN_SONSTIGE = CAST(NULL AS FLOAT64),
+  CAST(NULL AS FLOAT64),
+  IN_STUNDEN_SONSTIGE) AS IN_STUNDEN_SONSTIGE,
+IF(IN_MANDANT_ID = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), IN_MANDANT_ID)
+  AS IN_MANDANT_ID_1,
+IF(
+  IN_SPERRE_MONAT_15 = CAST(NULL AS FLOAT64),
+  CAST(NULL AS FLOAT64),
+  IN_SPERRE_MONAT_15) AS IN_SPERRE_MONAT_15_1,
+IF(
+  IN_STUNDEN_SONSTIGE = CAST(NULL AS FLOAT64),
+  CAST(NULL AS FLOAT64),
+  IN_STUNDEN_SONSTIGE) AS IN_STUNDEN_SONSTIGE_1,
+IF(IN_MANDANT_ID = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), IN_MANDANT_ID)
+  AS IN_MANDANT_ID_1_2,
+IF(
+  IN_SPERRE_MONAT_15 = CAST(NULL AS FLOAT64),
+  CAST(NULL AS FLOAT64),
+  IN_SPERRE_MONAT_15) AS IN_SPERRE_MONAT_15_1_2,
+IF(
+  IN_STUNDEN_VERSETZUNG = CAST(NULL AS FLOAT64),
+  CAST(NULL AS FLOAT64),
+  IN_STUNDEN_VERSETZUNG) AS IN_STUNDEN_VERSETZUNG,
+IF(
+  IN_SPERRE_WOCHE_SO = CAST(NULL AS FLOAT64),
+  CAST(NULL AS FLOAT64),
+  IN_SPERRE_WOCHE_SO) AS IN_SPERRE_WOCHE_SO_1,
+IF(
+  IN_STUNDEN_PLAN = CAST(NULL AS FLOAT64),
+  CAST(NULL AS FLOAT64),
+  IN_STUNDEN_PLAN) AS IN_STUNDEN_PLAN,
+IF(IN_MANDANT_ID = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), IN_MANDANT_ID)
+  AS IN_MANDANT_ID_1_2_3,
+IF(
+  IN_SPERRE_WOCHE_SO = CAST(NULL AS FLOAT64),
+  CAST(NULL AS FLOAT64),
+  IN_SPERRE_WOCHE_SO) AS IN_SPERRE_WOCHE_SO_1_2,
+IF(
+  IN_STUNDEN_SONSTIGE_PLAN = CAST(NULL AS FLOAT64),
+  CAST(NULL AS FLOAT64),
+  IN_STUNDEN_SONSTIGE_PLAN) AS IN_STUNDEN_SONSTIGE_PLAN,
+IF(IN_MANDANT_ID = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), IN_MANDANT_ID)
+  AS IN_MANDANT_ID_1_2_3_4,
+IF(
+  IN_SPERRE_MONAT_15 = CAST(NULL AS FLOAT64),
+  CAST(NULL AS FLOAT64),
+  IN_SPERRE_MONAT_15) AS IN_SPERRE_MONAT_15_1_2_3,
+IF(
+  IN_STUNDEN_SONSTIGE_PLAN = CAST(NULL AS FLOAT64),
+  CAST(NULL AS FLOAT64),
+  IN_STUNDEN_SONSTIGE_PLAN) AS IN_STUNDEN_SONSTIGE_PLAN_1,
+IF(IN_MANDANT_ID = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), IN_MANDANT_ID)
+  AS IN_MANDANT_ID_1_2_3_4_5,
+IF(IN_WUP_ID = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), IN_WUP_ID)
+  AS IN_WUP_ID,
+IF(IN_NB_ID = CAST(NULL AS FLOAT64), CAST(NULL AS FLOAT64), IN_NB_ID)
+  AS IN_NB_ID,
+FORMAT_TIMESTAMP('%FT%H:%M:%S', IN_DAT) AS IN_DAT;
+
+SET sql_commit = 'COMMIT TRANSACTION';
+
+EXECUTE IMMEDIATE(sql_commit);
+
+END;

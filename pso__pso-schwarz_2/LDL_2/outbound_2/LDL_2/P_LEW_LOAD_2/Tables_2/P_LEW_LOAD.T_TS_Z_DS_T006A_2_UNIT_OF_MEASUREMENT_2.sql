@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_z_ds_t006a_2_unit_of_measurement_2 (
+record_id INTEGER,
+client_id BIGNUMERIC(38),
+uom_sid BIGNUMERIC(38),
+src_msehi STRING(20),
+uom_sid_family BIGNUMERIC(38),
+uom_name STRING(100) COLLATE 'und:ci',
+uom_iso_cd STRING(20),
+uom_cd_family STRING(20),
+numerator_conv_si BIGNUMERIC(38),
+denominator_conv_si BIGNUMERIC(38),
+dwh_load_id BIGNUMERIC(38),
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_dig_etl.t_zewtvehhead_9v_2 (
+lgnum STRING(8) NOT NULL,
+vehid STRING(40) NOT NULL,
+vehplate STRING(30) NOT NULL,
+country_2 STRING(40) NOT NULL,
+carrier STRING(20) NOT NULL,
+door STRING(8) NOT NULL,
+departdate DATE,
+status_2 STRING(2) NOT NULL,
+statusdesc STRING(60) NOT NULL,
+createdat DATE,
+createdby STRING(24) NOT NULL,
+loadingstart BIGNUMERIC(32) NOT NULL,
+loadingend BIGNUMERIC(32) NOT NULL,
+departurestamp BIGNUMERIC(32) NOT NULL,
+messagecl STRING(256) NOT NULL,
+odq_changemode STRING(2) NOT NULL,
+odq_entitycntr BIGNUMERIC(38) NOT NULL,
+sap_sys_name STRING(20) NOT NULL,
+sap_client_id STRING(20) NOT NULL,
+tmsp_insert DATETIME,
+tmsp_update DATETIME
+);

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW P_LEW_PROCESS_AC.V_LC_PRTCL_TCACHE_RECIPIENTS_2
+AS
+   SELECT * FROM p_lew_process.t_lc_prtcl_tcache_recipients_2
+;

@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_dig_etl.t_finscledger_2 (
+rldnr STRING(4) NOT NULL,
+ledgertype STRING(2) NOT NULL,
+extledgertype STRING(2) NOT NULL,
+appl STRING(4) NOT NULL,
+subappl STRING(6) NOT NULL,
+xleading STRING(2) NOT NULL,
+core STRING(4) NOT NULL,
+valutyp STRING(2) NOT NULL,
+valusubtyp STRING(4) NOT NULL,
+manpostnotallwd STRING(2) NOT NULL,
+accprinciple STRING(8) NOT NULL,
+xcashledger STRING(2) NOT NULL,
+odq_changemode STRING(2) NOT NULL,
+odq_entitycntr BIGNUMERIC(38) NOT NULL,
+sap_sys_name STRING(20) NOT NULL,
+sap_client_id STRING(20) NOT NULL,
+tmsp_insert DATETIME,
+tmsp_update DATETIME
+);

@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t_wawi_precore_t220_dangerous_goods_2 (
+ctrcode STRING(3) COLLATE 'und:ci' NOT NULL,
+extraction_tmsp DATETIME,
+itemno STRING(18) NOT NULL,
+un_no STRING(4) NOT NULL,
+un_desc STRING(150) NOT NULL,
+dang_slip STRING(11),
+lq_grp INTEGER,
+trans_cat INTEGER,
+gross_wght NUMERIC(6,3) NOT NULL,
+pack_grp STRING(5),
+factor INTEGER,
+tunnelcode STRING(10),
+un_desc_de STRING(150),
+limit_lq_qty NUMERIC(11,3),
+lq_grp_flag INTEGER,
+env_haz_flag INTEGER,
+scn INTEGER DEFAULT 0,
+dwh_created_tmsp TIMESTAMP NOT NULL,
+dwh_updated_tmsp TIMESTAMP NOT NULL,
+dwh_load_id INTEGER NOT NULL
+);

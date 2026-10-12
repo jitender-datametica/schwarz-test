@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_lead.t_price_label_store_2 (
+client_id BIGNUMERIC(38,0),
+price_label_sid BIGNUMERIC(38,0),
+dat_formdate DATE,
+move_to_store_id BIGNUMERIC(38,0),
+wh_id BIGNUMERIC(38,0),
+aspect_id BIGNUMERIC(38,0),
+electronic_price_label_type_cd STRING(100),
+electronic_price_label_type_cd_fe STRING(10),
+price_label_producer_name STRING(100),
+damaged_fg BIGNUMERIC(38,0),
+price_label_create_tmsp DATETIME,
+rma_label INTEGER,
+dwh_valid_from DATE,
+dwh_valid_to DATE,
+wh_rma_label INTEGER,
+client_rma_label INTEGER,
+int_rma_label INTEGER,
+wh_label_cnt INTEGER,
+client_label_cnt INTEGER,
+int_label_cnt INTEGER
+);

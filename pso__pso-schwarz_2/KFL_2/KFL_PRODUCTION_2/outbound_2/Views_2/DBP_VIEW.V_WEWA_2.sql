@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_wewa_2 AS SELECT mandant_id,
+ wewa_beleg_id,
+ wewa_beleg_pos_id,
+ wewa_jahr,
+ art_id,
+ wup_id,
+ nb_id,
+ gp_id,
+ lager_bewart_id,
+ dat_buch,
+ menge_basis,
+ betrag_ek_netto,
+ status_2,
+ wrg_id,
+ betrag_vk_netto,
+ konditionsbetrag_zar5
+FROM kfl_production_dbp_data.wewa_2;

@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_geku_zusatzinfo_sel_2 AS SELECT zusatzinfo_sel_id
+FROM kfl_production_dbp_data.l_geku_zusatzinfo_sel_2;

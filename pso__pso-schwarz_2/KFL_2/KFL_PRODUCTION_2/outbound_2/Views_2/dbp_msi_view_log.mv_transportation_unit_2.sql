@@ -1,0 +1,28 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_log.mv_transportation_unit_2 (mandant_id, transportation_unit_id,
+kj_transportation_unit, transportation_unit_id_ext, lime_id, lime_id_ausgepackt, handling_unit_guid, transportmittel,
+eigentuemer, frachtfuehrer, scac, max_anz_siegel, fahrzeugnummer_intern, land_kfz_kennzeichen, kfz_kennzeichen,
+tu_permanent_fg, tu_head_fg, tor_vorbeladen_fg, lkw_vorgekuehlt_fg, rundlauf_fg, hu_gewicht, hu_gewicht_menge_einh_id)
+AS SELECT mandant_id,
+ transportation_unit_id,
+ kj_transportation_unit,
+ transportation_unit_id_ext,
+ lime_id,
+ lime_id_ausgepackt,
+ handling_unit_guid,
+ transportmittel,
+ eigentuemer,
+ frachtfuehrer,
+ scac,
+ max_anz_siegel,
+ fahrzeugnummer_intern,
+ land_kfz_kennzeichen,
+ kfz_kennzeichen,
+ tu_permanent_fg,
+ tu_head_fg,
+ COALESCE(CAST(NULLIF(tor_vorbeladen_fg, '') AS BIGNUMERIC), 0) AS tor_vorbeladen_fg,
+ lkw_vorgekuehlt_fg,
+ rundlauf_fg,
+ hu_gewicht,
+ hu_gewicht_menge_einh_id
+FROM kfl_production_dbp_view.v_transportation_unit_2 AS V01
+WHERE kj_transportation_unit >= EXTRACT(YEAR FROM CURRENT_DATE) - 2;

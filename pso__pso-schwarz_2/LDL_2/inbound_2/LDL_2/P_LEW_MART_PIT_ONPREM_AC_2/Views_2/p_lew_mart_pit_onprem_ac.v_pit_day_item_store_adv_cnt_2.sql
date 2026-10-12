@@ -1,0 +1,12 @@
+CREATE OR REPLACE VIEW P_LEW_MART_PIT_ONPREM_AC.V_PIT_DAY_ITEM_STORE_ADV_CNT_2
+AS
+SELECT
+client_id
+,dwh_cal_dt
+,adv_week_id
+,adv_week_mstr_sid
+,adv_week_start_dt
+,adv_week_end_dt
+,F_Client_Store_Cnt_Adv
+,F_Client_Store_Cnt_Adv_Week
+FROM p_lew_mart_pit_onprem.v_pit_day_item_store_adv_cnt_2;

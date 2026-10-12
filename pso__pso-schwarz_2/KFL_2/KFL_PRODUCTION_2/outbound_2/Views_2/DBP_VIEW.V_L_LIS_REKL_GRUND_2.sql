@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_lis_rekl_grund_2 AS SELECT mandant_id,
+ lis_rekl_grund_id
+FROM kfl_production_dbp_data.l_lis_rekl_grund_2;

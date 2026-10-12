@@ -1,0 +1,5 @@
+create or replace TRANSIENT TABLE MV_ALTERSTEILZEIT_SPR_ZU_2 (
+        MANDANT_ID NUMBER(38,0),
+        ATZ_PHASE_ID VARCHAR(2) COLLATE 'en-ci',
+        ATZ_BEZ VARCHAR(40) COLLATE 'en-ci'
+);

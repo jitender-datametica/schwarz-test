@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ek_int.mv_ekc_planwerte_2 (mandant_id, hwg_id, arthiertyp_id, dat,
+wrg_id, abschriftsbetrag_werbung_netto, umsatz_netto_sa, umsatz_netto_af, abschriftsbetrag_ohne_werbung_netto,
+wa_kalk_netto, wa_kalk_netto_af, wa_kalk_netto_sa) AS SELECT mandant_id,
+ hwg_id,
+ arthiertyp_id,
+ dat,
+ wrg_id,
+ abschriftsbetrag_werbung_netto,
+ umsatz_netto_sa,
+ umsatz_netto_af,
+ abschriftsbetrag_ohne_werbung_netto,
+ wa_kalk_netto,
+ wa_kalk_netto_af,
+ wa_kalk_netto_sa
+FROM kfl_production_dbp_view.v_ekc_planwerte_2 AS V01;

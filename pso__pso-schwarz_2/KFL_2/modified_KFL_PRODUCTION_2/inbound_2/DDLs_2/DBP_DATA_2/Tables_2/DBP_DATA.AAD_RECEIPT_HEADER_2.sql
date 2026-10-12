@@ -1,0 +1,61 @@
+--==============================================================
+-- Table: aad_receipt_header_2
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: aad_receipt_header_2
+   generated from Powerdesigner on Mittwoch, 26. Juli 2023 11:39:53
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE DBP_DATA.AAD_RECEIPT_HEADER_2 (
+   bon_id                              VARCHAR(100)     NOT NULL COMMENT 'Eindeutige ID eines Bons, generierter Hashwert.',
+   bon_dat                             DATE             NOT NULL COMMENT 'Checkoutdatum, auch Businessday bzw. Kassenkey.',
+   wup_id                              INTEGER     NOT NULL COMMENT 'Marktnummer, wird nicht gegen den Marktstamm geprüft.',
+   mandant_id                          INTEGER     NOT NULL COMMENT 'Mandant_2 im DWH - ein Mandant_2 pro Land.',
+   bon_nr                              INTEGER     COMMENT 'Die Bonnummer des Bons (ist eine_2 fortlaufende Nummer die in der Kasse generiert wird, im Normalfall ist diese Nummer pro Tag_2 und Kasse unique).',
+   kasse_nr                            INTEGER     COMMENT 'Nummer der Kasse.',
+   kassierer_nr                        VARCHAR(4)       COMMENT 'Nummer des Kassierers.',
+   wrg_id                              VARCHAR(3)       COMMENT 'Kurzbezeichnung der Währung, z.Bsp. CZK, EUR.',
+   bon_booking                         TIMESTAMP_NTZ(9) COMMENT 'Buchungszeitpunkt des Bons, relevant z.Bsp. für artbew. Kann vom Bondatum abweichen, z.Bsp. wenn eine_2 Kasse offline war.',
+   bon_storno_fg                       INTEGER     COMMENT 'Das Flag kennzeichnet, ob die Bon storniert würde order nicht  (1 wenn Storniert, 0 wenn nicht). Es ist wenn die Bon an der Info-Kasse zurückgegeben wird bzw. Retourniert wird (kann sowohl ein Verkaufsbon sein als auch eine_2 Retoure), und die werden wiederum in Storno Tabelle (ods_bon_storno_2) abgespeichert.',
+   scanned_empties_paym_gross_local_val NUMBER(29,4)     COMMENT 'Amount of the scanned empties',
+   manual_empties_paym_gross_local_val NUMBER(29,4)     COMMENT 'Amount of the manually entered empties',
+   ec_paym_gross_local_val             NUMBER(29,4)     COMMENT 'receipt total with EC payment method',
+   cash_paym_gross_local_val           NUMBER(29,4)     COMMENT 'receipt total with cash payment method',
+   giftcard_paym_gross_local_val       NUMBER(29,4)     COMMENT 'receipt total with gift card payment method',
+   login_checkout_fg                   INTEGER     COMMENT 'Indicates whether a cashier has logged on to the cash register',
+   logout_checkout_fg                  INTEGER     COMMENT 'Indicates whether a cashier has logged out from the cash register',
+   last_sales_pos_id                   INTEGER     COMMENT 'Indicates the last receipt line of a receipt',
+   cancellation_amount_gross_local_val NUMBER(29,4)     COMMENT 'Indicates the cancelled amount',
+   cancellation_pos_fg                 INTEGER     COMMENT 'Indicates whether an item_2 has been cancelled on the receipt',
+   cancel_fg                           INTEGER     COMMENT 'Das Flag kennzeichnet einen Abbruchvorgang',
+   cancelled_item_cnt                  INTEGER     COMMENT 'cancelled_item_cnt',
+   previous_bon_nr                     INTEGER     COMMENT 'Indicates the previous receipt number',
+   next_bon_nr                         INTEGER     COMMENT 'Indicates the successor receipt number',
+   schliessen_kassenschublade          TIMESTAMP_NTZ(9) COMMENT 'Zeitstempel wird an der Kasse erzeugt, wenn die Kassenlade geschlossen wird.',
+   training_fg                         INTEGER     COMMENT 'Das Flag kennzeichnet, ob die Transaktion im Trainings-Modus durchgefuehrt wurde.',
+   item_reduction_amount_gross_local_val NUMBER(29,4)     COMMENT 'Indicates the reduced article value',
+   item_reduction_min_pct_val          NUMBER(29,4)     COMMENT 'Indicates if an article is reduced more than 50%',
+   manual_debit_invoice_fg             INTEGER     COMMENT 'Indicates whether the Payment type is manual direct debit',
+   barcode_empty_fg                    INTEGER     COMMENT 'Indicates whether the receipt contains a barcode empty',
+   last_cancelled_pos_id               INTEGER     COMMENT 'Indicates the last cancelled line of a receipt',
+   last_sold_pos_id                    INTEGER     COMMENT 'Indicates the last line of a receipt where an item_2 was purchased',
+   reclamation_fg                      INTEGER     COMMENT 'Indicates when a receipt contains a reclamation',
+   article_without_shop_bag_cnt        INTEGER     COMMENT 'Indicates the number of items, excluding shopping bags within a receipt',
+   shop_bag_in_receipt_cnt             INTEGER     COMMENT 'Indicates the number of shopping bags in a receipt',
+   suspended_fg                        INTEGER     COMMENT 'Flag: Kennzeichnung des Suspended-Status_2 der Transaktion. 1 = suspended',
+   double_entry_fg                     INTEGER     COMMENT 'Indicates whether the receipt contains a double entry',
+   wrong_plu_fg                        INTEGER     COMMENT 'Indicates if a receipt has been cancelled due to a PLU error',
+   quantity_error_fg                   INTEGER     COMMENT 'Indicates if a receipt has been cancelled due to a quantity error',
+   price_error_fg                      INTEGER     COMMENT 'Indicates if a receipt has been cancelled due to a price error',
+   suspended_bon_nr                    INTEGER     COMMENT 'Die Nummer des ausgesetzten Belegs',
+   cancellation_after_sumbutton_sec    INTEGER     COMMENT 'Time Difference in second between Sum Button pressed and cancellation',
+   gift_lifetime_min                   INTEGER     COMMENT 'Time Difference in Minute between activation and redemption of gift card',
+   identical_item_cnt                  INTEGER     COMMENT 'Indicates the number of identical items',
+   storno_pos_cnt                      INTEGER     COMMENT 'Indicates the number of storno positions in a receipt',
+   all_item_cnt                        INTEGER     COMMENT 'Indicates the number of item_2 in a receipt',
+   asc_receipt_row_nr                  INTEGER     COMMENT 'position number of the Receipt in ascending order of booking time within a defined partition',
+   desc_receipt_row_nr                 INTEGER     COMMENT 'position number of the Receipt  in descending order of booking time within a defined partition',
+   TD_UPDATE                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   TD_INSERT                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   CONSTRAINT PK_AAD_RECEIPT_HEADER PRIMARY KEY (bon_id, bon_dat, wup_id, mandant_id) NOT ENFORCED
+)  COMMENT = ' Contains aggregated receipt data for the implementation of the fraud detection scenarios';

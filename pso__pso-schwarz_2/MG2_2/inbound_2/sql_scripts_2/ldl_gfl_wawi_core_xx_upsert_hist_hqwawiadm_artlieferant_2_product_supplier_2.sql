@@ -1,0 +1,276 @@
+/* Standard processing as per mapping specifications:
+*/
+
+/*
+0.2 init country_2 table and deduplication mapping
+*/
+CREATE OR REPLACE TEMPORARY TABLE ETL.t_wawi_instanz_kzl_map AS (
+    SELECT
+        int_org_ctr_cd AS wawi_instanz_kzl_tgt
+      , party_nat_key_nr AS wawi_instanz_kzl_src
+      , Row_Number() OVER (PARTITION BY party_sid
+                          ORDER BY CASE WHEN party_nat_key_nr = int_org_ctr_cd
+                                            THEN 0 ELSE 1
+                                    END, party_nat_key_nr
+                          ) AS wawi_instanz_kzl_rank
+    FROM
+    (
+        SELECT DISTINCT
+            pk.party_sid
+          , pk.party_nat_key_nr
+          , Left(io.int_org_nr, 2) as int_org_ctr_cd
+        FROM meta.t_party_key_2 AS pk
+        INNER JOIN core_rel.t_internal_organization_2 AS io
+        ON  pk.party_sid = io.int_org_sid
+        AND pk.dwh_valid_fg
+        AND io.dwh_valid_fg
+        AND pk.party_key_type_cd = 'COUNTRY_2'
+    )
+)
+;
+
+
+/*
+0.3 CBX product to local items
+*/
+CREATE OR REPLACE TEMPORARY TABLE ETL.t_cbx_prod_to_wawi_items AS (
+    SELECT
+        p.prod_sid
+      , p.prod_nr
+      , iit.wawi_instanz_kzl
+     , iit.itemnr
+    FROM
+    (
+        SELECT 
+            prod_sid
+          , Try_Cast(prod_nr AS Number) AS prod_nr
+        FROM CORE_REL.t_product_2
+        WHERE prod_sid IN (SELECT prod_sid FROM META.t_product_key_2 WHERE prod_key_type_cd IN ('CBX'))
+        AND dwh_valid_fg
+        AND Try_Cast(prod_nr AS Number) IS NOT NULL
+    ) AS p
+    INNER JOIN
+    (
+        SELECT DISTINCT
+            LEFT(wawi_instanz_kzl,2) AS wawi_instanz_kzl
+          , Cast(Substring(c215_itemnr, 1, Length(c215_itemnr)-4) AS Number) AS itemnr
+          , Cast(c215_int_itemnr AS Number) AS c215_int_itemnr
+        FROM ${LDL_WAWI_COMMON_SNFLK_CL_DB_NAME}.hqwawiadm.t215_int_itemnr_2 
+    ) AS iit
+    ON  p.prod_nr = iit.c215_int_itemnr
+)
+;
+
+/*
+0.3 add FV product to local items
+*/
+CREATE OR REPLACE TEMPORARY TABLE ETL.t_fv_prod_to_wawi_item AS (
+    SELECT
+        p.prod_sid
+      , p.prod_nr
+      , iit.wawi_instanz_kzl
+      , iit.itemnr
+    FROM
+    (
+        SELECT 
+            prod_sid
+          , Try_Cast(prod_nr AS Number) AS prod_nr
+        FROM CORE_REL.t_product_2
+        WHERE prod_sid IN (SELECT prod_sid FROM META.t_product_key_2 WHERE prod_key_type_cd IN ('FV'))
+        AND dwh_valid_fg
+        AND Try_Cast(prod_nr AS Number) IS NOT NULL
+    ) AS p
+    INNER JOIN
+    (
+        SELECT DISTINCT
+            LEFT(wawi_instanz_kzl,2) AS wawi_instanz_kzl
+          , Cast(Substring(c215_itemnr, 1, Length(c215_itemnr)-4) AS Number) AS itemnr
+          , Cast(c215_int_itemnr AS Number) AS c215_int_itemnr
+        FROM ${LDL_WAWI_COMMON_SNFLK_CL_DB_NAME}.hqwawiadm.t215_int_itemnr_2
+    ) AS iit
+    ON  p.prod_nr = iit.c215_int_itemnr
+)
+;
+
+/*
+0.4 add WaWi product to local items
+*/
+CREATE OR REPLACE TEMPORARY TABLE ETL.t_wawi_prod_to_wawi_item_2 AS (
+    SELECT
+        p.prod_sid
+      , Split(p.prod_nat_key_nr, '|')[0] AS wawi_instanz_kzl
+      , m.wawi_instanz_kzl_tgt
+      , Cast(Split(p.prod_nat_key_nr, '|')[1] AS Number) AS itemnr
+    FROM META.t_product_key_2 p
+    left join ETL.t_wawi_instanz_kzl_map m on Split(p.prod_nat_key_nr, '|')[0] = m.wawi_instanz_kzl_src
+    WHERE p.prod_key_type_cd = 'WAWI'
+    AND p.dwh_valid_fg = 1
+)
+;
+
+
+INSERT INTO  ${TEMP_DB}.${SRC2TGT_TEMP_TABLE1}_${SRC_CONTEXT_AREA}
+(
+        PROD_SID,        
+        PARTY_NAT_KEY_NR,
+        INT_ORG_KEY_TYPE_CD,
+        SUP_NAT_KEY_NR,
+        SUP_KEY_TYPE_CD,
+        SOURCE_SYSTEM,
+        EXTRACTION_DT,
+        DWH_MAPPING_TMSP,
+        TF_ERROR_FG,
+        DELETED_FG,
+        RECORD_ID,
+        FILENAME,
+        DWH_NODE_CD,
+        DWH_LOAD_ID
+)
+SELECT --CBX
+       src.prod_sid,
+       src.wawi_instanz_kzl as  party_nat_key_nr,
+       'COUNTRY_2' as int_org_key_type_cd,
+       src.wawi_instanz_kzl || '|' || LTRIM(src.krednr,'0') as  sup_nat_key_nr,
+       'SUPPLIER_2' as sup_key_type_cd,
+       'CBX' source_system,
+       src.extraction_tmsp extraction_dt,
+       src.extraction_tmsp dwh_mapping_tmsp,
+       0 tf_error_fg,
+       0 deleted_fg,
+       0 record_id,
+       'artlieferant_2' filename,
+       'CBX' dwh_node_cd,
+        ${LOAD_ID} dwh_load_id 
+FROM (       
+         SELECT
+             l.prod_sid
+             ,c.wawi_instanz_kzl_tgt as wawi_instanz_kzl
+             ,s.krednr
+             ,l.prod_nr
+             ,concat (c.wawi_instanz_kzl_tgt ,'|', cast (s.krednr as bigint)) as party_nat_key_nr  
+             ,s.extraction_tmsp
+         FROM ETL.t_cbx_prod_to_wawi_items l  
+         LEFT JOIN ETL.t_wawi_instanz_kzl_map c ON l.wawi_instanz_kzl = c.wawi_instanz_kzl_src  
+         LEFT JOIN
+                  ( SELECT CAST (Substring (trim (artikelnr, 0), 1, Length(trim (artikelnr, 0))-4) as varchar (20))  as artikelnr ,
+                           LEFT(wawi_instanz_kzl,2) AS wawi_instanz_kzl ,
+                           LTRIM(krednr,'0') as krednr,
+                           extraction_tmsp
+                     FROM ${LDL_WAWI_COMMON_SNFLK_CL_DB_NAME}.hqwawiadm.artlieferant_2
+                   ) s
+              ON CAST(l.itemnr as varchar (20)) = s.artikelnr AND l.wawi_instanz_kzl = s.wawi_instanz_kzl
+         WHERE s.krednr IS NOT NULL and s.krednr <>''
+         QUALIFY Row_Number() OVER (PARTITION BY l.prod_sid ,c.wawi_instanz_kzl_tgt ORDER BY s.krednr) = 1
+) src
+UNION --FV
+SELECT 
+       src.prod_sid,
+       src.wawi_instanz_kzl as  party_nat_key_nr,
+       'COUNTRY_2' as int_org_key_type_cd,
+       LEFT(src.wawi_instanz_kzl,2) || '|' || LTRIM(src.krednr,'0') as  sup_nat_key_nr,
+       'SUPPLIER_2' as sup_key_type_cd,
+       'FV' source_system,
+       src.extraction_tmsp extraction_dt,
+       src.extraction_tmsp dwh_mapping_tmsp,
+       0 tf_error_fg,
+       0 deleted_fg,
+       0 record_id,
+       'wawi_precore_artlieferant_hq' filename,
+       'FV' dwh_node_cd,
+        ${LOAD_ID} dwh_load_id 
+FROM (       
+         SELECT
+             l.prod_sid
+             ,c.wawi_instanz_kzl_tgt as wawi_instanz_kzl
+             ,s.krednr
+             ,l.prod_nr
+             ,concat (c.wawi_instanz_kzl_tgt ,'|', cast (s.krednr as bigint)) as party_nat_key_nr  
+             ,s.extraction_tmsp
+         FROM ETL .t_fv_prod_to_wawi_item l  
+         LEFT JOIN ETL.t_wawi_instanz_kzl_map c ON l.wawi_instanz_kzl = c.wawi_instanz_kzl_src  
+         LEFT JOIN
+                  ( SELECT CAST (Substring (trim (artikelnr, 0), 1, Length(trim (artikelnr, 0))-4) as varchar (20))  as artikelnr ,
+                           LEFT(wawi_instanz_kzl,2) AS wawi_instanz_kzl ,
+                           LTRIM(krednr,'0') as krednr,
+                           extraction_tmsp
+                     FROM ${LDL_WAWI_COMMON_SNFLK_CL_DB_NAME}.hqwawiadm.artlieferant_2
+                   ) s
+              ON CAST(l.itemnr as varchar (20)) = s.artikelnr AND l.wawi_instanz_kzl = s.wawi_instanz_kzl
+         WHERE s.krednr IS NOT NULL and s.krednr <>''
+         QUALIFY Row_Number() OVER (PARTITION BY l.prod_sid ,c.wawi_instanz_kzl_tgt ORDER BY s.krednr) = 1
+) src
+UNION --EKS
+SELECT 
+       src.prod_sid,
+       src.wawi_instanz_kzl as  party_nat_key_nr,
+       'COUNTRY_2' as int_org_key_type_cd,
+       src.wawi_instanz_kzl || '|' || LTRIM(src.krednr,'0') as  sup_nat_key_nr,
+       'SUPPLIER_2' as sup_key_type_cd,
+       'EKS' source_system,
+       src.extraction_tmsp extraction_dt,
+       src.extraction_tmsp dwh_mapping_tmsp,
+       0 tf_error_fg,
+       0 deleted_fg,
+       0 record_id,
+       'wawi_precore_artlieferant_hq' filename,
+       'EKS' dwh_node_cd,
+        ${LOAD_ID} dwh_load_id 
+FROM (       
+         SELECT
+             pk.prod_sid,
+             LEFT(c.wawi_instanz_kzl_tgt,2) AS wawi_instanz_kzl,
+             s.krednr,             
+             concat (c.wawi_instanz_kzl_tgt ,'|', s.krednr) as party_nat_key_nr,  
+             s.extraction_tmsp
+         FROM etl.t_tcache_eks_item_wawi_item_2 eks             
+         LEFT JOIN ETL.t_wawi_instanz_kzl_map c ON eks.wawi_instanz_kzl = c.wawi_instanz_kzl_src  
+         LEFT JOIN 
+                  ( SELECT CAST (SUBSTRING (TRIM (artikelnr, 0), 1, LENGTH(TRIM (artikelnr, 0))-4) AS varchar (20))  AS artikelnr,
+                           LEFT(wawi_instanz_kzl,2) AS wawi_instanz_kzl ,
+                           LTRIM(krednr,'0') as krednr,
+                           extraction_tmsp 
+                     FROM ${LDL_WAWI_COMMON_SNFLK_CL_DB_NAME}.hqwawiadm.artlieferant_2 
+                   ) s 
+               ON CAST(eks.itemno_wawi as varchar (20)) = s.artikelnr AND eks.wawi_instanz_kzl = s.wawi_instanz_kzl
+         INNER JOIN  meta.t_product_key_2 pk ON CAST(pk.prod_nat_key_nr as varchar) = CAST(eks.prod_num as varchar)  AND pk.prod_key_type_cd = 'EKS'  AND pk.dwh_valid_fg
+         WHERE  eks.prod_num is not null AND s.krednr != ''        
+         QUALIFY Row_Number() OVER (PARTITION BY c.wawi_instanz_kzl_tgt ,eks.prod_num  ORDER BY s.krednr) = 1
+) src
+UNION --WAWI
+SELECT 
+       src.prod_sid,
+       src.wawi_instanz_kzl as  party_nat_key_nr,
+       'COUNTRY_2' as int_org_key_type_cd,
+       src.wawi_instanz_kzl || '|' || LTRIM(src.krednr,'0') as  sup_nat_key_nr,
+       'SUPPLIER_2' as sup_key_type_cd,
+       'WAWI' source_system,
+       src.extraction_tmsp extraction_dt,
+       src.extraction_tmsp dwh_mapping_tmsp,
+       0 tf_error_fg,
+       0 deleted_fg,
+       0 record_id,
+       'wawi_precore_artlieferant_hq' filename,
+       'WAWI' dwh_node_cd,
+        ${LOAD_ID} dwh_load_id 
+FROM (       
+         SELECT
+             w.prod_sid,
+             c.wawi_instanz_kzl_tgt as wawi_instanz_kzl,
+             s.krednr,
+             w.itemnr,
+             concat (c.wawi_instanz_kzl_tgt ,'|', cast (s.krednr as bigint)) as party_nat_key_nr   ,
+             s.extraction_tmsp
+         FROM ETL.t_wawi_prod_to_wawi_item_2 w
+         LEFT JOIN ETL.t_wawi_instanz_kzl_map c ON w.wawi_instanz_kzl = c.wawi_instanz_kzl_src  
+         LEFT JOIN 
+                  ( SELECT CAST (Substring (trim (artikelnr, 0), 1, Length(trim (artikelnr, 0))-4) as varchar (20))  as artikelnr ,
+                           LEFT(wawi_instanz_kzl,2) AS wawi_instanz_kzl ,
+                           LTRIM(krednr,'0') as krednr,
+                           extraction_tmsp 
+                     FROM ${LDL_WAWI_COMMON_SNFLK_CL_DB_NAME}.hqwawiadm.artlieferant_2 
+                   ) s 
+               ON CAST (w.itemnr as varchar (20)) = s.artikelnr AND w.wawi_instanz_kzl = s.wawi_instanz_kzl         
+          WHERE w.itemnr IS NOT NULL AND s.krednr IS NOT NULL and s.krednr <>''
+          QUALIFY Row_Number() OVER (PARTITION BY s.artikelnr ,c.wawi_instanz_kzl_tgt ORDER BY s.krednr) = 1
+) src
+;

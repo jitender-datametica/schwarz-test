@@ -1,0 +1,48 @@
+CREATE OR REPLACE VIEW P_LEW_CORE_AC.V_ITEM_LOCATION_REPLENISHMENT_INFO_HIST_2
+(
+   client_id
+   ,loc_sid
+   ,item_sid
+   ,loc_sid_wh
+   ,max_stock_unit_id
+   ,max_stock_qty
+   ,orientation_stock_unit_id
+   ,orientation_stock_qty
+   ,order_stock_unit_id
+   ,order_stock_qty
+   ,min_order_unit_id
+   ,min_order_qty
+   ,shelf_capacity_unit_id
+   ,shelf_capacity_qty
+   ,deleted_fg
+   ,dwh_valid_from
+   ,dwh_valid_to
+   ,dwh_load_id
+   ,dwh_created
+   ,dwh_updated
+ )
+AS
+SELECT
+client_id,
+loc_sid,
+item_sid,
+loc_sid_wh,
+max_stock_unit_id,
+max_stock_qty,
+orientation_stock_unit_id,
+orientation_stock_qty,
+order_stock_unit_id,
+order_stock_qty,
+min_order_unit_id,
+min_order_qty,
+shelf_capacity_unit_id,
+shelf_capacity_qty,
+deleted_fg,
+dwh_valid_from,
+dwh_valid_to,
+dwh_load_id,
+dwh_created,
+dwh_updated
+FROM p_lew_core.t_item_location_replenishment_info_hist_2 ;
+
+

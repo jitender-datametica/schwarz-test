@@ -1,0 +1,51 @@
+CREATE OR REPLACE VIEW P_LEW_MART_LEAD_AC.V_SUP_DELIV_LOYALTY_2
+(
+  client_id
+ ,wh_loc_sid
+ ,wh_id
+ ,loc_sid_wh
+ ,aspect_id
+ ,sup_sid
+ ,item_sid
+ ,business_year
+ ,cy_month
+ ,week_id
+ ,cal_dat
+ ,qty_total_rcv_day
+ ,qty_order_day
+ ,qty_total_rcv_bytd
+ ,qty_order_bytd
+ ,qty_total_rcv_pym
+ ,qty_order_pym
+ ,qty_total_rcv_pyw
+ ,qty_order_pyw
+ ,sum_qty_total_rcv_pybytd
+ ,sum_qty_order_pybytd
+)
+AS
+SELECT
+client_id,
+wh_loc_sid,
+wh_id,
+loc_sid_wh,
+aspect_id,
+sup_sid,
+item_sid,
+business_year,
+cy_month,
+week_id,
+cal_dat,
+qty_total_rcv_day,
+qty_order_day,
+qty_total_rcv_bytd,
+qty_order_bytd,
+qty_total_rcv_pym,
+qty_order_pym,
+qty_total_rcv_pyw,
+qty_order_pyw,
+sum_qty_total_rcv_pybytd,
+sum_qty_order_pybytd
+FROM p_lew_mart_lead.v_sup_deliv_loyalty_2
+;
+
+

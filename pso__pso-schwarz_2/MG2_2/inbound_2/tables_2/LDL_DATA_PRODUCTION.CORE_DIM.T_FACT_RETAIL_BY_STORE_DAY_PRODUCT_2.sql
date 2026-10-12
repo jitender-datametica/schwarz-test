@@ -1,0 +1,34 @@
+create or replace TABLE LDL_DATA_PRODUCTION.CORE_DIM.T_FACT_RETAIL_BY_STORE_DAY_PRODUCT_2 cluster by (
+     COUNTRY_ORG_CD,
+     BUS_DT
+)(
+	BUS_DT DATE NOT NULL COMMENT 'The business date to which the measures are related.',
+	STORE_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the store, which has generated the revenue.',
+	PROD_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the product.',
+	SALES_VARIANT_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the sales_2 variant of a product.',
+	COUNTRY_ORG_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the country_2 organization. This is on the one hand related to the country_2 organization which is responsible for the store which has sold the product, and on the other hand to the country_2 organization which has defined the local properties of the product.',
+	COUNTRY_ORG_CD VARCHAR(2) NOT NULL COMMENT 'The code of the business country_2 for which the related country_2 organization is responsible. (The business country_2 is not identical to a political country.) This is on the one hand related to the country_2 organization which is responsible for the store which has sold the product, and on the other hand to the country_2 organization which has defined the local properties of the product.',
+	SALES_CNT NUMBER(38,0) COMMENT 'The number of this sales_2 variant which have been sold in the given store on the given day. (This attribute is empty for weight-based products.)',
+	SALES_QTY NUMBER(38,5) COMMENT 'In case of weight-based products, this is the quantity of the sales_2 variant which have been sold in the given store on the given day.',
+	RETURN_CNT NUMBER(38,0) COMMENT 'The number of this sales_2 variant which have been returned in the given store on the given day. (This attribute is empty for weight-based products.)',
+	RETURN_QTY NUMBER(38,5) COMMENT 'In case of weight-based products, this is the quantity of the sales_2 variant which have been returned in the given store on the given day.',
+	PERF_ADJ_SALES_CNT NUMBER(38,0) COMMENT 'The number of this sales_2 variant which have been sold in the given store on the given day. Only variants of products with an international item_2 group or commission products with an absolute unit_2 price not between 0.0001 and 0.0315 EUR are considered. (This attribute is empty for weight-based products. (This attribute is empty for weight-based products.)',
+	PERF_ADJ_SALES_QTY NUMBER(38,5) COMMENT 'In case of weight-based products, this is the quantity of the sales_2 variant which have been sold in the given store on the given day. Only variants of products with an international item_2 group or commission products with an absolute unit_2 price not between 0.0001 and 0.0315 EUR are considered.',
+	PERF_ADJ_RETURN_CNT NUMBER(38,0) COMMENT 'The number of this sales_2 variant which have been returned in the given store on the given day. Only variants of products with an international item_2 group or commission products with an absolute unit_2 price not between 0.0001 and 0.0315 EUR are considered. (This attribute is empty for weight-based products.)',
+	PERF_ADJ_RETURN_QTY NUMBER(38,5) COMMENT 'In case of weight-based products, this is the quantity of the sales_2 variant which have been returned in the given store on the given day. Only variants of products with an international item_2 group or commission products with an absolute unit_2 price not between 0.0001 and 0.0315 EUR are considered.',
+	UOM_CD VARCHAR(20) NOT NULL COMMENT 'The code identifying the unit_2 of measure for weight based products. (kg, ...)',
+	CASH_REGISTER_SALES_NET_VAL NUMBER(38,5) COMMENT 'The sales_2 portion of the net turnover which was generated for this sales_2 variant of the product in the given store on the given day. (This is the amount according to the cash register.)',
+	CASH_REGISTER_SALES_GROSS_VAL NUMBER(38,5) COMMENT 'The sales_2 portion of the gross turnover which was generated for this sales_2 variant of the product in the given store on the given day. (This is the amount according to the cash register.)',
+	CASH_REGISTER_RETURN_NET_VAL NUMBER(38,5) COMMENT 'The return portion of the net turnover which was generated for this sales_2 variant of the product in the given store on the given day. (This is the amount according to the cash register.)',
+	CASH_REGISTER_RETURN_GROSS_VAL NUMBER(38,5) COMMENT 'The return portion of the gross turnover which was generated for this sales_2 variant of the product in the given store on the given day. (This is the amount according to the cash register.)',
+	CURR_CD VARCHAR(3) NOT NULL COMMENT 'The code identifying the currency according to ISO-4217.',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.',
+	PERF_ADJ_SALES_NET_VAL NUMBER(38,5) COMMENT 'The sales_2 portion of the net turnover which was generated for this sales_2 variant in the given store on the given day. Only product variants with an international item_2 group or commission products with an absolute unit_2 price not between 0.0001 and 0.0315 EUR are considered. (This is the amount according to the cash register.)',
+	PERF_ADJ_RETURN_NET_VAL NUMBER(38,5) COMMENT 'The return portion of the net turnover which was generated for this sales_2 variant in the given store on the given day. Only product variants with an international item_2 group or commission products with an absolute unit_2 price not between 0.0001 and 0.0315 EUR are considered. (This is the amount according to the cash register.)',
+	constraint PK_T_FACT_RETAIL_BY_STORE_DAY_PRODUCT primary key (BUS_DT, STORE_SID, SALES_VARIANT_SID)
+) WITH ROW ACCESS POLICY #unknown_policy
+COMMENT='An aggregate fact holding basic retail measures per day, product and store. This includes sales_2 and return volume and the gross and net turnover. (Turnover amounts are taken from the cash register.)'
+;

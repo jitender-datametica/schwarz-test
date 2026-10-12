@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_verrechfall_status_2 AS SELECT mandant_id,
+ verrechfall_status_id
+FROM kfl_production_dbp_data.l_verrechfall_status_2;

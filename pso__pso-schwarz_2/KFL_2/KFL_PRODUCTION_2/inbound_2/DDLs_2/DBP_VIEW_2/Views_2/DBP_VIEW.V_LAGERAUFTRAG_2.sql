@@ -1,0 +1,40 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_LAGERAUFTRAG_2 AS 
+    SELECT 
+        mandant_id
+        ,lagernummer_id
+        ,lagerauftrag_id
+        ,wcr_id
+        ,wcr_typ_id
+        ,lagerprozessart_id_belegkopf
+        ,welle_id
+        ,lagerauftrag_status_id
+        ,aktivitaetsbereich_id
+        ,lagertyp_id
+        ,lagerplatz_id
+        ,queue_id
+        ,startzeit_fixiert_fg
+        ,ressource_id
+        ,manuelle_zuordnung_fg
+        ,inventur_fg
+        ,lagerauftrag_id_split
+        ,split_fg
+        ,lagerplatz_id_start
+        ,lagerauftrag_bez
+        ,handling_unit_id_joining
+        ,nachschub_option_id
+        ,dauer_geplant
+        ,menge_einh_id
+        ,lagerauftrag_guid
+        ,datzeit_start
+        ,datzeit_start_max
+        ,datzeit_erstellung
+        ,datzeit_bestaetigung
+        ,datzeit_aenderung
+        ,datzeit_lsd_berechnung
+        ,lsd_berechnungsart_id
+        ,dat_bereitstellung
+        ,zeit_bereitstellung
+        ,datzeit_bereitstellung
+
+
+FROM DBP_DATA.lagerauftrag_2 ;

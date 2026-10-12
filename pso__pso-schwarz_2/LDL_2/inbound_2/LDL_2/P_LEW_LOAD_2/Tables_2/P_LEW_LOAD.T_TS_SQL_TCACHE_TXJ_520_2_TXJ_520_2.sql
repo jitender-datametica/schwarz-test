@@ -1,0 +1,25 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TS_SQL_TCACHE_TXJ_520_2_TXJ_520_2
+(
+  RECORD_ID       VARCHAR(1000) COLLATE 'en-ci' NULL,
+  CLIENT_ID       NUMBER(38)                    NULL,
+  LOC_SID         NUMBER(38)                    NULL,
+  ITEM_SID        NUMBER(38)                    NULL,
+  ITEM_NR         VARCHAR(20) COLLATE 'en-ci'   NULL,
+  RECORD_CD       VARCHAR(12) COLLATE 'en-ci'   NULL,
+  SNAPSHOT_TMSP   TIMESTAMP_NTZ(6)              NULL,
+  SALES_QTY       NUMBER(18,5)                  NULL,
+  SALES_VAL       NUMBER(18,5)                  NULL,
+  RETURNS_QTY     NUMBER(18,5)                  NULL,
+  RETURNS_VAL     NUMBER(18,5)                  NULL,
+  VOIDS_QTY       NUMBER(18,5)                  NULL,
+  VOIDS_VAL       NUMBER(18,5)                  NULL,
+  DWH_CAL_DT      DATE                          NULL,
+  DWH_LOAD_ID     NUMBER(38)                    NULL,
+  DWH_CREATED     TIMESTAMP_NTZ(6)              NULL,
+  DWH_UPDATED     TIMESTAMP_NTZ(6)              NULL,
+  DWH_MAPPING_DT  DATE                          NULL,
+  ERROR_FG        NUMBER(38)                    NULL,
+  ERROR_DESCR     VARCHAR(1000) COLLATE 'en-ci' NULL,
+  FILENAME        VARCHAR(1000) COLLATE 'en-ci' NULL,
+  HIST_ROW_NO     NUMBER(38)                    NULL
+);

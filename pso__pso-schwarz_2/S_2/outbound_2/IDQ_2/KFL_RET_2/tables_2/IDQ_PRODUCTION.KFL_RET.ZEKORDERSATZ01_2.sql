@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE idq_production_kfl_ret.zekordersatz01_2 (
+mandt STRING(3) NOT NULL,
+werks STRING(4) NOT NULL,
+matnr STRING(40) NOT NULL,
+datab STRING(24) NOT NULL,
+datbi STRING(24),
+zzek_bzgsvrs STRING(1),
+bwscl STRING(1),
+lastchange STRING(24) NOT NULL,
+lastime STRING(6) NOT NULL,
+username STRING(12),
+zzek_stakz STRING(1),
+zzek_pokz STRING(1),
+zzek_ausl STRING(1),
+zzek_archiv STRING(1),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (mandt, werks, matnr, datab, lastchange, lastime) NOT ENFORCED
+);

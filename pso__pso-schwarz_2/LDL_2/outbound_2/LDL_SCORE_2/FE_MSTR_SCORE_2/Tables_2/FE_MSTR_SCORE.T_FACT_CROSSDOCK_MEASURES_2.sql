@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_score_fe_mstr_score.t_fact_crossdock_measures_2 (
+crossdock_sid BIGNUMERIC(38,0),
+operating_hauler_sid BIGNUMERIC(38,0),
+logistic_temp_cd STRING(2),
+transport_service_type_cd STRING(7),
+pallet_type_cd STRING(5),
+receiving_bus_country_cd STRING(2),
+cal_dt DATE,
+first_day_of_time_range_fg BOOL,
+day_accurate_delivery_fg BOOL,
+pallet_cnt BIGNUMERIC(38,0),
+weighted_pallet_cnt BIGNUMERIC(38,5),
+adv_pallet_cnt BIGNUMERIC(38,5),
+transport_storage_space_qty BIGNUMERIC(38,5),
+transport_storage_space_weighted_qty BIGNUMERIC(38,5),
+logistics_storage_space_qty BIGNUMERIC(38,5),
+logistics_storage_space_weighted_qty BIGNUMERIC(38,5),
+site_capacity_asis_qty BIGNUMERIC(38,5),
+site_capacity_hist_qty BIGNUMERIC(38,5)
+);

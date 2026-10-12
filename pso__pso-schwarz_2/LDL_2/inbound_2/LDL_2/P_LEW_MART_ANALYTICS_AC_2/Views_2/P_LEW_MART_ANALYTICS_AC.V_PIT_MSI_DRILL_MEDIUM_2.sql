@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW P_LEW_MART_ANALYTICS_AC.V_PIT_MSI_DRILL_MEDIUM_2
+AS
+   SELECT
+   client_id,
+   adv_week_id,
+   adv_week_sid,
+   adv_medium_sid,
+   adv_medium_mstr_sid,
+   adv_medium_grp_sid,
+   adv_medium_grp_mstr_sid,
+   rowcnt,
+   drill_to_medium_item_link_html,
+   drill_to_medium_h_link_html
+   FROM p_lew_mart_analytics.v_pit_msi_drill_medium_2
+;

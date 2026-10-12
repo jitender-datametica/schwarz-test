@@ -1,0 +1,41 @@
+CREATE OR REPLACE PROCEDURE dbp_msi_view_nfmd.sp_in_nfmd_art_discount(IN P_KJWO_WW INT64, IN P_MANDANT_ID INT64, IN P_AKTION_ID STRING, IN P_ART_ID INT64, IN P_USER_ID STRING, IN P_MANUAL_MARKDOWN_PRICE FLOAT64, IN P_MANUAL_MARKDOWN_PERCENTAGE FLOAT64, IN P_MANUAL_VALID_FROM STRING, IN P_COMMENT_TEXT STRING, IN P_STATIC_MANUAL_MARKDOWN_PRICE FLOAT64, IN P_STATIC_MANUAL_MARKDOWN_PERCENTAGE FLOAT64, IN P_STATIC_MANUAL_VALID_FROM STRING, IN P_STATIC_COMMENT_DECISION STRING, IN P_VK_AKTION_BRUTTO FLOAT64, IN P_WRG_ID STRING, IN P_DISCOUNT_TYPE_FG INT64, OUT out_param STRING)
+BEGIN
+DECLARE var_currentDate_add3Months DATE;
+DECLARE var_next_saptransfer_date DATE;
+BEGIN
+BEGIN TRANSACTION;
+CASE P_DISCOUNT_TYPE_FG 
+WHEN 0 THEN
+   
+    INSERT INTO dbp_msi_view_nfmd.ts_nfmd_article_price_2 (mandant_id, aktion_id, art_id, kjwo_ww, wrg_id, manual_promo_price_gross_local_val, user_id, dwh_created_tmsp)
+(SELECT P_MANDANT_ID AS mandant_id, P_AKTION_ID AS aktion_id, P_ART_ID AS art_id, P_KJWO_WW AS kjwo_ww, P_WRG_ID AS wrg_id, ROUND(CAST(P_MANUAL_MARKDOWN_PRICE AS NUMERIC), 2) AS manual_promo_price_gross_local_val, P_USER_ID AS user_id, CAST(CURRENT_TIMESTAMP() AS DATETIME) AS dwh_created_tmsp);
+WHEN 1 THEN
+    
+    INSERT INTO dbp_msi_view_nfmd.ts_nfmd_article_price_2 (mandant_id, aktion_id, art_id, kjwo_ww, wrg_id, manual_promo_price_gross_local_val, user_id, dwh_created_tmsp)
+(SELECT P_MANDANT_ID AS mandant_id, P_AKTION_ID AS aktion_id, P_ART_ID AS art_id, P_KJWO_WW AS kjwo_ww, P_WRG_ID AS wrg_id, ROUND(CAST((1 - P_MANUAL_MARKDOWN_PERCENTAGE) * P_VK_AKTION_BRUTTO AS NUMERIC), 2) AS manual_promo_price_gross_local_val, P_USER_ID AS user_id, CAST(CURRENT_TIMESTAMP() AS DATETIME) AS dwh_created_tmsp);
+END CASE;
+
+
+IF P_MANUAL_VALID_FROM <> P_STATIC_MANUAL_VALID_FROM THEN
+    BEGIN
+    SET var_currentDate_add3Months  =  (SELECT IF(CURRENT_DATE("Europe/Berlin") = LAST_DAY(CURRENT_DATE("Europe/Berlin")), LAST_DAY(DATE_ADD(CURRENT_DATE("Europe/Berlin"), INTERVAL 3 MONTH)), DATE_ADD(CURRENT_DATE("Europe/Berlin"), INTERVAL 3 MONTH)));
+    
+    SET var_next_saptransfer_date  =  (SELECT DATE_ADD(next_export_date, INTERVAL 1 DAY)
+FROM dbp_msi_view_nfmd.mv_nfmd_parameters_2
+WHERE mandant_id = P_MANDANT_ID);
+
+    IF CAST(P_MANUAL_VALID_FROM AS DATE) > var_next_saptransfer_date AND CAST(P_MANUAL_VALID_FROM AS DATE) <= var_currentDate_add3Months THEN
+       
+        INSERT INTO dbp_msi_view_nfmd.ts_nfmd_article_price_date_2 (mandant_id, aktion_id, art_id, kjwo_ww, manual_promo_price_dt, user_id, dwh_created_tmsp)
+(SELECT P_MANDANT_ID AS mandant_id, P_AKTION_ID AS aktion_id, P_ART_ID AS art_id, P_KJWO_WW AS kjwo_ww, P_MANUAL_VALID_FROM AS manual_promo_price_dt, P_USER_ID AS user_id, CAST(CURRENT_TIMESTAMP() AS DATETIME) AS dwh_created_tmsp);
+    END IF;
+
+    END;
+END IF;
+
+COMMIT TRANSACTION;
+SET out_param  =  'Rabatt MAK Level gespeichert';
+SELECT out_param;
+RETURN;
+END;
+END;

@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_eps_l_layout_2 AS SELECT DISTINCT layout_kz
+FROM kfl_production_dbp_view.v_l_eps_layout_2;

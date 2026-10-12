@@ -1,0 +1,32 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_HANDLING_UNIT_EWM_2 AS 
+    SELECT 
+        mandant_id
+        ,log_guid
+        ,handling_unit_guid
+        ,quelle
+        ,parent_handling_unit_guid
+        ,lageraufgabe_id
+        ,handling_unit_id
+        ,packmittel_guid
+        ,lagernummer_id
+        ,lagereinheitentyp_id
+        ,gewicht_brutto
+        ,gewicht_netto
+        ,gewicht_einh_id
+        ,eigengewicht
+        ,eigengewicht_einh_id
+        ,volumen_brutto
+        ,volumen_netto
+        ,volumen_einh_id
+        ,eigenvolumen
+        ,eigenvolumen_einh_id
+        ,datzeit_lageraufgabe_bestaetigung
+        ,anzahl_stellplaetze
+        ,menge_gefahrgut
+        ,status_id_intern
+        ,top_hu_fg
+        ,bottom_hu_fg
+        ,konsolidierungsgruppe_id
+
+
+FROM DBP_DATA.handling_unit_ewm_2 ;

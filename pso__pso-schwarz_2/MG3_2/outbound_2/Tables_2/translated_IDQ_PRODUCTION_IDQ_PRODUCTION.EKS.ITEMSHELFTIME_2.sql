@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE idq_production_eks.itemshelftime_2 (
+itemshelftimeid INTEGER NOT NULL,
+contractpricevalidityid INTEGER,
+monday INTEGER,
+tuesday INTEGER,
+wednesday INTEGER,
+thursday INTEGER,
+friday INTEGER,
+saturday INTEGER,
+sunday INTEGER,
+itemid INTEGER,
+crdate DATETIME,
+moddate DATETIME,
+cruser STRING(35),
+moduser STRING(35),
+shelftimeid INTEGER,
+frequencefactor INTEGER,
+frequencetimeunitid INTEGER,
+bestbeforedate DATETIME,
+PRIMARY KEY (itemshelftimeid) NOT ENFORCED
+);

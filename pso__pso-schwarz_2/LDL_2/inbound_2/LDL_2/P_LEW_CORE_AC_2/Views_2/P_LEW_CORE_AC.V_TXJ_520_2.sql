@@ -1,0 +1,36 @@
+create or replace view LDL_PRODUCTION.P_LEW_CORE_AC.V_TXJ_520_2(
+	CLIENT_ID,
+	LOC_SID,
+	ITEM_SID,
+	ITEM_NR,
+	RECORD_CD,
+	SNAPSHOT_TMSP,
+	SALES_QTY,
+	SALES_VAL,
+	RETURNS_QTY,
+	RETURNS_VAL,
+	VOIDS_QTY,
+	VOIDS_VAL,
+	DWH_CAL_DT,
+	DWH_LOAD_ID,
+	DWH_CREATED,
+	DWH_UPDATED
+) as
+   SELECT
+       client_id,
+   loc_sid,
+   item_sid,
+   item_nr,
+   record_cd,
+   snapshot_tmsp,
+   sales_qty,
+   sales_val,
+   returns_qty,
+   returns_val,
+   voids_qty,
+   voids_val,
+   dwh_cal_dt,
+   dwh_load_id,
+   dwh_created,
+   dwh_updated
+  FROM p_lew_core.t_txj_520_2 ;

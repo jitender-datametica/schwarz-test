@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_wwc.mv_coi_ump_filialeffekte_per_2 (mandant_id, gj_plan, version_id,
+land_level, wup_id, nb_id, filialeffekt_massnahme_typ, filialeffekt_auswirkung_bez, massnahme_id, dat_filialeffekt_von,
+dat_filialeffekt_bis, faktor_filialeffekt, wert_filialeffekt) AS SELECT mandant_id,
+ gj_plan,
+ version_id,
+ land_level,
+ wup_id,
+ nb_id,
+ filialeffekt_massnahme_typ,
+ filialeffekt_auswirkung_bez,
+ massnahme_id,
+ dat_filialeffekt_von,
+ dat_filialeffekt_bis,
+ faktor_filialeffekt,
+ wert_filialeffekt
+FROM kfl_production_dbp_view.v_coi_ump_filialeffekte_per_2;

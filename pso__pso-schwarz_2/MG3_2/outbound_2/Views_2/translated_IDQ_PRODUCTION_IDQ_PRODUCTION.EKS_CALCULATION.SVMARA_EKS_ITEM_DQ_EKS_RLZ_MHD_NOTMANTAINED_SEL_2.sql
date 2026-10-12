@@ -1,0 +1,38 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.svmara_eks_item_dq_eks_rlz_mhd_notmantained_sel_2 (negotiatingcountry
+, buyershortsign, buyerfirstname, buyerlastname, zmatkl, articlefamily, ba_itemno, ba_description, sk_itemno,
+sk_description_int, itemid, itemno, articletype, description, listingoverviewid, supplierno, supplierdescription,
+receivingcountry, zrelevantmdm, zsource, zactive) AS SELECT DISTINCT svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.negotiatingcountry
+ ,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.buyershortsign,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.buyerfirstname,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.buyerlastname,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.zmatkl,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.articlefamily,
+ svmara_eks_item_baskea_structure_010.ba_itemno,
+ svmara_eks_item_baskea_structure_010.ba_description,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.sk_itemno,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.sk_description_int,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.itemid,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.itemno,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.articletype,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.description,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.listingoverviewid,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.supplierno,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.supplierdescription,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.receivingcountry,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.zrelevantmdm,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.zsource,
+ svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.zactive
+FROM idq_production_eks_calculation.svmara_eks_item_dq_eks_rlz_mhd_notmantained_010_2
+ LEFT JOIN idq_production_eks_calculation.svmara_eks_item_baskea_structure_010_2 ON
+   svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.itemno = svmara_eks_item_baskea_structure_010.ea_itemno AND
+   svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.sk_itemno = svmara_eks_item_baskea_structure_010.sk_itemno
+ LEFT JOIN idq_production_eks_calculation.eks_zsm_excludelist_2 ON svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.itemno
+    = eks_zsm_excludelist.itemno AND (svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.supplierno = eks_zsm_excludelist.supplierno
+          AND eks_zsm_excludelist.listingoverviewid IS NULL OR svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.listingoverviewid
+          = eks_zsm_excludelist.listingoverviewid AND eks_zsm_excludelist.supplierno IS NULL OR
+        svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.supplierno = eks_zsm_excludelist.supplierno AND
+        svmara_eks_item_dq_eks_rlz_mhd_notmantained_010.listingoverviewid = eks_zsm_excludelist.listingoverviewid OR
+      eks_zsm_excludelist.supplierno IS NULL AND eks_zsm_excludelist.listingoverviewid IS NULL) AND eks_zsm_excludelist_2
+   .reportno = '046'
+WHERE eks_zsm_excludelist.itemno IS NULL;

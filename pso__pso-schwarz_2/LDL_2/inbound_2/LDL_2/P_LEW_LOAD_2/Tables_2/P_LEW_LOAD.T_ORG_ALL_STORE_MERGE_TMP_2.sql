@@ -1,0 +1,27 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_ORG_ALL_STORE_MERGE_TMP_2
+(
+  ASPECT_ID           NUMBER(38)                    NOT NULL,
+  CLIENT_ID           NUMBER(38)                    NOT NULL,
+  MOVE_TO_ST_LOC_SID  NUMBER(38)                    NOT NULL,
+  MOVE_STORE_DESC     VARCHAR(255) COLLATE 'en-ci'  NULL,
+  WH_LOC_SID          NUMBER(38)                    NULL,
+  WH_LOC_SID_EXP      NUMBER(38)                    NULL,
+  SALES_MANAGER_ID    NUMBER(38)                    NULL,
+  DAT_CLOSING_OVIS    DATE                          NULL,
+  DAT_OPENING_OVIS    DATE                          NULL,
+  MIS_STORE_ACTIVE_FG NUMBER(38)                    NULL,
+  DAT_OPENING         DATE                          NULL,
+  DAT_CLOSING         DATE                          NULL,
+  ORIG_STORE_NR       NUMBER(38)                    NULL,
+  DAT_CALC_START_PY   DATE                          NULL,
+  DAT_CALC_END_PY     DATE                          NULL,
+  OBJECTSTATUS_ID     NUMBER(38)                    NULL,
+  DAT_CALC_START_PPY  DATE                          NULL,
+  MOVE_FG             NUMBER(38)                    NULL,
+  STREET              VARCHAR(70) COLLATE 'en-ci'   NULL,
+  ZIPCODE             VARCHAR(15) COLLATE 'en-ci'   NULL,
+  CITY                VARCHAR(50) COLLATE 'en-ci'   NULL,
+  PHONE               VARCHAR(50) COLLATE 'en-ci'   NULL,
+  LONGITUDE           NUMBER(9,6)                   NULL,
+  LATITUDE            NUMBER(9,6)                   NULL
+);

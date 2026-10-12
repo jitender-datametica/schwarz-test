@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t183_sic_corrlines_2 (
+ctrcode STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_nr INTEGER NOT NULL,
+c183_id INTEGER,
+c183_posnr INTEGER,
+c183_itemnr STRING(18),
+c183_itemdesc STRING(100),
+c183_weightitem INTEGER,
+c183_orderarea STRING(2),
+c183_caseqty BIGNUMERIC(29,10),
+c183_pieceqty BIGNUMERIC(29,10),
+c183_storeprice BIGNUMERIC(29,10),
+c183_newcaseqty BIGNUMERIC(29,10),
+c183_newpieceqty BIGNUMERIC(29,10),
+c183_newstoreprice BIGNUMERIC(29,10),
+c183_decimalcase NUMERIC(7,3),
+c183_sicedit INTEGER,
+c183_idvalue BIGNUMERIC(29,10) NOT NULL,
+scn INTEGER DEFAULT 0,
+extraction_tmsp DATETIME,
+PRIMARY KEY (c183_idvalue) NOT ENFORCED
+);

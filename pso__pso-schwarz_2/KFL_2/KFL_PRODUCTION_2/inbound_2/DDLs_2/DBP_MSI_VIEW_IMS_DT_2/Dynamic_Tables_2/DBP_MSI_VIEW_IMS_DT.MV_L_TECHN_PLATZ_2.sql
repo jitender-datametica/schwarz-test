@@ -1,0 +1,16 @@
+CREATE OR REPLACE DYNAMIC TABLE DBP_MSI_VIEW_IMS_DT.MV_L_TECHN_PLATZ_2
+(
+	TECHN_PLATZ_ID
+)
+TARGET_LAG = '1 hour, 30 minutes' 
+REFRESH_MODE = FULL 
+INITIALIZE = ON_CREATE 
+WAREHOUSE = WH_KFL_%%environmentAbbreviation%%_DYNAMIC_TABLE_IMS
+
+AS
+-- 13.06.2013 AL Init
+
+   SELECT v01.techn_platz_id
+   FROM dbp_view.v_techn_platz_per_2 v01
+   WHERE v01.dat_bis='9999-12-31'
+;

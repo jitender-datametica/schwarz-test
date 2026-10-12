@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.srmara_eks_item_xteks_basicinfo_reccountry_zisvalidcontract_maxdateuntil_ea_2
+(listingoverviewid, itemid, receivingcountry, supplierno, maxdateuntil) AS SELECT xteks_basicinfo_reccountry.listingoverviewid
+ ,
+ xteks_basicinfo_reccountry.itemid,
+ xteks_basicinfo_reccountry.receivingcountry,
+ xteks_basicinfo_reccountry.supplierno,
+ MAX(contractpricevalidity.dateuntil) AS maxdateuntil
+FROM idq_production_eks_calculation.xteks_basicinfo_reccountry_2
+ INNER JOIN idq_production_eks.contractpricevalidity_2 ON xteks_basicinfo_reccountry.contractpricevalidityid =
+  contractpricevalidity.contractpricevalidityid
+WHERE xteks_basicinfo_reccountry.sk_itemid IS NULL
+GROUP BY xteks_basicinfo_reccountry.listingoverviewid,
+ xteks_basicinfo_reccountry.itemid,
+ xteks_basicinfo_reccountry.receivingcountry,
+ xteks_basicinfo_reccountry.supplierno;

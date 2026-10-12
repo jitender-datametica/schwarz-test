@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_score_octopus.t_projektstreckeemission_hist_2 (
+id STRING(1000),
+rowid STRING(1000),
+nummer BIGNUMERIC(38,5),
+masterid STRING(200),
+co2mengekg BIGNUMERIC(38,5),
+gueltigvon STRING(200),
+gueltigbis STRING(200),
+crglastmoddate STRING(200),
+lastmodified STRING(200),
+streckeid STRING(200),
+record_id BIGNUMERIC(38,5),
+extraction_date DATE,
+bic_zmlila STRING(1000),
+extraction_ts DATETIME,
+source_system STRING(1000),
+source_extraction_tmsp ARRAY < STRING >,
+tech_valid_from TIMESTAMP NOT NULL,
+tech_valid_to TIMESTAMP NOT NULL,
+snflk_insert_tmsp TIMESTAMP NOT NULL,
+snflk_update_tmsp TIMESTAMP NOT NULL
+);

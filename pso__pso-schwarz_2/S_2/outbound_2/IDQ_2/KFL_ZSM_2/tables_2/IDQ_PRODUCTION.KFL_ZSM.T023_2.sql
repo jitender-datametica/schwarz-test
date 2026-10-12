@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE idq_production_kfl_zsm.t023_2 (
+mandt STRING(3) NOT NULL,
+matkl STRING(9) NOT NULL,
+spart STRING(2),
+lref3 STRING(3),
+wwgda STRING(40),
+wwgpa STRING(40),
+abtnr STRING(4),
+begru STRING(4),
+gewei STRING(3),
+j_1bnbm STRING(16),
+bklas STRING(4),
+ekwsl STRING(4),
+anlkl STRING(8),
+def_schdsc STRING(6),
+price_group STRING(6),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (mandt, matkl) NOT ENFORCED
+);

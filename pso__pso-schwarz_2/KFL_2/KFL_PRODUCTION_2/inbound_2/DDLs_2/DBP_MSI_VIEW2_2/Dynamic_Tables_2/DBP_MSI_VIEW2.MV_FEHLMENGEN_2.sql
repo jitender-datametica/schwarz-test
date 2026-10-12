@@ -1,0 +1,58 @@
+CREATE OR REPLACE DYNAMIC TABLE DBP_MSI_VIEW2.MV_FEHLMENGEN_2
+(
+	MANDANT_ID,
+	WUP_ID,
+	NB_ID,
+	LAGERORT_ID,
+	EMPFAENGER_WUP_ID,
+	MANDANT_ID_EMPFAENGER,
+	EMPFAENGER_NB_ID,
+	ART_ID,
+	DAT_LIEF_SOLL,
+	BESTELLART_ID,
+	WRG_ID,
+	LIEFERUNGSKUERZUNG_FG,
+	DIFF_ID,
+	MENGE_LIEF_SOLL_KOLLI,
+	MENGE_LIEF_IST_KOLLI,
+	EK_NETTO_BNK_SOLL,
+	EK_NETTO_BNK_IST,
+	VK_NETTO_LIEF_SOLL,
+	VK_NETTO_LIEF_IST,
+	KZ_MENGE_LIEF_SOLL_KOLLI,
+	KZ_MENGE_LIEF_IST_KOLLI,
+	KZ_EK_NETTO_BNK_SOLL,
+	KZ_EK_NETTO_BNK_IST,
+	KZ_VK_NETTO_LIEF_SOLL,
+	KZ_VK_NETTO_LIEF_IST
+) TARGET_LAG = '1 HOUR, 30 MINUTES' REFRESH_MODE = FULL INITIALIZE = ON_CREATE WAREHOUSE = WH_KFL_%%environmentAbbreviation%%_DYNAMIC_TABLE_AIS_DE
+AS
+SELECT
+v01.mandant_id, 
+v01.wup_id, 
+v01.nb_id, 
+v01.lagerort_id, 
+v01.empfaenger_wup_id, 
+v01.mandant_id_empfaenger, 
+v01.empfaenger_nb_id, 
+v01.art_id, 
+v01.dat_lief_soll, 
+v01.bestellart_id, 
+v01.wrg_id, 
+v01.kuerzung_fg AS lieferungskuerzung_fg, 
+v01.diff_id, 
+v01.menge_lief_soll_kolli, 
+v01.menge_lief_ist_kolli, 
+v01.ek_netto_bnk_soll, 
+v01.ek_netto_bnk_ist, 
+v01.vk_netto_soll AS vk_netto_lief_soll, 
+v01.vk_netto_ist AS vk_netto_lief_ist, 
+v01.kuerz_menge_lief_soll_kolli AS kz_menge_lief_soll_kolli, 
+v01.kuerz_menge_lief_ist_kolli AS kz_menge_lief_ist_kolli, 
+v01.kuerz_ek_netto_bnk_soll AS kz_ek_netto_bnk_soll, 
+v01.kuerz_ek_netto_bnk_ist AS kz_ek_netto_bnk_ist, 
+v01.kuerz_vk_netto_soll AS kz_vk_netto_lief_soll, 
+v01.kuerz_vk_netto_ist AS kz_vk_netto_lief_ist
+
+FROM dbp_view.v_besch_lief_fehlmengen_2 v01
+WHERE v01.mandant_id = 1;

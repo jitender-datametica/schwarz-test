@@ -1,0 +1,25 @@
+CREATE OR REPLACE VIEW FE_MSTR_BCBI.V_TIME_QUOTA_2 AS
+SELECT CLIENT_ID
+	,COUNTRY_ISO
+	,WH_ID
+	,LOC_SID_WH
+	,WH_DESC
+	,LOC_SID_STORE
+	,ORIG_STORE_NR
+	,STORE_DESC
+	,DAT_OPEN
+	,WEEK
+	,WEEK_NAME
+	,WEEK_ID
+	,MONTH
+	,MONTH_NAME
+	,MONTH_ID
+	,YEAR
+	,SOURCE_SYSTEM
+	,SUM(CASE WHEN detail.missing_fg = 0 THEN 1 ELSE 0 END) AS received_fg
+    ,COUNT(detail.dat_open) AS expected_fg
+    ,expected_fg - received_fg AS missed_fg
+    ,received_fg/expected_fg AS quota
+FROM FE_MSTR_BCBI.V_TIME_DETAIL_2 detail
+GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17
+ORDER BY QUOTA DESC;

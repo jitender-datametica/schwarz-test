@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead_ac.v_esl_price_label_store_2 (int_id, client_id, wh_id, move_to_store_id,
+aspect_id, price_label_producer_name, electronic_price_label_type_cd_fe, dat_formdate, currency_iso_cd, active_labels,
+rma_labels, issue_fg) AS SELECT int_id,
+ client_id,
+ wh_id,
+ move_to_store_id,
+ aspect_id,
+ price_label_producer_name,
+ electronic_price_label_type_cd_fe,
+ dat_formdate,
+ currency_iso_cd,
+ active_labels,
+ rma_labels,
+ issue_fg
+FROM ldl_p_lew_mart_lead.v_esl_price_label_store_2;

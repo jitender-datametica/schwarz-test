@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_pep_ma_funktion_2 AS SELECT pep_ma_funktion_id,
+ pep_ma_funktion_bez
+FROM kfl_production_dbp_data.l_pep_ma_funktion_2;

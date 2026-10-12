@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.wabi_sum_2 (
+art_id BIGNUMERIC(38,0) NOT NULL,
+mandant_id BIGNUMERIC(38,0) NOT NULL,
+wup_id BIGNUMERIC(38,0) NOT NULL,
+nb_id BIGNUMERIC(38,0) NOT NULL,
+aktion_id STRING(10) COLLATE 'und:ci' NOT NULL,
+dat DATE NOT NULL,
+null_bestand_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+minus_bestand_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+null_absatz_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+null_absatz_tag_1_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+artbew_menge NUMERIC(18,3) DEFAULT 0 NOT NULL,
+man_bestellung_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+man_bestellung_menge NUMERIC(18,3) DEFAULT 0 NOT NULL,
+start_bestand NUMERIC(18,3) DEFAULT 0 NOT NULL,
+ende_bestand NUMERIC(18,3) DEFAULT 0 NOT NULL,
+menge_absatz_af_mittel NUMERIC(18,3) DEFAULT 0 NOT NULL,
+rw_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+);

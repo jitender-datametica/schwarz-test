@@ -1,0 +1,23 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead.v_agg_store_day_cash_register_type_stats_2 (client_id, move_to_store_id,
+dwh_cal_dt, aspect_id, register_type_cd, sco_open_time_sec_total, sco_ssc_active, dur_prepare_sec_total,
+dur_wait_sec_total, dur_scan_sec_total, dur_pay_sec_total, dur_proc_sec_total, sales_pieces_total, sales_pieces_total_og
+, sales_pieces_total_bakeoff, customer_count_total, cashier_performance, dwh_load_id, dwh_created) AS SELECT client_id,
+ loc_sid AS move_to_store_id,
+ dwh_cal_dt,
+ aspect_id,
+ register_type_cd,
+ sco_open_time_sec_total,
+ sco_active AS sco_ssc_active,
+ dur_prepare_sec_total,
+ dur_wait_sec_total,
+ dur_scan_sec_total,
+ dur_pay_sec_total,
+ dur_proc_sec_total,
+ sales_pieces_total,
+ sales_pieces_total_og,
+ sales_pieces_total_bakeoff,
+ customer_count_total,
+ cashier_performance,
+ dwh_load_id,
+ dwh_created
+FROM ldl_p_lew_mart_lead.t_agg_store_day_cash_register_type_stats_2;

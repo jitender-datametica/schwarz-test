@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW ldl_fe_mstr_xsight.v_dim_region_type_2 (region_type_cd, region_type_descr, data_provider_name,
+data_src_name) AS SELECT market_research_region_type_cd AS region_type_cd,
+ market_research_region_type_descr AS region_type_descr,
+ market_research_data_provider_name AS data_provider_name,
+ market_research_data_src_name AS data_src_name
+FROM ldl_p_lew_core_ac.v_market_research_region_type_2;

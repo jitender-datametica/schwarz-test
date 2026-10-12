@@ -1,0 +1,26 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TCACHE_WH_MOVE_PRICE_CHANGE_SUBITEMGROUP_2
+(
+  CONTEXT_LOAD_ID       NUMBER(38)                    NOT NULL,
+  CLIENT_ID             NUMBER(38)                    NOT NULL,
+  CONTEXT_COUNTRY       VARCHAR(20) COLLATE 'en-ci'   NOT NULL,
+  LOC_SID_WH            NUMBER(38)                    NOT NULL,
+  SRC_ORIG_WH_NR        NUMBER(38)                    NULL,
+  FORMTYPE              NUMBER(38)                    NOT NULL,
+  FORM_DESC             VARCHAR(40) COLLATE 'en-ci'   NULL,
+  SUBITEMGROUP_CD       VARCHAR(20) COLLATE 'en-ci'   NULL,
+  SUBITEMGROUP_DESC     VARCHAR(40) COLLATE 'en-ci'   NULL,
+  LOC_SID_STORE_TO      NUMBER(38)                    NULL,
+  SRC_ORIG_STORE_NR_TO  NUMBER(38)                    NULL,
+  DAT_DAYEND            DATE                          NOT NULL,
+  DWH_CAL_DT            DATE                          NOT NULL,
+  ACCOUNT_ID            NUMBER(38)                    NULL,
+  VAL_DEBIT_BNL         NUMBER(18,4)                  NULL,
+  VAL_DEBIT_BNL_NET     NUMBER(18,4)                  NULL,
+  VAL_CREDIT_BNL        NUMBER(18,4)                  NULL,
+  VAL_CREDIT_BNL_NET    NUMBER(18,4)                  NULL,
+  FILE_NAME             VARCHAR(100) COLLATE 'en-ci'  NULL,
+  TIMESTAMP_FN          TIMESTAMP_NTZ(0)              NULL,
+  DWH_LOAD_ID           NUMBER(38)                    NOT NULL,
+  DWH_CREATED           TIMESTAMP_NTZ(6)              NOT NULL,
+  DWH_UPDATED           TIMESTAMP_NTZ(6)              NOT NULL
+);

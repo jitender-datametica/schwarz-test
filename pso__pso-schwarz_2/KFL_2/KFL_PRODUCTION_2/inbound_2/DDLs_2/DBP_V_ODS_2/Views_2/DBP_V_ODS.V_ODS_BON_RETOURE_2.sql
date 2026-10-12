@@ -1,0 +1,33 @@
+CREATE OR REPLACE VIEW DBP_V_ODS.V_ODS_BON_RETOURE_2 AS 
+    SELECT 
+        bon_id
+        ,bon_zeile
+        ,kl_art_id
+        ,ean_kasse
+        ,wg_id
+        ,menge
+        ,einh_id
+        ,umsatz_brutto
+        ,mwst_id
+        ,erfassung_id
+        ,aktion_id
+        ,reklamationsgrund_id
+        ,reklamationstyp_id
+        ,menge_fg
+        ,mandant_id
+        ,mhd
+        ,los_charge
+        ,kunden_text
+        ,wup_id
+        ,art_id_ref
+        ,gp_id
+        ,start_bon_zeile
+        ,talon_id
+        ,kpos_erfassung_id
+        ,umsatz_brutto_norm
+        ,vk_brutto_obb
+        ,bon_vorgang_id
+        ,barcode_string
+        ,bon_dat
+        ,barcode_leergut
+FROM DBP_ODS.ods_bon_retoure_2 ;

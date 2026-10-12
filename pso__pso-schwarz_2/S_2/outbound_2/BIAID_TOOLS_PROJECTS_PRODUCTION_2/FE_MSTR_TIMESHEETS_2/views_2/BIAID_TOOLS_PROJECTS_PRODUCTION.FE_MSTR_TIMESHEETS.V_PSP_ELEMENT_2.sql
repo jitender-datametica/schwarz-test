@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW biaid_tools_projects_production_fe_mstr_timesheets.v_psp_element_2 (psp_element_cd) AS SELECT
+DISTINCT psp_element_cd
+FROM biaid_tools_projects_production_fe_mstr_timesheets.t_timesheet_entry_2;

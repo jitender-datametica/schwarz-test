@@ -1,0 +1,26 @@
+create or replace TABLE KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_DATA.ZB_PROJEKT_IST_KOSTEN_2 (
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant_2 im DWH',
+	BUCHUNG_BELEG_NR VARCHAR(20) NOT NULL COMMENT 'Belegnummer der Buchung',
+	BUCHUNG_BELEG_POS_NR NUMBER(38,0) NOT NULL COMMENT 'Nummer der Belegposition / Buchungszeile der Buchung',
+	DAT_BUCHUNG_BELEG DATE NOT NULL COMMENT 'Datum der Buchung',
+	BUCHUNG_TYP_CD VARCHAR(20) NOT NULL COMMENT 'Code gibt an ob es sich um eine_2 Buchung zu einer Bestellung (B), eine_2 Buchung zum Vertrag (V) oder um eine_2 Buchung ohne Bestellung und Vertrag (O) handelt.',
+	KOSTEN_TYP_CD VARCHAR(20) NOT NULL COMMENT 'Code gibt Art_2 der Kosten- / Buchungsposition an: B = Baukostenzuschuss, F = Foerderung, R = Rueckstellung, K = normale Kosten.',
+	PROJEKT_NR VARCHAR(100) NOT NULL COMMENT 'Eindeutige Code des Projektes aus ePPM. ',
+	GEWERK_ID NUMBER(38,0) NOT NULL COMMENT 'ID des Gewerkes. Entspricht der letzten Ziffer des langen PSP-Elements.',
+	KONTO_NR VARCHAR(20) NOT NULL COMMENT 'Nummer des Kontos',
+	GEGEN_KONTO_NR VARCHAR(20) NOT NULL COMMENT 'Nummer des Gegenkontos',
+	GP_ID NUMBER(38,0) NOT NULL COMMENT 'Geschäftspartner - ID (Lieferanten - ID)',
+	MATERIAL_NR NUMBER(38,0) NOT NULL COMMENT 'Nummer des Materials.',
+	BESTELL_BELEG_NR NUMBER(38,0) NOT NULL COMMENT 'Handelt es sich um eine_2 Buchung zu einer Bestellung, Belegnummer der Bestellung.',
+	BESTELL_BELEG_POS_NR NUMBER(38,0) NOT NULL COMMENT 'Handelt es sich um eine_2 Buchung zu einer Bestellung, Nummer der Belegposition der Bestellung.',
+	KRK_ID VARCHAR(4) NOT NULL COLLATE 'en-ci' COMMENT 'globale ID des Kostenrechnungskreises',
+	KOSTENART_ID VARCHAR(10) NOT NULL COLLATE 'en-ci' COMMENT 'Eindeutiger Fachschluessel fuer die Kostenarten',
+	MIETVERTRAG_NR VARCHAR(20) NOT NULL COLLATE 'en-ci' COMMENT 'Hanelt es sich um den Buchung Typ V und die Buchung kann einem Vertrag zugeordnet werden, befindet sich hier der eindeutige Identfier des zugeordneten Vertrages.',
+	WRG_ID VARCHAR(3) NOT NULL COMMENT 'Kurzbezeichnung der Währung, z.B. CZK, EUR',
+	BETRAG_BUCHUNG NUMBER(38,5) NOT NULL COMMENT 'Betrag der Buchung in Landeswährung.',
+	BUCHUNG_BELEG_TXT VARCHAR(500) COMMENT 'Freitext des Buchungsbeleges.',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	constraint PK_ZB_PROJEKT_IST_KOSTEN primary key (MANDANT_ID, BUCHUNG_BELEG_NR, BUCHUNG_BELEG_POS_NR)
+)COMMENT='Enthält alle Buchungen die für Immobilienprojekte relevant sind. Diese können entweder aus einer Bestellungen, aus Verträgen und Konditionen oder ohne Bezug zu diesen und nur mit einem referenzierten Konto_2 veranlasst werden.'
+;

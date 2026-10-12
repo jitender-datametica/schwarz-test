@@ -1,0 +1,25 @@
+create or replace TABLE LDL_DATA_PRODUCTION.CORE_DIM.T_DIM_ITEM_FAMILY_2 (
+	ITEM_FAM_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the item_2 family.',
+	DWH_VALID_FROM_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record became valid.',
+	DWH_VALID_TO_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was no longer valid.',
+	DWH_VALID_FG BOOLEAN NOT NULL COMMENT 'An indicator showing the current record, i.e. where the current date is between dwh_valid_from and dwh_valid_to.',
+	ITEM_FAM_NR VARCHAR(100) COMMENT 'The number by which the item_2 family is known to business.',
+	ITEM_FAM_NAME VARCHAR(100) NOT NULL COMMENT 'The name of the item_2 family in group language, i.e. in German.',
+	ITEM_FAM_NAME_DE VARCHAR(100) COMMENT 'The name of the item_2 family in German.',
+	ITEM_FAM_NAME_EN VARCHAR(100) COMMENT 'The name of the item_2 family in English.',
+	PROD_GRP_STATUS_CD VARCHAR(20) NOT NULL COMMENT 'The code identifying the lifecycle status_2 for product groups.',
+	PROD_GRP_STATUS_DESCR VARCHAR(250) NOT NULL COMMENT 'A textual description for the lifecycle status_2 for product groups. (Description in group language, i.e. in German)',
+	SUB_ITEM_GRP_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for a sub item_2 group to which this item_2 family group belongs.',
+	SUB_ITEM_GRP_NR VARCHAR(100) COMMENT 'The number by which the related sub item_2 group is known to business.',
+	SUB_ITEM_GRP_NAME VARCHAR(100) NOT NULL COMMENT 'The name of the related sub item_2 group in group language, i.e. in German.',
+	FOOD_FG BOOLEAN NOT NULL COMMENT 'An indicator distinguishing food from non-food items.',
+	INT_ITEM_GRP_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) of the international item_2 group, to which this item_2 family belongs.',
+	INT_ITEM_GRP_NR VARCHAR(100) COMMENT 'The number by which the related international item_2 group is known to business.',
+	INT_ITEM_GRP_NAME VARCHAR(100) NOT NULL COMMENT 'The name of the related international item_2 group in group language, i.e. in German.',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created or last updated.',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier of the batch load which has done the last update to this record. (Closing a record in history without updating any payload columns does not trigger an update of the dwh_load_id.)',
+	DWH_NODE_CD VARCHAR(20) NOT NULL COMMENT 'The code for the source system (or slice of source system) from which this record was loaded.',
+	constraint PK_T_DIM_ITEM_FAMILY primary key (ITEM_FAM_SID, DWH_VALID_FROM_TMSP)
+)COMMENT='The item_2 family is the lowest grouping level for items. '
+;

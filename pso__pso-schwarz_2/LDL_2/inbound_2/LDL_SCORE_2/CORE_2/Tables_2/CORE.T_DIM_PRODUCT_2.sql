@@ -1,0 +1,20 @@
+--==============================================================
+-- Table: t_dim_product_2
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: t_dim_product_2
+   generated from Powerdesigner on Donnerstag, 8. August 2024 10:41:31
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE CORE.T_DIM_PRODUCT_2 (
+   product_sid                         NUMBER          NOT NULL COMMENT 'The unique identifier (surrogate key) for the product.',
+   bus_country_cd                      VARCHAR(2)      COMMENT 'Business country_2 to which the good is dedicated to',
+   product_nr                          VARCHAR(20)     COMMENT 'The number by which the product is known.',
+   int_product_nr                      VARCHAR(20)     COMMENT 'The number by which the product is known internationally.',
+   product_name                        VARCHAR(100)    COMMENT 'The name by which the product is known.',
+   int_product_name                    VARCHAR(100)    COMMENT 'The name by which the product is known internationally.',
+   nonfood_fg                          BOOLEAN         COMMENT 'Indicates, whether it is a nonfood product.',
+   dwh_created_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+   dwh_updated_tmsp                    TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',   
+   CONSTRAINT PK_T_DIM_PRODUCT PRIMARY KEY (product_sid) NOT ENFORCED 
+)  COMMENT = 'The products that are used in a dispo order. ';

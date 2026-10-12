@@ -1,0 +1,31 @@
+CREATE OR REPLACE TABLE szd_production_etl.t_cache_abrechtr_2 (
+source_system STRING(2000),
+extraction_date DATE,
+load_id NUMERIC(29,5),
+rechtrid INTEGER,
+rechid INTEGER,
+lieferid INTEGER,
+abholadrid INTEGER,
+vertreterid INTEGER,
+transportartid INTEGER,
+spediteurid INTEGER,
+grenzspediteurid INTEGER,
+verschiffungid INTEGER,
+transportmittel STRING(2000),
+checkli STRING(2000),
+aenddatum TIMESTAMP,
+aendbenid INTEGER,
+verladedatum DATE,
+lieferdatum DATE,
+kostenstelle STRING(2000),
+anztransportmittel NUMERIC(29,5),
+blnummer STRING(2000),
+import_verladedatum STRING(2000),
+import_verladedatum_dat DATE,
+dwh_created_tmsp TIMESTAMP
+OPTIONS(description='The point in time when this record was created in the data warehouse.'),
+dwh_updated_tmsp TIMESTAMP
+OPTIONS(description='The point in time when this record was created or last updated.'),
+dwh_src_file_name STRING(2000),
+dwh_src_1_tmsp TIMESTAMP
+);

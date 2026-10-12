@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_cm_ac.v_lil_liam_clnt_cat_2 (liam_clnt_cat_id, client_id, liam_parnt_cat_desc,
+liam_parnt_cat_desc_en, liam_chld_cat_desc, liam_chld_cat_desc_en, liam_chld_cat_trim_desc, liam_chld_cat_trim_desc_en,
+liam_cat_smart_desc, liam_cat_smart_desc_en, clnt_cat_lvl, sel_srt_cd, bnc_prom_total, bnc_prom_total_decoded,
+bnc_prom_total_decoded_en, bnc_prom_brand_pl, bnc_prom_brand_pl_decoded, bnc_prom_brand_pl_decoded_en) AS SELECT *
+FROM ldl_p_lew_mart_cm.v_lil_liam_clnt_cat_2;

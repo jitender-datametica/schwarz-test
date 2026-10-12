@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_ladungstraeger_status_spr_zu_2 AS SELECT mandant_id,
+ spr_id,
+ ladungstraeger_status_id,
+ ladungstraeger_status_bez
+FROM kfl_production_dbp_data.ladungstraeger_status_spr_zu_2;

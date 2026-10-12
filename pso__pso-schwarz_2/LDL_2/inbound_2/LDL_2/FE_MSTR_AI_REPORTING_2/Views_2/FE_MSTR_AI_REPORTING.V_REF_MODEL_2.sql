@@ -1,0 +1,20 @@
+CREATE OR REPLACE VIEW FE_MSTR_AI_REPORTING.V_REF_MODEL_2(
+	MODEL_SID
+	, MODEL_GROUP_CD
+	, MODEL_AREA_CD
+	, MODEL_NAME
+	, MODEL_DESCR
+) AS
+    /* Version: 1.0
+    ** Author:  Stefan Sockel
+    ** Date:    2022-11-09
+    ** Changes: Initial version
+    */
+SELECT 
+	MODEL_SID
+	,MODEL_GROUP_CD
+	,MODEL_AREA_CD
+	,MODEL_NAME
+	,MODEL_DESCR
+FROM "P_LEW_CORE"."T_REF_MODEL_2" 
+;

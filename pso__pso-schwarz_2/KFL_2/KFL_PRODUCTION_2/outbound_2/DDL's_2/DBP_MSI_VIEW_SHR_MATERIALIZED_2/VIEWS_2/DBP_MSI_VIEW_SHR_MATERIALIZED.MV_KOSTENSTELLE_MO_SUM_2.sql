@@ -1,0 +1,27 @@
+-- 12.06.2024 twie: SPEC0238380 neue View für Kostenstellenalter
+
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_shr_materialized.mv_kostenstelle_mo_sum_2 (mandant_id, kjmo,
+kostenstelle_id, anz_mo_alter_kostenstelle, anz_mo_alter_kostenstelle_fe_i, anz_mo_alter_kostenstelle_fe_ii,
+anz_mo_alter_kostenstelle_fe_iii, anz_mo_alter_kostenstelle_fe_iv, anz_mo_alter_kostenstelle_fe_v,
+anz_mo_alter_kostenstelle_fe_vi, anz_mo_alter_kostenstelle_ma, anz_mo_alter_kostenstelle_gender_frau,
+anz_mo_alter_kostenstelle_gender_mann, anz_mo_alter_kostenstelle_bzg_00_03_mo, anz_mo_alter_kostenstelle_bzg_03_06_mo,
+anz_mo_alter_kostenstelle_bzg_06_12_mo, anz_mo_alter_kostenstelle_bzg_12_36_mo, anz_mo_alter_kostenstelle_bzg_36_plus_mo
+) AS SELECT mandant_id,
+ kjmo,
+ kostenstelle_id,
+ anz_mo_alter_kostenstelle,
+ anz_mo_alter_kostenstelle_fe_i,
+ anz_mo_alter_kostenstelle_fe_ii,
+ anz_mo_alter_kostenstelle_fe_iii,
+ anz_mo_alter_kostenstelle_fe_iv,
+ anz_mo_alter_kostenstelle_fe_v,
+ anz_mo_alter_kostenstelle_fe_vi,
+ anz_mo_alter_kostenstelle_ma,
+ anz_mo_alter_kostenstelle_gender_frau,
+ anz_mo_alter_kostenstelle_gender_mann,
+ anz_mo_alter_kostenstelle_bzg_00_03_mo,
+ anz_mo_alter_kostenstelle_bzg_03_06_mo,
+ anz_mo_alter_kostenstelle_bzg_06_12_mo,
+ anz_mo_alter_kostenstelle_bzg_12_36_mo,
+ anz_mo_alter_kostenstelle_bzg_36_plus_mo
+FROM kfl_production_dbp_msi_v_view.v_kostenstelle_mo_sum_2;

@@ -1,0 +1,42 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_WBS_REPLENISHMENT_2 AS 
+    SELECT 
+        mandant_id
+        ,wup_id
+        ,nb_id
+        ,art_id
+        ,diff_tage
+        ,kjwo_von
+        ,dat_von
+        ,dat_bis
+        ,wtag_id_von
+        ,aktion_id_set
+        ,aktion_rang
+        ,anz_akt_selbe_dauer
+        ,mutter_wb_id
+        ,aktion_label
+        ,aktion_dat_bis
+        ,aktion_dat_von
+        ,menge
+        ,korrigierte_menge
+        ,sales_fg
+        ,menge_af_2wo
+        ,perc_uplift
+        ,wmape
+        ,rmse
+        ,bias
+        ,mit_historie_fg
+        ,rueckseite_fg
+        ,titelseite_fg
+        ,tv_fg
+        ,in_gruppe_fg
+        ,vk_aktion_brutto
+        ,vk_vor_aktion_brutto
+        ,anteil_wup_abvk
+        ,gk_history_fg
+        ,anz_art_in_gruppe_referenzperiode
+        ,abweichung_fg
+        ,anz_art_in_gruppe
+        ,wrg_id
+
+
+FROM DBP_DATA.wbs_replenishment_2 ;

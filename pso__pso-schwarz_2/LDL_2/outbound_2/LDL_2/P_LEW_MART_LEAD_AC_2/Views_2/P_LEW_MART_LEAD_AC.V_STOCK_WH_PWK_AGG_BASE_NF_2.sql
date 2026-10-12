@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead_ac.v_stock_wh_pwk_agg_base_nf_2 AS SELECT client_id,
+ src_wh_id,
+ loc_sid_wh,
+ curr_cd,
+ dwh_cal_dt,
+ cy_week_id,
+ cy_week_partial_week_id,
+ cy_week_partial_week_id2,
+ cy_month_id,
+ byr,
+ last_day_of_wk_fg,
+ last_day_month_fg,
+ stock_wh_asis,
+ stock_wh_scdp1y,
+ stock_wh_wk_pyd
+FROM ldl_p_lew_mart_lead.t_stock_wh_pwk_agg_base_nf_2 AS NF;

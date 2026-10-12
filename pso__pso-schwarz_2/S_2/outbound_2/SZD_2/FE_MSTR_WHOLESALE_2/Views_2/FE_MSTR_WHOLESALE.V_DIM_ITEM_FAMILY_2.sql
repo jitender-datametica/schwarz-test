@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_wholesale.v_dim_item_family_2 (product_group_sid, dwh_valid_from_tmsp,
+dwh_valid_to_tmsp, dwh_valid_fg, item_family_nr, item_family_name, item_family_name_de, item_family_name_en,
+sub_item_group_nr, sub_item_group_name, sub_item_group_name_de, sub_item_group_name_en) AS SELECT product_group_sid,
+ dwh_valid_from_tmsp,
+ dwh_valid_to_tmsp,
+ dwh_valid_fg,
+ REPLACE(item_family_nr, CONCAT(sub_item_group_nr, '.'), '') AS item_family_nr,
+ item_family_name,
+ item_family_name_de,
+ item_family_name_en,
+ sub_item_group_nr,
+ sub_item_group_name,
+ sub_item_group_name_de,
+ sub_item_group_name_en
+FROM szd_core.t_dim_item_family_2;

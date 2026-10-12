@@ -1,0 +1,69 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view3.mv_warenbewegungstyp_spr_zu_2 AS SELECT mandant_id,
+ warenbewegungstyp_id,
+ MAX(CASE
+   WHEN spr_id = 22
+   THEN warenbewegungstyp_bez
+   ELSE NULL
+   END) AS warenbewegungstyp_bez,
+ MAX(CASE
+   WHEN spr_id = 22
+   THEN warenbewegungstyp_bez
+   ELSE NULL
+   END) AS warenbewegungstyp_bez_de,
+ COALESCE(MAX(CASE
+    WHEN spr_id = 124
+    THEN warenbewegungstyp_bez
+    ELSE NULL
+    END), MAX(CASE
+    WHEN spr_id = 22
+    THEN warenbewegungstyp_bez
+    ELSE NULL
+    END)) AS warenbewegungstyp_bez_cz,
+ COALESCE(MAX(CASE
+    WHEN spr_id = 108
+    THEN warenbewegungstyp_bez
+    ELSE NULL
+    END), MAX(CASE
+    WHEN spr_id = 22
+    THEN warenbewegungstyp_bez
+    ELSE NULL
+    END)) AS warenbewegungstyp_bez_sk,
+ COALESCE(MAX(CASE
+    WHEN spr_id = 65
+    THEN warenbewegungstyp_bez
+    ELSE NULL
+    END), MAX(CASE
+    WHEN spr_id = 22
+    THEN warenbewegungstyp_bez
+    ELSE NULL
+    END)) AS warenbewegungstyp_bez_hr,
+ COALESCE(MAX(CASE
+    WHEN spr_id = 90
+    THEN warenbewegungstyp_bez
+    ELSE NULL
+    END), MAX(CASE
+    WHEN spr_id = 22
+    THEN warenbewegungstyp_bez
+    ELSE NULL
+    END)) AS warenbewegungstyp_bez_pl,
+ COALESCE(MAX(CASE
+    WHEN spr_id = 95
+    THEN warenbewegungstyp_bez
+    ELSE NULL
+    END), MAX(CASE
+    WHEN spr_id = 22
+    THEN warenbewegungstyp_bez
+    ELSE NULL
+    END)) AS warenbewegungstyp_bez_ro,
+ COALESCE(MAX(CASE
+    WHEN spr_id = 18
+    THEN warenbewegungstyp_bez
+    ELSE NULL
+    END), MAX(CASE
+    WHEN spr_id = 22
+    THEN warenbewegungstyp_bez
+    ELSE NULL
+    END)) AS warenbewegungstyp_bez_b
+FROM kfl_production_dbp_view.v_warenbewegungstyp_spr_zu_2 AS V01
+GROUP BY mandant_id,
+ warenbewegungstyp_id;

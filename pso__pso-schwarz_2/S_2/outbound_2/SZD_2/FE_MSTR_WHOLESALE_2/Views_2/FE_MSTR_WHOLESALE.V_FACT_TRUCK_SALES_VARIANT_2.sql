@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_wholesale.v_fact_truck_sales_variant_2 (delivery_nr, distribution_nr,
+sales_variant_product_sid, hauler_party_sid, receipt_party_sid, delivery_note_nr, actual_delivery_dt,
+planned_goods_movement_dt, promotion_dt, chargeback_min_dt, min_wave_delivery_dt, decommissioning_month,
+lidl_delivery_week_fixed_fg) AS SELECT delivery_nr,
+ distribution_nr,
+ sales_variant_product_sid,
+ hauler_party_sid,
+ receipt_party_sid,
+ delivery_note_nr,
+ actual_delivery_dt,
+ planned_goods_movement_dt,
+ promotion_dt,
+ chargeback_min_dt,
+ min_wave_delivery_dt,
+ decommissioning_month,
+ lidl_delivery_week_fixed_fg
+FROM szd_core.t_fact_truck_sales_variant_2;

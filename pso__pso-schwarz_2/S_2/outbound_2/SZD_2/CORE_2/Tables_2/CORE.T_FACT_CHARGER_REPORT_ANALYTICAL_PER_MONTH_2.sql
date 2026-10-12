@@ -1,0 +1,48 @@
+/* --------------------------------------------------------------------------------
+   DDL for table: T_FACT_CHARGER_REPORT_ANALYTICAL_PER_MONTH_2
+   generated from Powerdesigner on Dienstag, 9. September 2025 11:34:46
+*/ --------------------------------------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS szd_core.t_fact_charger_report_analytical_per_month_2 (
+report_month BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='The calendar_2 month as a number of the form YYYYMM, where YYYY is the calendar_2 year and MM_2 is month of the calendar_2 year.'),
+charger_provider_system_cd STRING(50) NOT NULL OPTIONS(description='The unique code of the charger provider system.'),
+charging_station_owner_party_sid BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='The unique identifier (surrogate key) for the charging station owner.'),
+real_estate_resource_item_sid BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='The unique identifier (surrogate key) for the real estate.'),
+country_location_sid BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='The unique identifier (surrogate key) of the political country.'),
+division_party_sid BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='The unique identifier (surrogate key) for the party as a division. Key generation based on META table for party key space.'),
+charger_station_type_cd STRING(50) NOT NULL OPTIONS(description='The unique code of the charging power type.'),
+authentication_method_cd STRING(50) NOT NULL OPTIONS(description='The unique code of the authentication method.'),
+charger_classification_id BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='Unique identifier of the classification of a charger.'),
+curr_cd STRING(3) NOT NULL OPTIONS(description='The EUR currency code.'),
+local_curr_cd STRING(3) NOT NULL OPTIONS(description='The code of the local currency.'),
+relevance_fg BOOL NOT NULL
+OPTIONS(description='A flag indicating this log entry is relevant to be considered in reporting.'),
+provided_power_meas BIGNUMERIC(38,5) NOT NULL
+OPTIONS(description='Fact - additive - The sum of the provided/sold power (energy) by the charge point measured in kWh.'),
+charging_process_cnt BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='Fact - additive - The count of charging processes by the charge point.'),
+charging_duration_sec_meas BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='Fact - additive - The sum of seconds of all charging processes.'),
+charging_performance_meas BIGNUMERIC(38,5) NOT NULL
+OPTIONS(description='Fact - additive - The charging performance of the charging processes  measured in kWh.'),
+turnover_eur_val BIGNUMERIC(38,5) NOT NULL
+OPTIONS(description='Fact - additive - The sum of the turnover amount of the charge point in EUR.'),
+turnover_local_val BIGNUMERIC(38,5) NOT NULL
+OPTIONS(description='Fact - additive - The sum of the turnover amount of the charge point in the local currency.'),
+customer_cnt BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Fact - semi additive - The count of different customers.'),
+dwh_created_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was inserted into the table.'),
+dwh_updated_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was last modified. (In case the record has not been modified since its creation, dwh_updated is identical to dwh_created.)'),
+PRIMARY KEY (report_month, charger_provider_system_cd, country_location_sid, real_estate_resource_item_sid,
+ division_party_sid, authentication_method_cd, charger_station_type_cd, charging_station_owner_party_sid,
+ charger_classification_id) NOT ENFORCED
+)
+OPTIONS(description='Fact table - Analytical - Granularity - by month, charging provider system, country_2, charging station type and plugin type. - Aggregate - Contains aggregatable facts for the "Charger Report". - Source - IOT Charger');

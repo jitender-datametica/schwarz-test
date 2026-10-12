@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW ldl_dig_lec_share.v_dbl_gold_funnel_report_table_2 AS SELECT *
+FROM data_business_layer_production_gold.funnel_report_table_2;

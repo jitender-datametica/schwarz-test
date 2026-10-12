@@ -1,0 +1,17 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_etl.vis_ods_tmp_2 (
+mandant_id INTEGER NOT NULL,
+art_id INTEGER NOT NULL,
+wup_id INTEGER NOT NULL,
+wtag_id INTEGER NOT NULL,
+aktion_fg INTEGER NOT NULL,
+menge_ods NUMERIC(18,3) NOT NULL,
+anz_ods INTEGER NOT NULL,
+menge_schnitt NUMERIC(18,3) NOT NULL,
+back_drehklasse_id STRING(2) NOT NULL,
+menge_01 NUMERIC(18,3) NOT NULL,
+menge_02 NUMERIC(18,3) NOT NULL,
+menge_03 NUMERIC(18,3) NOT NULL,
+menge_04 NUMERIC(18,3) NOT NULL,
+menge_16 NUMERIC(18,3) NOT NULL,
+anz_16 INTEGER NOT NULL
+);

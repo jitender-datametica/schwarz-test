@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_wholesale.v_dim_customs_procedure_approve_status_2 (customs_procedure_approve_status_cd
+, customs_procedure_approve_status_name, customs_procedure_approved_fg) AS SELECT customs_procedure_approve_status_cd,
+ customs_procedure_approve_status_name,
+ customs_procedure_approved_fg
+FROM szd_core.t_dim_customs_procedure_approve_status_2;

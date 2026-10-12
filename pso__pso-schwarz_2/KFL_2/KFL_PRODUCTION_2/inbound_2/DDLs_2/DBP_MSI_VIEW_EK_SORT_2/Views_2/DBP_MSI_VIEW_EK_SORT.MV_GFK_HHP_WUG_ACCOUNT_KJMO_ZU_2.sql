@@ -1,0 +1,23 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_EK_SORT.MV_GFK_HHP_WUG_ACCOUNT_KJMO_ZU_2
+-- 18.05.2018 Erweiterung um WÃýhrungs-ID wrg_id / mmzy2302
+-- 11.06.2018 InnerJoin mit Tabelle mandant_wrg_typ_zu_2 / mmzy2302
+-- 24.07.2018 Referenzen auf Feld wrg_typ_id sowie InnerJoin mit Tabelle mandant_wrg_typ_zu_2 wurden wieder auskommentiert/ mmzy2302
+
+(
+mandant_id
+, gfk_account_id
+, gfk_wg_id
+, gfk_wug_id
+, kjmo
+, wrg_id
+-- , wrg_typ_id
+, umsatz_tsd_eur
+, umsatz_potenzial_tsd_eur
+, umsatz_potenzial_anteil
+
+)
+AS
+   SELECT
+   v01.mandant_id, gfk_account_id, gfk_wg_id, gfk_wug_id, kjmo, v01.wrg_id, umsatz_tsd_eur, umsatz_potenzial_tsd_eur, umsatz_potenzial_anteil
+
+   FROM dbp_view.v_gfk_hhp_wug_account_kjmo_zu_2 v01;

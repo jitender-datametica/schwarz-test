@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_ocr_eingangskanal_spr_zu_2 AS SELECT mandant_id,
+ ocr_eingangskanal_id,
+ spr_id,
+ ocr_eingangskanal_bez
+FROM kfl_production_dbp_data.ocr_eingangskanal_spr_zu_2;

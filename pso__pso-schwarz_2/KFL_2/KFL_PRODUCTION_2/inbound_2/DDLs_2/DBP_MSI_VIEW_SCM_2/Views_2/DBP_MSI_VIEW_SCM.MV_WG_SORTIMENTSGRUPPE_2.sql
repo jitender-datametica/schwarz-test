@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_SCM.MV_WG_SORTIMENTSGRUPPE_2(
+	WG_ID,
+	SORTIMENTSGRUPPE_ID
+) AS
+--2023-08-07, AP0182383, SPEC0207712, dknop, initial
+SELECT
+ wg.wg_id
+,COALESCE(scm.WG_HIERARCHIE_MUTTER_ID,-1) AS sortimentsgruppe_id
+FROM dbp_view.v_wg_per_2 wg
+LEFT JOIN dbp_view.v_WG_HIERARCHIE_ZU_PER_2 scm
+ON wg.mandant_id=scm.mandant_id
+AND wg.wg_id=scm.WG_HIERARCHIE_ID
+AND scm.ARTHIERTYP_ID=11
+WHERE wg.dat_bis='9999-12-31'
+AND wg.arthiertyp_id=2
+GROUP BY wg.WG_ID,
+COALESCE(scm.WG_HIERARCHIE_MUTTER_ID,-1);

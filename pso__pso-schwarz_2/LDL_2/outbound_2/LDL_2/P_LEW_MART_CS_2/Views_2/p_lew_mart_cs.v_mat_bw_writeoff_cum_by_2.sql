@@ -1,0 +1,67 @@
+/*
+#----------------------------------------------------------------------------
+# @ LIDL Stiftung & Co. KG - DWH / MIS
+#----------------------------------------------------------------------------
+# Interface: DDL for #X_LEW_MART_CS#.V_MAT_BW_WRITEOFF_CUM_BY_2
+#----------------------------------------------------------------------------
+# History:
+#   1.0      14.11.2023      Ulrich Ross              Init
+#                                                     User Story 532005                                                                             
+#----------------------------------------------------------------------------
+*/
+
+
+CREATE OR REPLACE VIEW ldl_p_lew_mart_cs.v_mat_bw_writeoff_cum_by_2 (client_id, wh_id, cy_month, aspect_id,
+item_familygroup_id, subitemgroup_id, subitemgroup_id0, buying_list_type_id, curr_tot_id, currency_iso_cd,
+val_writeoff_cum_by) AS -- m1201bnl
+ SELECT SFO.client_id,
+ SFO.wh_id,
+ CAL.cy_month,
+ SFO.aspect_id,
+ FG.family_cd AS item_familygroup_id,
+ ITM.subitemgroup_id,
+ FG.subitemgroup_id AS subitemgroup_id0,
+  CASE
+  WHEN ILT.buying_list_type_id IS NULL
+  THEN CAST(- 1 AS BIGNUMERIC)
+  ELSE ILT.buying_list_type_id
+  END AS buying_list_type_id,
+ CUR.curr_tot_id,
+ CUR.currency_iso_cd,
+ SUM(COALESCE(SFO.val_rtl_rl_net_sfo_asis, 0)) AS val_writeoff_cum_by
+FROM ldl_p_lew_mart_msi_ac.v_agg_wh_org_day_item_sfo_asis_2 AS SFO
+ INNER JOIN ldl_p_lew_mart_msi_ac.v_cal_busyear_cum_2 AS BCUM ON SFO.dat_formdate = BCUM.dat_byr_cum
+ INNER JOIN ldl_p_lew_mart_lead_ac.v_itm_item_list_type_hist_2 AS ILT ON SFO.client_id = ILT.client_id AND SFO.dat_formdate
+      <= ILT.dat_rec_end AND SFO.dat_formdate >= ILT.dat_rec_start AND SFO.item_id = ILT.item_id
+ INNER JOIN ldl_p_lew_mart_lead_ac.v_itm_item_2 AS ITM ON SFO.client_id = ITM.client_id AND SFO.item_id = ITM.item_id
+ INNER JOIN ldl_p_lew_mart_msi_ac.v_itm_familygroup_2 AS FG ON ITM.client_id = FG.client_id AND ITM.item_familygroup_id =
+   FG.item_familygroup_id
+ INNER JOIN ldl_p_lew_mart_msi_ac.v_ref_currency_2 AS CUR ON SFO.client_id = CUR.client_id AND SFO.currency_iso_cd = CUR.currency_iso_cd
+   
+ INNER JOIN ldl_p_lew_mart_msi_ac.v_cal_calendarday_2 AS CAL ON BCUM.dat_calendar = CAL.dat_calendar
+ INNER JOIN ldl_p_lew_mart_msi_ac.v_ref_client_lead_2 AS CL ON ITM.client_id = CL.client_id
+WHERE (SFO.sfotype_id IN (182, 192) AND SFO.pcwo_reason_id IN (21, 23, 24, 22, 126, 28, 27, 26, 132, 29, 31, 103, 104,
+       123, 124, 30, 105, 106, 107, 108, 109, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 125, 133, 25, 112, 138,
+       139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 153) OR SFO.sfotype_id IN (137, 147) AND SFO.pcwo_reason_id
+       IN (2, 128, 1, 127, 134, 135, 5, 6, 3, 7, 130, 131, 4, 101, 102, 110, 111, 129, 8, 136, 137, 152) OR SFO.sfotype_id
+      IN (181, 191) AND SFO.pcwo_reason_id IN (81, 82, 83, 84))
+ AND (CUR.curr_tot_id = 0 AND CUR.currency_iso_cd = 'EUR' OR CUR.curr_tot_id = 3 AND CUR.currency_iso_cd = 'BGN' OR CUR
+              .curr_tot_id = 4 AND CUR.currency_iso_cd = 'CHF' OR CUR.curr_tot_id = 6 AND CUR.currency_iso_cd = 'CZK' OR
+            CUR.curr_tot_id = 8 AND CUR.currency_iso_cd = 'DKK' OR CUR.curr_tot_id = 16 AND CUR.currency_iso_cd = 'HUF'
+        OR CUR.curr_tot_id = 24 AND CUR.currency_iso_cd = 'PLN' OR CUR.curr_tot_id = 26 AND CUR.currency_iso_cd = 'RON'
+      OR CUR.curr_tot_id = 27 AND CUR.currency_iso_cd = 'SEK' OR CUR.curr_tot_id = 33 AND CUR.currency_iso_cd = 'USD' OR
+      CUR.curr_tot_id = 34 AND CUR.currency_iso_cd = 'RSD' OR CUR.curr_tot_id = 40 AND CUR.currency_iso_cd = 'GBP')
+ AND SFO.aspect_id = 1
+ AND CAL.dat_calendar = DATE_SUB(CURRENT_DATE, INTERVAL 1 DAY)
+ AND BCUM.dat_calendar = DATE_SUB(CURRENT_DATE, INTERVAL 1 DAY)
+ AND CL.dashboard_relevant_fg = 1
+GROUP BY CUR.curr_tot_id,
+ CUR.currency_iso_cd,
+ ITM.subitemgroup_id,
+ CAL.cy_month,
+ SFO.client_id,
+ SFO.aspect_id,
+ SFO.wh_id,
+ item_familygroup_id,
+ subitemgroup_id0,
+ buying_list_type_id;

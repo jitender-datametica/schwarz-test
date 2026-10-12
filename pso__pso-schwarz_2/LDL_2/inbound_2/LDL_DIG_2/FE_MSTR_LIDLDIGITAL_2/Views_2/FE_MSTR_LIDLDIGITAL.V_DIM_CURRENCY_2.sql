@@ -1,0 +1,12 @@
+CREATE OR REPLACE VIEW FE_MSTR_LIDLDIGITAL.V_DIM_CURRENCY_2
+(
+     CURR_CD
+    ,CURR_NAME
+)
+AS SELECT
+     CURR_CD
+    ,CURR_NAME
+FROM lec_share.v_dim_currency_2
+UNION ALL
+    SELECT '-1', ''
+;

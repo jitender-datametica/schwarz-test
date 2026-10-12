@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW biaid_tools_projects_production_fe_mstr_costmonitor.v_iam_azure_inventory_file_log_2 (load_timestamp
+, storage_account_name, storage_account_zone, storage_account_tenant, storage_account_secure_level, inventory_filename,
+inventory_file_date, status_2, created_timestamp, modified_timestamp) AS SELECT *
+FROM biaid_tools_projects_production_etl_process.t_iam_azure_inventory_file_log_2;

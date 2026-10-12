@@ -1,0 +1,570 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_kassenanalyse_metrik_2 AS SELECT grp_id AS kassenanalyse_grp_id
+ ,
+ kennzahl_id AS kassenanalyse_kennzahl_id,
+   grp_id * 100 + kennzahl_id AS kassenanalyse_metrik_id,
+ metr_bez AS kassenanalyse_metrik_bez,
+ metr_bez_cz AS kassenanalyse_metrik_bez_cz,
+ metr_bez_sk AS kassenanalyse_metrik_bez_sk,
+ metr_bez_hr AS kassenanalyse_metrik_bez_hr,
+ metr_bez_pl AS kassenanalyse_metrik_bez_pl,
+ metr_bez_ro AS kassenanalyse_metrik_bez_ro,
+ metr_bez_bg AS kassenanalyse_metrik_bez_bg
+FROM (SELECT 0 AS grp_id,
+    10 AS kennzahl_id,
+    'Umsatz netto Gesamt' AS metr_bez,
+    'Obrat Netto' AS metr_bez_cz,
+    'Obrat netto' AS metr_bez_sk,
+    'Neto promet' AS metr_bez_hr,
+    'Obrót netto' AS metr_bez_pl,
+    'Vânzare netă' AS metr_bez_ro,
+    'Оборот нето' AS metr_bez_bg
+   UNION ALL
+   SELECT 0,
+    20,
+    'Anzahl Kunden (Bons) Gesamt',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 0,
+    50,
+    'Bonzeilen je Kunde (Bons) Gesamt',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 0,
+    60,
+    '\u00d8-Bon Gesamt',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 1,
+    10,
+    'Umsatz netto Gesamt',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 1,
+    20,
+    'Anzahl Kunden (Bons) Gesamt',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 1,
+    50,
+    'Bonzeilen je Kunde (Bons) Gesamt',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 1,
+    60,
+    '\u00d8-Bon Gesamt',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 2,
+    10,
+    'Umsatz netto',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 2,
+    20,
+    'Anzahl Kunden (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 2,
+    30,
+    'Umsatzanteil',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 2,
+    40,
+    'Kundenanteil (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 2,
+    50,
+    'Bonzeilen je Kunde (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 2,
+    60,
+    '\u00d8-Bon',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 3,
+    10,
+    'Umsatz netto',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 3,
+    20,
+    'Anzahl Kunden (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 3,
+    30,
+    'Umsatzanteil',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 3,
+    40,
+    'Kundenanteil (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 3,
+    50,
+    'Bonzeilen je Kunde (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 3,
+    60,
+    '\u00d8-Bon',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 4,
+    10,
+    'Umsatz netto',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 4,
+    20,
+    'Anzahl Kunden (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 4,
+    30,
+    'Umsatzanteil',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 4,
+    40,
+    'Kundenanteil (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 4,
+    50,
+    'Bonzeilen je Kunde (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 4,
+    60,
+    '\u00d8-Bon',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 5,
+    10,
+    'Umsatz netto',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 5,
+    20,
+    'Anzahl Kunden (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 5,
+    30,
+    'Umsatzanteil',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 5,
+    40,
+    'Kundenanteil (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 5,
+    50,
+    'Bonzeilen je Kunde (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 5,
+    60,
+    '\u00d8-Bon',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 6,
+    10,
+    'Umsatz netto',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 6,
+    20,
+    'Anzahl Kunden (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 6,
+    30,
+    'Umsatzanteil',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 6,
+    40,
+    'Kundenanteil (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 6,
+    50,
+    'Bonzeilen je Kunde (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 6,
+    60,
+    '\u00d8-Bon',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 7,
+    10,
+    'Umsatz netto',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 7,
+    20,
+    'Anzahl Kunden (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 7,
+    30,
+    'Umsatzanteil',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 7,
+    40,
+    'Kundenanteil (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 7,
+    50,
+    'Bonzeilen je Kunde (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 7,
+    60,
+    '\u00d8-Bon',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 8,
+    10,
+    'Umsatz netto',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 8,
+    20,
+    'Anzahl Kunden (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 8,
+    30,
+    'Umsatzanteil',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 8,
+    40,
+    'Kundenanteil (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 8,
+    50,
+    'Bonzeilen je Kunde (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 8,
+    60,
+    '\u00d8-Bon',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 9,
+    10,
+    'Umsatz netto',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 9,
+    20,
+    'Anzahl Kunden (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 9,
+    30,
+    'Umsatzanteil',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 9,
+    40,
+    'Kundenanteil (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 9,
+    50,
+    'Bonzeilen je Kunde (Bons)',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето'
+   UNION ALL
+   SELECT 9,
+    60,
+    '\u00d8-Bon',
+    'Obrat Netto',
+    'Obrat netto',
+    'Neto promet',
+    'Obrót netto',
+    'Vânzare netă',
+    'Оборот нето') AS metrik_group;

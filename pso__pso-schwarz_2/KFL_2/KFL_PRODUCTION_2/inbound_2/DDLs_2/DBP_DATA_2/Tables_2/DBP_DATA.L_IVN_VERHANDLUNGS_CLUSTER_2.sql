@@ -1,0 +1,23 @@
+--==============================================================
+-- Table: L_IVN_VERHANDLUNGS_CLUSTER_2
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL FOR TABLE: L_IVN_VERHANDLUNGS_CLUSTER_2
+   GENERATED FROM POWERDESIGNER ON Montag, 25. September 2023 14:25:49
+*/ --------------------------------------------------------------------------------
+
+CREATE TABLE DBP_DATA.L_IVN_VERHANDLUNGS_CLUSTER_2 (
+   MANDANT_ID                          NUMBER(38,0)     NOT NULL COMMENT 'Mandant_2 im DWH',
+   IVN_VERHANDLUNGS_CLUSTER_ID         NUMBER(38,0)     NOT NULL COMMENT 'Kauflandweite eindeutige IVN Verhandlungs Cluster fasst die in der IVN schon zusammengefassten Artikel_2/Lieferant/Land_2 Kombinationen 
+            innerhalb der IVN zu verschiedenen IVN-Verhandlungs-Clustern (Gruppen) zusammen.
+            Alle möglichen IVN-Verhandlungs-Cluster können in allen IVN-Gruppen vorkommen.',
+   IVN_VERHANDLUNGS_CLUSTER_BEZ        VARCHAR(100)     COMMENT 'Bezeichnung des Verhandlungs-Clusters. Es gibt momentan 4 Verhandlungscluster ABC für internationale Verhandlungen und D für nationale Verhandlungen ( ',
+   TD_UPDATE                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   TD_INSERT                           TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+   CONSTRAINT PK_L_IVN_VERHANDLUNGS_CLUSTER PRIMARY KEY (IVN_VERHANDLUNGS_CLUSTER_ID, MANDANT_ID) NOT ENFORCED
+)  COMMENT = 'Der IVN Verhandlungs Cluster (nur IVN Cluster in Quelle) fasst Artikel_2/Lieferant pro Land_2 zu Gruppen zusammen, die die Art_2 der Verhandlung einordnen.
+             Mandant_2 ist nur aus technischer Notwendigkeit im PK !!!
+             z.B. ob Eigenmarke, Markencharakter, gefordert mit JG-Ziel und ob national verhandelt wird oder international.
+             Alle möglichen IVN-Verhandlungs-Cluster können in allen IVN-Gruppen vorkommen, müssen aber nicht zu einer IVN Gruppe_2 gehören. 
+             Es stellt eine_2 zweite Gruppierung unabhängig vom IVN dar und muss nicht zwingend zu einer IVN gehören.
+             Stand 2023-09-20: 7 Gruppen mit Namen A, B, C, D, D-A, D-B, B-R';

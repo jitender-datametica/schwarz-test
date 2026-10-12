@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_lifecycle.mv_l_lifecycle_rvm_prev_actions_type_2 AS SELECT rvm_prev_action_type_id,
+ rvm_prev_action_type_descr_en,
+ rvm_prev_action_type_descr_de,
+ rvm_prev_action_type_descr
+FROM szd_core.t_dim_rvm_prev_actions_type_2;

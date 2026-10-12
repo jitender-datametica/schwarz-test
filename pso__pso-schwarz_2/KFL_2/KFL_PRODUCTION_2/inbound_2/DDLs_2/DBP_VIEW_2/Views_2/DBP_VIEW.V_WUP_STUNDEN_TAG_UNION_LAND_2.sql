@@ -1,0 +1,277 @@
+create or replace view KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_VIEW.V_WUP_STUNDEN_TAG_UNION_LAND_2(
+	WUP_ID,
+	NB_ID,
+	MANDANT_ID,
+	DAT,
+	STUNDEN_MARKT,
+	STUNDEN_SONSTIGE,
+	STUNDEN_PLAN,
+	STUNDEN_CO5_SONSTIGE,
+	UMS_NETTO_PLAN,
+	UMS_NETTO_PLAN_MAN,
+	WRG_ID,
+	STUNDEN_SONSTIGE_PLAN,
+	STUNDEN_CO1_IKS,
+	STUNDEN_CO2_EA,
+	STUNDEN_CO3_ANUE,
+	STUNDEN_CO4_REINIGUNG,
+	STUNDEN_PLAN_PEP,
+	STUNDEN_PLAN_MELDESCHLUSS_PLUS1,
+	UMS_NETTO_PLAN_MAN_MELDESCHLUSS_PLUS2,
+	STUNDEN_CO_IST,
+	STUNDEN_CO_PLAN,
+	STUNDEN_PLAN_MELDESCHLUSS_PLUS2,
+	UMS_NETTO_PLAN_MAN_MELDESCHLUSS_PLUS1,
+	STUNDEN_CO_PLAN_PLUS1,
+	STUNDEN_CO_PLAN_PLUS2,
+	STUNDEN_SONSTIGE_PLAN_PLUS1,
+	STUNDEN_SONSTIGE_PLAN_PLUS2,
+	STUNDEN_VERSETZUNG
+) as
+SELECT
+wup_id
+,nb_id
+,mandant_id
+,dat
+,stunden_markt
+,stunden_sonstige
+,stunden_plan
+,stunden_co5_sonstige
+,ums_netto_plan
+,ums_netto_plan_man
+,wrg_id
+,stunden_sonstige_plan
+,stunden_co1_iks
+,stunden_co2_ea
+,stunden_co3_anue
+,stunden_co4_reinigung
+,stunden_plan_pep
+,stunden_plan_meldeschluss_plus1
+,ums_netto_plan_man_meldeschluss_plus2
+,stunden_co_ist
+,stunden_co_plan
+,stunden_plan_meldeschluss_plus2
+,ums_netto_plan_man_meldeschluss_plus1
+,stunden_co_plan_plus1
+,stunden_co_plan_plus2
+,stunden_sonstige_plan_plus1
+,stunden_sonstige_plan_plus2
+,stunden_versetzung
+FROM dbp_data.wup_stunden_tag_DE_2
+UNION ALL
+SELECT
+wup_id
+,nb_id
+,mandant_id
+,dat
+,stunden_markt
+,stunden_sonstige
+,stunden_plan
+,stunden_co5_sonstige
+,ums_netto_plan
+,ums_netto_plan_man
+,wrg_id
+,stunden_sonstige_plan
+,stunden_co1_iks
+,stunden_co2_ea
+,stunden_co3_anue
+,stunden_co4_reinigung
+,stunden_plan_pep
+,stunden_plan_meldeschluss_plus1
+,ums_netto_plan_man_meldeschluss_plus2
+,stunden_co_ist
+,stunden_co_plan
+,stunden_plan_meldeschluss_plus2
+,ums_netto_plan_man_meldeschluss_plus1
+,stunden_co_plan_plus1
+,stunden_co_plan_plus2
+,stunden_sonstige_plan_plus1
+,stunden_sonstige_plan_plus2
+,stunden_versetzung
+FROM dbp_data.wup_stunden_tag_CZ_2
+UNION ALL
+SELECT
+wup_id
+,nb_id
+,mandant_id
+,dat
+,stunden_markt
+,stunden_sonstige
+,stunden_plan
+,stunden_co5_sonstige
+,ums_netto_plan
+,ums_netto_plan_man
+,wrg_id
+,stunden_sonstige_plan
+,stunden_co1_iks
+,stunden_co2_ea
+,stunden_co3_anue
+,stunden_co4_reinigung
+,stunden_plan_pep
+,stunden_plan_meldeschluss_plus1
+,ums_netto_plan_man_meldeschluss_plus2
+,stunden_co_ist
+,stunden_co_plan
+,stunden_plan_meldeschluss_plus2
+,ums_netto_plan_man_meldeschluss_plus1
+,stunden_co_plan_plus1
+,stunden_co_plan_plus2
+,stunden_sonstige_plan_plus1
+,stunden_sonstige_plan_plus2
+,stunden_versetzung
+FROM dbp_data.wup_stunden_tag_PL_2
+UNION ALL
+SELECT
+wup_id
+,nb_id
+,mandant_id
+,dat
+,stunden_markt
+,stunden_sonstige
+,stunden_plan
+,stunden_co5_sonstige
+,ums_netto_plan
+,ums_netto_plan_man
+,wrg_id
+,stunden_sonstige_plan
+,stunden_co1_iks
+,stunden_co2_ea
+,stunden_co3_anue
+,stunden_co4_reinigung
+,stunden_plan_pep
+,stunden_plan_meldeschluss_plus1
+,ums_netto_plan_man_meldeschluss_plus2
+,stunden_co_ist
+,stunden_co_plan
+,stunden_plan_meldeschluss_plus2
+,ums_netto_plan_man_meldeschluss_plus1
+,stunden_co_plan_plus1
+,stunden_co_plan_plus2
+,stunden_sonstige_plan_plus1
+,stunden_sonstige_plan_plus2
+,stunden_versetzung
+FROM dbp_data.wup_stunden_tag_BG_2
+UNION ALL
+SELECT
+wup_id
+,nb_id
+,mandant_id
+,dat
+,stunden_markt
+,stunden_sonstige
+,stunden_plan
+,stunden_co5_sonstige
+,ums_netto_plan
+,ums_netto_plan_man
+,wrg_id
+,stunden_sonstige_plan
+,stunden_co1_iks
+,stunden_co2_ea
+,stunden_co3_anue
+,stunden_co4_reinigung
+,stunden_plan_pep
+,stunden_plan_meldeschluss_plus1
+,ums_netto_plan_man_meldeschluss_plus2
+,stunden_co_ist
+,stunden_co_plan
+,stunden_plan_meldeschluss_plus2
+,ums_netto_plan_man_meldeschluss_plus1
+,stunden_co_plan_plus1
+,stunden_co_plan_plus2
+,stunden_sonstige_plan_plus1
+,stunden_sonstige_plan_plus2
+,stunden_versetzung
+FROM dbp_data.wup_stunden_tag_MD_2
+UNION ALL
+SELECT
+wup_id
+,nb_id
+,mandant_id
+,dat
+,stunden_markt
+,stunden_sonstige
+,stunden_plan
+,stunden_co5_sonstige
+,ums_netto_plan
+,ums_netto_plan_man
+,wrg_id
+,stunden_sonstige_plan
+,stunden_co1_iks
+,stunden_co2_ea
+,stunden_co3_anue
+,stunden_co4_reinigung
+,stunden_plan_pep
+,stunden_plan_meldeschluss_plus1
+,ums_netto_plan_man_meldeschluss_plus2
+,stunden_co_ist
+,stunden_co_plan
+,stunden_plan_meldeschluss_plus2
+,ums_netto_plan_man_meldeschluss_plus1
+,stunden_co_plan_plus1
+,stunden_co_plan_plus2
+,stunden_sonstige_plan_plus1
+,stunden_sonstige_plan_plus2
+,stunden_versetzung
+FROM dbp_data.wup_stunden_tag_SK_2
+UNION ALL
+SELECT
+wup_id
+,nb_id
+,mandant_id
+,dat
+,stunden_markt
+,stunden_sonstige
+,stunden_plan
+,stunden_co5_sonstige
+,ums_netto_plan
+,ums_netto_plan_man
+,wrg_id
+,stunden_sonstige_plan
+,stunden_co1_iks
+,stunden_co2_ea
+,stunden_co3_anue
+,stunden_co4_reinigung
+,stunden_plan_pep
+,stunden_plan_meldeschluss_plus1
+,ums_netto_plan_man_meldeschluss_plus2
+,stunden_co_ist
+,stunden_co_plan
+,stunden_plan_meldeschluss_plus2
+,ums_netto_plan_man_meldeschluss_plus1
+,stunden_co_plan_plus1
+,stunden_co_plan_plus2
+,stunden_sonstige_plan_plus1
+,stunden_sonstige_plan_plus2
+,stunden_versetzung
+FROM dbp_data.wup_stunden_tag_HR_2
+UNION ALL
+SELECT
+wup_id
+,nb_id
+,mandant_id
+,dat
+,stunden_markt
+,stunden_sonstige
+,stunden_plan
+,stunden_co5_sonstige
+,ums_netto_plan
+,ums_netto_plan_man
+,wrg_id
+,stunden_sonstige_plan
+,stunden_co1_iks
+,stunden_co2_ea
+,stunden_co3_anue
+,stunden_co4_reinigung
+,stunden_plan_pep
+,stunden_plan_meldeschluss_plus1
+,ums_netto_plan_man_meldeschluss_plus2
+,stunden_co_ist
+,stunden_co_plan
+,stunden_plan_meldeschluss_plus2
+,ums_netto_plan_man_meldeschluss_plus1
+,stunden_co_plan_plus1
+,stunden_co_plan_plus2
+,stunden_sonstige_plan_plus1
+,stunden_sonstige_plan_plus2
+,stunden_versetzung
+FROM dbp_data.wup_stunden_tag_RO_2;

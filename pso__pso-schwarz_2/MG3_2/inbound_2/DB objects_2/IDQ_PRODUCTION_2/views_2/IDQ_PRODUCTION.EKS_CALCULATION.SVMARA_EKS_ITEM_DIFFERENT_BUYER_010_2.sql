@@ -1,0 +1,23 @@
+create or replace view IDQ_PRODUCTION.EKS_CALCULATION.SVMARA_EKS_ITEM_DIFFERENT_BUYER_010_2(
+	STRUC,
+	BA_ITEMNO,
+	SK_ITEMNO,
+	EA_ITEMNO,
+	SHORTSIGN
+) as
+SELECT DISTINCT 
+IFNULL(IFNULL(baskea.BA_ITEMNO, baskea.SK_ITEMNO), baskea.EA_ITEMNO) AS struc,
+ baskea.BA_ITEMNO,
+ baskea.SK_ITEMNO,
+ baskea.EA_ITEMNO, 
+ emp.SHORTSIGN
+FROM     EKS_CALCULATION.stMARA_EKS_ITEM_2 AS st 
+INNER JOIN
+                  EKS_CALCULATION.svMARA_EKS_ITEM_BASKEA_Structure_010_2 AS baskea ON baskea.EA_ITEMID = st.ITEMID 
+				  INNER JOIN
+                  EKS.ITEMBUYEREL_2 AS itb ON st.ITEMID = itb.ITEMID AND GETDATE() BETWEEN itb.DATEFROM AND itb.DATEUNTIL 
+				  INNER JOIN
+                  EKS.EMPLOYEE_2 AS emp ON itb.EMPLOYEEID = emp.EMPLOYEEID
+WHERE  (st.zActive = 1) OR
+       (st.zIsCurrentContract = 1) OR
+       (st.zIsCurrentContractFromSK = 1);

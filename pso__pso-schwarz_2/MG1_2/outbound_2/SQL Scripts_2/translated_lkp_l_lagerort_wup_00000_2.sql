@@ -1,0 +1,10 @@
+--[OK] statement is translated correctly (syntax and type checks are fine)
+
+
+
+SELECT MANDANT_ID,
+ TRIM(LAGERORT_ID) AS LAGERORT_ID,
+ NB_ID,
+ WUP_ID,
+ LAGERNUMMER_ID
+FROM KFL_PRODUCTION_DBP_DATA.L_LAGERORT_2;

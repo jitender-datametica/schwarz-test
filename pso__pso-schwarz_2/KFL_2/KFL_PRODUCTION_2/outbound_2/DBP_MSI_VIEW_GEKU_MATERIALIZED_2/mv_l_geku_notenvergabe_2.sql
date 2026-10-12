@@ -1,0 +1,3 @@
+CREATE OR REPLACE TABLE dbp_msi_view_geku_materialized.mv_l_geku_notenvergabe_2 (
+geku_notenvergabe_durch_id INTEGER
+);

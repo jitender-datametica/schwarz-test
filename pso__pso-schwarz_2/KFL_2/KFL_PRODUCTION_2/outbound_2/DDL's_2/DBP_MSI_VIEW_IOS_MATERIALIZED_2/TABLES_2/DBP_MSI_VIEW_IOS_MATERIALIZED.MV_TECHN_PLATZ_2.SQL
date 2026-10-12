@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_ios_materialized.mv_techn_platz_2 (
+mandant_id INTEGER,
+land_id STRING(2) COLLATE 'und:ci',
+techn_platz_id STRING(30) COLLATE 'und:ci',
+tp_sort_techn_platz_id STRING(30) COLLATE 'und:ci',
+techn_platz_ebene_id INTEGER,
+teil_oeffentl_fg INTEGER,
+region_id INTEGER,
+system_id INTEGER,
+buchungskreis_id INTEGER,
+kostenstelle_id STRING(20) COLLATE 'und:ci',
+krk_id STRING(4) COLLATE 'und:ci',
+techn_platz_typ_id STRING(1) COLLATE 'und:ci',
+anlage_hauptnummer STRING(20),
+werk_instandhaltung_plan STRING(4) COLLATE 'und:ci',
+adresse_name1 STRING(16777216) COLLATE 'und:ci',
+adresse_name2 STRING(40) COLLATE 'und:ci',
+wup_stadt STRING(40) COLLATE 'und:ci',
+wup_plz STRING(10) COLLATE 'und:ci',
+wup_str STRING(80) COLLATE 'und:ci'
+);

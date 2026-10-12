@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_core.t_employee_2 (
+client_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='DWH-Mandant_2; FK auf CLIENT'),
+emp_sid BIGNUMERIC(38,0) NOT NULL OPTIONS(description='The unique identifier (surrogate key) for the employee.'),
+emp_nr STRING(100) NOT NULL OPTIONS(description='Employee_2 business number.'),
+emp_workforce_nr STRING(100) OPTIONS(description='Employee_2 workforce business number.'),
+dwh_load_id BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='Identifier of the last run which inserted or updated the record. -1 means manually inserted.'),
+dwh_created DATETIME NOT NULL OPTIONS(description='Creation timestamp of the record in the DWH.'),
+dwh_updated DATETIME NOT NULL OPTIONS(description='Timestamp of the last update of the record in the DWH.'),
+PRIMARY KEY (emp_sid) NOT ENFORCED
+)
+OPTIONS(description='An employee_2 is a person who works for the Schwarz Group. This includes full-time and part-time employees, as well as freelancers and external contractors.');

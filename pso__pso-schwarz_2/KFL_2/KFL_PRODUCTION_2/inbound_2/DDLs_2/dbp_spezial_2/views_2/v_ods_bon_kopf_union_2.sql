@@ -1,0 +1,86 @@
+create or replace view KFL_PRODUCTION.DBP_SPEZIAL.V_ODS_BON_KOPF_UNION_2(
+        BON_ID,
+        BON_DAT,
+        KASSE_TYP_ID,
+        KUNDENKARTE_TYP_ID,
+        WUP_ID,
+        MANDANT_ID,
+        BON_NR,
+        KASSE_NR,
+        KASSIERER_NR,
+        KUNDE_FG,
+        BON_BEGINN,
+        BON_ENDE,
+        UMSATZ_MWST,
+        UMSATZ_BRUTTO,
+        BON_BOOKING,
+        DAT_BOOKING,
+        TURNOVER_FG,
+        WRG_ID,
+        REACTIVATED_FG,
+        PERSONAL_ID,
+        BETRAG_PERSONAL_RABATT,
+        KPOS_KASSE_TYP,
+        WAGEN_NR,
+        KUNDENKARTE_ID,
+        DRUECKEN_SUMMENTASTE,
+        SCHLIESSEN_KASSENSCHUBLADE,
+        FISKALISIERUNG_FG
+) as 
+SELECT bon_id
+,bon_dat
+,kasse_typ_id
+,kundenkarte_typ_id
+,wup_id
+,mandant_id
+,bon_nr
+,kasse_nr
+,kassierer_nr
+,kunde_fg
+,bon_beginn
+,bon_ende
+,umsatz_mwst
+,umsatz_brutto
+,bon_booking
+,dat_booking
+,turnover_fg
+,wrg_id
+,reactivated_fg
+,personal_id
+,betrag_personal_rabatt
+,kpos_kasse_typ
+,wagen_nr
+,kundenkarte_id
+,druecken_summentaste
+,schliessen_kassenschublade
+,fiskalisierung_fg
+ FROM dbp_ods.ods_bon_kopf_2
+UNION ALL
+SELECT bon_id
+,bon_dat
+,kasse_typ_id
+,kundenkarte_typ_id
+,wup_id
+,mandant_id
+,bon_nr
+,kasse_nr
+,kassierer_nr
+,kunde_fg
+,bon_beginn
+,bon_ende
+,umsatz_mwst
+,umsatz_brutto
+,bon_booking
+,dat_booking
+,turnover_fg
+,wrg_id
+,reactivated_fg
+,personal_id
+,betrag_personal_rabatt
+,kpos_kasse_typ
+,wagen_nr
+,kundenkarte_id
+,druecken_summentaste
+,schliessen_kassenschublade
+,fiskalisierung_fg
+ FROM dbp_ods_archiv.ods_bon_kopf_2;

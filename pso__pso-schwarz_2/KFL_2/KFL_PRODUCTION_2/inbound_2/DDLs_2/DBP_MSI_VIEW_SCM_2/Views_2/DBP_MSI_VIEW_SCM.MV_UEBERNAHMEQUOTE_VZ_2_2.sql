@@ -1,0 +1,97 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_SCM.MV_UEBERNAHMEQUOTE_VZ_2_2(
+	ART_ID,
+	VZ_DISPO_ARTIKELSTATUS_ID,
+	MENGE_EINH_ID,
+	WUP_ID,
+	NB_ID,
+	GP_ID,
+	MANDANT_ID,
+	GP_TEILSORTIMENT_ID,
+	LAGERORT_ID,
+	DISPONENT_ID,
+	VZ_DISPO_STATUS_ID,
+	AUTODISPO_FG,
+	DAT_PLAN,
+	DAT_BEST,
+	DAT_LIEF,
+	BEST_VOR_DISPO_ID,
+	BEST_VOR_DISPO_1ST_FG,
+	BEDARF_NETTO,
+	BEDARF_NACH_MBM_ART,
+	BEDARF_NACH_RUNDUNG,
+	BEDARF_NACH_DYN_RUNDUNG,
+	BEDARF_NACH_MBM_LIEFERANT,
+	BV_QUELLE_ID,
+	BV_QUELLE_BEZ,
+	BEST_BELEG_ID,
+	BEST_BELEG_POS_ID,
+	BESTELLART_ID,
+	BESTELLSTATUS_TYP_ID,
+	MENGE_BV_GESAMT,
+	MENGE_BV_STANDARD,
+	MENGE_BV_BEVORRATUNG,
+	MENGE_BV_IWT,
+	MENGE_BV_WERBUNG,
+	DAT_VERFUEGBARKEIT,
+	DAT_BEDARFSPERIODE_ENDE,
+	DAT_BESTANDSPERIODE_ENDE,
+	MENGE_BEST_GESAMT,
+	MENGE_BEST_WERBUNG,
+	MENGE_BEST_IWT,
+	MENGE_SPLIT_GESAMT,
+	MENGE_SPLIT_IWT,
+	MENGE_SPLIT_WERBUNG,
+	BESTELLSTATUS_VZ_ID,
+	BESTELLSTATUS_VZ_SHORT_DESC,
+	BESTELLSTATUS_VZ_DESC
+) AS
+--2025-07-07, AP0244447, SPEC0287477, dknop, initial
+--2025-08-21, dknop, adding MENGE_BEST_IWT
+SELECT 
+ v1.art_id
+,v1.vz_dispo_artikelstatus_id
+,v1.menge_einh_id
+,v1.wup_id
+,v1.nb_id
+,v1.gp_id
+,v1.mandant_id
+,v1.gp_teilsortiment_id
+,v1.lagerort_id
+,v1.disponent_id
+,v1.vz_dispo_status_id
+,v1.autodispo_fg
+,v1.dat_plan
+,v1.dat_best
+,v1.dat_lief
+,v1.best_vor_dispo_id
+,v1.best_vor_dispo_1st_fg
+,v1.bedarf_netto
+,v1.bedarf_nach_mbm_art
+,v1.bedarf_nach_rundung
+,v1.bedarf_nach_dyn_rundung
+,v1.bedarf_nach_mbm_lieferant
+,v1.bv_quelle_id
+,v1.bv_quelle_bez
+,v1.best_beleg_id
+,v1.best_beleg_pos_id
+,v1.bestellart_id
+,v1.bestellstatus_typ_id
+,v1.menge_bv_gesamt
+,v1.menge_bv_standard
+,v1.menge_bv_bevorratung
+,v1.menge_bv_iwt
+,v1.menge_bv_werbung
+,v1.dat_verfuegbarkeit
+,v1.dat_bedarfsperiode_ende
+,v1.dat_bestandsperiode_ende
+,v1.menge_best_gesamt
+,v1.menge_best_werbung
+,v1.menge_best_iwt
+,v1.menge_split_gesamt
+,v1.menge_split_iwt
+,v1.menge_split_werbung
+,v1.bestellstatus_vz_id
+,v1.bestellstatus_vz_short_desc
+,v1.bestellstatus_vz_desc
+FROM DBP_MSI_VIEW_SCM.MV_DT_UEBERNAHMEQUOTE_VZ2 v1
+;

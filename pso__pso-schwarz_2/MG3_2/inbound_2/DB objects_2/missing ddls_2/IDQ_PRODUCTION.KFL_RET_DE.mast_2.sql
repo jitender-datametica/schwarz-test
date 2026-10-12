@@ -1,0 +1,37 @@
+create or replace view `daia-d-sdi-sdiidq-0.kfl_ret_de.mast_2`(
+	mandt,
+	matnr,
+	werks,
+	stlan,
+	stlnr,
+	stlal,
+	losvn,
+	losbs,
+	andat,
+	annam,
+	aedat,
+	aenam,
+	cslty,
+	country_code,
+	td_insert,
+	td_update
+) as
+select
+	mandt,
+	matnr,
+	werks,
+	stlan,
+	stlnr,
+	stlal,
+	losvn,
+	losbs,
+	andat,
+	annam,
+	aedat,
+	aenam,
+	cslty,
+	country_code,
+	td_insert,
+	td_update
+    from kfl_ret.mast_2
+where country_code in ('DE','de');

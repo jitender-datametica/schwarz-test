@@ -1,0 +1,9 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_WAWI_REF_INDICATOR_TYPE_L_2
+(
+  INDICATOR_TYPE_ID   NUMBER(38)                    NOT NULL,
+  INDICATOR_TYPE_DESC VARCHAR(100) COLLATE 'en-ci'  NOT NULL,
+  FILE_NAME           VARCHAR(100) COLLATE 'en-ci'  NOT NULL,
+  TIMESTAMP_FN        TIMESTAMP_NTZ(0)              NOT NULL,
+  DAT_DAYEND          DATE                          NOT NULL,
+  LOAD_ID             NUMBER(38)                    NOT NULL
+);

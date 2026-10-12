@@ -1,0 +1,9 @@
+CREATE TABLE DBP_DATA.VKL_2 (
+	VKL_ID INTEGER NOT NULL COMMENT 'ID des Verkaufsleiters',
+	MANDANT_ID INTEGER NOT NULL COMMENT 'Mandant_2 im DWH',
+	GF_ID INTEGER NOT NULL COMMENT 'Geschäftsführer ID, numerisch',
+	VKL_NAME VARCHAR(320) COMMENT 'Name des Verkaufsleiters',
+	TD_INSERT TIMESTAMP_LTZ(9),
+	TD_UPDATE TIMESTAMP_LTZ(9)
+)COMMENT='VIS - Lookup Tabelle Verkaufsleiter'
+;

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW ldl_dig_fe_mstr_lidldigital.v_dim_product_customer_order_line_2 AS SELECT prod_sid,
+ MAX(cust_order_dt) AS max_cust_order_dt
+FROM ldl_dig_lec_share.v_fact_customer_order_line_2
+GROUP BY prod_sid;

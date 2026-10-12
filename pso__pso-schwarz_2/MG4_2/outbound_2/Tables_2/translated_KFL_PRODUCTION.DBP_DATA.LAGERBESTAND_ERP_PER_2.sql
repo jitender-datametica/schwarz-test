@@ -1,0 +1,27 @@
+DROP TABLE IF EXISTS kfl_production_dbp_data.lagerbestand_erp_per_2;
+CREATE OR REPLACE TABLE kfl_production_dbp_data.lagerbestand_erp_per_2 (
+wup_id INTEGER NOT NULL,
+mandant_id INTEGER NOT NULL,
+nb_id INTEGER NOT NULL,
+lagerort_id STRING(4) COLLATE 'und:ci' NOT NULL,
+art_id INTEGER NOT NULL,
+dat_von DATE NOT NULL,
+menge_lgbest_erp_frei_bme NUMERIC(18,3),
+menge_lgbest_erp_umlag_bme NUMERIC(18,3),
+menge_lgbest_erp_qual_bme NUMERIC(18,3),
+menge_lgbest_erp_nf_charge_bme NUMERIC(18,3),
+menge_lgbest_erp_gesp_bme NUMERIC(18,3),
+menge_lgbest_erp_ret_gesp_bme NUMERIC(18,3),
+sperr_id STRING(1) COLLATE 'und:ci',
+gjmo_buch INTEGER,
+lagerort_loesch_fg STRING(1) COLLATE 'und:ci',
+pflege_status STRING(20) COLLATE 'und:ci',
+menge_lgbest_erp_kolli NUMERIC(18,3),
+menge_lgbest_erp_palette NUMERIC(18,3),
+dat_bis DATE,
+betrag_lgbest_erp NUMERIC(18,4),
+wrg_id STRING(3) COLLATE 'und:ci' DEFAULT 'EUR' NOT NULL,
+vk_netto_lgbest_erp NUMERIC(18,4) DEFAULT 0 NOT NULL,
+td_insert TIMESTAMP,
+td_update TIMESTAMP
+) CLUSTER BY mandant_id, wup_id, dat_von;

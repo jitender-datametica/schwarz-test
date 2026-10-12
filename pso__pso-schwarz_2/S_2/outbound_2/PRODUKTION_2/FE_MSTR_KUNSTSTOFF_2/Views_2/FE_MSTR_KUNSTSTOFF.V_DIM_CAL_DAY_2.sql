@@ -1,0 +1,19 @@
+CREATE OR REPLACE VIEW produktion_fe_mstr_kunststoff.v_dim_cal_day_2 (cal_dt, cy, bus_year, cy_month, month_of_year,
+month_of_bus_year, month_of_year_name, day_of_month, cy_week, week_of_year, cy_week_part, day_of_week, day_of_week_name
+, day_of_cy, day_of_bus_year, cal_dt_offset) AS SELECT cal_dt,
+ cy,
+ bus_year,
+ cy_month,
+ month_of_year,
+ month_of_bus_year,
+ month_of_year_name,
+ day_of_month,
+ cy_week,
+ week_of_year,
+ cy_week_part,
+ day_of_week,
+ day_of_week_name,
+ day_of_cy,
+ day_of_bus_year,
+ DATE_DIFF(cal_dt, CURRENT_DATE, DAY) AS cal_dt_offset
+FROM produktion_core.t_dim_cal_day_2;

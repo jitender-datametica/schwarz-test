@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW dbp_msi_v_view.v_produktwissen_2
+ AS
+ SELECT
+ MANDANT_ID,
+MATCHING_ID,
+DAT_ZEIT_PFLEGE,
+DAT_PFLEGE,
+F49_PRODUKTWISSEN
+ FROM dbp_msi_data.produktwissen_2;

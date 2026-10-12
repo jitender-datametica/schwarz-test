@@ -1,0 +1,11 @@
+
+CREATE TABLE P_LEW_PROCESS.T_LIDLPLUS_CORRECTION_RECEIPTHEADER_LOG_2
+(
+client_id INTEGER NOT NULL,
+yearmonth VARCHAR(20) COLLATE 'en-ci' ,
+wh_id INTEGER NOT NULL,
+orig_store_nr INTEGER NOT NULL,
+dwh_cal_dt DATE NOT NULL,
+number_of_updated_rows INTEGER,
+dwh_created TIMESTAMP(6) NOT NULL);
+

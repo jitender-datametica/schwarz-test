@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ims.mv_l_ginfo_flaeche_typ_2 AS SELECT ginfo_flaeche_typ_id,
+ mandant_id
+FROM kfl_production_dbp_view.v_l_ginfo_flaeche_typ_2;

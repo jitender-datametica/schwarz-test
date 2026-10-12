@@ -1,0 +1,1 @@
+TRUNCATE TABLE ldl_data_production_etl.t_tcache_oso_internal_organization_hierarchy_2;

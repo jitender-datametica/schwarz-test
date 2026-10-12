@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE ldl_data_production_etl.t_r2d_full_internal_organization_hierarchy_2 (
+child_org_sid INTEGER,
+child_org_type_cd STRING(20),
+child_org_nr STRING(20),
+child_org_name STRING(100),
+levels_above_leaf INTEGER,
+top_hierarchy_type_cd STRING(50),
+dwh_valid_from_tmsp TIMESTAMP,
+dwh_valid_to_tmsp TIMESTAMP,
+parent_org_sid INTEGER,
+parent_org_type_cd STRING(20),
+parent_org_nr STRING(20),
+parent_org_name STRING(100),
+int_org_hierachy_path STRING(200),
+parent_is_sales_company_fg BOOL,
+parent_is_deliv_company_fg BOOL,
+parent_is_owner_company_fg BOOL,
+parent_is_expansion_company_fg BOOL,
+parent_is_bal_sheet_company_fg BOOL,
+parent_is_country_org_fg BOOL,
+parent_is_trust_fg BOOL,
+parent_country_org_cd STRING(20)
+);

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW produktion_fe_mstr_kunststoff.v_trs_production_line_text_message_2 (production_line_id,
+text_message, text_timestamp) AS SELECT production_line_id,
+ text_message,
+ text_timestamp
+FROM produktion_fe_mstr_kunststoff.t_trs_production_line_text_message_2;

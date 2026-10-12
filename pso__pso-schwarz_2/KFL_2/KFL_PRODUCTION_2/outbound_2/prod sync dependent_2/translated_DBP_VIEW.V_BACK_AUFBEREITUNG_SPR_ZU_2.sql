@@ -1,0 +1,6 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_back_aufbereitung_spr_zu_2 (back_aufbereitung_id, spr_id, mandant_id,
+back_aufbereitung_bez) AS SELECT back_aufbereitung_id,
+ spr_id,
+ mandant_id,
+ back_aufbereitung_bez
+FROM kfl_production_dbp_data.back_aufbereitung_spr_zu_2;

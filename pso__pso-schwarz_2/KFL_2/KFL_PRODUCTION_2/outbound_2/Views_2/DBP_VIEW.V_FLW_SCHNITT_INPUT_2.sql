@@ -1,0 +1,15 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_flw_schnitt_input_2 AS SELECT schnitt_id,
+ sek_schl_typ_id,
+ sek_schl_id,
+ mandant_id,
+ flw_art_id,
+ werk_id,
+ dat_von,
+ dat_bis,
+ material_einzel_kosten,
+ wrg_id,
+ system_id,
+ trennprozess_id,
+ td_insert,
+ td_update
+FROM kfl_production_dbp_data.flw_schnitt_input_2;

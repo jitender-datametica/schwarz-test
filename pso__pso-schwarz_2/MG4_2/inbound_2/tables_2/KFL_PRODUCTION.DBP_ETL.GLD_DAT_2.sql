@@ -1,0 +1,3 @@
+create or replace TABLE KFL_PRODUCTION.DBP_ETL.GLD_DAT_2 (
+	DAT DATE
+);

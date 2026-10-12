@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_art_gruppe_attribut_2 AS SELECT mandant_id,
+ art_gruppe_id,
+ art_attribut_id
+FROM kfl_production_dbp_data.l_art_gruppe_attribut_2;

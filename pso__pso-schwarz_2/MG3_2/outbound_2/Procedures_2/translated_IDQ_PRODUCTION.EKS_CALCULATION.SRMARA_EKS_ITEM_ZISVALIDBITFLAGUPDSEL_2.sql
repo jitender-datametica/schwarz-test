@@ -1,0 +1,6 @@
+CREATE OR REPLACE PROCEDURE eks_calculation.srmara_eks_item_zisvalidbitflagupdsel_2()
+BEGIN
+UPDATE idq_production_eks_calculation.stmara_eks_item_2 SET
+    zisvalidbitflag = srmara_eks_item_zisvalidbitflagupdsel.zisvalidbitflagnew FROM idq_production_eks_calculation.srmara_eks_item_zisvalidbitflagupdsel_2
+WHERE stmara_eks_item.itemid = srmara_eks_item_zisvalidbitflagupdsel.itemid;
+END;

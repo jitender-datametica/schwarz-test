@@ -1,0 +1,11 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_ods_bruttonetto_2 AS SELECT CAST(DATE_DIFF(dat, CURRENT_DATE, DAY) AS BIGNUMERIC)
+ AS brutto_netto_fg,
+ CAST(CASE
+   WHEN CAST(DATE_DIFF(dat, CURRENT_DATE, DAY) AS BIGNUMERIC) = 0
+   THEN 'Brutto'
+   WHEN CAST(DATE_DIFF(dat, CURRENT_DATE, DAY) AS BIGNUMERIC) = 1
+   THEN 'Netto'
+   ELSE ''
+   END AS STRING) AS brutto_netto_bez
+FROM kfl_production_dbp_view.v_tag_2
+WHERE dat BETWEEN CURRENT_DATE AND (DATE_ADD(CURRENT_DATE, INTERVAL 1 DAY));

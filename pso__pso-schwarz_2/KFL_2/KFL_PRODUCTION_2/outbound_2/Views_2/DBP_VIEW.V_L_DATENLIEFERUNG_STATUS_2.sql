@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_l_datenlieferung_status_2 AS SELECT datenlieferung_status_id,
+ datenlieferung_bez
+FROM kfl_production_dbp_data.l_datenlieferung_status_2;

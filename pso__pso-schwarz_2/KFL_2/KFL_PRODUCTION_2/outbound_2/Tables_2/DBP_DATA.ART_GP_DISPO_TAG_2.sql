@@ -1,0 +1,96 @@
+--==============================================================
+-- Table: art_gp_dispo_tag_2
+--==============================================================
+/* --------------------------------------------------------------------------------
+   DDL for table: art_gp_dispo_tag_2
+   generated from Powerdesigner on Dienstag, 14. Januar 2025 13:26:48
+*/ --------------------------------------------------------------------------------
+
+
+CREATE TABLE IF NOT EXISTS kfl_production_dbp_data.art_gp_dispo_tag_2 (
+mandant_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Mandant_2 im DWH.'),
+gp_dispo_id BIGNUMERIC(38,0) NOT NULL
+OPTIONS(description='Lieferant ID Dispo (Surrogate Key). Die gp_id entspricht der Lieferantennummer aus SAP, ist Business key, während gp_dispo_id von SAP täglich neu generiert wird.             Gp_dispo_id ändert sich mit jedem Planungslauf. Gp_dispo_id benötigt man um eine_2 Beziehung zwischen SAP und nicht-SAP Daten herstellen zu können und mit anderen Tabellen joinen zu können. '),
+art_dispo_id INTEGER NOT NULL
+OPTIONS(description='Artikel_2 ID DIspo (Surrogate Key). Die art_id entspricht der Artikelnummer aus SAP, ist Business key, während art_dispo_id von SAP täglich neu generiert wird.             Art_dispo_id ändert sich mit jedem Planungslauf. Art_dispo_id benötigt man um eine_2 Beziehung zwischen SAP und nicht-SAP Daten herstellen zu können und mit anderen Tabellen joinen zu können. '),
+art_id BIGNUMERIC(38,0) OPTIONS(description='Artikelnummer.'),
+dat_plan DATE NOT NULL OPTIONS(description='Planungsdatum.'),
+vz_dispo_artikelstatus_id BIGNUMERIC(38,0) OPTIONS(description='Artikelstatus im VZ in Bezug auf Disposition.'),
+dispo_arttyp_id BIGNUMERIC(38,0) OPTIONS(description='Typ.'),
+palettenfaktor BIGNUMERIC(38,0) OPTIONS(description='Palettenfaktor.'),
+dat_lief DATE NOT NULL OPTIONS(description='Liefertag.'),
+menge_gesamt BIGNUMERIC(38,0) OPTIONS(description='Menge Gesamt.'),
+menge_normal BIGNUMERIC(38,0) OPTIONS(description='Menge Normal.'),
+menge_bevorratung BIGNUMERIC(38,0) OPTIONS(description='Menge Bevorratung.'),
+menge_iwt BIGNUMERIC(38,0) OPTIONS(description='Menge IWT.'),
+menge_werbung BIGNUMERIC(38,0) OPTIONS(description='Menge Werbung.'),
+menge_einh_id STRING(3) OPTIONS(description='Basismengeneinheit.'),
+lagefaktor BIGNUMERIC(38,0) OPTIONS(description='Lage Faktor.'),
+artikelstatus_betrieb STRING(2) OPTIONS(description='Betriebsspezifischer Artikelstatus.'),
+dat_listung_vz_bis DATE OPTIONS(description='VZ Listung bis.'),
+dat_listung_vz_von DATE OPTIONS(description='VZ Listung ab.'),
+dat_raeumen_ab DATE OPTIONS(description='Räumen ab (R).'),
+werbung_fg BIGNUMERIC(38,0) OPTIONS(description='Werbung Kennzeichen.'),
+saison_fg BIGNUMERIC(38,0) OPTIONS(description='Saison Kennzeichen.'),
+saison_id STRING(10) OPTIONS(description='Saison Nummer.'),
+posten_kz_sap STRING(2) OPTIONS(description='Postenkennzeichen SAP.'),
+posten_fg BIGNUMERIC(38,0) OPTIONS(description='Postenkennzeichen.'),
+auspackware_fg BIGNUMERIC(38,0) OPTIONS(description='Flag: Auspackware.'),
+einkaeufer_grp_id STRING(3) OPTIONS(description='Einkäufergruppe.'),
+rlz_vz NUMERIC(18,3) OPTIONS(description='RLZ VZ.'),
+menge_best_min NUMERIC(18,3) OPTIONS(description='Mindestbestellmenge.'),
+menge_einh_lam_id STRING(3) OPTIONS(description='Lagerabgangsmenge (L/A).'),
+min_sicherh_bestand NUMERIC(18,3) OPTIONS(description='Mindestsicherheitsbestand.'),
+menge_best_max NUMERIC(18,3) OPTIONS(description='Maximale Bestellmenge.'),
+umrech_faktor_bme_lam NUMERIC(11,5) OPTIONS(description='Faktor BME in L/A.'),
+umrech_faktor_best_bme NUMERIC(11,5) OPTIONS(description='Faktor Bestellmenge in Basis-ME.'),
+rundungsprofil STRING(10) OPTIONS(description='Rundungsprofil.'),
+wg_id BIGNUMERIC(38,0) OPTIONS(description='Warengruppe.'),
+anz_wup_dis BIGNUMERIC(38,0) OPTIONS(description='DiS Anzahl Märkte.'),
+anz_wup_kdis BIGNUMERIC(38,0) OPTIONS(description='KDiS Anzahl Märkte.'),
+dat_listung_markt_von DATE OPTIONS(description='Marktlistung ab.'),
+dat_listung_markt_bis DATE OPTIONS(description='Marktlistung bis.'),
+gewicht_brutto_bme NUMERIC(16,3) OPTIONS(description='Bruttogewicht BME.'),
+reichweite NUMERIC(16,5) OPTIONS(description='Reichweite.'),
+reichweite_neu NUMERIC(9,1) OPTIONS(description='Reichweite neu.'),
+we_bearbeitungszeit BIGNUMERIC(38,0) OPTIONS(description='WE-BearbZeit (WEBAZ).'),
+dat_aktion_1 DATE OPTIONS(description='Werbung 1 Datum.'),
+dat_aktion_2 DATE OPTIONS(description='Werbung 2 Datum.'),
+dat_aktion_3 DATE OPTIONS(description='Werbung 3 Datum.'),
+neuer_artikel_fg BIGNUMERIC(38,0) OPTIONS(description='Kennzeichen für neuer Artikel.'),
+gewicht_pal BIGNUMERIC(38,0) OPTIONS(description='Gewicht volle PAL.'),
+gewicht_gesamt BIGNUMERIC(38,0) OPTIONS(description='Gesamtgewicht Position.'),
+faktor_display BIGNUMERIC(38,0) OPTIONS(description='Display Faktor.'),
+display_fg BIGNUMERIC(38,0) OPTIONS(description='Display Kennzeichen.'),
+faktor_halbpalette NUMERIC(11,5) OPTIONS(description='Halbpalettenfaktor.'),
+halbpalette_fg BIGNUMERIC(38,0) OPTIONS(description='Halbpalette-Kennzeichen'),
+augeblendet_fg BIGNUMERIC(38,0) OPTIONS(description='Ausgeblendet.'),
+dat_bevorratung_von DATE OPTIONS(description='Bev Date From.'),
+dat_bevorratung_bis DATE OPTIONS(description='Bev Date End.'),
+dat_bevorratung_reichw_bis DATE OPTIONS(description='Bev RW Ende.'),
+menge_bevorratung_gesamt BIGNUMERIC(38,0) OPTIONS(description='Bev Menge.'),
+menge_bevorratung_offen BIGNUMERIC(38,0) OPTIONS(description='Bev Offene Menge.'),
+bevorratung_schleichend_fg BIGNUMERIC(38,0) OPTIONS(description='Schleichend.'),
+bevorratung_grund_id BIGNUMERIC(38,0) OPTIONS(description='Bev Grund.'),
+reichweitenbevorratung_fg BIGNUMERIC(38,0) OPTIONS(description='1 = Reichtweite, 0 = Fix Amount.'),
+iwt_id STRING(1) OPTIONS(description='Kennzeichen für import / export Artikel.'),
+iwt_fg BIGNUMERIC(38,0) OPTIONS(description='Feld zum Ankreuzen.'),
+bv_quelle_id BIGNUMERIC(38,0) OPTIONS(description='BV-Quelle.'),
+bedarfsnummer STRING(10) OPTIONS(description='Bedarfsnummer.'),
+kontrakt_beleg_id INTEGER OPTIONS(description='Kontrakt.'),
+kontrakt_beleg_pos_id BIGNUMERIC(38,0) OPTIONS(description='Kontrakt Pos.'),
+kontrakt_gueltigkeit_id STRING(1) OPTIONS(description='Gültigkeit des Vertrages in Bezug auf den Zeitraum.'),
+ratio BIGNUMERIC(38,0) OPTIONS(description='1:N Quote.'),
+gp_dispo_multi_id INTEGER OPTIONS(description='MultiSupplier ID.'),
+gp_sub_id BIGNUMERIC(38,0) OPTIONS(description='Nummer des untergeordneten Lieferanten.'),
+ratio_fehler_fg STRING(1) OPTIONS(description='Ratio Fehler.'),
+stapel_faktor BIGNUMERIC(38,0) OPTIONS(description='Stapelbar.'),
+best_vor_dispo_id BIGNUMERIC(38,0)
+OPTIONS(description='ID des Bestellvorschlags (VZ -> Lieferant). Anmerkung: Dies unterscheidet sich von BEST_VOR_ID (Markt -> VZ).'),
+td_update TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+td_insert TIMESTAMP
+OPTIONS(description='Technical fields for synchronisation framework. Will be delted after last product migration'),
+PRIMARY KEY (mandant_id, gp_dispo_id, art_dispo_id, dat_plan) NOT ENFORCED
+)
+OPTIONS(description='Stammdaten für Artikel_2-Lieferanten-Kombinationen zum Plantag. Master Data for Product-Supplier_2-Combination at Planning Date.');

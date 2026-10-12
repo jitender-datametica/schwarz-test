@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_wawi_sys_interface_log_base_cloud_2 (
+dc_load_id BIGNUMERIC(38,0) NOT NULL,
+dc_server_id BIGNUMERIC(38,0) NOT NULL,
+system_key BIGNUMERIC(38,0) NOT NULL,
+interface_key BIGNUMERIC(38,0) NOT NULL,
+ctrcode STRING(3) COLLATE 'und:ci' NOT NULL,
+wh_loc_sid BIGNUMERIC(38,0) NOT NULL,
+orig_store_nr BIGNUMERIC(38,0) NOT NULL,
+dat_dayend DATE NOT NULL,
+dc_service_id BIGNUMERIC(38,0) NOT NULL,
+mail_rows INTEGER NOT NULL,
+mail_bytes INTEGER NOT NULL,
+conv_rows INTEGER NOT NULL,
+conv_bytes INTEGER NOT NULL,
+load_rows INTEGER NOT NULL,
+update_fg BIGNUMERIC(38,0) DEFAULT 0 NOT NULL,
+timestamp_load DATETIME,
+source_sent_tmsp DATETIME,
+mail_in_tmsp DATETIME
+);

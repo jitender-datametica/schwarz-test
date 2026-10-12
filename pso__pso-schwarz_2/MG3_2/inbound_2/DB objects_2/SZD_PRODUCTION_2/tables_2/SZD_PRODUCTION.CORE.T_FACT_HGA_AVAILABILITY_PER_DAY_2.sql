@@ -1,0 +1,11 @@
+create or replace TABLE SZD_PRODUCTION.CORE.T_FACT_HGA_AVAILABILITY_PER_DAY_2 (
+	HGA_SID NUMBER(38,0) NOT NULL COMMENT 'The unique identifier (surrogate key) for the hot beverage machine which is loacted in a store',
+	AVAIL_DT DATE NOT NULL COMMENT 'The calendar_2 date of the machine availability',
+	DAILY_AVAIL_PCT NUMBER(38,5) NOT NULL COMMENT 'The time duration in seconds during which the machine is functioning',
+	NO_SALE_DAILY_VAL NUMBER(38,5) NOT NULL COMMENT 'The computed daily value where there was no sale for more than 6 hours between consecutive sales_2',
+	LAST_ONLINE_TMSP TIMESTAMP_TZ(9) NOT NULL COMMENT 'The report timestamp of the source file',
+	DWH_CREATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was inserted into the table',
+	DWH_UPDATED_TMSP TIMESTAMP_LTZ(9) NOT NULL COMMENT 'The point in time when this record was last modified. (In case the record has not been modified since its creation, dwh_updated is identical to dwh_created.)',
+	constraint PK_T_FACT_HGA_AVAILABILITY_PER_DAY primary key (HGA_SID, AVAIL_DT)
+)COMMENT='Transactional fact capturing the uptime in seconds per day of hot beverage machines located in stores'
+;

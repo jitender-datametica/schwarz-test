@@ -1,0 +1,20 @@
+CREATE OR REPLACE TABLE ldl_dig_production_core.t_dim_distribution_channel_2 (
+dist_channel_cd STRING(5) NOT NULL
+OPTIONS(description='The code for the distribution channel ( a channel  through which the goods are sold )'),
+dist_channel_type_cd STRING(5)
+OPTIONS(description='A  type of distribution channel ( Webshop for LD Webshop , IC for Intercompany)'),
+dist_country_cd STRING(5)
+OPTIONS(description='The unique code for a country_2 according to ISO-3166 Alpha-2. E.g.\""DE\"" for Germany or\""FR\"" for France'),
+dwh_created_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was created in the data warehouse.'),
+dwh_updated_tmsp TIMESTAMP NOT NULL
+OPTIONS(description='The point in time when this record was last updated.'),
+dwh_src_file_name STRING(255)
+OPTIONS(description='The path and the name of the file(s) from which this record was loaded.'),
+src_file_tmsp TIMESTAMP
+OPTIONS(description='The point in time when this record was extracted from the source.'),
+wshop_cd STRING(5)
+OPTIONS(description='The unique code for the Lidl webshop, where an order can be placed by a customer. Filed only for channels related to Lidl Webshops'),
+PRIMARY KEY (dist_channel_cd) NOT ENFORCED
+)
+OPTIONS(description='The dimension that dedcribes distribution channels used for goods sales_2 - through Lidl Digital Webshops , Kaufland intercompany sales_2 , or through third pardy platforms ( to be added in the future ).\n             Source : manual input');

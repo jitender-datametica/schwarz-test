@@ -1,0 +1,52 @@
+INSERT INTO dbp_etl.nielsen_prod (
+    mandant_id, mat_kjmo, file_name, tag_2, short, long, display_order,
+    parent_tag, hier_num, hier_name, hier_level_num, hier_level_name, organic, total_categories, retailers_split, category,
+    manufacturer, brand_2, item_2, content_numeric, flavour, gtin, hwg_bez, owg_bez, unit_2, wg_bez, wug_bez, h1, wkl, wg, wgi,
+    hersteller, artikel_2, inhalt, inhalt_num, lactosefrei, num_ebene, mit_ohne_gluten, veggy_split, td_update, td_insert
+)
+(
+    SELECT
+mandant_id,
+mat_kjmo,
+file_name,
+tag_2,
+short,
+long,
+display_order,
+parent_tag,
+hier_num,
+hier_name,
+hier_level_num,
+hier_level_name,
+organic,
+total_categories,
+retailers_split,
+category,
+manufacturer,
+brand_2,
+item_2,
+content_numeric,
+flavour,
+gtin,
+hwg_bez,
+owg_bez,
+unit_2,
+wg_bez,
+wug_bez,
+h1,
+wkl,
+wg,
+wgi,
+hersteller,
+artikel_2,
+inhalt,
+inhalt_num,
+lactosefrei,
+num_ebene,
+mit_ohne_gluten,
+veggy_split,
+td_update,
+td_insert
+
+ FROM ${TEMP_TABLE}
+);

@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_iotchargers.v_dim_charging_station_owner_2 (charging_station_owner_name) AS SELECT
+ charging_station_owner_name
+FROM szd_core.t_dim_charging_station_owner_2
+WHERE dwh_valid_fg;

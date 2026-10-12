@@ -1,0 +1,34 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_WG_VERKETTUNG_PER_2 AS 
+    SELECT 
+         mandant_id
+        ,wup_id
+        ,nb_id
+        ,wg_verkett_id
+        ,palettenlaenge
+        ,palettenbreite
+        ,palettenhoehe
+        ,palettengroesse_einh_id
+        ,palettenvolumen
+        ,palettenvolumen_einh_id
+        ,volumenabw_max
+        ,volumen_max
+        ,volumenabw_min
+        ,pal_min_volumen
+        ,kollilaenge
+        ,kollibreite
+        ,kollihoehe
+        ,kolligroesse_einh_id
+        ,kollivolumen
+        ,kollivolumen_einh_id
+        ,akl_komm_fg
+        ,aka_komm_fg
+        ,max_volumen_aufpackpal
+        ,max_anz_pal
+        ,max_volumen_palytp_a
+        ,max_volumen_paltyp_b
+        ,klapp_pal_fg
+        ,volumengrenze_kkp
+        ,dat_von
+        ,dat_bis
+
+FROM DBP_DATA.WG_VERKETTUNG_PER_2 ;

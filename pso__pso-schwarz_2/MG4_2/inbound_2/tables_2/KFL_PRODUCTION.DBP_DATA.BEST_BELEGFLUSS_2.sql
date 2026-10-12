@@ -1,0 +1,36 @@
+create or replace TABLE KFL_PRODUCTION.DBP_DATA.BEST_BELEGFLUSS_2 cluster by (
+     BEST_ENTW_TYP_ID,
+     MANDANT_ID,
+     DAT_BUCH 
+)(
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant_2 im DWH',
+	BEST_BELEG_POS_ID NUMBER(38,0) NOT NULL COMMENT 'Das Feld enthält die Nummer einer Bestellbelegposition und dient zusammen mit der Bestellbeleg ID der eindeutigen Identifikation der Bestellbelegpositionen. Aus ebelp',
+	BEST_BELEG_ID NUMBER(38,0) NOT NULL COMMENT 'Das Feld enthält die Beleg ID der Bestellung und dient der eindeutigen Identifikation der Bestellbelege. Aus ebeln',
+	KONTIERUNG_POS_ID NUMBER(38,0) NOT NULL COMMENT 'Laufende Nummer der Kontierung: Nummer, die die Kontierung einer Bestellposition eindeutig definiert. aus zekkn',
+	VORGART_BEST_ENTW_ID VARCHAR(1) NOT NULL COLLATE 'en-ci' COMMENT 'Vorgangsart der Bestellentwicklung. Referenziert die Tabelle l_vorgart_best_entw.Aus vgabe',
+	FOLGE_BELEG_ID NUMBER(38,0) NOT NULL COMMENT 'Belegnummer des Folgebeleges: wenn best_entw_typ_id = E (WE) oder U (WA) dann  Referenz zu der Lagerbewegung, wenn best_entw_typ_id = L dann Referenz zu dem Lieferschein. Aus belnr ',
+	FOLGE_BELEG_POS_ID NUMBER(38,0) NOT NULL COMMENT 'Positionsnummer des Folgebeleges: wenn best_entw_typ_id = E (WE) oder U (WA) dann Referenz zu der Lagerbewegung, wenn best_entw_typ_id = L dann Referenz zu dem Lieferschein. Aus buzei',
+	KJ NUMBER(38,0) NOT NULL COMMENT 'Dieses Attribut enthält das entsprechende Kalenderjahr und wird benötigt um einen Beleg in Kombination mit der Belegnummer eindeutig zu identifizieren. Aus gjahr ',
+	WUP_ID NUMBER(38,0) NOT NULL COMMENT 'Die Wup_id entspricht der Nummer des Werks/Betriebs. Dabei kann es sich entweder um ein Verteilzentrum, ein Lager oder einen Markt handeln. Zusammen mit der nb_id kann ein Eintrag aus der DWH Tabelle wup_2 eindeutig identifiziert werden. Quelle ist werks',
+	NB_ID NUMBER(38,0) NOT NULL COMMENT 'Die nb_id identifiziert die Nebenbetriebe (z.B. Tankstelle, Backshop, usw.) für einen Betrieb/Werk (= wup_id).',
+	BESTAETIGUNG_LFD_NR NUMBER(38,0) NOT NULL COMMENT 'Laufende Nummer der Bestätigung. Referenz zu der Bestätigung. Aus etens',
+	BEST_ENTW_TYP_ID VARCHAR(1) NOT NULL COLLATE 'en-ci' COMMENT 'Kennzeichen über die Art_2 des Folgebeleges aus bewtp:  E = Wareneingang, Lagerbewegung, U = Warenausgang, Lagerbewegung, L = Lieferschein',
+	MENGE_ANTEIL NUMBER(38,3) NOT NULL COMMENT 'Mengenanteil der Gesamtbestellmenge, den Sie dieser Kontierungsposition zuordnen möchten. Aus bamng  Die eingegebene Menge bestimmt, welchen Anteil der Kosten Sie auf diese Kontierungsposition verteilen möchten. Aus bamng',
+	MENGE_BEST NUMBER(38,3) NOT NULL COMMENT 'Menge in Bestellpreismengeneinheit aus bpmng  ',
+	LAGER_BEWART_ID VARCHAR(3) COLLATE 'en-ci' COMMENT 'Schlüssel der Bewegungsarten der Lagerbewegung aus bwart.',
+	DAT_BUCH DATE COMMENT 'Buchungsdatum des Beleges aus budat',
+	MENGE_BASIS NUMBER(38,3) COMMENT 'Menge in Basismeingeneinheit aus menge',
+	BETRAG_EK_NETTO NUMBER(38,4) WITH MASKING POLICY #unknown_policy COMMENT 'Mit dem ek_netto (Rechnungs-Einkaufspreis) bewertete Warenmenge: menge_basis * ek_netto (Quelle: dmbtr).',
+	WRG_ID VARCHAR(3) COLLATE 'en-ci' COMMENT 'Hauswährung. Kurzbezeichnung der Währung, z.Bsp. CZK, EUR. Aus hswae',
+	SOLL_HABEN_KZ VARCHAR(1) NOT NULL COLLATE 'en-ci' COMMENT 'Zeigt, auf welcher Seite des Kontos (S = Soll, H = Haben) die Fortschreibung der Verkehrszahlen erfolgt. Aus shkzg',
+	REF_BELEG_ID NUMBER(38,0) COMMENT 'Belegnummer des Referenzbeleges aus lfbnr',
+	REF_BELEG_POS_ID NUMBER(38,0) COMMENT 'Position des Referenzbeleges aus lfpos',
+	REF_GJ NUMBER(38,0) COMMENT 'Geschäftsjahr des Referenzbeleges aus lfgja.',
+	SYSTEM_ID NUMBER(38,0) NOT NULL DEFAULT 7 COMMENT 'Die System ID kennzeichnet das Quellsystem der Daten (z. B. SAP PR1).',
+	BETRAG_WRBTR NUMBER(38,4) WITH MASKING POLICY #unknown_policy COMMENT 'Betrag in Belegwährung aus wrbtr. Muss unbedingt 1:1 aus SAP kommen, um Kursdifferenzen zum GLD auszuwerten',
+	WRG_ID_BELEG VARCHAR(3) COLLATE 'en-ci' COMMENT 'Belegwährung - Kurzbezeichnung der Währung, z.Bsp. CZK, EUR. Referenz zur Tabelle wrg. Aus waers',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	constraint PK_BEST_BELEGFLUSS primary key (MANDANT_ID, BEST_BELEG_POS_ID, BEST_BELEG_ID, KONTIERUNG_POS_ID, VORGART_BEST_ENTW_ID, FOLGE_BELEG_ID, FOLGE_BELEG_POS_ID, KJ)
+)COMMENT='TP408_LVS - In dieser Tabelle ist die Historie zu dem Bestellbeleg aus der SAP Quelle EKBE hinterlegt.'
+;

@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW DBP_VIEW.V_L_DIF_TYP_2
+AS
+SELECT
+dif_typ_id
+FROM dbp_data.l_dif_typ_2;

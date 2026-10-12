@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE idq_production_sp_mep.inob_2 (
+mandt STRING(3) NOT NULL,
+cuobj NUMERIC(18,0) NOT NULL,
+klart STRING(3),
+obtab STRING(30),
+objek STRING(50),
+robtab STRING(30),
+robjek STRING(50),
+clint NUMERIC(10,0),
+statu STRING(1),
+cucozhl NUMERIC(4,0),
+parent NUMERIC(18,0),
+root NUMERIC(18,0),
+experte STRING(1),
+matnr STRING(18),
+datuv DATE,
+techs STRING(12),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (mandt, cuobj) NOT ENFORCED
+);

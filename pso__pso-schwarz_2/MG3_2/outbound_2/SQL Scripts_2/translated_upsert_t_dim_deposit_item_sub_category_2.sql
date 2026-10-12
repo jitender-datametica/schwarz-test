@@ -1,0 +1,11 @@
+TRUNCATE TABLE szd_production_core.t_dim_deposit_item_sub_category_2;
+
+
+INSERT INTO szd_production_core.t_dim_deposit_item_sub_category_2 (deposit_item_sub_cat_id, deposit_item_cat_cd,
+ deposit_item_sub_cat_descr, deposit_item_sub_cat_descr_de, deposit_item_sub_cat_descr_en, dwh_created_tmsp,
+ dwh_updated_tmsp)
+(SELECT *
+ FROM szd_production_etl.t_dim_deposit_item_sub_category_temp_2);
+
+
+COMMIT TRANSACTION;

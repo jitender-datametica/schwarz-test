@@ -1,0 +1,6 @@
+CREATE OR REPLACE PROCEDURE idq_production_eks_calculation.srwrf_matgrp_sku_eks_item_zlegacynode_constructed_upd()
+BEGIN
+UPDATE idq_production_eks_calculation.stwrf_matgrp_sku_eks_item_2 SET
+    zlegacynode = sr.zlegacynodenew FROM idq_production_eks_calculation.srwrf_matgrp_sku_eks_item_zlegacynode_constructed_updsel_2 AS sr
+WHERE stwrf_matgrp_sku_eks_item.itemid = sr.itemid;
+END;

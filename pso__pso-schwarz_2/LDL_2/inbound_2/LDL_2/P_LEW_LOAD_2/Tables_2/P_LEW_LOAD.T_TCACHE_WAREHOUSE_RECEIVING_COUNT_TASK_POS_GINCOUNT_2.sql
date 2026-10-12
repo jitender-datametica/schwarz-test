@@ -1,0 +1,26 @@
+CREATE TABLE P_LEW_LOAD.T_TCACHE_WAREHOUSE_RECEIVING_COUNT_TASK_POS_GINCOUNT_2 (
+	CLIENT_ID NUMBER(38,0) NOT NULL COMMENT 'DWH-Mandant_2; FK auf CLIENT.',
+	WH_RCV_CNT_TASK_SID NUMBER(38,0) NOT NULL COMMENT 'Surrogate identifier to be created (country_2, warehouse, inbound delivery / TaskID and creation date is generally unique).',
+	WH_RCV_CNT_TASK_POS_NR NUMBER(38,0) NOT NULL COMMENT 'Position code per receiving count task.',
+	WH_LOC_SID NUMBER(38,0) NOT NULL COMMENT 'Warehouse; FK auf LOCATION.',
+	WH_DOCKING_GATE_NR VARCHAR(100) COMMENT 'Identifier of the docking gate at the warehouse where the transportation vehicle docks for loading and unloading.',
+	ITEM_SID NUMBER(38,0) COMMENT 'Surrogate Key ITEM_2 (eindeutig ueber alle Laender/Mandanten hinweg).',
+	PO_NR NUMBER(38,0) NOT NULL COMMENT 'Supplier_2 SID from where the receiving item_2 departed.',
+	DESPATCH_ADVICE_ID NUMBER(28,0) COMMENT 'Reference to a despatch advice, if a despatch advice technically has been used in the counting process.',
+	POS_CREATED_DT DATE COMMENT 'Date when the counting task position has been created.',
+	POS_STATUS_ID NUMBER(38,0) COMMENT 'Status_2 of the receiving count task position like GR posted, rejected, not valid, open, etc.',
+	RCV_RECEIPT_ID NUMBER(38,0) COMMENT 'ID of the generated item_2 receiving record (if an item_2 receiving record has been created).',
+	PALLET_CNT NUMBER(38,0) COMMENT 'Count of pallets in the task position.',
+	CASE_CNT NUMBER(38,0) COMMENT 'Count of cases in the task position.',
+	CASE_PER_PALLET_CNT NUMBER(38,0) COMMENT 'Count of cases per pallet.',
+	SSCC VARCHAR(100) COMMENT 'Handling unit_2 identifier.',
+	PALLET_TYPE_CD VARCHAR(100) COMMENT 'Pallet type code like EU, DD, etc.',
+	REJECTED_FG NUMBER(38,0) COMMENT 'Flag for when pallets were rejected.',
+	ORDER_RECORD_ID VARCHAR(100) COMMENT 'Order number: src_orig_supplier_nr (4 digits), date (DDMMYY, 6 digits) and counting version number (2 digits) for supllier - Date combination; Wawi: PO_NR.',
+	CASE_SIZE_QTY NUMBER(38,5) COMMENT 'Case size quantity of the package_2 unit_2 (Kolli).',
+	DWH_LOAD_ID NUMBER(38,0) NOT NULL COMMENT 'The identifier of the last load run which inserted or updated this row.',
+	DWH_CREATED TIMESTAMP_NTZ(9) NOT NULL COMMENT 'The point in time when this record was created in the data warehouse.',
+	DWH_UPDATED TIMESTAMP_NTZ(9) NOT NULL COMMENT 'The point in time when this record was last updated.',
+	CONSTRAINT PK_T_TCACHE_WAREHOUSE_RECEIVING_COUNT_TASK_POS_GINCOUNT PRIMARY KEY (WH_RCV_CNT_TASK_SID, PO_NR)
+)COMMENT='Table contains position or line-wise data of the counting task / inbound delivery of the receiving pallet from suppliers, store returns, warehouse transfers to warehouses.\n             Source:\n             WAWI table wh_move_egin_pos,'
+;

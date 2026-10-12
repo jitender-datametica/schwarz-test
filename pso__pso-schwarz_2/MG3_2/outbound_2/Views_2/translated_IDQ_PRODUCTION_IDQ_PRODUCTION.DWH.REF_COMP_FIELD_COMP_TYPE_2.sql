@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW idq_production_dwh.ref_comp_field_comp_type_2 (ref_field_comp_type_id, ref_field_comp_type_name) AS
+SELECT id AS ref_field_comp_type_id,
+ name AS ref_field_comp_type_name
+FROM idq_production_idq_results.ref_comp_field_comp_type_2;

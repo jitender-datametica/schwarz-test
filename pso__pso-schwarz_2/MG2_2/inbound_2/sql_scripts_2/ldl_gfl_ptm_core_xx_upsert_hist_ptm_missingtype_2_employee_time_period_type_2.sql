@@ -1,0 +1,48 @@
+INSERT INTO  ${TEMP_DB}.${SRC2TGT_TEMP_TABLE1}_${SRC_CONTEXT_AREA}
+(
+        EMP_TM_PERIOD_TYPE_KEY_TYPE_CD,
+        EMP_TM_PERIOD_TYPE_NATURAL_KEY,
+        INT_COMPANY_KEY_TYPE_CD,
+        INT_COMPANY_NATURAL_KEY,
+        EMP_TM_PERIOD_TYPE_ID,
+        EMP_TM_PERIOD_TYPE_CD,
+        EMP_TM_PERIOD_TYPE_SHORT_DESCR,
+        EMP_TM_PERIOD_TYPE_DESCR,
+        PERF_RELEVANT_FG,
+        ON_SITE_FG,
+        ACTIVE_FROM_DT,
+        ACTIVE_TO_DT,
+        SOURCE_SYSTEM,
+        EXTRACTION_DT,
+        DWH_MAPPING_TMSP,
+        TF_ERROR_FG,
+        DELETED_FG,
+        RECORD_ID,
+        FILENAME,
+        DWH_NODE_CD,
+        DWH_LOAD_ID
+)
+SELECT
+        'GPS'             AS EMP_TM_PERIOD_TYPE_KEY_TYPE_CD,
+        upper(substring(bic_zmlila,1,2))||ltrim(wh_id,'0')||'|'||ltrim(sap_cd,'') AS EMP_TM_PERIOD_TYPE_NATURAL_KEY,
+        'COMPANY'         AS INT_COMPANY_KEY_TYPE_CD,
+        upper(bic_zmlila)||'|'||ltrim(wh_id,'0') AS INT_COMPANY_NATURAL_KEY,
+        missingtype_id    AS EMP_TM_PERIOD_TYPE_ID,
+        sap_cd            AS EMP_TM_PERIOD_TYPE_CD,
+        missingtype_short_desc AS EMP_TM_PERIOD_TYPE_SHORT_DESCR,
+        missingtype_desc  AS EMP_TM_PERIOD_TYPE_DESCR,
+        missingtype_perf_rel_fg AS PERF_RELEVANT_FG,
+        presence_fg       AS ON_SITE_FG,
+        '1900-01-01'      AS ACTIVE_FROM_DT,
+        '9999-12-31'      AS ACTIVE_TO_DT,
+        'SAP_PTM'         AS SOURCE_SYSTEM,
+        CURRENT_DATE      AS EXTRACTION_DT,
+        current_timestamp AS DWH_MAPPING_TMSP,
+        0                 AS TF_ERROR_FG,
+        0                 AS DELETED_FG,
+        0                 AS RECORD_ID,
+        't_${SRC_INPUT_TABLE}' AS FILENAME,
+        'SAP_PTM' AS DWH_NODE_CD,
+        '${LOAD_ID}' AS DWH_LOAD_ID 
+FROM etl_process.t_${SRC_INPUT_TABLE} SRC
+

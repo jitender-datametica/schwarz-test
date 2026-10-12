@@ -1,0 +1,28 @@
+CREATE OR REPLACE VIEW idq_production_kfl_ret_hr.zact1_2 (mandt, actnr, matnr, wvrkm, ekgrp, excep, child, pmata, theme,
+lifnr, block, activ, xpost, bb_posted, grpgnr, bbynr, present, c1, c2, loevm, pos, country_code, td_insert, td_update)
+AS SELECT mandt,
+ actnr,
+ matnr,
+ wvrkm,
+ ekgrp,
+ excep,
+ child,
+ pmata,
+ theme,
+ lifnr,
+ block,
+ activ,
+ xpost,
+ bb_posted,
+ grpgnr,
+ bbynr,
+ present,
+ c1,
+ c2,
+ loevm,
+ pos,
+ country_code,
+ td_insert,
+ td_update
+FROM idq_production_kfl_ret.zact1_2
+WHERE country_code IN ('HR', 'hr');

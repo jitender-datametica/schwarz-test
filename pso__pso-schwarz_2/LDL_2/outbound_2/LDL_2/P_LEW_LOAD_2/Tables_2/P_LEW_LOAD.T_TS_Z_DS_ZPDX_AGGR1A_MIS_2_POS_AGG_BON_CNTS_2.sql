@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_z_ds_zpdx_aggr1a_mis_2_pos_agg_bon_cnts_2 (
+record_id INTEGER,
+client_id BIGNUMERIC(38),
+loc_sid BIGNUMERIC(38),
+aggr_nr BIGNUMERIC(38),
+cnt_receipts_sales BIGNUMERIC(38),
+cnt_receipts_returns BIGNUMERIC(38),
+cnt_receiptlines_total BIGNUMERIC(38),
+cnt_receiptlines_sales BIGNUMERIC(38),
+cnt_receiptlines_returns BIGNUMERIC(38),
+trans_start_tmsp DATETIME,
+trans_end_tmsp DATETIME,
+dwh_cal_dt DATE,
+dwh_load_id BIGNUMERIC(38),
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

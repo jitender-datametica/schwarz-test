@@ -1,0 +1,4 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ais_kmo.mv_sprachauswahl_bg_2 AS SELECT mandant_id,
+ '\\u041E\\u043F\\u0438\\u0441\\u0430\\u043D\\u0438\\u044F\\u0442\\u0430\\u0020\\u043D\\u0430\\u0020\\u043F\\u043E\\u043A\\u0430\\u0437\\u0430\\u0442\\u0435\\u043B\\u0438\\u0442\\u0435\\u0020\\u0449\\u0435\\u0020\\u0441\\u0435\\u0020\\u043F\\u043E\\u043A\\u0430\\u0437\\u0432\\u0430\\u0442\\u0020\\u043D\\u0430\\u0020\\u0431\\u044A\\u043B\\u0433\\u0430\\u0440\\u0441\\u043A\\u0438\\u0020\\u0435\\u0437\\u0438\\u043A'
+ AS bg_text
+FROM kfl_production_dbp_view.v_mandant_2;

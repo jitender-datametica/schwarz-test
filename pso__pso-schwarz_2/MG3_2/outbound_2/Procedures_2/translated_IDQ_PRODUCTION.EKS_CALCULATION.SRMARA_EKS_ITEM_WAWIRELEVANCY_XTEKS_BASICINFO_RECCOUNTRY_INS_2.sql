@@ -1,0 +1,6 @@
+CREATE OR REPLACE PROCEDURE idq_production_eks_calculation.srmara_eks_item_wawirelevancy_xteks_basicinfo_reccountry_ins()
+BEGIN
+INSERT INTO idq_production_eks_calculation.xteks_basicinfo_reccountry_2 (listingoverviewid, casesize, itemid, itemno, sk_itemid, sk_itemno, sk_description_int, basicpriceunit, receivingcountry, supplierno, basicpriceid, contractpricerelid, contractlinkid, locationid, contractpricevalidityid, decimalcasesize, zisvalidcontract, ziswawirelevant)
+(SELECT CAST(listingoverviewid AS INTEGER) AS listingoverviewid, CAST(casesize AS INTEGER) AS casesize, CAST(itemid AS INTEGER) AS itemid, CAST(itemno AS INTEGER) AS itemno, CAST(sk_itemid AS INTEGER) AS sk_itemid, CAST(sk_itemno AS INTEGER) AS sk_itemno, sk_description_int, basicpriceunit, receivingcountry, CAST(supplierno AS INTEGER) AS supplierno, CAST(basicpriceid AS INTEGER) AS basicpriceid, CAST(contractpricerelid AS INTEGER) AS contractpricerelid, CAST(contractlinkid AS INTEGER) AS contractlinkid, CAST(locationid AS INTEGER) AS locationid, CAST(contractpricevalidityid AS INTEGER) AS contractpricevalidityid, decimalcasesize, zisvalidcontract, ziswawirelevant
+    FROM idq_production_eks_calculation.srmara_eks_item_wawirelevancy_xteks_basicinfo_reccountry_inssel_2);
+END;

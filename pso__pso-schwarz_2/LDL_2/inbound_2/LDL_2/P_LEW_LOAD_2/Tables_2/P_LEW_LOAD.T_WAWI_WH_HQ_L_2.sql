@@ -1,0 +1,27 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_WAWI_WH_HQ_L_2
+(
+  COUNTRY_ISO_CD        VARCHAR(3) COLLATE 'en-ci'    NOT NULL,
+  WH_ID_HQ              VARCHAR(3) COLLATE 'en-ci'    NOT NULL,
+  WH_ID                 NUMBER(3,0)                   NOT NULL,
+  WH_DESC               VARCHAR(35) COLLATE 'en-ci'   NULL,
+  COUNTRY_CD            VARCHAR(3) COLLATE 'en-ci'    NULL,
+  STREET                VARCHAR(35) COLLATE 'en-ci'   NULL,
+  ZIPCODE               VARCHAR(15) COLLATE 'en-ci'   NULL,
+  CITY                  VARCHAR(35) COLLATE 'en-ci'   NULL,
+  ZIPCODE_POSTBOX       VARCHAR(15) COLLATE 'en-ci'   NULL,
+  POSTBOX               VARCHAR(35) COLLATE 'en-ci'   NULL,
+  PHONE                 VARCHAR(35) COLLATE 'en-ci'   NULL,
+  FAX                   VARCHAR(35) COLLATE 'en-ci'   NULL,
+  MODEM                 VARCHAR(35) COLLATE 'en-ci'   NULL,
+  COSTCENTER_CD         NUMBER(38)                    NULL,
+  COMPANY               VARCHAR(35) COLLATE 'en-ci'   NULL,
+  ORDER_BUYING_LIST_CD  NUMBER(38)                    NULL,
+  VAT_REGION_NR         VARCHAR(20) COLLATE 'en-ci'   NULL,
+  REGION_CD             NUMBER(38)                    NULL,
+  DAT_OPENING           DATE                          NULL,
+  STOCK_PLAIN           NUMBER(8,0)                   NULL,
+  SPONSION              VARCHAR(30) COLLATE 'en-ci'   NULL,
+  GLOBAL_LOCATION_NR    VARCHAR(13) COLLATE 'en-ci'   NULL,
+  DAT_DAYEND            DATE                          NULL,
+  LOAD_ID               NUMBER(38)                    NOT NULL
+);

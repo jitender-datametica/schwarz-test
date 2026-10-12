@@ -1,0 +1,23 @@
+CREATE OR REPLACE TABLE share_platform_uapc_etl.sap_ret_zvkp3_staging_bg_2 (
+mandt STRING(16777216),
+preiskz STRING(16777216),
+vkorg STRING(16777216),
+vtweg STRING(16777216),
+werks STRING(16777216),
+matnr STRING(16777216),
+datab DATE,
+timab STRING(16777216),
+kschl STRING(16777216),
+datbi DATE,
+timbi STRING(16777216),
+matkl STRING(16777216),
+bbtyp STRING(16777216),
+kbetr NUMERIC(12,2),
+konwa STRING(16777216),
+trmed STRING(16777216),
+aedat DATE,
+aezeit BIGNUMERIC(38,0),
+noprint STRING(16777216),
+quelle STRING(16777216),
+mandant_id STRING(16777216) NOT NULL
+);

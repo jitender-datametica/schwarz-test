@@ -1,0 +1,32 @@
+DELETE FROM  ETL_PROCESS.T_LOOKUP_INSTR_2 WHERE SOURCE_SYSTEM='lisy';
+
+INSERT INTO ETL_PROCESS.T_LOOKUP_INSTR_2 (COUNTRY_2,TARGET_TABLE,SOURCE_SYSTEM,SOURCE_UNIQUE_NAME,SID_ALIAS,SID_NAME,TABLE_NAME,NATURAL_KEYS,TEMP_ALIAS_KEYS,ADD_TEMPORAL_JOIN,LKP_TABLE_AREA,KEYSPACE_SCHEMA,KEYSPACE_SUBJECT_AREA,KEYSPACE_KEY_TYPE_CD,KEYSPACE_NATURAL_KEY_NAME,KEYSPACE_SID_KEY_NAME) VALUES
+	 ('xx','t_postal_code_area_2','lisy','xx','country_sid','country_sid','xx','country_nat_key_nr','country_nat_key_nr','no','meta','meta','geographical_area','geo_area_key_type_cd','geo_area_nat_key_nr','geo_area_sid'),
+	 ('xx','t_postal_code_area_2','lisy','xx','postal_cd_area_sid','postal_cd_area_sid','xx','postal_cd_area_nat_key_nr','postal_cd_area_nat_key_nr','no','meta','meta','geographical_area','geo_area_key_type_cd','geo_area_nat_key_nr','geo_area_sid'),
+	 ('xx','t_district_2','lisy','xx','district_sid','district_sid','xx','district_nat_key_nr','district_nat_key_nr','no','meta','meta','geographical_area','geo_area_key_type_cd','geo_area_nat_key_nr','geo_area_sid'),
+	 ('xx','t_district_2','lisy','xx','country_sid','country_sid','xx','country_nat_key_nr','country_nat_key_nr','no','meta','meta','geographical_area','geo_area_key_type_cd','geo_area_nat_key_nr','geo_area_sid'),
+	 ('xx','t_district_2','lisy','xx','city_sid','city_sid','xx','city_nat_key_nr','city_nat_key_nr','no','meta','meta','geographical_area','geo_area_key_type_cd','geo_area_nat_key_nr','geo_area_sid'),
+	 ('xx','t_city_2','lisy','xx','country_sid','country_sid','xx','country_nat_key_nr','country_nat_key_nr','no','meta','meta','geographical_area','geo_area_key_type_cd','geo_area_nat_key_nr','geo_area_sid'),
+	 ('xx','t_city_2','lisy','xx','city_sid','city_sid','xx','city_nat_key_nr','city_nat_key_nr','no','meta','meta','geographical_area','geo_area_key_type_cd','geo_area_nat_key_nr','geo_area_sid'),
+	 ('xx','t_street_address_2','lisy','xx','reporting_country_sid','reporting_country_sid','xx','igl_isocode2','igl_isocode2','no','meta','meta','geographical_area','geo_area_key_type_cd','geo_area_nat_key_nr','geo_area_sid'),
+	 ('xx','t_street_address_2','lisy','xx','postal_cd_area_sid','postal_cd_area_sid','xx','igl_isocode2,zip','igl_isocode2,zip','no','meta','meta','geographical_area','geo_area_key_type_cd','geo_area_nat_key_nr','geo_area_sid'),
+	 ('xx','t_street_address_2','lisy','xx','district_sid','district_sid','xx','district_nk','district_nk','no','meta','meta','geographical_area','geo_area_key_type_cd','geo_area_nat_key_nr','geo_area_sid'),
+	 ('xx','t_street_address_2','lisy','xx','city_sid','city_sid','xx','igl_isocode2,city_name','igl_isocode2,city_name','no','meta','meta','geographical_area','geo_area_key_type_cd','geo_area_nat_key_nr','geo_area_sid'),
+	 ('xx','t_street_address_2','lisy','xx','country_sid','country_sid','xx','igl_isocode2','igl_isocode2','no','meta','meta','geographical_area','geo_area_key_type_cd','geo_area_nat_key_nr','geo_area_sid'),
+	 ('xx','t_street_address_2','lisy','xx','street_addr_sid','street_addr_sid','xx','street_addr_nk','street_addr_nk','no','meta','meta','address_2','addr_key_type_cd','addr_nat_key_nr','addr_sid'),
+	 ('xx','t_real_estate_status_2','lisy','xx','real_estate_sid','real_estate_sid','xx','real_estate_nk','real_estate_nk','no','meta','meta','resource_item','resource_item_key_type_cd','resource_item_nat_key_nr','resource_item_sid'),
+	 ('xx','t_real_estate_replacement_2','lisy','xx','replacement_real_estate_sid','replacement_real_estate_sid','xx','replacement_real_estate_nk','replacement_real_estate_nk','no','meta','meta','resource_item','resource_item_key_type_cd','resource_item_nat_key_nr','resource_item_sid'),
+	 ('xx','t_real_estate_replacement_2','lisy','xx','real_estate_sid','real_estate_sid','xx','real_estate_nk','real_estate_nk','no','meta','meta','resource_item','resource_item_key_type_cd','resource_item_nat_key_nr','resource_item_sid'),
+	 ('xx','t_real_estate_closing_plan_2','lisy','xx','real_estate_sid','real_estate_sid','xx','real_estate_nk','real_estate_nk','no','meta','meta','resource_item','resource_item_key_type_cd','resource_item_nat_key_nr','resource_item_sid'),
+	 ('xx','t_real_estate_address_2','lisy','xx','addr_sid','addr_sid','xx','addr_natural_key','addr_natural_key','no','meta','meta','address_2','addr_key_type_cd','addr_nat_key_nr','addr_sid'),
+	 ('xx','t_real_estate_address_2','lisy','xx','real_estate_sid','real_estate_sid','xx','real_estate_natural_key','real_estate_natural_key','no','meta','meta','resource_item','resource_item_key_type_cd','resource_item_nat_key_nr','resource_item_sid'),
+	 ('xx','t_real_estate_2','lisy','xx','real_estate_sid','real_estate_sid','xx','real_estate_nk','real_estate_nk','no','meta','meta','resource_item','resource_item_key_type_cd','resource_item_nat_key_nr','resource_item_sid'),
+	 ('xx','t_party_status_2','lisy','xx','party_sid','party_sid','xx','party_natural_key','party_natural_key','no','meta','meta','party','party_key_type_cd','party_nat_key_nr','party_sid'),
+	 ('xx','t_party_address_2','lisy','xx','addr_sid','addr_sid','xx','addr_natural_key','addr_natural_key','no','meta','meta','address_2','addr_key_type_cd','addr_nat_key_nr','addr_sid'),
+	 ('xx','t_party_address_2','lisy','xx','party_sid','party_sid','xx','party_natural_key','party_natural_key','no','meta','meta','party','party_key_type_cd','party_nat_key_nr','party_sid'),
+	 ('xx','t_internal_organization_real_estate_2','lisy','xx','real_estate_sid','real_estate_sid','xx','real_estate_nk','real_estate_nk','no','meta','meta','resource_item','resource_item_key_type_cd','resource_item_nat_key_nr','resource_item_sid'),
+	 ('xx','t_internal_organization_real_estate_2','lisy','xx','int_org_sid','int_org_sid','xx','int_org_nk','int_org_nk','no','meta','meta','party','party_key_type_cd','party_nat_key_nr','party_sid'),
+	 ('xx','t_internal_organization_hierarchy_2','lisy','xx','parent_int_org_sid','parent_int_org_sid','xx','parent_int_org_natural_key','parent_int_org_natural_key','no','meta','meta','party','party_key_type_cd','party_nat_key_nr','party_sid'),
+	 ('xx','t_internal_organization_hierarchy_2','lisy','xx','int_org_sid','int_org_sid','xx','int_org_natural_key','int_org_natural_key','no','meta','meta','party','party_key_type_cd','party_nat_key_nr','party_sid'),
+	 ('xx','t_internal_organization_2','lisy','xx','int_org_sid','int_org_sid','xx','int_org_natural_key','int_org_natural_key','no','meta','meta','party','party_key_type_cd','party_nat_key_nr','party_sid');
+

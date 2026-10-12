@@ -1,0 +1,3 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ais_kmo.mv_l_tip_woche_2 (kjwo_werbe_ende) AS SELECT kjwo_werbe_ende
+FROM kfl_production_dbp_view.v_shopper_2
+GROUP BY kjwo_werbe_ende;

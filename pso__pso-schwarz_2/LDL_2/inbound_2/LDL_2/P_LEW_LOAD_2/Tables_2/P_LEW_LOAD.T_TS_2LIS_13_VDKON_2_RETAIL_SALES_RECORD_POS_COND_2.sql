@@ -1,0 +1,28 @@
+CREATE TRANSIENT TABLE P_LEW_LOAD.T_TS_2LIS_13_VDKON_2_RETAIL_SALES_RECORD_POS_COND_2
+(
+  RECORD_ID                   NUMBER(10,0)                  NULL,
+  CLIENT_ID                   NUMBER(38)                    NULL,
+  RETAIL_SALES_RECORD_ID      NUMBER(20,0)                  NULL,
+  RETAIL_SALES_RECORD_POS_ID  NUMBER(38)                    NULL,
+  COND_TYPE_CD                VARCHAR(20)                   NULL,
+  COND_REC_ID                 NUMBER(38)                    NULL,
+  CURR_SID                    NUMBER(38)                    NULL,
+  UOM_SID                     NUMBER(38)                    NULL,
+  CURR_CD                     VARCHAR(20)                   NULL,
+  COND_VAL                    NUMBER(18,5)                  NULL,
+  GROSS_VAL                   NUMBER(18,5)                  NULL,
+  TAX_VAL                     NUMBER(18,5)                  NULL,
+  NET_VAL                     NUMBER(18,5)                  NULL,
+  UOM_CD                      VARCHAR(20)                   NULL,
+  ACT_QTY                     NUMBER(18,5)                  NULL,
+  LME_QTY                     NUMBER(18,5)                  NULL,
+  DWH_CAL_DT                  DATE                          NULL,
+  DWH_LOAD_ID                 NUMBER(38)                    NULL,
+  DWH_CREATED                 TIMESTAMP_NTZ(6)              NULL,
+  DWH_UPDATED                 TIMESTAMP_NTZ(6)              NULL,
+  DWH_MAPPING_DT              DATE                          NULL,
+  ERROR_FG                    NUMBER(38)                    NULL,
+  ERROR_DESCR                 VARCHAR(1000) COLLATE 'en-ci' NULL,
+  FILENAME                    VARCHAR(1000) COLLATE 'en-ci' NULL,
+  HIST_ROW_NO                 NUMBER(38)                    NULL
+);

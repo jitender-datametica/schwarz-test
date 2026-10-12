@@ -1,0 +1,21 @@
+/*
+#----------------------------------------------------------------------------------------------------------------
+# Interface: DDL for P_LEW_MART_LEAD.V_ESL_PRICE_LABEL_PRICE_HIST_2
+#----------------------------------------------------------------------------------------------------------------
+# History:
+#  1.0  30.08.2024	SIMEON NIKOLAEV	INITIAL SETUP
+#
+#----------------------------------------------------------------------------------------------------------------
+*/
+
+
+CREATE OR REPLACE VIEW ldl_p_lew_mart_lead.v_esl_price_label_price_hist_2 (electronic_price_label_type_cd,
+price_label_producer_name, curr_iso_cd, net_price, deleted_fg, dwh_valid_from, dwh_valid_to) AS SELECT
+ electronic_price_label_type_cd,
+ price_label_producer_name,
+ curr_iso_cd,
+ net_price,
+ deleted_fg,
+ dwh_valid_from,
+ dwh_valid_to
+FROM ldl_p_lew_core_ac.v_esl_price_label_price_hist_2;

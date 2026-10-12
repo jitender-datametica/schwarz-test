@@ -1,0 +1,33 @@
+/*
+#----------------------------------------------------------------------------
+# Coupon Type
+#----------------------------------------------------------------------------
+# History:
+#
+#  Vrs Date       Developer               Task
+#  --- ---------- ----------------------- --------------------------------
+#  1.0 2021-12-15 Pawel Wieczorek          SD-2524 Initial version
+#
+#----------------------------------------------------------------------------
+*/
+
+CREATE OR REPLACE VIEW P_LEW_PROCESS_MSTR_AC.V_REF_LDPL_FEATURE_DESC_2
+COMMENT = 'Lidl Plus Feature Description'
+(
+ feature_id                COMMENT 'Feature identifier'
+,feature_desc              COMMENT 'Feature description per language'
+,lang_cd                   COMMENT 'Language code'
+,dwh_load_id               COMMENT 'Load identifier'            
+,dwh_created               COMMENT 'Row insert time'           
+,dwh_updated               COMMENT 'Row update time'            
+)
+AS
+SELECT
+ feature_id
+,feature_desc
+,lang_cd
+,dwh_load_id
+,dwh_created
+,dwh_updated
+FROM P_LEW_PROCESS_MSTR.V_REF_LDPL_FEATURE_DESC_2;
+

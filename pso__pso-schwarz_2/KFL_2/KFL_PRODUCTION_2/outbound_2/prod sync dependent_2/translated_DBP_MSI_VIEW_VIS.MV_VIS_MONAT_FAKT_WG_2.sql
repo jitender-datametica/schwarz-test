@@ -1,0 +1,21 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_vis.mv_vis_monat_fakt_wg_2 (mandant_id, nb_id, wup_id, wrg_id,
+arthiertyp_id, abt_id, wg_id, kjmo, gj, ums_netto, ums_netto_kvj, ums_netto_kvvj, ums_brutto, ums_brutto_kvj, menge,
+menge_kvj, menge_kvvj) AS SELECT V01.mandant_id,
+ V01.nb_id,
+ WUP.aktuell_wup_id AS wup_id,
+ V01.wrg_id,
+ V01.arthiertyp_id,
+ V01.abt_id,
+ V01.wg_id,
+ V01.kjmo,
+ V01.gj,
+ V01.ums_netto,
+ V01.ums_netto_kvj,
+ V01.ums_netto_kvvj,
+ V01.ums_brutto,
+ V01.ums_brutto_kvj,
+ V01.menge_absatz AS menge,
+ V01.menge_absatz_kvj AS menge_kvj,
+ V01.menge_absatz_kvvj AS menge_kvvj
+FROM kfl_production_dbp_msi_v_view.v_vis_monat_umsatz_wg_2 AS V01
+ INNER JOIN kfl_production_dbp_view.v_wup_2 AS WUP_2 ON V01.mandant_id = WUP.mandant_id AND V01.wup_id = WUP.wup_id;

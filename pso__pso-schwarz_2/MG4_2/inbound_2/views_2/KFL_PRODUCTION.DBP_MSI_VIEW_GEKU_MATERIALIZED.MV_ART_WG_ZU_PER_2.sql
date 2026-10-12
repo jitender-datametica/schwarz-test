@@ -1,0 +1,23 @@
+create or replace view KFL_PRODUCTION.DBP_MSI_VIEW_GEKU_MATERIALIZED.MV_ART_WG_ZU_PER_2(
+	ART_ID,
+	MANDANT_ID,
+	ARTHIERTYP_ID,
+	WUG_ID,
+	WG_ID,
+	DAT_VON,
+	DAT_BIS
+) as
+--22.06.2022 twie: SPEC0145413 Verbindung Artikel_2 - Warengruppe
+
+   SELECT
+     v01.art_id
+   , v01.mandant_id
+   , v01.arthiertyp_id
+   , v01.wug_id
+   , v01.wg_id
+   , v01.dat_von
+   , v01.dat_bis
+   FROM dbp_view.v_art_wg_zu_per_2 v01
+
+   WHERE v01.arthiertyp_id = 2
+   AND v01.dat_bis = '9999-12-31';

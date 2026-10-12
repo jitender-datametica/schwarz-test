@@ -1,0 +1,22 @@
+CREATE OR REPLACE VIEW idq_production_eks_calculation.svmara_eks_item_dq_eks_missingkolligtin_sel_2 (negotiatingcountry,
+buyershortsign, buyerfirstname, buyerlastname, zmatkl, articlefamily, itemid, itemno, articletype, description,
+decimalcasesize, kolligtin, listingoverviewid, supplierno, supplierdescription, zrelevantmdm, zsource, zactive) AS
+SELECT negotiatingcountry,
+ buyershortsign,
+ buyerfirstname,
+ buyerlastname,
+ zmatkl,
+ articlefamily,
+ itemid,
+ itemno,
+ articletype,
+ description_int AS description,
+ decimalcasesize,
+ kolligtin,
+ listingoverviewid,
+ supplierno,
+ supplierdescription,
+ zrelevantmdm,
+ zsource,
+ zactive
+FROM idq_production_eks_calculation.svmara_eks_item_dq_eks_missingkolligtin_sel_all_2;

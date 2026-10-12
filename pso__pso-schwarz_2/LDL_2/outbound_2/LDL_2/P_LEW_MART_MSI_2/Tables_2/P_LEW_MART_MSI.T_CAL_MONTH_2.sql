@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_mart_msi.t_cal_month_2 (
+cy_month BIGNUMERIC(38,0) NOT NULL,
+prev_month BIGNUMERIC(38,0) NOT NULL,
+prev_cy_month BIGNUMERIC(38,0) NOT NULL,
+preprev_cy_month BIGNUMERIC(38,0) NOT NULL,
+cy BIGNUMERIC(38,0) NOT NULL,
+byr BIGNUMERIC(38,0) NOT NULL,
+cy_month_sequence BIGNUMERIC(38,0) NOT NULL,
+month_id BIGNUMERIC(38,0) NOT NULL
+);

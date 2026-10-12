@@ -1,0 +1,21 @@
+CREATE OR REPLACE TABLE kfl_production_dbp_msi_view_flw_materialized.mv_f_flw_art_werk_prognose_2 (
+mandant_id INTEGER,
+in_art_id INTEGER,
+werk_id INTEGER,
+in_kunde_id INTEGER,
+prognosetyp_id STRING(1) COLLATE 'und:ci',
+dat_lief DATE,
+bestellmenge NUMERIC(29,3),
+dat_bereitstellung DATE,
+dat_erstellung_von DATE,
+dat_erstellung_bis DATE,
+best_menge_einh_id STRING(3) COLLATE 'und:ci',
+frueh_spaet_kz STRING(1) COLLATE 'und:ci',
+bedarfsplan_id STRING(10) COLLATE 'und:ci',
+menge_basis NUMERIC(29,3),
+flw_fg INTEGER,
+prognose_version INTEGER,
+version_lfd_nr INTEGER,
+nr INTEGER,
+version_fg INTEGER
+);

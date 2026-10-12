@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW szd_fe_mstr_wholesale.v_fact_customs_clearance_report_line_per_day_procedure_2 (clearance_dt,
+authority_country_location_sid, customs_procedure_cd, customs_declaration_type_cd, consignor_party_sid, declaration_cnt
+) AS SELECT clearance_dt,
+ authority_country_location_sid,
+ customs_procedure_cd,
+ customs_declaration_type_cd,
+ consignor_party_sid,
+ declaration_cnt
+FROM szd_core.t_fact_customs_clearance_report_line_per_day_procedure_2;

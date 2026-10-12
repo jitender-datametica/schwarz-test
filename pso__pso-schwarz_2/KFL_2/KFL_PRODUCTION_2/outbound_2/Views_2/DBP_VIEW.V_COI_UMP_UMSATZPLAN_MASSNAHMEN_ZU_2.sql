@@ -1,0 +1,17 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_coi_ump_umsatzplan_massnahmen_zu_2 AS SELECT mandant_id,
+ gj_plan,
+ version_id,
+ wup_id,
+ nb_id,
+ dat_plan,
+ arthiertyp_id,
+ hwg_id,
+ massnahme_art_id,
+ massnahme_typ_bez,
+ massnahme_id,
+ wrg_id,
+ massnahme_art_bez,
+ massnahme_auswirkung_bez,
+ faktor,
+ wert
+FROM kfl_production_dbp_data.coi_ump_umsatzplan_massnahmen_zu_2;

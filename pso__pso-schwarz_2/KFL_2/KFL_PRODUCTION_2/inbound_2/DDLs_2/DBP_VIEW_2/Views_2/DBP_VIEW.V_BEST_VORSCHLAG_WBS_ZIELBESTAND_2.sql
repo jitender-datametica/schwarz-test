@@ -1,0 +1,13 @@
+CREATE OR REPLACE VIEW dbp_view.v_best_vorschlag_wbs_zielbestand_2
+ AS
+ SELECT
+MANDANT_ID
+,WUP_ID
+,ART_ID
+,NB_ID
+,AKTION_ID
+,DAT_BEDARF_VON
+,DAT_BEDARF_BIS
+,DAT_LETZTE_NACHVERSORGUNG
+,ZIELENDBESTAND_BME
+ FROM dbp_data.best_vorschlag_wbs_zielbestand_2;

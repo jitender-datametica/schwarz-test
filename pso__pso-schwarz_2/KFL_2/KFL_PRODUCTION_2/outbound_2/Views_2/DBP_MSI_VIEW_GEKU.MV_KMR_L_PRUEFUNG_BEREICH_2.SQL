@@ -1,0 +1,5 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_geku.mv_kmr_l_pruefung_bereich_2 (amx_system_id, pruefung_bereich_id,
+pruefung_bereich_bez) AS SELECT amx_system_id,
+ pruefung_bereich_id,
+ pruefung_bereich_bez
+FROM kfl_production_dbp_view.v_kmr_l_pruefung_bereich_2;

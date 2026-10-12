@@ -1,0 +1,18 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_immo_umsatzmietvereinbarung_2 AS SELECT mv_intreno,
+ umsatzregel,
+ melderegel,
+ ums_staffel_lfd_nr,
+ dat_von,
+ dat_bis,
+ wrg_id,
+ einheit,
+ umsatz_min,
+ umsatz_max,
+ miete_umsatz_prozent,
+ absatz_min,
+ absatz_max,
+ betrag_einheit,
+ ums_staffel_mindestmiete,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.immo_umsatzmietvereinbarung_2;

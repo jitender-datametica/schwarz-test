@@ -1,0 +1,11 @@
+CREATE TABLE META.T_GDPR_DELETION_TABLE_2 (
+        DELETION_TABLE_ID   INT IDENTITY(1,1),
+        TABLE_SCHEMA_ID     INT NOT NULL,
+        TABLE_NAM           VARCHAR2(250),
+        DEL_ACTION          VARCHAR2(10),
+        ACTIVE              VARCHAR(1),
+        TMSP_INSERT         TIMESTAMP_NTZ(9),
+        TMSP_UPDATE         TIMESTAMP_NTZ(9),
+        TABLE_ALIAS         VARCHAR(50),
+        PRIORITY            NUMBER(5,0)
+);

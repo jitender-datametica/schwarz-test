@@ -1,0 +1,2 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_msi_view_ek_kun.mv_crm_l_status_2 (crm_status_id) AS SELECT crm_status_id
+FROM kfl_production_dbp_data.crm_l_status_2;

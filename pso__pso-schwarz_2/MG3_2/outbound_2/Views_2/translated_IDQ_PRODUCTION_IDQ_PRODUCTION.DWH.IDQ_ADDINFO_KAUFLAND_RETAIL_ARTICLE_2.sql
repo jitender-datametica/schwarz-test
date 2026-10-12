@@ -1,0 +1,27 @@
+CREATE OR REPLACE VIEW idq_production_dwh.idq_addinfo_kaufland_retail_article_2 (idq_addinfo_kaufland_retail_article_id,
+idq_test_object_id, ref_branch_id, source_system_primary_key, ref_source_system_id, ref_country_id, is_relevant,
+system_id, mandt, matnr, matkl, owg, owg_decs, wekgr, eknam, ean11, mstae, wgi, artikelbezeichnung_de,
+ref_mail_kfl_eknr_id, zsm_itemnr) AS SELECT idq_addinfo_kaufland_retail_article.id AS
+ idq_addinfo_kaufland_retail_article_id,
+ idq_addinfo_kaufland_retail_article.test_object_id AS idq_test_object_id,
+ idq_addinfo_kaufland_retail_article.branch_id AS ref_branch_id,
+ RIGHT(idq_addinfo_kaufland_retail_article.source_system_primary_key, 8) AS source_system_primary_key,
+ idq_addinfo_kaufland_retail_article.source_system_id AS ref_source_system_id,
+ idq_addinfo_kaufland_retail_article.country_id AS ref_country_id,
+ idq_addinfo_kaufland_retail_article.is_relevant,
+ idq_addinfo_kaufland_retail_article.systemid AS system_id,
+ idq_addinfo_kaufland_retail_article.mandt,
+ idq_addinfo_kaufland_retail_article.matnr,
+ idq_addinfo_kaufland_retail_article.matkl,
+ idq_addinfo_kaufland_retail_article.owg,
+ idq_addinfo_kaufland_retail_article.owg_decs,
+ idq_addinfo_kaufland_retail_article.wekgr,
+ idq_addinfo_kaufland_retail_article.eknam,
+ idq_addinfo_kaufland_retail_article.ean11,
+ idq_addinfo_kaufland_retail_article.mstae,
+ idq_addinfo_kaufland_retail_article.wgi,
+ idq_addinfo_kaufland_retail_article.artikelbezeichnung_de,
+ kek.ref_mail_kfl_eknr_id,
+ idq_addinfo_kaufland_retail_article.zsm_itemnr
+FROM idq_production_idq_results.idq_addinfo_kaufland_retail_article_2
+ LEFT JOIN idq_production_dwh.ref_mail_kfl_eknr_2 AS kek ON idq_addinfo_kaufland_retail_article.wekgr = kek.ek_nr;

@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_tf_tcache_ptm_plantimeday_2_workingtime_plan_store_day_2 (
+client_id BIGNUMERIC(38) NOT NULL,
+lidl_country STRING(40) NOT NULL,
+tcache_ptm_plantimeday_bic_zmlila STRING(80) NOT NULL,
+tcache_ptm_plantimeday_loc_sid_store INTEGER NOT NULL,
+tcache_ptm_plantimeday_cal_dt DATE NOT NULL,
+loc_sid_store BIGNUMERIC(38) NOT NULL,
+cal_dt DATE NOT NULL,
+turnover_net_val NUMERIC(18,5),
+turnover_per_hour_net_val NUMERIC(18,5),
+hours_total_cnt NUMERIC(18,5),
+hours_working_cnt NUMERIC(18,5),
+hours_inventory_cnt NUMERIC(18,5),
+hours_training_cnt NUMERIC(18,5),
+hours_misc_cnt NUMERIC(18,5),
+plan_update_tmsp DATETIME,
+source_system STRING(20) COLLATE 'und:ci',
+extraction_dt DATE,
+dwh_mapping_dt DATE NOT NULL,
+tf_error_fg INTEGER,
+record_id STRING(300) NOT NULL,
+filename STRING(1000) NOT NULL
+);

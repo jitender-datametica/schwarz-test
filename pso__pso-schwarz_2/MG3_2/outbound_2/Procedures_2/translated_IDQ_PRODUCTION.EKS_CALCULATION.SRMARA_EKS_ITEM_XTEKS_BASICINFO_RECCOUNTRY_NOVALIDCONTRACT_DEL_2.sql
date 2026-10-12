@@ -1,0 +1,5 @@
+CREATE OR REPLACE PROCEDURE idq_production_eks_calculation.srmara_eks_item_xteks_basicinfo_reccountry_novalidcontract_del()
+BEGIN
+DELETE FROM idq_production_eks_calculation.xteks_basicinfo_reccountry_2
+WHERE zisvalidcontract = 0;
+END;

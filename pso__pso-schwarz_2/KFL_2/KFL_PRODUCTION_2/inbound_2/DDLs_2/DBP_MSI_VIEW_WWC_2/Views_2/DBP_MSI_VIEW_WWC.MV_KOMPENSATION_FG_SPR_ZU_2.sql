@@ -1,0 +1,29 @@
+CREATE OR REPLACE VIEW DBP_MSI_VIEW_WWC.MV_KOMPENSATION_FG_SPR_ZU_2
+(
+
+ZAPPROVE
+,ZAPPROVE_bez
+,spr_id
+)
+AS
+
+   SELECT
+   ZAPPROVE, ZAPPROVE_bez, spr_id
+
+   FROM
+   (
+   SELECT
+   CAST(0 AS BYTEINT) AS ZAPPROVE, CAST('noch nicht genehmigt' AS VARCHAR(100)) AS ZAPPROVE_bez, CAST(22 AS SMALLINT) AS spr_id
+   ) v01
+
+   UNION
+
+   SELECT
+   ZAPPROVE, ZAPPROVE_bez, spr_id
+
+   FROM
+   (
+   SELECT
+   CAST(1 AS BYTEINT) AS ZAPPROVE, CAST('genehmigte Gruppe_2' AS VARCHAR(100)) AS ZAPPROVE_bez, CAST(22 AS SMALLINT) AS spr_id
+   ) v02
+;

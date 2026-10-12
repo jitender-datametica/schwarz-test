@@ -1,0 +1,6 @@
+CREATE TABLE ETL.T_CUSTOMER_IDENTIFICATION_TYPE_2 (
+	CUST_IDENT_TYPE_CD VARCHAR(20) NOT NULL COMMENT 'The code identifying the way how the customer identifies himself in the store, e.g. by his loyalty card.',
+	LANG_CD VARCHAR(2) NOT NULL COMMENT 'The code identifying the language.',
+	CUST_IDENT_TYPE_DESCR VARCHAR(250) NOT NULL COMMENT 'A textual description for the way how the customer identifies himself in the store, e.g. by his loyalty card.',
+	CONSTRAINT PK_T_CUSTOMER_IDENTIFICATION_TYPE PRIMARY KEY (CUST_IDENT_TYPE_CD, LANG_CD)
+);

@@ -1,0 +1,49 @@
+CREATE OR REPLACE VIEW P_LEW_MART_LIDL_DIGITAL_AC.V_CALENDAR_LDLP_2
+COMMENT = 'Calendar_2 table used for KPI transformations in Lidl Digital Team'
+(
+ client_id
+,cal_dt
+,cy_week
+,next_cy_week
+,next_year_week
+,cy_month
+,next_cy_month 
+,next_year_month
+,cw_harmo_cal_week_no
+,cw_adjust_growth_fg 
+,pw_harmo_cal_week_no
+,pw_adjust_growth_fg 
+,pyw_harmo_cal_week_no
+,pyw_adjust_growth_fg 
+,cm_harmo_cal_month_no
+,cm_adjust_growth_fg 
+,pm_harmo_cal_month_no
+,pm_adjust_growth_fg 
+,pym_harmo_cal_month_no
+,pym_adjust_growth_fg 
+)
+AS
+SELECT
+ client_id
+,cal_dt
+,cy_week
+,next_cy_week
+,next_year_week
+,cy_month
+,next_cy_month 
+,next_year_month
+,cw_harmo_cal_week_no
+,cw_adjust_growth_fg 
+,pw_harmo_cal_week_no
+,pw_adjust_growth_fg 
+,pyw_harmo_cal_week_no
+,pyw_adjust_growth_fg 
+,cm_harmo_cal_month_no
+,cm_adjust_growth_fg 
+,pm_harmo_cal_month_no
+,pm_adjust_growth_fg 
+,pym_harmo_cal_month_no
+,pym_adjust_growth_fg 
+
+FROM P_LEW_MART_LIDL_DIGITAL.V_CALENDAR_LDLP_2
+;

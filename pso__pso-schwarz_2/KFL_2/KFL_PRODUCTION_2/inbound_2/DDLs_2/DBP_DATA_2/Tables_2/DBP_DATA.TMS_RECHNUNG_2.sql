@@ -1,0 +1,27 @@
+create or replace TABLE KFL_PRODUCTION_CLONE_GCP_MIGRATION_20260608_0800.DBP_DATA.TMS_RECHNUNG_2 (
+	MANDANT_ID NUMBER(38,0) NOT NULL COMMENT 'Mandant_2 im DWH',
+	SYSTEM_ID NUMBER(38,0) NOT NULL COMMENT 'Spezifiziert das Quellsystem, aus dem die Daten kommen.',
+	TMS_RECH_BELEG_ID NUMBER(38,0) NOT NULL COMMENT 'ID der Rechnung (Rechnungsnummer). Aus plrech.beleg_nr',
+	TMS_RECH_LFD_NR NUMBER(38,0) NOT NULL COMMENT 'SKey für die Tabelle tms_rechnung_2 im Quellsystem. Aus plrech.rech_id',
+	DAT_TMS_RECH_BELEG DATE NOT NULL COMMENT 'Belegdatum',
+	EMPFAENGER_TMS_GP_ID VARCHAR(30) COMMENT 'ID des tms_gp_2, welcher hier als Empfänger auftrifft',
+	EMPFAENGER_TMS_GP_TYP_CD VARCHAR(3) COMMENT 'Code für den tms_gp_2-Typ, welcher hier als Empfänger auftrifft',
+	TMS_RECH_BELEG_STATUS_ID NUMBER(38,0) COMMENT 'Status_2 des Rechnungsbelegs. 4 = offen, …',
+	WRG_ID VARCHAR(12) COLLATE 'en-ci' COMMENT 'ISO-Währungskürzel',
+	TMS_RECH_SAMMELBELEG_ID VARCHAR(30) COMMENT 'Sammelbeleg-Nummer. Eine_2 Sammelbeleg-Nummer dient dazu, mehrere Einzelrechnungsnummern (Spalte: \""tms_rech_beleg_id\"") zusammenzufassen, die gemeinsam abgerechnet werden. Wichtig: Die Sammelbeleg-Nummer bezieht sich nicht direkt auf eine_2 einzelne Einzelrechnungsnummer.',
+	ABRECHNUNGSLAUF_ID NUMBER(38,0) COMMENT 'Abrechnungslauf (Nummer)',
+	TMS_RECH_STORNO_BELEG_ID NUMBER(38,0) COMMENT 'Nummer des Stornobelegs(tms_rech_beleg_id) zu diesem Beleg',
+	DAT_STORNO DATE COMMENT 'Datum des Stornobelegs zu diesem Beleg',
+	STORNO_FG NUMBER(38,0) COMMENT 'Kennzeichen, ob der Beleg storniert wurde.',
+	MANUELLER_BELEG_FG NUMBER(38,0) COMMENT 'Kennzeichen für einen manuell erstellten Beleg (Bei manuellen Belegen wird bei der Kostensplittung (PLAUST) anders vorgegangen!)',
+	FREIGEGEBEN_FG NUMBER(38,0) COMMENT 'Kennzeichen, ob der Beleg freigegeben wurde.',
+	GEDRUCKT_FG NUMBER(38,0) COMMENT 'Kennzeichen, ob der Beleg gedruckt wurde.',
+	TMS_DISPOSTELLE_ID NUMBER(38,0) COMMENT 'ID des zuständigen Dispostelles für die Rechnung',
+	ERSTELLER_TMS_GP_ID VARCHAR(30) COMMENT 'ID des tms_gp_2, welcher hier als Ersteller des Rechnungsbelegs auftrifft',
+	ERSTELLER_TMS_GP_TYP_CD VARCHAR(3) COMMENT 'Code für den tms_gp_2-Typ, welcher hier als Ersteller des Rechnungsbelegs auftrifft',
+	TMS_RECH_BELEG_TYP_ID NUMBER(38,0) NOT NULL COMMENT 'Typ des gespeicherten Belegs: 0 = Rechnung; 1 = Gutschrift; 2 = Offerte; 3 = Tourkosten SOLL; 4 = Tourkosten IST; 5 = Fuhrparkkosten; 6 = Tankdaten.',
+	TD_UPDATE TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	TD_INSERT TIMESTAMP_LTZ(9) COMMENT 'Technical fields for synchronisation framework. Will be delted after last product migration',
+	constraint PK_TMS_RECHNUNG primary key (MANDANT_ID, SYSTEM_ID, TMS_RECH_BELEG_ID)
+)COMMENT='TMS - Die Tabelle enthält die Informationen über TMS-Rechnungen, einschließlich Rechnungsnummer, Empfänger, Rechnungsbetrag, Storno und Zahlungsstatus. Aus der Quelle plrech (WANKO)'
+;

@@ -1,0 +1,8 @@
+CREATE OR REPLACE VIEW kfl_production_dbp_view.v_lagerprozessart_spr_zu_2 AS SELECT mandant_id,
+ spr_id,
+ lagernummer_id,
+ lagerprozessart_id,
+ lagerprozessart_bez,
+ td_update,
+ td_insert
+FROM kfl_production_dbp_data.lagerprozessart_spr_zu_2;

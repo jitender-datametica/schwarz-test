@@ -1,0 +1,49 @@
+--[OK] statement is translated correctly (syntax and type checks are fine)
+
+
+DELETE FROM dbp_data.art_wup_ek_zu_per_2
+WHERE mandant_id > 1;
+
+
+--[OK] statement is translated correctly (syntax and type checks are fine)
+
+
+INSERT INTO dbp_data.art_wup_ek_zu_per_2 (
+    art_id, mandant_id, wup_id, nb_id, dat_von, dat_bis, ek_netto,
+    ek_netto_bnk,
+    ek_mep,
+    einstandspreis,
+    komponentenmenge,
+    wrg_id,
+    ek_nettonetto,
+    kein_zekp_fg
+)
+(SELECT
+    art_id,
+    mandant_id,
+    wup_id,
+    nb_id,
+    dat_von,
+    dat_bis,
+    ek_netto,
+    ek_netto_bnk,
+    ek_mep,
+    einstandspreis,
+    komponentenmenge,
+    wrg_id,
+    ek_nettonetto,
+    kein_zekp_fg
+FROM dbp_etl.art_wup_ek_zu_per_rb_kmo_2
+WHERE mandant_id > 1);
+
+
+--[OK] statement is translated correctly (syntax and type checks are fine)
+
+
+DROP TABLE IF EXISTS dbp_etl.art_wup_ek_zu_per_rb_kmo_2;
+
+
+--[OK] statement is translated correctly (syntax and type checks are fine)
+
+
+DROP TABLE IF EXISTS dbp_etl.art_wup_ek_datum_relevant_kmo_2;

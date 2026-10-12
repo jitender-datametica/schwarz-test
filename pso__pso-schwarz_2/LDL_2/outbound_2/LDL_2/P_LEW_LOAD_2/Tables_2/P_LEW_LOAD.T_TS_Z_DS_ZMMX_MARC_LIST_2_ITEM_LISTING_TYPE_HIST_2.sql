@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS ldl_p_lew_load.t_ts_z_ds_zmmx_marc_list_2_item_listing_type_hist_2 (
+record_id INTEGER,
+client_id BIGNUMERIC(38),
+item_sid BIGNUMERIC(38),
+loc_sid BIGNUMERIC(38),
+active_from_dt DATE,
+active_to_dt DATE,
+list_type_mark STRING(20),
+list_type_label STRING(100) COLLATE 'und:ci',
+deleted_fg BIGNUMERIC(38),
+dwh_valid_from DATE,
+dwh_valid_to DATE,
+dwh_load_id BIGNUMERIC(38),
+dwh_created DATETIME,
+dwh_updated DATETIME,
+dwh_mapping_dt DATE,
+error_fg BIGNUMERIC(38),
+error_descr STRING(1000) COLLATE 'und:ci',
+filename STRING(1000) COLLATE 'und:ci',
+hist_row_no BIGNUMERIC(38)
+);

@@ -1,0 +1,22 @@
+CREATE OR REPLACE TABLE idq_production_zsm.zsm_mm_timd_bk_2 (
+mandt STRING(3) NOT NULL,
+lifnr STRING(10) NOT NULL,
+guid STRING(32) NOT NULL,
+snum NUMERIC(6,0),
+bukrs STRING(4),
+zsm_indicator NUMERIC(3,0),
+datab DATE,
+datbi DATE,
+iban STRING(34),
+banks STRING(3),
+bankl STRING(15),
+bkont STRING(2),
+bnklz STRING(15),
+swift STRING(11),
+banka STRING(60),
+bankn STRING(18),
+country_code STRING(2),
+td_insert TIMESTAMP,
+td_update TIMESTAMP,
+PRIMARY KEY (mandt, lifnr, guid) NOT ENFORCED
+);

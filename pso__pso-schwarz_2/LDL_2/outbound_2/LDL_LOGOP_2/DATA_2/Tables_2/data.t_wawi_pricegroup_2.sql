@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS ldl_logop_data.t_wawi_pricegroup_2 (
+client_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Client id - calculated based on the country_2 code'),
+wawi_instanz_kzl STRING(3) NOT NULL OPTIONS(description='Country_2 code'),
+group_nr BIGNUMERIC(38,10) NOT NULL OPTIONS(description=''),
+store_nr BIGNUMERIC(38,10) NOT NULL OPTIONS(description=''),
+date_from DATETIME NOT NULL OPTIONS(description=''),
+warehouse BIGNUMERIC(38,10) NOT NULL OPTIONS(description=''),
+group_desc STRING(30) OPTIONS(description=''),
+priority BIGNUMERIC(38,10) OPTIONS(description=''),
+edited_by STRING(8) OPTIONS(description=''),
+last_edited DATETIME OPTIONS(description=''),
+date_to DATETIME OPTIONS(description=''),
+add_vat_code BIGNUMERIC(38,0) OPTIONS(description=''),
+scn BIGNUMERIC(38,0) OPTIONS(description=''),
+dwh_load_id BIGNUMERIC(38,0) NOT NULL OPTIONS(description='Load id'),
+dwh_created DATETIME NOT NULL OPTIONS(description='Record created at'),
+dwh_updated DATETIME NOT NULL OPTIONS(description='Record updated at'),
+dwh_valid_from DATE NOT NULL OPTIONS(description='Valid from date'),
+dwh_valid_to DATE NOT NULL OPTIONS(description='Valid to date'),
+deleted_fg BOOL NOT NULL OPTIONS(description='Flag if record is deleted'),
+PRIMARY KEY (client_id, group_nr, store_nr, date_from, warehouse, dwh_valid_from) NOT ENFORCED
+) OPTIONS(description='WAWI - HQWAWIADM.T200_PRICEGROUP_2 table.');
